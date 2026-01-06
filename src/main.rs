@@ -53,7 +53,7 @@ fn main() -> Result<(), eframe::Error> {
         visuals.window_rounding = Rounding::default().at_least(rounding);
         visuals.window_highlight_topmost = false;
         creation_context.egui_ctx.set_visuals(visuals);
-        Box::new(App::new(creation_context))
+        Ok(Box::new(App::new(creation_context)))
     }))
 }
 
@@ -191,7 +191,7 @@ impl eframe::App for App {
                                     SaveType::PC(_) => {
                                         let steam_id_text_edit = ui.add(steam_id_text_edit).labelled_by(ui.label("Steam Id:").id);
                                         if steam_id_text_edit.hovered() {
-                                            egui::popup::show_tooltip(ui.ctx(), steam_id_text_edit.id, |ui|{
+                                            egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), steam_id_text_edit.id, |ui: &mut egui::Ui|{
                                                 ui.label(egui::RichText::new("Important: This needs to match the id of the steam account that will use this save!").size(8.0).color(Color32::PLACEHOLDER));
                                             });
                                         }
@@ -214,7 +214,7 @@ impl eframe::App for App {
         if self.vm.active.is_some_and(|valid| valid) {
             egui::SidePanel::left("characters").show(ctx, |ui| {
                 egui::ScrollArea::vertical()
-                    .id_source("left")
+                    .id_salt("left")
                     .show(ui, |ui| {
                         ui.vertical(|ui| {
                             for i in 0..0xA {
@@ -230,7 +230,7 @@ impl eframe::App for App {
 
             // Slot Section Panel
             egui::SidePanel::left("slot_sections_menu").show(ctx, |ui| {
-                egui::ScrollArea::vertical() .id_source("left") .show(ui, |ui| {
+                egui::ScrollArea::vertical() .id_salt("left") .show(ui, |ui| {
                     ui.vertical(|ui| {
                         menu(ui, self);
                     })

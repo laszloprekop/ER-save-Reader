@@ -8,7 +8,7 @@ pub mod events {
     pub fn events(ui: &mut Ui, vm:&mut ViewModel) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
-            .id_source("left")
+            .id_salt("left")
             .show(ui, |ui| {
                 ui.vertical(|ui| {
                     let sites_of_grace = ui.add_sized([100., 40.], egui::Button::new("Sites Of Grace"));
@@ -44,7 +44,7 @@ pub mod events {
 
         egui::CentralPanel::default().show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
-            .id_source("left")
+            .id_salt("left")
             .auto_shrink(false)
             .show(ui, |ui| {
                 match vm.slots[vm.index].events_vm.current_route {

@@ -6,7 +6,7 @@ pub mod inventory {
     pub fn inventory(ui: &mut Ui, vm:&mut ViewModel) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
-            .id_source("inventory_item_type_menu")
+            .id_salt("inventory_item_type_menu")
             .show(ui, |ui| {
                 ui.vertical(|ui| {
                     let add_items = ui.add_sized([120., 60.], egui::Button::new("Add\n(WIP)"));
@@ -17,7 +17,7 @@ pub mod inventory {
                         vm.slots[vm.index].inventory_vm.current_route = InventoryRoute::Add
                     }
                     if add_items.hovered() {
-                        egui::popup::show_tooltip(ui.ctx(), add_items.id, |ui|{
+                        egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), add_items.id, |ui: &mut egui::Ui|{
                             ui.label(egui::RichText::new("Warning: This is an experimental feature that is still being worked on. Use with catution.").size(8.0).color(Color32::PLACEHOLDER));
                         });
                     }
