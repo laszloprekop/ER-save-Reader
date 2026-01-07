@@ -8,21 +8,76 @@ Tool for editing Elden Ring save files. Compatible with PC and Playstation Save 
 
 **Use with caution:** This tool should be used responsibly. Always backup your save file before making any edits. This is a hobby project developed during spare time and is intended for easier character build making. I do not endorse or condone cheating online.
 
+## Prerequisites
+
+- [Rust](https://www.rust-lang.org/tools/install) (1.70 or later recommended)
+- Cargo (comes with Rust)
+
+## Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/ER-Save-Editor.git
+   cd ER-Save-Editor
+   ```
+
+2. Build the project:
+   ```bash
+   cargo build --release
+   ```
+
+## Running
+
+### Development mode
+```bash
+cargo run
+```
+
+### Release mode (optimized)
+```bash
+cargo run --release
+```
+
+Or run the compiled binary directly:
+```bash
+./target/release/er-save-editor
+```
+
+### Using the Editor
+
+1. Launch the application
+2. Click "Open" or drag and drop a save file (`.sl2` for PC, `.txt` for PlayStation Save Wizard exports)
+3. Select a character from the left panel
+4. Use the section menu to navigate between General, Stats, Equipment, Inventory, Event Flags, and Regions
+5. Make your edits
+6. Click "Save" to save changes to a file
+
 ## Features
 - Import characters from other save files
-- Change pc save file SteamID
+- Export character data to JSON for backup or analysis
+- Change PC save file SteamID
 - Modify player name
 - Change player gender
 - Edit player stats
 - Modify soul count
 - Add items, weapons, armors, ashes of war, and talismans to inventory
-- Add items in bulk to speed up build making process.
+- Add items in bulk to speed up build making process
 - Browse inventory
 - Change player equipment
 - Activate/deactivate Sites of Grace, summoning pools, colosseums, etc.
 - Revive or kill bosses
 - Activate/deactivate invasion regions
 - More features will be added in future updates
+
+## Save File Locations
+
+### PC (Steam)
+```
+%APPDATA%\EldenRing\<SteamID>\ER0000.sl2
+```
+
+### PlayStation (via Save Wizard)
+Export your save using PlayStation Save Wizard to a `.txt` file.
 
 ## Permissions
 Feel free to use this save editor for learning or development purposes. However, I do not authorize its use for creating tools or modifications that enable actions online outside the bounds of what the game allows.

@@ -112,7 +112,39 @@ impl App {
         .add_filter("*", &["*", "Any format"])
         .set_directory("/")
         .save_file()
-    } 
+    }
+
+    fn export_file_dialog(character_name: &str) -> Option<PathBuf> {
+        FileDialog::new()
+        .add_filter("JSON", &["json"])
+        .set_file_name(&format!("{}.json", character_name))
+        .set_directory("/")
+        .save_file()
+    }
+
+    fn export_character(&self) {
+        let character_name = self.vm.slots[self.vm.index].general_vm.character_name.trim_matches('\0');
+        let path = Self::export_file_dialog(character_name);
+
+        match path {
+            Some(path) => {
+                let steam_id: u64 = self.vm.steam_id.parse().unwrap_or(0);
+                let export_data = self.vm.slots[self.vm.index].to_export_data(self.vm.index, steam_id);
+
+                match serde_json::to_string_pretty(&export_data) {
+                    Ok(json) => {
+                        if let Err(_) = std::fs::write(&path, json) {
+                            // Handle write error silently for now
+                        }
+                    },
+                    Err(_) => {
+                        // Handle serialization error silently for now
+                    }
+                }
+            },
+            None => {},
+        }
+    }
 }
 
 
@@ -157,6 +189,12 @@ impl eframe::App for App {
                         }
                     }
                     character_importer(ui, &mut self.importer_open, &mut self.importer_vm, &mut self.save, &mut self.vm);
+
+                    // Export Character button
+                    let export_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Export Character", egui_phosphor::regular::UPLOAD_SIMPLE)));
+                    if ui.add_enabled(!self.vm.steam_id.is_empty(), export_button).clicked() {
+                        self.export_character();
+                    }
                 });
             });
 
