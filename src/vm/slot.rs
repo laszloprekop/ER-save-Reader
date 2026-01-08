@@ -10,6 +10,8 @@ pub mod slot_view_model {
             regions::regions::REGIONS,
             summoning_pools::summoning_pools::SUMMONING_POOLS,
             whetblades::whetblades::WHETBLADES,
+            pickup_data::{WORLD_PICKUPS, PickupCategory},
+            pickup_flags::is_flag_set,
         },
         save::common::save_slot::SaveSlot,
         vm::{
@@ -19,6 +21,7 @@ pub mod slot_view_model {
                 ExportData, ExportEquipment, ExportEquipmentItem, ExportEventItem,
                 ExportEvents, ExportGeneral, ExportInventory, ExportInventoryItem,
                 ExportMetadata, ExportRegionItem, ExportRegions, ExportStats,
+                ExportWorldPickupItem,
             },
             general::general_view_model::{Gender, GeneralViewModel},
             inventory::InventoryViewModel,
@@ -60,7 +63,7 @@ pub mod slot_view_model {
             }
         }
 
-        pub fn to_export_data(&self, slot_index: usize, steam_id: u64) -> ExportData {
+        pub fn to_export_data(&self, slot_index: usize, steam_id: u64, event_flags: Option<&[u8]>) -> ExportData {
             let timestamp = SystemTime::now()
                 .duration_since(UNIX_EPOCH)
                 .unwrap()
@@ -113,7 +116,7 @@ pub mod slot_view_model {
             let inventory = self.build_inventory_export();
 
             // Events
-            let events = self.build_events_export();
+            let events = self.build_events_export(event_flags);
 
             // Regions
             let regions = self.build_regions_export();
@@ -409,7 +412,7 @@ pub mod slot_view_model {
             }
         }
 
-        fn build_events_export(&self) -> ExportEvents {
+        fn build_events_export(&self, event_flags: Option<&[u8]>) -> ExportEvents {
             let ev = &self.events_vm;
 
             let graces_lookup = GRACES.lock().unwrap();
@@ -496,6 +499,43 @@ pub mod slot_view_model {
                 .collect();
             drop(maps_lookup);
 
+            // World Pickups
+            let world_pickups: Vec<ExportWorldPickupItem> = if let Some(flags) = event_flags {
+                WORLD_PICKUPS
+                    .iter()
+                    .map(|pickup| {
+                        let collected = is_flag_set(flags, pickup.event_flag);
+
+                        let type_str = match pickup.category {
+                            PickupCategory::GoldenRunes => "GoldenRunes",
+                            PickupCategory::SmithingStones => "SmithingStones",
+                            PickupCategory::SomberStones => "SomberStones",
+                            PickupCategory::Glovewort => "Glovewort",
+                            PickupCategory::Weapons => "Weapons",
+                            PickupCategory::Armor => "Armor",
+                            PickupCategory::Talismans => "Talismans",
+                            PickupCategory::AshesOfWar => "AshesOfWar",
+                            PickupCategory::KeyItems => "KeyItems",
+                            PickupCategory::CraftingMaterials => "CraftingMaterials",
+                            PickupCategory::Consumables => "Consumables",
+                            PickupCategory::Other => "Other",
+                        };
+
+                        ExportWorldPickupItem::new(
+                            pickup.item_lot_id,
+                            pickup.event_flag,
+                            pickup.name,
+                            type_str,
+                            pickup.quantity,
+                            pickup.region,
+                            collected,
+                        )
+                    })
+                    .collect()
+            } else {
+                Vec::new()
+            };
+
             ExportEvents {
                 graces,
                 bosses,
@@ -504,6 +544,7 @@ pub mod slot_view_model {
                 whetblades,
                 cookbooks,
                 maps,
+                world_pickups,
             }
         }
 

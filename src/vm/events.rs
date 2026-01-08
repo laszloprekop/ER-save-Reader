@@ -13,6 +13,50 @@ pub mod events_view_model {
         Bosses,
         SummoningPools,
         Colosseums,
+        WorldPickups,
+    }
+
+    #[derive(Clone, Copy, PartialEq)]
+    pub enum PickupTypeFilter {
+        All,
+        GoldenRunes,
+        SmithingStones,
+        SomberStones,
+        Glovewort,
+        Weapons,
+        Armor,
+        Talismans,
+        AshesOfWar,
+        KeyItems,
+        CraftingMaterials,
+        Consumables,
+        Other,
+    }
+
+    #[derive(Clone, Copy, PartialEq)]
+    pub enum CollectedFilter {
+        All,
+        Collected,
+        NotCollected,
+    }
+
+    #[derive(Clone)]
+    pub struct WorldPickupsFilter {
+        pub type_filter: PickupTypeFilter,
+        pub collected_filter: CollectedFilter,
+        pub region_filter: String,
+        pub search: String,
+    }
+
+    impl Default for WorldPickupsFilter {
+        fn default() -> Self {
+            Self {
+                type_filter: PickupTypeFilter::All,
+                collected_filter: CollectedFilter::All,
+                region_filter: "All".to_string(),
+                search: String::new(),
+            }
+        }
     }
 
     #[derive(Clone)]
@@ -26,11 +70,12 @@ pub mod events_view_model {
         pub bosses: BTreeMap<Boss, bool>,
         pub summoning_pools: BTreeMap<SummoningPool, bool>,
         pub colosseums: BTreeMap<Colosseum, bool>,
+        pub world_pickups_filter: WorldPickupsFilter,
     }
 
     impl Default for EventsViewModel {
         fn default() -> Self {
-            Self { 
+            Self {
                 current_route: EventsRoute::None,
                 grace_groups: MAP_NAME.lock().unwrap().iter().map(|m| (*m.0, Vec::new())).collect::<BTreeMap<_,_>>(),
                 graces: Default::default(),
@@ -40,6 +85,7 @@ pub mod events_view_model {
                 bosses: Default::default(),
                 summoning_pools: Default::default(),
                 colosseums: Default::default(),
+                world_pickups_filter: Default::default(),
              }
         }
     }
