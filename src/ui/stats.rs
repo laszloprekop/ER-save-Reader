@@ -1,106 +1,78 @@
 pub mod stats {
-    use std::ops::RangeInclusive;
+    use eframe::egui::{self, Ui, Color32, RichText};
+    use crate::vm::vm::vm::ViewModel;
 
-    use eframe::egui::{self, Ui};
-    use egui_extras::{Column, TableBody, TableBuilder};
-    use crate::{db::classes::classes::STARTER_CLASSES, vm::vm::vm::ViewModel};
+    pub fn stats(ui: &mut Ui, vm: &mut ViewModel) {
+        let stats_vm = &vm.slots[vm.index].stats_vm;
 
-    pub fn stats(ui: &mut Ui,  vm: &mut ViewModel) {
-        egui::Frame::default()
-        .show(ui, |ui| {
-            ui.with_layout( egui::Layout::top_down_justified(egui::Align::Min),|ui|{
-                ui.with_layout(egui::Layout::top_down(egui::Align::Min), |ui|{
+        // Calculate level from stats
+        let level = stats_vm.vigor + stats_vm.mind + stats_vm.endurance +
+            stats_vm.strength + stats_vm.dexterity + stats_vm.intelligence +
+            stats_vm.faith + stats_vm.arcane - 79;
 
-                    ui.heading(vm.slots[vm.index].stats_vm.arche_type.to_string());
-                    ui.add_space(8.0);
-
-                    let class = &STARTER_CLASSES.lock().unwrap()[&vm.slots[vm.index].stats_vm.arche_type];
-
-                    // Calculate level from stats
-                    let level = 
-                        vm.slots[vm.index].stats_vm.vigor + 
-                        vm.slots[vm.index].stats_vm.mind + 
-                        vm.slots[vm.index].stats_vm.endurance + 
-                        vm.slots[vm.index].stats_vm.strength + 
-                        vm.slots[vm.index].stats_vm.dexterity + 
-                        vm.slots[vm.index].stats_vm.intelligence + 
-                        vm.slots[vm.index].stats_vm.faith + 
-                        vm.slots[vm.index].stats_vm.arcane-
-                        79;
-
-
-                    let table = TableBuilder::new(ui)
-                    .cell_layout(egui::Layout::left_to_right(egui::Align::Center))
-                    .column(Column::initial(100.0))
-                    .column(Column::initial(100.0));
-
-                    table.body(|mut body| {
-
-                        // Level
-                        body.row(24., |mut row| {
-                            row.col(|ui| { 
-                                ui.label("Level:"); }); 
-                            row.col(|ui| { 
-                                ui.label(format!("{:6}", level));
-                            });
-                        });
-                        
-                        // Stats
-                        self::stat_field(&mut body, class.vigor..=99, "Vigor:", &mut vm.slots[vm.index].stats_vm.vigor);
-                        self::stat_field(&mut body, class.mind..=99, "Mind:", &mut vm.slots[vm.index].stats_vm.mind);
-                        self::stat_field(&mut body, class.endurance..=99, "Endurance:", &mut vm.slots[vm.index].stats_vm.endurance);
-                        self::stat_field(&mut body, class.strength..=99, "Strength:", &mut vm.slots[vm.index].stats_vm.strength);
-                        self::stat_field(&mut body, class.dexterity..=99, "Dexterity:", &mut vm.slots[vm.index].stats_vm.dexterity);
-                        self::stat_field(&mut body, class.intelligence..=99, "Intelligence:", &mut vm.slots[vm.index].stats_vm.intelligence);
-                        self::stat_field(&mut body, class.faith..=99, "Faith:", &mut vm.slots[vm.index].stats_vm.faith);
-                        self::stat_field(&mut body, class.arcane..=99, "Arcane:", &mut vm.slots[vm.index].stats_vm.arcane);
-
-                        // DLC Stats
-                        self::space(&mut body, 8.);
-                        self::stat_field(&mut body, 0..=20, "Scadutree Blessing:", &mut vm.slots[vm.index].stats_vm.scadutree);
-                        self::stat_field(&mut body, 0..=10, "Shadow Realm Blessing:", &mut vm.slots[vm.index].stats_vm.spirit_ash);
-
-                        // Space
-                        self::space(&mut body, 8.);
-
-                        // Souls
-                        let field = egui::widgets::DragValue::new(&mut vm.slots[vm.index].stats_vm.souls)
-                            .clamp_range(0..=999999999)
-                            .custom_formatter(|n, _|{
-                                format!("{:09}", n)
-                            });
-                        body.row(24., |mut row| {
-                            row.col(|ui| {
-                                ui.label("Current Souls:");
-                            });
-                            row.col(|ui| {
-                                ui.add(field);
-                            });
-                        });
-                    });
-                });
-            })
+        // Column headers
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Stat | Value").color(Color32::YELLOW).monospace());
         });
+        ui.separator();
+
+        egui::ScrollArea::vertical()
+            .auto_shrink(false)
+            .show(ui, |ui| {
+                // Starting Class
+                display_stat_row(ui, "Starting Class", &stats_vm.arche_type.to_string());
+
+                ui.separator();
+
+                // Level
+                display_stat_row(ui, "Level", &level.to_string());
+
+                ui.separator();
+
+                // Main Stats
+                display_stat_row(ui, "Vigor", &stats_vm.vigor.to_string());
+                display_stat_row(ui, "Mind", &stats_vm.mind.to_string());
+                display_stat_row(ui, "Endurance", &stats_vm.endurance.to_string());
+                display_stat_row(ui, "Strength", &stats_vm.strength.to_string());
+                display_stat_row(ui, "Dexterity", &stats_vm.dexterity.to_string());
+                display_stat_row(ui, "Intelligence", &stats_vm.intelligence.to_string());
+                display_stat_row(ui, "Faith", &stats_vm.faith.to_string());
+                display_stat_row(ui, "Arcane", &stats_vm.arcane.to_string());
+
+                ui.separator();
+
+                // DLC Stats
+                display_stat_row(ui, "Scadutree Blessing", &stats_vm.scadutree.to_string());
+                display_stat_row(ui, "Shadow Realm Blessing", &stats_vm.spirit_ash.to_string());
+
+                ui.separator();
+
+                // Runes
+                display_stat_row(ui, "Current Runes", &stats_vm.souls.to_string());
+            });
     }
 
-    fn stat_field(body: &mut TableBody, range: RangeInclusive<u32>, name: &str, value: &mut u32) {
-        let field = egui::widgets::DragValue::new(value).clamp_range(range);
-        body.row(24., |mut row| {
-            row.col(|ui| {
-                ui.label(name);
-            });
-            row.col(|ui| {
-                ui.add(field);
-            });
-        });
-    }
+    fn display_stat_row(ui: &mut Ui, stat_name: &str, value: &str) {
+        let row_text = format!("{} | {}", stat_name, value);
 
-    fn space(body: &mut TableBody, height: f32) {
-        body.row(height, |mut row| {
-            row.col(|_| {
-            });
-            row.col(|_| {
-            });
+        let response = ui.add(
+            egui::Label::new(RichText::new(&row_text).color(Color32::LIGHT_GRAY).monospace())
+                .sense(egui::Sense::click())
+        );
+
+        if response.double_clicked() {
+            ui.output_mut(|o| o.copied_text = row_text.clone());
+        }
+
+        response.context_menu(|ui| {
+            if ui.button("Copy row").clicked() {
+                ui.output_mut(|o| o.copied_text = row_text.clone());
+                ui.close_menu();
+            }
+            if ui.button("Copy value").clicked() {
+                ui.output_mut(|o| o.copied_text = value.to_string());
+                ui.close_menu();
+            }
         });
     }
 }

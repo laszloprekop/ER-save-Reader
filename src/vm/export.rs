@@ -178,6 +178,39 @@ impl ExportEventItem {
 }
 
 #[derive(Serialize)]
+pub struct ExportWorldPickupItem {
+    pub lot_id: u32,
+    pub flag_id: u32,
+    pub item_name: String,
+    pub item_type: String,
+    pub quantity: u32,
+    pub region: String,
+    pub collected: bool,
+}
+
+impl ExportWorldPickupItem {
+    pub fn new(
+        lot_id: u32,
+        flag_id: u32,
+        item_name: &str,
+        item_type: &str,
+        quantity: u32,
+        region: &str,
+        collected: bool,
+    ) -> Self {
+        Self {
+            lot_id,
+            flag_id,
+            item_name: item_name.to_string(),
+            item_type: item_type.to_string(),
+            quantity,
+            region: region.to_string(),
+            collected,
+        }
+    }
+}
+
+#[derive(Serialize)]
 pub struct ExportEvents {
     pub graces: Vec<ExportEventItem>,
     pub bosses: Vec<ExportEventItem>,
@@ -186,6 +219,7 @@ pub struct ExportEvents {
     pub whetblades: Vec<ExportEventItem>,
     pub cookbooks: Vec<ExportEventItem>,
     pub maps: Vec<ExportEventItem>,
+    pub world_pickups: Vec<ExportWorldPickupItem>,
 }
 
 #[derive(Serialize)]

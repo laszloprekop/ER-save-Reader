@@ -8,3 +8,7 @@ pub mod events;
 pub mod regions;
 pub mod importer;
 pub mod equipment;
+pub mod spells_view;
+pub mod npcs_view;
+pub mod shop_items_view;
+pub mod world_pickups_view;

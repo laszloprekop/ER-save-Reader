@@ -12,9 +12,9 @@ use std::{fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, Layout, Order, RichText, Rounding, Style}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::{Save, SaveType};
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, importer::import::character_importer, inventory::inventory::inventory::inventory, menu::menu::{menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, importer::import::character_importer, inventory::inventory::inventory::inventory, menu::menu::{menu, database_menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
-use crate::write::write::Write as w; 
+use crate::write::write::Write as w;
 use rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]
@@ -22,12 +22,12 @@ use rust_embed::RustEmbed;
 struct Asset;
 
 const WINDOW_WIDTH: f32 = 1920.;
-const WINDOW_HEIGHT: f32 = 960.;
+const WINDOW_HEIGHT: f32 = 1200.;
 
 fn main() -> Result<(), eframe::Error> {
     // App Icon
     let mut app_icon = egui::IconData::default();
-    
+
     let image = Asset::get("icon.png").expect("Failed to get image data").data;
     let icon = image::load_from_memory(&image).expect("Failed to open icon path").to_rgba8();
     let (icon_width, icon_height) = icon.dimensions();
@@ -64,17 +64,27 @@ pub struct App {
     current_route: Route,
     importer_vm: ImporterViewModel,
     importer_open: bool,
+    // Database view states
+    spells_view_state: SpellsViewState,
+    npcs_view_state: NpcsViewState,
+    shop_items_view_state: ShopItemsViewState,
+    world_pickups_view_state: WorldPickupsViewState,
 }
 
 impl App {
     pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
         Self {
-            save: Save::default(), 
-            picked_path: Default::default(), 
+            save: Save::default(),
+            picked_path: Default::default(),
             current_route: Route::None,
             vm: ViewModel::default(),
             importer_vm: Default::default(),
-            importer_open: Default::default()
+            importer_open: Default::default(),
+            // Database view states
+            spells_view_state: SpellsViewState::default(),
+            npcs_view_state: NpcsViewState::default(),
+            shop_items_view_state: ShopItemsViewState::default(),
+            world_pickups_view_state: WorldPickupsViewState::default(),
         }
     }
 
@@ -103,7 +113,7 @@ impl App {
         .add_filter("*", &["*", "All files"])
         .set_directory("/")
         .pick_file()
-    } 
+    }
 
     fn save_file_dialog() -> Option<PathBuf> {
         FileDialog::new()
@@ -129,7 +139,8 @@ impl App {
         match path {
             Some(path) => {
                 let steam_id: u64 = self.vm.steam_id.parse().unwrap_or(0);
-                let export_data = self.vm.slots[self.vm.index].to_export_data(self.vm.index, steam_id);
+                let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                let export_data = self.vm.slots[self.vm.index].to_export_data(self.vm.index, steam_id, event_flags);
 
                 match serde_json::to_string_pretty(&export_data) {
                     Ok(json) => {
@@ -150,7 +161,7 @@ impl App {
 
 impl eframe::App for App {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        ctx.set_zoom_factor(1.75);
+        ctx.set_zoom_factor(1.5);
         // TOP PANEL
         egui::TopBottomPanel::top("toolbar").default_height(35.).show(ctx, |ui| {
             ui.columns(2, |uis|{
@@ -162,36 +173,16 @@ impl eframe::App for App {
                             None => {},
                         }
                     }
-                    if ui.button(egui::RichText::new(format!("{} save", egui_phosphor::regular::FLOPPY_DISK))).clicked() {
-                        let files = Self::save_file_dialog();
-                        match files {
-                            Some(path) => self.save(path),
-                            None => {},
-                        }
-                    }
+                    // Save disabled - display only mode
+                    ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} save", egui_phosphor::regular::FLOPPY_DISK)).strikethrough()));
                 });
-                
-                uis[1].with_layout(Layout::right_to_left(egui::Align::Center),|ui| {
-                    let import_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Import Character", egui_phosphor::regular::DOWNLOAD_SIMPLE)));
-                    if ui.add_enabled(!self.vm.steam_id.is_empty(), import_button).clicked() {
-                        let files = Self::open_file_dialog();
-                        match files {
-                            Some(path) => {
-                                match Save::from_path(&path) {
-                                    Ok(save) => {
-                                        self.importer_vm = ImporterViewModel::new(save, &self.vm);
-                                        self.importer_open = true;
-                                    },
-                                    Err(_) => {},
-                                }
-                            },
-                            None => {},
-                        }
-                    }
-                    character_importer(ui, &mut self.importer_open, &mut self.importer_vm, &mut self.save, &mut self.vm);
 
-                    // Export Character button
-                    let export_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Export Character", egui_phosphor::regular::UPLOAD_SIMPLE)));
+                uis[1].with_layout(Layout::right_to_left(egui::Align::Center),|ui| {
+                    // Import disabled - display only mode
+                    ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} Import Character", egui_phosphor::regular::DOWNLOAD_SIMPLE)).strikethrough()));
+
+                    // Export Character button (JSON export still enabled)
+                    let export_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Export JSON", egui_phosphor::regular::UPLOAD_SIMPLE)));
                     if ui.add_enabled(!self.vm.steam_id.is_empty(), export_button).clicked() {
                         self.export_character();
                     }
@@ -223,7 +214,7 @@ impl eframe::App for App {
                             .desired_width(125.);
                             ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                                 ui.label(format!("Character: {}", self.vm.slots[self.vm.index].general_vm.character_name));
-                                
+
                                 match self.save.save_type {
                                     SaveType::Unknown => {},
                                     SaveType::PC(_) => {
@@ -255,25 +246,41 @@ impl eframe::App for App {
                     .id_salt("left")
                     .show(ui, |ui| {
                         ui.vertical(|ui| {
+                            // Character list
                             for i in 0..0xA {
                                 if self.vm.profile_summary[i].active {
                                     let button = ui.add_sized([120., 40.], egui::Button::new(&self.vm.slots[i].general_vm.character_name));
-                                    if button.clicked() {self.vm.index = i;}
-                                    if self.vm.index == i {button.highlight();}
+                                    if button.clicked() {
+                                        self.vm.index = i;
+                                        // Switch to General view when selecting a character (if not already in a character view)
+                                        if !self.current_route.is_character_view() {
+                                            self.current_route = Route::General;
+                                        }
+                                    }
+                                    if self.vm.index == i && self.current_route.is_character_view() {
+                                        button.highlight();
+                                    }
                                 }
                             }
+
+                            // Database Views section (under character list)
+                            ui.add_space(20.);
+                            ui.separator();
+                            database_menu(ui, self);
                         })
                     });
             });
 
-            // Slot Section Panel
-            egui::SidePanel::left("slot_sections_menu").show(ctx, |ui| {
-                egui::ScrollArea::vertical() .id_salt("left") .show(ui, |ui| {
-                    ui.vertical(|ui| {
-                        menu(ui, self);
-                    })
+            // Slot Section Panel (only show for character views)
+            if self.current_route.is_character_view() {
+                egui::SidePanel::left("slot_sections_menu").show(ctx, |ui| {
+                    egui::ScrollArea::vertical().id_salt("left").show(ui, |ui| {
+                        ui.vertical(|ui| {
+                            menu(ui, self);
+                        })
+                    });
                 });
-            });
+            }
 
             // Main Content
             egui::CentralPanel::default().show(ctx, |ui| {
@@ -283,8 +290,18 @@ impl eframe::App for App {
                     Route::Stats => stats(ui, &mut self.vm),
                     Route::Equipment => equipment(ui, &mut self.vm),
                     Route::Inventory => inventory(ui, &mut self.vm),
-                    Route::EventFlags => events(ui, &mut self.vm),
+                    Route::EventFlags => {
+                        let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                        events(ui, &mut self.vm, event_flags);
+                    },
                     Route::Regions => regions(ui, &mut self.vm),
+                    Route::Spells => spells_view(ui, &mut self.spells_view_state),
+                    Route::Npcs => npcs_view(ui, &mut self.npcs_view_state),
+                    Route::ShopItems => shop_items_view(ui, &mut self.shop_items_view_state),
+                    Route::WorldPickups => {
+                        let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                        world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags);
+                    },
                 }
             });
         }
@@ -300,14 +317,14 @@ impl eframe::App for App {
                         return path.into_os_string().into_string().expect("");
                     }
                     "".to_string()
-                }); 
-                
+                });
+
                 // Display indicator of hovering file
                 ui.centered_and_justified(|ui| {
                     if !path.is_empty() {
                         let painter =
                             ctx.layer_painter(LayerId::new(Order::Foreground, Id::new("file_drop_target")));
-                
+
                         let screen_rect = ctx.screen_rect();
                         painter.rect_filled(screen_rect, 0.0, Color32::from_black_alpha(96));
                         ui.label(egui::RichText::new(path));
