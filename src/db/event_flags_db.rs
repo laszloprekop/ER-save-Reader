@@ -357,6 +357,15 @@ pub mod event_flags_db {
             seen_flags.insert(pickup.event_flag);
 
             let category = match pickup.event_flag {
+                // Special flag ranges with known categories
+                f if (62010..=62099).contains(&f) => EventFlagCategory::MapFragment,
+                f if (67000..=68999).contains(&f) => EventFlagCategory::Cookbook,
+                f if (65000..=65799).contains(&f) => EventFlagCategory::Whetblade,
+                f if (66000..=66999).contains(&f) => EventFlagCategory::PotUpgrade,
+                f if (160..=199).contains(&f) => EventFlagCategory::GreatRune,
+                f if (9100..=9199).contains(&f) => EventFlagCategory::Remembrance,
+                f if (9200..=9299).contains(&f) => EventFlagCategory::TalismanPouch,
+                // General flag ranges
                 f if f >= 2_000_000_000 => EventFlagCategory::DLCPickup,
                 f if f >= 1_000_000_000 => EventFlagCategory::WorldPickup,
                 f if f >= 10_000_000 && f < 44_000_000 => EventFlagCategory::DungeonPickup,
