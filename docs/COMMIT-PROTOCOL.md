@@ -1,4 +1,4 @@
-# Commit Snapshot Protocol
+–# Commit Snapshot Protocol
 
 This document defines the standardized process for creating production-ready commit snapshots for ER-save-Editor.
 

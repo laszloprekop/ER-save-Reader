@@ -11,9 +11,14 @@ The ER-save-Editor has good coverage for core item/equipment data (~90-100%) but
 
 **Key Blindspots**:
 1. No spell/incantation database (317 spells in game)
-2. Only 1,350 of ~15,000+ event flags mapped
+2. ~~Only 1,350 of ~15,000+ event flags mapped~~ **RESOLVED** - Event Flags DB view added (v0.2.0)
 3. No NPC tracking or merchant discovery
 4. No landmark/POI database
+
+**Recent Improvements (v0.2.0)**:
+- Added comprehensive Event Flags Database view with ~5,000+ entries
+- Integrated data from pickup_data.rs, graces.rs, bosses.rs, cookbooks.rs, whetblades.rs
+- Full category/region filtering and JSON export functionality
 
 ---
 
@@ -29,6 +34,7 @@ The ER-save-Editor has good coverage for core item/equipment data (~90-100%) but
 | `accessory_name.rs` | Talisman ID → Name | 164 | 156 |
 | `aow_name.rs` | Ash of War ID → Name | 251 | 243 |
 | `event_flags.rs` | Event ID → (byte, bit) | 1,359 | 1,350 |
+| `event_flags_db.rs` | Comprehensive flag database | ~700 | ~5,000+ |
 | `graces.rs` | Grace enum + flags | 983 | 381 |
 | `bosses.rs` | Boss enum + flags | 412 | 157 |
 | `regions.rs` | Region enum + metadata | 983 | 278 |
@@ -97,7 +103,7 @@ From `src/save/common/save_slot.rs`:
 
 ### Event Flags Analysis
 
-**Current coverage**: 1,350 flags mapped out of ~15,000+ total
+**Current coverage**: ~5,000+ flags accessible via Event Flags DB view (consolidated from multiple sources)
 
 **Event Flag Byte Array**:
 - Total size: 0x1bf99f bytes (1,835,039 bytes ≈ 1.75 MB)

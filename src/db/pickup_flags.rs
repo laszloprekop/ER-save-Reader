@@ -50,75 +50,90 @@ pub const TREASURE_CATEGORY: u32 = 7;
 // DUNGEON BASE OFFSETS (complete mapping from elden-map)
 // ============================================================================
 
-/// Complete dungeon base offsets derived from Compass/elden-map analysis
+/// Complete dungeon base offsets for save file event flags
+///
+/// CORRECTED (2026-01-09): Empirical verification against actual save files showed
+/// the previous offsets (1,383,375+) were from runtime memory, not save file format.
+/// Correct base for Stormveil (10_00) is 4112, verified against:
+/// - Godskin Prayerbook (flag 10007990): byte 5110, bit 1 ✓
+/// - Fire Grease (flag 10007040): byte 4992 ✓
+/// - Arbalest (flag 10007550): byte 5055 ✓
+///
 /// Key format: "XX_YY" where XX is map area, YY is section
+/// Formula: offset = 4112 + slot_index * 1125 (where slot comes from legacymap.eventflagalloclist)
 pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(|| {
     HashMap::from([
-        // Stormveil Castle (m10)
-        ("10_00", 1383375), ("10_01", 1384500),
-        // Leyndell (m11)
-        ("11_00", 1387875), ("11_05", 1389000), ("11_10", 1390125), ("11_71", 1391250),
-        // Underground areas (m12)
-        ("12_01", 1395750), ("12_02", 1396875), ("12_03", 1398000), ("12_04", 1399125),
-        ("12_05", 1400250), ("12_06", 1401375), ("12_07", 1402500), ("12_08", 1403625),
-        ("12_09", 1404750),
-        // Crumbling Farum Azula (m13)
-        ("13_00", 1405875),
-        // Academy of Raya Lucaria (m14)
-        ("14_00", 1409250),
-        // Caria Manor (m15)
-        ("15_00", 1412625),
-        // Volcano Manor (m16)
-        ("16_00", 1416000),
-        // Roundtable Hold (m18)
-        ("18_00", 1422750),
-        // Chapel of Anticipation (m19)
-        ("19_00", 1426125),
-        // Stranded Graveyard / Cave of Knowledge (m20)
-        ("20_00", 1429500),
-        // Miquella's Haligtree (m21)
-        ("21_00", 1432875), ("21_01", 1434000), ("21_02", 1435125),
-        // Castle Sol (m22)
-        ("22_00", 1438500),
-        // Catacombs (m30)
-        ("30_00", 1473375), ("30_01", 1474500), ("30_02", 1475625), ("30_03", 1476750),
-        ("30_04", 1477875), ("30_05", 1479000), ("30_06", 1480125), ("30_07", 1481250),
-        ("30_08", 1482375), ("30_09", 1483500), ("30_10", 1484625), ("30_11", 1485750),
-        ("30_12", 1486875), ("30_13", 1488000), ("30_14", 1489125), ("30_15", 1490250),
-        ("30_16", 1491375), ("30_17", 1492500), ("30_18", 1493625), ("30_19", 1494750),
-        ("30_20", 1495875),
-        // Caves (m31)
-        ("31_00", 1507125), ("31_01", 1508250), ("31_02", 1509375), ("31_03", 1510500),
-        ("31_04", 1511625), ("31_05", 1512750), ("31_06", 1513875), ("31_07", 1515000),
-        ("31_09", 1517250), ("31_10", 1518375), ("31_11", 1519500), ("31_12", 1520625),
-        ("31_15", 1524000), ("31_17", 1525125), ("31_18", 1526250), ("31_19", 1527375),
-        ("31_20", 1528500), ("31_21", 1529625), ("31_22", 1530750),
-        // Tunnels (m32)
-        ("32_00", 1540875), ("32_01", 1542000), ("32_02", 1543125), ("32_04", 1544250),
-        ("32_05", 1546500), ("32_07", 1547625), ("32_08", 1548750), ("32_11", 1549875),
-        // Divine Towers (m34)
-        ("34_10", 1450875), ("34_11", 1452000), ("34_12", 1453125), ("34_13", 1454250),
-        ("34_14", 1455375), ("34_15", 1456500), ("34_16", 1457625),
-        // Mohgwyn Palace (m35)
-        ("35_00", 1429500),
-        // Elden Throne (m39)
-        ("39_20", 1432875),
-        // Hero's Graves (m40)
-        ("40_00", 1551000),
-        // Minor dungeons (m41)
-        ("41_00", 1560000),
-        // Crystal tunnels (m42)
-        ("42_00", 1570000), ("42_02", 1571125),
-        // Misc dungeons (m43)
-        ("43_00", 1580000),
+        // Stormveil Castle (m10) - Slot 0, 1
+        ("10_00", 4112), ("10_01", 5237),
+        // Leyndell (m11) - Slots 4, 5, 6, 7
+        ("11_00", 8612), ("11_05", 9737), ("11_10", 10862), ("11_71", 11987),
+        // Underground areas (m12) - Slots 11-19
+        ("12_01", 16487), ("12_02", 17612), ("12_03", 18737), ("12_04", 19862),
+        ("12_05", 20987), ("12_06", 22112), ("12_07", 23237), ("12_08", 24362),
+        ("12_09", 25487),
+        // Crumbling Farum Azula (m13) - Slot 20
+        ("13_00", 26612),
+        // Academy of Raya Lucaria (m14) - Slot 23
+        ("14_00", 29987),
+        // Caria Manor (m15) - Slot 26
+        ("15_00", 33362),
+        // Volcano Manor (m16) - Slot 29
+        ("16_00", 36737),
+        // Roundtable Hold (m18) - Slot 35
+        ("18_00", 43487),
+        // Chapel of Anticipation (m19) - Slot 38
+        ("19_00", 46862),
+        // Stranded Graveyard / Cave of Knowledge (m20) - Slot 41
+        ("20_00", 50237),
+        // Miquella's Haligtree (m21) - Slots 44, 45, 46
+        ("21_00", 53612), ("21_01", 54737), ("21_02", 55862),
+        // Castle Sol (m22) - Slot 47
+        ("22_00", 59237),
+        // Catacombs (m30) - Slots 78-98
+        ("30_00", 94112), ("30_01", 95237), ("30_02", 96362), ("30_03", 97487),
+        ("30_04", 98612), ("30_05", 99737), ("30_06", 100862), ("30_07", 101987),
+        ("30_08", 103112), ("30_09", 104237), ("30_10", 105362), ("30_11", 106487),
+        ("30_12", 107612), ("30_13", 108737), ("30_14", 109862), ("30_15", 110987),
+        ("30_16", 112112), ("30_17", 113237), ("30_18", 114362), ("30_19", 115487),
+        ("30_20", 116612),
+        // Caves (m31) - Slots 108-129
+        ("31_00", 127862), ("31_01", 128987), ("31_02", 130112), ("31_03", 131237),
+        ("31_04", 132362), ("31_05", 133487), ("31_06", 134612), ("31_07", 135737),
+        ("31_09", 137987), ("31_10", 139112), ("31_11", 140237), ("31_12", 141362),
+        ("31_15", 144737), ("31_17", 145862), ("31_18", 146987), ("31_19", 148112),
+        ("31_20", 149237), ("31_21", 150362), ("31_22", 151487),
+        // Tunnels (m32) - Slots 138-149
+        ("32_00", 161612), ("32_01", 162737), ("32_02", 163862), ("32_04", 164987),
+        ("32_05", 167237), ("32_07", 168362), ("32_08", 169487), ("32_11", 170612),
+        // Divine Towers (m34) - Slots 58-64
+        ("34_10", 71612), ("34_11", 72737), ("34_12", 73862), ("34_13", 74987),
+        ("34_14", 76112), ("34_15", 77237), ("34_16", 78362),
+        // Mohgwyn Palace (m35) - Slot 41 (same as m20)
+        ("35_00", 50237),
+        // Elden Throne (m39) - Slot 44 (same as m21_00)
+        ("39_20", 53612),
+        // Hero's Graves (m40) - Slot 150+
+        ("40_00", 171737),
+        // Minor dungeons (m41) - Slot 158+
+        ("41_00", 180737),
+        // Crystal tunnels (m42) - Slot 167+
+        ("42_00", 190737), ("42_02", 191862),
+        // Misc dungeons (m43) - Slot 176+
+        ("43_00", 200737),
     ])
 });
 
 /// Block bases for flags 60000-99999 (special system flags)
+/// Verified against EVENT_FLAGS static mappings
 pub static BLOCK_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
     HashMap::from([
         (60000, 1250),   // Map flags
         (62000, 1500),   // Grace flags
+        (65000, 1875),   // Whetblade flags (verified: 65610 → 0x79f = 1951)
+        (66000, 2000),   // Pot flags
+        (67000, 2125),   // Cookbook flags (verified: 67000 → 0x84d = 2125)
+        (68000, 2250),   // Cookbook flags continued
+        (69000, 2375),   // Remembrance flags
         (71000, 2625),   // Boss/dungeon flags
         (73000, 2875),   // System flags
         (76000, 3250),   // Other system flags
@@ -441,13 +456,26 @@ mod tests {
     #[test]
     fn test_dungeon_flag() {
         // Stormveil Castle flag (m10_00)
-        // Base for 10_00 is 1383375
-        // Flag 10007030 -> local 7030, byte offset = 1383375 + 7030/8 = 1383375 + 878 = 1384253
+        // Base for 10_00 is 4112 (empirically verified 2026-01-09)
+        // Flag 10007030 -> local 7030, byte offset = 4112 + 7030/8 = 4112 + 878 = 4990
         let result = get_flag_offset(10007030);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1383375 + 7030 / 8);
+        assert_eq!(byte, 4112 + 7030 / 8);  // 4990
         assert_eq!(bit, (7 - (7030 % 8)) as u8);
+    }
+
+    #[test]
+    fn test_stormveil_godskin_prayerbook() {
+        // Godskin Prayerbook (flag 10007990) - verified against actual save file
+        // Local ID: 7990, byte within section: 7990/8 = 998
+        // Byte offset: 4112 + 998 = 5110
+        // Bit position: 7 - (7990 % 8) = 7 - 6 = 1
+        let result = get_flag_offset(10007990);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 5110);
+        assert_eq!(bit, 1);
     }
 
     #[test]

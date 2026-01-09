@@ -1,5 +1,4 @@
 use std::{cmp::Ordering, collections::HashMap};
-use strsim::sorensen_dice;
 
 use crate::{
     db::{

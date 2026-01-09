@@ -12,7 +12,7 @@ use std::{fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, Layout, Order, RichText, Rounding, Style}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::{Save, SaveType};
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, importer::import::character_importer, inventory::inventory::inventory::inventory, menu::menu::{menu, database_menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{menu, database_menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
 use crate::write::write::Write as w;
 use rust_embed::RustEmbed;
@@ -69,6 +69,7 @@ pub struct App {
     npcs_view_state: NpcsViewState,
     shop_items_view_state: ShopItemsViewState,
     world_pickups_view_state: WorldPickupsViewState,
+    event_flags_db_view_state: EventFlagsDbViewState,
 }
 
 impl App {
@@ -85,6 +86,7 @@ impl App {
             npcs_view_state: NpcsViewState::default(),
             shop_items_view_state: ShopItemsViewState::default(),
             world_pickups_view_state: WorldPickupsViewState::default(),
+            event_flags_db_view_state: EventFlagsDbViewState::default(),
         }
     }
 
@@ -302,6 +304,7 @@ impl eframe::App for App {
                         let event_flags = self.save.save_type.get_event_flags(self.vm.index);
                         world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags);
                     },
+                    Route::EventFlagsDb => event_flags_db_view(ui, &mut self.event_flags_db_view_state),
                 }
             });
         }

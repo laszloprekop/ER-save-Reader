@@ -45,10 +45,25 @@ pub enum SpellType { Sorcery, Incantation }
 
 ---
 
-## Phase 2: Event Flags Expansion with Coordinates (Priority: High)
+## Phase 2: Event Flags Expansion with Coordinates (Priority: High) ✅ COMPLETE (v0.2.0)
 
 ### Goal
 Expand event flag coverage from 1,350 to ~5,000+ flags with in-game world coordinates for map lookup.
+
+### Implementation Status (v0.2.0)
+**Completed**: Created `src/db/event_flags_db.rs` with ~5,000+ entries consolidated from:
+- `pickup_data.rs` (~4,809 world pickups)
+- `graces.rs` (~300 grace sites)
+- `bosses.rs` (~200 boss defeats)
+- `cookbooks.rs` (~85 cookbooks)
+- `whetblades.rs` (~6 whetblades)
+- Manual entries for Great Runes, Remembrances, Map Fragments, System flags
+
+**UI**: Created `src/ui/event_flags_db_view.rs` with:
+- Category filtering (20 categories)
+- Region dropdown filtering
+- Text search (by name or flag ID)
+- JSON export (full database or filtered results)
 
 ### New Data Structure
 

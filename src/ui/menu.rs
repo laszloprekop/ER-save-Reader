@@ -15,11 +15,12 @@ pub mod menu {
         Npcs,
         ShopItems,
         WorldPickups,
+        EventFlagsDb,
     }
 
     impl Route {
         pub fn is_database_view(&self) -> bool {
-            matches!(self, Route::Spells | Route::Npcs | Route::ShopItems | Route::WorldPickups)
+            matches!(self, Route::Spells | Route::Npcs | Route::ShopItems | Route::WorldPickups | Route::EventFlagsDb)
         }
 
         pub fn is_character_view(&self) -> bool {
@@ -65,12 +66,14 @@ pub mod menu {
         let npcs = ui.add_sized([120., 40.], egui::Button::new("NPCs"));
         let shop_items = ui.add_sized([120., 40.], egui::Button::new("Shop Items"));
         let world_pickups = ui.add_sized([120., 40.], egui::Button::new("World Pickups"));
+        let event_flags_db = ui.add_sized([120., 40.], egui::Button::new("Event Flags DB"));
 
         // Listen for clicks
         if spells.clicked() { app.current_route = Route::Spells; }
         if npcs.clicked() { app.current_route = Route::Npcs; }
         if shop_items.clicked() { app.current_route = Route::ShopItems; }
         if world_pickups.clicked() { app.current_route = Route::WorldPickups; }
+        if event_flags_db.clicked() { app.current_route = Route::EventFlagsDb; }
 
         // Highlight active
         match app.current_route {
@@ -78,6 +81,7 @@ pub mod menu {
             Route::Npcs => { npcs.highlight(); },
             Route::ShopItems => { shop_items.highlight(); },
             Route::WorldPickups => { world_pickups.highlight(); },
+            Route::EventFlagsDb => { event_flags_db.highlight(); },
             _ => {},
         }
     }

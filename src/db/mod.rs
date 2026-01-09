@@ -26,3 +26,4 @@ pub mod shop_items;
 pub mod world_pickups;
 pub mod pickup_flags;
 pub mod pickup_data;
+pub mod event_flags_db;
