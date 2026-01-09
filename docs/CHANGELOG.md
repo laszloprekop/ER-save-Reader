@@ -18,12 +18,21 @@ All notable changes to ER-save-Editor will be documented in this file.
   - Fixed Crystal Tear vs Whetblade categorization
   - Added `common.emevd.js` parsing for Great Runes, Remembrances, Talisman Pouches
   - Markdown and JSON output formats with full data preservation
-  - 5,834 unique event flags extracted across 22 categories
+  - **Spatial data extraction**: map tiles, XYZ coordinates, region IDs
+  - 6,213 unique event flags extracted across 23 categories
+
+### Spatial Data Coverage
+- Graces: 100% with full coordinates (422 entries)
+- Map POIs: 100% with full coordinates (379 entries)
+- World pickups: 81% with map tiles derived from flag ID
+- New fields: `area_no`, `grid_x`, `grid_z`, `pos_x`, `pos_y`, `pos_z`, `map_tile`, `region_id`
 
 ### Data Sources
 - `ItemLotParam_map.param.xml` - World pickups
-- `BonfireWarpParam.param.xml` - Grace sites
+- `BonfireWarpParam.param.xml` - Grace sites (with coordinates)
 - `ShopLineupParam.param.xml` - Shop items
+- `WorldMapPointParam.param.xml` - POI locations (with coordinates)
+- `WorldMapPieceParam.param.xml` - Region definitions
 - `common.emevd.js` - Event scripts (Great Runes, Remembrances)
 
 ### Bug Fixes

@@ -37,6 +37,15 @@ class EventFlag:
     source_row_id: Optional[int] = None
     item_id: Optional[int] = None
     item_category: Optional[int] = None
+    # Spatial data (preserved from game files)
+    area_no: Optional[int] = None        # areaNo from game (10=Stormveil, 60=overworld, etc.)
+    grid_x: Optional[int] = None         # gridXNo from game
+    grid_z: Optional[int] = None         # gridZNo from game
+    pos_x: Optional[float] = None        # posX world coordinate
+    pos_y: Optional[float] = None        # posY world coordinate (height)
+    pos_z: Optional[float] = None        # posZ world coordinate
+    map_tile: Optional[str] = None       # Derived: "m60_42_37" format
+    region_id: Optional[int] = None      # bonfireSubCategoryId or derived
     raw_data: Dict[str, Any] = field(default_factory=dict)
 
 def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
@@ -64,6 +73,114 @@ def merge_lookups(base: Dict[int, str], *others: Dict[int, str]) -> Dict[int, st
     for other in others:
         result.update(other)
     return result
+
+
+def load_world_map_pieces() -> Dict[int, Dict]:
+    """Load region names and bounds from WorldMapPieceParam."""
+    pieces = {}
+    xml_path = REGULATION_BIN / "WorldMapPieceParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return pieces
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            piece_id = int(row.get("id", 0))
+            pieces[piece_id] = {
+                "name": row.get("paramdexName", f"Region_{piece_id}"),
+                "open_flag": int(row.get("openEventFlagId", 0)),
+                "acquisition_flag": int(row.get("acquisitionEventFlagId", 0)),
+            }
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return pieces
+
+
+def load_world_map_points() -> Dict[int, Dict]:
+    """Load POI coordinates indexed by event flag ID."""
+    points = {}
+    xml_path = REGULATION_BIN / "WorldMapPointParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return points
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            flag_id = int(row.get("eventFlagId", 0))
+            if flag_id == 0:
+                continue
+
+            points[flag_id] = {
+                "row_id": int(row.get("id", 0)),
+                "name": row.get("paramdexName", ""),
+                "pos_x": float(row.get("posX", 0)),
+                "pos_y": float(row.get("posY", 0)),
+                "pos_z": float(row.get("posZ", 0)),
+                "area_no": int(row.get("areaNo", 0)),
+                "grid_x": int(row.get("gridXNo", 0)),
+                "grid_z": int(row.get("gridZNo", 0)),
+                "icon_id": int(row.get("iconId", 0)),
+                "text_id": int(row.get("textId1", 0)),
+            }
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return points
+
+
+def format_map_tile(area_no: int, grid_x: int, grid_z: int) -> str:
+    """Format map tile string from area and grid coordinates."""
+    if area_no == 0 and grid_x == 0 and grid_z == 0:
+        return None
+    return f"m{area_no}_{grid_x:02d}_{grid_z:02d}"
+
+
+def parse_flag_id_location(flag_id: int) -> Optional[Dict]:
+    """Extract location data encoded in flag ID format."""
+    if 1_000_000_000 <= flag_id < 2_000_000_000:
+        # Base game 10-digit: 1XXYYZZZZ
+        tile_index = (flag_id - 1_000_000_000) // 10000
+        grid_x = tile_index // 100
+        grid_z = tile_index % 100
+        return {
+            "area_no": 60,  # Overworld
+            "grid_x": grid_x,
+            "grid_z": grid_z,
+            "map_tile": f"m60_{grid_x:02d}_{grid_z:02d}",
+            "is_dlc": False
+        }
+    elif flag_id >= 2_000_000_000:
+        # DLC 10-digit: 2XXYYZZZZ
+        tile_index = (flag_id - 2_000_000_000) // 10000
+        grid_x = tile_index // 100
+        grid_z = tile_index % 100
+        return {
+            "area_no": 61,  # DLC overworld
+            "grid_x": grid_x,
+            "grid_z": grid_z,
+            "map_tile": f"m61_{grid_x:02d}_{grid_z:02d}",
+            "is_dlc": True
+        }
+    elif 10_000_000 <= flag_id < 100_000_000:
+        # Dungeon 8-digit: XXYYZZZZ
+        map_area = flag_id // 1_000_000
+        section = (flag_id // 10_000) % 100
+        return {
+            "area_no": map_area,
+            "grid_x": section,
+            "grid_z": 0,
+            "map_tile": f"m{map_area}_{section:02d}_00",
+            "is_dlc": False
+        }
+    return None
+
 
 def load_all_name_lookups() -> Dict[str, Dict[int, str]]:
     """Load all name lookup tables including DLC."""
@@ -262,8 +379,8 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
 
     return "Unknown"
 
-def extract_item_lot_param(lookups: Dict) -> List[EventFlag]:
-    """Extract event flags from ItemLotParam_map."""
+def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> List[EventFlag]:
+    """Extract event flags from ItemLotParam_map with spatial data."""
     flags = []
     xml_path = REGULATION_BIN / "ItemLotParam_map.param.xml"
 
@@ -290,6 +407,27 @@ def extract_item_lot_param(lookups: Dict) -> List[EventFlag]:
         category = categorize_flag(flag_id, "ItemLotParam_map", name)
         region = get_region_from_flag(flag_id)
 
+        # Derive location from flag ID format
+        location = parse_flag_id_location(flag_id)
+        area_no = location["area_no"] if location else None
+        grid_x = location["grid_x"] if location else None
+        grid_z = location["grid_z"] if location else None
+        map_tile = location["map_tile"] if location else None
+
+        # Cross-reference with WorldMapPointParam for exact coordinates
+        pos_x, pos_y, pos_z = None, None, None
+        poi_data = world_map_points.get(flag_id)
+        if poi_data:
+            pos_x = poi_data["pos_x"]
+            pos_y = poi_data["pos_y"]
+            pos_z = poi_data["pos_z"]
+            # Use POI's grid data if available (more accurate)
+            if poi_data["area_no"] != 0:
+                area_no = poi_data["area_no"]
+                grid_x = poi_data["grid_x"]
+                grid_z = poi_data["grid_z"]
+                map_tile = format_map_tile(area_no, grid_x, grid_z)
+
         # Preserve raw data from XML
         raw_data = {
             "lotItemId01": item_id,
@@ -304,6 +442,10 @@ def extract_item_lot_param(lookups: Dict) -> List[EventFlag]:
                 raw_data[f"lotItemCategory0{i}"] = int(row.get(f"lotItemCategory0{i}", 0))
                 raw_data[f"lotItemNum0{i}"] = int(row.get(f"lotItemNum0{i}", 1))
 
+        # Add derived location to raw_data
+        if location:
+            raw_data["derived_location"] = location
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -313,13 +455,20 @@ def extract_item_lot_param(lookups: Dict) -> List[EventFlag]:
             source_row_id=row_id,
             item_id=item_id,
             item_category=item_category,
+            area_no=area_no,
+            grid_x=grid_x,
+            grid_z=grid_z,
+            pos_x=pos_x,
+            pos_y=pos_y,
+            pos_z=pos_z,
+            map_tile=map_tile,
             raw_data=raw_data
         ))
 
     return flags
 
 def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
-    """Extract event flags from BonfireWarpParam (graces)."""
+    """Extract event flags from BonfireWarpParam (graces) with full spatial data."""
     flags = []
     xml_path = REGULATION_BIN / "BonfireWarpParam.param.xml"
 
@@ -342,13 +491,24 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
         sub_cat = int(row.get("bonfireSubCategoryId", 0))
         region = lookups["places"].get(sub_cat, get_region_from_flag(flag_id))
 
+        # Extract spatial data directly from XML
+        area_no = int(row.get("areaNo", 0))
+        grid_x = int(row.get("gridXNo", 0))
+        grid_z = int(row.get("gridZNo", 0))
+        pos_x = float(row.get("posX", 0))
+        pos_y = float(row.get("posY", 0))
+        pos_z = float(row.get("posZ", 0))
+
         # Preserve raw data from XML
         raw_data = {
             "textId1": text_id,
             "bonfireSubCategoryId": sub_cat,
-            "areaNo": int(row.get("areaNo", 0)),
-            "gridXNo": int(row.get("gridXNo", 0)),
-            "gridZNo": int(row.get("gridZNo", 0)),
+            "areaNo": area_no,
+            "gridXNo": grid_x,
+            "gridZNo": grid_z,
+            "posX": pos_x,
+            "posY": pos_y,
+            "posZ": pos_z,
         }
 
         flags.append(EventFlag(
@@ -358,6 +518,14 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
             region=region,
             source_file="BonfireWarpParam.param.xml",
             source_row_id=row_id,
+            area_no=area_no,
+            grid_x=grid_x,
+            grid_z=grid_z,
+            pos_x=pos_x,
+            pos_y=pos_y,
+            pos_z=pos_z,
+            map_tile=format_map_tile(area_no, grid_x, grid_z),
+            region_id=sub_cat,
             raw_data=raw_data
         ))
 
@@ -551,8 +719,65 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
     return flags
 
 
+def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -> List[EventFlag]:
+    """Extract event flags from WorldMapPointParam (POI discovery flags)."""
+    flags = []
+
+    # Icon ID to category mapping
+    icon_categories = {
+        83: "Grace",  # Sites of Grace icon
+        # Other icon types can be added as discovered
+    }
+
+    for flag_id, poi in world_map_points.items():
+        icon_id = poi["icon_id"]
+
+        # Get name from places lookup or POI data
+        name = lookups["places"].get(poi["text_id"], poi["name"]) or f"POI_{flag_id}"
+
+        # Categorize based on icon
+        if icon_id == 83:
+            category = "Grace"
+        else:
+            category = "Map POI"
+
+        # Derive region from grid
+        region = get_region_from_flag(flag_id) if flag_id >= 10_000_000 else "Various"
+
+        raw_data = {
+            "row_id": poi["row_id"],
+            "iconId": icon_id,
+            "textId1": poi["text_id"],
+            "areaNo": poi["area_no"],
+            "gridXNo": poi["grid_x"],
+            "gridZNo": poi["grid_z"],
+            "posX": poi["pos_x"],
+            "posY": poi["pos_y"],
+            "posZ": poi["pos_z"],
+        }
+
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=name,
+            category=category,
+            region=region,
+            source_file="WorldMapPointParam.param.xml",
+            source_row_id=poi["row_id"],
+            area_no=poi["area_no"],
+            grid_x=poi["grid_x"],
+            grid_z=poi["grid_z"],
+            pos_x=poi["pos_x"],
+            pos_y=poi["pos_y"],
+            pos_z=poi["pos_z"],
+            map_tile=format_map_tile(poi["area_no"], poi["grid_x"], poi["grid_z"]),
+            raw_data=raw_data
+        ))
+
+    return flags
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
-    """Format flags as proper markdown table without truncation."""
+    """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
 
     seen = set()
@@ -567,8 +792,8 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
     lines.append("")
     lines.append(f"Total unique flags: {len(unique_flags)}")
     lines.append("")
-    lines.append("| Flag ID | Name | Category | Region | Source |")
-    lines.append("|---------|------|----------|--------|--------|")
+    lines.append("| Flag ID | Name | Category | Region | Map Tile | Coords (X,Y,Z) | Source |")
+    lines.append("|---------|------|----------|--------|----------|----------------|--------|")
 
     for f in unique_flags:
         # No truncation - full names preserved
@@ -576,7 +801,17 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
         name = f.name.replace("|", "\\|")
         region = f.region.replace("|", "\\|")
         source = f.source_file.replace(".param.xml", "").replace(".emevd.js", "")
-        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {source} |")
+
+        # Format map tile
+        map_tile = f.map_tile or "-"
+
+        # Format coordinates
+        if f.pos_x is not None and f.pos_y is not None and f.pos_z is not None:
+            coords = f"{f.pos_x:.1f}, {f.pos_y:.1f}, {f.pos_z:.1f}"
+        else:
+            coords = "-"
+
+        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {map_tile} | {coords} | {source} |")
 
     return "\n".join(lines)
 
@@ -599,12 +834,19 @@ def main():
     print("\nLoading name lookups...")
     lookups = load_all_name_lookups()
 
+    print("\nLoading spatial reference data...")
+    world_map_points = load_world_map_points()
+    print(f"  WorldMapPointParam: {len(world_map_points)} POIs with coordinates")
+
+    world_map_pieces = load_world_map_pieces()
+    print(f"  WorldMapPieceParam: {len(world_map_pieces)} map regions")
+
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
     print("-" * 40)
 
     print("\nExtracting from ItemLotParam_map...")
-    item_lot_flags = extract_item_lot_param(lookups)
+    item_lot_flags = extract_item_lot_param(lookups, world_map_points)
     print(f"  Found {len(item_lot_flags)} flags")
 
     print("\nExtracting from BonfireWarpParam...")
@@ -619,7 +861,11 @@ def main():
     emevd_flags = extract_common_emevd(lookups)
     print(f"  Found {len(emevd_flags)} flags")
 
-    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags
+    print("\nExtracting from WorldMapPointParam...")
+    poi_flags = extract_world_map_points(lookups, world_map_points)
+    print(f"  Found {len(poi_flags)} flags")
+
+    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")
@@ -661,7 +907,8 @@ def main():
                 "ItemLotParam_map.param.xml",
                 "BonfireWarpParam.param.xml",
                 "ShopLineupParam.param.xml",
-                "common.emevd.js"
+                "common.emevd.js",
+                "WorldMapPointParam.param.xml"
             ],
             "category_counts": category_counts
         },
