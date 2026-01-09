@@ -1,324 +1,688 @@
 #!/usr/bin/env python3
 """
-Extract event flags with coordinates from game params.
-Generates enhanced event_flags.rs with WorldCoords support.
+Extract Event Flags from Elden Ring Decompiled Game Files
+
+Extracts event flags from:
+- ItemLotParam_map.param.xml (world pickups)
+- BonfireWarpParam.param.xml (graces)
+- ShopLineupParam.param.xml (shop items)
+- common.emevd.js (Great Runes, Remembrances, etc.)
+
+Output: Markdown table format with full data preservation.
 """
 
 import xml.etree.ElementTree as ET
+import json
 import re
 from pathlib import Path
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, field, asdict
+from typing import Dict, List, Optional, Any
 
-BASE_PATH = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files/regulation-bin")
-OUTPUT_FILE = Path("/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/src/db/event_flags.rs")
-
-# Current event_flags.rs mappings (we'll preserve these)
-EXISTING_FLAGS = Path("/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/src/db/event_flags.rs")
+# Base paths
+GAME_FILES = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files")
+REGULATION_BIN = GAME_FILES / "regulation-bin"
+MSG_ENGUS = GAME_FILES / "msg" / "engus" / "item-msgbnd-dcx"
+MSG_DLC01 = GAME_FILES / "msg" / "engus" / "item_dlc01-msgbnd-dcx"
+MSG_DLC02 = GAME_FILES / "msg" / "engus" / "item_dlc02-msgbnd-dcx"
+EVENT_DIR = GAME_FILES / "event"
 
 @dataclass
 class EventFlag:
+    """Event flag data structure preserving all game file information."""
     flag_id: int
-    byte_offset: int
-    bit_position: int
     name: str
     category: str
-    x: Optional[float] = None
-    y: Optional[float] = None
-    z: Optional[float] = None
-    map_area: Optional[int] = None
-    map_x: Optional[int] = None
-    map_z: Optional[int] = None
+    region: str
+    source_file: str
+    source_row_id: Optional[int] = None
+    item_id: Optional[int] = None
+    item_category: Optional[int] = None
+    raw_data: Dict[str, Any] = field(default_factory=dict)
 
-def flag_to_offset(flag_id: int) -> tuple[int, int]:
-    """Convert flag ID to (byte_offset, bit_position)."""
-    byte_offset = flag_id // 8
-    bit_position = 7 - (flag_id % 8)
-    return (byte_offset, bit_position)
+def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
+    """Load name lookup from FMG XML file."""
+    lookup = {}
+    if not fmg_path.exists():
+        return lookup
 
-def parse_existing_flags() -> dict[int, tuple[int, int]]:
-    """Parse existing event_flags.rs to get known flag offsets."""
-    flags = {}
-    content = EXISTING_FLAGS.read_text()
-
-    # Match patterns like (6080,(0x2f8,7)) or (300,(0x25,3))
-    pattern = r'\((\d+),\s*\(0x([0-9a-fA-F]+),\s*(\d+)\)\)'
-    for match in re.finditer(pattern, content):
-        flag_id = int(match.group(1))
-        byte_offset = int(match.group(2), 16)
-        bit_position = int(match.group(3))
-        flags[flag_id] = (byte_offset, bit_position)
-
-    return flags
-
-def parse_world_map_points() -> list[EventFlag]:
-    """Parse WorldMapPointParam.param.xml for POI coordinates."""
-    flags = []
-    tree = ET.parse(BASE_PATH / "WorldMapPointParam.param.xml")
-    root = tree.getroot()
-
-    for row in root.findall('.//row'):
-        flag_id = int(row.get('eventFlagId', '0'))
-        if flag_id == 0:
-            continue
-
-        name = row.get('paramdexName', '')
-
-        # Determine category from name/icon
-        icon_id = int(row.get('iconId', '0'))
-        if 'Grace' in name or icon_id == 83:
-            category = "Grace"
-        elif 'Guidance' in name:
-            category = "Grace"
-        else:
-            category = "Landmark"
-
-        # Clean up name
-        if ':' in name:
-            name = name.split(':')[-1].strip()
-        name = name.split(',')[0].strip()  # Take first part if comma separated
-
-        x = float(row.get('posX', '0'))
-        y = float(row.get('posY', '0'))
-        z = float(row.get('posZ', '0'))
-        area_no = int(row.get('areaNo', '60'))
-        grid_x = int(row.get('gridXNo', '0'))
-        grid_z = int(row.get('gridZNo', '0'))
-
-        byte_offset, bit_pos = flag_to_offset(flag_id)
-
-        flags.append(EventFlag(
-            flag_id=flag_id,
-            byte_offset=byte_offset,
-            bit_position=bit_pos,
-            name=name,
-            category=category,
-            x=x, y=y, z=z,
-            map_area=area_no, map_x=grid_x, map_z=grid_z
-        ))
-
-    return flags
-
-def parse_item_lot_params() -> list[EventFlag]:
-    """Parse ItemLotParam_map.param.xml for world pickup flags."""
-    flags = []
-    tree = ET.parse(BASE_PATH / "ItemLotParam_map.param.xml")
-    root = tree.getroot()
-
-    # Load item names for better descriptions
-    item_names = load_item_names()
-
-    for row in root.findall('.//row'):
-        flag_id = int(row.get('getItemFlagId', '0'))
-        if flag_id == 0:
-            continue
-
-        # Get item ID and category for naming
-        item_id = int(row.get('lotItemId01', '0'))
-        item_cat = int(row.get('lotItemCategory01', '0'))
-
-        # Determine name from item
-        if item_id in item_names:
-            name = item_names[item_id]
-        else:
-            name = f"Item {item_id}"
-
-        # Category based on item type
-        if item_cat == 0:  # Weapon
-            category = "WorldPickup"
-        elif item_cat == 1:  # Good/Consumable
-            category = "WorldPickup"
-        elif item_cat == 2:  # Armor
-            category = "WorldPickup"
-        elif item_cat == 4:  # Accessory/Talisman
-            category = "WorldPickup"
-        else:
-            category = "WorldPickup"
-
-        byte_offset, bit_pos = flag_to_offset(flag_id)
-
-        flags.append(EventFlag(
-            flag_id=flag_id,
-            byte_offset=byte_offset,
-            bit_position=bit_pos,
-            name=name,
-            category=category,
-        ))
-
-    return flags
-
-def load_item_names() -> dict[int, str]:
-    """Load item names from EquipParamGoods."""
-    names = {}
     try:
-        tree = ET.parse(BASE_PATH / "EquipParamGoods.param.xml")
+        tree = ET.parse(fmg_path)
         root = tree.getroot()
-        for row in root.findall('.//row'):
-            item_id = int(row.get('id', '0'))
-            name = row.get('paramdexName', '')
-            if name:
-                names[item_id] = name
-    except:
-        pass
-    return names
+        for text in root.findall(".//text"):
+            text_id = int(text.get("id", 0))
+            name = text.text or ""
+            if name and name != "%null%" and name != "[ERROR]":
+                lookup[text_id] = name
+    except Exception as e:
+        print(f"  Warning: Error parsing {fmg_path.name}: {e}")
 
-def generate_rust_code(flags: list[EventFlag], existing: dict[int, tuple[int, int]]) -> str:
-    """Generate the Rust source code."""
+    return lookup
 
-    # Merge existing flags (keeping their offsets as authoritative)
-    flag_map = {}
+def merge_lookups(base: Dict[int, str], *others: Dict[int, str]) -> Dict[int, str]:
+    """Merge multiple lookups, later ones override earlier."""
+    result = dict(base)
+    for other in others:
+        result.update(other)
+    return result
 
-    # First add existing flags
-    for flag_id, (byte_off, bit_pos) in existing.items():
-        flag_map[flag_id] = EventFlag(
+def load_all_name_lookups() -> Dict[str, Dict[int, str]]:
+    """Load all name lookup tables including DLC."""
+    lookups = {}
+
+    print("Loading base game names...")
+    base_goods = load_name_lookup(MSG_ENGUS / "GoodsName.fmg.xml")
+    base_weapons = load_name_lookup(MSG_ENGUS / "WeaponName.fmg.xml")
+    base_armor = load_name_lookup(MSG_ENGUS / "ProtectorName.fmg.xml")
+    base_accessories = load_name_lookup(MSG_ENGUS / "AccessoryName.fmg.xml")
+    base_gems = load_name_lookup(MSG_ENGUS / "GemName.fmg.xml")
+    base_magic = load_name_lookup(MSG_ENGUS / "MagicName.fmg.xml")
+    base_places = load_name_lookup(MSG_ENGUS / "PlaceName.fmg.xml")
+    base_npcs = load_name_lookup(MSG_ENGUS / "NpcName.fmg.xml")
+
+    print("Loading DLC01 names...")
+    dlc01_goods = load_name_lookup(MSG_DLC01 / "GoodsName_dlc01.fmg.xml")
+    dlc01_weapons = load_name_lookup(MSG_DLC01 / "WeaponName_dlc01.fmg.xml")
+    dlc01_armor = load_name_lookup(MSG_DLC01 / "ProtectorName_dlc01.fmg.xml")
+    dlc01_accessories = load_name_lookup(MSG_DLC01 / "AccessoryName_dlc01.fmg.xml")
+    dlc01_gems = load_name_lookup(MSG_DLC01 / "GemName_dlc01.fmg.xml")
+    dlc01_magic = load_name_lookup(MSG_DLC01 / "MagicName_dlc01.fmg.xml")
+    dlc01_places = load_name_lookup(MSG_DLC01 / "PlaceName_dlc01.fmg.xml")
+    dlc01_npcs = load_name_lookup(MSG_DLC01 / "NpcName_dlc01.fmg.xml")
+
+    # Merge base + DLC
+    lookups["goods"] = merge_lookups(base_goods, dlc01_goods)
+    lookups["weapons"] = merge_lookups(base_weapons, dlc01_weapons)
+    lookups["armor"] = merge_lookups(base_armor, dlc01_armor)
+    lookups["accessories"] = merge_lookups(base_accessories, dlc01_accessories)
+    lookups["gems"] = merge_lookups(base_gems, dlc01_gems)
+    lookups["magic"] = merge_lookups(base_magic, dlc01_magic)
+    lookups["places"] = merge_lookups(base_places, dlc01_places)
+    lookups["npcs"] = merge_lookups(base_npcs, dlc01_npcs)
+
+    print(f"\nLoaded name lookups:")
+    for name, lookup in lookups.items():
+        print(f"  {name}: {len(lookup)} entries")
+
+    return lookups
+
+def get_item_name(item_id: int, item_category: int, lookups: Dict) -> str:
+    """Get item name from ID and category."""
+    if item_category == 1:
+        return lookups["goods"].get(item_id, f"Good_{item_id}")
+    elif item_category == 2:
+        base_id = (item_id // 10000) * 10000
+        return lookups["weapons"].get(base_id, lookups["weapons"].get(item_id, f"Weapon_{item_id}"))
+    elif item_category == 3:
+        base_id = (item_id // 10000) * 10000
+        return lookups["armor"].get(base_id, lookups["armor"].get(item_id, f"Armor_{item_id}"))
+    elif item_category == 4:
+        return lookups["accessories"].get(item_id, f"Accessory_{item_id}")
+    elif item_category == 5:
+        return lookups["gems"].get(item_id, f"AshOfWar_{item_id}")
+    else:
+        return f"Item_{item_id}"
+
+def get_region_from_flag(flag_id: int) -> str:
+    """Derive region from flag ID format."""
+    if flag_id >= 2_000_000_000:
+        return "Shadow of the Erdtree"
+    elif flag_id >= 1_000_000_000:
+        tile_index = (flag_id - 1_000_000_000) // 10000
+        tile_x = tile_index // 100
+        tile_y = tile_index % 100
+        return get_tile_region(tile_x, tile_y)
+    elif flag_id >= 10_000_000:
+        map_area = flag_id // 1_000_000
+        return get_dungeon_region(map_area)
+    else:
+        return "Various"
+
+def get_tile_region(tile_x: int, tile_y: int) -> str:
+    """Get region name from tile coordinates."""
+    if 41 <= tile_x <= 44 and 36 <= tile_y <= 39:
+        return "Limgrave"
+    elif 43 <= tile_x <= 44 and 30 <= tile_y <= 35:
+        return "Weeping Peninsula"
+    elif 33 <= tile_x <= 40 and 40 <= tile_y <= 50:
+        return "Liurnia of the Lakes"
+    elif 45 <= tile_x <= 52 and 36 <= tile_y <= 43:
+        return "Caelid"
+    elif 38 <= tile_x <= 44 and 49 <= tile_y <= 55:
+        return "Altus Plateau"
+    elif 33 <= tile_x <= 38 and 49 <= tile_y <= 55:
+        return "Mt. Gelmir"
+    elif 47 <= tile_x <= 54 and 54 <= tile_y <= 58:
+        return "Mountaintops of the Giants"
+    else:
+        return f"World ({tile_x},{tile_y})"
+
+def get_dungeon_region(map_area: int) -> str:
+    """Get region from dungeon map area."""
+    regions = {
+        10: "Stormveil Castle",
+        11: "Leyndell",
+        12: "Underground",
+        13: "Crumbling Farum Azula",
+        14: "Academy of Raya Lucaria",
+        15: "Caria Manor",
+        16: "Volcano Manor",
+        18: "Roundtable Hold",
+        19: "Chapel of Anticipation",
+        20: "Stranded Graveyard",
+        21: "Miquella's Haligtree",
+        22: "Castle Sol",
+        30: "Catacombs",
+        31: "Cave",
+        32: "Tunnel",
+        34: "Divine Tower",
+        35: "Mohgwyn Palace",
+        39: "Elden Throne",
+        40: "Hero's Grave",
+        41: "Minor Dungeon",
+    }
+    return regions.get(map_area, f"Dungeon_{map_area}")
+
+def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
+    """Categorize flag based on ID range, source, and item name."""
+    # Great Runes (possession: 160-167, activation: 180-187)
+    if 160 <= flag_id <= 167:
+        return "Great Rune Possession"
+    elif 180 <= flag_id <= 187:
+        return "Great Rune Activation"
+
+    # Boss world drops (171-199)
+    elif 171 <= flag_id <= 199:
+        return "Boss World Drop"
+
+    # Map Fragments (62010-62099)
+    elif 62010 <= flag_id <= 62099:
+        return "Map Fragment"
+
+    # Crystal Tears (65000-65399) - NOT Whetblades!
+    elif 65000 <= flag_id <= 65399:
+        return "Crystal Tear"
+
+    # DLC Crystal Tears (65400-65599)
+    elif 65400 <= flag_id <= 65599:
+        return "Crystal Tear (DLC)"
+
+    # Actual Whetblades (65610-65720)
+    elif 65610 <= flag_id <= 65720:
+        return "Whetblade"
+
+    # Ash of War unlocks (65810-65999)
+    elif 65810 <= flag_id <= 65999:
+        return "Ash of War Unlock"
+
+    # Pot Upgrades (66000-66999)
+    elif 66000 <= flag_id <= 66999:
+        return "Pot Upgrade"
+
+    # Cookbooks (67000-68999)
+    elif 67000 <= flag_id <= 68999:
+        return "Cookbook"
+
+    # Remembrances (9100-9199)
+    elif 9100 <= flag_id <= 9199:
+        return "Remembrance"
+
+    # Talisman Pouches (9200-9299)
+    elif 9200 <= flag_id <= 9299:
+        return "Talisman Pouch"
+
+    # Mending Runes (9500-9599)
+    elif 9500 <= flag_id <= 9599:
+        return "Mending Rune"
+
+    # Mausoleum duplication (69000-69999)
+    elif 69000 <= flag_id <= 69999:
+        return "Mausoleum Duplication"
+
+    # Progression items (60000-60999)
+    elif 60000 <= flag_id <= 60999:
+        return "Progression"
+
+    # Source-based categories
+    if source == "BonfireWarpParam":
+        return "Grace"
+    elif source == "ShopLineupParam.stock":
+        return "Shop Stock"
+    elif source == "ShopLineupParam.release":
+        return "Shop Unlock"
+    elif source == "common.emevd.js":
+        return "Event Script"
+
+    # Flag format based (large numbers)
+    if flag_id >= 2_000_000_000:
+        return "DLC Pickup"
+    elif flag_id >= 1_000_000_000:
+        return "World Pickup"
+    elif flag_id >= 10_000_000:
+        return "Dungeon Pickup"
+
+    return "Unknown"
+
+def extract_item_lot_param(lookups: Dict) -> List[EventFlag]:
+    """Extract event flags from ItemLotParam_map."""
+    flags = []
+    xml_path = REGULATION_BIN / "ItemLotParam_map.param.xml"
+
+    if not xml_path.exists():
+        print(f"Error: {xml_path} not found")
+        return flags
+
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+
+    for row in root.findall(".//row"):
+        row_id = int(row.get("id", 0))
+        flag_id = int(row.get("getItemFlagId", 0))
+        if flag_id == 0:
+            continue
+
+        item_id = int(row.get("lotItemId01", 0))
+        item_category = int(row.get("lotItemCategory01", 0))
+
+        if item_id == 0:
+            continue
+
+        name = get_item_name(item_id, item_category, lookups)
+        category = categorize_flag(flag_id, "ItemLotParam_map", name)
+        region = get_region_from_flag(flag_id)
+
+        # Preserve raw data from XML
+        raw_data = {
+            "lotItemId01": item_id,
+            "lotItemCategory01": item_category,
+            "lotItemNum01": int(row.get("lotItemNum01", 1)),
+        }
+        # Add additional item slots if present
+        for i in range(2, 9):
+            lot_id = int(row.get(f"lotItemId0{i}", 0))
+            if lot_id != 0:
+                raw_data[f"lotItemId0{i}"] = lot_id
+                raw_data[f"lotItemCategory0{i}"] = int(row.get(f"lotItemCategory0{i}", 0))
+                raw_data[f"lotItemNum0{i}"] = int(row.get(f"lotItemNum0{i}", 1))
+
+        flags.append(EventFlag(
             flag_id=flag_id,
-            byte_offset=byte_off,
-            bit_position=bit_pos,
-            name="",
-            category="Unknown"
-        )
+            name=name,
+            category=category,
+            region=region,
+            source_file="ItemLotParam_map.param.xml",
+            source_row_id=row_id,
+            item_id=item_id,
+            item_category=item_category,
+            raw_data=raw_data
+        ))
 
-    # Then add/update with new flags (coordinate data, names)
+    return flags
+
+def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
+    """Extract event flags from BonfireWarpParam (graces)."""
+    flags = []
+    xml_path = REGULATION_BIN / "BonfireWarpParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"Error: {xml_path} not found")
+        return flags
+
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+
+    for row in root.findall(".//row"):
+        row_id = int(row.get("id", 0))
+        flag_id = int(row.get("eventflagId", 0))
+        if flag_id == 0:
+            continue
+
+        text_id = int(row.get("textId1", -1))
+        name = lookups["places"].get(text_id, f"Grace_{text_id}")
+
+        sub_cat = int(row.get("bonfireSubCategoryId", 0))
+        region = lookups["places"].get(sub_cat, get_region_from_flag(flag_id))
+
+        # Preserve raw data from XML
+        raw_data = {
+            "textId1": text_id,
+            "bonfireSubCategoryId": sub_cat,
+            "areaNo": int(row.get("areaNo", 0)),
+            "gridXNo": int(row.get("gridXNo", 0)),
+            "gridZNo": int(row.get("gridZNo", 0)),
+        }
+
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=name,
+            category="Grace",
+            region=region,
+            source_file="BonfireWarpParam.param.xml",
+            source_row_id=row_id,
+            raw_data=raw_data
+        ))
+
+    return flags
+
+def extract_shop_lineup_param(lookups: Dict) -> List[EventFlag]:
+    """Extract event flags from ShopLineupParam."""
+    flags = []
+    xml_path = REGULATION_BIN / "ShopLineupParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"Error: {xml_path} not found")
+        return flags
+
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+
+    for row in root.findall(".//row"):
+        row_id = int(row.get("id", 0))
+        stock_flag = int(row.get("eventFlag_forStock", 0))
+        release_flag = int(row.get("eventFlag_forRelease", 0))
+        equip_id = int(row.get("equipId", 0))
+        equip_type = int(row.get("equipType", 0))
+        shop_type = int(row.get("shopType", 0))
+        price = int(row.get("value", 0))
+        quantity = int(row.get("sellQuantity", -1))
+
+        paramdex_name = row.get("paramdexName", "")
+        type_map = {0: 2, 1: 3, 3: 1, 4: 5}  # equipType to item_category
+
+        if paramdex_name:
+            name = paramdex_name
+        else:
+            name = get_item_name(equip_id, type_map.get(equip_type, 1), lookups)
+
+        # Raw data for both stock and release flags
+        raw_data = {
+            "equipId": equip_id,
+            "equipType": equip_type,
+            "shopType": shop_type,
+            "value": price,
+            "sellQuantity": quantity,
+            "eventFlag_forStock": stock_flag,
+            "eventFlag_forRelease": release_flag,
+        }
+
+        if stock_flag != 0:
+            flags.append(EventFlag(
+                flag_id=stock_flag,
+                name=f"{name} - Purchased",
+                category=categorize_flag(stock_flag, "ShopLineupParam.stock", name),
+                region="Various",
+                source_file="ShopLineupParam.param.xml",
+                source_row_id=row_id,
+                item_id=equip_id,
+                item_category=type_map.get(equip_type, 1),
+                raw_data=raw_data
+            ))
+
+        if release_flag != 0:
+            flags.append(EventFlag(
+                flag_id=release_flag,
+                name=f"{name} - Unlocked",
+                category=categorize_flag(release_flag, "ShopLineupParam.release", name),
+                region=get_region_from_flag(release_flag),
+                source_file="ShopLineupParam.param.xml",
+                source_row_id=row_id,
+                item_id=equip_id,
+                item_category=type_map.get(equip_type, 1),
+                raw_data=raw_data
+            ))
+
+    return flags
+
+def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
+    """Extract event flags from common.emevd.js event scripts."""
+    flags = []
+    js_path = EVENT_DIR / "common.emevd.js"
+
+    if not js_path.exists():
+        print(f"Error: {js_path} not found")
+        return flags
+
+    with open(js_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # Great Rune possession flags (Event 720)
+    # Pattern: Event(720, Default, function (X0_4, X4_4) { ... SetEventFlag(X0_4 + 160, ON); ...
+    great_runes = [
+        (160, "Godrick's Great Rune"),
+        (161, "Radahn's Great Rune"),
+        (162, "Morgott's Great Rune"),
+        (163, "Rykard's Great Rune"),
+        (164, "Mohg's Great Rune"),
+        (165, "Malenia's Great Rune"),
+        (166, "Miquella's Great Rune"),
+        (167, "Placidusax's Old Lord Talisman"),  # DLC related
+    ]
+    for flag_id, name in great_runes:
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=f"{name} - Possessed",
+            category="Great Rune Possession",
+            region="Various",
+            source_file="common.emevd.js",
+            raw_data={"event_id": 720, "description": "Set when Great Rune is obtained"}
+        ))
+
+    # Great Rune activation flags (Event 730)
+    great_rune_activation = [
+        (180, "Godrick's Great Rune"),
+        (181, "Radahn's Great Rune"),
+        (182, "Morgott's Great Rune"),
+        (183, "Rykard's Great Rune"),
+        (184, "Mohg's Great Rune"),
+        (185, "Malenia's Great Rune"),
+        (186, "Miquella's Great Rune"),
+        (187, "Unknown Great Rune"),
+    ]
+    for flag_id, name in great_rune_activation:
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=f"{name} - Activated",
+            category="Great Rune Activation",
+            region="Divine Tower",
+            source_file="common.emevd.js",
+            raw_data={"event_id": 730, "description": "Set when Great Rune is activated at Divine Tower"}
+        ))
+
+    # Boss Remembrances (Event 1100 pattern)
+    # Pattern includes 91xx flags for remembrance possession
+    remembrances = [
+        (9100, "Remembrance of the Grafted"),
+        (9101, "Remembrance of the Starscourge"),
+        (9102, "Omen King's Remembrance"),
+        (9103, "Remembrance of the Blasphemous"),
+        (9104, "Remembrance of the Blood Lord"),
+        (9105, "Remembrance of the Rot Goddess"),
+        (9106, "Elden Remembrance"),
+        (9107, "Remembrance of the Lichdragon"),
+        (9108, "Remembrance of the Naturalborn"),
+        (9109, "Remembrance of the Regal Ancestor"),
+        (9110, "Remembrance of the Full Moon Queen"),
+        (9111, "Remembrance of the Dragonlord"),
+        (9112, "Remembrance of the Fire Giant"),
+        (9113, "Remembrance of Hoarah Loux"),
+        (9114, "Remembrance of the Black Blade"),
+    ]
+    for flag_id, name in remembrances:
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=name,
+            category="Remembrance",
+            region="Various",
+            source_file="common.emevd.js",
+            raw_data={"event_id": 1100, "description": "Set when boss remembrance is obtained"}
+        ))
+
+    # Talisman Pouch upgrades (Event 1200 - 92xx flags)
+    talisman_upgrades = [
+        (9200, "First Talisman Pouch"),
+        (9201, "Second Talisman Pouch"),
+        (9202, "Third Talisman Pouch"),
+    ]
+    for flag_id, name in talisman_upgrades:
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=name,
+            category="Talisman Pouch",
+            region="Various",
+            source_file="common.emevd.js",
+            raw_data={"event_id": 1200, "description": "Set when talisman pouch obtained"}
+        ))
+
+    # Mending Runes (endings)
+    mending_runes = [
+        (9500, "Mending Rune of the Fell Curse"),
+        (9501, "Mending Rune of Perfect Order"),
+        (9502, "Mending Rune of the Death-Prince"),
+    ]
+    for flag_id, name in mending_runes:
+        flags.append(EventFlag(
+            flag_id=flag_id,
+            name=name,
+            category="Mending Rune",
+            region="Various",
+            source_file="common.emevd.js",
+            raw_data={"description": "Quest item for alternate ending"}
+        ))
+
+    return flags
+
+
+def format_output_markdown(flags: List[EventFlag]) -> str:
+    """Format flags as proper markdown table without truncation."""
+    flags.sort(key=lambda f: f.flag_id)
+
+    seen = set()
+    unique_flags = []
     for f in flags:
-        if f.flag_id in flag_map:
-            # Update with coordinate data if available
-            existing_flag = flag_map[f.flag_id]
-            if f.x is not None:
-                existing_flag.x = f.x
-                existing_flag.y = f.y
-                existing_flag.z = f.z
-                existing_flag.map_area = f.map_area
-                existing_flag.map_x = f.map_x
-                existing_flag.map_z = f.map_z
-            if f.name:
-                existing_flag.name = f.name
-            if f.category != "Unknown":
-                existing_flag.category = f.category
-        else:
-            flag_map[f.flag_id] = f
+        if f.flag_id not in seen:
+            seen.add(f.flag_id)
+            unique_flags.append(f)
 
-    # Sort by flag ID
-    sorted_flags = sorted(flag_map.values(), key=lambda f: f.flag_id)
+    lines = []
+    lines.append("# Extracted Event Flags")
+    lines.append("")
+    lines.append(f"Total unique flags: {len(unique_flags)}")
+    lines.append("")
+    lines.append("| Flag ID | Name | Category | Region | Source |")
+    lines.append("|---------|------|----------|--------|--------|")
 
-    rust_code = '''// Auto-generated event flags database with coordinate support
-// Contains {count} event flags
+    for f in unique_flags:
+        # No truncation - full names preserved
+        # Escape pipe characters in names
+        name = f.name.replace("|", "\\|")
+        region = f.region.replace("|", "\\|")
+        source = f.source_file.replace(".param.xml", "").replace(".emevd.js", "")
+        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {source} |")
 
-pub mod event_flags {{
-    use std::{{collections::HashMap, sync::Mutex}};
-    use once_cell::sync::Lazy;
+    return "\n".join(lines)
 
-    #[derive(Debug, Clone, Copy, PartialEq)]
-    pub struct WorldCoords {{
-        pub x: f32,
-        pub y: f32,
-        pub z: f32,
-        pub map_area: u8,
-        pub map_x: u8,
-        pub map_z: u8,
-    }}
 
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-    pub enum EventFlagCategory {{
-        Grace,
-        Boss,
-        WorldPickup,
-        LegacyPickup,
-        ShopStock,
-        NpcState,
-        GreatRune,
-        Cookbook,
-        Whetblade,
-        SummoningPool,
-        Colosseum,
-        Mausoleum,
-        Map,
-        Landmark,
-        Unknown,
-    }}
-
-    #[derive(Debug, Clone)]
-    pub struct EventFlagInfo {{
-        pub byte_offset: u32,
-        pub bit_position: u8,
-        pub name: &'static str,
-        pub category: EventFlagCategory,
-        pub coords: Option<WorldCoords>,
-    }}
-
-    /// Legacy lookup: flag_id -> (byte_offset, bit_position)
-    /// Kept for backwards compatibility
-    pub static EVENT_FLAGS: Lazy<Mutex<HashMap<u32,(u32,u8)>>> = Lazy::new(|| {{
-        Mutex::new(HashMap::from([
-'''.format(count=len(sorted_flags))
-
-    # Add legacy format entries
-    for f in sorted_flags:
-        rust_code += f"            ({f.flag_id},(0x{f.byte_offset:x},{f.bit_position})),\n"
-
-    rust_code += '''        ]))
-    });
-
-    /// Enhanced lookup: flag_id -> EventFlagInfo (with coordinates)
-    pub static EVENT_FLAGS_INFO: Lazy<HashMap<u32, EventFlagInfo>> = Lazy::new(|| {
-        let mut map = HashMap::new();
-'''
-
-    # Add enhanced entries
-    for f in sorted_flags:
-        name = f.name.replace('"', '\\"') if f.name else ""
-
-        if f.x is not None:
-            coords = f"Some(WorldCoords {{ x: {f.x:.2f}, y: {f.y:.2f}, z: {f.z:.2f}, map_area: {f.map_area or 60}, map_x: {f.map_x or 0}, map_z: {f.map_z or 0} }})"
-        else:
-            coords = "None"
-
-        rust_code += f'''        map.insert({f.flag_id}, EventFlagInfo {{
-            byte_offset: 0x{f.byte_offset:x},
-            bit_position: {f.bit_position},
-            name: "{name}",
-            category: EventFlagCategory::{f.category},
-            coords: {coords},
-        }});
-'''
-
-    rust_code += '''        map
-    });
-
-    /// Get event flag info by ID
-    pub fn get_flag_info(flag_id: u32) -> Option<&'static EventFlagInfo> {
-        EVENT_FLAGS_INFO.get(&flag_id)
-    }
-
-    /// Get byte offset and bit position for a flag
-    pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
-        EVENT_FLAGS.lock().ok()?.get(&flag_id).copied()
-    }
-}
-'''
-
-    return rust_code
+def get_category_summary(flags: List[EventFlag]) -> Dict[str, int]:
+    """Get count of flags per category."""
+    seen = set()
+    counts = {}
+    for f in flags:
+        if f.flag_id not in seen:
+            seen.add(f.flag_id)
+            counts[f.category] = counts.get(f.category, 0) + 1
+    return dict(sorted(counts.items(), key=lambda x: -x[1]))
 
 def main():
-    print("Parsing existing event_flags.rs...")
-    existing = parse_existing_flags()
-    print(f"  Found {len(existing)} existing flag mappings")
+    print("=" * 80)
+    print("Elden Ring Event Flag Extractor")
+    print("=" * 80)
 
-    print("Parsing WorldMapPointParam.param.xml...")
-    world_points = parse_world_map_points()
-    print(f"  Found {len(world_points)} world map points")
+    print("\nLoading name lookups...")
+    lookups = load_all_name_lookups()
 
-    print("Parsing ItemLotParam_map.param.xml...")
-    item_lots = parse_item_lot_params()
-    print(f"  Found {len(item_lots)} item lot flags")
+    print("\n" + "-" * 40)
+    print("Extracting from game param files...")
+    print("-" * 40)
 
-    all_flags = world_points + item_lots
+    print("\nExtracting from ItemLotParam_map...")
+    item_lot_flags = extract_item_lot_param(lookups)
+    print(f"  Found {len(item_lot_flags)} flags")
 
-    print("Generating Rust code...")
-    rust_code = generate_rust_code(all_flags, existing)
+    print("\nExtracting from BonfireWarpParam...")
+    bonfire_flags = extract_bonfire_warp_param(lookups)
+    print(f"  Found {len(bonfire_flags)} flags")
 
-    OUTPUT_FILE.write_text(rust_code)
-    print(f"Generated {OUTPUT_FILE}")
-    print(f"Total flags: {len(existing) + len([f for f in all_flags if f.flag_id not in existing])}")
+    print("\nExtracting from ShopLineupParam...")
+    shop_flags = extract_shop_lineup_param(lookups)
+    print(f"  Found {len(shop_flags)} flags")
+
+    print("\nExtracting from common.emevd.js...")
+    emevd_flags = extract_common_emevd(lookups)
+    print(f"  Found {len(emevd_flags)} flags")
+
+    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags
+
+    print(f"\n{'=' * 40}")
+    print(f"Total flags extracted: {len(all_flags)}")
+
+    # Deduplicate and count
+    seen = set()
+    unique_flags = []
+    for f in all_flags:
+        if f.flag_id not in seen:
+            seen.add(f.flag_id)
+            unique_flags.append(f)
+
+    print(f"Unique flags: {len(unique_flags)}")
+
+    # Category summary
+    print(f"\n{'=' * 40}")
+    print("Category Summary:")
+    print("-" * 40)
+    category_counts = get_category_summary(all_flags)
+    for cat, count in category_counts.items():
+        print(f"  {cat}: {count}")
+
+    # Output directory
+    output_dir = Path(__file__).parent
+
+    # Write markdown output (no truncation)
+    md_output = format_output_markdown(all_flags)
+    md_path = output_dir / "extracted_event_flags.md"
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(md_output)
+    print(f"\nMarkdown output: {md_path}")
+
+    # Write JSON output with full data preservation
+    json_data = {
+        "metadata": {
+            "extraction_date": str(Path(__file__).stat().st_mtime),
+            "total_flags": len(unique_flags),
+            "sources": [
+                "ItemLotParam_map.param.xml",
+                "BonfireWarpParam.param.xml",
+                "ShopLineupParam.param.xml",
+                "common.emevd.js"
+            ],
+            "category_counts": category_counts
+        },
+        "flags": [asdict(f) for f in sorted(unique_flags, key=lambda x: x.flag_id)]
+    }
+    json_path = output_dir / "extracted_event_flags.json"
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
+    print(f"JSON output: {json_path}")
+
+    # Print sample
+    print(f"\n{'=' * 80}")
+    print("SAMPLE OUTPUT (first 30 entries):")
+    print("=" * 80)
+    sample_lines = md_output.split("\n")[:36]  # Header + 30 rows
+    for line in sample_lines:
+        print(line)
+
+    print(f"\n{'=' * 80}")
+    print(f"Done! Check {output_dir} for output files.")
+
 
 if __name__ == "__main__":
     main()
