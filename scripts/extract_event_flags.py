@@ -7,8 +7,12 @@ Extracts event flags from:
 - BonfireWarpParam.param.xml (graces)
 - ShopLineupParam.param.xml (shop items)
 - common.emevd.js (Great Runes, Remembrances, etc.)
+- WorldMapPointParam.param.xml (POI discovery)
+- NpcParam.param.xml (NPC definitions for name lookup)
+- MSB Enemy files (one-time defeatable enemies: bosses, NPCs, invaders)
 
-Output: Markdown table format with full data preservation.
+Output: Markdown and JSON formats with full data preservation including
+coordinates, area types, and enemy classifications.
 """
 
 import xml.etree.ElementTree as ET
@@ -163,6 +167,275 @@ def parse_msb_dir_name(msb_dir_name: str) -> Optional[Dict]:
             "section": int(match.group(4))
         }
     return None
+
+
+def load_boss_names() -> Dict[str, str]:
+    """
+    Load boss names from BgmBossChrIdConv param (maps model name to boss name).
+
+    Returns dict: {model_name: boss_name}
+    e.g., {"c4750": "Godrick the Grafted", "c2030": "Rennala, Queen of the Full Moon"}
+    """
+    boss_names = {}
+    xml_path = REGULATION_BIN / "WwiseValueToStrParam_BgmBossChrIdConv.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return boss_names
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            name = row.get("paramdexName", "")
+            param_str = row.get("ParamStr", "")
+
+            if not name or not param_str:
+                continue
+
+            # ParamStr is like "c4750" or "c4750_B" - extract base model
+            # Some have suffixes like _B, _A for phases
+            model_base = param_str.split("_")[0] if "_" in param_str else param_str
+
+            # Only add if we don't have this model yet, or if this is a better name
+            if model_base.startswith("c") and model_base not in boss_names:
+                boss_names[model_base] = name
+
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return boss_names
+
+
+def load_npc_param() -> Dict[int, Dict]:
+    """
+    Load NPC parameters to map NPCParamID → nameId.
+
+    Returns dict keyed by NPC param ID:
+    {npc_param_id: {"name_id": int, "hp": int, "get_soul": int, "item_lot_enemy": int}}
+    """
+    npc_params = {}
+    xml_path = REGULATION_BIN / "NpcParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return npc_params
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            param_id = int(row.get("id", 0))
+            if param_id == 0:
+                continue
+
+            npc_params[param_id] = {
+                "name_id": int(row.get("nameId", 0)),
+                "hp": int(row.get("hp", 0)),
+                "get_soul": int(row.get("getSoul", 0)),  # Runes dropped
+                "item_lot_enemy": int(row.get("itemLotId_enemy", -1)),
+                "item_lot_map": int(row.get("itemLotId_map", -1)),
+            }
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return npc_params
+
+
+def classify_enemy_type(entity_id: int, npc_param_id: int, model_name: str) -> str:
+    """
+    Classify enemy type based on entity ID patterns and model name.
+
+    Entity ID patterns (observed from MSB files):
+    - XX000800: Main boss (Demigod/Great Enemy)
+    - XX000850: Secondary boss (field bosses, dungeon bosses)
+    - XX00YYZZ: Regular enemies with tracking (YY=type, ZZ=index)
+
+    Model name patterns:
+    - c0000: Player character (invasion phantoms)
+    - c1XXX: Humanoid NPCs/enemies
+    - c2XXX: Large bosses
+    - c3XXX: Medium-large enemies
+    - c4XXX: Bosses
+    - c5XXX: DLC bosses
+    """
+    entity_str = str(entity_id)
+
+    # Check for boss patterns (ends in 0800 or 0850)
+    if entity_str.endswith("00800"):
+        # Check model for Great Boss vs regular boss
+        if model_name.startswith("c2") or model_name.startswith("c4"):
+            # c2XXX and c4XXX are typically main bosses
+            return "Great Boss"
+        return "Boss"
+
+    if entity_str.endswith("00850"):
+        return "Field Boss"
+
+    # Check model-based classification
+    if model_name == "c0000":
+        # Player model = NPC invasion
+        return "Invasion"
+
+    # Check for specific NPC types by model prefix
+    if model_name.startswith("c1"):
+        # Humanoid NPCs - could be merchant, trainer, character, ghost
+        # Check NPC param for hints
+        npc_type_guess = model_name[1:5] if len(model_name) >= 5 else ""
+
+        # Known merchant models
+        merchant_models = {"c1100", "c1101", "c1102"}  # Kale and merchants
+        if model_name[:5] in merchant_models:
+            return "Merchant"
+
+        # Spirit summon NPCs (ghosts)
+        if "ghost" in model_name.lower() or model_name.startswith("c1800"):
+            return "Ghost"
+
+        return "Character"
+
+    # c3XXX: Medium enemies (often elite)
+    if model_name.startswith("c3"):
+        return "Elite Enemy"
+
+    # c4XXX: Major enemies/bosses
+    if model_name.startswith("c4"):
+        return "Boss"
+
+    # c5XXX: DLC bosses
+    if model_name.startswith("c5"):
+        return "Boss"
+
+    # Default: trackable enemy
+    return "Enemy"
+
+
+def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
+                        boss_names: Dict[str, str]) -> Dict[int, Dict]:
+    """
+    Load enemy data from MSB (Map Studio Binary) files.
+
+    Returns dict keyed by EntityID (which is also the defeat event flag):
+    {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                 "area_no": int, "grid_x": int, "grid_z": int,
+                 "model_name": str, "npc_param_id": int, "name": str,
+                 "enemy_type": str, "msb_dir": str}}
+    """
+    enemies = {}
+
+    if not MSB_DIR.exists():
+        print(f"  Warning: MSB directory not found: {MSB_DIR}")
+        return enemies
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+    print(f"  Scanning {len(msb_dirs)} MSB directories for enemies...")
+
+    processed = 0
+    for msb_dir in msb_dirs:
+        # Parse area/grid from directory name
+        msb_location = parse_msb_dir_name(msb_dir.name)
+        enemy_dir = msb_dir / "Part" / "Enemy"
+
+        if not enemy_dir.exists():
+            continue
+
+        # Parse each enemy XML file
+        for enemy_file in enemy_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(enemy_file)
+                root = tree.getroot()
+
+                # Get EntityID - this is the defeat event flag
+                entity_elem = root.find(".//EntityID")
+                if entity_elem is None:
+                    continue
+                entity_id = int(entity_elem.text or 0)
+                if entity_id == 0:
+                    continue  # No tracking flag
+
+                # Get model name for classification
+                model_elem = root.find(".//ModelName")
+                model_name = model_elem.text if model_elem is not None else ""
+
+                # Get NPC param ID for name lookup
+                npc_param_elem = root.find(".//NPCParamID")
+                npc_param_id = int(npc_param_elem.text or 0) if npc_param_elem is not None else 0
+
+                # Get position
+                pos_elem = root.find(".//Position")
+                pos_x, pos_y, pos_z = 0.0, 0.0, 0.0
+                if pos_elem is not None:
+                    x_elem = pos_elem.find("X")
+                    y_elem = pos_elem.find("Y")
+                    z_elem = pos_elem.find("Z")
+                    if x_elem is not None:
+                        pos_x = float(x_elem.text or 0)
+                    if y_elem is not None:
+                        pos_y = float(y_elem.text or 0)
+                    if z_elem is not None:
+                        pos_z = float(z_elem.text or 0)
+
+                # Look up name via NPC param → name_id → NPC name
+                name = None
+                name_id = None
+                if npc_param_id in npc_params:
+                    name_id = npc_params[npc_param_id].get("name_id", 0)
+                    if name_id and name_id in npc_names:
+                        name = npc_names[name_id]
+
+                # Fallback to boss names lookup (uses model name)
+                if not name and model_name in boss_names:
+                    name = boss_names[model_name]
+
+                # Final fallback: model name
+                if not name:
+                    name = f"Enemy ({model_name})"
+
+                # Classify enemy type
+                enemy_type = classify_enemy_type(entity_id, npc_param_id, model_name)
+
+                # Build entry
+                entry = {
+                    "pos_x": pos_x,
+                    "pos_y": pos_y,
+                    "pos_z": pos_z,
+                    "model_name": model_name,
+                    "npc_param_id": npc_param_id,
+                    "name_id": name_id,
+                    "name": name,
+                    "enemy_type": enemy_type,
+                    "msb_dir": msb_dir.name,
+                }
+
+                # Add area/grid from MSB directory name
+                if msb_location:
+                    entry["area_no"] = msb_location["area_no"]
+                    entry["grid_x"] = msb_location["grid_x"]
+                    entry["grid_z"] = msb_location["grid_z"]
+
+                # Only add if we don't already have this entity_id (first instance wins)
+                if entity_id not in enemies:
+                    enemies[entity_id] = entry
+
+            except Exception:
+                continue
+
+        processed += 1
+        if processed % 100 == 0:
+            print(f"    Processed {processed}/{len(msb_dirs)} MSB directories...")
+
+    print(f"  Loaded {len(enemies)} unique enemy entities with event flags")
+
+    # Summary by type
+    type_counts = {}
+    for enemy in enemies.values():
+        t = enemy["enemy_type"]
+        type_counts[t] = type_counts.get(t, 0) + 1
+    print(f"  Enemy type breakdown:")
+    for t, count in sorted(type_counts.items(), key=lambda x: -x[1]):
+        print(f"    {t}: {count}")
+
+    return enemies
 
 
 def load_msb_treasure_positions() -> Dict[int, Dict]:
@@ -1115,6 +1388,82 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
     return flags
 
 
+def extract_msb_enemies(msb_enemies: Dict[int, Dict]) -> List[EventFlag]:
+    """
+    Extract event flags from MSB enemy data (defeat flags).
+
+    These are one-time defeatable enemies where the EntityID serves as
+    the event flag that gets set when the enemy is killed.
+    """
+    flags = []
+
+    for entity_id, enemy in msb_enemies.items():
+        area_no = enemy.get("area_no")
+        grid_x = enemy.get("grid_x")
+        grid_z = enemy.get("grid_z")
+        pos_x = enemy.get("pos_x")
+        pos_y = enemy.get("pos_y")
+        pos_z = enemy.get("pos_z")
+
+        # Compute world coordinates (only for overworld areas)
+        overworld = is_overworld_area(area_no) if area_no else False
+        world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+        # Classify area type and DLC status
+        area_type = get_area_type(area_no)
+        is_dlc = not is_base_game_area(area_no) if area_no else False
+
+        # Map tile
+        map_tile = format_map_tile(area_no, grid_x, grid_z) if area_no else None
+
+        # Derive region from location
+        if is_dlc:
+            region = "Shadow of the Erdtree"
+        elif area_no and area_no != 60:
+            region = get_dungeon_region(area_no)
+        elif grid_x and grid_z:
+            region = get_tile_region(grid_x, grid_z)
+        else:
+            region = "Various"
+
+        # Enemy type becomes category
+        enemy_type = enemy.get("enemy_type", "Enemy")
+        category = f"{enemy_type} Defeat"
+
+        # Raw data
+        raw_data = {
+            "model_name": enemy.get("model_name", ""),
+            "npc_param_id": enemy.get("npc_param_id"),
+            "name_id": enemy.get("name_id"),
+            "enemy_type": enemy_type,
+            "msb_dir": enemy.get("msb_dir", ""),
+            "position_source": "MSB",
+        }
+
+        flags.append(EventFlag(
+            flag_id=entity_id,
+            name=enemy.get("name", f"Enemy_{entity_id}"),
+            category=category,
+            region=region,
+            source_file="MSB Enemy",
+            area_no=area_no,
+            grid_x=grid_x,
+            grid_z=grid_z,
+            pos_x=pos_x,
+            pos_y=pos_y,
+            pos_z=pos_z,
+            map_tile=map_tile,
+            is_overworld=overworld,
+            world_x=world_x,
+            world_z=world_z,
+            area_type=area_type,
+            is_dlc=is_dlc,
+            raw_data=raw_data
+        ))
+
+    return flags
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
     """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
@@ -1186,8 +1535,19 @@ def main():
     world_map_pieces = load_world_map_pieces()
     print(f"  WorldMapPieceParam: {len(world_map_pieces)} map regions")
 
+    print("\nLoading NPC parameters...")
+    npc_params = load_npc_param()
+    print(f"  NpcParam: {len(npc_params)} NPC definitions")
+
+    print("\nLoading boss name mappings...")
+    boss_names = load_boss_names()
+    print(f"  BgmBossChrIdConv: {len(boss_names)} boss model → name mappings")
+
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
+
+    print("\nLoading MSB enemy data...")
+    msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names)
 
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
@@ -1213,7 +1573,11 @@ def main():
     poi_flags = extract_world_map_points(lookups, world_map_points)
     print(f"  Found {len(poi_flags)} flags")
 
-    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags
+    print("\nExtracting from MSB Enemy data...")
+    enemy_flags = extract_msb_enemies(msb_enemies)
+    print(f"  Found {len(enemy_flags)} flags")
+
+    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags + enemy_flags
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")
@@ -1295,7 +1659,9 @@ def main():
                 "ShopLineupParam.param.xml",
                 "common.emevd.js",
                 "WorldMapPointParam.param.xml",
-                "MSB files (map/mapstudio/m*-msb-dcx/)"
+                "NpcParam.param.xml",
+                "MSB files (map/mapstudio/m*-msb-dcx/Event/Treasure/)",
+                "MSB files (map/mapstudio/m*-msb-dcx/Part/Enemy/)"
             ],
             "category_counts": category_counts
         },
