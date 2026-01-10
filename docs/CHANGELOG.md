@@ -4,6 +4,20 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.3 - Multi-Item Chest Position Linking
+
+### Features
+- **Multi-item chest linking**: Secondary items in a chest now inherit position from the base item
+  - Example: Ash of War: Storm Stomp (row 1042371011) now gets position from Whetstone Knife (row 1042371010) since they're in the same chest
+  - Checks consecutive row IDs (row_id-1 through row_id-10) for MSB treasure entries
+  - New field `msb_base_row_id` tracks when position came from a different row
+
+### Coverage Improvement
+- MSB positions used: 2,368 → **2,504** (+136 items)
+- Flags with local coords: 51% → **52%**
+
+---
+
 ## v0.2.2 - MSB Area/Grid Extraction Fix
 
 ### Bug Fixes

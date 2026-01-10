@@ -676,11 +676,33 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
                 map_tile = format_map_tile(area_no, grid_x, grid_z)
 
         # Fallback to MSB treasure positions if no POI data
-        if pos_x is None and row_id in msb_positions:
+        # Check direct row_id first, then check if this is a secondary item
+        # in a multi-item chest (consecutive row IDs share the same chest)
+        msb_data = None
+        msb_row_id = None
+        msb_row_offset = 0  # How many rows from the base item
+        if row_id in msb_positions:
             msb_data = msb_positions[row_id]
+            msb_row_id = row_id
+        else:
+            # Check if a nearby lower row_id exists (multi-item chest)
+            # Chests can have up to ~10 items, check row_id-1 through row_id-10
+            for offset in range(1, 11):
+                check_id = row_id - offset
+                if check_id in msb_positions:
+                    msb_data = msb_positions[check_id]
+                    msb_row_id = check_id
+                    msb_row_offset = offset
+                    break
+
+        if pos_x is None and msb_data:
             pos_x = msb_data["pos_x"]
             pos_y = msb_data["pos_y"]
             pos_z = msb_data["pos_z"]
+            # Add north/south offset for secondary items so POIs don't overlap on map
+            # pos_z is the north/south axis (increases going north)
+            if msb_row_offset > 0:
+                pos_z = pos_z - (msb_row_offset * 2.0)  # -2 per item offset (southward)
             position_source = "MSB"
             msb_hits += 1
             # Use MSB area/grid if not already set from flag ID
@@ -711,9 +733,12 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
         # Track position source in raw_data
         if position_source:
             raw_data["position_source"] = position_source
-            if position_source == "MSB" and row_id in msb_positions:
-                raw_data["msb_asset"] = msb_positions[row_id].get("asset_name", "")
-                raw_data["msb_dir"] = msb_positions[row_id].get("msb_dir", "")
+            if position_source == "MSB" and msb_data:
+                raw_data["msb_asset"] = msb_data.get("asset_name", "")
+                raw_data["msb_dir"] = msb_data.get("msb_dir", "")
+                # Track if position came from a different row (multi-item chest)
+                if msb_row_id and msb_row_id != row_id:
+                    raw_data["msb_base_row_id"] = msb_row_id
 
         # Compute world coordinates (only for overworld areas)
         overworld = is_overworld_area(area_no) if area_no else False
