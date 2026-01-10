@@ -4,6 +4,46 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.4 - Enemy Defeat Flag Extraction
+
+### Features
+- **MSB Enemy Extraction**: Parse MSB Part/Enemy/*.xml for boss/enemy positions
+  - Cross-validates EntityIDs against event scripts for accuracy
+  - Only includes enemies verified as tracked (SetNetworkconnectedEventFlagID or HandleBossDefeatAndDisplayBanner)
+  - 122 verified enemy defeat flags with coordinates
+
+- **Enemy Name Resolution**:
+  - NPCParamID → nameId → NpcName.fmg for character names
+  - ModelName → BgmBossChrIdConv for boss names (Godrick, Rennala, Malenia, etc.)
+
+- **Enemy Type Classification** (based on entity ID patterns and model):
+  - `Great Boss`: Main demigods (Godrick, Rennala, Malenia, Mohg, etc.)
+  - `Boss`: Major bosses (dungeon bosses, remembrance bosses)
+  - `Field Boss`: Secondary bosses (Margit, Godfrey illusion, Patches)
+  - `Elite Enemy`: Mini-bosses and field elites
+  - `Invasion`: NPC invaders
+  - `Enemy`: Other trackable one-time enemies
+
+### New Event Flag Categories
+- Boss Defeat: 53 flags
+- Elite Enemy Defeat: 29 flags
+- Great Boss Defeat: 12 flags
+- Enemy Defeat: 12 flags
+- Field Boss Defeat: 9 flags
+- Invasion Defeat: 7 flags
+
+### Coverage Improvement
+- Total unique flags: 6,213 → **6,335** (+122 enemy defeat flags)
+- All 122 enemy flags have verified positions from MSB files
+
+### Data Sources Added
+- NpcParam.param.xml (7,038 NPC definitions)
+- WwiseValueToStrParam_BgmBossChrIdConv.param.xml (15 boss names)
+- MSB Part/Enemy/*.xml (positions for 122 verified enemies)
+- Event scripts (*.emevd.js) for defeat flag validation
+
+---
+
 ## v0.2.3 - Multi-Item Chest Position Linking
 
 ### Features

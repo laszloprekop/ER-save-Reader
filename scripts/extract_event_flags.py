@@ -310,10 +310,50 @@ def classify_enemy_type(entity_id: int, npc_param_id: int, model_name: str) -> s
     return "Enemy"
 
 
+def extract_tracked_defeat_flags() -> set:
+    """
+    Extract entity IDs that are actually tracked as defeat flags from event scripts.
+
+    Sources:
+    1. SetNetworkconnectedEventFlagID(entityID, ON) - general event tracking
+    2. HandleBossDefeatAndDisplayBanner(entityID, ...) - boss defeat handler
+
+    Returns set of tracked entity IDs (defeat flags).
+    """
+    tracked = set()
+
+    if not EVENT_DIR.exists():
+        print(f"  Warning: Event directory not found: {EVENT_DIR}")
+        return tracked
+
+    # Patterns to match
+    patterns = [
+        re.compile(r'SetNetworkconnectedEventFlagID\((\d+),\s*ON\)'),
+        re.compile(r'HandleBossDefeatAndDisplayBanner\((\d+),'),
+    ]
+
+    for js_file in EVENT_DIR.glob("*.emevd.js"):
+        try:
+            with open(js_file, "r", encoding="utf-8") as f:
+                content = f.read()
+                for pattern in patterns:
+                    matches = pattern.findall(content)
+                    for match in matches:
+                        tracked.add(int(match))
+        except Exception:
+            continue
+
+    return tracked
+
+
 def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
-                        boss_names: Dict[str, str]) -> Dict[int, Dict]:
+                        boss_names: Dict[str, str],
+                        tracked_flags: set) -> Dict[int, Dict]:
     """
     Load enemy data from MSB (Map Studio Binary) files.
+
+    Only includes enemies whose EntityID is in tracked_flags (verified to be
+    persisted via SetNetworkconnectedEventFlagID in event scripts).
 
     Returns dict keyed by EntityID (which is also the defeat event flag):
     {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
@@ -351,7 +391,11 @@ def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
                     continue
                 entity_id = int(entity_elem.text or 0)
                 if entity_id == 0:
-                    continue  # No tracking flag
+                    continue  # No entity ID
+
+                # Only include if this entity ID is actually tracked as a defeat flag
+                if entity_id not in tracked_flags:
+                    continue
 
                 # Get model name for classification
                 model_elem = root.find(".//ModelName")
@@ -1546,8 +1590,12 @@ def main():
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
 
-    print("\nLoading MSB enemy data...")
-    msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names)
+    print("\nExtracting tracked defeat flags from event scripts...")
+    tracked_defeat_flags = extract_tracked_defeat_flags()
+    print(f"  Found {len(tracked_defeat_flags)} defeat flags in event scripts")
+
+    print("\nLoading MSB enemy data (filtered by tracked flags)...")
+    msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names, tracked_defeat_flags)
 
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
