@@ -4,6 +4,18 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.2 - MSB Area/Grid Extraction Fix
+
+### Bug Fixes
+- **Parse area/grid from MSB directory names**: Flags like Whetstone Knife (60130) that don't encode location in their ID now get area/grid info from the MSB directory name (e.g., `m60_42_37_00-msb-dcx` → area=60, grid=(42,37))
+- This enables correct world coordinate calculation for ~76 additional flags
+
+### Coverage Improvement
+- Flags with world coords: 24% → **25%** (+76 flags)
+- Flags with map tile: 70% → **72%** (+121 flags)
+
+---
+
 ## v0.2.1 - MSB Position Data & Area Type Classification
 
 ### Features

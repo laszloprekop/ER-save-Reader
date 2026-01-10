@@ -143,12 +143,35 @@ def load_world_map_points() -> Dict[int, Dict]:
     return points
 
 
+def parse_msb_dir_name(msb_dir_name: str) -> Optional[Dict]:
+    """
+    Parse MSB directory name to extract area and grid info.
+
+    Format: m{area}_{gridX}_{gridZ}_{section}-msb-dcx
+    Examples:
+    - m60_42_37_00-msb-dcx → area=60, grid_x=42, grid_z=37
+    - m12_01_00_00-msb-dcx → area=12, grid_x=1, grid_z=0
+    - m10_00_00_00-msb-dcx → area=10, grid_x=0, grid_z=0
+    """
+    # Pattern: m{area}_{gridX}_{gridZ}_{section}-msb-dcx
+    match = re.match(r'm(\d+)_(\d+)_(\d+)_(\d+)-msb-dcx', msb_dir_name)
+    if match:
+        return {
+            "area_no": int(match.group(1)),
+            "grid_x": int(match.group(2)),
+            "grid_z": int(match.group(3)),
+            "section": int(match.group(4))
+        }
+    return None
+
+
 def load_msb_treasure_positions() -> Dict[int, Dict]:
     """
     Load treasure positions from MSB (Map Studio Binary) files.
 
     Returns dict keyed by ItemLotID (row_id from ItemLotParam):
     {item_lot_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                   "area_no": int, "grid_x": int, "grid_z": int,
                    "asset_name": str, "msb_dir": str}}
     """
     positions = {}
@@ -163,6 +186,8 @@ def load_msb_treasure_positions() -> Dict[int, Dict]:
 
     processed = 0
     for msb_dir in msb_dirs:
+        # Parse area/grid from directory name
+        msb_location = parse_msb_dir_name(msb_dir.name)
         treasure_dir = msb_dir / "Event" / "Treasure"
         asset_dir = msb_dir / "Part" / "Asset"
 
@@ -213,17 +238,23 @@ def load_msb_treasure_positions() -> Dict[int, Dict]:
             except Exception:
                 continue
 
-        # Step 3: Link ItemLotID → Position
+        # Step 3: Link ItemLotID → Position (with area/grid from MSB dir name)
         for item_lot_id, part_name in treasure_mapping.items():
             if part_name in asset_positions:
                 x, y, z = asset_positions[part_name]
-                positions[item_lot_id] = {
+                entry = {
                     "pos_x": x,
                     "pos_y": y,
                     "pos_z": z,
                     "asset_name": part_name,
                     "msb_dir": msb_dir.name
                 }
+                # Add area/grid from MSB directory name
+                if msb_location:
+                    entry["area_no"] = msb_location["area_no"]
+                    entry["grid_x"] = msb_location["grid_x"]
+                    entry["grid_z"] = msb_location["grid_z"]
+                positions[item_lot_id] = entry
 
         processed += 1
         if processed % 100 == 0:
@@ -652,6 +683,12 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
             pos_z = msb_data["pos_z"]
             position_source = "MSB"
             msb_hits += 1
+            # Use MSB area/grid if not already set from flag ID
+            if area_no is None and "area_no" in msb_data:
+                area_no = msb_data["area_no"]
+                grid_x = msb_data["grid_x"]
+                grid_z = msb_data["grid_z"]
+                map_tile = format_map_tile(area_no, grid_x, grid_z)
 
         # Preserve raw data from XML
         raw_data = {
