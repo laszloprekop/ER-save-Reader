@@ -4,7 +4,7 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
-## v0.2.4 - Enemy Defeat Flag Extraction
+## v0.2.4 - Enemy Defeat Flag Extraction & NPC Locations
 
 ### Features
 - **MSB Enemy Extraction**: Parse MSB Part/Enemy/*.xml for boss/enemy positions
@@ -29,6 +29,12 @@ All notable changes to ER-save-Editor will be documented in this file.
   - `Invasion`: Player model (c0000) NPC invaders
   - `Enemy`: Other trackable one-time enemies
 
+- **NPC Location Extraction**: Extract characters with dialog (TalkID > 0)
+  - 846 unique NPCs with positions from MSB files
+  - NPC type classification: Merchant, Smith, Quest NPC, Trainer, etc.
+  - Includes key NPCs like War Counselor Iji, Nomadic Merchants, questgivers
+  - Uses EntityID as flag ID for tracking (most NPCs lack explicit event flags)
+
 ### New Event Flag Categories
 - Great Boss Defeat: 88 flags
 - Boss Defeat: 58 flags
@@ -36,17 +42,19 @@ All notable changes to ER-save-Editor will be documented in this file.
 - Invasion Defeat: 2 flags
 - Enemy Defeat: 2 flags
 - Elite Enemy Defeat: 1 flag
+- NPC (with dialog): 846 entries
 
 ### Coverage Improvement
-- Total unique flags: 6,213 → **7,154** (+941 flags including 174 enemy defeat)
-- All 174 enemy flags have verified positions from MSB files
+- Total unique flags: 6,213 → **8,052** (+1,839 flags)
+- Enemy defeat flags: 174 with verified positions
+- NPCs with dialog: 846 with positions from MSB files
 
 ### Data Sources Added
 - NpcParam.param.xml (7,038 NPC definitions)
 - ChrModelParam.param.xml (266 model → name mappings)
 - WwiseValueToStrParam_BgmBossChrIdConv.param.xml (15 boss names)
 - NpcName.fmg.xml (479 NPC names with constructed nameId lookup)
-- MSB Part/Enemy/*.xml (positions for 174 verified enemies)
+- MSB Part/Enemy/*.xml (positions for 174 verified enemies + 846 NPCs)
 - Event scripts (*.emevd.js) for defeat flag validation
 
 ---

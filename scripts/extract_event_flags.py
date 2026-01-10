@@ -1611,6 +1611,268 @@ def extract_msb_enemies(msb_enemies: Dict[int, Dict]) -> List[EventFlag]:
     return flags
 
 
+def classify_npc_type(model_name: str, talk_id: int, chr_model_names: Dict[int, str]) -> str:
+    """
+    Classify NPC type based on model and TalkID patterns.
+
+    Returns: "Merchant", "Quest NPC", "Trainer", "Smith", "Spirit Tuner", or "NPC"
+    """
+    # Get model number
+    model_num = 0
+    if model_name.startswith("c"):
+        try:
+            model_num = int(model_name[1:])
+        except ValueError:
+            pass
+
+    # Get name from ChrModelParam for classification hints
+    name = chr_model_names.get(model_num, "").lower()
+
+    # Known merchant models
+    if model_num in {3200, 3202}:  # Nomadic Merchant
+        return "Merchant"
+
+    # Classification by name keywords
+    if "merchant" in name:
+        return "Merchant"
+    if "smith" in name or "blacksmith" in name:
+        return "Smith"
+    if "sorcerer" in name or "sorceress" in name:
+        return "Trainer"
+    if "finger reader" in name:
+        return "Finger Reader"
+
+    # Known specific NPCs by model
+    npc_types = {
+        2010: "Quest NPC",  # Blaidd
+        2050: "Quest NPC",  # Ranni
+        2051: "Quest NPC",  # Ranni
+        2180: "Quest NPC",  # Melina
+        2160: "Finger Reader",  # Finger Reader Crone
+        2170: "Finger Reader",  # Finger Reader Crone
+        4604: "Smith",  # War Counselor Iji
+    }
+
+    if model_num in npc_types:
+        return npc_types[model_num]
+
+    # Default: Quest NPC for characters with dialog
+    return "NPC"
+
+
+def load_msb_npc_data(chr_model_names: Dict[int, str], npc_names: Dict[int, str],
+                      existing_entity_ids: set) -> Dict[int, Dict]:
+    """
+    Load NPC data from MSB files - characters with TalkID (dialog capability).
+
+    Only includes NPCs not already captured in enemy defeat tracking.
+    NPCs are identified by having TalkID > 0.
+
+    Returns dict keyed by EntityID:
+    {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                 "model_name": str, "name": str, "npc_type": str,
+                 "talk_id": int, "area_no": int, "grid_x": int, "grid_z": int}}
+    """
+    npcs = {}
+
+    if not MSB_DIR.exists():
+        print(f"  Warning: MSB directory not found: {MSB_DIR}")
+        return npcs
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+    print(f"  Scanning {len(msb_dirs)} MSB directories for NPCs...")
+
+    processed = 0
+    for msb_dir in msb_dirs:
+        # Parse area/grid from directory name
+        msb_location = parse_msb_dir_name(msb_dir.name)
+        enemy_dir = msb_dir / "Part" / "Enemy"
+
+        if not enemy_dir.exists():
+            continue
+
+        for enemy_file in enemy_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(enemy_file)
+                root = tree.getroot()
+
+                # Get EntityID
+                entity_elem = root.find(".//EntityID")
+                if entity_elem is None:
+                    continue
+                entity_id = int(entity_elem.text or 0)
+                if entity_id == 0:
+                    continue
+
+                # Skip if already captured as enemy defeat
+                if entity_id in existing_entity_ids:
+                    continue
+
+                # Check for TalkID - NPCs with dialog
+                talk_elem = root.find(".//TalkID")
+                talk_id = int(talk_elem.text or 0) if talk_elem is not None else 0
+                if talk_id == 0:
+                    continue  # No dialog = not an interactive NPC
+
+                # Get model name
+                model_elem = root.find(".//ModelName")
+                model_name = model_elem.text if model_elem is not None else ""
+
+                # Get position
+                pos_elem = root.find(".//Position")
+                pos_x, pos_y, pos_z = 0.0, 0.0, 0.0
+                if pos_elem is not None:
+                    x_elem = pos_elem.find("X")
+                    y_elem = pos_elem.find("Y")
+                    z_elem = pos_elem.find("Z")
+                    if x_elem is not None:
+                        pos_x = float(x_elem.text or 0)
+                    if y_elem is not None:
+                        pos_y = float(y_elem.text or 0)
+                    if z_elem is not None:
+                        pos_z = float(z_elem.text or 0)
+
+                # Resolve name
+                name = None
+
+                # Try NpcName.fmg via constructed nameId
+                name = lookup_enemy_name_from_npc_names(model_name, npc_names)
+
+                # Try ChrModelParam
+                if not name:
+                    model_num_str = model_name[1:] if model_name.startswith("c") else ""
+                    try:
+                        model_num = int(model_num_str)
+                        if model_num in chr_model_names:
+                            name = chr_model_names[model_num]
+                    except ValueError:
+                        pass
+
+                # Fallback
+                if not name:
+                    name = f"NPC ({model_name})"
+
+                # Classify NPC type
+                npc_type = classify_npc_type(model_name, talk_id, chr_model_names)
+
+                # Build entry
+                entry = {
+                    "pos_x": pos_x,
+                    "pos_y": pos_y,
+                    "pos_z": pos_z,
+                    "model_name": model_name,
+                    "name": name,
+                    "npc_type": npc_type,
+                    "talk_id": talk_id,
+                    "msb_dir": msb_dir.name,
+                }
+
+                # Add area/grid
+                if msb_location:
+                    entry["area_no"] = msb_location["area_no"]
+                    entry["grid_x"] = msb_location["grid_x"]
+                    entry["grid_z"] = msb_location["grid_z"]
+
+                # Only add if not already seen
+                if entity_id not in npcs:
+                    npcs[entity_id] = entry
+
+            except Exception:
+                continue
+
+        processed += 1
+        if processed % 100 == 0:
+            print(f"    Processed {processed}/{len(msb_dirs)} MSB directories...")
+
+    # Count by type
+    type_counts = {}
+    for npc in npcs.values():
+        npc_type = npc.get("npc_type", "NPC")
+        type_counts[npc_type] = type_counts.get(npc_type, 0) + 1
+
+    print(f"  Loaded {len(npcs)} unique NPCs with dialog")
+    print("  NPC type breakdown:")
+    for npc_type, count in sorted(type_counts.items(), key=lambda x: -x[1]):
+        print(f"    {npc_type}: {count}")
+
+    return npcs
+
+
+def extract_msb_npcs(msb_npcs: Dict[int, Dict]) -> List[EventFlag]:
+    """
+    Extract event flags from MSB NPC data (characters with dialog).
+
+    These are interactive NPCs where the EntityID may be used for
+    tracking NPC state (alive, dead, quest progress, etc.)
+    """
+    flags = []
+
+    for entity_id, npc in msb_npcs.items():
+        area_no = npc.get("area_no")
+        grid_x = npc.get("grid_x")
+        grid_z = npc.get("grid_z")
+        pos_x = npc.get("pos_x")
+        pos_y = npc.get("pos_y")
+        pos_z = npc.get("pos_z")
+
+        # Compute world coordinates (only for overworld areas)
+        overworld = is_overworld_area(area_no) if area_no else False
+        world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+        # Classify area type and DLC status
+        area_type = get_area_type(area_no)
+        is_dlc = not is_base_game_area(area_no) if area_no else False
+
+        # Map tile
+        map_tile = format_map_tile(area_no, grid_x, grid_z) if area_no else None
+
+        # Derive region from location
+        if is_dlc:
+            region = "Shadow of the Erdtree"
+        elif area_no and area_no != 60:
+            region = get_dungeon_region(area_no)
+        elif grid_x and grid_z:
+            region = get_tile_region(grid_x, grid_z)
+        else:
+            region = "Various"
+
+        # NPC type becomes category
+        npc_type = npc.get("npc_type", "NPC")
+        category = npc_type
+
+        # Raw data
+        raw_data = {
+            "model_name": npc.get("model_name", ""),
+            "talk_id": npc.get("talk_id"),
+            "npc_type": npc_type,
+            "msb_dir": npc.get("msb_dir", ""),
+            "position_source": "MSB",
+        }
+
+        flags.append(EventFlag(
+            flag_id=entity_id,
+            name=npc.get("name", f"NPC_{entity_id}"),
+            category=category,
+            region=region,
+            source_file="MSB NPC",
+            area_no=area_no,
+            grid_x=grid_x,
+            grid_z=grid_z,
+            pos_x=pos_x,
+            pos_y=pos_y,
+            pos_z=pos_z,
+            map_tile=map_tile,
+            is_overworld=overworld,
+            world_x=world_x,
+            world_z=world_z,
+            area_type=area_type,
+            is_dlc=is_dlc,
+            raw_data=raw_data
+        ))
+
+    return flags
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
     """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
@@ -1732,7 +1994,16 @@ def main():
     enemy_flags = extract_msb_enemies(msb_enemies)
     print(f"  Found {len(enemy_flags)} flags")
 
-    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags + enemy_flags
+    # Load NPC data (characters with dialog, excluding already-tracked enemies)
+    existing_entity_ids = set(msb_enemies.keys())
+    print("\nLoading MSB NPC data (characters with dialog)...")
+    msb_npcs = load_msb_npc_data(chr_model_names, lookups["npcs"], existing_entity_ids)
+
+    print("\nExtracting from MSB NPC data...")
+    npc_flags = extract_msb_npcs(msb_npcs)
+    print(f"  Found {len(npc_flags)} flags")
+
+    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags + enemy_flags + npc_flags
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")
