@@ -25,6 +25,7 @@ MSG_ENGUS = GAME_FILES / "msg" / "engus" / "item-msgbnd-dcx"
 MSG_DLC01 = GAME_FILES / "msg" / "engus" / "item_dlc01-msgbnd-dcx"
 MSG_DLC02 = GAME_FILES / "msg" / "engus" / "item_dlc02-msgbnd-dcx"
 EVENT_DIR = GAME_FILES / "event"
+MSB_DIR = GAME_FILES / "map" / "mapstudio"
 
 @dataclass
 class EventFlag:
@@ -39,13 +40,20 @@ class EventFlag:
     item_category: Optional[int] = None
     # Spatial data (preserved from game files)
     area_no: Optional[int] = None        # areaNo from game (10=Stormveil, 60=overworld, etc.)
-    grid_x: Optional[int] = None         # gridXNo from game
-    grid_z: Optional[int] = None         # gridZNo from game
-    pos_x: Optional[float] = None        # posX world coordinate
-    pos_y: Optional[float] = None        # posY world coordinate (height)
-    pos_z: Optional[float] = None        # posZ world coordinate
+    grid_x: Optional[int] = None         # gridXNo from game (tile index for overworld, dungeon ID for dungeons)
+    grid_z: Optional[int] = None         # gridZNo from game (tile index for overworld, section for dungeons)
+    pos_x: Optional[float] = None        # posX LOCAL coordinate within tile/dungeon
+    pos_y: Optional[float] = None        # posY height coordinate
+    pos_z: Optional[float] = None        # posZ LOCAL coordinate within tile/dungeon
     map_tile: Optional[str] = None       # Derived: "m60_42_37" format
     region_id: Optional[int] = None      # bonfireSubCategoryId or derived
+    # Computed world coordinates (only valid for overworld areaNo 60/61)
+    is_overworld: bool = False           # True if areaNo is 60 (base) or 61 (DLC)
+    world_x: Optional[float] = None      # Computed: grid_x * 256 + pos_x (overworld only)
+    world_z: Optional[float] = None      # Computed: grid_z * 256 + pos_z (overworld only)
+    # Area classification
+    area_type: str = "unknown"           # overworld_surface, underworld, subterranean, legacy_dungeon, minor_dungeon, divine_tower, tutorial
+    is_dlc: bool = False                 # True if from Shadow of the Erdtree DLC
     raw_data: Dict[str, Any] = field(default_factory=dict)
 
 def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
@@ -135,11 +143,215 @@ def load_world_map_points() -> Dict[int, Dict]:
     return points
 
 
+def load_msb_treasure_positions() -> Dict[int, Dict]:
+    """
+    Load treasure positions from MSB (Map Studio Binary) files.
+
+    Returns dict keyed by ItemLotID (row_id from ItemLotParam):
+    {item_lot_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                   "asset_name": str, "msb_dir": str}}
+    """
+    positions = {}
+
+    if not MSB_DIR.exists():
+        print(f"  Warning: MSB directory not found: {MSB_DIR}")
+        return positions
+
+    # Find all MSB directories (m60_XX_YY_00-msb-dcx pattern for base game)
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+    print(f"  Found {len(msb_dirs)} MSB directories")
+
+    processed = 0
+    for msb_dir in msb_dirs:
+        treasure_dir = msb_dir / "Event" / "Treasure"
+        asset_dir = msb_dir / "Part" / "Asset"
+
+        if not treasure_dir.exists() or not asset_dir.exists():
+            continue
+
+        # Step 1: Parse Treasure events to get ItemLotID → TreasurePartName
+        treasure_mapping = {}  # {item_lot_id: treasure_part_name}
+        for treasure_file in treasure_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(treasure_file)
+                root = tree.getroot()
+
+                # Look for <ItemLotID> and <TreasurePartName>
+                item_lot_elem = root.find(".//ItemLotID")
+                part_name_elem = root.find(".//TreasurePartName")
+
+                if item_lot_elem is not None and part_name_elem is not None:
+                    item_lot_id = int(item_lot_elem.text or 0)
+                    part_name = part_name_elem.text or ""
+                    if item_lot_id > 0 and part_name:
+                        treasure_mapping[item_lot_id] = part_name
+            except Exception:
+                continue
+
+        # Step 2: Parse Asset files to get positions
+        asset_positions = {}  # {asset_name: (x, y, z)}
+        for asset_file in asset_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(asset_file)
+                root = tree.getroot()
+
+                name_elem = root.find(".//Name")
+                pos_elem = root.find(".//Position")
+
+                if name_elem is not None and pos_elem is not None:
+                    asset_name = name_elem.text or ""
+                    x_elem = pos_elem.find("X")
+                    y_elem = pos_elem.find("Y")
+                    z_elem = pos_elem.find("Z")
+
+                    if x_elem is not None and y_elem is not None and z_elem is not None:
+                        asset_positions[asset_name] = (
+                            float(x_elem.text or 0),
+                            float(y_elem.text or 0),
+                            float(z_elem.text or 0)
+                        )
+            except Exception:
+                continue
+
+        # Step 3: Link ItemLotID → Position
+        for item_lot_id, part_name in treasure_mapping.items():
+            if part_name in asset_positions:
+                x, y, z = asset_positions[part_name]
+                positions[item_lot_id] = {
+                    "pos_x": x,
+                    "pos_y": y,
+                    "pos_z": z,
+                    "asset_name": part_name,
+                    "msb_dir": msb_dir.name
+                }
+
+        processed += 1
+        if processed % 100 == 0:
+            print(f"    Processed {processed}/{len(msb_dirs)} MSB directories...")
+
+    print(f"  Loaded {len(positions)} treasure positions from MSB files")
+    return positions
+
+
 def format_map_tile(area_no: int, grid_x: int, grid_z: int) -> str:
     """Format map tile string from area and grid coordinates."""
     if area_no == 0 and grid_x == 0 and grid_z == 0:
         return None
     return f"m{area_no}_{grid_x:02d}_{grid_z:02d}"
+
+
+def is_overworld_area(area_no: int) -> bool:
+    """Check if area_no represents overworld (where grid coordinates form a world map)."""
+    # 60 = Base game overworld
+    # 61 = DLC (Shadow of the Erdtree) overworld
+    return area_no in (60, 61)
+
+
+def get_area_type(area_no: int) -> str:
+    """
+    Classify area_no into location types.
+
+    Returns one of:
+    - "overworld_surface": Open world surface (base game or DLC)
+    - "underworld": Underground open areas (Siofra, Ainsel, Nokron, etc.)
+    - "subterranean": Deep underground areas (Shunning-Grounds, Mohgwyn)
+    - "legacy_dungeon": Major story dungeons
+    - "minor_dungeon": Caves, catacombs, tunnels, etc.
+    - "divine_tower": Divine Tower locations
+    - "tutorial": Tutorial/starting area
+    - "unknown": Unclassified
+    """
+    if area_no is None:
+        return "unknown"
+
+    # Base game overworld surface
+    if area_no == 60:
+        return "overworld_surface"
+    # DLC overworld surface
+    if area_no == 61:
+        return "overworld_surface"
+
+    # Underworld - large underground open areas (base game)
+    # Siofra River, Ainsel River, Nokron, Nokstella, Lake of Rot, Deeproot Depths
+    if area_no == 12:
+        return "underworld"
+
+    # Subterranean - deep underground (Shunning-Grounds, Mohgwyn Palace)
+    if area_no == 35:
+        return "subterranean"
+
+    # Tutorial area
+    if area_no == 18:
+        return "tutorial"
+
+    # Legacy dungeons (base game)
+    # 10=Stormveil, 11=Leyndell, 13=Farum Azula, 14=Raya Lucaria,
+    # 15=Haligtree, 16=Volcano Manor, 19=Elden Throne
+    if area_no in (10, 11, 13, 14, 15, 16, 19):
+        return "legacy_dungeon"
+
+    # Legacy dungeons (DLC)
+    # 20=Belurat, 21=Shadow Keep, 22=Stone Coffin Fissure,
+    # 25=Finger Birthing Grounds, 28=Manus Metyr
+    if area_no in (20, 21, 22, 25, 28):
+        return "legacy_dungeon"
+
+    # Divine Towers
+    if area_no == 34:
+        return "divine_tower"
+
+    # Minor dungeons (base game)
+    # 30=Catacombs, 31=Caves, 32=Tunnels, 39=Ruin-Strewn Precipice, 40=Hero's Graves
+    if area_no in (30, 31, 32, 39, 40):
+        return "minor_dungeon"
+
+    # Minor dungeons (DLC)
+    # 40=Catacombs, 41=Gaols, 42=Forges, 43=Caves
+    if area_no in (41, 42, 43):
+        return "minor_dungeon"
+
+    return "unknown"
+
+
+def is_base_game_area(area_no: int) -> bool:
+    """Check if area_no is from the base game (not DLC)."""
+    if area_no is None:
+        return True  # Default assumption
+    # DLC areas: 20-28 (legacy), 40-43 (minor), 61 (overworld)
+    dlc_areas = {20, 21, 22, 25, 28, 40, 41, 42, 43, 61}
+    # Note: area 40 is shared (Hero's Graves base + DLC Catacombs)
+    # For grid_x 0-10 it's base game, higher is DLC
+    return area_no not in dlc_areas
+
+
+def compute_world_coords(area_no: int, grid_x: int, grid_z: int,
+                         pos_x: float, pos_z: float) -> tuple:
+    """
+    Compute world coordinates from grid and local position.
+
+    Only valid for overworld areas (60, 61) where:
+    - grid_x/grid_z represent tile indices on the world map
+    - Each tile is 256 units
+    - pos_x/pos_z are offsets within the tile
+
+    For dungeons (area_no != 60/61):
+    - grid_x identifies the dungeon type/index
+    - pos_x/pos_z are local dungeon coordinates
+    - World coordinates are NOT meaningful
+
+    Returns (world_x, world_z) or (None, None) for non-overworld areas.
+    """
+    if not is_overworld_area(area_no):
+        return None, None
+
+    if grid_x is None or grid_z is None:
+        return None, None
+    if pos_x is None or pos_z is None:
+        return None, None
+
+    world_x = grid_x * 256.0 + pos_x
+    world_z = grid_z * 256.0 + pos_z
+    return world_x, world_z
 
 
 def parse_flag_id_location(flag_id: int) -> Optional[Dict]:
@@ -379,8 +591,8 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
 
     return "Unknown"
 
-def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> List[EventFlag]:
-    """Extract event flags from ItemLotParam_map with spatial data."""
+def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict]) -> List[EventFlag]:
+    """Extract event flags from ItemLotParam_map with spatial data from multiple sources."""
     flags = []
     xml_path = REGULATION_BIN / "ItemLotParam_map.param.xml"
 
@@ -390,6 +602,8 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> 
 
     tree = ET.parse(xml_path)
     root = tree.getroot()
+
+    msb_hits = 0  # Track how many positions came from MSB
 
     for row in root.findall(".//row"):
         row_id = int(row.get("id", 0))
@@ -414,19 +628,30 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> 
         grid_z = location["grid_z"] if location else None
         map_tile = location["map_tile"] if location else None
 
-        # Cross-reference with WorldMapPointParam for exact coordinates
+        # Cross-reference with WorldMapPointParam for exact coordinates (highest priority)
         pos_x, pos_y, pos_z = None, None, None
+        position_source = None
         poi_data = world_map_points.get(flag_id)
         if poi_data:
             pos_x = poi_data["pos_x"]
             pos_y = poi_data["pos_y"]
             pos_z = poi_data["pos_z"]
+            position_source = "WorldMapPointParam"
             # Use POI's grid data if available (more accurate)
             if poi_data["area_no"] != 0:
                 area_no = poi_data["area_no"]
                 grid_x = poi_data["grid_x"]
                 grid_z = poi_data["grid_z"]
                 map_tile = format_map_tile(area_no, grid_x, grid_z)
+
+        # Fallback to MSB treasure positions if no POI data
+        if pos_x is None and row_id in msb_positions:
+            msb_data = msb_positions[row_id]
+            pos_x = msb_data["pos_x"]
+            pos_y = msb_data["pos_y"]
+            pos_z = msb_data["pos_z"]
+            position_source = "MSB"
+            msb_hits += 1
 
         # Preserve raw data from XML
         raw_data = {
@@ -446,6 +671,21 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> 
         if location:
             raw_data["derived_location"] = location
 
+        # Track position source in raw_data
+        if position_source:
+            raw_data["position_source"] = position_source
+            if position_source == "MSB" and row_id in msb_positions:
+                raw_data["msb_asset"] = msb_positions[row_id].get("asset_name", "")
+                raw_data["msb_dir"] = msb_positions[row_id].get("msb_dir", "")
+
+        # Compute world coordinates (only for overworld areas)
+        overworld = is_overworld_area(area_no) if area_no else False
+        world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+        # Classify area type and DLC status
+        area_type = get_area_type(area_no)
+        is_dlc = not is_base_game_area(area_no) if area_no else False
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -462,8 +702,16 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict]) -> 
             pos_y=pos_y,
             pos_z=pos_z,
             map_tile=map_tile,
+            is_overworld=overworld,
+            world_x=world_x,
+            world_z=world_z,
+            area_type=area_type,
+            is_dlc=is_dlc,
             raw_data=raw_data
         ))
+
+    if msb_hits > 0:
+        print(f"    MSB positions used: {msb_hits}")
 
     return flags
 
@@ -511,6 +759,14 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
             "posZ": pos_z,
         }
 
+        # Compute world coordinates (only for overworld areas)
+        overworld = is_overworld_area(area_no)
+        world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+        # Classify area type and DLC status
+        area_type = get_area_type(area_no)
+        is_dlc = not is_base_game_area(area_no)
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -526,6 +782,11 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
             pos_z=pos_z,
             map_tile=format_map_tile(area_no, grid_x, grid_z),
             region_id=sub_cat,
+            is_overworld=overworld,
+            world_x=world_x,
+            world_z=world_z,
+            area_type=area_type,
+            is_dlc=is_dlc,
             raw_data=raw_data
         ))
 
@@ -756,6 +1017,17 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
             "posZ": poi["pos_z"],
         }
 
+        # Compute world coordinates (only for overworld areas)
+        area_no = poi["area_no"]
+        overworld = is_overworld_area(area_no)
+        world_x, world_z = compute_world_coords(
+            area_no, poi["grid_x"], poi["grid_z"], poi["pos_x"], poi["pos_z"]
+        )
+
+        # Classify area type and DLC status
+        area_type = get_area_type(area_no)
+        is_dlc = not is_base_game_area(area_no)
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -763,13 +1035,18 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
             region=region,
             source_file="WorldMapPointParam.param.xml",
             source_row_id=poi["row_id"],
-            area_no=poi["area_no"],
+            area_no=area_no,
             grid_x=poi["grid_x"],
             grid_z=poi["grid_z"],
             pos_x=poi["pos_x"],
             pos_y=poi["pos_y"],
             pos_z=poi["pos_z"],
-            map_tile=format_map_tile(poi["area_no"], poi["grid_x"], poi["grid_z"]),
+            map_tile=format_map_tile(area_no, poi["grid_x"], poi["grid_z"]),
+            is_overworld=overworld,
+            world_x=world_x,
+            world_z=world_z,
+            area_type=area_type,
+            is_dlc=is_dlc,
             raw_data=raw_data
         ))
 
@@ -792,8 +1069,8 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
     lines.append("")
     lines.append(f"Total unique flags: {len(unique_flags)}")
     lines.append("")
-    lines.append("| Flag ID | Name | Category | Region | Map Tile | Coords (X,Y,Z) | Source |")
-    lines.append("|---------|------|----------|--------|----------|----------------|--------|")
+    lines.append("| Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | Source |")
+    lines.append("|---------|------|----------|--------|----------|-------------------|-------------|--------|")
 
     for f in unique_flags:
         # No truncation - full names preserved
@@ -805,13 +1082,19 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
         # Format map tile
         map_tile = f.map_tile or "-"
 
-        # Format coordinates
+        # Format local coordinates
         if f.pos_x is not None and f.pos_y is not None and f.pos_z is not None:
-            coords = f"{f.pos_x:.1f}, {f.pos_y:.1f}, {f.pos_z:.1f}"
+            local_coords = f"{f.pos_x:.1f}, {f.pos_y:.1f}, {f.pos_z:.1f}"
         else:
-            coords = "-"
+            local_coords = "-"
 
-        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {map_tile} | {coords} | {source} |")
+        # Format world coordinates (only for overworld)
+        if f.world_x is not None and f.world_z is not None:
+            world_coords = f"{f.world_x:.1f}, {f.world_z:.1f}"
+        else:
+            world_coords = "-"
+
+        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {map_tile} | {local_coords} | {world_coords} | {source} |")
 
     return "\n".join(lines)
 
@@ -841,12 +1124,15 @@ def main():
     world_map_pieces = load_world_map_pieces()
     print(f"  WorldMapPieceParam: {len(world_map_pieces)} map regions")
 
+    print("\nLoading MSB treasure positions...")
+    msb_positions = load_msb_treasure_positions()
+
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
     print("-" * 40)
 
     print("\nExtracting from ItemLotParam_map...")
-    item_lot_flags = extract_item_lot_param(lookups, world_map_points)
+    item_lot_flags = extract_item_lot_param(lookups, world_map_points, msb_positions)
     print(f"  Found {len(item_lot_flags)} flags")
 
     print("\nExtracting from BonfireWarpParam...")
@@ -888,6 +1174,44 @@ def main():
     for cat, count in category_counts.items():
         print(f"  {cat}: {count}")
 
+    # Spatial coverage statistics
+    print(f"\n{'=' * 40}")
+    print("Spatial Data Coverage:")
+    print("-" * 40)
+    with_local_coords = sum(1 for f in unique_flags if f.pos_x is not None)
+    with_world_coords = sum(1 for f in unique_flags if f.world_x is not None)
+    with_map_tile = sum(1 for f in unique_flags if f.map_tile is not None)
+    from_poi = sum(1 for f in unique_flags if f.raw_data.get("position_source") == "WorldMapPointParam")
+    from_msb = sum(1 for f in unique_flags if f.raw_data.get("position_source") == "MSB")
+    from_grace = sum(1 for f in unique_flags if f.source_file == "BonfireWarpParam.param.xml" and f.pos_x is not None)
+
+    print(f"  Flags with local coords: {with_local_coords}/{len(unique_flags)} ({100*with_local_coords//len(unique_flags)}%)")
+    print(f"  Flags with world coords: {with_world_coords}/{len(unique_flags)} ({100*with_world_coords//len(unique_flags)}%)")
+    print(f"  Flags with map tile: {with_map_tile}/{len(unique_flags)} ({100*with_map_tile//len(unique_flags)}%)")
+    print(f"  Coordinates from BonfireWarpParam: {from_grace}")
+    print(f"  Coordinates from WorldMapPointParam: {from_poi}")
+    print(f"  Coordinates from MSB files: {from_msb}")
+
+    # Area type breakdown
+    print(f"\n{'=' * 40}")
+    print("Area Type Breakdown:")
+    print("-" * 40)
+    area_type_counts = {}
+    dlc_count = 0
+    base_count = 0
+    for f in unique_flags:
+        area_type_counts[f.area_type] = area_type_counts.get(f.area_type, 0) + 1
+        if f.is_dlc:
+            dlc_count += 1
+        else:
+            base_count += 1
+
+    for area_type, count in sorted(area_type_counts.items(), key=lambda x: -x[1]):
+        print(f"  {area_type}: {count}")
+    print(f"  ---")
+    print(f"  Base game: {base_count}")
+    print(f"  DLC: {dlc_count}")
+
     # Output directory
     output_dir = Path(__file__).parent
 
@@ -908,7 +1232,8 @@ def main():
                 "BonfireWarpParam.param.xml",
                 "ShopLineupParam.param.xml",
                 "common.emevd.js",
-                "WorldMapPointParam.param.xml"
+                "WorldMapPointParam.param.xml",
+                "MSB files (map/mapstudio/m*-msb-dcx/)"
             ],
             "category_counts": category_counts
         },
