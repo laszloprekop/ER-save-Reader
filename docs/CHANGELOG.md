@@ -9,37 +9,44 @@ All notable changes to ER-save-Editor will be documented in this file.
 ### Features
 - **MSB Enemy Extraction**: Parse MSB Part/Enemy/*.xml for boss/enemy positions
   - Cross-validates EntityIDs against event scripts for accuracy
-  - Only includes enemies verified as tracked (SetNetworkconnectedEventFlagID or HandleBossDefeatAndDisplayBanner)
-  - 122 verified enemy defeat flags with coordinates
+  - Includes enemies from multiple tracking sources:
+    - `SetNetworkconnectedEventFlagID` for general tracking
+    - `HandleBossDefeatAndDisplayBanner` for boss defeats
+    - `InitializeCommonEvent(90005860)` for field boss defeats
+    - `InitializeCommonEvent(90005870)` for boss name tracking
+  - 174 verified enemy defeat flags with coordinates
 
-- **Enemy Name Resolution**:
-  - NPCParamID → nameId → NpcName.fmg for character names
-  - ModelName → BgmBossChrIdConv for boss names (Godrick, Rennala, Malenia, etc.)
+- **Enemy Name Resolution** (priority order):
+  1. NpcName.fmg via constructed nameId (9 + model + variation) - gives full in-game names like "Margit, the Fell Omen", "Tree Sentinel"
+  2. BgmBossChrIdConv for major boss display names (Godrick, Rennala, Malenia, etc.)
+  3. ChrModelParam.paramdexName for general enemy names (266 model mappings)
+  4. NPCParamID → nameId → NpcName.fmg fallback
 
 - **Enemy Type Classification** (based on entity ID patterns and model):
-  - `Great Boss`: Main demigods (Godrick, Rennala, Malenia, Mohg, etc.)
-  - `Boss`: Major bosses (dungeon bosses, remembrance bosses)
-  - `Field Boss`: Secondary bosses (Margit, Godfrey illusion, Patches)
-  - `Elite Enemy`: Mini-bosses and field elites
-  - `Invasion`: NPC invaders
+  - `Great Boss`: Main demigods with c2xxx/c4xxx models (Godrick, Rennala, Malenia, Mohg, etc.)
+  - `Boss`: Entity IDs ending in 0800/0801 (Tree Sentinel, Night's Cavalry, dungeon bosses)
+  - `Field Boss`: Entity IDs ending in 0850/0851 (Margit pre-Stormveil, various)
+  - `Invasion`: Player model (c0000) NPC invaders
   - `Enemy`: Other trackable one-time enemies
 
 ### New Event Flag Categories
-- Boss Defeat: 53 flags
-- Elite Enemy Defeat: 29 flags
-- Great Boss Defeat: 12 flags
-- Enemy Defeat: 12 flags
-- Field Boss Defeat: 9 flags
-- Invasion Defeat: 7 flags
+- Great Boss Defeat: 88 flags
+- Boss Defeat: 58 flags
+- Field Boss Defeat: 23 flags
+- Invasion Defeat: 2 flags
+- Enemy Defeat: 2 flags
+- Elite Enemy Defeat: 1 flag
 
 ### Coverage Improvement
-- Total unique flags: 6,213 → **6,335** (+122 enemy defeat flags)
-- All 122 enemy flags have verified positions from MSB files
+- Total unique flags: 6,213 → **7,154** (+941 flags including 174 enemy defeat)
+- All 174 enemy flags have verified positions from MSB files
 
 ### Data Sources Added
 - NpcParam.param.xml (7,038 NPC definitions)
+- ChrModelParam.param.xml (266 model → name mappings)
 - WwiseValueToStrParam_BgmBossChrIdConv.param.xml (15 boss names)
-- MSB Part/Enemy/*.xml (positions for 122 verified enemies)
+- NpcName.fmg.xml (479 NPC names with constructed nameId lookup)
+- MSB Part/Enemy/*.xml (positions for 174 verified enemies)
 - Event scripts (*.emevd.js) for defeat flag validation
 
 ---

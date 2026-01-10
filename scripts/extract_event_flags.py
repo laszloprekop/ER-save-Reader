@@ -207,6 +207,69 @@ def load_boss_names() -> Dict[str, str]:
     return boss_names
 
 
+def load_chr_model_param() -> Dict[int, str]:
+    """
+    Load enemy/NPC names from ChrModelParam (maps model number to display name).
+
+    Returns dict: {model_number: name}
+    e.g., {3251: "Tree Sentinel", 2130: "Morgott", 2500: "Crucible Knight"}
+    """
+    model_names = {}
+    xml_path = REGULATION_BIN / "ChrModelParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return model_names
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            model_id = int(row.get("id", 0))
+            name = row.get("paramdexName", "")
+            if model_id and name:
+                model_names[model_id] = name
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return model_names
+
+
+def lookup_enemy_name_from_npc_names(model_name: str, npc_names: Dict[int, str]) -> Optional[str]:
+    """
+    Look up enemy name from NpcName.fmg using constructed nameId.
+
+    NpcName.fmg uses IDs like 903251600 = "Tree Sentinel":
+    - 9 = prefix
+    - 03251 = model number (from cXXXX, 5 digits with leading 0)
+    - 600 = variation
+
+    Tries common variations (000, 300, 500, 600) and returns first match.
+    """
+    if not model_name or not model_name.startswith("c"):
+        return None
+
+    # Extract model number: c3251 -> 3251
+    model_num_str = model_name[1:]
+    try:
+        model_num = int(model_num_str)
+    except ValueError:
+        return None
+
+    # Construct nameId base: 9 + model (padded to 5 digits)
+    # e.g., model 3251 -> base 903251
+    base = 900000000 + (model_num * 1000)  # 903251000
+
+    # Try common variations
+    variations = [0, 300, 500, 600, 301, 601]
+    for var in variations:
+        name_id = base + var
+        if name_id in npc_names:
+            return npc_names[name_id]
+
+    return None
+
+
 def load_npc_param() -> Dict[int, Dict]:
     """
     Load NPC parameters to map NPCParamID → nameId.
@@ -261,15 +324,20 @@ def classify_enemy_type(entity_id: int, npc_param_id: int, model_name: str) -> s
     """
     entity_str = str(entity_id)
 
-    # Check for boss patterns (ends in 0800 or 0850)
-    if entity_str.endswith("00800"):
+    # Check for boss patterns (ends in 0800, 0801, or 0850)
+    # For legacy dungeons (8-digit IDs like 10000800): ends in 00800
+    # For overworld (10-digit IDs like 1042360800): ends in 0800
+    if entity_str.endswith("0800") or entity_str.endswith("0801"):
         # Check model for Great Boss vs regular boss
         if model_name.startswith("c2") or model_name.startswith("c4"):
-            # c2XXX and c4XXX are typically main bosses
+            # c2XXX and c4XXX are typically main story bosses (demigods)
             return "Great Boss"
+        # c3XXX on horseback (Tree Sentinel, Night's Cavalry) are field bosses
+        if model_name.startswith("c3"):
+            return "Boss"
         return "Boss"
 
-    if entity_str.endswith("00850"):
+    if entity_str.endswith("0850") or entity_str.endswith("0851"):
         return "Field Boss"
 
     # Check model-based classification
@@ -317,6 +385,8 @@ def extract_tracked_defeat_flags() -> set:
     Sources:
     1. SetNetworkconnectedEventFlagID(entityID, ON) - general event tracking
     2. HandleBossDefeatAndDisplayBanner(entityID, ...) - boss defeat handler
+    3. InitializeCommonEvent(0, 90005860, entityID, ...) - field boss defeat handler
+    4. InitializeCommonEvent(0, 90005870, entityID, ...) - boss name display (also tracks defeat)
 
     Returns set of tracked entity IDs (defeat flags).
     """
@@ -328,8 +398,14 @@ def extract_tracked_defeat_flags() -> set:
 
     # Patterns to match
     patterns = [
+        # Direct flag setting
         re.compile(r'SetNetworkconnectedEventFlagID\((\d+),\s*ON\)'),
+        # Boss defeat handler function
         re.compile(r'HandleBossDefeatAndDisplayBanner\((\d+),'),
+        # Common event 90005860 - field boss defeat handler (entityID is 3rd param)
+        re.compile(r'\$InitializeCommonEvent\(\s*0\s*,\s*90005860\s*,\s*(\d+)'),
+        # Common event 90005870 - boss name display (entityID is 3rd param)
+        re.compile(r'\$InitializeCommonEvent\(\s*0\s*,\s*90005870\s*,\s*(\d+)'),
     ]
 
     for js_file in EVENT_DIR.glob("*.emevd.js"):
@@ -347,13 +423,19 @@ def extract_tracked_defeat_flags() -> set:
 
 
 def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
-                        boss_names: Dict[str, str],
+                        boss_names: Dict[str, str], chr_model_names: Dict[int, str],
                         tracked_flags: set) -> Dict[int, Dict]:
     """
     Load enemy data from MSB (Map Studio Binary) files.
 
     Only includes enemies whose EntityID is in tracked_flags (verified to be
     persisted via SetNetworkconnectedEventFlagID in event scripts).
+
+    Name resolution priority:
+    1. NpcName.fmg via constructed nameId (9 + model + variation) - gives full in-game name
+    2. BgmBossChrIdConv for major boss display names
+    3. ChrModelParam.paramdexName for general enemy names
+    4. Fallback to "Enemy (model_name)"
 
     Returns dict keyed by EntityID (which is also the defeat event flag):
     {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
@@ -419,19 +501,40 @@ def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
                     if z_elem is not None:
                         pos_z = float(z_elem.text or 0)
 
-                # Look up name via NPC param → name_id → NPC name
+                # Look up name - priority:
+                # 1. NpcName.fmg via constructed nameId (gives full in-game name like "Margit, the Fell Omen")
+                # 2. BgmBossChrIdConv (major boss display names)
+                # 3. ChrModelParam.paramdexName (general enemy names)
+                # 4. NpcParam nameId → NpcName (rarely populated)
+                # 5. Fallback to model name
                 name = None
                 name_id = None
-                if npc_param_id in npc_params:
+
+                # Priority 1: NpcName.fmg via constructed nameId
+                name = lookup_enemy_name_from_npc_names(model_name, npc_names)
+
+                # Priority 2: BgmBossChrIdConv (major boss display names)
+                if not name and model_name in boss_names:
+                    name = boss_names[model_name]
+
+                # Priority 3: ChrModelParam.paramdexName
+                if not name:
+                    # Extract model number from model_name (c3251 -> 3251)
+                    model_num_str = model_name[1:] if model_name.startswith("c") else ""
+                    try:
+                        model_num = int(model_num_str)
+                        if model_num in chr_model_names:
+                            name = chr_model_names[model_num]
+                    except ValueError:
+                        pass
+
+                # Priority 4: NpcParam nameId → NpcName (rarely populated)
+                if not name and npc_param_id in npc_params:
                     name_id = npc_params[npc_param_id].get("name_id", 0)
                     if name_id and name_id in npc_names:
                         name = npc_names[name_id]
 
-                # Fallback to boss names lookup (uses model name)
-                if not name and model_name in boss_names:
-                    name = boss_names[model_name]
-
-                # Final fallback: model name
+                # Priority 5: Fallback to model name
                 if not name:
                     name = f"Enemy ({model_name})"
 
@@ -1587,6 +1690,10 @@ def main():
     boss_names = load_boss_names()
     print(f"  BgmBossChrIdConv: {len(boss_names)} boss model → name mappings")
 
+    print("\nLoading character model names...")
+    chr_model_names = load_chr_model_param()
+    print(f"  ChrModelParam: {len(chr_model_names)} model → name mappings")
+
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
 
@@ -1595,7 +1702,7 @@ def main():
     print(f"  Found {len(tracked_defeat_flags)} defeat flags in event scripts")
 
     print("\nLoading MSB enemy data (filtered by tracked flags)...")
-    msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names, tracked_defeat_flags)
+    msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names, chr_model_names, tracked_defeat_flags)
 
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
