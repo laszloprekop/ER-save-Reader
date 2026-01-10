@@ -1873,6 +1873,469 @@ def extract_msb_npcs(msb_npcs: Dict[int, Dict]) -> List[EventFlag]:
     return flags
 
 
+def load_region_names() -> Dict[int, str]:
+    """
+    Load region names from MapGdRegionInfoParam.
+
+    Returns: {map_id: region_name}
+    Map ID format: 10000000 = Stormveil Castle (area 10)
+    """
+    regions = {}
+    xml_path = REGULATION_BIN / "MapGdRegionInfoParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return regions
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+
+        for row in root.findall(".//row"):
+            row_id = int(row.get("id", 0))
+            name = row.get("paramdexName", "")
+            if name and row_id > 0:
+                regions[row_id] = name
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return regions
+
+
+def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
+    """
+    Extract boss arena data from GameAreaParam.
+
+    This includes:
+    - Boss defeat flags with coordinates
+    - Boss discovery flags
+    - Soul rewards
+    """
+    flags = []
+    xml_path = REGULATION_BIN / "GameAreaParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return flags
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+
+        for row in root.findall(".//row"):
+            row_id = int(row.get("id", 0))
+            if row_id <= 0:
+                continue
+
+            name = row.get("paramdexName", "")
+            defeat_flag = int(row.get("defeatBossFlagId", 0))
+            found_flag = int(row.get("foundBossFlagId", 0))
+
+            # Skip entries without defeat flags or names
+            if defeat_flag <= 0 or not name:
+                continue
+
+            # Parse boss coordinates
+            pos_x = float(row.get("bossPosX", 0))
+            pos_y = float(row.get("bossPosY", 0))
+            pos_z = float(row.get("bossPosZ", 0))
+
+            # Parse map area info
+            area_no = int(row.get("bossMapAreaNo", 0))
+            block_no = int(row.get("bossMapBlockNo", 0))
+            map_no = int(row.get("bossMapMapNo", 0))
+
+            # Parse soul rewards
+            souls_single = int(row.get("bonusSoul_single", 0))
+            souls_multi = int(row.get("bonusSoul_multi", 0))
+
+            # Determine area type and region
+            area_type = get_area_type(area_no)
+            is_dlc = not is_base_game_area(area_no) if area_no else False
+
+            # Map tile
+            map_tile = f"m{area_no}_{block_no:02d}_{map_no:02d}" if area_no else None
+
+            # Get region name from mapping
+            region_key = area_no * 1000000 + block_no * 10000
+            region = region_names.get(region_key, "")
+            if not region:
+                # Try to extract from name (usually in format "[Location] Boss Name")
+                if name.startswith("[") and "]" in name:
+                    region = name[1:name.index("]")]
+                else:
+                    region = get_dungeon_region(area_no) if area_no else "Various"
+
+            # Clean boss name (remove location prefix if present)
+            boss_name = name
+            if name.startswith("[") and "]" in name:
+                boss_name = name[name.index("]") + 1:].strip()
+
+            # Compute world coordinates (for overworld only)
+            is_ow = is_overworld_area(area_no) if area_no else False
+            world_x, world_z = None, None
+            if is_ow and pos_x != 0 and pos_z != 0:
+                # Overworld boss - approximate from area coords
+                world_x, world_z = pos_x, pos_z
+
+            raw_data = {
+                "row_id": row_id,
+                "defeat_flag": defeat_flag,
+                "found_flag": found_flag,
+                "souls_single": souls_single,
+                "souls_multi": souls_multi,
+                "area_no": area_no,
+                "block_no": block_no,
+                "map_no": map_no,
+                "full_name": name,
+            }
+
+            # Create flag for boss defeat
+            flags.append(EventFlag(
+                flag_id=defeat_flag,
+                name=boss_name,
+                category="Boss Arena",
+                region=region,
+                source_file="GameAreaParam.param.xml",
+                source_row_id=row_id,
+                area_no=area_no,
+                grid_x=block_no,
+                grid_z=map_no,
+                pos_x=pos_x,
+                pos_y=pos_y,
+                pos_z=pos_z,
+                map_tile=map_tile,
+                is_overworld=is_ow,
+                world_x=world_x,
+                world_z=world_z,
+                area_type=area_type,
+                is_dlc=is_dlc,
+                raw_data=raw_data
+            ))
+
+            # Also create flag for boss discovery if different from defeat
+            if found_flag > 0 and found_flag != defeat_flag:
+                flags.append(EventFlag(
+                    flag_id=found_flag,
+                    name=f"{boss_name} (discovered)",
+                    category="Boss Discovery",
+                    region=region,
+                    source_file="GameAreaParam.param.xml",
+                    source_row_id=row_id,
+                    area_no=area_no,
+                    grid_x=block_no,
+                    grid_z=map_no,
+                    pos_x=pos_x,
+                    pos_y=pos_y,
+                    pos_z=pos_z,
+                    map_tile=map_tile,
+                    is_overworld=is_ow,
+                    world_x=world_x,
+                    world_z=world_z,
+                    area_type=area_type,
+                    is_dlc=is_dlc,
+                    raw_data=raw_data
+                ))
+
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return flags
+
+
+def extract_map_default_info(region_names: Dict[int, str]) -> List[EventFlag]:
+    """
+    Extract dungeon/area info from MapDefaultInfoParam.
+
+    This tracks fast travel unlock flags (which correlate with boss defeats).
+    """
+    flags = []
+    xml_path = REGULATION_BIN / "MapDefaultInfoParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return flags
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+
+        for row in root.findall(".//row"):
+            row_id = int(row.get("id", 0))
+            if row_id <= 0:
+                continue
+
+            name = row.get("paramdexName", "")
+            fast_travel_flag = int(row.get("EnableFastTravelEventFlagId", 0))
+
+            # Skip entries without fast travel flags
+            if fast_travel_flag <= 0:
+                continue
+
+            # Parse area info from row ID (format: XXYY0000 where XX=area, YY=block)
+            area_no = row_id // 1000000
+            block_no = (row_id // 10000) % 100
+
+            # Determine area type and region
+            area_type = get_area_type(area_no)
+            is_dlc = not is_base_game_area(area_no) if area_no else False
+
+            # Map tile
+            map_tile = f"m{area_no}_{block_no:02d}_00" if area_no else None
+
+            # Get region name from mapping or name field
+            region = name if name else region_names.get(row_id, get_dungeon_region(area_no))
+
+            # Dungeon name for the flag
+            dungeon_name = name if name else f"Area {area_no}_{block_no:02d}"
+
+            raw_data = {
+                "row_id": row_id,
+                "fast_travel_flag": fast_travel_flag,
+                "area_no": area_no,
+                "block_no": block_no,
+            }
+
+            flags.append(EventFlag(
+                flag_id=fast_travel_flag,
+                name=f"{dungeon_name} (fast travel unlocked)",
+                category="Dungeon Cleared",
+                region=region,
+                source_file="MapDefaultInfoParam.param.xml",
+                source_row_id=row_id,
+                area_no=area_no,
+                grid_x=block_no,
+                grid_z=0,
+                map_tile=map_tile,
+                area_type=area_type,
+                is_dlc=is_dlc,
+                raw_data=raw_data
+            ))
+
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return flags
+
+
+def extract_msb_spawn_points() -> List[EventFlag]:
+    """
+    Extract Stake of Marika locations from MSB SpawnPoint regions.
+
+    These are respawn points scattered throughout the world. They have
+    EntityIDs that can be used for tracking (e.g., by SetPlayerRespawnPoint).
+    """
+    flags = []
+    spawn_count = 0
+
+    for msb_dir in MSB_DIR.iterdir():
+        if not msb_dir.is_dir() or not msb_dir.name.endswith("-msb-dcx"):
+            continue
+
+        spawn_dir = msb_dir / "Region" / "SpawnPoint"
+        if not spawn_dir.exists():
+            continue
+
+        # Parse map area from directory name (e.g., "m60_42_37_00-msb-dcx")
+        match = re.match(r"m(\d+)_(\d+)_(\d+)_(\d+)-msb-dcx", msb_dir.name)
+        if not match:
+            continue
+
+        area_no = int(match.group(1))
+        grid_x = int(match.group(2))
+        grid_z = int(match.group(3))
+
+        for spawn_file in spawn_dir.iterdir():
+            if not spawn_file.name.endswith(".xml"):
+                continue
+
+            try:
+                tree = ET.parse(spawn_file)
+                root = tree.getroot()
+
+                entity_id = int(root.findtext("EntityID", "0"))
+                if entity_id <= 0:
+                    continue  # Skip entries without entity IDs
+
+                # Parse position
+                pos_elem = root.find("Position")
+                if pos_elem is not None:
+                    pos_x = float(pos_elem.findtext("X", "0"))
+                    pos_y = float(pos_elem.findtext("Y", "0"))
+                    pos_z = float(pos_elem.findtext("Z", "0"))
+                else:
+                    pos_x, pos_y, pos_z = None, None, None
+
+                # Name is in Japanese, use entity ID based name
+                name = root.findtext("Name", "")
+
+                # Area classification
+                area_type = get_area_type(area_no)
+                is_dlc = not is_base_game_area(area_no) if area_no else False
+                is_ow = is_overworld_area(area_no)
+                map_tile = format_map_tile(area_no, grid_x, grid_z)
+
+                # World coordinates for overworld
+                world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+                # Region
+                if is_dlc:
+                    region = "Shadow of the Erdtree"
+                elif area_no != 60 and area_no != 61:
+                    region = get_dungeon_region(area_no)
+                else:
+                    region = get_tile_region(grid_x, grid_z)
+
+                raw_data = {
+                    "msb_dir": msb_dir.name,
+                    "spawn_file": spawn_file.name,
+                    "original_name": name,
+                    "position_source": "MSB SpawnPoint",
+                }
+
+                flags.append(EventFlag(
+                    flag_id=entity_id,
+                    name=f"Stake of Marika ({map_tile})",
+                    category="Stake of Marika",
+                    region=region,
+                    source_file="MSB SpawnPoint",
+                    area_no=area_no,
+                    grid_x=grid_x,
+                    grid_z=grid_z,
+                    pos_x=pos_x,
+                    pos_y=pos_y,
+                    pos_z=pos_z,
+                    map_tile=map_tile,
+                    is_overworld=is_ow,
+                    world_x=world_x,
+                    world_z=world_z,
+                    area_type=area_type,
+                    is_dlc=is_dlc,
+                    raw_data=raw_data
+                ))
+                spawn_count += 1
+
+            except Exception as e:
+                # Skip invalid files
+                continue
+
+    print(f"    Stakes with EntityID: {spawn_count}")
+    return flags
+
+
+def extract_msb_spirit_springs() -> List[EventFlag]:
+    """
+    Extract Spirit Spring (Spiritspring) locations from MSB MountJump regions.
+
+    These are jump pads that launch Torrent high into the air. They typically
+    don't have event flags but have positions useful for map display.
+    """
+    flags = []
+    spring_count = 0
+    # Use position-based IDs since these typically have EntityID=0
+    spring_id_counter = 900000001  # Start with a high unused ID range
+
+    for msb_dir in MSB_DIR.iterdir():
+        if not msb_dir.is_dir() or not msb_dir.name.endswith("-msb-dcx"):
+            continue
+
+        jump_dir = msb_dir / "Region" / "MountJump"
+        if not jump_dir.exists():
+            continue
+
+        # Parse map area from directory name
+        match = re.match(r"m(\d+)_(\d+)_(\d+)_(\d+)-msb-dcx", msb_dir.name)
+        if not match:
+            continue
+
+        area_no = int(match.group(1))
+        grid_x = int(match.group(2))
+        grid_z = int(match.group(3))
+
+        for jump_file in jump_dir.iterdir():
+            if not jump_file.name.endswith(".xml"):
+                continue
+
+            try:
+                tree = ET.parse(jump_file)
+                root = tree.getroot()
+
+                # Parse position
+                pos_elem = root.find("Position")
+                if pos_elem is not None:
+                    pos_x = float(pos_elem.findtext("X", "0"))
+                    pos_y = float(pos_elem.findtext("Y", "0"))
+                    pos_z = float(pos_elem.findtext("Z", "0"))
+                else:
+                    pos_x, pos_y, pos_z = None, None, None
+
+                # Get entity ID if present, otherwise use generated ID
+                entity_id = int(root.findtext("EntityID", "0"))
+                if entity_id <= 0:
+                    entity_id = spring_id_counter
+                    spring_id_counter += 1
+
+                # Jump height
+                jump_height = float(root.findtext("JumpHeight", "0"))
+
+                # Name
+                name = root.findtext("Name", "")
+
+                # Area classification
+                area_type = get_area_type(area_no)
+                is_dlc = not is_base_game_area(area_no) if area_no else False
+                is_ow = is_overworld_area(area_no)
+                map_tile = format_map_tile(area_no, grid_x, grid_z)
+
+                # World coordinates for overworld
+                world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+                # Region
+                if is_dlc:
+                    region = "Shadow of the Erdtree"
+                elif area_no != 60 and area_no != 61:
+                    region = get_dungeon_region(area_no)
+                else:
+                    region = get_tile_region(grid_x, grid_z)
+
+                raw_data = {
+                    "msb_dir": msb_dir.name,
+                    "jump_file": jump_file.name,
+                    "original_name": name,
+                    "jump_height": jump_height,
+                    "position_source": "MSB MountJump",
+                }
+
+                flags.append(EventFlag(
+                    flag_id=entity_id,
+                    name=f"Spirit Spring ({map_tile})",
+                    category="Spirit Spring",
+                    region=region,
+                    source_file="MSB MountJump",
+                    area_no=area_no,
+                    grid_x=grid_x,
+                    grid_z=grid_z,
+                    pos_x=pos_x,
+                    pos_y=pos_y,
+                    pos_z=pos_z,
+                    map_tile=map_tile,
+                    is_overworld=is_ow,
+                    world_x=world_x,
+                    world_z=world_z,
+                    area_type=area_type,
+                    is_dlc=is_dlc,
+                    raw_data=raw_data
+                ))
+                spring_count += 1
+
+            except Exception as e:
+                # Skip invalid files
+                continue
+
+    print(f"    Spirit Springs: {spring_count}")
+    return flags
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
     """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
@@ -2003,7 +2466,29 @@ def main():
     npc_flags = extract_msb_npcs(msb_npcs)
     print(f"  Found {len(npc_flags)} flags")
 
-    all_flags = item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags + enemy_flags + npc_flags
+    print("\nLoading region names...")
+    region_names = load_region_names()
+    print(f"  MapGdRegionInfoParam: {len(region_names)} named regions")
+
+    print("\nExtracting from GameAreaParam (Boss Arenas)...")
+    boss_arena_flags = extract_game_area_param(region_names)
+    print(f"  Found {len(boss_arena_flags)} flags")
+
+    print("\nExtracting from MapDefaultInfoParam (Dungeon Info)...")
+    dungeon_flags = extract_map_default_info(region_names)
+    print(f"  Found {len(dungeon_flags)} flags")
+
+    print("\nExtracting from MSB SpawnPoint regions (Stakes of Marika)...")
+    stake_flags = extract_msb_spawn_points()
+    print(f"  Found {len(stake_flags)} flags")
+
+    print("\nExtracting from MSB MountJump regions (Spirit Springs)...")
+    spring_flags = extract_msb_spirit_springs()
+    print(f"  Found {len(spring_flags)} flags")
+
+    all_flags = (item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags +
+                 enemy_flags + npc_flags + boss_arena_flags + dungeon_flags +
+                 stake_flags + spring_flags)
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")

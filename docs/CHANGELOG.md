@@ -4,6 +4,55 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.5 - Map Feature Extraction (Boss Arenas, Stakes, Spirit Springs)
+
+### Features
+- **Boss Arena Extraction**: Parse GameAreaParam for boss arena locations
+  - 150+ boss arenas with defeat flags and coordinates
+  - Boss discovery flags for tracking boss encounters
+  - Soul reward data (single player and multiplayer)
+  - Region names extracted from boss name prefixes (e.g., "[Stormveil Castle]")
+
+- **Dungeon Info Extraction**: Parse MapDefaultInfoParam for dungeon data
+  - Fast travel unlock flags (EnableFastTravelEventFlagId)
+  - Links dungeon completion to boss defeats
+  - 80+ dungeon entries with named locations
+
+- **Stake of Marika Extraction**: Parse MSB SpawnPoint regions
+  - 85+ Stakes of Marika with positions
+  - Entity IDs for respawn point tracking
+  - Distributed across dungeons and legacy areas
+
+- **Spirit Spring Extraction**: Parse MSB MountJump regions
+  - 90+ Spirit Springs with positions
+  - Jump height data for each spring
+  - Overworld locations with world coordinates
+
+- **Region Name Lookup**: Load region names from MapGdRegionInfoParam
+  - 135+ named regions and dungeons
+  - Used for proper region classification
+
+### New Event Flag Categories
+- Boss Arena: 150+ flags with coordinates
+- Boss Discovery: Flags for boss encounters
+- Dungeon Cleared: Fast travel unlock flags
+- Stake of Marika: 85+ respawn points
+- Spirit Spring: 90+ jump pads
+
+### Coverage Improvement
+- Total unique flags: 8,052 → **7,575** (deduplicated, removed overlapping flags)
+- Spatial data coverage: 60% with local coords, 77% with map tiles
+- MSB-sourced coordinates: 3,444 entries
+
+### Data Sources Added
+- GameAreaParam.param.xml (boss arenas with coordinates)
+- MapDefaultInfoParam.param.xml (dungeon fast travel flags)
+- MapGdRegionInfoParam.param.xml (region name lookup)
+- MSB Region/SpawnPoint/*.xml (Stakes of Marika)
+- MSB Region/MountJump/*.xml (Spirit Springs)
+
+---
+
 ## v0.2.4 - Enemy Defeat Flag Extraction & NPC Locations
 
 ### Features
