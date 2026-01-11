@@ -64,6 +64,16 @@ Treat third party resources with caution because we don't have control over thei
 
 **Total unique pickup flags**: 4538 (from ItemLotParam_map)
 
+### ItemLotParam Item Categories
+
+| lotItemCategory | Type | EquipParam File |
+|-----------------|------|-----------------|
+| 1 | Goods (consumables, key items) | EquipParamGoods.param.xml |
+| 2 | Weapons (including shields, staves) | EquipParamWeapon.param.xml |
+| 3 | Protector (armor) | EquipParamProtector.param.xml |
+| 4 | Accessory (talismans) | EquipParamAccessory.param.xml |
+| 5 | Ash of War | (separate system) |
+
 ---
 
 ## Shop/Merchant System (Verified from ShopLineupParam.param.xml)

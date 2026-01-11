@@ -137,6 +137,11 @@ class EventFlag:
     # Area classification
     area_type: str = "unknown"           # overworld_surface, underworld, subterranean, legacy_dungeon, minor_dungeon, divine_tower, tutorial
     is_dlc: bool = False                 # True if from Shadow of the Erdtree DLC
+    # Treasure metadata
+    treasure_type: Optional[str] = None  # chest, corpse, cart, ground_pickup, enemy_drop, unknown
+    item_rarity: Optional[int] = None    # 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
+    position_confidence: Optional[str] = None  # high (chest/corpse), low (cart), none (no position)
+    is_underground: Optional[bool] = None  # True/False when confident, None when uncertain
     raw_data: Dict[str, Any] = field(default_factory=dict)
 
 def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
@@ -224,6 +229,49 @@ def load_world_map_points() -> Dict[int, Dict]:
         print(f"  Warning: Error parsing {xml_path.name}: {e}")
 
     return points
+
+
+def load_item_rarities() -> Dict[tuple, int]:
+    """
+    Load item rarities from EquipParam files.
+
+    Returns dict keyed by (item_category, item_id) -> rarity:
+    - item_category (from ItemLotParam): 1=Goods, 2=Weapon, 3=Protector, 4=Accessory, 5=Ash of War
+    - rarity: 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
+    """
+    rarities = {}
+
+    # Map ItemLotParam item_category to param file
+    # ItemLotParam categories: 1=Goods, 2=Weapon, 3=Protector, 4=Accessory, 5=Ash of War
+    param_files = {
+        1: "EquipParamGoods.param.xml",      # Goods (consumables, key items, etc.)
+        2: "EquipParamWeapon.param.xml",     # Weapons (including shields, staves, etc.)
+        3: "EquipParamProtector.param.xml",  # Armor
+        4: "EquipParamAccessory.param.xml",  # Talismans/rings
+        # 5 = Ash of War (separate system, no rarity)
+    }
+
+    for category, filename in param_files.items():
+        xml_path = REGULATION_BIN / filename
+        if not xml_path.exists():
+            print(f"  Warning: {filename} not found for item rarity")
+            continue
+
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+            count = 0
+            for row in root.findall(".//row"):
+                item_id = int(row.get("id", 0))
+                rarity = row.get("rarity")
+                if item_id and rarity is not None:
+                    rarities[(category, item_id)] = int(rarity)
+                    count += 1
+        except Exception as e:
+            print(f"  Warning: Error parsing {filename}: {e}")
+
+    print(f"  Loaded {len(rarities)} item rarities from EquipParam files")
+    return rarities
 
 
 def parse_msb_dir_name(msb_dir_name: str) -> Optional[Dict]:
@@ -675,14 +723,93 @@ def load_msb_enemy_data(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
     return enemies
 
 
+def classify_treasure_type(asset_name: str, in_chest: int, filename: str) -> tuple:
+    """
+    Classify treasure type and position confidence based on asset pattern and InChest field.
+
+    Returns (treasure_type, position_confidence):
+    - treasure_type: chest, corpse, cart, ground_pickup, unknown
+    - position_confidence: high (chest/corpse), low (cart), none
+    """
+    # Cart detection - asset pattern AEG100_101 (cart model)
+    if "AEG100_101" in asset_name:
+        return "cart", "low"  # Cart positions have ~100-150 unit error
+
+    # Filename-based detection (Japanese keywords)
+    if "馬車宝" in filename:  # Cart treasure
+        return "cart", "low"
+
+    # Chest detection - InChest=1 or specific asset patterns
+    if in_chest == 1:
+        return "chest", "high"
+    if "AEG099_630" in asset_name or "AEG099_631" in asset_name:
+        return "chest", "high"
+    if "宝箱" in filename:  # Chest
+        return "chest", "high"
+
+    # Ground pickup detection - InChest=2 or specific asset patterns
+    if in_chest == 2:
+        return "ground_pickup", "high"
+    if "AEG099_090" in asset_name or "AEG099_990" in asset_name:
+        return "ground_pickup", "high"
+    if "アイテム光" in filename:  # Item glow (pickup)
+        return "ground_pickup", "high"
+
+    # Corpse detection - InChest=0 (default) or filename pattern
+    if in_chest == 0:
+        # Most corpse assets are AEG099_6xx (except 630/631 which are chests)
+        if "AEG099_6" in asset_name and "AEG099_630" not in asset_name and "AEG099_631" not in asset_name:
+            return "corpse", "high"
+        if "宝死体" in filename:  # Corpse treasure
+            return "corpse", "high"
+        # Default InChest=0 is typically corpse
+        return "corpse", "high"
+
+    return "unknown", "high"
+
+
+def detect_underground_from_filename(filename: str, area_type: str) -> Optional[bool]:
+    """
+    Detect if treasure is underground based on filename keywords and area_type.
+
+    Returns:
+    - True: Confident underground
+    - False: Confident surface
+    - None: Uncertain (can't determine)
+    """
+    # Underground keywords (Japanese)
+    underground_keywords = ["地下", "洞窟", "地底", "地下室", "坑道"]
+    # Surface keywords
+    surface_keywords = ["地上", "屋外", "野外"]
+
+    # Check filename for keywords
+    for kw in underground_keywords:
+        if kw in filename:
+            return True
+    for kw in surface_keywords:
+        if kw in filename:
+            return False
+
+    # Use area_type as indicator
+    if area_type in ("underworld", "subterranean"):
+        return True
+    if area_type == "overworld_surface":
+        return False
+
+    # Can't determine - return None
+    return None
+
+
 def load_msb_treasure_positions() -> Dict[int, Dict]:
     """
-    Load treasure positions from MSB (Map Studio Binary) files.
+    Load treasure positions and metadata from MSB (Map Studio Binary) files.
 
     Returns dict keyed by ItemLotID (row_id from ItemLotParam):
     {item_lot_id: {"pos_x": float, "pos_y": float, "pos_z": float,
                    "area_no": int, "grid_x": int, "grid_z": int,
-                   "asset_name": str, "msb_dir": str}}
+                   "asset_name": str, "msb_dir": str,
+                   "treasure_type": str, "position_confidence": str,
+                   "in_chest": int, "treasure_filename": str}}
     """
     positions = {}
 
@@ -704,22 +831,28 @@ def load_msb_treasure_positions() -> Dict[int, Dict]:
         if not treasure_dir.exists() or not asset_dir.exists():
             continue
 
-        # Step 1: Parse Treasure events to get ItemLotID → TreasurePartName
-        treasure_mapping = {}  # {item_lot_id: treasure_part_name}
+        # Step 1: Parse Treasure events to get ItemLotID → TreasurePartName + InChest + filename
+        treasure_mapping = {}  # {item_lot_id: {"part_name": str, "in_chest": int, "filename": str}}
         for treasure_file in treasure_dir.glob("*.xml"):
             try:
                 tree = ET.parse(treasure_file)
                 root = tree.getroot()
 
-                # Look for <ItemLotID> and <TreasurePartName>
+                # Look for <ItemLotID>, <TreasurePartName>, and <InChest>
                 item_lot_elem = root.find(".//ItemLotID")
                 part_name_elem = root.find(".//TreasurePartName")
+                in_chest_elem = root.find(".//InChest")
 
                 if item_lot_elem is not None and part_name_elem is not None:
                     item_lot_id = int(item_lot_elem.text or 0)
                     part_name = part_name_elem.text or ""
+                    in_chest = int(in_chest_elem.text or 0) if in_chest_elem is not None else 0
                     if item_lot_id > 0 and part_name:
-                        treasure_mapping[item_lot_id] = part_name
+                        treasure_mapping[item_lot_id] = {
+                            "part_name": part_name,
+                            "in_chest": in_chest,
+                            "filename": treasure_file.stem  # filename without extension
+                        }
             except Exception:
                 continue
 
@@ -748,16 +881,27 @@ def load_msb_treasure_positions() -> Dict[int, Dict]:
             except Exception:
                 continue
 
-        # Step 3: Link ItemLotID → Position (with area/grid from MSB dir name)
-        for item_lot_id, part_name in treasure_mapping.items():
+        # Step 3: Link ItemLotID → Position + metadata (with area/grid from MSB dir name)
+        for item_lot_id, treasure_info in treasure_mapping.items():
+            part_name = treasure_info["part_name"]
             if part_name in asset_positions:
                 x, y, z = asset_positions[part_name]
+
+                # Classify treasure type and position confidence
+                treasure_type, position_confidence = classify_treasure_type(
+                    part_name, treasure_info["in_chest"], treasure_info["filename"]
+                )
+
                 entry = {
                     "pos_x": x,
                     "pos_y": y,
                     "pos_z": z,
                     "asset_name": part_name,
-                    "msb_dir": msb_dir.name
+                    "msb_dir": msb_dir.name,
+                    "treasure_type": treasure_type,
+                    "position_confidence": position_confidence,
+                    "in_chest": treasure_info["in_chest"],
+                    "treasure_filename": treasure_info["filename"]
                 }
                 # Add area/grid from MSB directory name
                 if msb_location:
@@ -1132,7 +1276,7 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
 
     return "Unknown"
 
-def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict]) -> List[EventFlag]:
+def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict], item_rarities: Dict[tuple, int]) -> List[EventFlag]:
     """Extract event flags from ItemLotParam_map with spatial data from multiple sources."""
     flags = []
     xml_path = REGULATION_BIN / "ItemLotParam_map.param.xml"
@@ -1258,6 +1402,31 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
         area_type = get_area_type(area_no)
         is_dlc = not is_base_game_area(area_no) if area_no else False
 
+        # Get treasure metadata from MSB
+        treasure_type = None
+        position_confidence = None
+        treasure_filename = None
+        if msb_data:
+            treasure_type = msb_data.get("treasure_type")
+            position_confidence = msb_data.get("position_confidence")
+            treasure_filename = msb_data.get("treasure_filename", "")
+        elif pos_x is None:
+            # No position data available
+            position_confidence = "none"
+
+        # Determine is_underground from filename keywords and area_type
+        is_underground = None
+        if treasure_filename:
+            is_underground = detect_underground_from_filename(treasure_filename, area_type)
+        elif area_type in ("underworld", "subterranean"):
+            is_underground = True
+        elif area_type == "overworld_surface":
+            is_underground = False
+        # Otherwise leave as None (uncertain)
+
+        # Look up item rarity
+        item_rarity = item_rarities.get((item_category, item_id))
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -1279,6 +1448,10 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
             world_z=world_z,
             area_type=area_type,
             is_dlc=is_dlc,
+            treasure_type=treasure_type,
+            item_rarity=item_rarity,
+            position_confidence=position_confidence,
+            is_underground=is_underground,
             raw_data=raw_data
         ))
 
@@ -2568,8 +2741,8 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
     lines.append("")
     lines.append(f"Total unique flags: {len(unique_flags)}")
     lines.append("")
-    lines.append("| Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | Source |")
-    lines.append("|---------|------|----------|--------|----------|-------------------|-------------|--------|")
+    lines.append("| Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | T.Type | Rarity | Pos.Conf | UG | Source |")
+    lines.append("|---------|------|----------|--------|----------|-------------------|-------------|--------|--------|----------|----|----- --|")
 
     for f in unique_flags:
         # No truncation - full names preserved
@@ -2593,7 +2766,13 @@ def format_output_markdown(flags: List[EventFlag]) -> str:
         else:
             world_coords = "-"
 
-        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {map_tile} | {local_coords} | {world_coords} | {source} |")
+        # Format new fields
+        treasure_type = f.treasure_type or "-"
+        rarity = str(f.item_rarity) if f.item_rarity is not None else "-"
+        pos_conf = f.position_confidence or "-"
+        underground = "Y" if f.is_underground is True else ("N" if f.is_underground is False else "-")
+
+        lines.append(f"| {f.flag_id} | {name} | {f.category} | {region} | {map_tile} | {local_coords} | {world_coords} | {treasure_type} | {rarity} | {pos_conf} | {underground} | {source} |")
 
     return "\n".join(lines)
 
@@ -2638,6 +2817,9 @@ def main():
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
 
+    print("\nLoading item rarities...")
+    item_rarities = load_item_rarities()
+
     print("\nExtracting tracked defeat flags from event scripts...")
     tracked_defeat_flags = extract_tracked_defeat_flags()
     print(f"  Found {len(tracked_defeat_flags)} defeat flags in event scripts")
@@ -2650,7 +2832,7 @@ def main():
     print("-" * 40)
 
     print("\nExtracting from ItemLotParam_map...")
-    item_lot_flags = extract_item_lot_param(lookups, world_map_points, msb_positions)
+    item_lot_flags = extract_item_lot_param(lookups, world_map_points, msb_positions, item_rarities)
     print(f"  Found {len(item_lot_flags)} flags")
 
     print("\nExtracting from BonfireWarpParam...")
@@ -2764,6 +2946,53 @@ def main():
     print(f"  ---")
     print(f"  Base game: {base_count}")
     print(f"  DLC: {dlc_count}")
+
+    # New field statistics
+    print(f"\n{'=' * 40}")
+    print("Treasure Type Breakdown:")
+    print("-" * 40)
+    treasure_type_counts = {}
+    for f in unique_flags:
+        tt = f.treasure_type or "none"
+        treasure_type_counts[tt] = treasure_type_counts.get(tt, 0) + 1
+    for tt, count in sorted(treasure_type_counts.items(), key=lambda x: -x[1]):
+        print(f"  {tt}: {count}")
+
+    print(f"\n{'=' * 40}")
+    print("Item Rarity Breakdown:")
+    print("-" * 40)
+    rarity_labels = {0: "common (white)", 1: "standard (white)", 2: "rare (purple)", 3: "legendary (orange)"}
+    rarity_counts = {}
+    no_rarity = 0
+    for f in unique_flags:
+        if f.item_rarity is not None:
+            label = rarity_labels.get(f.item_rarity, f"rarity_{f.item_rarity}")
+            rarity_counts[label] = rarity_counts.get(label, 0) + 1
+        else:
+            no_rarity += 1
+    for label, count in sorted(rarity_counts.items(), key=lambda x: -x[1]):
+        print(f"  {label}: {count}")
+    print(f"  no rarity data: {no_rarity}")
+
+    print(f"\n{'=' * 40}")
+    print("Position Confidence Breakdown:")
+    print("-" * 40)
+    pos_conf_counts = {}
+    for f in unique_flags:
+        pc = f.position_confidence or "none"
+        pos_conf_counts[pc] = pos_conf_counts.get(pc, 0) + 1
+    for pc, count in sorted(pos_conf_counts.items(), key=lambda x: -x[1]):
+        print(f"  {pc}: {count}")
+
+    print(f"\n{'=' * 40}")
+    print("Underground Detection:")
+    print("-" * 40)
+    underground_true = sum(1 for f in unique_flags if f.is_underground is True)
+    underground_false = sum(1 for f in unique_flags if f.is_underground is False)
+    underground_none = sum(1 for f in unique_flags if f.is_underground is None)
+    print(f"  underground (confident): {underground_true}")
+    print(f"  surface (confident): {underground_false}")
+    print(f"  uncertain: {underground_none}")
 
     # Output directory
     output_dir = Path(__file__).parent

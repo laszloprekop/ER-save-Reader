@@ -4,6 +4,37 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.8 - Treasure Metadata Fields
+
+### Features
+- **Treasure Type Classification**: Added `treasure_type` field to event flags
+  - Detects: chest, corpse, cart, ground_pickup based on MSB InChest field and asset patterns
+  - Cart treasures (AEG100_101) correctly identified with known position error
+
+- **Item Rarity Lookup**: Added `item_rarity` field from EquipParam files
+  - 0 = consumable (white glow)
+  - 1 = standard (white glow)
+  - 2 = rare/unique (purple glow)
+  - 3 = legendary (orange glow)
+
+- **Position Confidence**: Added `position_confidence` field
+  - `high`: chest/corpse positions (~40 unit accuracy)
+  - `low`: cart positions (~70-100 meter error due to model origin vs interact point)
+  - `none`: no position data available
+
+- **Underground Detection**: Added `is_underground` field
+  - Uses filename keywords (地下, 洞窟, 地底, 地下室, 坑道)
+  - Falls back to area_type (underworld/subterranean = underground)
+  - Returns null when uncertain to avoid false positives
+
+### Coverage
+- Treasure types: corpse (1,937), ground_pickup (278), chest (201), cart (13)
+- Item rarities: common (1,391), standard (1,339), rare (1,225), legendary (154)
+- Position confidence: high (2,416), low (13), none (4,605)
+- Underground detection: confident (2,162), uncertain (4,872)
+
+---
+
 ## v0.2.7 - POI Region Derivation & Generic NPC Filtering
 
 ### Features
