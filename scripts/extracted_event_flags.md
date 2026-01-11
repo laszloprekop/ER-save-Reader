@@ -1,6 +1,6 @@
 # Extracted Event Flags
 
-Total unique flags: 7575
+Total unique flags: 7034
 
 | Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | Source |
 |---------|------|----------|--------|----------|-------------------|-------------|--------|
@@ -42,7 +42,7 @@ Total unique flags: 7575
 | 196 | Malenia's Great Rune | Boss World Drop | Various | - | - | - | ItemLotParam_map |
 | 197 | Remembrance of the Full Moon Queen | Boss World Drop | Various | - | - | - | ItemLotParam_map |
 | 200 | Grace_211200 | Grace | Various | m10_00_00 | 0.4, -9.7, -14.0 | - | BonfireWarpParam |
-| 6001 | Jagged Peak: Foot of the Jagged Peak - Igon | Map POI | Various | m61_52_40 | -6.4, 298.9, -73.2 | 13305.6, 10166.8 | WorldMapPointParam |
+| 6001 | Jagged Peak: Foot of the Jagged Peak - Igon | Map POI | Jagged Peak | m61_52_40 | -6.4, 298.9, -73.2 | 13305.6, 10166.8 | WorldMapPointParam |
 | 6700 | Flask of Wondrous Physick | Unknown | Various | - | - | - | ItemLotParam_map |
 | 9100 | Remembrance of the Grafted | Remembrance | Various | - | - | - | common |
 | 9101 | [Enia - Forging] Remembrance of the Grafted - Unlocked | Remembrance | Various | - | - | - | ShopLineupParam |
@@ -145,107 +145,107 @@ Total unique flags: 7575
 | 62082 | Map: Southern Shore | Map Fragment | Various | - | - | - | ItemLotParam_map |
 | 62083 | Map: Rauh Ruins | Map Fragment | Various | - | - | - | ItemLotParam_map |
 | 62084 | Map: Abyss | Map Fragment | Various | - | - | - | ItemLotParam_map |
-| 62100 | Stormveil Castle | Map POI | Various | m10_00_00 | -119.4, 21.3, 29.4 | - | WorldMapPointParam |
+| 62100 | Stormveil Castle | Map POI | Stormveil Castle | m10_00_00 | -119.4, 21.3, 29.4 | - | WorldMapPointParam |
 | 62101 | Stranded Graveyard | Map POI | Various | m18_00_00 | -91.0, 11.9, 24.6 | - | WorldMapPointParam |
 | 62102 | Fringefolk Hero's Grave | Map POI | Various | m18_00_00 | -106.8, 3.9, 83.8 | - | WorldMapPointParam |
 | 62103 | Stormfoot Catacombs | Map POI | Various | m30_02_00 | 42.6, 144.9, -11.2 | - | WorldMapPointParam |
 | 62104 | Deathtouched Catacombs | Map POI | Various | m30_11_00 | -86.1, 192.8, 30.2 | - | WorldMapPointParam |
 | 62105 | Murkwater Catacombs | Map POI | Various | m30_04_00 | 89.2, 66.3, 65.0 | - | WorldMapPointParam |
-| 62106 | Tombsward Cave | Map POI | Various | m60_42_33 | -114.1, 6.7, 31.2 | 10637.9, 8479.2 | WorldMapPointParam |
+| 62106 | Tombsward Cave | Map POI | World (42,33) | m60_42_33 | -114.1, 6.7, 31.2 | 10637.9, 8479.2 | WorldMapPointParam |
 | 62107 | Groveside Cave | Map POI | Various | m31_03_00 | -59.6, 110.8, -11.0 | - | WorldMapPointParam |
 | 62108 | Coastal Cave | Map POI | Various | m31_15_00 | 48.1, -0.3, -41.9 | - | WorldMapPointParam |
 | 62109 | Highroad Cave | Map POI | Various | m31_17_00 | 60.1, 96.5, 96.4 | - | WorldMapPointParam |
-| 62110 | Limgrave Tunnels | Map POI | Various | m60_42_37 | 133.8, 67.6, -25.4 | 10885.8, 9446.6 | WorldMapPointParam |
+| 62110 | Limgrave Tunnels | Map POI | Limgrave | m60_42_37 | 133.8, 67.6, -25.4 | 10885.8, 9446.6 | WorldMapPointParam |
 | 62111 | Divine Tower of Limgrave | Map POI | Various | m34_10_00 | 907.4, 49.5, 592.5 | - | WorldMapPointParam |
-| 62120 | Church of Elleh | Map POI | Various | m60_42_36 | -40.7, 91.0, 79.3 | 10711.3, 9295.3 | WorldMapPointParam |
-| 62121 | Church of Dragon Communion | Map POI | Various | m60_41_35 | -71.1, 27.3, -48.9 | 10424.9, 8911.1 | WorldMapPointParam |
-| 62122 | Third Church of Marika | Map POI | Various | m60_46_38 | -101.6, 3.5, 71.8 | 11674.4, 9799.8 | WorldMapPointParam |
-| 62123 | Mistwood Ruins | Map POI | Various | m60_45_37 | -64.8, 22.4, -108.8 | 11455.2, 9363.2 | WorldMapPointParam |
-| 62124 | Waypoint Ruins | Map POI | Various | m60_44_36 | 7.2, 90.8, 67.1 | 11271.2, 9283.1 | WorldMapPointParam |
-| 62125 | Dragon-Burnt Ruins | Map POI | Various | m60_43_36 | -5.2, 63.7, -76.3 | 11002.8, 9139.7 | WorldMapPointParam |
-| 62126 | Gatefront Ruins | Map POI | Various | m60_42_37 | 73.8, 93.2, 77.0 | 10825.8, 9549.0 | WorldMapPointParam |
-| 62127 | Summonwater Village | Map POI | Various | m60_45_39 | -18.8, 90.2, 35.6 | 11501.2, 10019.6 | WorldMapPointParam |
-| 62128 | Artist's Shack | Map POI | Various | m60_44_38 | -10.9, 92.8, -20.4 | 11253.1, 9707.6 | WorldMapPointParam |
-| 62129 | Warmaster's Shack | Map POI | Various | m60_42_38 | 10.4, 186.9, 87.5 | 10762.4, 9815.5 | WorldMapPointParam |
-| 62130 | Stormhill Shack | Map POI | Various | m60_41_38 | 33.6, 204.7, 10.4 | 10529.6, 9738.4 | WorldMapPointParam |
-| 62131 | Forlorn Hound Evergaol | Map POI | Various | m60_44_35 | -17.5, 104.5, -115.4 | 11246.5, 8844.6 | WorldMapPointParam |
-| 62132 | Stormhill Evergaol | Map POI | Various | m60_42_37 | -66.0, 158.4, 44.0 | 10686.0, 9516.0 | WorldMapPointParam |
-| 62133 | Bridge of Sacrifice | Map POI | Various | m60_44_34 | 120.0, 36.7, 48.5 | 11384.0, 8752.5 | WorldMapPointParam |
-| 62134 | Siofra River Well | Map POI | Various | m60_45_37 | 103.9, 29.6, 8.0 | 11623.9, 9480.0 | WorldMapPointParam |
-| 62135 | Fort Haight | Map POI | Various | m60_46_36 | -25.3, 31.3, -20.3 | 11750.7, 9195.7 | WorldMapPointParam |
-| 62137 | Minor Erdtree | Map POI | Various | m60_45_37 | 84.1, 33.6, -49.2 | 11604.1, 9422.8 | WorldMapPointParam |
-| 62138 | Stormgate | Map POI | Various | m60_42_38 | -37.1, 121.8, -125.4 | 10714.9, 9602.6 | WorldMapPointParam |
+| 62120 | Church of Elleh | Map POI | Limgrave | m60_42_36 | -40.7, 91.0, 79.3 | 10711.3, 9295.3 | WorldMapPointParam |
+| 62121 | Church of Dragon Communion | Map POI | World (41,35) | m60_41_35 | -71.1, 27.3, -48.9 | 10424.9, 8911.1 | WorldMapPointParam |
+| 62122 | Third Church of Marika | Map POI | Caelid | m60_46_38 | -101.6, 3.5, 71.8 | 11674.4, 9799.8 | WorldMapPointParam |
+| 62123 | Mistwood Ruins | Map POI | Caelid | m60_45_37 | -64.8, 22.4, -108.8 | 11455.2, 9363.2 | WorldMapPointParam |
+| 62124 | Waypoint Ruins | Map POI | Limgrave | m60_44_36 | 7.2, 90.8, 67.1 | 11271.2, 9283.1 | WorldMapPointParam |
+| 62125 | Dragon-Burnt Ruins | Map POI | Limgrave | m60_43_36 | -5.2, 63.7, -76.3 | 11002.8, 9139.7 | WorldMapPointParam |
+| 62126 | Gatefront Ruins | Map POI | Limgrave | m60_42_37 | 73.8, 93.2, 77.0 | 10825.8, 9549.0 | WorldMapPointParam |
+| 62127 | Summonwater Village | Map POI | Caelid | m60_45_39 | -18.8, 90.2, 35.6 | 11501.2, 10019.6 | WorldMapPointParam |
+| 62128 | Artist's Shack | Map POI | Limgrave | m60_44_38 | -10.9, 92.8, -20.4 | 11253.1, 9707.6 | WorldMapPointParam |
+| 62129 | Warmaster's Shack | Map POI | Limgrave | m60_42_38 | 10.4, 186.9, 87.5 | 10762.4, 9815.5 | WorldMapPointParam |
+| 62130 | Stormhill Shack | Map POI | Limgrave | m60_41_38 | 33.6, 204.7, 10.4 | 10529.6, 9738.4 | WorldMapPointParam |
+| 62131 | Forlorn Hound Evergaol | Map POI | Weeping Peninsula | m60_44_35 | -17.5, 104.5, -115.4 | 11246.5, 8844.6 | WorldMapPointParam |
+| 62132 | Stormhill Evergaol | Map POI | Limgrave | m60_42_37 | -66.0, 158.4, 44.0 | 10686.0, 9516.0 | WorldMapPointParam |
+| 62133 | Bridge of Sacrifice | Map POI | Weeping Peninsula | m60_44_34 | 120.0, 36.7, 48.5 | 11384.0, 8752.5 | WorldMapPointParam |
+| 62134 | Siofra River Well | Map POI | Caelid | m60_45_37 | 103.9, 29.6, 8.0 | 11623.9, 9480.0 | WorldMapPointParam |
+| 62135 | Fort Haight | Map POI | Caelid | m60_46_36 | -25.3, 31.3, -20.3 | 11750.7, 9195.7 | WorldMapPointParam |
+| 62137 | Minor Erdtree | Map POI | Caelid | m60_45_37 | 84.1, 33.6, -49.2 | 11604.1, 9422.8 | WorldMapPointParam |
+| 62138 | Stormgate | Map POI | Limgrave | m60_42_38 | -37.1, 121.8, -125.4 | 10714.9, 9602.6 | WorldMapPointParam |
 | 62150 | Tombsward Catacombs | Map POI | Various | m30_00_00 | -95.7, 66.1, 107.3 | - | WorldMapPointParam |
 | 62151 | Impaler's Catacombs | Map POI | Various | m30_01_00 | -26.7, 50.3, -50.3 | - | WorldMapPointParam |
-| 62152 | Murkwater Cave | Map POI | Various | m60_43_37 | 75.2, 62.9, 61.1 | 11083.2, 9533.1 | WorldMapPointParam |
+| 62152 | Murkwater Cave | Map POI | Limgrave | m60_43_37 | 75.2, 62.9, 61.1 | 11083.2, 9533.1 | WorldMapPointParam |
 | 62153 | Earthbore Cave | Map POI | Various | m31_01_00 | -103.2, -1.1, -40.2 | - | WorldMapPointParam |
 | 62154 | Morne Tunnel | Map POI | Various | m32_00_00 | 36.1, 27.9, -59.9 | - | WorldMapPointParam |
-| 62170 | Fourth Church of Marika | Map POI | Various | m60_41_33 | 82.8, 32.9, 68.9 | 10578.8, 8516.9 | WorldMapPointParam |
-| 62171 | Church of Pilgrimage | Map POI | Various | m60_43_34 | -110.6, 88.8, 115.5 | 10897.4, 8819.5 | WorldMapPointParam |
-| 62172 | Callu Baptismal Church | Map POI | Various | m60_44_33 | -85.8, 89.7, -60.9 | 11178.2, 8387.1 | WorldMapPointParam |
-| 62173 | Isolated Merchant's Shack | Map POI | Various | m60_41_32 | 6.9, 0.7, 100.7 | 10502.9, 8292.7 | WorldMapPointParam |
-| 62174 | Ailing Village | Map POI | Various | m60_44_33 | -106.2, 87.1, -21.1 | 11157.8, 8426.9 | WorldMapPointParam |
-| 62175 | Oridys's Rise | Map POI | Various | m60_45_33 | -66.2, 95.4, -58.5 | 11453.8, 8389.5 | WorldMapPointParam |
-| 62176 | Forest Lookout Tower | Map POI | Various | m60_44_34 | 2.4, 83.1, -60.4 | 11266.4, 8643.6 | WorldMapPointParam |
-| 62177 | Tower of Return | Map POI | Various | m60_42_32 | -51.0, 66.7, -43.2 | 10701.0, 8148.8 | WorldMapPointParam |
-| 62178 | Weeping Evergaol | Map POI | Various | m60_42_33 | -109.8, 18.7, 105.9 | 10642.2, 8553.9 | WorldMapPointParam |
-| 62180 | Witchbane Ruins | Map POI | Various | m60_41_33 | 48.3, 9.0, -2.6 | 10544.3, 8445.4 | WorldMapPointParam |
-| 62181 | Tombsward Ruins | Map POI | Various | m60_42_34 | -7.5, 24.8, -111.9 | 10744.5, 8592.1 | WorldMapPointParam |
-| 62182 | Demi-Human Forest Ruins | Map POI | Various | m60_43_34 | 22.7, 1.9, -64.4 | 11030.7, 8639.6 | WorldMapPointParam |
-| 62183 | Castle Morne | Map POI | Various | m60_43_31 | 131.1, 11.0, 24.0 | 11139.1, 7960.0 | WorldMapPointParam |
-| 62184 | Minor Erdtree | Map POI | Various | m60_43_33 | -60.0, 83.1, -42.4 | 10948.0, 8405.6 | WorldMapPointParam |
-| 62200 | Academy of Raya Lucaria | Map POI | Various | m14_00_00 | -7.2, 50.0, -10.2 | - | WorldMapPointParam |
+| 62170 | Fourth Church of Marika | Map POI | World (41,33) | m60_41_33 | 82.8, 32.9, 68.9 | 10578.8, 8516.9 | WorldMapPointParam |
+| 62171 | Church of Pilgrimage | Map POI | Weeping Peninsula | m60_43_34 | -110.6, 88.8, 115.5 | 10897.4, 8819.5 | WorldMapPointParam |
+| 62172 | Callu Baptismal Church | Map POI | Weeping Peninsula | m60_44_33 | -85.8, 89.7, -60.9 | 11178.2, 8387.1 | WorldMapPointParam |
+| 62173 | Isolated Merchant's Shack | Map POI | World (41,32) | m60_41_32 | 6.9, 0.7, 100.7 | 10502.9, 8292.7 | WorldMapPointParam |
+| 62174 | Ailing Village | Map POI | Weeping Peninsula | m60_44_33 | -106.2, 87.1, -21.1 | 11157.8, 8426.9 | WorldMapPointParam |
+| 62175 | Oridys's Rise | Map POI | World (45,33) | m60_45_33 | -66.2, 95.4, -58.5 | 11453.8, 8389.5 | WorldMapPointParam |
+| 62176 | Forest Lookout Tower | Map POI | Weeping Peninsula | m60_44_34 | 2.4, 83.1, -60.4 | 11266.4, 8643.6 | WorldMapPointParam |
+| 62177 | Tower of Return | Map POI | World (42,32) | m60_42_32 | -51.0, 66.7, -43.2 | 10701.0, 8148.8 | WorldMapPointParam |
+| 62178 | Weeping Evergaol | Map POI | World (42,33) | m60_42_33 | -109.8, 18.7, 105.9 | 10642.2, 8553.9 | WorldMapPointParam |
+| 62180 | Witchbane Ruins | Map POI | World (41,33) | m60_41_33 | 48.3, 9.0, -2.6 | 10544.3, 8445.4 | WorldMapPointParam |
+| 62181 | Tombsward Ruins | Map POI | World (42,34) | m60_42_34 | -7.5, 24.8, -111.9 | 10744.5, 8592.1 | WorldMapPointParam |
+| 62182 | Demi-Human Forest Ruins | Map POI | Weeping Peninsula | m60_43_34 | 22.7, 1.9, -64.4 | 11030.7, 8639.6 | WorldMapPointParam |
+| 62183 | Castle Morne | Map POI | Weeping Peninsula | m60_43_31 | 131.1, 11.0, 24.0 | 11139.1, 7960.0 | WorldMapPointParam |
+| 62184 | Minor Erdtree | Map POI | Weeping Peninsula | m60_43_33 | -60.0, 83.1, -42.4 | 10948.0, 8405.6 | WorldMapPointParam |
+| 62200 | Academy of Raya Lucaria | Map POI | Academy of Raya Lucaria | m14_00_00 | -7.2, 50.0, -10.2 | - | WorldMapPointParam |
 | 62201 | Black Knife Catacombs | Map POI | Various | m30_05_00 | -73.2, 426.5, 111.2 | - | WorldMapPointParam |
 | 62202 | Road's End Catacombs | Map POI | Various | m30_03_00 | -9.4, 223.8, -24.1 | - | WorldMapPointParam |
 | 62203 | Cliffbottom Catacombs | Map POI | Various | m30_06_00 | 75.5, 239.8, 69.7 | - | WorldMapPointParam |
 | 62204 | Stillwater Cave | Map POI | Various | m31_04_00 | 14.5, 237.3, -38.1 | - | WorldMapPointParam |
 | 62205 | Lakeside Crystal Cave | Map POI | Various | m31_05_00 | -116.1, 225.6, -4.2 | - | WorldMapPointParam |
 | 62206 | Academy Crystal Cave | Map POI | Various | m31_06_00 | 73.0, 236.4, 120.5 | - | WorldMapPointParam |
-| 62207 | Raya Lucaria Crystal Tunnel | Map POI | Various | m60_37_47 | -112.0, 243.0, 26.3 | 9360.0, 12058.3 | WorldMapPointParam |
+| 62207 | Raya Lucaria Crystal Tunnel | Map POI | Liurnia of the Lakes | m60_37_47 | -112.0, 243.0, 26.3 | 9360.0, 12058.3 | WorldMapPointParam |
 | 62208 | Carian Study Hall | Map POI | Various | m34_11_00 | -0.5, -132.8, 1.9 | - | WorldMapPointParam |
 | 62209 | Divine Tower of Liurnia | Map POI | Various | m34_11_00 | 428.0, -0.8, 75.5 | - | WorldMapPointParam |
-| 62220 | Church of Irith | Map POI | Various | m60_39_39 | -30.4, 320.0, 106.7 | 9953.6, 10090.7 | WorldMapPointParam |
-| 62221 | Church of Vows | Map POI | Various | m60_37_46 | -43.7, 398.1, 11.5 | 9428.3, 11787.5 | WorldMapPointParam |
-| 62222 | Rose Church | Map POI | Various | m60_35_44 | -88.4, 241.8, -112.5 | 8871.6, 11151.5 | WorldMapPointParam |
-| 62223 | Bellum Church | Map POI | Various | m60_36_49 | 12.1, 321.9, -84.0 | 9228.1, 12460.0 | WorldMapPointParam |
-| 62224 | Church of Inhibition | Map POI | Various | m60_37_49 | 72.1, 494.2, -37.9 | 9544.1, 12506.1 | WorldMapPointParam |
-| 62225 | Purified Ruins | Map POI | Various | m60_39_41 | -87.8, 255.3, 87.0 | 9896.2, 10583.0 | WorldMapPointParam |
-| 62226 | Kingsrealm Ruins | Map POI | Various | m60_34_48 | 52.2, 262.4, 93.3 | 8756.2, 12381.3 | WorldMapPointParam |
-| 62227 | Laskyar Ruins | Map POI | Various | m60_37_42 | 108.1, 237.4, -116.3 | 9580.1, 10635.7 | WorldMapPointParam |
-| 62228 | Slumbering Wolf's Shack | Map POI | Various | m60_36_41 | 136.3, 151.2, -62.7 | 9352.3, 10433.3 | WorldMapPointParam |
-| 62229 | Boilprawn Shack | Map POI | Various | m60_36_43 | 90.8, 237.7, -58.2 | 9306.8, 10949.8 | WorldMapPointParam |
-| 62230 | Artist's Shack | Map POI | Various | m60_38_45 | 87.4, 318.4, -110.7 | 9815.4, 11409.3 | WorldMapPointParam |
-| 62231 | Revenger's Shack | Map POI | Various | m60_33_44 | 17.9, 256.9, 28.1 | 8465.9, 11292.0 | WorldMapPointParam |
-| 62232 | Village of the Albinaurics | Map POI | Various | m60_34_42 | 66.6, 269.6, -94.5 | 8770.6, 10657.5 | WorldMapPointParam |
-| 62233 | Frenzied Flame Village | Map POI | Various | m60_38_48 | -39.3, 429.5, -13.5 | 9688.7, 12274.5 | WorldMapPointParam |
-| 62234 | Jarburg | Map POI | Various | m60_39_44 | 43.8, 212.5, -6.7 | 10027.8, 11257.3 | WorldMapPointParam |
-| 62235 | Highway Lookout Tower | Map POI | Various | m60_38_42 | 107.6, 294.7, 120.3 | 9835.6, 10872.3 | WorldMapPointParam |
-| 62236 | Frenzy-Flaming Tower | Map POI | Various | m60_38_49 | -11.5, 448.1, -85.0 | 9716.5, 12459.0 | WorldMapPointParam |
-| 62237 | Malefactor's Evergaol | Map POI | Various | m60_38_41 | -4.0, 256.2, -104.0 | 9724.0, 10392.0 | WorldMapPointParam |
-| 62238 | Cuckoo's Evergaol | Map POI | Various | m60_33_45 | -30.1, 243.2, -37.8 | 8417.9, 11482.2 | WorldMapPointParam |
-| 62239 | Royal Grave Evergaol | Map POI | Various | m60_36_50 | 99.8, 380.1, 16.0 | 9315.8, 12816.0 | WorldMapPointParam |
-| 62240 | Ainsel River Well | Map POI | Various | m60_38_46 | 89.0, 248.8, 76.7 | 9817.0, 11852.7 | WorldMapPointParam |
-| 62241 | Converted Tower | Map POI | Various | m60_34_43 | -87.4, 269.5, -76.3 | 8616.6, 10931.7 | WorldMapPointParam |
-| 62242 | Testu's Rise | Map POI | Various | m60_35_47 | -86.7, 260.3, 75.1 | 8873.4, 12107.1 | WorldMapPointParam |
-| 62243 | Seluvis's Rise | Map POI | Various | m60_34_50 | 67.8, 413.8, -89.5 | 8771.8, 12710.5 | WorldMapPointParam |
-| 62244 | Ranni's Rise | Map POI | Various | m60_34_50 | -54.7, 471.7, 25.1 | 8649.3, 12825.1 | WorldMapPointParam |
-| 62245 | Renna's Rise | Map POI | Various | m60_34_51 | 92.7, 455.3, -60.1 | 8796.6, 12995.9 | WorldMapPointParam |
-| 62246 | Converted Fringe Tower | Map POI | Various | m60_39_48 | -24.8, 466.3, 51.2 | 9959.2, 12339.2 | WorldMapPointParam |
-| 62247 | Caria Manor | Map POI | Various | m60_35_50 | 4.4, 319.9, -12.2 | 8964.4, 12787.8 | WorldMapPointParam |
-| 62248 | Minor Erdtree | Map POI | Various | m60_33_43 | 32.8, 298.2, 58.5 | 8480.8, 11066.5 | WorldMapPointParam |
-| 62249 | Minor Erdtree | Map POI | Various | m60_38_48 | -14.4, 404.0, -119.1 | 9713.6, 12168.9 | WorldMapPointParam |
-| 62250 | Academy Gate Town | Map POI | Various | m60_37_44 | -87.5, 237.7, 45.3 | 9384.5, 11309.3 | WorldMapPointParam |
-| 62251 | Temple Quarter | Map POI | Various | m60_34_44 | 52.5, 237.6, 75.0 | 8756.5, 11339.0 | WorldMapPointParam |
-| 62252 | The Four Belfries | Map POI | Various | m60_33_47 | 68.5, 376.4, -77.1 | 8516.5, 11954.9 | WorldMapPointParam |
-| 62253 | Uld Palace Ruins | Map POI | Various | m60_38_47 | -52.3, 346.6, -72.7 | 9675.7, 11959.3 | WorldMapPointParam |
-| 62254 | Three Sisters | Map POI | Various | m60_35_51 | -63.8, 431.3, -111.6 | 8896.2, 12944.4 | WorldMapPointParam |
-| 62280 | Cathedral of Manus Celes | Map POI | Various | m60_35_42 | -47.9, 408.0, -23.5 | 8912.1, 10728.5 | WorldMapPointParam |
-| 62281 | Ringleader's Evergaol | Map POI | Various | m60_33_42 | -31.7, 345.4, 68.0 | 8416.3, 10820.0 | WorldMapPointParam |
-| 62282 | Deep Ainsel Well | Map POI | Various | m60_34_41 | -21.1, 364.4, 26.9 | 8682.9, 10522.9 | WorldMapPointParam |
-| 62283 | Chelona's Rise | Map POI | Various | m60_33_40 | -2.1, 240.0, 27.6 | 8445.9, 10267.6 | WorldMapPointParam |
-| 62284 | Moonfolk Ruins | Map POI | Various | m60_34_42 | 9.1, 397.5, -25.2 | 8713.1, 10726.8 | WorldMapPointParam |
-| 62285 | Lunar Estate Ruins | Map POI | Various | m60_35_41 | 22.5, 342.6, 76.7 | 8982.5, 10572.7 | WorldMapPointParam |
-| 62300 | Leyndell, Royal Capital | Map POI | Various | m11_00_00 | -226.1, -21.9, -213.9 | - | WorldMapPointParam |
+| 62220 | Church of Irith | Map POI | World (39,39) | m60_39_39 | -30.4, 320.0, 106.7 | 9953.6, 10090.7 | WorldMapPointParam |
+| 62221 | Church of Vows | Map POI | Liurnia of the Lakes | m60_37_46 | -43.7, 398.1, 11.5 | 9428.3, 11787.5 | WorldMapPointParam |
+| 62222 | Rose Church | Map POI | Liurnia of the Lakes | m60_35_44 | -88.4, 241.8, -112.5 | 8871.6, 11151.5 | WorldMapPointParam |
+| 62223 | Bellum Church | Map POI | Liurnia of the Lakes | m60_36_49 | 12.1, 321.9, -84.0 | 9228.1, 12460.0 | WorldMapPointParam |
+| 62224 | Church of Inhibition | Map POI | Liurnia of the Lakes | m60_37_49 | 72.1, 494.2, -37.9 | 9544.1, 12506.1 | WorldMapPointParam |
+| 62225 | Purified Ruins | Map POI | Liurnia of the Lakes | m60_39_41 | -87.8, 255.3, 87.0 | 9896.2, 10583.0 | WorldMapPointParam |
+| 62226 | Kingsrealm Ruins | Map POI | Liurnia of the Lakes | m60_34_48 | 52.2, 262.4, 93.3 | 8756.2, 12381.3 | WorldMapPointParam |
+| 62227 | Laskyar Ruins | Map POI | Liurnia of the Lakes | m60_37_42 | 108.1, 237.4, -116.3 | 9580.1, 10635.7 | WorldMapPointParam |
+| 62228 | Slumbering Wolf's Shack | Map POI | Liurnia of the Lakes | m60_36_41 | 136.3, 151.2, -62.7 | 9352.3, 10433.3 | WorldMapPointParam |
+| 62229 | Boilprawn Shack | Map POI | Liurnia of the Lakes | m60_36_43 | 90.8, 237.7, -58.2 | 9306.8, 10949.8 | WorldMapPointParam |
+| 62230 | Artist's Shack | Map POI | Liurnia of the Lakes | m60_38_45 | 87.4, 318.4, -110.7 | 9815.4, 11409.3 | WorldMapPointParam |
+| 62231 | Revenger's Shack | Map POI | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 28.1 | 8465.9, 11292.0 | WorldMapPointParam |
+| 62232 | Village of the Albinaurics | Map POI | Liurnia of the Lakes | m60_34_42 | 66.6, 269.6, -94.5 | 8770.6, 10657.5 | WorldMapPointParam |
+| 62233 | Frenzied Flame Village | Map POI | Liurnia of the Lakes | m60_38_48 | -39.3, 429.5, -13.5 | 9688.7, 12274.5 | WorldMapPointParam |
+| 62234 | Jarburg | Map POI | Liurnia of the Lakes | m60_39_44 | 43.8, 212.5, -6.7 | 10027.8, 11257.3 | WorldMapPointParam |
+| 62235 | Highway Lookout Tower | Map POI | Liurnia of the Lakes | m60_38_42 | 107.6, 294.7, 120.3 | 9835.6, 10872.3 | WorldMapPointParam |
+| 62236 | Frenzy-Flaming Tower | Map POI | Liurnia of the Lakes | m60_38_49 | -11.5, 448.1, -85.0 | 9716.5, 12459.0 | WorldMapPointParam |
+| 62237 | Malefactor's Evergaol | Map POI | Liurnia of the Lakes | m60_38_41 | -4.0, 256.2, -104.0 | 9724.0, 10392.0 | WorldMapPointParam |
+| 62238 | Cuckoo's Evergaol | Map POI | Liurnia of the Lakes | m60_33_45 | -30.1, 243.2, -37.8 | 8417.9, 11482.2 | WorldMapPointParam |
+| 62239 | Royal Grave Evergaol | Map POI | Liurnia of the Lakes | m60_36_50 | 99.8, 380.1, 16.0 | 9315.8, 12816.0 | WorldMapPointParam |
+| 62240 | Ainsel River Well | Map POI | Liurnia of the Lakes | m60_38_46 | 89.0, 248.8, 76.7 | 9817.0, 11852.7 | WorldMapPointParam |
+| 62241 | Converted Tower | Map POI | Liurnia of the Lakes | m60_34_43 | -87.4, 269.5, -76.3 | 8616.6, 10931.7 | WorldMapPointParam |
+| 62242 | Testu's Rise | Map POI | Liurnia of the Lakes | m60_35_47 | -86.7, 260.3, 75.1 | 8873.4, 12107.1 | WorldMapPointParam |
+| 62243 | Seluvis's Rise | Map POI | Liurnia of the Lakes | m60_34_50 | 67.8, 413.8, -89.5 | 8771.8, 12710.5 | WorldMapPointParam |
+| 62244 | Ranni's Rise | Map POI | Liurnia of the Lakes | m60_34_50 | -54.7, 471.7, 25.1 | 8649.3, 12825.1 | WorldMapPointParam |
+| 62245 | Renna's Rise | Map POI | Mt. Gelmir | m60_34_51 | 92.7, 455.3, -60.1 | 8796.6, 12995.9 | WorldMapPointParam |
+| 62246 | Converted Fringe Tower | Map POI | Liurnia of the Lakes | m60_39_48 | -24.8, 466.3, 51.2 | 9959.2, 12339.2 | WorldMapPointParam |
+| 62247 | Caria Manor | Map POI | Liurnia of the Lakes | m60_35_50 | 4.4, 319.9, -12.2 | 8964.4, 12787.8 | WorldMapPointParam |
+| 62248 | Minor Erdtree | Map POI | Liurnia of the Lakes | m60_33_43 | 32.8, 298.2, 58.5 | 8480.8, 11066.5 | WorldMapPointParam |
+| 62249 | Minor Erdtree | Map POI | Liurnia of the Lakes | m60_38_48 | -14.4, 404.0, -119.1 | 9713.6, 12168.9 | WorldMapPointParam |
+| 62250 | Academy Gate Town | Map POI | Liurnia of the Lakes | m60_37_44 | -87.5, 237.7, 45.3 | 9384.5, 11309.3 | WorldMapPointParam |
+| 62251 | Temple Quarter | Map POI | Liurnia of the Lakes | m60_34_44 | 52.5, 237.6, 75.0 | 8756.5, 11339.0 | WorldMapPointParam |
+| 62252 | The Four Belfries | Map POI | Liurnia of the Lakes | m60_33_47 | 68.5, 376.4, -77.1 | 8516.5, 11954.9 | WorldMapPointParam |
+| 62253 | Uld Palace Ruins | Map POI | Liurnia of the Lakes | m60_38_47 | -52.3, 346.6, -72.7 | 9675.7, 11959.3 | WorldMapPointParam |
+| 62254 | Three Sisters | Map POI | Mt. Gelmir | m60_35_51 | -63.8, 431.3, -111.6 | 8896.2, 12944.4 | WorldMapPointParam |
+| 62280 | Cathedral of Manus Celes | Map POI | Liurnia of the Lakes | m60_35_42 | -47.9, 408.0, -23.5 | 8912.1, 10728.5 | WorldMapPointParam |
+| 62281 | Ringleader's Evergaol | Map POI | Liurnia of the Lakes | m60_33_42 | -31.7, 345.4, 68.0 | 8416.3, 10820.0 | WorldMapPointParam |
+| 62282 | Deep Ainsel Well | Map POI | Liurnia of the Lakes | m60_34_41 | -21.1, 364.4, 26.9 | 8682.9, 10522.9 | WorldMapPointParam |
+| 62283 | Chelona's Rise | Map POI | Liurnia of the Lakes | m60_33_40 | -2.1, 240.0, 27.6 | 8445.9, 10267.6 | WorldMapPointParam |
+| 62284 | Moonfolk Ruins | Map POI | Liurnia of the Lakes | m60_34_42 | 9.1, 397.5, -25.2 | 8713.1, 10726.8 | WorldMapPointParam |
+| 62285 | Lunar Estate Ruins | Map POI | Liurnia of the Lakes | m60_35_41 | 22.5, 342.6, 76.7 | 8982.5, 10572.7 | WorldMapPointParam |
+| 62300 | Leyndell, Royal Capital | Map POI | Leyndell Royal Capital | m11_00_00 | -226.1, -21.9, -213.9 | - | WorldMapPointParam |
 | 62310 | Sainted Hero's Grave | Map POI | Various | m30_08_00 | 47.1, 884.0, 8.1 | - | WorldMapPointParam |
 | 62311 | Gelmir Hero's Grave | Map POI | Various | m30_09_00 | 104.6, 902.6, 15.7 | - | WorldMapPointParam |
 | 62312 | Auriza Hero's Grave | Map POI | Various | m30_10_00 | 62.5, 952.8, 137.7 | - | WorldMapPointParam |
@@ -256,40 +256,40 @@ Total unique flags: 7575
 | 62317 | Volcano Cave | Map POI | Various | m31_09_00 | -67.3, 1033.4, -60.2 | - | WorldMapPointParam |
 | 62318 | Perfumer's Grotto | Map POI | Various | m31_18_00 | 49.5, 838.1, 23.1 | - | WorldMapPointParam |
 | 62319 | Sage's Cave | Map POI | Various | m31_19_00 | 101.3, 654.7, -55.8 | - | WorldMapPointParam |
-| 62320 | Old Altus Tunnel | Map POI | Various | m60_38_53 | 87.7, 732.3, -104.5 | 9815.7, 13463.5 | WorldMapPointParam |
-| 62321 | Sealed Tunnel | Map POI | Various | m60_43_50 | -66.4, 808.8, 47.0 | 10941.6, 12847.0 | WorldMapPointParam |
+| 62320 | Old Altus Tunnel | Map POI | Altus Plateau | m60_38_53 | 87.7, 732.3, -104.5 | 9815.7, 13463.5 | WorldMapPointParam |
+| 62321 | Sealed Tunnel | Map POI | Altus Plateau | m60_43_50 | -66.4, 808.8, 47.0 | 10941.6, 12847.0 | WorldMapPointParam |
 | 62322 | Altus Tunnel | Map POI | Various | m32_05_00 | -52.3, 814.0, 50.7 | - | WorldMapPointParam |
 | 62323 | Divine Tower of West Altus | Map POI | Various | m34_12_00 | -48.1, 699.9, -291.4 | - | WorldMapPointParam |
-| 62324 | Subterranean Shunning-Grounds | Map POI | Various | m35_00_00 | -161.8, -88.5, -191.2 | - | WorldMapPointParam |
-| 62325 | Ruin-Strewn Precipice | Map POI | Various | m39_20_00 | 96.3, 238.4, -1322.3 | - | WorldMapPointParam |
-| 62330 | Grand Lift of Dectus | Map POI | Various | m60_38_50 | 55.1, 759.5, -20.7 | 9783.1, 12779.3 | WorldMapPointParam |
-| 62331 | Stormcaller Church | Map POI | Various | m60_40_51 | 19.3, 845.0, 108.3 | 10259.3, 13164.4 | WorldMapPointParam |
-| 62332 | Second Church of Marika | Map POI | Various | m60_39_52 | 29.1, 771.8, 55.8 | 10013.1, 13367.8 | WorldMapPointParam |
-| 62333 | Minor Erdtree Church | Map POI | Various | m60_43_50 | -115.4, 910.1, -45.3 | 10892.6, 12754.7 | WorldMapPointParam |
-| 62334 | Woodfolk Ruins | Map POI | Various | m60_41_53 | 19.4, 788.2, 21.1 | 10515.4, 13589.1 | WorldMapPointParam |
-| 62335 | Lux Ruins | Map POI | Various | m60_38_51 | -29.7, 789.0, 5.7 | 9698.3, 13061.7 | WorldMapPointParam |
-| 62336 | St. Trina's Hideaway | Map POI | Various | m60_40_52 | 3.3, 815.6, -55.5 | 10243.3, 13256.5 | WorldMapPointParam |
-| 62337 | Hermit Merchant's Shack | Map POI | Various | m60_43_53 | -20.5, 993.4, 0.8 | 10987.5, 13568.8 | WorldMapPointParam |
-| 62338 | West Windmill Pasture | Map POI | Various | m60_40_55 | -74.4, 877.1, -83.6 | 10165.6, 13996.4 | WorldMapPointParam |
-| 62339 | East Windmill Pasture | Map POI | Various | m60_41_55 | -106.7, 877.0, 39.5 | 10389.3, 14119.5 | WorldMapPointParam |
-| 62340 | Village Windmill Pasture | Map POI | Various | m60_41_55 | 47.6, 899.5, -101.3 | 10543.6, 13978.7 | WorldMapPointParam |
-| 62341 | Dominula, Windmill Village | Map POI | Various | m60_42_54 | -77.8, 926.8, 96.8 | 10674.2, 13920.8 | WorldMapPointParam |
-| 62342 | Mirage Rise | Map POI | Various | m60_39_53 | 92.7, 758.9, -74.1 | 10076.7, 13493.9 | WorldMapPointParam |
-| 62343 | Highway Lookout Tower | Map POI | Various | m60_42_54 | 28.3, 948.1, -36.8 | 10780.3, 13787.2 | WorldMapPointParam |
-| 62344 | Golden Lineage Evergaol | Map POI | Various | m60_39_50 | -64.7, 708.5, -80.1 | 9919.3, 12719.9 | WorldMapPointParam |
-| 62345 | The Shaded Castle | Map POI | Various | m60_39_54 | -25.7, 723.8, 13.1 | 9958.3, 13837.1 | WorldMapPointParam |
-| 62346 | Minor Erdtree | Map POI | Various | m60_41_53 | -72.8, 784.6, 24.1 | 10423.2, 13592.1 | WorldMapPointParam |
-| 62347 | Minor Erdtree | Map POI | Various | m60_44_53 | 63.6, 1009.9, 80.5 | 11327.6, 13648.5 | WorldMapPointParam |
-| 62348 | Perfumer's Ruins | Map POI | Various | m60_36_51 | -21.1, 672.0, 125.5 | 9194.9, 13181.5 | WorldMapPointParam |
-| 62360 | Volcano Manor | Map POI | Various | m60_36_53 | 11.9, 979.0, 109.8 | 9227.9, 13677.8 | WorldMapPointParam |
-| 62380 | Writheblood Ruins | Map POI | Various | m60_40_53 | -65.7, 814.4, 72.8 | 10174.3, 13640.8 | WorldMapPointParam |
-| 62381 | Corpse-Stench Shack | Map POI | Various | m60_38_54 | -100.8, 809.5, -0.9 | 9627.2, 13823.1 | WorldMapPointParam |
-| 62382 | Hermit Village | Map POI | Various | m60_37_52 | 2.0, 897.1, 93.9 | 9474.0, 13405.9 | WorldMapPointParam |
-| 62383 | Fort Laiedd | Map POI | Various | m60_35_54 | -14.6, 829.2, -134.3 | 8945.4, 13689.7 | WorldMapPointParam |
-| 62384 | Minor Erdtree | Map POI | Various | m60_37_54 | -3.3, 849.2, -86.5 | 9468.7, 13737.5 | WorldMapPointParam |
-| 62385 | Wyndham Ruins | Map POI | Various | m60_38_52 | -53.3, 801.1, 15.5 | 9674.7, 13327.5 | WorldMapPointParam |
-| 62386 | Hermit's Shack | Map POI | Various | m60_36_52 | -116.8, 846.2, 28.9 | 9099.2, 13340.9 | WorldMapPointParam |
-| 62389 | Craftsman's Shack | Map POI | Various | m60_36_52 | 90.7, 879.8, -20.8 | 9306.7, 13291.2 | WorldMapPointParam |
+| 62324 | Subterranean Shunning-Grounds | Map POI | Subterranean Shunning-Grounds | m35_00_00 | -161.8, -88.5, -191.2 | - | WorldMapPointParam |
+| 62325 | Ruin-Strewn Precipice | Map POI | Ruin-Strewn Precipice | m39_20_00 | 96.3, 238.4, -1322.3 | - | WorldMapPointParam |
+| 62330 | Grand Lift of Dectus | Map POI | Liurnia of the Lakes | m60_38_50 | 55.1, 759.5, -20.7 | 9783.1, 12779.3 | WorldMapPointParam |
+| 62331 | Stormcaller Church | Map POI | Altus Plateau | m60_40_51 | 19.3, 845.0, 108.3 | 10259.3, 13164.4 | WorldMapPointParam |
+| 62332 | Second Church of Marika | Map POI | Altus Plateau | m60_39_52 | 29.1, 771.8, 55.8 | 10013.1, 13367.8 | WorldMapPointParam |
+| 62333 | Minor Erdtree Church | Map POI | Altus Plateau | m60_43_50 | -115.4, 910.1, -45.3 | 10892.6, 12754.7 | WorldMapPointParam |
+| 62334 | Woodfolk Ruins | Map POI | Altus Plateau | m60_41_53 | 19.4, 788.2, 21.1 | 10515.4, 13589.1 | WorldMapPointParam |
+| 62335 | Lux Ruins | Map POI | Altus Plateau | m60_38_51 | -29.7, 789.0, 5.7 | 9698.3, 13061.7 | WorldMapPointParam |
+| 62336 | St. Trina's Hideaway | Map POI | Altus Plateau | m60_40_52 | 3.3, 815.6, -55.5 | 10243.3, 13256.5 | WorldMapPointParam |
+| 62337 | Hermit Merchant's Shack | Map POI | Altus Plateau | m60_43_53 | -20.5, 993.4, 0.8 | 10987.5, 13568.8 | WorldMapPointParam |
+| 62338 | West Windmill Pasture | Map POI | Altus Plateau | m60_40_55 | -74.4, 877.1, -83.6 | 10165.6, 13996.4 | WorldMapPointParam |
+| 62339 | East Windmill Pasture | Map POI | Altus Plateau | m60_41_55 | -106.7, 877.0, 39.5 | 10389.3, 14119.5 | WorldMapPointParam |
+| 62340 | Village Windmill Pasture | Map POI | Altus Plateau | m60_41_55 | 47.6, 899.5, -101.3 | 10543.6, 13978.7 | WorldMapPointParam |
+| 62341 | Dominula, Windmill Village | Map POI | Altus Plateau | m60_42_54 | -77.8, 926.8, 96.8 | 10674.2, 13920.8 | WorldMapPointParam |
+| 62342 | Mirage Rise | Map POI | Altus Plateau | m60_39_53 | 92.7, 758.9, -74.1 | 10076.7, 13493.9 | WorldMapPointParam |
+| 62343 | Highway Lookout Tower | Map POI | Altus Plateau | m60_42_54 | 28.3, 948.1, -36.8 | 10780.3, 13787.2 | WorldMapPointParam |
+| 62344 | Golden Lineage Evergaol | Map POI | Liurnia of the Lakes | m60_39_50 | -64.7, 708.5, -80.1 | 9919.3, 12719.9 | WorldMapPointParam |
+| 62345 | The Shaded Castle | Map POI | Altus Plateau | m60_39_54 | -25.7, 723.8, 13.1 | 9958.3, 13837.1 | WorldMapPointParam |
+| 62346 | Minor Erdtree | Map POI | Altus Plateau | m60_41_53 | -72.8, 784.6, 24.1 | 10423.2, 13592.1 | WorldMapPointParam |
+| 62347 | Minor Erdtree | Map POI | Altus Plateau | m60_44_53 | 63.6, 1009.9, 80.5 | 11327.6, 13648.5 | WorldMapPointParam |
+| 62348 | Perfumer's Ruins | Map POI | Mt. Gelmir | m60_36_51 | -21.1, 672.0, 125.5 | 9194.9, 13181.5 | WorldMapPointParam |
+| 62360 | Volcano Manor | Map POI | Volcano Manor | m60_36_53 | 11.9, 979.0, 109.8 | 9227.9, 13677.8 | WorldMapPointParam |
+| 62380 | Writheblood Ruins | Map POI | Altus Plateau | m60_40_53 | -65.7, 814.4, 72.8 | 10174.3, 13640.8 | WorldMapPointParam |
+| 62381 | Corpse-Stench Shack | Map POI | Altus Plateau | m60_38_54 | -100.8, 809.5, -0.9 | 9627.2, 13823.1 | WorldMapPointParam |
+| 62382 | Hermit Village | Map POI | Mt. Gelmir | m60_37_52 | 2.0, 897.1, 93.9 | 9474.0, 13405.9 | WorldMapPointParam |
+| 62383 | Fort Laiedd | Map POI | Mt. Gelmir | m60_35_54 | -14.6, 829.2, -134.3 | 8945.4, 13689.7 | WorldMapPointParam |
+| 62384 | Minor Erdtree | Map POI | Mt. Gelmir | m60_37_54 | -3.3, 849.2, -86.5 | 9468.7, 13737.5 | WorldMapPointParam |
+| 62385 | Wyndham Ruins | Map POI | Altus Plateau | m60_38_52 | -53.3, 801.1, 15.5 | 9674.7, 13327.5 | WorldMapPointParam |
+| 62386 | Hermit's Shack | Map POI | Mt. Gelmir | m60_36_52 | -116.8, 846.2, 28.9 | 9099.2, 13340.9 | WorldMapPointParam |
+| 62389 | Craftsman's Shack | Map POI | Mt. Gelmir | m60_36_52 | 90.7, 879.8, -20.8 | 9306.7, 13291.2 | WorldMapPointParam |
 | 62410 | Minor Erdtree Catacombs | Map POI | Various | m30_14_00 | -54.5, 123.4, 67.6 | - | WorldMapPointParam |
 | 62411 | Caelid Catacombs | Map POI | Various | m30_15_00 | 90.2, 54.5, 69.1 | - | WorldMapPointParam |
 | 62412 | War-Dead Catacombs | Map POI | Various | m30_16_00 | 37.7, 5.2, -134.7 | - | WorldMapPointParam |
@@ -298,143 +298,143 @@ Total unique flags: 7575
 | 62415 | Gaol Cave | Map POI | Various | m31_21_00 | -64.3, 87.8, 33.9 | - | WorldMapPointParam |
 | 62416 | Gael Tunnel | Map POI | Various | m32_07_00 | 62.0, 150.6, 48.6 | - | WorldMapPointParam |
 | 62417 | Sellia Crystal Tunnel | Map POI | Various | m32_08_00 | 18.4, 86.4, 120.6 | - | WorldMapPointParam |
-| 62420 | Smoldering Church | Map POI | Various | m60_46_40 | -72.5, 151.6, 15.3 | 11703.5, 10255.3 | WorldMapPointParam |
-| 62421 | Cathedral of Dragon Communion | Map POI | Various | m60_48_36 | 27.5, 127.7, 96.3 | 12315.5, 9312.3 | WorldMapPointParam |
-| 62422 | Church of the Plague | Map POI | Various | m60_50_39 | 17.5, 160.9, -125.9 | 12817.5, 9858.1 | WorldMapPointParam |
-| 62423 | Forsaken Ruins | Map POI | Various | m60_47_40 | -101.1, 146.3, -102.2 | 11930.9, 10137.8 | WorldMapPointParam |
-| 62424 | Caelid Waypoint Ruins | Map POI | Various | m60_47_38 | 50.3, 98.4, -96.0 | 12082.3, 9632.0 | WorldMapPointParam |
-| 62425 | Street of Sages Ruins | Map POI | Various | m60_48_38 | 37.4, 64.0, 117.2 | 12325.4, 9845.2 | WorldMapPointParam |
-| 62426 | Caelem Ruins | Map POI | Various | m60_47_40 | 121.0, 150.8, -103.5 | 12153.0, 10136.5 | WorldMapPointParam |
-| 62427 | Shack of the Rotting | Map POI | Various | m60_46_40 | 82.7, 171.0, -90.3 | 11858.7, 10149.7 | WorldMapPointParam |
-| 62428 | Gowry's Shack | Map POI | Various | m60_50_38 | -87.8, 95.0, 45.9 | 12712.2, 9773.9 | WorldMapPointParam |
-| 62429 | Fort Gael | Map POI | Various | m60_47_38 | -119.6, 165.1, -28.1 | 11912.4, 9699.9 | WorldMapPointParam |
-| 62430 | Swamp Lookout Tower | Map POI | Various | m60_49_38 | 54.9, 146.2, 50.8 | 12598.9, 9778.8 | WorldMapPointParam |
-| 62432 | Sellia Gateway | Map POI | Various | m60_49_38 | 125.7, 95.7, -49.8 | 12669.7, 9678.2 | WorldMapPointParam |
-| 62434 | Deep Siofra Well | Map POI | Various | m60_49_40 | -112.5, 117.0, -12.1 | 12431.5, 10227.9 | WorldMapPointParam |
-| 62435 | Sellia, Town of Sorcery | Map POI | Various | m60_50_39 | -125.8, 78.4, -58.2 | 12674.2, 9925.8 | WorldMapPointParam |
-| 62436 | Redmane Castle | Map POI | Various | m60_51_36 | 41.0, 89.6, -56.5 | 13097.0, 9159.5 | WorldMapPointParam |
-| 62437 | Minor Erdtree | Map POI | Various | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | WorldMapPointParam |
-| 62438 | Wailing Dunes | Map POI | Various | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | WorldMapPointParam |
+| 62420 | Smoldering Church | Map POI | Caelid | m60_46_40 | -72.5, 151.6, 15.3 | 11703.5, 10255.3 | WorldMapPointParam |
+| 62421 | Cathedral of Dragon Communion | Map POI | Caelid | m60_48_36 | 27.5, 127.7, 96.3 | 12315.5, 9312.3 | WorldMapPointParam |
+| 62422 | Church of the Plague | Map POI | Caelid | m60_50_39 | 17.5, 160.9, -125.9 | 12817.5, 9858.1 | WorldMapPointParam |
+| 62423 | Forsaken Ruins | Map POI | Caelid | m60_47_40 | -101.1, 146.3, -102.2 | 11930.9, 10137.8 | WorldMapPointParam |
+| 62424 | Caelid Waypoint Ruins | Map POI | Caelid | m60_47_38 | 50.3, 98.4, -96.0 | 12082.3, 9632.0 | WorldMapPointParam |
+| 62425 | Street of Sages Ruins | Map POI | Caelid | m60_48_38 | 37.4, 64.0, 117.2 | 12325.4, 9845.2 | WorldMapPointParam |
+| 62426 | Caelem Ruins | Map POI | Caelid | m60_47_40 | 121.0, 150.8, -103.5 | 12153.0, 10136.5 | WorldMapPointParam |
+| 62427 | Shack of the Rotting | Map POI | Caelid | m60_46_40 | 82.7, 171.0, -90.3 | 11858.7, 10149.7 | WorldMapPointParam |
+| 62428 | Gowry's Shack | Map POI | Caelid | m60_50_38 | -87.8, 95.0, 45.9 | 12712.2, 9773.9 | WorldMapPointParam |
+| 62429 | Fort Gael | Map POI | Caelid | m60_47_38 | -119.6, 165.1, -28.1 | 11912.4, 9699.9 | WorldMapPointParam |
+| 62430 | Swamp Lookout Tower | Map POI | Caelid | m60_49_38 | 54.9, 146.2, 50.8 | 12598.9, 9778.8 | WorldMapPointParam |
+| 62432 | Sellia Gateway | Map POI | Caelid | m60_49_38 | 125.7, 95.7, -49.8 | 12669.7, 9678.2 | WorldMapPointParam |
+| 62434 | Deep Siofra Well | Map POI | Caelid | m60_49_40 | -112.5, 117.0, -12.1 | 12431.5, 10227.9 | WorldMapPointParam |
+| 62435 | Sellia, Town of Sorcery | Map POI | Caelid | m60_50_39 | -125.8, 78.4, -58.2 | 12674.2, 9925.8 | WorldMapPointParam |
+| 62436 | Redmane Castle | Map POI | Caelid | m60_51_36 | 41.0, 89.6, -56.5 | 13097.0, 9159.5 | WorldMapPointParam |
+| 62437 | Minor Erdtree | Map POI | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | WorldMapPointParam |
+| 62438 | Wailing Dunes | Map POI | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | WorldMapPointParam |
 | 62460 | Sellia Hideaway | Map POI | Various | m31_11_00 | 127.1, 207.6, 63.9 | - | WorldMapPointParam |
 | 62461 | Divine Tower of Caelid | Map POI | Various | m34_13_00 | 77.3, 276.3, -35.8 | - | WorldMapPointParam |
-| 62470 | Isolated Merchant's Shack | Map POI | Various | m60_48_41 | -86.4, 226.3, -81.7 | 12201.6, 10414.3 | WorldMapPointParam |
-| 62471 | Sellia Evergaol | Map POI | Various | m60_49_39 | -90.2, 162.9, 12.2 | 12453.8, 9996.2 | WorldMapPointParam |
-| 62472 | Lenne's Rise | Map POI | Various | m60_52_41 | 65.1, 221.0, -22.3 | 13377.1, 10473.7 | WorldMapPointParam |
-| 62473 | Fort Faroth | Map POI | Various | m60_51_39 | -55.2, 267.1, 105.8 | 13000.8, 10089.8 | WorldMapPointParam |
-| 62474 | Minor Erdtree | Map POI | Various | m60_51_40 | 22.0, 210.5, 34.1 | 13078.0, 10274.1 | WorldMapPointParam |
-| 62475 | Bestial Sanctum | Map POI | Various | m60_51_43 | -38.4, 344.3, 1.9 | 13017.6, 11009.9 | WorldMapPointParam |
-| 62510 | Giant-Conquering Hero's Grave | Map POI | Various | m60_50_53 | -118.6, 1511.8, 120.0 | 12681.4, 13688.0 | WorldMapPointParam |
-| 62511 | Giants' Mountaintop Catacombs | Map POI | Various | m60_50_53 | 26.2, 1577.7, 109.3 | 12826.2, 13677.3 | WorldMapPointParam |
-| 62512 | Consecrated Snowfield Catacombs | Map POI | Various | m60_50_55 | -69.6, 1360.0, -86.4 | 12730.4, 13993.6 | WorldMapPointParam |
+| 62470 | Isolated Merchant's Shack | Map POI | Caelid | m60_48_41 | -86.4, 226.3, -81.7 | 12201.6, 10414.3 | WorldMapPointParam |
+| 62471 | Sellia Evergaol | Map POI | Caelid | m60_49_39 | -90.2, 162.9, 12.2 | 12453.8, 9996.2 | WorldMapPointParam |
+| 62472 | Lenne's Rise | Map POI | Caelid | m60_52_41 | 65.1, 221.0, -22.3 | 13377.1, 10473.7 | WorldMapPointParam |
+| 62473 | Fort Faroth | Map POI | Caelid | m60_51_39 | -55.2, 267.1, 105.8 | 13000.8, 10089.8 | WorldMapPointParam |
+| 62474 | Minor Erdtree | Map POI | Caelid | m60_51_40 | 22.0, 210.5, 34.1 | 13078.0, 10274.1 | WorldMapPointParam |
+| 62475 | Bestial Sanctum | Map POI | Caelid | m60_51_43 | -38.4, 344.3, 1.9 | 13017.6, 11009.9 | WorldMapPointParam |
+| 62510 | Giant-Conquering Hero's Grave | Map POI | World (50,53) | m60_50_53 | -118.6, 1511.8, 120.0 | 12681.4, 13688.0 | WorldMapPointParam |
+| 62511 | Giants' Mountaintop Catacombs | Map POI | World (50,53) | m60_50_53 | 26.2, 1577.7, 109.3 | 12826.2, 13677.3 | WorldMapPointParam |
+| 62512 | Consecrated Snowfield Catacombs | Map POI | Mountaintops of the Giants | m60_50_55 | -69.6, 1360.0, -86.4 | 12730.4, 13993.6 | WorldMapPointParam |
 | 62513 | Cave of the Forlorn | Map POI | Various | m31_12_00 | -54.9, 1254.8, 44.0 | - | WorldMapPointParam |
-| 62514 | Spiritcaller Cave | Map POI | Various | m60_53_56 | -38.3, 1626.3, 114.5 | 13529.7, 14450.5 | WorldMapPointParam |
-| 62515 | Yelough Anix Tunnel | Map POI | Various | m60_47_55 | 45.9, 1258.8, -51.0 | 12077.9, 14029.0 | WorldMapPointParam |
+| 62514 | Spiritcaller Cave | Map POI | Mountaintops of the Giants | m60_53_56 | -38.3, 1626.3, 114.5 | 13529.7, 14450.5 | WorldMapPointParam |
+| 62515 | Yelough Anix Tunnel | Map POI | Mountaintops of the Giants | m60_47_55 | 45.9, 1258.8, -51.0 | 12077.9, 14029.0 | WorldMapPointParam |
 | 62516 | Divine Tower of East Altus | Map POI | Various | m34_14_00 | 649.4, 30.3, -532.9 | - | WorldMapPointParam |
-| 62520 | First Church of Marika | Map POI | Various | m60_54_55 | -31.1, 1625.1, 73.0 | 13792.9, 14153.0 | WorldMapPointParam |
-| 62521 | Church of Repose | Map POI | Various | m60_51_53 | -58.3, 1802.6, -65.5 | 12997.7, 13502.5 | WorldMapPointParam |
-| 62522 | Zamor Ruins | Map POI | Various | m60_49_53 | 102.4, 1578.2, -59.5 | 12646.4, 13508.5 | WorldMapPointParam |
-| 62523 | Stargazers' Ruins | Map POI | Various | m60_51_56 | -52.0, 1657.7, 32.9 | 13004.0, 14368.9 | WorldMapPointParam |
-| 62524 | Shack of the Lofty | Map POI | Various | m60_50_56 | 37.8, 1603.9, 81.1 | 12837.8, 14417.1 | WorldMapPointParam |
-| 62525 | Lord Contender's Evergaol | Map POI | Various | m60_53_56 | -47.0, 1667.2, -109.0 | 13521.0, 14227.0 | WorldMapPointParam |
-| 62526 | Heretical Rise | Map POI | Various | m60_52_57 | 111.2, 1681.0, -62.5 | 13423.2, 14529.5 | WorldMapPointParam |
-| 62527 | Guardians' Garrison | Map POI | Various | m60_52_55 | -53.4, 1694.1, 76.7 | 13258.6, 14156.7 | WorldMapPointParam |
-| 62528 | Grand Lift of Rold | Map POI | Various | m60_49_53 | -20.1, 1568.6, -27.7 | 12523.9, 13540.3 | WorldMapPointParam |
-| 62529 | Castle Sol | Map POI | Various | m60_51_57 | 11.9, 1599.0, 78.0 | 13067.9, 14670.0 | WorldMapPointParam |
-| 62530 | Minor Erdtree | Map POI | Various | m60_52_56 | -42.1, 1673.7, 72.5 | 13269.9, 14408.5 | WorldMapPointParam |
-| 62531 | Forge of the Giants | Map POI | Various | m60_54_53 | -83.9, 1959.9, -35.4 | 13740.1, 13532.6 | WorldMapPointParam |
-| 62550 | Miquella's Haligtree | Map POI | Various | m15_00_00 | 50.1, 552.3, 168.6 | - | WorldMapPointParam |
-| 62551 | Elphael, Brace of the Haligtree | Map POI | Various | m15_00_00 | -4.9, 145.5, 493.9 | - | WorldMapPointParam |
+| 62520 | First Church of Marika | Map POI | Mountaintops of the Giants | m60_54_55 | -31.1, 1625.1, 73.0 | 13792.9, 14153.0 | WorldMapPointParam |
+| 62521 | Church of Repose | Map POI | World (51,53) | m60_51_53 | -58.3, 1802.6, -65.5 | 12997.7, 13502.5 | WorldMapPointParam |
+| 62522 | Zamor Ruins | Map POI | World (49,53) | m60_49_53 | 102.4, 1578.2, -59.5 | 12646.4, 13508.5 | WorldMapPointParam |
+| 62523 | Stargazers' Ruins | Map POI | Mountaintops of the Giants | m60_51_56 | -52.0, 1657.7, 32.9 | 13004.0, 14368.9 | WorldMapPointParam |
+| 62524 | Shack of the Lofty | Map POI | Mountaintops of the Giants | m60_50_56 | 37.8, 1603.9, 81.1 | 12837.8, 14417.1 | WorldMapPointParam |
+| 62525 | Lord Contender's Evergaol | Map POI | Mountaintops of the Giants | m60_53_56 | -47.0, 1667.2, -109.0 | 13521.0, 14227.0 | WorldMapPointParam |
+| 62526 | Heretical Rise | Map POI | Mountaintops of the Giants | m60_52_57 | 111.2, 1681.0, -62.5 | 13423.2, 14529.5 | WorldMapPointParam |
+| 62527 | Guardians' Garrison | Map POI | Mountaintops of the Giants | m60_52_55 | -53.4, 1694.1, 76.7 | 13258.6, 14156.7 | WorldMapPointParam |
+| 62528 | Grand Lift of Rold | Map POI | World (49,53) | m60_49_53 | -20.1, 1568.6, -27.7 | 12523.9, 13540.3 | WorldMapPointParam |
+| 62529 | Castle Sol | Map POI | Mountaintops of the Giants | m60_51_57 | 11.9, 1599.0, 78.0 | 13067.9, 14670.0 | WorldMapPointParam |
+| 62530 | Minor Erdtree | Map POI | Mountaintops of the Giants | m60_52_56 | -42.1, 1673.7, 72.5 | 13269.9, 14408.5 | WorldMapPointParam |
+| 62531 | Forge of the Giants | Map POI | World (54,53) | m60_54_53 | -83.9, 1959.9, -35.4 | 13740.1, 13532.6 | WorldMapPointParam |
+| 62550 | Miquella's Haligtree | Map POI | Miquella's Haligtree | m15_00_00 | 50.1, 552.3, 168.6 | - | WorldMapPointParam |
+| 62551 | Elphael, Brace of the Haligtree | Map POI | Elphael Brace of the Haligtree | m15_00_00 | -4.9, 145.5, 493.9 | - | WorldMapPointParam |
 | 62560 | Hidden Path to the Haligtree | Map POI | Various | m30_20_00 | -105.1, 1338.6, -122.7 | - | WorldMapPointParam |
-| 62570 | Apostate Derelict | Map POI | Various | m60_47_58 | 48.1, 1289.6, -27.1 | 12080.1, 14820.9 | WorldMapPointParam |
-| 62571 | Yelough Anix Ruins | Map POI | Various | m60_47_55 | 67.9, 1277.9, 18.8 | 12099.9, 14098.8 | WorldMapPointParam |
-| 62572 | Ordina, Liturgical Town | Map POI | Various | m60_48_57 | 61.3, 1290.9, -3.4 | 12349.3, 14588.6 | WorldMapPointParam |
-| 62573 | Albinauric Rise | Map POI | Various | m60_50_56 | -111.0, 1323.0, -85.2 | 12689.0, 14250.8 | WorldMapPointParam |
-| 62574 | Minor Erdtree | Map POI | Various | m60_50_56 | -126.2, 1378.7, 126.6 | 12673.8, 14462.6 | WorldMapPointParam |
-| 62610 | Uhl Palace Ruins | Map POI | Various | m12_01_00 | 162.9, -205.5, -169.2 | - | WorldMapPointParam |
-| 62620 | Uhl Palace Ruins | Map POI | Various | m12_01_00 | 285.1, -80.5, 117.5 | - | WorldMapPointParam |
-| 62621 | Nokstella, Eternal City | Map POI | Various | m12_01_00 | -96.6, -129.0, 204.3 | - | WorldMapPointParam |
-| 62622 | Grand Cloister | Map POI | Various | m12_01_00 | -531.9, -373.2, -544.1 | - | WorldMapPointParam |
-| 62630 | Nokron, Eternal City | Map POI | Various | m12_07_00 | 754.6, -585.1, 1248.8 | - | WorldMapPointParam |
-| 62631 | Night's Sacred Ground | Map POI | Various | m12_02_00 | 1016.2, -664.1, 1405.0 | - | WorldMapPointParam |
-| 62632 | Siofra Aqueduct | Map POI | Various | m12_02_00 | 1309.0, -627.0, 1789.6 | - | WorldMapPointParam |
-| 62633 | Hallowhorn Grounds | Map POI | Various | m12_02_00 | 1221.3, -809.2, 1195.6 | - | WorldMapPointParam |
-| 62634 | Hallowhorn Grounds | Map POI | Various | m12_02_00 | 1169.8, -611.8, 1598.7 | - | WorldMapPointParam |
-| 62640 | Mohgwyn Dynasty Mausoleum | Map POI | Various | m12_05_00 | 1618.3, 505.8, 1203.9 | - | WorldMapPointParam |
-| 62700 | Crumbling Farum Azula | Map POI | Various | m13_00_00 | 76.4, -1.7, 276.1 | - | WorldMapPointParam |
-| 62710 | Isolated Divine Tower | Map POI | Various | m60_51_46 | -23.6, 111.0, -82.0 | 13032.4, 11694.0 | WorldMapPointParam |
+| 62570 | Apostate Derelict | Map POI | Mountaintops of the Giants | m60_47_58 | 48.1, 1289.6, -27.1 | 12080.1, 14820.9 | WorldMapPointParam |
+| 62571 | Yelough Anix Ruins | Map POI | Mountaintops of the Giants | m60_47_55 | 67.9, 1277.9, 18.8 | 12099.9, 14098.8 | WorldMapPointParam |
+| 62572 | Ordina, Liturgical Town | Map POI | Mountaintops of the Giants | m60_48_57 | 61.3, 1290.9, -3.4 | 12349.3, 14588.6 | WorldMapPointParam |
+| 62573 | Albinauric Rise | Map POI | Mountaintops of the Giants | m60_50_56 | -111.0, 1323.0, -85.2 | 12689.0, 14250.8 | WorldMapPointParam |
+| 62574 | Minor Erdtree | Map POI | Mountaintops of the Giants | m60_50_56 | -126.2, 1378.7, 126.6 | 12673.8, 14462.6 | WorldMapPointParam |
+| 62610 | Uhl Palace Ruins | Map POI | Ainsel River | m12_01_00 | 162.9, -205.5, -169.2 | - | WorldMapPointParam |
+| 62620 | Uhl Palace Ruins | Map POI | Ainsel River | m12_01_00 | 285.1, -80.5, 117.5 | - | WorldMapPointParam |
+| 62621 | Nokstella, Eternal City | Map POI | Ainsel River | m12_01_00 | -96.6, -129.0, 204.3 | - | WorldMapPointParam |
+| 62622 | Grand Cloister | Map POI | Lake of Rot | m12_01_00 | -531.9, -373.2, -544.1 | - | WorldMapPointParam |
+| 62630 | Nokron, Eternal City | Map POI | Nokron | m12_07_00 | 754.6, -585.1, 1248.8 | - | WorldMapPointParam |
+| 62631 | Night's Sacred Ground | Map POI | Siofra River | m12_02_00 | 1016.2, -664.1, 1405.0 | - | WorldMapPointParam |
+| 62632 | Siofra Aqueduct | Map POI | Siofra River | m12_02_00 | 1309.0, -627.0, 1789.6 | - | WorldMapPointParam |
+| 62633 | Hallowhorn Grounds | Map POI | Siofra River | m12_02_00 | 1221.3, -809.2, 1195.6 | - | WorldMapPointParam |
+| 62634 | Hallowhorn Grounds | Map POI | Siofra River | m12_02_00 | 1169.8, -611.8, 1598.7 | - | WorldMapPointParam |
+| 62640 | Mohgwyn Dynasty Mausoleum | Map POI | Mohgwyn Palace | m12_05_00 | 1618.3, 505.8, 1203.9 | - | WorldMapPointParam |
+| 62700 | Crumbling Farum Azula | Map POI | Crumbling Farum Azula | m13_00_00 | 76.4, -1.7, 276.1 | - | WorldMapPointParam |
+| 62710 | Isolated Divine Tower | Map POI | World (51,46) | m60_51_46 | -23.6, 111.0, -82.0 | 13032.4, 11694.0 | WorldMapPointParam |
 | 62720 | Royal Colosseum | Map POI | Various | m11_00_00 | -348.7, 28.4, -428.9 | - | WorldMapPointParam |
-| 62730 | Limgrave Colosseum | Map POI | Various | m60_42_40 | -40.2, 206.5, -107.2 | 10711.8, 10132.9 | WorldMapPointParam |
-| 62740 | Caelid Colosseum | Map POI | Various | m60_47_42 | -4.6, 148.1, -86.6 | 12027.4, 10665.4 | WorldMapPointParam |
-| 62800 | Belurat Gaol | Map POI | Various | m41_00_00 | -100.7, 259.8, -106.4 | - | WorldMapPointParam |
-| 62805 | Miquella's Cross | Map POI | Various | m61_46_42 | -7.7, 297.2, 94.4 | 11768.3, 10846.4 | WorldMapPointParam |
-| 62806 | Miquella's Cross | Map POI | Various | m61_45_42 | -101.2, 392.6, 97.1 | 11418.8, 10849.1 | WorldMapPointParam |
-| 62807 | Abandoned Ailing Village | Map POI | Various | m61_46_44 | -12.7, 276.7, -29.1 | 11763.3, 11234.9 | WorldMapPointParam |
-| 62808 | Church of Consolation | Map POI | Various | m61_48_41 | -82.7, 228.8, -74.3 | 12205.3, 10421.7 | WorldMapPointParam |
-| 62809 | Church of Benediction | Map POI | Various | m61_46_40 | 3.7, 365.0, -73.3 | 11779.7, 10166.7 | WorldMapPointParam |
-| 62810 | Scorched Ruins | Map POI | Various | m61_47_41 | -80.8, 300.9, 3.3 | 11951.2, 10499.3 | WorldMapPointParam |
-| 62811 | Prospect Town | Map POI | Various | m61_45_41 | -27.9, 421.0, -102.4 | 11492.1, 10393.6 | WorldMapPointParam |
-| 62812 | Western Nameless Mausoleum | Map POI | Various | m61_46_41 | -130.0, 330.0, 54.7 | 11646.0, 10550.7 | WorldMapPointParam |
-| 62813 | Run-Down Traveler's Rest | Map POI | Various | m61_46_43 | 21.1, 257.2, 3.2 | 11797.1, 11011.2 | WorldMapPointParam |
-| 62814 | Ellac Greatbridge | Map POI | Various | m61_46_43 | 109.3, 308.4, 46.9 | 11885.3, 11054.9 | WorldMapPointParam |
-| 62815 | Artist's Shack | Map POI | Various | m61_46_40 | 29.0, 403.1, -6.0 | 11805.0, 10234.0 | WorldMapPointParam |
-| 62820 | Legacy Dungeon - Unused | Map POI | Various | m60_35_32 | -341.7, 66.2, -47.8 | 8618.3, 8144.2 | WorldMapPointParam |
-| 62821 | Dragon's Pit | Map POI | Various | m43_01_00 | -99.9, 360.7, 16.6 | - | WorldMapPointParam |
-| 62822 | Ruined Forge Lava Intake | Map POI | Various | m42_00_00 | -116.3, 269.3, 71.3 | - | WorldMapPointParam |
-| 62823 | Fog Rift Catacombs | Map POI | Various | m40_00_00 | -92.0, 259.0, -69.0 | - | WorldMapPointParam |
-| 62825 | Miquella's Cross | Map POI | Various | m61_48_43 | 39.6, 313.6, -85.0 | 12327.6, 10923.0 | WorldMapPointParam |
-| 62826 | Suppressing Pillar | Map POI | Various | m61_48_41 | 7.2, 424.7, -15.0 | 12295.2, 10481.0 | WorldMapPointParam |
-| 62827 | Elder's Hovel | Map POI | Various | m61_49_42 | 119.7, 216.4, 70.8 | 12663.7, 10822.8 | WorldMapPointParam |
-| 62830 | Castle Ensis | Map POI | Various | m61_47_44 | 111.4, 365.9, 37.7 | 12143.4, 11301.7 | WorldMapPointParam |
-| 62831 | Miquella's Cross | Map POI | Various | m61_47_44 | 80.9, 359.4, 64.4 | 12112.9, 11328.4 | WorldMapPointParam |
-| 62840 | Finger Ruins of Rhia | Map POI | Various | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | WorldMapPointParam |
-| 62841 | Finger-Weaver's Hovel | Map POI | Various | m61_49_38 | -70.4, 20.9, 106.1 | 12473.6, 9834.1 | WorldMapPointParam |
-| 62842 | Miquella's Cross | Map POI | Various | m61_48_37 | 29.7, 60.1, -97.0 | 12317.7, 9375.0 | WorldMapPointParam |
-| 62843 | Southern Nameless Mausoleum | Map POI | Various | m61_46_38 | -3.1, 21.4, -62.7 | 11772.9, 9665.3 | WorldMapPointParam |
-| 62844 | Finger Ruins of Rhia | Map POI | Various | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | WorldMapPointParam |
+| 62730 | Limgrave Colosseum | Map POI | World (42,40) | m60_42_40 | -40.2, 206.5, -107.2 | 10711.8, 10132.9 | WorldMapPointParam |
+| 62740 | Caelid Colosseum | Map POI | Caelid | m60_47_42 | -4.6, 148.1, -86.6 | 12027.4, 10665.4 | WorldMapPointParam |
+| 62800 | Belurat Gaol | Map POI | Gravesite Plain | m41_00_00 | -100.7, 259.8, -106.4 | - | WorldMapPointParam |
+| 62805 | Miquella's Cross | Map POI | Gravesite Plain | m61_46_42 | -7.7, 297.2, 94.4 | 11768.3, 10846.4 | WorldMapPointParam |
+| 62806 | Miquella's Cross | Map POI | Gravesite Plain | m61_45_42 | -101.2, 392.6, 97.1 | 11418.8, 10849.1 | WorldMapPointParam |
+| 62807 | Abandoned Ailing Village | Map POI | Gravesite Plain | m61_46_44 | -12.7, 276.7, -29.1 | 11763.3, 11234.9 | WorldMapPointParam |
+| 62808 | Church of Consolation | Map POI | Gravesite Plain | m61_48_41 | -82.7, 228.8, -74.3 | 12205.3, 10421.7 | WorldMapPointParam |
+| 62809 | Church of Benediction | Map POI | Gravesite Plain | m61_46_40 | 3.7, 365.0, -73.3 | 11779.7, 10166.7 | WorldMapPointParam |
+| 62810 | Scorched Ruins | Map POI | Gravesite Plain | m61_47_41 | -80.8, 300.9, 3.3 | 11951.2, 10499.3 | WorldMapPointParam |
+| 62811 | Prospect Town | Map POI | Gravesite Plain | m61_45_41 | -27.9, 421.0, -102.4 | 11492.1, 10393.6 | WorldMapPointParam |
+| 62812 | Western Nameless Mausoleum | Map POI | Gravesite Plain | m61_46_41 | -130.0, 330.0, 54.7 | 11646.0, 10550.7 | WorldMapPointParam |
+| 62813 | Run-Down Traveler's Rest | Map POI | Gravesite Plain | m61_46_43 | 21.1, 257.2, 3.2 | 11797.1, 11011.2 | WorldMapPointParam |
+| 62814 | Ellac Greatbridge | Map POI | Gravesite Plain | m61_46_43 | 109.3, 308.4, 46.9 | 11885.3, 11054.9 | WorldMapPointParam |
+| 62815 | Artist's Shack | Map POI | Gravesite Plain | m61_46_40 | 29.0, 403.1, -6.0 | 11805.0, 10234.0 | WorldMapPointParam |
+| 62820 | Legacy Dungeon - Unused | Map POI | Unused | m60_35_32 | -341.7, 66.2, -47.8 | 8618.3, 8144.2 | WorldMapPointParam |
+| 62821 | Dragon's Pit | Map POI | Jagged Peak | m43_01_00 | -99.9, 360.7, 16.6 | - | WorldMapPointParam |
+| 62822 | Ruined Forge Lava Intake | Map POI | Gravesite Plain | m42_00_00 | -116.3, 269.3, 71.3 | - | WorldMapPointParam |
+| 62823 | Fog Rift Catacombs | Map POI | Scadu Altus | m40_00_00 | -92.0, 259.0, -69.0 | - | WorldMapPointParam |
+| 62825 | Miquella's Cross | Map POI | Abyssal Woods | m61_48_43 | 39.6, 313.6, -85.0 | 12327.6, 10923.0 | WorldMapPointParam |
+| 62826 | Suppressing Pillar | Map POI | Gravesite Plain | m61_48_41 | 7.2, 424.7, -15.0 | 12295.2, 10481.0 | WorldMapPointParam |
+| 62827 | Elder's Hovel | Map POI | Abyssal Woods | m61_49_42 | 119.7, 216.4, 70.8 | 12663.7, 10822.8 | WorldMapPointParam |
+| 62830 | Castle Ensis | Map POI | Gravesite Plain | m61_47_44 | 111.4, 365.9, 37.7 | 12143.4, 11301.7 | WorldMapPointParam |
+| 62831 | Miquella's Cross | Map POI | Gravesite Plain | m61_47_44 | 80.9, 359.4, 64.4 | 12112.9, 11328.4 | WorldMapPointParam |
+| 62840 | Finger Ruins of Rhia | Map POI | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | WorldMapPointParam |
+| 62841 | Finger-Weaver's Hovel | Map POI | Cerulean Coast | m61_49_38 | -70.4, 20.9, 106.1 | 12473.6, 9834.1 | WorldMapPointParam |
+| 62842 | Miquella's Cross | Map POI | Cerulean Coast | m61_48_37 | 29.7, 60.1, -97.0 | 12317.7, 9375.0 | WorldMapPointParam |
+| 62843 | Southern Nameless Mausoleum | Map POI | Cerulean Coast | m61_46_38 | -3.1, 21.4, -62.7 | 11772.9, 9665.3 | WorldMapPointParam |
+| 62844 | Finger Ruins of Rhia | Map POI | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | WorldMapPointParam |
 | 62850 | Lamenter's Gaol | Map POI | Various | m41_02_00 | 85.8, 76.5, 4.6 | - | WorldMapPointParam |
-| 62855 | Grand Altar of Dragon Communion | Map POI | Various | m61_49_39 | 82.3, 80.5, -105.8 | 12626.3, 9878.2 | WorldMapPointParam |
-| 62860 | Midra's Manse | Map POI | Various | m28_00_00 | -8.5, 16.0, -69.9 | - | WorldMapPointParam |
-| 62865 | Abandoned Church | Map POI | Various | m61_53_41 | -121.5, -539.9, -33.1 | 13446.5, 10462.9 | WorldMapPointParam |
-| 62870 | Stone Coffin Fissure | Map POI | Various | m22_00_00 | -407.7, 311.1, 21.8 | - | WorldMapPointParam |
-| 62871 | Miquella's Cross | Map POI | Various | m22_00_00 | -236.6, 215.7, -24.2 | - | WorldMapPointParam |
-| 62880 | Belurat, Tower Settlement | Map POI | Various | m20_00_00 | -25.0, 5.1, 24.9 | - | WorldMapPointParam |
-| 62881 | Miquella's Cross | Map POI | Various | m20_00_00 | -32.2, 77.2, 264.6 | - | WorldMapPointParam |
-| 62890 | Enir-Ilim | Map POI | Various | m20_01_00 | -150.2, 6.2, -4.8 | - | WorldMapPointParam |
-| 62891 | Miquella's Cross | Map POI | Various | m20_01_00 | -294.8, 65.1, -80.5 | - | WorldMapPointParam |
-| 62900 | Miquella's Cross | Map POI | Various | m61_48_44 | -28.0, 410.4, 134.4 | 12260.0, 11398.4 | WorldMapPointParam |
-| 62901 | Miquella's Cross | Map POI | Various | m61_50_43 | -25.6, 459.8, -61.0 | 12774.4, 10947.0 | WorldMapPointParam |
-| 62902 | Fort of Reprimand | Map POI | Various | m61_49_43 | 56.0, 396.5, -72.2 | 12600.0, 10935.8 | WorldMapPointParam |
-| 62903 | Miquella's Cross | Map POI | Various | m61_49_44 | -47.9, 350.5, 119.7 | 12496.1, 11383.7 | WorldMapPointParam |
-| 62904 | Fog Rift Fort | Map POI | Various | m61_47_45 | -50.3, 330.0, -103.2 | 11981.7, 11416.8 | WorldMapPointParam |
-| 62905 | Church of the Crusade | Map POI | Various | m61_47_46 | -1.9, 440.2, -69.3 | 12030.1, 11706.7 | WorldMapPointParam |
-| 62906 | Cathedral of Manus Metyr | Map POI | Various | m61_51_45 | -91.7, 472.0, 21.5 | 12964.3, 11541.5 | WorldMapPointParam |
-| 62907 | Moorth Ruins | Map POI | Various | m61_49_44 | 40.1, 345.1, 74.0 | 12584.1, 11338.0 | WorldMapPointParam |
-| 62908 | Rabbath's Rise | Map POI | Various | m61_51_47 | 109.9, 447.9, -117.3 | 13165.9, 11914.7 | WorldMapPointParam |
-| 62909 | Whipping Hut | Map POI | Various | m61_50_44 | 126.0, 311.8, 11.6 | 12926.0, 11275.5 | WorldMapPointParam |
-| 62910 | Bonny Village | Map POI | Various | m61_50_44 | -54.0, 306.3, -3.6 | 12746.0, 11260.4 | WorldMapPointParam |
-| 62911 | Finger Ruins of Miyr | Map POI | Various | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | WorldMapPointParam |
-| 62912 | Finger Ruins of Miyr | Map POI | Various | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | WorldMapPointParam |
-| 62915 | Scorpion River Catacombs | Map POI | Various | m40_01_00 | -62.7, 295.1, 58.3 | - | WorldMapPointParam |
-| 62916 | Bonny Gaol | Map POI | Various | m41_01_00 | -45.4, 304.6, -25.5 | - | WorldMapPointParam |
-| 62917 | Taylew's Ruined Forge | Map POI | Various | m42_03_00 | -39.9, 353.1, -92.4 | - | WorldMapPointParam |
+| 62855 | Grand Altar of Dragon Communion | Map POI | Jagged Peak | m61_49_39 | 82.3, 80.5, -105.8 | 12626.3, 9878.2 | WorldMapPointParam |
+| 62860 | Midra's Manse | Map POI | Midra's Manse | m28_00_00 | -8.5, 16.0, -69.9 | - | WorldMapPointParam |
+| 62865 | Abandoned Church | Map POI | Abyssal Woods | m61_53_41 | -121.5, -539.9, -33.1 | 13446.5, 10462.9 | WorldMapPointParam |
+| 62870 | Stone Coffin Fissure | Map POI | Stone Coffin Fissure | m22_00_00 | -407.7, 311.1, 21.8 | - | WorldMapPointParam |
+| 62871 | Miquella's Cross | Map POI | Stone Coffin Fissure | m22_00_00 | -236.6, 215.7, -24.2 | - | WorldMapPointParam |
+| 62880 | Belurat, Tower Settlement | Map POI | Belurat, Tower Settlement | m20_00_00 | -25.0, 5.1, 24.9 | - | WorldMapPointParam |
+| 62881 | Miquella's Cross | Map POI | Belurat, Tower Settlement | m20_00_00 | -32.2, 77.2, 264.6 | - | WorldMapPointParam |
+| 62890 | Enir-Ilim | Map POI | Enir-Ilim | m20_01_00 | -150.2, 6.2, -4.8 | - | WorldMapPointParam |
+| 62891 | Miquella's Cross | Map POI | Enir-Ilim | m20_01_00 | -294.8, 65.1, -80.5 | - | WorldMapPointParam |
+| 62900 | Miquella's Cross | Map POI | Scadu Altus | m61_48_44 | -28.0, 410.4, 134.4 | 12260.0, 11398.4 | WorldMapPointParam |
+| 62901 | Miquella's Cross | Map POI | Scadu Altus | m61_50_43 | -25.6, 459.8, -61.0 | 12774.4, 10947.0 | WorldMapPointParam |
+| 62902 | Fort of Reprimand | Map POI | Scadu Altus | m61_49_43 | 56.0, 396.5, -72.2 | 12600.0, 10935.8 | WorldMapPointParam |
+| 62903 | Miquella's Cross | Map POI | Scadu Altus | m61_49_44 | -47.9, 350.5, 119.7 | 12496.1, 11383.7 | WorldMapPointParam |
+| 62904 | Fog Rift Fort | Map POI | Gravesite Plain | m61_47_45 | -50.3, 330.0, -103.2 | 11981.7, 11416.8 | WorldMapPointParam |
+| 62905 | Church of the Crusade | Map POI | Scadu Altus | m61_47_46 | -1.9, 440.2, -69.3 | 12030.1, 11706.7 | WorldMapPointParam |
+| 62906 | Cathedral of Manus Metyr | Map POI | Scadu Altus | m61_51_45 | -91.7, 472.0, 21.5 | 12964.3, 11541.5 | WorldMapPointParam |
+| 62907 | Moorth Ruins | Map POI | Scadu Altus | m61_49_44 | 40.1, 345.1, 74.0 | 12584.1, 11338.0 | WorldMapPointParam |
+| 62908 | Rabbath's Rise | Map POI | Scadu Altus | m61_51_47 | 109.9, 447.9, -117.3 | 13165.9, 11914.7 | WorldMapPointParam |
+| 62909 | Whipping Hut | Map POI | Scadu Altus | m61_50_44 | 126.0, 311.8, 11.6 | 12926.0, 11275.5 | WorldMapPointParam |
+| 62910 | Bonny Village | Map POI | Scadu Altus | m61_50_44 | -54.0, 306.3, -3.6 | 12746.0, 11260.4 | WorldMapPointParam |
+| 62911 | Finger Ruins of Miyr | Map POI | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | WorldMapPointParam |
+| 62912 | Finger Ruins of Miyr | Map POI | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | WorldMapPointParam |
+| 62915 | Scorpion River Catacombs | Map POI | Rauh | m40_01_00 | -62.7, 295.1, 58.3 | - | WorldMapPointParam |
+| 62916 | Bonny Gaol | Map POI | Scadu Altus | m41_01_00 | -45.4, 304.6, -25.5 | - | WorldMapPointParam |
+| 62917 | Taylew's Ruined Forge | Map POI | Rauh | m42_03_00 | -39.9, 353.1, -92.4 | - | WorldMapPointParam |
 | 62918 | POI_62918 | Map POI | Various | m42_01_00 | 37.1, 349.3, -119.8 | - | WorldMapPointParam |
-| 62919 | Rivermouth Cave | Map POI | Various | m43_00_00 | -82.4, 163.7, 143.8 | - | WorldMapPointParam |
-| 62920 | Temple Town Ruins | Map POI | Various | m61_46_45 | -109.7, 308.8, 3.5 | 11666.3, 11523.5 | WorldMapPointParam |
-| 62921 | Northern Nameless Mausoleum | Map POI | Various | m61_46_45 | 86.6, 408.2, -42.5 | 11862.6, 11477.5 | WorldMapPointParam |
-| 62931 | Scadutree Chalice | Map POI | Various | m61_49_49 | 19.1, 625.0, 115.1 | 12563.1, 12659.1 | WorldMapPointParam |
-| 62932 | Albinauric's Shack | Map POI | Various | m61_49_49 | -122.0, 612.0, -99.9 | 12422.0, 12444.1 | WorldMapPointParam |
-| 62940 | Finger Ruins of Dheo | Map POI | Various | m61_53_47 | 86.9, -76.8, -22.5 | 13654.9, 12009.5 | WorldMapPointParam |
-| 62941 | Shaman Village | Map POI | Various | m61_51_47 | 18.9, 593.9, 35.3 | 13074.9, 12067.3 | WorldMapPointParam |
-| 62942 | Finger Ruins of Dheo | Map POI | Various | m61_53_46 | 65.6, 321.3, -22.3 | 13633.6, 11753.7 | WorldMapPointParam |
-| 62943 | Ruined Forge of Starfall Past | Map POI | Various | m42_02_00 | 64.5, 357.9, -94.5 | - | WorldMapPointParam |
-| 62950 | Miquella's Cross | Map POI | Various | m61_46_47 | -95.7, 560.8, -84.2 | 11680.3, 11947.8 | WorldMapPointParam |
-| 62960 | Ruins of Unte | Map POI | Various | m61_50_46 | -41.9, 260.7, 112.9 | 12758.1, 11888.9 | WorldMapPointParam |
-| 62961 | Eastern Nameless Mausoleum | Map POI | Various | m61_51_44 | -26.9, 170.3, 77.8 | 13029.1, 11341.8 | WorldMapPointParam |
-| 62962 | Village of Flies | Map POI | Various | m61_50_44 | -9.3, 214.6, -106.6 | 12790.7, 11157.4 | WorldMapPointParam |
-| 62965 | Darklight Catacombs | Map POI | Various | m40_02_00 | -46.2, 80.0, 111.5 | - | WorldMapPointParam |
-| 62970 | Scadutree Base | Map POI | Various | m61_50_48 | -27.8, 190.0, 122.0 | 12772.2, 12410.0 | WorldMapPointParam |
-| 62980 | Shadow Keep | Map POI | Various | m21_00_00 | 161.4, 183.0, 203.4 | - | WorldMapPointParam |
-| 62981 | Miquella's Cross | Map POI | Various | m21_01_00 | 173.6, 298.1, 277.5 | - | WorldMapPointParam |
+| 62919 | Rivermouth Cave | Map POI | Gravesite Plain | m43_00_00 | -82.4, 163.7, 143.8 | - | WorldMapPointParam |
+| 62920 | Temple Town Ruins | Map POI | Rauh | m61_46_45 | -109.7, 308.8, 3.5 | 11666.3, 11523.5 | WorldMapPointParam |
+| 62921 | Northern Nameless Mausoleum | Map POI | Gravesite Plain | m61_46_45 | 86.6, 408.2, -42.5 | 11862.6, 11477.5 | WorldMapPointParam |
+| 62931 | Scadutree Chalice | Map POI | World (49,49) | m61_49_49 | 19.1, 625.0, 115.1 | 12563.1, 12659.1 | WorldMapPointParam |
+| 62932 | Albinauric's Shack | Map POI | World (49,49) | m61_49_49 | -122.0, 612.0, -99.9 | 12422.0, 12444.1 | WorldMapPointParam |
+| 62940 | Finger Ruins of Dheo | Map POI | World (53,47) | m61_53_47 | 86.9, -76.8, -22.5 | 13654.9, 12009.5 | WorldMapPointParam |
+| 62941 | Shaman Village | Map POI | World (51,47) | m61_51_47 | 18.9, 593.9, 35.3 | 13074.9, 12067.3 | WorldMapPointParam |
+| 62942 | Finger Ruins of Dheo | Map POI | World (53,46) | m61_53_46 | 65.6, 321.3, -22.3 | 13633.6, 11753.7 | WorldMapPointParam |
+| 62943 | Ruined Forge of Starfall Past | Map POI | Scadu Altus | m42_02_00 | 64.5, 357.9, -94.5 | - | WorldMapPointParam |
+| 62950 | Miquella's Cross | Map POI | Rauh | m61_46_47 | -95.7, 560.8, -84.2 | 11680.3, 11947.8 | WorldMapPointParam |
+| 62960 | Ruins of Unte | Map POI | Scadu Altus | m61_50_46 | -41.9, 260.7, 112.9 | 12758.1, 11888.9 | WorldMapPointParam |
+| 62961 | Eastern Nameless Mausoleum | Map POI | Scadu Altus | m61_51_44 | -26.9, 170.3, 77.8 | 13029.1, 11341.8 | WorldMapPointParam |
+| 62962 | Village of Flies | Map POI | Scadu Altus | m61_50_44 | -9.3, 214.6, -106.6 | 12790.7, 11157.4 | WorldMapPointParam |
+| 62965 | Darklight Catacombs | Map POI | Scadu Altus | m40_02_00 | -46.2, 80.0, 111.5 | - | WorldMapPointParam |
+| 62970 | Scadutree Base | Map POI | World (50,48) | m61_50_48 | -27.8, 190.0, 122.0 | 12772.2, 12410.0 | WorldMapPointParam |
+| 62980 | Shadow Keep | Map POI | Shadow Keep | m21_00_00 | 161.4, 183.0, 203.4 | - | WorldMapPointParam |
+| 62981 | Miquella's Cross | Map POI | Shadow Keep | m21_01_00 | 173.6, 298.1, 277.5 | - | WorldMapPointParam |
 | 65000 | Crimsonspill Crystal Tear | Crystal Tear | Various | - | - | - | ItemLotParam_map |
 | 65010 | Greenspill Crystal Tear | Crystal Tear | Various | m60_45_37 | 67.1, 35.1, -56.7 | 11587.1, 9415.3 | ItemLotParam_map |
 | 65020 | Crimson Crystal Tear | Crystal Tear | Various | m60_46_38 | -80.2, 4.5, 69.1 | 11695.8, 9797.1 | ItemLotParam_map |
@@ -1187,92 +1187,92 @@ Total unique flags: 7575
 | 76944 | Ancient Ruins, Grand Stairway | Grace | Various | m61_44_45 | 110.3, 636.6, 37.3 | 11374.3, 11557.3 | BonfireWarpParam |
 | 76945 | Church of the Bud | Grace | Various | m61_44_45 | -56.3, 625.1, 124.2 | 11207.7, 11644.2 | BonfireWarpParam |
 | 76960 | Scadutree Base | Grace | Various | m61_50_48 | -40.3, 190.1, 112.5 | 12759.7, 12400.5 | BonfireWarpParam |
-| 78100 | Guidance of Grace: Limgrave - Church of Elleh, Stranded Graveyard Exit | Grace | Various | m60_42_36 | -12.8, 90.7, -54.5 | 10739.2, 9161.5 | WorldMapPointParam |
-| 78101 | Guidance of Grace: Limgrave - Church of Elleh, Stranded Graveyard Exit | Grace | Various | m60_42_36 | -45.4, 92.3, 81.0 | 10706.6, 9297.0 | WorldMapPointParam |
-| 78102 | Guidance of Grace: Limgrave - Gatefront, Stormhill Evergaol, Groveside Cave Entrance, Limgrave Tunnels Entrance | Grace | Various | m60_42_37 | 9.7, 111.8, 112.4 | 10761.6, 9584.4 | WorldMapPointParam |
-| 78103 | Guidance of Grace: Stormhill - Stormhill Shack, Stormveil Castle Entrance | Grace | Various | m60_41_38 | 17.1, 205.8, 17.0 | 10513.1, 9745.0 | WorldMapPointParam |
-| 78104 | Guidance of Grace: Stormveil Castle | Grace | Various | m10_00_00 | 36.4, -11.3, 5.4 | - | WorldMapPointParam |
-| 78110 | Guidance of Grace: Limgrave - Agheel Lake South, Forlorn Hound Evergaol | Grace | Various | m60_44_35 | -38.2, 74.6, 47.3 | 11225.8, 9007.3 | WorldMapPointParam |
-| 78111 | Guidance of Grace: Weeping Peninsula - Bridge of Sacrifice, Forest Lookout Tower, Earthbore Cave Entrance | Grace | Various | m60_44_34 | 103.0, 42.6, 0.6 | 11367.0, 8704.6 | WorldMapPointParam |
-| 78112 | Guidance of Grace: Weeping Peninsula - Castle Morne Rampart, Ailing Village Outskirts | Grace | Various | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | WorldMapPointParam |
-| 78113 | Guidance of Grace: Weeping Peninsula - Castle Morne | Grace | Various | m60_43_31 | 104.4, 14.3, -2.9 | 11112.4, 7933.1 | WorldMapPointParam |
-| 78190 | Catacomb Guidance: Limgrave - Church of Elleh, Stranded Graveyard Exit | Map POI | Various | m60_42_36 | -125.8, 115.4, 116.6 | 10626.1, 9332.6 | WorldMapPointParam |
-| 78192 | Catacomb Guidance: Stormhill - Saintsbridge, Deathtouched Catacombs Entrance, Highroad Cave Entrance | Map POI | Various | m60_43_39 | -75.7, 196.9, -32.8 | 10932.3, 9951.2 | WorldMapPointParam |
-| 78194 | Catacomb Guidance: Limgrave - Murkwater Coast, Murkwater Catacombs Entrance | Map POI | Various | m60_43_38 | 137.1, 102.5, 33.4 | 11145.0, 9761.4 | WorldMapPointParam |
-| 78196 | Catacomb Guidance: Weeping Peninsula - Church of Pilgrimage, Demi-Human Forest Ruins | Map POI | Various | m60_43_34 | -125.1, 74.2, -80.0 | 10882.9, 8624.0 | WorldMapPointParam |
-| 78198 | Catacomb Guidance: Weeping Peninsula - Impaler's Catacombs Entrance | Map POI | Various | m60_45_34 | -90.0, 86.1, -50.0 | 11430.0, 8654.0 | WorldMapPointParam |
-| 78200 | Guidance of Grace: Liurnia of the Lakes - Lake-Facing Cliffs, Stormveil Castle Exit, Stillwater Cave Entrance | Grace | Various | m60_39_40 | 16.2, 337.7, -71.1 | 10000.2, 10168.9 | WorldMapPointParam |
-| 78201 | Guidance of Grace: Liurnia of the Lakes - Liurnia Lake Shore | Grace | Various | m60_38_40 | 44.1, 238.2, 115.2 | 9772.1, 10355.2 | WorldMapPointParam |
-| 78202 | Guidance of Grace: Liurnia of the Lakes - Laskyar Ruins, Malefactor's Evergaol | Grace | Various | m60_38_41 | -79.0, 237.4, 76.5 | 9649.0, 10572.5 | WorldMapPointParam |
-| 78203 | Guidance of Grace: Liurnia of the Lakes - Scenic Isle, Laskyar Ruins | Grace | Various | m60_37_42 | -98.2, 249.6, 25.0 | 9373.8, 10777.0 | WorldMapPointParam |
-| 78204 | Guidance of Grace: Liurnia of the Lakes - Gate Town Southeast | Grace | Various | m60_37_44 | -30.1, 237.6, -97.8 | 9441.9, 11166.2 | WorldMapPointParam |
-| 78205 | Guidance of Grace: Liurnia of the Lakes - South Raya Lucaria Gate | Grace | Various | m60_35_45 | 106.4, 268.1, -62.8 | 9066.4, 11457.2 | WorldMapPointParam |
-| 78206 | Guidance of Grace: Liurnia of the Lakes - Main Academy Gate, Academy of Raya Lucaria Entrance | Grace | Various | m60_35_46 | -92.9, 321.8, -33.0 | 8867.1, 11743.0 | WorldMapPointParam |
-| 78210 | Guidance of Grace: Bellum Highway - East Raya Lucaria Gate | Grace | Various | m60_36_48 | -87.2, 321.0, -98.5 | 9128.8, 12189.5 | WorldMapPointParam |
-| 78211 | Guidance of Grace: Liurnia of the Lakes - Southeast Ravine, Lake at Caria Manor Entrance; Bellum Highway - Bellum Church | Grace | Various | m60_36_49 | 8.3, 322.0, -92.0 | 9224.3, 12452.0 | WorldMapPointParam |
-| 78212 | Guidance of Grace: Liurnia of the Lakes - Ravine-Veiled Village, Bellum Highway, Altus Plateau, Ruin-Strewn Precipice Entrance | Grace | Various | m60_38_50 | -17.1, 367.2, -63.0 | 9710.9, 12737.0 | WorldMapPointParam |
-| 78220 | Guidance of Grace: Liurnia of the Lakes - Foot of the Four Belfries | Grace | Various | m60_33_46 | -59.9, 261.1, -64.6 | 8388.1, 11711.4 | WorldMapPointParam |
-| 78221 | Guidance of Grace: Liurnia of the Lakes - Sorcerer's Isle West, East Belfry | Grace | Various | m60_34_47 | 76.7, 240.1, 45.4 | 8780.7, 12077.4 | WorldMapPointParam |
-| 78222 | Guidance of Grace: Liurnia of the Lakes - Northern Liurnia Lake Shore, Kingsrealm Ruins | Grace | Various | m60_34_48 | -52.6, 256.6, 13.4 | 8651.4, 12301.4 | WorldMapPointParam |
-| 78223 | Guidance of Grace: Liurnia of the Lakes - Road to the Manor | Grace | Various | m60_34_49 | 52.1, 272.9, -68.6 | 8756.1, 12475.4 | WorldMapPointParam |
-| 78224 | Guidance of Grace: Liurnia of the Lakes - Caria Manor | Grace | Various | m60_35_50 | -17.5, 316.1, -134.5 | 8942.5, 12665.5 | WorldMapPointParam |
-| 78230 | Guidance of Grace: Liurnia of the Lakes - Ranni's Rise, Seluvis's Rise | Grace | Various | m60_34_50 | -56.5, 511.6, 23.9 | 8647.5, 12823.9 | WorldMapPointParam |
-| 78290 | Catacomb Guidance: Bellum Highway - Frenzied Flame Village, Minor Erdtree | Map POI | Various | m60_38_48 | 85.2, 460.2, 98.8 | 9813.2, 12386.8 | WorldMapPointParam |
-| 78292 | Catacomb Guidance: Liurnia of the Lakes - Revenger's Shack | Map POI | Various | m60_33_44 | -40.3, 280.1, -81.4 | 8407.7, 11182.6 | WorldMapPointParam |
-| 78294 | Catacomb Guidance: Liurnia of the Lakes - Liurnia Highway North | Map POI | Various | m60_39_42 | 79.9, 275.3, 19.8 | 10063.9, 10771.8 | WorldMapPointParam |
-| 78300 | Guidance of Grace: Altus Plateau - Abandoned Coffin, Ruin-Strewn Precipice Exit | Grace | Various | m60_37_51 | -46.1, 656.4, -62.5 | 9425.9, 12993.5 | WorldMapPointParam |
-| 78301 | Guidance of Grace: Altus Plateau - Erdtree-Gazing Hill, Lux Ruins | Grace | Various | m60_38_51 | -21.8, 766.1, 50.1 | 9706.2, 13106.1 | WorldMapPointParam |
-| 78302 | Guidance of Grace: Altus Plateau - Altus Highway Junction | Grace | Various | m60_39_51 | 92.6, 760.5, -0.2 | 10076.6, 13055.8 | WorldMapPointParam |
-| 78303 | Guidance of Grace: Capital Outskirts - Outer Wall Phantom Tree | Grace | Various | m60_42_51 | -51.4, 850.2, -44.3 | 10700.6, 13011.7 | WorldMapPointParam |
-| 78304 | Guidance of Grace: Capital Outskirts - Northeast Outer Wall Battleground, Hermit Merchant's Shack | Grace | Various | m60_43_53 | -53.7, 949.6, -78.1 | 10954.3, 13489.9 | WorldMapPointParam |
-| 78310 | Guidance of Grace: Altus Plateau - Forest-Spanning Greatbridge, St. Trina's Hideaway, Sainted Hero's Grave Entrance | Grace | Various | m60_40_52 | 109.3, 828.3, 138.9 | 10349.4, 13450.9 | WorldMapPointParam |
-| 78311 | Guidance of Grace: Altus Plateau - West Windmill Village | Grace | Various | m60_41_54 | 76.8, 887.5, 74.0 | 10572.8, 13898.0 | WorldMapPointParam |
-| 78350 | Guidance of Grace: Altus Plateau - Road of Iniquity Side Path | Grace | Various | m60_40_54 | 66.4, 820.6, 113.1 | 10306.4, 13937.1 | WorldMapPointParam |
-| 78351 | Guidance of Grace: Altus Plateau - Mirage Rise; Mt. Gelmir - Bridge of Iniquity | Grace | Various | m60_39_53 | -98.6, 812.8, 37.5 | 9885.4, 13605.5 | WorldMapPointParam |
-| 78352 | Guidance of Grace: Mt. Gelmir - First Mt. Gelmir Campsite, Corpse-Stench Shack; Altus Plateau - West of Shaded Castle | Grace | Various | m60_38_54 | 28.2, 861.0, -123.2 | 9756.2, 13700.8 | WorldMapPointParam |
-| 78353 | Guidance of Grace: Mt. Gelmir - Ninth Mt. Gelmir Campsite, Road of Iniquity, Volcano Manor Entrance | Grace | Various | m60_36_54 | 117.7, 1010.8, 25.5 | 9333.7, 13849.5 | WorldMapPointParam |
-| 78390 | Catacomb Guidance: Altus Plateau - Perfumer's Ruins, Unsightly Catacombs Entrance | Map POI | Various | m60_36_51 | -17.8, 672.5, 72.5 | 9198.2, 13128.5 | WorldMapPointParam |
-| 78392 | Catacomb Guidance: Altus Plateau - Wyndham Ruins, Wyndham Catacombs Entrance | Map POI | Various | m60_38_52 | 45.8, 800.1, -36.0 | 9773.8, 13276.0 | WorldMapPointParam |
-| 78394 | Catacomb Guidance: Capital Outskirts - Capital Rampart, Auriza Side Tomb Entrance | Map POI | Various | m60_45_52 | 99.2, 1025.5, 24.7 | 11619.2, 13336.7 | WorldMapPointParam |
-| 78400 | Guidance of Grace: Caelid - Smoldering Church, Rotview Balcony | Grace | Various | m60_46_40 | 105.4, 171.0, -65.2 | 11881.4, 10174.8 | WorldMapPointParam |
-| 78401 | Guidance of Grace: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Grace | Various | m60_47_40 | 105.3, 164.4, -19.6 | 12137.3, 10220.4 | WorldMapPointParam |
-| 78402 | Guidance of Grace: Caelid - Smoldering Wall, Abandoned Cave Entrance | Grace | Various | m60_48_39 | -87.9, 130.9, 0.9 | 12200.1, 9984.9 | WorldMapPointParam |
-| 78403 | Guidance of Grace: Caelid - West Aeonia Swamp | Grace | Various | m60_48_38 | -104.2, 98.2, 22.2 | 12183.8, 9750.2 | WorldMapPointParam |
-| 78404 | Guidance of Grace: Caelid - West Aeonia Swamp | Grace | Various | m60_48_38 | -2.0, 71.8, -32.3 | 12286.0, 9695.7 | WorldMapPointParam |
-| 78405 | Guidance of Grace: Caelid - East Aeonia Swamp | Grace | Various | m60_49_38 | -58.5, 64.3, 115.3 | 12485.5, 9843.3 | WorldMapPointParam |
-| 78406 | Guidance of Grace: Caelid - West Sellia, Sellia Crystal Tunnel Entrance, Sellia Evergaol | Grace | Various | m60_49_39 | 99.5, 65.5, -31.7 | 12643.5, 9952.3 | WorldMapPointParam |
-| 78407 | Guidance of Grace: Caelid - West Sellia, Sellia Crystal Tunnel Entrance, Sellia Evergaol | Grace | Various | m60_49_39 | 128.5, 99.4, 55.0 | 12672.5, 10039.0 | WorldMapPointParam |
-| 78410 | Guidance of Grace: Caelid - Caelid Highway South | Grace | Various | m60_48_37 | -118.8, 114.4, 39.8 | 12169.2, 9511.8 | WorldMapPointParam |
-| 78411 | Guidance of Grace: Caelid - Cathedral of Dragon Communion, Caelid Catacombs Entrance | Grace | Various | m60_48_36 | 38.5, 126.6, 99.7 | 12326.5, 9315.7 | WorldMapPointParam |
-| 78412 | Guidance of Grace: Caelid - Impassable Greatbridge | Grace | Various | m60_50_36 | -68.3, 38.7, -82.8 | 12731.7, 9133.2 | WorldMapPointParam |
-| 78413 | Guidance of Grace: Caelid - Redmane Castle | Grace | Various | m60_51_36 | 93.1, 90.8, -40.2 | 13149.1, 9175.8 | WorldMapPointParam |
-| 78414 | Guidance of Grace: Caelid - Redmane Castle | Grace | Various | m60_51_36 | 81.6, 91.8, 18.9 | 13137.6, 9234.9 | WorldMapPointParam |
-| 78490 | Catacomb Guidance: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Map POI | Various | m60_47_40 | -84.1, 166.5, 80.1 | 11947.9, 10320.1 | WorldMapPointParam |
-| 78492 | Catacomb Guidance: Caelid - Southwest of Caelid Highway South | Map POI | Various | m60_49_36 | -25.4, 56.7, -7.8 | 12518.6, 9208.2 | WorldMapPointParam |
-| 78494 | Catacomb Guidance: Greyoll's Dragonbarrow - Fort Faroth | Map POI | Various | m60_51_39 | -110.3, 165.2, -64.8 | 12945.7, 9919.2 | WorldMapPointParam |
-| 78500 | Guidance of Grace: Leyndell - Divine Tower of East Altus Entrance; Mountaintops of the Giants - Forbidden Lands Start | Grace | Various | m60_47_51 | -4.6, 999.2, -24.2 | 12027.4, 13031.8 | WorldMapPointParam |
-| 78501 | Guidance of Grace: Mountaintops of the Giants - West Zamor Ruins, Grand Lift of Rold | Grace | Various | m60_49_53 | 78.9, 1559.3, 101.0 | 12622.9, 13669.0 | WorldMapPointParam |
-| 78502 | Guidance of Grace: Mountaintops of the Giants - Ancient Snow Valley Ruins, Stargazers' Ruins | Grace | Various | m60_51_56 | -2.9, 1611.1, -43.1 | 13053.1, 14292.9 | WorldMapPointParam |
-| 78503 | Guidance of Grace: Mountaintops of the Giants - Before Freezing Lake, Heretical Rise | Grace | Various | m60_52_57 | 82.5, 1625.8, 77.8 | 13394.5, 14669.8 | WorldMapPointParam |
-| 78504 | Guidance of Grace: Mountaintops of the Giants - First Church of Marika | Grace | Various | m60_54_55 | -30.4, 1625.6, 62.3 | 13793.6, 14142.3 | WorldMapPointParam |
-| 78505 | Guidance of Grace: Mountaintops of the Giants - Whiteridge Road, Minor Erdtree | Grace | Various | m60_52_56 | 42.4, 1667.1, -126.1 | 13354.4, 14209.9 | WorldMapPointParam |
-| 78506 | Guidance of Grace: Flame Peak - Northeast Giants' Gravepost | Grace | Various | m60_52_54 | -53.7, 1706.5, 66.8 | 13258.3, 13890.8 | WorldMapPointParam |
-| 78507 | Guidance of Grace: Flame Peak - Northwest Fire Giant Arena, Foot of the Forge | Grace | Various | m60_52_53 | -79.2, 1802.8, -46.1 | 13232.8, 13521.9 | WorldMapPointParam |
-| 78510 | Guidance of Grace: Mountaintops of the Giants - South Castle Sol, Snow Valley Ruins Overlook | Grace | Various | m60_51_57 | 121.4, 1670.8, -39.4 | 13177.4, 14552.6 | WorldMapPointParam |
-| 78511 | Guidance of Grace: Mountaintops of the Giants - South Castle Sol, Snow Valley Ruins Overlook | Grace | Various | m60_51_57 | -16.0, 1596.5, 59.9 | 13040.0, 14651.9 | WorldMapPointParam |
-| 78520 | Guidance of Grace: Consecrated Snowfield - Hidden Path to the Haligtree, Southeast Foggy Area | Grace | Various | m60_49_54 | -97.7, 1321.2, -3.7 | 12446.3, 13820.3 | WorldMapPointParam |
-| 78521 | Guidance of Grace: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Grace | Various | m60_49_55 | -104.5, 1266.9, 105.8 | 12439.5, 14185.8 | WorldMapPointParam |
-| 78592 | Catacomb Guidance: Mountaintops of the Giants - East Zamor Ruins; Flame Peak - Giant-Conquering Hero's Grave Entrance | Map POI | Various | m60_50_53 | -5.4, 1576.2, -42.6 | 12794.6, 13525.4 | WorldMapPointParam |
-| 78594 | Catacomb Guidance: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Map POI | Various | m60_49_55 | 12.6, 1314.7, -47.0 | 12556.6, 14033.0 | WorldMapPointParam |
-| 78600 | Guidance of Grace: Siofra River / Nokron | Grace | Various | m12_02_00 | 1185.0, -619.2, 1909.6 | - | WorldMapPointParam |
-| 78800 | Guidance of Grace: Belurat, Tower Settlement | Grace | Various | m20_00_00 | -49.7, 118.1, 311.8 | - | WorldMapPointParam |
-| 78900 | Guidance of Grace: Specimen Storehouse | Grace | Various | m21_01_00 | 86.0, 351.8, 362.2 | - | WorldMapPointParam |
-| 78901 | Guidance of Grace: Specimen Storehouse (West Rampart) | Grace | Various | m21_02_00 | -1.2, 131.9, 260.2 | - | WorldMapPointParam |
-| 78902 | Guidance of Grace: Ancient Ruins of Rauh - Viaduct Minor Tower | Grace | Various | m61_47_47 | -107.5, 634.9, 43.9 | 11924.5, 12075.9 | WorldMapPointParam |
-| 78903 | Guidance of Grace: Ancient Ruins of Rauh - Rauh Ancient Ruins, East | Grace | Various | m61_46_47 | -94.2, 563.0, -101.4 | 11681.8, 11930.6 | WorldMapPointParam |
-| 78904 | Guidance of Grace: Ancient Ruins of Rauh - Rauh Ancient Ruins, West | Grace | Various | m61_45_45 | -19.2, 556.0, 75.1 | 11500.8, 11595.1 | WorldMapPointParam |
-| 78905 | Guidance of Grace: Ancient Ruins of Rauh - Church of the Bud, Main Entrance | Grace | Various | m61_44_46 | -47.5, 625.5, -56.7 | 11216.5, 11719.3 | WorldMapPointParam |
-| 78906 | Guidance of Grace: Ancient Ruins of Rauh - Ancient Ruins, Grand Stairway | Grace | Various | m61_44_45 | -56.4, 625.0, 124.2 | 11207.6, 11644.2 | WorldMapPointParam |
+| 78100 | Guidance of Grace: Limgrave - Church of Elleh, Stranded Graveyard Exit | Grace | Limgrave | m60_42_36 | -12.8, 90.7, -54.5 | 10739.2, 9161.5 | WorldMapPointParam |
+| 78101 | Guidance of Grace: Limgrave - Church of Elleh, Stranded Graveyard Exit | Grace | Limgrave | m60_42_36 | -45.4, 92.3, 81.0 | 10706.6, 9297.0 | WorldMapPointParam |
+| 78102 | Guidance of Grace: Limgrave - Gatefront, Stormhill Evergaol, Groveside Cave Entrance, Limgrave Tunnels Entrance | Grace | Limgrave | m60_42_37 | 9.7, 111.8, 112.4 | 10761.6, 9584.4 | WorldMapPointParam |
+| 78103 | Guidance of Grace: Stormhill - Stormhill Shack, Stormveil Castle Entrance | Grace | Stormhill | m60_41_38 | 17.1, 205.8, 17.0 | 10513.1, 9745.0 | WorldMapPointParam |
+| 78104 | Guidance of Grace: Stormveil Castle | Grace | Stormveil Castle | m10_00_00 | 36.4, -11.3, 5.4 | - | WorldMapPointParam |
+| 78110 | Guidance of Grace: Limgrave - Agheel Lake South, Forlorn Hound Evergaol | Grace | Limgrave | m60_44_35 | -38.2, 74.6, 47.3 | 11225.8, 9007.3 | WorldMapPointParam |
+| 78111 | Guidance of Grace: Weeping Peninsula - Bridge of Sacrifice, Forest Lookout Tower, Earthbore Cave Entrance | Grace | Weeping Peninsula | m60_44_34 | 103.0, 42.6, 0.6 | 11367.0, 8704.6 | WorldMapPointParam |
+| 78112 | Guidance of Grace: Weeping Peninsula - Castle Morne Rampart, Ailing Village Outskirts | Grace | Weeping Peninsula | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | WorldMapPointParam |
+| 78113 | Guidance of Grace: Weeping Peninsula - Castle Morne | Grace | Weeping Peninsula | m60_43_31 | 104.4, 14.3, -2.9 | 11112.4, 7933.1 | WorldMapPointParam |
+| 78190 | Catacomb Guidance: Limgrave - Church of Elleh, Stranded Graveyard Exit | Map POI | Limgrave | m60_42_36 | -125.8, 115.4, 116.6 | 10626.1, 9332.6 | WorldMapPointParam |
+| 78192 | Catacomb Guidance: Stormhill - Saintsbridge, Deathtouched Catacombs Entrance, Highroad Cave Entrance | Map POI | Limgrave | m60_43_39 | -75.7, 196.9, -32.8 | 10932.3, 9951.2 | WorldMapPointParam |
+| 78194 | Catacomb Guidance: Limgrave - Murkwater Coast, Murkwater Catacombs Entrance | Map POI | Limgrave | m60_43_38 | 137.1, 102.5, 33.4 | 11145.0, 9761.4 | WorldMapPointParam |
+| 78196 | Catacomb Guidance: Weeping Peninsula - Church of Pilgrimage, Demi-Human Forest Ruins | Map POI | Weeping Peninsula | m60_43_34 | -125.1, 74.2, -80.0 | 10882.9, 8624.0 | WorldMapPointParam |
+| 78198 | Catacomb Guidance: Weeping Peninsula - Impaler's Catacombs Entrance | Map POI | World (45,34) | m60_45_34 | -90.0, 86.1, -50.0 | 11430.0, 8654.0 | WorldMapPointParam |
+| 78200 | Guidance of Grace: Liurnia of the Lakes - Lake-Facing Cliffs, Stormveil Castle Exit, Stillwater Cave Entrance | Grace | Liurnia of the Lakes | m60_39_40 | 16.2, 337.7, -71.1 | 10000.2, 10168.9 | WorldMapPointParam |
+| 78201 | Guidance of Grace: Liurnia of the Lakes - Liurnia Lake Shore | Grace | Liurnia of the Lakes | m60_38_40 | 44.1, 238.2, 115.2 | 9772.1, 10355.2 | WorldMapPointParam |
+| 78202 | Guidance of Grace: Liurnia of the Lakes - Laskyar Ruins, Malefactor's Evergaol | Grace | Liurnia of the Lakes | m60_38_41 | -79.0, 237.4, 76.5 | 9649.0, 10572.5 | WorldMapPointParam |
+| 78203 | Guidance of Grace: Liurnia of the Lakes - Scenic Isle, Laskyar Ruins | Grace | Liurnia of the Lakes | m60_37_42 | -98.2, 249.6, 25.0 | 9373.8, 10777.0 | WorldMapPointParam |
+| 78204 | Guidance of Grace: Liurnia of the Lakes - Gate Town Southeast | Grace | Liurnia of the Lakes | m60_37_44 | -30.1, 237.6, -97.8 | 9441.9, 11166.2 | WorldMapPointParam |
+| 78205 | Guidance of Grace: Liurnia of the Lakes - South Raya Lucaria Gate | Grace | Liurnia of the Lakes | m60_35_45 | 106.4, 268.1, -62.8 | 9066.4, 11457.2 | WorldMapPointParam |
+| 78206 | Guidance of Grace: Liurnia of the Lakes - Main Academy Gate, Academy of Raya Lucaria Entrance | Grace | Liurnia of the Lakes | m60_35_46 | -92.9, 321.8, -33.0 | 8867.1, 11743.0 | WorldMapPointParam |
+| 78210 | Guidance of Grace: Bellum Highway - East Raya Lucaria Gate | Grace | Bellum Highway | m60_36_48 | -87.2, 321.0, -98.5 | 9128.8, 12189.5 | WorldMapPointParam |
+| 78211 | Guidance of Grace: Liurnia of the Lakes - Southeast Ravine, Lake at Caria Manor Entrance; Bellum Highway - Bellum Church | Grace | Liurnia of the Lakes | m60_36_49 | 8.3, 322.0, -92.0 | 9224.3, 12452.0 | WorldMapPointParam |
+| 78212 | Guidance of Grace: Liurnia of the Lakes - Ravine-Veiled Village, Bellum Highway, Altus Plateau, Ruin-Strewn Precipice Entrance | Grace | Liurnia of the Lakes | m60_38_50 | -17.1, 367.2, -63.0 | 9710.9, 12737.0 | WorldMapPointParam |
+| 78220 | Guidance of Grace: Liurnia of the Lakes - Foot of the Four Belfries | Grace | Liurnia of the Lakes | m60_33_46 | -59.9, 261.1, -64.6 | 8388.1, 11711.4 | WorldMapPointParam |
+| 78221 | Guidance of Grace: Liurnia of the Lakes - Sorcerer's Isle West, East Belfry | Grace | Liurnia of the Lakes | m60_34_47 | 76.7, 240.1, 45.4 | 8780.7, 12077.4 | WorldMapPointParam |
+| 78222 | Guidance of Grace: Liurnia of the Lakes - Northern Liurnia Lake Shore, Kingsrealm Ruins | Grace | Liurnia of the Lakes | m60_34_48 | -52.6, 256.6, 13.4 | 8651.4, 12301.4 | WorldMapPointParam |
+| 78223 | Guidance of Grace: Liurnia of the Lakes - Road to the Manor | Grace | Liurnia of the Lakes | m60_34_49 | 52.1, 272.9, -68.6 | 8756.1, 12475.4 | WorldMapPointParam |
+| 78224 | Guidance of Grace: Liurnia of the Lakes - Caria Manor | Grace | Liurnia of the Lakes | m60_35_50 | -17.5, 316.1, -134.5 | 8942.5, 12665.5 | WorldMapPointParam |
+| 78230 | Guidance of Grace: Liurnia of the Lakes - Ranni's Rise, Seluvis's Rise | Grace | Liurnia of the Lakes | m60_34_50 | -56.5, 511.6, 23.9 | 8647.5, 12823.9 | WorldMapPointParam |
+| 78290 | Catacomb Guidance: Bellum Highway - Frenzied Flame Village, Minor Erdtree | Map POI | Liurnia of the Lakes | m60_38_48 | 85.2, 460.2, 98.8 | 9813.2, 12386.8 | WorldMapPointParam |
+| 78292 | Catacomb Guidance: Liurnia of the Lakes - Revenger's Shack | Map POI | Liurnia of the Lakes | m60_33_44 | -40.3, 280.1, -81.4 | 8407.7, 11182.6 | WorldMapPointParam |
+| 78294 | Catacomb Guidance: Liurnia of the Lakes - Liurnia Highway North | Map POI | Liurnia of the Lakes | m60_39_42 | 79.9, 275.3, 19.8 | 10063.9, 10771.8 | WorldMapPointParam |
+| 78300 | Guidance of Grace: Altus Plateau - Abandoned Coffin, Ruin-Strewn Precipice Exit | Grace | Altus Plateau | m60_37_51 | -46.1, 656.4, -62.5 | 9425.9, 12993.5 | WorldMapPointParam |
+| 78301 | Guidance of Grace: Altus Plateau - Erdtree-Gazing Hill, Lux Ruins | Grace | Altus Plateau | m60_38_51 | -21.8, 766.1, 50.1 | 9706.2, 13106.1 | WorldMapPointParam |
+| 78302 | Guidance of Grace: Altus Plateau - Altus Highway Junction | Grace | Altus Plateau | m60_39_51 | 92.6, 760.5, -0.2 | 10076.6, 13055.8 | WorldMapPointParam |
+| 78303 | Guidance of Grace: Capital Outskirts - Outer Wall Phantom Tree | Grace | Capital Outskirts | m60_42_51 | -51.4, 850.2, -44.3 | 10700.6, 13011.7 | WorldMapPointParam |
+| 78304 | Guidance of Grace: Capital Outskirts - Northeast Outer Wall Battleground, Hermit Merchant's Shack | Grace | Capital Outskirts | m60_43_53 | -53.7, 949.6, -78.1 | 10954.3, 13489.9 | WorldMapPointParam |
+| 78310 | Guidance of Grace: Altus Plateau - Forest-Spanning Greatbridge, St. Trina's Hideaway, Sainted Hero's Grave Entrance | Grace | Altus Plateau | m60_40_52 | 109.3, 828.3, 138.9 | 10349.4, 13450.9 | WorldMapPointParam |
+| 78311 | Guidance of Grace: Altus Plateau - West Windmill Village | Grace | Altus Plateau | m60_41_54 | 76.8, 887.5, 74.0 | 10572.8, 13898.0 | WorldMapPointParam |
+| 78350 | Guidance of Grace: Altus Plateau - Road of Iniquity Side Path | Grace | Altus Plateau | m60_40_54 | 66.4, 820.6, 113.1 | 10306.4, 13937.1 | WorldMapPointParam |
+| 78351 | Guidance of Grace: Altus Plateau - Mirage Rise; Mt. Gelmir - Bridge of Iniquity | Grace | Altus Plateau | m60_39_53 | -98.6, 812.8, 37.5 | 9885.4, 13605.5 | WorldMapPointParam |
+| 78352 | Guidance of Grace: Mt. Gelmir - First Mt. Gelmir Campsite, Corpse-Stench Shack; Altus Plateau - West of Shaded Castle | Grace | Mt. Gelmir | m60_38_54 | 28.2, 861.0, -123.2 | 9756.2, 13700.8 | WorldMapPointParam |
+| 78353 | Guidance of Grace: Mt. Gelmir - Ninth Mt. Gelmir Campsite, Road of Iniquity, Volcano Manor Entrance | Grace | Mt. Gelmir | m60_36_54 | 117.7, 1010.8, 25.5 | 9333.7, 13849.5 | WorldMapPointParam |
+| 78390 | Catacomb Guidance: Altus Plateau - Perfumer's Ruins, Unsightly Catacombs Entrance | Map POI | Mt. Gelmir | m60_36_51 | -17.8, 672.5, 72.5 | 9198.2, 13128.5 | WorldMapPointParam |
+| 78392 | Catacomb Guidance: Altus Plateau - Wyndham Ruins, Wyndham Catacombs Entrance | Map POI | Altus Plateau | m60_38_52 | 45.8, 800.1, -36.0 | 9773.8, 13276.0 | WorldMapPointParam |
+| 78394 | Catacomb Guidance: Capital Outskirts - Capital Rampart, Auriza Side Tomb Entrance | Map POI | World (45,52) | m60_45_52 | 99.2, 1025.5, 24.7 | 11619.2, 13336.7 | WorldMapPointParam |
+| 78400 | Guidance of Grace: Caelid - Smoldering Church, Rotview Balcony | Grace | Caelid | m60_46_40 | 105.4, 171.0, -65.2 | 11881.4, 10174.8 | WorldMapPointParam |
+| 78401 | Guidance of Grace: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Grace | Caelid | m60_47_40 | 105.3, 164.4, -19.6 | 12137.3, 10220.4 | WorldMapPointParam |
+| 78402 | Guidance of Grace: Caelid - Smoldering Wall, Abandoned Cave Entrance | Grace | Caelid | m60_48_39 | -87.9, 130.9, 0.9 | 12200.1, 9984.9 | WorldMapPointParam |
+| 78403 | Guidance of Grace: Caelid - West Aeonia Swamp | Grace | Caelid | m60_48_38 | -104.2, 98.2, 22.2 | 12183.8, 9750.2 | WorldMapPointParam |
+| 78404 | Guidance of Grace: Caelid - West Aeonia Swamp | Grace | Caelid | m60_48_38 | -2.0, 71.8, -32.3 | 12286.0, 9695.7 | WorldMapPointParam |
+| 78405 | Guidance of Grace: Caelid - East Aeonia Swamp | Grace | Caelid | m60_49_38 | -58.5, 64.3, 115.3 | 12485.5, 9843.3 | WorldMapPointParam |
+| 78406 | Guidance of Grace: Caelid - West Sellia, Sellia Crystal Tunnel Entrance, Sellia Evergaol | Grace | Caelid | m60_49_39 | 99.5, 65.5, -31.7 | 12643.5, 9952.3 | WorldMapPointParam |
+| 78407 | Guidance of Grace: Caelid - West Sellia, Sellia Crystal Tunnel Entrance, Sellia Evergaol | Grace | Caelid | m60_49_39 | 128.5, 99.4, 55.0 | 12672.5, 10039.0 | WorldMapPointParam |
+| 78410 | Guidance of Grace: Caelid - Caelid Highway South | Grace | Caelid | m60_48_37 | -118.8, 114.4, 39.8 | 12169.2, 9511.8 | WorldMapPointParam |
+| 78411 | Guidance of Grace: Caelid - Cathedral of Dragon Communion, Caelid Catacombs Entrance | Grace | Caelid | m60_48_36 | 38.5, 126.6, 99.7 | 12326.5, 9315.7 | WorldMapPointParam |
+| 78412 | Guidance of Grace: Caelid - Impassable Greatbridge | Grace | Caelid | m60_50_36 | -68.3, 38.7, -82.8 | 12731.7, 9133.2 | WorldMapPointParam |
+| 78413 | Guidance of Grace: Caelid - Redmane Castle | Grace | Caelid | m60_51_36 | 93.1, 90.8, -40.2 | 13149.1, 9175.8 | WorldMapPointParam |
+| 78414 | Guidance of Grace: Caelid - Redmane Castle | Grace | Caelid | m60_51_36 | 81.6, 91.8, 18.9 | 13137.6, 9234.9 | WorldMapPointParam |
+| 78490 | Catacomb Guidance: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Map POI | Caelid | m60_47_40 | -84.1, 166.5, 80.1 | 11947.9, 10320.1 | WorldMapPointParam |
+| 78492 | Catacomb Guidance: Caelid - Southwest of Caelid Highway South | Map POI | Caelid | m60_49_36 | -25.4, 56.7, -7.8 | 12518.6, 9208.2 | WorldMapPointParam |
+| 78494 | Catacomb Guidance: Greyoll's Dragonbarrow - Fort Faroth | Map POI | Caelid | m60_51_39 | -110.3, 165.2, -64.8 | 12945.7, 9919.2 | WorldMapPointParam |
+| 78500 | Guidance of Grace: Leyndell - Divine Tower of East Altus Entrance; Mountaintops of the Giants - Forbidden Lands Start | Grace | Leyndell | m60_47_51 | -4.6, 999.2, -24.2 | 12027.4, 13031.8 | WorldMapPointParam |
+| 78501 | Guidance of Grace: Mountaintops of the Giants - West Zamor Ruins, Grand Lift of Rold | Grace | Mountaintops of the Giants | m60_49_53 | 78.9, 1559.3, 101.0 | 12622.9, 13669.0 | WorldMapPointParam |
+| 78502 | Guidance of Grace: Mountaintops of the Giants - Ancient Snow Valley Ruins, Stargazers' Ruins | Grace | Mountaintops of the Giants | m60_51_56 | -2.9, 1611.1, -43.1 | 13053.1, 14292.9 | WorldMapPointParam |
+| 78503 | Guidance of Grace: Mountaintops of the Giants - Before Freezing Lake, Heretical Rise | Grace | Mountaintops of the Giants | m60_52_57 | 82.5, 1625.8, 77.8 | 13394.5, 14669.8 | WorldMapPointParam |
+| 78504 | Guidance of Grace: Mountaintops of the Giants - First Church of Marika | Grace | Mountaintops of the Giants | m60_54_55 | -30.4, 1625.6, 62.3 | 13793.6, 14142.3 | WorldMapPointParam |
+| 78505 | Guidance of Grace: Mountaintops of the Giants - Whiteridge Road, Minor Erdtree | Grace | Mountaintops of the Giants | m60_52_56 | 42.4, 1667.1, -126.1 | 13354.4, 14209.9 | WorldMapPointParam |
+| 78506 | Guidance of Grace: Flame Peak - Northeast Giants' Gravepost | Grace | Flame Peak | m60_52_54 | -53.7, 1706.5, 66.8 | 13258.3, 13890.8 | WorldMapPointParam |
+| 78507 | Guidance of Grace: Flame Peak - Northwest Fire Giant Arena, Foot of the Forge | Grace | Flame Peak | m60_52_53 | -79.2, 1802.8, -46.1 | 13232.8, 13521.9 | WorldMapPointParam |
+| 78510 | Guidance of Grace: Mountaintops of the Giants - South Castle Sol, Snow Valley Ruins Overlook | Grace | Mountaintops of the Giants | m60_51_57 | 121.4, 1670.8, -39.4 | 13177.4, 14552.6 | WorldMapPointParam |
+| 78511 | Guidance of Grace: Mountaintops of the Giants - South Castle Sol, Snow Valley Ruins Overlook | Grace | Mountaintops of the Giants | m60_51_57 | -16.0, 1596.5, 59.9 | 13040.0, 14651.9 | WorldMapPointParam |
+| 78520 | Guidance of Grace: Consecrated Snowfield - Hidden Path to the Haligtree, Southeast Foggy Area | Grace | Consecrated Snowfield | m60_49_54 | -97.7, 1321.2, -3.7 | 12446.3, 13820.3 | WorldMapPointParam |
+| 78521 | Guidance of Grace: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Grace | Consecrated Snowfield | m60_49_55 | -104.5, 1266.9, 105.8 | 12439.5, 14185.8 | WorldMapPointParam |
+| 78592 | Catacomb Guidance: Mountaintops of the Giants - East Zamor Ruins; Flame Peak - Giant-Conquering Hero's Grave Entrance | Map POI | World (50,53) | m60_50_53 | -5.4, 1576.2, -42.6 | 12794.6, 13525.4 | WorldMapPointParam |
+| 78594 | Catacomb Guidance: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Map POI | Mountaintops of the Giants | m60_49_55 | 12.6, 1314.7, -47.0 | 12556.6, 14033.0 | WorldMapPointParam |
+| 78600 | Guidance of Grace: Siofra River / Nokron | Grace | Siofra River / Nokron | m12_02_00 | 1185.0, -619.2, 1909.6 | - | WorldMapPointParam |
+| 78800 | Guidance of Grace: Belurat, Tower Settlement | Grace | Belurat, Tower Settlement | m20_00_00 | -49.7, 118.1, 311.8 | - | WorldMapPointParam |
+| 78900 | Guidance of Grace: Specimen Storehouse | Grace | Specimen Storehouse | m21_01_00 | 86.0, 351.8, 362.2 | - | WorldMapPointParam |
+| 78901 | Guidance of Grace: Specimen Storehouse (West Rampart) | Grace | Specimen Storehouse (West Rampart) | m21_02_00 | -1.2, 131.9, 260.2 | - | WorldMapPointParam |
+| 78902 | Guidance of Grace: Ancient Ruins of Rauh - Viaduct Minor Tower | Grace | Ancient Ruins of Rauh | m61_47_47 | -107.5, 634.9, 43.9 | 11924.5, 12075.9 | WorldMapPointParam |
+| 78903 | Guidance of Grace: Ancient Ruins of Rauh - Rauh Ancient Ruins, East | Grace | Ancient Ruins of Rauh | m61_46_47 | -94.2, 563.0, -101.4 | 11681.8, 11930.6 | WorldMapPointParam |
+| 78904 | Guidance of Grace: Ancient Ruins of Rauh - Rauh Ancient Ruins, West | Grace | Ancient Ruins of Rauh | m61_45_45 | -19.2, 556.0, 75.1 | 11500.8, 11595.1 | WorldMapPointParam |
+| 78905 | Guidance of Grace: Ancient Ruins of Rauh - Church of the Bud, Main Entrance | Grace | Ancient Ruins of Rauh | m61_44_46 | -47.5, 625.5, -56.7 | 11216.5, 11719.3 | WorldMapPointParam |
+| 78906 | Guidance of Grace: Ancient Ruins of Rauh - Ancient Ruins, Grand Stairway | Grace | Ancient Ruins of Rauh | m61_44_45 | -56.4, 625.0, 124.2 | 11207.6, 11644.2 | WorldMapPointParam |
 | 100000 | [Gatekeeper Gostoc] Festering Bloody Finger - Purchased | Shop Stock | Various | - | - | - | ShopLineupParam |
 | 100020 | [Gatekeeper Gostoc] Ruin Fragment - Purchased | Shop Stock | Various | - | - | - | ShopLineupParam |
 | 100040 | [Gatekeeper Gostoc] Buckler - Purchased | Shop Stock | Various | - | - | - | ShopLineupParam |
@@ -2577,17 +2577,11 @@ Total unique flags: 7575
 | 590200 | Good_9800 | Unknown | Various | - | - | - | ItemLotParam_map |
 | 590210 | Good_9801 | Unknown | Various | - | - | - | ItemLotParam_map |
 | 590220 | Good_9802 | Unknown | Various | - | - | - | ItemLotParam_map |
-| 10000100 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -166.5, 74.6, 264.3 | - | MSB NPC |
-| 10000102 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -168.6, 33.7, 54.2 | - | MSB NPC |
-| 10000104 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -221.4, 67.0, 209.5 | - | MSB NPC |
-| 10000106 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -263.1, 78.0, 347.9 | - | MSB NPC |
-| 10000108 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -10.7, -2.0, -28.7 | - | MSB NPC |
 | 10000700 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -122.2, 21.6, 16.8 | - | MSB NPC |
 | 10000701 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -189.5, 37.4, -30.3 | - | MSB NPC |
 | 10000702 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -242.2, 51.5, 66.5 | - | MSB NPC |
 | 10000703 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -275.7, 98.5, 82.5 | - | MSB NPC |
 | 10000704 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -272.1, 89.7, 173.3 | - | MSB NPC |
-| 10000705 | NPC (c0100) | NPC | Stormveil Castle | m10_00_00 | -234.4, 67.1, 69.7 | - | MSB NPC |
 | 10000706 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -252.5, 73.7, 366.7 | - | MSB NPC |
 | 10000707 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -294.2, 81.2, 408.3 | - | MSB NPC |
 | 10000715 | Sorcerer Rogier | NPC | Stormveil Castle | m10_00_00 | -273.0, 78.2, 177.9 | - | MSB NPC |
@@ -2600,15 +2594,6 @@ Total unique flags: 7575
 | 10000801 | Godrick the Grafted (discovered) | Boss Discovery | Stormveil Castle | m10_00_00 | -233.6, 73.7, 349.6 | - | GameAreaParam |
 | 10000850 | Margit, the Fell Omen | Field Boss Defeat | Stormveil Castle | m10_00_00 | -18.6, -2.6, -17.4 | - | MSB Enemy |
 | 10000851 | Margit the Fell Omen (discovered) | Boss Discovery | Stormveil Castle | m10_00_00 | -16.9, -2.8, -17.6 | - | GameAreaParam |
-| 10000950 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -231.5, 73.8, 347.3 | - | MSB NPC |
-| 10000951 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -28.5, -1.8, -18.6 | - | MSB NPC |
-| 10000952 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | 36.4, -11.3, 5.0 | - | MSB NPC |
-| 10000953 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -122.5, 29.6, 11.9 | - | MSB NPC |
-| 10000954 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -200.7, 29.9, -16.5 | - | MSB NPC |
-| 10000955 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -262.3, 98.4, 113.0 | - | MSB NPC |
-| 10000956 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -273.1, 71.6, 241.4 | - | MSB NPC |
-| 10000957 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -189.6, 81.9, 315.0 | - | MSB NPC |
-| 10000958 | NPC (c1000) | NPC | Stormveil Castle | m10_00_00 | -96.1, 20.9, 20.3 | - | MSB NPC |
 | 10003900 | Stake of Marika (m10_00_00) | Stake of Marika | Stormveil Castle | m10_00_00 | -314.2, 89.7, 279.2 | - | MSB SpawnPoint |
 | 10007005 | Wooden Greatshield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -216.7, 72.6, 214.4 | - | ItemLotParam_map |
 | 10007015 | Hawk Crest Wooden Shield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -251.7, 65.8, 110.6 | - | ItemLotParam_map |
@@ -2718,27 +2703,13 @@ Total unique flags: 7575
 | 10012690 | Stake of Marika (m10_01_00) | Stake of Marika | Stormveil Castle | m10_01_00 | 22.8, 13.2, 2.3 | - | MSB SpawnPoint |
 | 10017010 | The Stormhawk King | Dungeon Pickup | Stormveil Castle | m10_01_00 | -40.8, 43.5, -159.3 | - | ItemLotParam_map |
 | 10017900 | Stormhawk Deenh | Dungeon Pickup | Stormveil Castle | m10_01_00 | -40.4, 45.5, -177.7 | - | ItemLotParam_map |
-| 11000100 | NPC (c1000) | NPC | Leyndell | m11_00_00 | 29.9, 64.8, -406.4 | - | MSB NPC |
-| 11000102 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -132.1, 30.7, -384.4 | - | MSB NPC |
-| 11000104 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -144.0, -45.8, -195.4 | - | MSB NPC |
-| 11000106 | NPC (c1000) | NPC | Leyndell | m11_00_00 | 87.2, -22.6, -146.4 | - | MSB NPC |
 | 11000710 | Boc the Seamster | NPC | Leyndell | m11_00_00 | -39.2, 8.0, -83.6 | - | MSB NPC |
 | 11000715 | The Noble Goldmask | NPC | Leyndell | m11_00_00 | -245.8, 29.0, -460.7 | - | MSB NPC |
 | 11000720 | Morgott (Dead) | NPC | Leyndell | m11_00_00 | 51.4, 65.1, -428.4 | - | MSB NPC |
 | 11000725 | Scribe Corhyn | NPC | Leyndell | m11_00_00 | -251.0, 27.0, -460.6 | - | MSB NPC |
 | 11000735 | Recusant Bernahl | NPC | Leyndell | m11_00_00 | -269.9, -32.6, -279.5 | - | MSB NPC |
-| 11000770 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -349.5, 29.6, -435.7 | - | MSB NPC |
 | 11000800 | Margit, the Fell Omen | Great Boss Defeat | Leyndell | m11_00_00 | 41.8, 65.0, -421.9 | - | MSB Enemy |
 | 11000850 | Godfrey, First Elden Lord | Field Boss Defeat | Leyndell | m11_00_00 | -131.6, 31.0, -386.4 | - | MSB Enemy |
-| 11000950 | NPC (c1000) | NPC | Leyndell | m11_00_00 | 37.3, 64.6, -416.0 | - | MSB NPC |
-| 11000951 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -132.0, 30.5, -386.5 | - | MSB NPC |
-| 11000952 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -33.0, 7.4, -80.5 | - | MSB NPC |
-| 11000953 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -220.2, -65.0, -220.5 | - | MSB NPC |
-| 11000954 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -180.4, -50.2, -185.5 | - | MSB NPC |
-| 11000955 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -216.5, -12.5, -260.1 | - | MSB NPC |
-| 11000957 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -55.1, 47.0, -307.2 | - | MSB NPC |
-| 11000958 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -320.0, -33.1, -270.5 | - | MSB NPC |
-| 11000959 | NPC (c1000) | NPC | Leyndell | m11_00_00 | -426.0, 28.6, -294.3 | - | MSB NPC |
 | 11002020 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | 34.6, 65.0, -412.6 | - | MSB SpawnPoint |
 | 11002141 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | -272.4, -32.6, -278.9 | - | MSB SpawnPoint |
 | 11002500 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | 0.0, 1.0, 2.2 | - | MSB SpawnPoint |
@@ -2877,25 +2848,16 @@ Total unique flags: 7575
 | 11007997 | Bolt of Gransax | Dungeon Pickup | Leyndell | m11_00_00 | -163.6, -26.6, -258.9 | - | ItemLotParam_map |
 | 11007998 | Lord's Rune | Dungeon Pickup | Leyndell | m11_00_00 | - | - | ItemLotParam_map |
 | 11009455 | [Brother Corhyn - Erdtree Sanctuary] Immutable Shield - Unlocked | Shop Unlock | Leyndell | - | - | - | ShopLineupParam |
-| 11050100 | NPC (c1000) | NPC | Leyndell | m11_05_00 | 23.5, 65.0, -398.1 | - | MSB NPC |
-| 11050102 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -136.9, 31.0, -386.5 | - | MSB NPC |
 | 11050705 | The Noble Goldmask | NPC | Leyndell | m11_05_00 | -231.7, -24.0, -439.2 | - | MSB NPC |
 | 11050710 | Scribe Corhyn | NPC | Leyndell | m11_05_00 | -162.8, -23.1, -271.3 | - | MSB NPC |
 | 11050720 | Commoner | NPC | Leyndell | m11_05_00 | -135.4, -29.4, -164.4 | - | MSB NPC |
 | 11050721 | Commoner | NPC | Leyndell | m11_05_00 | -99.8, 32.0, -347.2 | - | MSB NPC |
 | 11050730 | Boc the Seamster | NPC | Leyndell | m11_05_00 | -39.2, 8.0, -83.6 | - | MSB NPC |
-| 11050770 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -349.6, 29.6, -436.8 | - | MSB NPC |
 | 11050800 | Hoarah Loux, Warrior | Great Boss Defeat | Leyndell | m11_05_00 | 39.2, 5.8, -425.1 | - | MSB Enemy |
 | 11050801 | Godfrey, First Elden Lord | Great Boss Defeat | Leyndell | m11_05_00 | 41.2, 65.0, -421.9 | - | MSB Enemy |
 | 11050850 | Sir Gideon Ofnir, the All-Knowing | Field Boss Defeat | Leyndell | m11_05_00 | -131.5, 31.0, -386.6 | - | MSB Enemy |
 | 11050851 | Sir Gideon Ofnir, the All-Knowing | Field Boss Defeat | Leyndell | m11_05_00 | -175.2, 40.0, -386.9 | - | MSB Enemy |
 | 11050854 | Sir Gideon Ofnir, the All-Knowing | Invasion Defeat | Leyndell | m11_05_00 | -175.2, 40.0, -386.9 | - | MSB Enemy |
-| 11050950 | NPC (c1000) | NPC | Leyndell | m11_05_00 | 37.3, 65.0, -416.1 | - | MSB NPC |
-| 11050951 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -132.0, 31.1, -386.5 | - | MSB NPC |
-| 11050952 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -33.0, 7.4, -80.5 | - | MSB NPC |
-| 11050953 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -131.5, -31.6, -127.4 | - | MSB NPC |
-| 11050954 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -54.8, 47.7, -306.5 | - | MSB NPC |
-| 11050955 | NPC (c1000) | NPC | Leyndell | m11_05_00 | -425.8, 29.1, -294.2 | - | MSB NPC |
 | 11052680 | Stake of Marika (m11_05_00) | Stake of Marika | Leyndell | m11_05_00 | -377.1, 21.3, -266.2 | - | MSB SpawnPoint |
 | 11057000 | Erdtree Heal | Dungeon Pickup | Leyndell | m11_05_00 | -47.0, 48.8, -304.8 | - | ItemLotParam_map |
 | 11057010 | Somber Ancient Dragon Smithing Stone | Dungeon Pickup | Leyndell | m11_05_00 | -256.3, -25.9, -268.2 | - | ItemLotParam_map |
@@ -2904,7 +2866,6 @@ Total unique flags: 7575
 | 11057040 | Golden Sunflower | Dungeon Pickup | Leyndell | m11_05_00 | -192.1, -28.3, -253.5 | - | ItemLotParam_map |
 | 11057050 | Hero's Rune [4] | Dungeon Pickup | Leyndell | m11_05_00 | -144.9, -7.5, -295.1 | - | ItemLotParam_map |
 | 11057100 | Erdtree's Favor +2 | Dungeon Pickup | Leyndell | m11_05_00 | 10.3, -41.4, -240.1 | - | ItemLotParam_map |
-| 11100140 | NPC (c1000) | NPC | Leyndell | m11_10_00 | -358.7, -18.8, -328.8 | - | MSB NPC |
 | 11100700 | Twin Maiden Husks | NPC | Leyndell | m11_10_00 | -298.3, -22.6, -275.4 | - | MSB NPC |
 | 11100705 | Finger Reader Enia | Finger Reader | Leyndell | m11_10_00 | -348.2, -20.2, -328.2 | - | MSB NPC |
 | 11100710 | Roderika | NPC | Leyndell | m11_10_00 | -317.4, -22.0, -314.9 | - | MSB NPC |
@@ -2928,8 +2889,6 @@ Total unique flags: 7575
 | 11100775 | Clouded Mirror Stand | NPC | Leyndell | m11_10_00 | -294.0, -21.6, -329.7 | - | MSB NPC |
 | 11100780 | Nepheli Loux, Warrior | NPC | Leyndell | m11_10_00 | -308.9, -22.6, -280.6 | - | MSB NPC |
 | 11100781 | Nepheli Loux, Warrior | NPC | Leyndell | m11_10_00 | -269.5, -32.5, -295.4 | - | MSB NPC |
-| 11100789 | NPC (c1000) | NPC | Leyndell | m11_10_00 | -320.3, -22.0, -317.1 | - | MSB NPC |
-| 11100950 | NPC (c1000) | NPC | Leyndell | m11_10_00 | -322.8, -22.3, -308.0 | - | MSB NPC |
 | 11102020 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -330.9, -22.0, -305.7 | - | MSB SpawnPoint |
 | 11102620 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -305.2, -19.9, -297.8 | - | MSB SpawnPoint |
 | 11102691 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -320.3, -22.0, -315.7 | - | MSB SpawnPoint |
@@ -2984,30 +2943,10 @@ Total unique flags: 7575
 | 11109884 | [Brother Corhyn - Ancient Dragon Prayerbook] Ancient Dragons' Lightning Spear - Unlocked | Shop Unlock | Leyndell | - | - | - | ShopLineupParam |
 | 11109919 | [Preceptor Seluvis - Ranni Quest] Dolores the Sleeping Arrow Puppet - Unlocked | Shop Unlock | Leyndell | - | - | - | ShopLineupParam |
 | 11712500 | Stake of Marika (m11_71_00) | Stake of Marika | Leyndell | m11_71_00 | 17.4, 60.0, -390.4 | - | MSB SpawnPoint |
-| 12010100 | NPC (c1000) | NPC | Underground | m12_01_00 | 168.1, -200.9, -189.8 | - | MSB NPC |
-| 12010102 | NPC (c1000) | NPC | Underground | m12_01_00 | -86.9, -223.8, 74.6 | - | MSB NPC |
-| 12010104 | NPC (c1000) | NPC | Underground | m12_01_00 | 312.1, -80.1, 144.9 | - | MSB NPC |
-| 12010106 | NPC (c1000) | NPC | Underground | m12_01_00 | -267.2, -91.1, 272.8 | - | MSB NPC |
-| 12010108 | NPC (c1000) | NPC | Underground | m12_01_00 | -227.7, -317.1, -309.4 | - | MSB NPC |
-| 12010110 | NPC (c1000) | NPC | Underground | m12_01_00 | -487.3, -373.8, -520.5 | - | MSB NPC |
 | 12010705 | Hermit Merchant | Merchant | Underground | m12_01_00 | -15.0, -203.7, -34.9 | - | MSB NPC |
-| 12010710 | NPC (c1000) | NPC | Underground | m12_01_00 | 333.2, -80.0, 302.9 | - | MSB NPC |
-| 12010711 | NPC (c1000) | NPC | Underground | m12_01_00 | 333.5, -79.0, 269.3 | - | MSB NPC |
-| 12010712 | NPC (c1000) | NPC | Underground | m12_01_00 | 29.6, -160.3, 76.5 | - | MSB NPC |
-| 12010713 | NPC (c1000) | NPC | Underground | m12_01_00 | -243.4, -280.2, 153.1 | - | MSB NPC |
-| 12010714 | NPC (c1000) | NPC | Underground | m12_01_00 | -298.9, -280.4, 21.9 | - | MSB NPC |
 | 12010800 | Dragonkin Soldier of Nokstella | Great Boss Defeat | Underground | m12_01_00 | -49.6, -224.3, 84.3 | - | MSB Enemy |
 | 12010801 | Dragonkin Soldier of Nokstella | Great Boss Defeat | Underground | m12_01_00 | -147.2, -224.5, 114.0 | - | MSB Enemy |
 | 12010850 | Dragonkin Soldier of Nokstella | Field Boss Defeat | Underground | m12_01_00 | -217.4, -317.1, -317.7 | - | MSB Enemy |
-| 12010950 | NPC (c1000) | NPC | Underground | m12_01_00 | -113.8, -223.0, 118.1 | - | MSB NPC |
-| 12010951 | NPC (c1000) | NPC | Underground | m12_01_00 | 400.7, -145.5, -103.1 | - | MSB NPC |
-| 12010952 | NPC (c1000) | NPC | Underground | m12_01_00 | 207.1, -170.1, -204.2 | - | MSB NPC |
-| 12010953 | NPC (c1000) | NPC | Underground | m12_01_00 | -18.6, -209.8, -107.3 | - | MSB NPC |
-| 12010954 | NPC (c1000) | NPC | Underground | m12_01_00 | 333.5, -78.6, 269.2 | - | MSB NPC |
-| 12010955 | NPC (c1000) | NPC | Underground | m12_01_00 | 29.6, -160.3, 76.5 | - | MSB NPC |
-| 12010956 | NPC (c1000) | NPC | Underground | m12_01_00 | -303.5, -307.6, -60.2 | - | MSB NPC |
-| 12010958 | NPC (c1000) | NPC | Underground | m12_01_00 | -411.5, -329.3, -525.7 | - | MSB NPC |
-| 12010959 | NPC (c1000) | NPC | Underground | m12_01_00 | -243.4, -280.3, 153.0 | - | MSB NPC |
 | 12012480 | Stake of Marika (m12_01_00) | Stake of Marika | Underground | m12_01_00 | 317.4, -78.3, 316.6 | - | MSB SpawnPoint |
 | 12012504 | Stake of Marika (m12_01_00) | Stake of Marika | Underground | m12_01_00 | 329.6, -80.0, 353.7 | - | MSB SpawnPoint |
 | 12017030 | Somber Smithing Stone [8] | Dungeon Pickup | Underground | m12_01_00 | -104.7, -308.6, -419.2 | - | ItemLotParam_map |
@@ -3110,12 +3049,6 @@ Total unique flags: 7575
 | 12017990 | Nightmaiden & Swordstress Puppets | Dungeon Pickup | Underground | m12_01_00 | -73.6, -129.0, 125.6 | - | ItemLotParam_map |
 | 12017995 | Somber Smithing Stone [7] | Dungeon Pickup | Underground | m12_01_00 | - | - | ItemLotParam_map |
 | 12017997 | Golden Seed | Dungeon Pickup | Underground | m12_01_00 | - | - | ItemLotParam_map |
-| 12020102 | NPC (c1000) | NPC | Underground | m12_02_00 | 1207.7, -821.0, 1442.0 | - | MSB NPC |
-| 12020110 | NPC (c1000) | NPC | Underground | m12_02_00 | 1096.8, -609.7, 1593.1 | - | MSB NPC |
-| 12020112 | NPC (c1000) | NPC | Underground | m12_02_00 | 983.9, -671.0, 1358.1 | - | MSB NPC |
-| 12020114 | NPC (c1000) | NPC | Underground | m12_02_00 | 1240.1, -619.2, 1956.2 | - | MSB NPC |
-| 12020116 | NPC (c1000) | NPC | Underground | m12_02_00 | 972.8, -617.6, 1150.1 | - | MSB NPC |
-| 12020118 | NPC (c1000) | NPC | Underground | m12_02_00 | 1272.1, -747.7, 1658.8 | - | MSB NPC |
 | 12020390 | Crucible Knight | Boss Arena | Deeproot Depths | m12_03_00 | -884.2, 96.7, -320.7 | - | GameAreaParam |
 | 12020705 | Abandoned Merchant | Merchant | Underground | m12_02_00 | 1263.4, -811.7, 1524.3 | - | MSB NPC |
 | 12020710 | D, Beholder of Death | NPC | Underground | m12_02_00 | 1340.1, -626.7, 1850.2 | - | MSB NPC |
@@ -3125,14 +3058,6 @@ Total unique flags: 7575
 | 12020801 | Valiant Gargoyle | Great Boss Defeat | Underground | m12_02_00 | 1213.2, -619.7, 1934.4 | - | MSB Enemy |
 | 12020830 | Dragonkin Soldier of Nokstella | Boss Defeat | Underground | m12_02_00 | 1240.1, -748.4, 1738.2 | - | MSB Enemy |
 | 12020850 | NPC Invader | Field Boss Defeat | Underground | m12_02_00 | 1029.6, -641.3, 1174.0 | - | MSB Enemy |
-| 12020950 | NPC (c1000) | NPC | Underground | m12_02_00 | 1184.5, -618.9, 1909.9 | - | MSB NPC |
-| 12020951 | NPC (c1000) | NPC | Underground | m12_02_00 | 1016.1, -616.5, 1153.4 | - | MSB NPC |
-| 12020953 | NPC (c1000) | NPC | Underground | m12_02_00 | 1098.3, -823.0, 1266.8 | - | MSB NPC |
-| 12020954 | NPC (c1000) | NPC | Underground | m12_02_00 | 1437.5, -816.0, 1519.2 | - | MSB NPC |
-| 12020956 | NPC (c1000) | NPC | Underground | m12_02_00 | 1016.4, -604.9, 1462.9 | - | MSB NPC |
-| 12020957 | NPC (c1000) | NPC | Underground | m12_02_00 | 1173.2, -611.5, 1757.7 | - | MSB NPC |
-| 12020958 | NPC (c1000) | NPC | Underground | m12_02_00 | 952.9, -670.9, 1296.4 | - | MSB NPC |
-| 12020959 | NPC (c1000) | NPC | Underground | m12_02_00 | 1518.2, -770.5, 1867.4 | - | MSB NPC |
 | 12022200 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1258.5, -809.2, 1150.5 | - | MSB SpawnPoint |
 | 12022201 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1182.5, -611.7, 1620.2 | - | MSB SpawnPoint |
 | 12022202 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1258.5, -809.2, 1150.5 | - | MSB SpawnPoint |
@@ -3242,11 +3167,6 @@ Total unique flags: 7575
 | 12027970 | Slumbering Egg | Dungeon Pickup | Underground | m12_02_00 | 1273.1, -747.6, 1513.3 | - | ItemLotParam_map |
 | 12027980 | Golden Rune [7] | Dungeon Pickup | Underground | m12_02_00 | 1183.1, -745.2, 1521.9 | - | ItemLotParam_map |
 | 12027990 | Golden Rune [7] | Dungeon Pickup | Underground | m12_02_00 | 1289.0, -763.0, 1666.1 | - | ItemLotParam_map |
-| 12030100 | NPC (c1000) | NPC | Underground | m12_03_00 | -453.7, 80.5, -627.5 | - | MSB NPC |
-| 12030102 | NPC (c1000) | NPC | Underground | m12_03_00 | -700.4, 83.3, -367.0 | - | MSB NPC |
-| 12030104 | NPC (c1000) | NPC | Underground | m12_03_00 | -374.1, 149.4, -183.4 | - | MSB NPC |
-| 12030106 | NPC (c1000) | NPC | Underground | m12_03_00 | -433.8, 149.3, -262.3 | - | MSB NPC |
-| 12030108 | NPC (c1000) | NPC | Underground | m12_03_00 | -881.8, 96.2, -310.0 | - | MSB NPC |
 | 12030390 | Crucible Knight Ordovis | Enemy Defeat | Underground | m12_03_00 | -884.2, 96.7, -320.7 | - | MSB Enemy |
 | 12030400 | Walking Mausoleum | NPC | Underground | m12_03_00 | -663.6, 75.8, -198.1 | - | MSB NPC |
 | 12030700 | Fia, Deathbed Companion | NPC | Underground | m12_03_00 | -358.6, 150.4, -191.5 | - | MSB NPC |
@@ -3255,12 +3175,6 @@ Total unique flags: 7575
 | 12030725 | Godwyn's Wet Nurse | Finger Reader | Underground | m12_03_00 | -605.2, 98.6, -609.4 | - | MSB NPC |
 | 12030800 | NPC Invader | Boss Defeat | Underground | m12_03_00 | -370.1, 149.5, -203.4 | - | MSB Enemy |
 | 12030850 | Lichdragon Fortissax | Field Boss Defeat | Underground | m12_03_00 | -448.8, 149.3, -273.1 | - | MSB Enemy |
-| 12030950 | NPC (c1000) | NPC | Underground | m12_03_00 | -379.1, 150.1, -201.8 | - | MSB NPC |
-| 12030951 | NPC (c1000) | NPC | Underground | m12_03_00 | -184.9, 273.4, -517.6 | - | MSB NPC |
-| 12030952 | NPC (c1000) | NPC | Underground | m12_03_00 | -163.9, 92.4, -624.8 | - | MSB NPC |
-| 12030953 | NPC (c1000) | NPC | Underground | m12_03_00 | -598.4, 98.7, -609.9 | - | MSB NPC |
-| 12030954 | NPC (c1000) | NPC | Underground | m12_03_00 | -689.7, 92.8, -409.8 | - | MSB NPC |
-| 12030955 | NPC (c1000) | NPC | Underground | m12_03_00 | -469.2, 150.1, -351.1 | - | MSB NPC |
 | 12032502 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -168.6, 91.6, -592.9 | - | MSB SpawnPoint |
 | 12032806 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -397.8, 149.4, -221.5 | - | MSB SpawnPoint |
 | 12032858 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -372.7, 149.4, -207.3 | - | MSB SpawnPoint |
@@ -3334,27 +3248,18 @@ Total unique flags: 7575
 | 12037910 | Golden Rune [1] | Dungeon Pickup | Underground | m12_03_00 | - | - | ItemLotParam_map |
 | 12037950 | Siluria's Tree | Dungeon Pickup | Underground | m12_03_00 | - | - | ItemLotParam_map |
 | 12037960 | Staff of the Avatar | Dungeon Pickup | Underground | m12_03_00 | - | - | ItemLotParam_map |
-| 12040100 | NPC (c1000) | NPC | Underground | m12_04_00 | -98.1, -16.2, -132.4 | - | MSB NPC |
 | 12040800 | Astel, Naturalborn of the Void | Great Boss Defeat | Underground | m12_04_00 | -98.8, -106.1, -134.4 | - | MSB Enemy |
-| 12040950 | NPC (c1000) | NPC | Underground | m12_04_00 | -64.5, -106.6, -77.8 | - | MSB NPC |
 | 12042506 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -90.9, -104.2, -330.3 | - | MSB SpawnPoint |
 | 12042508 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -94.5, -104.1, -334.3 | - | MSB SpawnPoint |
 | 12042511 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -93.0, -104.2, -336.8 | - | MSB SpawnPoint |
 | 12042512 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -91.4, -104.2, -335.5 | - | MSB SpawnPoint |
 | 12042513 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -90.2, -104.3, -338.3 | - | MSB SpawnPoint |
 | 12042514 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -88.8, -104.3, -336.3 | - | MSB SpawnPoint |
-| 12050100 | NPC (c1000) | NPC | Underground | m12_05_00 | 1895.9, -622.0, 1265.2 | - | MSB NPC |
-| 12050102 | NPC (c1000) | NPC | Underground | m12_05_00 | 1617.2, -580.7, 1166.9 | - | MSB NPC |
-| 12050104 | NPC (c1000) | NPC | Underground | m12_05_00 | 1606.1, -505.7, 1222.4 | - | MSB NPC |
 | 12050702 | White Mask Varré | NPC | Underground | m12_05_00 | 1614.7, -561.9, 1237.6 | - | MSB NPC |
 | 12050705 | White Mask Varré | NPC | Underground | m12_05_00 | 1577.1, -572.0, 1182.7 | - | MSB NPC |
 | 12050710 | Imprisoned Merchant | Merchant | Underground | m12_05_00 | 1570.8, -572.4, 1144.0 | - | MSB NPC |
 | 12050750 | Needle Knight Leda | NPC | Underground | m12_05_00 | 1527.0, -500.7, 1243.4 | - | MSB NPC |
 | 12050800 | Mohg, Lord of Blood | Great Boss Defeat | Underground | m12_05_00 | 1528.3, -501.0, 1245.3 | - | MSB Enemy |
-| 12050950 | NPC (c1000) | NPC | Underground | m12_05_00 | 1532.2, -500.5, 1243.8 | - | MSB NPC |
-| 12050951 | NPC (c1000) | NPC | Underground | m12_05_00 | 1899.1, -599.8, 1115.7 | - | MSB NPC |
-| 12050952 | NPC (c1000) | NPC | Underground | m12_05_00 | 1698.2, -611.3, 1290.2 | - | MSB NPC |
-| 12050953 | NPC (c1000) | NPC | Underground | m12_05_00 | 1637.2, -562.2, 1248.8 | - | MSB NPC |
 | 12052020 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 2019.6, -556.8, 1184.0 | - | MSB SpawnPoint |
 | 12052021 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1700.6, -620.4, 1345.2 | - | MSB SpawnPoint |
 | 12052141 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1620.0, -561.9, 1241.1 | - | MSB SpawnPoint |
@@ -3435,10 +3340,6 @@ Total unique flags: 7575
 | 12057740 | Golden Rune [1] | Dungeon Pickup | Underground | m12_05_00 | - | - | ItemLotParam_map |
 | 12057900 | Somber Ancient Dragon Smithing Stone | Dungeon Pickup | Underground | m12_05_00 | 1672.7, -555.4, 1179.5 | - | ItemLotParam_map |
 | 12057950 | White Mask | Dungeon Pickup | Underground | m12_05_00 | - | - | ItemLotParam_map |
-| 12070100 | NPC (c1000) | NPC | Underground | m12_07_00 | 787.4, -917.2, 1223.0 | - | MSB NPC |
-| 12070102 | NPC (c1000) | NPC | Underground | m12_07_00 | 744.1, -584.2, 1266.2 | - | MSB NPC |
-| 12070950 | NPC (c1000) | NPC | Underground | m12_07_00 | 748.2, -911.2, 1164.1 | - | MSB NPC |
-| 12070951 | NPC (c1000) | NPC | Underground | m12_07_00 | 709.9, -579.6, 1234.0 | - | MSB NPC |
 | 12077000 | Furlcalling Finger Remedy | Dungeon Pickup | Underground | m12_07_00 | 803.4, -922.0, 1143.1 | - | ItemLotParam_map |
 | 12077010 | Silver Firefly | Dungeon Pickup | Underground | m12_07_00 | 870.7, -909.9, 1188.7 | - | ItemLotParam_map |
 | 12077020 | Golden Rune [3] | Dungeon Pickup | Underground | m12_07_00 | 783.4, -920.8, 1192.1 | - | ItemLotParam_map |
@@ -3494,20 +3395,12 @@ Total unique flags: 7575
 | 12077520 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | ItemLotParam_map |
 | 12077530 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | ItemLotParam_map |
 | 12077540 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | ItemLotParam_map |
-| 12080100 | NPC (c1000) | NPC | Underground | m12_08_00 | 1518.5, -1735.9, 1062.1 | - | MSB NPC |
 | 12080800 | Ancestor Spirit | Great Boss Defeat | Underground | m12_08_00 | 1546.1, -1736.0, 1053.3 | - | MSB Enemy |
 | 12082400 | Stake of Marika (m12_08_00) | Stake of Marika | Underground | m12_08_00 | 1402.8, -1735.3, 1059.8 | - | MSB SpawnPoint |
 | 12082401 | Stake of Marika (m12_08_00) | Stake of Marika | Underground | m12_08_00 | 1399.7, -1735.2, 1062.4 | - | MSB SpawnPoint |
-| 12090100 | NPC (c1000) | NPC | Underground | m12_09_00 | 1179.7, -1538.6, 1927.3 | - | MSB NPC |
 | 12090800 | Ancestor Spirit | Great Boss Defeat | Underground | m12_09_00 | 1183.8, -1538.4, 1911.8 | - | MSB Enemy |
 | 12092400 | Stake of Marika (m12_09_00) | Stake of Marika | Underground | m12_09_00 | 1219.1, -1537.9, 1785.5 | - | MSB SpawnPoint |
 | 12092401 | Stake of Marika (m12_09_00) | Stake of Marika | Underground | m12_09_00 | 1217.0, -1537.5, 1781.5 | - | MSB SpawnPoint |
-| 13000100 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 19.4, -39.0, 413.1 | - | MSB NPC |
-| 13000102 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -6.4, 47.2, 168.3 | - | MSB NPC |
-| 13000106 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -92.0, -67.2, 101.7 | - | MSB NPC |
-| 13000108 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -16.9, 8.6, 415.2 | - | MSB NPC |
-| 13000120 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 166.9, -33.0, 392.6 | - | MSB NPC |
-| 13000122 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 15.0, 1009.1, 330.5 | - | MSB NPC |
 | 13000700 | Alexander, Warrior Jar | NPC | Crumbling Farum Azula | m13_00_00 | -131.7, 16.0, 393.7 | - | MSB NPC |
 | 13000710 | Recusant Bernahl | NPC | Crumbling Farum Azula | m13_00_00 | 129.1, -80.5, 557.7 | - | MSB NPC |
 | 13000800 | Beast Clergyman | Great Boss Defeat | Crumbling Farum Azula | m13_00_00 | 198.0, -62.5, 374.2 | - | MSB Enemy |
@@ -3515,17 +3408,6 @@ Total unique flags: 7575
 | 13000830 | Dragonlord Placidusax | Boss Defeat | Crumbling Farum Azula | m13_00_00 | 14.4, 1009.7, 329.5 | - | MSB Enemy |
 | 13000850 | Godskin Apostle | Field Boss Defeat | Crumbling Farum Azula | m13_00_00 | -3.5, -52.2, 406.5 | - | MSB Enemy |
 | 13000851 | Godskin Apostle | Field Boss Defeat | Crumbling Farum Azula | m13_00_00 | 26.4, -38.5, 409.3 | - | MSB Enemy |
-| 13000950 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 224.9, -33.2, 365.7 | - | MSB NPC |
-| 13000951 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 14.9, 1009.1, 330.5 | - | MSB NPC |
-| 13000952 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 13.7, -39.8, 411.5 | - | MSB NPC |
-| 13000953 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 116.7, 53.4, 161.1 | - | MSB NPC |
-| 13000954 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -92.9, 46.9, 210.9 | - | MSB NPC |
-| 13000955 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -88.2, 35.9, 282.6 | - | MSB NPC |
-| 13000956 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -75.4, -20.5, 404.7 | - | MSB NPC |
-| 13000957 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 30.4, -46.5, 361.8 | - | MSB NPC |
-| 13000958 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | -73.6, -1.5, 498.8 | - | MSB NPC |
-| 13000959 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 84.0, -86.5, 608.5 | - | MSB NPC |
-| 13000960 | NPC (c1000) | NPC | Crumbling Farum Azula | m13_00_00 | 64.1, -74.3, 497.5 | - | MSB NPC |
 | 13002020 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 180.6, -32.6, 380.1 | - | MSB SpawnPoint |
 | 13002500 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 258.8, 83.5, 96.2 | - | MSB SpawnPoint |
 | 13002509 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | -448.8, 159.7, 436.5 | - | MSB SpawnPoint |
@@ -3625,10 +3507,6 @@ Total unique flags: 7575
 | 13007991 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | ItemLotParam_map |
 | 13007993 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | ItemLotParam_map |
 | 13007995 | Malformed Dragon Helm | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | ItemLotParam_map |
-| 14000100 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 111.4, 52.7, -84.2 | - | MSB NPC |
-| 14000102 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 162.4, 111.1, -233.6 | - | MSB NPC |
-| 14000104 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 152.6, 112.7, -134.9 | - | MSB NPC |
-| 14000106 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 41.9, 154.0, -23.9 | - | MSB NPC |
 | 14000700 | Rennala, Queen of the Full Moon | NPC | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.2, -23.8 | - | MSB NPC |
 | 14000701 | Rennala, Queen of the Full Moon | NPC | Academy of Raya Lucaria | m14_00_00 | 39.7, 154.1, -0.4 | - | MSB NPC |
 | 14000710 | Sorceress Sellen | NPC | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.2, -23.5 | - | MSB NPC |
@@ -3641,15 +3519,9 @@ Total unique flags: 7575
 | 14000720 | Boc the Seamster | NPC | Academy of Raya Lucaria | m14_00_00 | 28.2, 154.1, -25.8 | - | MSB NPC |
 | 14000721 | Boc the Seamster | NPC | Academy of Raya Lucaria | m14_00_00 | 99.8, 154.1, -40.9 | - | MSB NPC |
 | 14000740 | Sorcerer Thops | NPC | Academy of Raya Lucaria | m14_00_00 | 125.0, 90.0, -174.1 | - | MSB NPC |
-| 14000750 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 42.0, 154.2, -24.0 | - | MSB NPC |
-| 14000760 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 42.0, 154.2, -23.8 | - | MSB NPC |
 | 14000800 | Rennala | Great Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 70.7, -838.7, -23.3 | - | MSB Enemy |
 | 14000801 | Rennala, Queen of the Full Moon | Great Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.1, -24.1 | - | MSB Enemy |
 | 14000850 | Red Wolf of Radagon | Field Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 149.2, 110.2, -222.8 | - | MSB Enemy |
-| 14000950 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 32.9, 153.6, -20.3 | - | MSB NPC |
-| 14000951 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 154.8, 109.7, -222.4 | - | MSB NPC |
-| 14000952 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | -13.9, 62.0, -95.6 | - | MSB NPC |
-| 14000953 | NPC (c1000) | NPC | Academy of Raya Lucaria | m14_00_00 | 134.2, 93.6, -185.0 | - | MSB NPC |
 | 14002141 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 38.3, 154.2, -19.8 | - | MSB SpawnPoint |
 | 14002151 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 82.2, 154.1, -42.0 | - | MSB SpawnPoint |
 | 14002705 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 82.2, 154.1, -42.0 | - | MSB SpawnPoint |
@@ -3723,10 +3595,6 @@ Total unique flags: 7575
 | 14007980 | Carian Knight's Shield | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | -4.0, 145.3, -216.6 | - | ItemLotParam_map |
 | 14007990 | Golden Seed | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | 97.2, 113.4, -104.8 | - | ItemLotParam_map |
 | 14009267 | [Sorceress Sellen - Quest] Shard Spiral - Unlocked | Shop Unlock | Academy of Raya Lucaria | - | - | - | ShopLineupParam |
-| 15000100 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -0.2, 50.8, 491.0 | - | MSB NPC |
-| 15000102 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -5.5, 211.7, 580.4 | - | MSB NPC |
-| 15000104 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 122.5, 194.2, 531.9 | - | MSB NPC |
-| 15000110 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 156.5, 431.7, 265.6 | - | MSB NPC |
 | 15000700 | Millicent | NPC | Caria Manor | m15_00_00 | 78.9, 247.0, 426.3 | - | MSB NPC |
 | 15000701 | Millicent | NPC | Caria Manor | m15_00_00 | 30.1, 181.8, 467.6 | - | MSB NPC |
 | 15000702 | Millicent | NPC | Caria Manor | m15_00_00 | 37.8, 185.7, 441.4 | - | MSB NPC |
@@ -3734,15 +3602,6 @@ Total unique flags: 7575
 | 15000800 | Malenia, Blade of Miquella | Great Boss Defeat | Caria Manor | m15_00_00 | -19.0, 52.3, 466.3 | - | MSB Enemy |
 | 15000801 | Malenia, Blade of Miquella | Great Boss Defeat | Caria Manor | m15_00_00 | -25.9, 51.6, 480.5 | - | MSB Enemy |
 | 15000850 | Loretta, Knight of the Haligtree | Field Boss Defeat | Caria Manor | m15_00_00 | 174.4, 431.7, 307.9 | - | MSB Enemy |
-| 15000950 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -21.3, 51.6, 487.9 | - | MSB NPC |
-| 15000951 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 77.2, 247.0, 432.0 | - | MSB NPC |
-| 15000952 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -28.8, 211.4, 596.6 | - | MSB NPC |
-| 15000953 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 121.9, 170.4, 483.5 | - | MSB NPC |
-| 15000954 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 88.9, 60.8, 549.1 | - | MSB NPC |
-| 15000955 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 175.9, 431.7, 297.9 | - | MSB NPC |
-| 15000956 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -0.5, 618.1, 42.9 | - | MSB NPC |
-| 15000957 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | 63.5, 501.5, 231.4 | - | MSB NPC |
-| 15000958 | NPC (c1000) | NPC | Caria Manor | m15_00_00 | -1.3, 475.8, 295.0 | - | MSB NPC |
 | 15001200 | Golden Seed | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | ItemLotParam_map |
 | 15001210 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | ItemLotParam_map |
 | 15001250 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | ItemLotParam_map |
@@ -3855,12 +3714,6 @@ Total unique flags: 7575
 | 15007970 | Numen's Rune | Dungeon Pickup | Caria Manor | m15_00_00 | 90.5, 111.7, 609.0 | - | ItemLotParam_map |
 | 15007980 | Traveler's Clothes | Dungeon Pickup | Caria Manor | m15_00_00 | 112.6, 60.7, 536.9 | - | ItemLotParam_map |
 | 15007990 | Miquella's Needle | Dungeon Pickup | Caria Manor | m15_00_00 | 112.6, 60.7, 516.9 | - | ItemLotParam_map |
-| 16000100 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | -116.0, -32.5, -104.5 | - | MSB NPC |
-| 16000108 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 1.0, 43.2, -111.8 | - | MSB NPC |
-| 16000110 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 56.4, 6.5, -208.6 | - | MSB NPC |
-| 16000112 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 239.0, -133.8, -257.3 | - | MSB NPC |
-| 16000114 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 86.2, -439.8, -100.7 | - | MSB NPC |
-| 16000116 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | -2.4, -54.8, -221.5 | - | MSB NPC |
 | 16000500 | Omenkiller | Boss Defeat | Volcano Manor | m16_00_00 | -117.9, -34.6, -114.3 | - | MSB Enemy |
 | 16000700 | Tanith, Volcano Manor Proprietress | NPC | Volcano Manor | m16_00_00 | 39.4, 5.4, -71.3 | - | MSB NPC |
 | 16000701 | Tanith, Volcano Manor Proprietress | NPC | Volcano Manor | m16_00_00 | 94.0, -439.5, -130.6 | - | MSB NPC |
@@ -3872,19 +3725,10 @@ Total unique flags: 7575
 | 16000730 | Knight Diallos | NPC | Volcano Manor | m16_00_00 | 5.7, 4.1, -91.0 | - | MSB NPC |
 | 16000750 | Recusant Bernahl | NPC | Volcano Manor | m16_00_00 | 12.4, 4.1, -87.7 | - | MSB NPC |
 | 16000751 | Sword of Bernahl | NPC | Volcano Manor | m16_00_00 | 12.4, 4.1, -87.7 | - | MSB NPC |
-| 16000770 | NPC (c0000) | NPC | Volcano Manor | m16_00_00 | -0.8, 4.1, -81.6 | - | MSB NPC |
 | 16000800 | God-Devouring Serpent | Great Boss Defeat | Volcano Manor | m16_00_00 | 94.3, -439.5, -116.5 | - | MSB Enemy |
 | 16000801 | God-Devouring Serpent | Great Boss Defeat | Volcano Manor | m16_00_00 | 93.7, -438.9, -118.4 | - | MSB Enemy |
 | 16000850 | Godskin Noble | Field Boss Defeat | Volcano Manor | m16_00_00 | 58.5, 7.0, -209.4 | - | MSB Enemy |
 | 16000860 | Abductor Virgin (Swinging Sickle) | Boss Defeat | Volcano Manor | m16_00_00 | 236.1, -132.9, -263.6 | - | MSB Enemy |
-| 16000950 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 93.7, -439.8, -116.1 | - | MSB NPC |
-| 16000951 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 54.9, 6.3, -207.9 | - | MSB NPC |
-| 16000952 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 40.9, 4.5, -60.3 | - | MSB NPC |
-| 16000953 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | -63.0, -9.8, -113.2 | - | MSB NPC |
-| 16000954 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | -131.4, -44.1, -213.9 | - | MSB NPC |
-| 16000960 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 98.2, -433.4, -11.8 | - | MSB NPC |
-| 16000962 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 273.7, -133.6, -258.6 | - | MSB NPC |
-| 16000964 | NPC (c1000) | NPC | Volcano Manor | m16_00_00 | 163.0, -107.5, -149.0 | - | MSB NPC |
 | 16002080 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | -44.7, -34.3, -134.3 | - | MSB SpawnPoint |
 | 16002400 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | -85.4, -32.2, -92.2 | - | MSB SpawnPoint |
 | 16002570 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | 97.1, -432.8, -10.0 | - | MSB SpawnPoint |
@@ -3950,12 +3794,9 @@ Total unique flags: 7575
 | 16007992 | Golden Rune [1] | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | ItemLotParam_map |
 | 16007999 | Dragon Heart | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | ItemLotParam_map |
 | 16009208 | [Knight Bernahl] Ash of War: Eruption - Unlocked | Shop Unlock | Volcano Manor | - | - | - | ShopLineupParam |
-| 18000100 | NPC (c1000) | NPC | Roundtable Hold | m18_00_00 | 35.3, -111.2, 65.9 | - | MSB NPC |
 | 18000701 | Commoner | NPC | Roundtable Hold | m18_00_00 | -64.7, 6.1, 27.4 | - | MSB NPC |
 | 18000800 | Ulcerated Tree Spirit | Great Boss Defeat | Roundtable Hold | m18_00_00 | 29.5, -111.6, 53.5 | - | MSB Enemy |
 | 18000850 | Soldier of Godrick | Field Boss Defeat | Roundtable Hold | m18_00_00 | -40.9, 10.5, 41.1 | - | MSB Enemy |
-| 18000950 | NPC (c1000) | NPC | Roundtable Hold | m18_00_00 | -88.6, -10.7, 43.8 | - | MSB NPC |
-| 18000951 | NPC (c1000) | NPC | Roundtable Hold | m18_00_00 | -115.7, 13.2, 12.2 | - | MSB NPC |
 | 18002020 | Stake of Marika (m18_00_00) | Stake of Marika | Roundtable Hold | m18_00_00 | -57.3, 6.0, 21.6 | - | MSB SpawnPoint |
 | 18002840 | Stake of Marika (m18_00_00) | Stake of Marika | Roundtable Hold | m18_00_00 | -119.7, 14.0, 21.4 | - | MSB SpawnPoint |
 | 18002950 | Stake of Marika (m18_00_00) | Stake of Marika | Roundtable Hold | m18_00_00 | -87.4, -10.3, 41.9 | - | MSB SpawnPoint |
@@ -3968,11 +3809,7 @@ Total unique flags: 7575
 | 18007060 | Grave Glovewort [1] | Dungeon Pickup | Roundtable Hold | m18_00_00 | -55.6, -88.8, 78.3 | - | ItemLotParam_map |
 | 18007070 | Haligdrake Talisman | Dungeon Pickup | Roundtable Hold | m18_00_00 | -29.7, 12.5, 19.9 | - | ItemLotParam_map |
 | 18007900 | Erdtree Greatbow | Dungeon Pickup | Roundtable Hold | m18_00_00 | - | - | ItemLotParam_map |
-| 19000130 | NPC (c1000) | NPC | Chapel of Anticipation | m19_00_00 | 206.4, 102.3, -632.8 | - | MSB NPC |
-| 19000700 | NPC (c1000) | NPC | Chapel of Anticipation | m19_00_00 | 193.6, 102.2, -622.8 | - | MSB NPC |
-| 19000710 | NPC (c1000) | NPC | Chapel of Anticipation | m19_00_00 | 188.3, 102.3, -617.8 | - | MSB NPC |
 | 19000800 | Elden Beast | Great Boss Defeat | Chapel of Anticipation | m19_00_00 | 213.9, -720.0, -686.7 | - | MSB Enemy |
-| 19000950 | NPC (c1000) | NPC | Chapel of Anticipation | m19_00_00 | 181.2, 102.4, -607.1 | - | MSB NPC |
 | 19002814 | Stake of Marika (m19_00_00) | Stake of Marika | Chapel of Anticipation | m19_00_00 | 187.3, 102.4, -617.6 | - | MSB SpawnPoint |
 | 20000800 | Divine Beast Dancing Lion | Boss Arena | Belurat, Tower Settlement | m20_00_00 | -43.0, 118.5, 336.6 | - | GameAreaParam |
 | 20007000 | Shadow Realm Rune [1] | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | ItemLotParam_map |
@@ -4408,57 +4245,43 @@ Total unique flags: 7575
 | 28007090 | Swollen Grape | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | ItemLotParam_map |
 | 28007100 | Nanaya's Torch | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | ItemLotParam_map |
 | 28007110 | Revered Spirit Ash | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | ItemLotParam_map |
-| 30000100 | NPC (c1000) | NPC | Catacombs | m30_00_00 | -23.1, 46.2, 76.7 | - | MSB NPC |
 | 30000800 | Cemetery Shade | Boss Defeat | Catacombs | m30_00_00 | 1.9, 46.7, 65.6 | - | MSB Enemy |
-| 30000950 | NPC (c1000) | NPC | Catacombs | m30_00_00 | -95.7, 60.6, 87.9 | - | MSB NPC |
 | 30002840 | Stake of Marika (m30_00_00) | Stake of Marika | Catacombs | m30_00_00 | -95.7, 66.2, 103.2 | - | MSB SpawnPoint |
 | 30007010 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_00_00 | -20.3, 46.2, -20.2 | - | ItemLotParam_map |
 | 30007020 | Golden Rune [2] | Dungeon Pickup | Catacombs | m30_00_00 | -21.4, 51.0, -39.7 | - | ItemLotParam_map |
 | 30007040 | Prattling Pate "Thank you" | Dungeon Pickup | Catacombs | m30_00_00 | 4.2, 46.2, -41.4 | - | ItemLotParam_map |
-| 30010100 | NPC (c1000) | NPC | Catacombs | m30_01_00 | -35.7, 23.5, -134.8 | - | MSB NPC |
 | 30010800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_01_00 | -34.6, 23.1, -155.7 | - | MSB Enemy |
-| 30010950 | NPC (c1000) | NPC | Catacombs | m30_01_00 | -46.9, 43.7, -62.0 | - | MSB NPC |
 | 30012840 | Stake of Marika (m30_01_00) | Stake of Marika | Catacombs | m30_01_00 | -29.8, 50.4, -52.3 | - | MSB SpawnPoint |
 | 30017010 | Root Resin | Dungeon Pickup | Catacombs | m30_01_00 | -4.7, 18.4, -161.8 | - | ItemLotParam_map |
 | 30017020 | Prattling Pate "Please help" | Dungeon Pickup | Catacombs | m30_01_00 | 14.5, 18.5, -137.4 | - | ItemLotParam_map |
-| 30020100 | NPC (c1000) | NPC | Catacombs | m30_02_00 | 80.1, 94.9, 70.8 | - | MSB NPC |
 | 30020700 | Commoner | NPC | Catacombs | m30_02_00 | 26.8, 105.2, 20.0 | - | MSB NPC |
 | 30020800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_02_00 | 102.3, 94.7, 73.4 | - | MSB Enemy |
 | 30020801 | Morgott- the Omen King (discovered) | Boss Discovery | Leyndell, Royal Capital | m11_00_00 | 67.4, 79.0, -455.2 | - | GameAreaParam |
-| 30020950 | NPC (c1000) | NPC | Catacombs | m30_02_00 | 33.0, 109.4, 5.8 | - | MSB NPC |
 | 30022840 | Stake of Marika (m30_02_00) | Stake of Marika | Catacombs | m30_02_00 | 41.1, 115.0, -8.2 | - | MSB SpawnPoint |
 | 30027000 | Root Resin | Dungeon Pickup | Catacombs | m30_02_00 | 13.5, 104.8, 39.6 | - | ItemLotParam_map |
 | 30027010 | Smoldering Butterfly | Dungeon Pickup | Catacombs | m30_02_00 | 59.1, 95.0, 67.7 | - | ItemLotParam_map |
 | 30027020 | Wandering Noble Ashes | Dungeon Pickup | Catacombs | m30_02_00 | 3.0, 105.0, 57.5 | - | ItemLotParam_map |
 | 30027030 | Prattling Pate "Hello" | Dungeon Pickup | Catacombs | m30_02_00 | 53.3, 95.0, 114.4 | - | ItemLotParam_map |
-| 30030100 | NPC (c1000) | NPC | Catacombs | m30_03_00 | 71.8, 193.7, 7.8 | - | MSB NPC |
 | 30030800 | Spiritcaller Snail | Great Boss Defeat | Catacombs | m30_03_00 | 89.2, 194.4, 36.1 | - | MSB Enemy |
 | 30030801 | Black Knife Assassin (discovered) | Boss Discovery | Deathtouched Catacombs | m30_11_00 | -208.8, 177.5, 23.7 | - | GameAreaParam |
-| 30030950 | NPC (c1000) | NPC | Catacombs | m30_03_00 | 16.8, 218.8, -24.0 | - | MSB NPC |
 | 30032840 | Stake of Marika (m30_03_00) | Stake of Marika | Catacombs | m30_03_00 | -8.8, 223.8, -24.1 | - | MSB SpawnPoint |
 | 30037000 | Root Resin | Dungeon Pickup | Catacombs | m30_03_00 | 70.3, 203.8, -52.1 | - | ItemLotParam_map |
 | 30037010 | Raya Lucaria Soldier Ashes | Dungeon Pickup | Catacombs | m30_03_00 | 135.4, 203.7, -64.1 | - | ItemLotParam_map |
 | 30037020 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_03_00 | 38.1, 203.8, -67.0 | - | ItemLotParam_map |
 | 30037030 | Rune Arc | Dungeon Pickup | Catacombs | m30_03_00 | 50.0, 208.8, -41.7 | - | ItemLotParam_map |
 | 30037040 | Watchdog's Staff | Dungeon Pickup | Catacombs | m30_03_00 | 34.8, 204.0, -67.3 | - | ItemLotParam_map |
-| 30040100 | NPC (c1000) | NPC | Catacombs | m30_04_00 | -13.1, 46.3, 73.0 | - | MSB NPC |
 | 30040800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_04_00 | -16.8, 46.1, 92.3 | - | MSB Enemy |
 | 30040801 | Grave Warden Duelist (discovered) | Boss Discovery | Murkwater Catacombs | m30_04_00 | -20.4, 46.1, 98.5 | - | GameAreaParam |
-| 30040950 | NPC (c1000) | NPC | Catacombs | m30_04_00 | 73.4, 60.8, 53.2 | - | MSB NPC |
 | 30042840 | Stake of Marika (m30_04_00) | Stake of Marika | Catacombs | m30_04_00 | 85.6, 66.4, 62.2 | - | MSB SpawnPoint |
 | 30047000 | Root Resin | Dungeon Pickup | Catacombs | m30_04_00 | 17.2, 53.7, 10.9 | - | ItemLotParam_map |
-| 30050100 | NPC (c1000) | NPC | Catacombs | m30_05_00 | -174.2, 406.4, 112.4 | - | MSB NPC |
 | 30050800 | Cemetery Shade | Boss Defeat | Catacombs | m30_05_00 | -188.2, 406.2, 120.6 | - | MSB Enemy |
 | 30050850 | Black Knife Assassin | Field Boss Defeat | Catacombs | m30_05_00 | -240.8, 411.5, 16.7 | - | MSB Enemy |
-| 30050950 | NPC (c1000) | NPC | Catacombs | m30_05_00 | -73.1, 423.5, 120.7 | - | MSB NPC |
 | 30052840 | Stake of Marika (m30_05_00) | Stake of Marika | Catacombs | m30_05_00 | -73.3, 426.5, 112.0 | - | MSB SpawnPoint |
 | 30057000 | Rosus' Axe | Dungeon Pickup | Catacombs | m30_05_00 | -118.2, 406.5, 90.3 | - | ItemLotParam_map |
 | 30057010 | Rune Arc | Dungeon Pickup | Catacombs | m30_05_00 | -229.0, 396.5, 47.9 | - | ItemLotParam_map |
 | 30057030 | Deathroot | Dungeon Pickup | Catacombs | m30_05_00 | -200.4, 407.0, 124.3 | - | ItemLotParam_map |
 | 30057040 | Spellproof Dried Liver | Dungeon Pickup | Catacombs | m30_05_00 | -159.9, 406.4, 72.8 | - | ItemLotParam_map |
-| 30060100 | NPC (c1000) | NPC | Catacombs | m30_06_00 | 28.6, 194.5, -2.6 | - | MSB NPC |
 | 30060800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_06_00 | 20.9, 194.3, -18.7 | - | MSB Enemy |
-| 30060950 | NPC (c1000) | NPC | Catacombs | m30_06_00 | 57.6, 234.1, 68.1 | - | MSB NPC |
 | 30062840 | Stake of Marika (m30_06_00) | Stake of Marika | Catacombs | m30_06_00 | 74.8, 239.6, 69.7 | - | MSB SpawnPoint |
 | 30067000 | Root Resin | Dungeon Pickup | Catacombs | m30_06_00 | 6.0, 204.4, 63.0 | - | ItemLotParam_map |
 | 30067010 | Nox Mirrorhelm | Dungeon Pickup | Catacombs | m30_06_00 | -62.3, 198.6, -46.7 | - | ItemLotParam_map |
@@ -4469,17 +4292,13 @@ Total unique flags: 7575
 | 30067060 | Hefty Beast Bone | Dungeon Pickup | Catacombs | m30_06_00 | -4.8, 183.6, -12.0 | - | ItemLotParam_map |
 | 30067070 | Scythe | Dungeon Pickup | Catacombs | m30_06_00 | -6.6, 203.4, 22.4 | - | ItemLotParam_map |
 | 30067080 | Prattling Pate "Wonderful" | Dungeon Pickup | Catacombs | m30_06_00 | -4.5, 183.5, 11.0 | - | ItemLotParam_map |
-| 30070100 | NPC (c1000) | NPC | Catacombs | m30_07_00 | -134.9, 820.7, 210.3 | - | MSB NPC |
 | 30070800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_07_00 | -127.2, 820.6, 225.6 | - | MSB Enemy |
-| 30070950 | NPC (c1000) | NPC | Catacombs | m30_07_00 | -127.0, 830.3, 139.4 | - | MSB NPC |
 | 30072840 | Stake of Marika (m30_07_00) | Stake of Marika | Catacombs | m30_07_00 | -127.0, 835.8, 122.3 | - | MSB SpawnPoint |
 | 30077010 | Golden Rune [5] | Dungeon Pickup | Catacombs | m30_07_00 | -47.8, 765.9, 65.1 | - | ItemLotParam_map |
 | 30077020 | Magic Grease | Dungeon Pickup | Catacombs | m30_07_00 | -50.7, 765.9, 68.4 | - | ItemLotParam_map |
 | 30077600 | Lightning Scorpion Charm | Dungeon Pickup | Catacombs | m30_07_00 | -115.9, 776.1, 90.9 | - | ItemLotParam_map |
 | 30077900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_07_00 | - | - | ItemLotParam_map |
-| 30080100 | NPC (c1000) | NPC | Catacombs | m30_08_00 | 312.3, 742.4, 24.1 | - | MSB NPC |
 | 30080800 | Ancient Hero of Zamor | Boss Defeat | Catacombs | m30_08_00 | 330.5, 742.2, 14.2 | - | MSB Enemy |
-| 30080950 | NPC (c1000) | NPC | Catacombs | m30_08_00 | 26.0, 801.8, -12.5 | - | MSB NPC |
 | 30082840 | Stake of Marika (m30_08_00) | Stake of Marika | Catacombs | m30_08_00 | 44.3, 884.0, 8.4 | - | MSB SpawnPoint |
 | 30087010 | Crimson Seed Talisman | Dungeon Pickup | Catacombs | m30_08_00 | 25.8, 800.0, -44.5 | - | ItemLotParam_map |
 | 30087020 | Leyndell Soldier Ashes | Dungeon Pickup | Catacombs | m30_08_00 | 177.7, 777.2, -59.0 | - | ItemLotParam_map |
@@ -4487,9 +4306,7 @@ Total unique flags: 7575
 | 30087040 | Root Resin | Dungeon Pickup | Catacombs | m30_08_00 | 179.7, 772.0, 6.7 | - | ItemLotParam_map |
 | 30087050 | Prattling Pate "Let's get to it" | Dungeon Pickup | Catacombs | m30_08_00 | 150.4, 777.0, 14.4 | - | ItemLotParam_map |
 | 30087060 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_08_00 | 214.8, 772.0, 6.8 | - | ItemLotParam_map |
-| 30090100 | NPC (c1000) | NPC | Catacombs | m30_09_00 | -156.1, 646.4, 61.7 | - | MSB NPC |
 | 30090800 | Red Wolf of Radagon | Boss Defeat | Catacombs | m30_09_00 | -146.7, 646.2, 104.8 | - | MSB Enemy |
-| 30090950 | NPC (c1000) | NPC | Catacombs | m30_09_00 | 98.2, 769.5, 14.4 | - | MSB NPC |
 | 30092840 | Stake of Marika (m30_09_00) | Stake of Marika | Catacombs | m30_09_00 | 107.4, 902.6, 16.0 | - | MSB SpawnPoint |
 | 30097000 | Deathroot | Dungeon Pickup | Catacombs | m30_09_00 | -149.7, 647.0, 111.8 | - | ItemLotParam_map |
 | 30097010 | Ringed Finger | Dungeon Pickup | Catacombs | m30_09_00 | -127.2, 686.0, -92.9 | - | ItemLotParam_map |
@@ -4499,9 +4316,7 @@ Total unique flags: 7575
 | 30097050 | Gelmir Knight Helm | Dungeon Pickup | Catacombs | m30_09_00 | -29.8, 693.5, 9.3 | - | ItemLotParam_map |
 | 30097060 | Root Resin | Dungeon Pickup | Catacombs | m30_09_00 | -31.3, 708.1, -16.4 | - | ItemLotParam_map |
 | 30097070 | Beast Blood | Dungeon Pickup | Catacombs | m30_09_00 | -118.3, 661.5, -27.4 | - | ItemLotParam_map |
-| 30100100 | NPC (c1000) | NPC | Catacombs | m30_10_00 | -111.4, 761.6, 330.4 | - | MSB NPC |
 | 30100800 | Crucible Knight Ordovis | Great Boss Defeat | Catacombs | m30_10_00 | -107.9, 761.4, 355.9 | - | MSB Enemy |
-| 30100950 | NPC (c1000) | NPC | Catacombs | m30_10_00 | 63.8, 835.5, 96.6 | - | MSB NPC |
 | 30102840 | Stake of Marika (m30_10_00) | Stake of Marika | Catacombs | m30_10_00 | 62.7, 952.8, 135.2 | - | MSB SpawnPoint |
 | 30107010 | Holy Grease | Dungeon Pickup | Catacombs | m30_10_00 | -116.2, 759.0, 210.4 | - | ItemLotParam_map |
 | 30107020 | Fan Daggers | Dungeon Pickup | Catacombs | m30_10_00 | -57.9, 806.8, 85.9 | - | ItemLotParam_map |
@@ -4512,32 +4327,24 @@ Total unique flags: 7575
 | 30107070 | Stonesword Key | Dungeon Pickup | Catacombs | m30_10_00 | -100.8, 801.9, 120.1 | - | ItemLotParam_map |
 | 30107080 | Vulgar Militia Ashes | Dungeon Pickup | Catacombs | m30_10_00 | -77.7, 751.8, 212.5 | - | ItemLotParam_map |
 | 30107100 | Ash of War: Holy Ground | Dungeon Pickup | Catacombs | m30_10_00 | - | - | ItemLotParam_map |
-| 30110100 | NPC (c1000) | NPC | Catacombs | m30_11_00 | -183.9, 177.6, 15.4 | - | MSB NPC |
 | 30110800 | Black Knife Assassin | Great Boss Defeat | Catacombs | m30_11_00 | -210.3, 177.5, 21.4 | - | MSB Enemy |
-| 30110950 | NPC (c1000) | NPC | Catacombs | m30_11_00 | -104.2, 187.5, 28.7 | - | MSB NPC |
 | 30112840 | Stake of Marika (m30_11_00) | Stake of Marika | Catacombs | m30_11_00 | -89.1, 192.8, 29.9 | - | MSB SpawnPoint |
 | 30117000 | Deathroot | Dungeon Pickup | Catacombs | m30_11_00 | -217.2, 178.3, 19.6 | - | ItemLotParam_map |
 | 30117010 | Bloodrose | Dungeon Pickup | Catacombs | m30_11_00 | -211.2, 167.9, -24.5 | - | ItemLotParam_map |
 | 30117020 | Uchigatana | Dungeon Pickup | Catacombs | m30_11_00 | -178.5, 172.8, -26.2 | - | ItemLotParam_map |
-| 30120100 | NPC (c1000) | NPC | Catacombs | m30_12_00 | -1.9, 618.5, 226.3 | - | MSB NPC |
 | 30120800 | Misbegotten Warrior | Boss Defeat | Catacombs | m30_12_00 | 8.1, 618.3, 242.8 | - | MSB Enemy |
-| 30120950 | NPC (c1000) | NPC | Catacombs | m30_12_00 | -36.1, 648.1, 121.1 | - | MSB NPC |
 | 30122840 | Stake of Marika (m30_12_00) | Stake of Marika | Catacombs | m30_12_00 | -39.1, 653.6, 104.7 | - | MSB SpawnPoint |
 | 30127000 | Holy Grease | Dungeon Pickup | Catacombs | m30_12_00 | - | - | ItemLotParam_map |
 | 30127010 | Winged Misbegotten Ashes | Dungeon Pickup | Catacombs | m30_12_00 | 15.5, 623.2, 133.8 | - | ItemLotParam_map |
 | 30127020 | Rune Arc | Dungeon Pickup | Catacombs | m30_12_00 | -5.1, 628.5, 158.4 | - | ItemLotParam_map |
 | 30127030 | Prattling Pate "Apologies" | Dungeon Pickup | Catacombs | m30_12_00 | -9.8, 628.4, 164.6 | - | ItemLotParam_map |
 | 30127900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_12_00 | - | - | ItemLotParam_map |
-| 30130100 | NPC (c1000) | NPC | Catacombs | m30_13_00 | 14.2, 954.6, 64.5 | - | MSB NPC |
 | 30130800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_13_00 | 4.3, 954.4, 79.0 | - | MSB Enemy |
-| 30130950 | NPC (c1000) | NPC | Catacombs | m30_13_00 | 86.2, 964.2, 34.7 | - | MSB NPC |
 | 30132840 | Stake of Marika (m30_13_00) | Stake of Marika | Catacombs | m30_13_00 | 101.7, 969.7, 26.3 | - | MSB SpawnPoint |
 | 30137020 | Golden Rune [7] | Dungeon Pickup | Catacombs | m30_13_00 | 0.7, 925.8, 58.4 | - | ItemLotParam_map |
 | 30137030 | Smithing Stone [5] | Dungeon Pickup | Catacombs | m30_13_00 | 24.6, 944.7, 109.1 | - | ItemLotParam_map |
 | 30137040 | Root Resin | Dungeon Pickup | Catacombs | m30_13_00 | 8.4, 934.7, 145.0 | - | ItemLotParam_map |
-| 30140100 | NPC (c1000) | NPC | Catacombs | m30_14_00 | -117.7, 73.3, -16.4 | - | MSB NPC |
 | 30140800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_14_00 | -123.4, 73.3, -34.0 | - | MSB Enemy |
-| 30140950 | NPC (c1000) | NPC | Catacombs | m30_14_00 | -54.5, 123.4, 67.6 | - | MSB NPC |
 | 30142840 | Stake of Marika (m30_14_00) | Stake of Marika | Catacombs | m30_14_00 | -54.6, 128.4, 84.7 | - | MSB SpawnPoint |
 | 30147000 | Imp Head (Cat) | Dungeon Pickup | Catacombs | m30_14_00 | -46.3, 99.4, 88.1 | - | ItemLotParam_map |
 | 30147010 | Grave Violet | Dungeon Pickup | Catacombs | m30_14_00 | -114.9, 78.7, 40.1 | - | ItemLotParam_map |
@@ -4545,23 +4352,17 @@ Total unique flags: 7575
 | 30147030 | Aeonian Butterfly | Dungeon Pickup | Catacombs | m30_14_00 | -50.2, 93.2, 65.2 | - | ItemLotParam_map |
 | 30147040 | Golden Rune [4] | Dungeon Pickup | Catacombs | m30_14_00 | -106.5, 83.2, 97.5 | - | ItemLotParam_map |
 | 30147900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_14_00 | - | - | ItemLotParam_map |
-| 30150100 | NPC (c1000) | NPC | Catacombs | m30_15_00 | 107.4, 24.4, 249.5 | - | MSB NPC |
 | 30150800 | Cemetery Shade | Boss Defeat | Catacombs | m30_15_00 | 125.7, 24.2, 258.0 | - | MSB Enemy |
-| 30150950 | NPC (c1000) | NPC | Catacombs | m30_15_00 | 76.1, 49.5, 80.9 | - | MSB NPC |
 | 30152840 | Stake of Marika (m30_15_00) | Stake of Marika | Catacombs | m30_15_00 | 89.1, 54.5, 70.0 | - | MSB SpawnPoint |
 | 30157000 | Miranda Sprout Ashes | Dungeon Pickup | Catacombs | m30_15_00 | 60.1, 34.4, 146.1 | - | ItemLotParam_map |
-| 30160100 | NPC (c1000) | NPC | Catacombs | m30_16_00 | -107.0, -25.1, -101.8 | - | MSB NPC |
 | 30160800 | Ulcerated Tree Spirit | Great Boss Defeat | Catacombs | m30_16_00 | -130.9, -25.2, -89.2 | - | MSB Enemy |
-| 30160950 | NPC (c1000) | NPC | Catacombs | m30_16_00 | 37.6, -5.4, -109.6 | - | MSB NPC |
 | 30162840 | Stake of Marika (m30_16_00) | Stake of Marika | Catacombs | m30_16_00 | 37.7, 5.0, -138.5 | - | MSB SpawnPoint |
 | 30167000 | Golden Rune [6] | Dungeon Pickup | Catacombs | m30_16_00 | -17.0, -20.0, -81.8 | - | ItemLotParam_map |
 | 30167010 | Magic Grease | Dungeon Pickup | Catacombs | m30_16_00 | -30.5, -14.9, -89.6 | - | ItemLotParam_map |
 | 30167020 | Radahn Soldier Ashes | Dungeon Pickup | Catacombs | m30_16_00 | 9.9, -10.0, -91.0 | - | ItemLotParam_map |
 | 30167030 | Silver-Pickled Fowl Foot | Dungeon Pickup | Catacombs | m30_16_00 | -6.9, -19.9, -106.0 | - | ItemLotParam_map |
 | 30167040 | Collapsing Stars | Dungeon Pickup | Catacombs | m30_16_00 | -38.9, -19.9, -89.5 | - | ItemLotParam_map |
-| 30170100 | NPC (c1000) | NPC | Catacombs | m30_17_00 | -26.9, 1451.9, -27.5 | - | MSB NPC |
 | 30170800 | Ancient Hero of Zamor | Boss Defeat | Catacombs | m30_17_00 | -7.1, 1451.7, -35.8 | - | MSB Enemy |
-| 30170950 | NPC (c1000) | NPC | Catacombs | m30_17_00 | -118.6, 1511.8, 120.0 | - | MSB NPC |
 | 30172840 | Stake of Marika (m30_17_00) | Stake of Marika | Catacombs | m30_17_00 | -78.5, 1654.0, 120.1 | - | MSB SpawnPoint |
 | 30177000 | Cranial Vessel Candlestand | Dungeon Pickup | Catacombs | m30_17_00 | -195.8, 1507.0, 77.2 | - | ItemLotParam_map |
 | 30177010 | Flame, Protect Me | Dungeon Pickup | Catacombs | m30_17_00 | -149.3, 1510.0, 116.5 | - | ItemLotParam_map |
@@ -4570,9 +4371,7 @@ Total unique flags: 7575
 | 30177040 | Freezing Grease | Dungeon Pickup | Catacombs | m30_17_00 | -194.2, 1506.7, 14.2 | - | ItemLotParam_map |
 | 30177050 | Golden Rune [11] | Dungeon Pickup | Catacombs | m30_17_00 | -166.1, 1507.8, 74.3 | - | ItemLotParam_map |
 | 30177060 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_17_00 | -166.1, 1507.8, 54.3 | - | ItemLotParam_map |
-| 30180100 | NPC (c1000) | NPC | Catacombs | m30_18_00 | -111.2, 1477.6, 149.4 | - | MSB NPC |
 | 30180800 | Ulcerated Tree Spirit | Great Boss Defeat | Catacombs | m30_18_00 | -139.2, 1477.4, 158.0 | - | MSB Enemy |
-| 30180950 | NPC (c1000) | NPC | Catacombs | m30_18_00 | 9.1, 1577.7, 97.8 | - | MSB NPC |
 | 30182840 | Stake of Marika (m30_18_00) | Stake of Marika | Catacombs | m30_18_00 | 26.1, 1577.7, 107.8 | - | MSB SpawnPoint |
 | 30187000 | Golden Rune [10] | Dungeon Pickup | Catacombs | m30_18_00 | -66.8, 1457.5, 48.1 | - | ItemLotParam_map |
 | 30187010 | Stimulating Boluses | Dungeon Pickup | Catacombs | m30_18_00 | -54.6, 1477.7, 51.6 | - | ItemLotParam_map |
@@ -4580,19 +4379,15 @@ Total unique flags: 7575
 | 30187030 | Root Resin | Dungeon Pickup | Catacombs | m30_18_00 | -69.8, 1493.5, 135.8 | - | ItemLotParam_map |
 | 30187070 | Fire Monk Ashes | Dungeon Pickup | Catacombs | m30_18_00 | -6.1, 1392.4, 250.7 | - | ItemLotParam_map |
 | 30187900 | Deathroot | Dungeon Pickup | Catacombs | m30_18_00 | -159.1, 1478.2, 156.1 | - | ItemLotParam_map |
-| 30190100 | NPC (c1000) | NPC | Catacombs | m30_19_00 | 56.3, 1374.9, -145.6 | - | MSB NPC |
 | 30190800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_19_00 | 70.9, 1374.7, -161.3 | - | MSB Enemy |
-| 30190950 | NPC (c1000) | NPC | Catacombs | m30_19_00 | -38.8, 1365.0, -94.5 | - | MSB NPC |
 | 30197000 | Golden Rune [12] | Dungeon Pickup | Catacombs | m30_19_00 | 2.1, 1395.0, -207.1 | - | ItemLotParam_map |
 | 30197010 | Rejuvenating Boluses | Dungeon Pickup | Catacombs | m30_19_00 | -14.4, 1385.1, -157.4 | - | ItemLotParam_map |
 | 30197020 | Root Resin | Dungeon Pickup | Catacombs | m30_19_00 | 5.6, 1384.9, -195.5 | - | ItemLotParam_map |
 | 30197030 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_19_00 | -45.3, 1390.1, -236.5 | - | ItemLotParam_map |
 | 30197040 | Imp Head (Cat) | Dungeon Pickup | Catacombs | m30_19_00 | -43.8, 1389.8, -251.5 | - | ItemLotParam_map |
 | 30197900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_19_00 | - | - | ItemLotParam_map |
-| 30200100 | NPC (c1000) | NPC | Catacombs | m30_20_00 | -78.5, 1278.5, -270.5 | - | MSB NPC |
 | 30200800 | NPC Invader | Boss Defeat | Catacombs | m30_20_00 | -88.7, 1276.8, -299.6 | - | MSB Enemy |
 | 30200810 | Stray Mimic Tear | Boss Arena | Hidden Path to the Haligtree | m30_20_00 | -89.7, 1278.3, -264.4 | - | GameAreaParam |
-| 30200950 | NPC (c1000) | NPC | Catacombs | m30_20_00 | -104.9, 1333.6, -139.2 | - | MSB NPC |
 | 30202840 | Stake of Marika (m30_20_00) | Stake of Marika | Catacombs | m30_20_00 | -105.1, 1338.6, -122.3 | - | MSB SpawnPoint |
 | 30207000 | Warming Stone | Dungeon Pickup | Catacombs | m30_20_00 | -19.8, 1314.4, -107.5 | - | ItemLotParam_map |
 | 30207010 | Sacramental Bud | Dungeon Pickup | Catacombs | m30_20_00 | -47.5, 1308.7, -134.7 | - | ItemLotParam_map |
@@ -4607,14 +4402,11 @@ Total unique flags: 7575
 | 31000703 | Patches | NPC | Cave | m31_00_00 | 40.6, 46.0, 69.3 | - | MSB NPC |
 | 31000800 | Patches | Boss Defeat | Cave | m31_00_00 | 24.8, 53.0, 54.0 | - | MSB Enemy |
 | 31000850 | Patches | Field Boss Defeat | Cave | m31_00_00 | 24.8, 53.0, 54.0 | - | MSB Enemy |
-| 31000950 | NPC (c1000) | NPC | Cave | m31_00_00 | 42.5, 52.2, 54.0 | - | MSB NPC |
 | 31002840 | Stake of Marika (m31_00_00) | Stake of Marika | Cave | m31_00_00 | 73.1, 62.5, 61.0 | - | MSB SpawnPoint |
 | 31007000 | Mushroom | Dungeon Pickup | Cave | m31_00_00 | -25.6, 41.7, 27.0 | - | ItemLotParam_map |
 | 31007010 | Guilty Hood | Dungeon Pickup | Cave | m31_00_00 | 46.1, 45.7, 71.0 | - | ItemLotParam_map |
 | 31007030 | Glass Shard | Dungeon Pickup | Cave | m31_00_00 | 46.1, 45.7, 71.0 | - | ItemLotParam_map |
-| 31010100 | NPC (c1000) | NPC | Cave | m31_01_00 | -158.6, -40.4, -142.3 | - | MSB NPC |
 | 31010800 | Runebear | Great Boss Defeat | Cave | m31_01_00 | -146.9, -39.9, -144.9 | - | MSB Enemy |
-| 31010950 | NPC (c1000) | NPC | Cave | m31_01_00 | -115.6, -3.1, -50.5 | - | MSB NPC |
 | 31012840 | Stake of Marika (m31_01_00) | Stake of Marika | Cave | m31_01_00 | -104.6, -1.2, -41.1 | - | MSB SpawnPoint |
 | 31017000 | Golden Rune [1] | Dungeon Pickup | Cave | m31_01_00 | -170.4, -15.8, -84.7 | - | ItemLotParam_map |
 | 31017010 | Glowstone | Dungeon Pickup | Cave | m31_01_00 | -124.2, -21.6, -94.0 | - | ItemLotParam_map |
@@ -4622,26 +4414,20 @@ Total unique flags: 7575
 | 31017030 | Smoldering Butterfly | Dungeon Pickup | Cave | m31_01_00 | -144.8, -39.9, -143.1 | - | ItemLotParam_map |
 | 31017040 | Trina's Lily | Dungeon Pickup | Cave | m31_01_00 | -141.7, -39.6, -146.3 | - | ItemLotParam_map |
 | 31017060 | Pickled Turtle Neck | Dungeon Pickup | Cave | m31_01_00 | -132.7, -4.7, -66.8 | - | ItemLotParam_map |
-| 31020100 | NPC (c1000) | NPC | Cave | m31_02_00 | -304.9, -29.1, -30.5 | - | MSB NPC |
 | 31020800 | Miranda Blossom | Great Boss Defeat | Cave | m31_02_00 | -311.1, -28.9, -27.2 | - | MSB Enemy |
 | 31020801 | Miranda the Blighted Bloom (discovered) | Boss Discovery | Tombsward Cave | m31_02_00 | -117.2, 29.5, 0.9 | - | GameAreaParam |
-| 31020950 | NPC (c1000) | NPC | Cave | m31_02_00 | -147.6, -4.3, 24.4 | - | MSB NPC |
 | 31022840 | Stake of Marika (m31_02_00) | Stake of Marika | Cave | m31_02_00 | -116.4, 6.2, 31.3 | - | MSB SpawnPoint |
 | 31027000 | Golden Rune [2] | Dungeon Pickup | Cave | m31_02_00 | -224.7, -22.7, 13.2 | - | ItemLotParam_map |
 | 31027010 | Furlcalling Finger Remedy | Dungeon Pickup | Cave | m31_02_00 | -269.3, -22.3, 3.2 | - | ItemLotParam_map |
 | 31027020 | Poisonbone Dart | Dungeon Pickup | Cave | m31_02_00 | -293.8, -25.0, 4.6 | - | ItemLotParam_map |
 | 31027030 | Arteria Leaf | Dungeon Pickup | Cave | m31_02_00 | -287.6, -18.4, 1.8 | - | ItemLotParam_map |
 | 31027050 | Immunizing White Cured Meat | Dungeon Pickup | Cave | m31_02_00 | -227.5, -26.8, 65.6 | - | ItemLotParam_map |
-| 31030100 | NPC (c1000) | NPC | Cave | m31_03_00 | -106.4, 89.3, 86.8 | - | MSB NPC |
 | 31030800 | Azula Beastman | Boss Defeat | Cave | m31_03_00 | -120.8, 88.2, 80.8 | - | MSB Enemy |
 | 31030801 | Beastman of Farum Azula (discovered) | Boss Discovery | Groveside Cave | m31_03_00 | -120.8, 88.3, 80.8 | - | GameAreaParam |
-| 31030950 | NPC (c1000) | NPC | Cave | m31_03_00 | -64.3, 109.7, -2.6 | - | MSB NPC |
 | 31032840 | Stake of Marika (m31_03_00) | Stake of Marika | Cave | m31_03_00 | -61.9, 111.0, -7.4 | - | MSB SpawnPoint |
 | 31037000 | Golden Rune [1] | Dungeon Pickup | Cave | m31_03_00 | -128.1, 93.6, 29.2 | - | ItemLotParam_map |
 | 31037010 | Glowstone | Dungeon Pickup | Cave | m31_03_00 | -121.8, 93.9, 25.4 | - | ItemLotParam_map |
-| 31040100 | NPC (c1000) | NPC | Cave | m31_04_00 | 82.8, 199.8, -156.5 | - | MSB NPC |
 | 31040800 | Cleanrot Knight | Boss Defeat | Cave | m31_04_00 | 98.0, 199.8, -166.7 | - | MSB Enemy |
-| 31040950 | NPC (c1000) | NPC | Cave | m31_04_00 | 26.1, 229.4, -59.3 | - | MSB NPC |
 | 31042840 | Stake of Marika (m31_04_00) | Stake of Marika | Cave | m31_04_00 | 14.8, 237.4, -38.2 | - | MSB SpawnPoint |
 | 31047000 | Golden Rune [3] | Dungeon Pickup | Cave | m31_04_00 | 5.9, 223.8, -53.3 | - | ItemLotParam_map |
 | 31047010 | Golden Rune [4] | Dungeon Pickup | Cave | m31_04_00 | 1.5, 214.9, -94.7 | - | ItemLotParam_map |
@@ -4650,9 +4436,7 @@ Total unique flags: 7575
 | 31047040 | Glowstone | Dungeon Pickup | Cave | m31_04_00 | 5.7, 219.7, -126.6 | - | ItemLotParam_map |
 | 31047050 | Poison Grease | Dungeon Pickup | Cave | m31_04_00 | 53.4, 200.6, -173.7 | - | ItemLotParam_map |
 | 31047060 | Sage Hood | Dungeon Pickup | Cave | m31_04_00 | 26.2, 213.8, -89.3 | - | ItemLotParam_map |
-| 31050100 | NPC (c1000) | NPC | Cave | m31_05_00 | -152.1, 153.7, -6.3 | - | MSB NPC |
 | 31050800 | Bloodhound Knight | Great Boss Defeat | Cave | m31_05_00 | -169.3, 161.0, -23.0 | - | MSB Enemy |
-| 31050950 | NPC (c1000) | NPC | Cave | m31_05_00 | -116.1, 225.0, -4.4 | - | MSB NPC |
 | 31057000 | Hefty Beast Bone | Dungeon Pickup | Cave | m31_05_00 | -161.1, 227.1, -2.7 | - | ItemLotParam_map |
 | 31057010 | Throwing Dagger | Dungeon Pickup | Cave | m31_05_00 | -103.5, 182.6, 20.1 | - | ItemLotParam_map |
 | 31057020 | Golden Rune [5] | Dungeon Pickup | Cave | m31_05_00 | -116.7, 179.3, 45.5 | - | ItemLotParam_map |
@@ -4662,19 +4446,15 @@ Total unique flags: 7575
 | 31057060 | Lump of Flesh | Dungeon Pickup | Cave | m31_05_00 | -130.7, 155.1, 13.5 | - | ItemLotParam_map |
 | 31057070 | Arteria Leaf | Dungeon Pickup | Cave | m31_05_00 | -114.7, 225.6, -1.3 | - | ItemLotParam_map |
 | 31057100 | Spear Talisman | Dungeon Pickup | Cave | m31_05_00 | -175.2, 209.9, 57.6 | - | ItemLotParam_map |
-| 31060100 | NPC (c1000) | NPC | Cave | m31_06_00 | 171.7, 216.6, 108.9 | - | MSB NPC |
 | 31060800 | Crystalian | Boss Defeat | Cave | m31_06_00 | 191.2, 216.6, 104.4 | - | MSB Enemy |
 | 31060801 | Crystalian | Boss Defeat | Cave | m31_06_00 | 191.2, 216.6, 101.6 | - | MSB Enemy |
-| 31060950 | NPC (c1000) | NPC | Cave | m31_06_00 | 85.2, 230.1, 95.3 | - | MSB NPC |
 | 31062840 | Stake of Marika (m31_06_00) | Stake of Marika | Cave | m31_06_00 | 74.3, 236.2, 120.4 | - | MSB SpawnPoint |
 | 31067000 | Cuckoo Glintstone | Dungeon Pickup | Cave | m31_06_00 | 138.0, 216.3, 33.7 | - | ItemLotParam_map |
 | 31067010 | Stonesword Key | Dungeon Pickup | Cave | m31_06_00 | 102.2, 210.8, 113.5 | - | ItemLotParam_map |
 | 31067030 | Crystal Staff | Dungeon Pickup | Cave | m31_06_00 | 133.7, 225.2, 101.2 | - | ItemLotParam_map |
 | 31067100 | Rune Arc | Dungeon Pickup | Cave | m31_06_00 | 131.5, 219.7, 94.5 | - | ItemLotParam_map |
-| 31070100 | NPC (c1000) | NPC | Cave | m31_07_00 | -143.0, 718.7, 270.4 | - | MSB NPC |
 | 31070800 | Kindred of Rot | Boss Defeat | Cave | m31_07_00 | -122.6, 719.6, 256.0 | - | MSB Enemy |
 | 31070801 | Kindred of Rot | Boss Defeat | Cave | m31_07_00 | -136.3, 719.9, 270.1 | - | MSB Enemy |
-| 31070950 | NPC (c1000) | NPC | Cave | m31_07_00 | -24.9, 792.8, 165.8 | - | MSB NPC |
 | 31072840 | Stake of Marika (m31_07_00) | Stake of Marika | Cave | m31_07_00 | -9.2, 799.5, 143.4 | - | MSB SpawnPoint |
 | 31077000 | Poison Grease | Dungeon Pickup | Cave | m31_07_00 | -60.4, 765.4, 242.5 | - | ItemLotParam_map |
 | 31077010 | Lump of Flesh | Dungeon Pickup | Cave | m31_07_00 | -72.3, 771.1, 201.4 | - | ItemLotParam_map |
@@ -4685,29 +4465,23 @@ Total unique flags: 7575
 | 31077060 | Golden Rune [7] | Dungeon Pickup | Cave | m31_07_00 | -115.6, 772.3, 185.8 | - | ItemLotParam_map |
 | 31077070 | Immunizing Cured Meat | Dungeon Pickup | Cave | m31_07_00 | -83.0, 770.5, 170.8 | - | ItemLotParam_map |
 | 31080800 | Area 31_08 (fast travel unlocked) | Dungeon Cleared | Cave | m31_08_00 | - | - | MapDefaultInfoParam |
-| 31090100 | NPC (c1000) | NPC | Cave | m31_09_00 | -77.9, 1012.7, -68.1 | - | MSB NPC |
 | 31090800 | Demi-Human Queen Maggie | Great Boss Defeat | Cave | m31_09_00 | -63.9, 1013.0, -75.1 | - | MSB Enemy |
-| 31090950 | NPC (c1000) | NPC | Cave | m31_09_00 | -82.6, 1028.8, -69.4 | - | MSB NPC |
 | 31092840 | Stake of Marika (m31_09_00) | Stake of Marika | Cave | m31_09_00 | -69.2, 1032.8, -60.5 | - | MSB SpawnPoint |
 | 31097000 | Golden Rune [6] | Dungeon Pickup | Cave | m31_09_00 | -120.1, 1025.3, -76.0 | - | ItemLotParam_map |
 | 31097010 | Sliver of Meat | Dungeon Pickup | Cave | m31_09_00 | -146.8, 1012.5, -42.6 | - | ItemLotParam_map |
 | 31097020 | Arteria Leaf | Dungeon Pickup | Cave | m31_09_00 | -136.2, 1012.3, -39.1 | - | ItemLotParam_map |
 | 31097030 | Lump of Flesh | Dungeon Pickup | Cave | m31_09_00 | -129.8, 1011.4, -90.8 | - | ItemLotParam_map |
 | 31097040 | Coil Shield | Dungeon Pickup | Cave | m31_09_00 | -142.2, 1012.5, -43.6 | - | ItemLotParam_map |
-| 31100100 | NPC (c1000) | NPC | Cave | m31_10_00 | 37.8, 103.8, 30.8 | - | MSB NPC |
 | 31100800 | Azula Beastman | Boss Defeat | Cave | m31_10_00 | 36.1, 104.7, 21.2 | - | MSB Enemy |
 | 31100801 | Azula Beastman | Boss Defeat | Cave | m31_10_00 | 36.2, 104.7, 12.3 | - | MSB Enemy |
-| 31100950 | NPC (c1000) | NPC | Cave | m31_10_00 | 26.5, 152.9, 65.3 | - | MSB NPC |
 | 31102840 | Stake of Marika (m31_10_00) | Stake of Marika | Cave | m31_10_00 | 2.9, 159.4, 83.1 | - | MSB SpawnPoint |
 | 31107000 | Warming Stone | Dungeon Pickup | Cave | m31_10_00 | -6.1, 148.5, 43.5 | - | ItemLotParam_map |
 | 31107010 | Golden Rune [12] | Dungeon Pickup | Cave | m31_10_00 | -3.1, 148.6, 43.8 | - | ItemLotParam_map |
 | 31107050 | Bull-Goat's Talisman | Dungeon Pickup | Cave | m31_10_00 | -4.3, 141.5, -12.4 | - | ItemLotParam_map |
 | 31107110 | Golden Rune [8] | Dungeon Pickup | Cave | m31_10_00 | 12.3, 128.2, 61.5 | - | ItemLotParam_map |
 | 31107120 | Beast Blood | Dungeon Pickup | Cave | m31_10_00 | 7.4, 127.8, 66.5 | - | ItemLotParam_map |
-| 31110100 | NPC (c1000) | NPC | Cave | m31_11_00 | -141.6, 127.0, 148.5 | - | MSB NPC |
 | 31110700 | Primeval Sorcerer Lusat | NPC | Cave | m31_11_00 | 19.8, 150.5, 169.5 | - | MSB NPC |
 | 31110800 | Crystalian | Boss Defeat | Cave | m31_11_00 | -144.1, 127.1, 138.6 | - | MSB Enemy |
-| 31110950 | NPC (c1000) | NPC | Cave | m31_11_00 | 140.4, 198.4, 92.3 | - | MSB NPC |
 | 31112840 | Stake of Marika (m31_11_00) | Stake of Marika | Cave | m31_11_00 | 127.2, 207.5, 64.1 | - | MSB SpawnPoint |
 | 31117000 | Golden Rune [3] | Dungeon Pickup | Cave | m31_11_00 | 64.0, 177.8, 58.8 | - | ItemLotParam_map |
 | 31117010 | Lost Ashes of War | Dungeon Pickup | Cave | m31_11_00 | 28.1, 157.4, 85.8 | - | ItemLotParam_map |
@@ -4721,9 +4495,7 @@ Total unique flags: 7575
 | 31117200 | Crystal Spear | Dungeon Pickup | Cave | m31_11_00 | -58.3, 155.7, 236.5 | - | ItemLotParam_map |
 | 31117220 | Crystalian Ashes | Dungeon Pickup | Cave | m31_11_00 | -55.1, 140.0, 182.7 | - | ItemLotParam_map |
 | 31117300 | Smithing Stone [1] | Dungeon Pickup | Cave | m31_11_00 | - | - | ItemLotParam_map |
-| 31120100 | NPC (c1000) | NPC | Cave | m31_12_00 | -16.9, 1194.2, 104.5 | - | MSB NPC |
 | 31120800 | Misbegotten Warrior | Boss Defeat | Cave | m31_12_00 | -24.4, 1193.4, 121.9 | - | MSB Enemy |
-| 31120950 | NPC (c1000) | NPC | Cave | m31_12_00 | -42.3, 1248.4, 81.4 | - | MSB NPC |
 | 31122840 | Stake of Marika (m31_12_00) | Stake of Marika | Cave | m31_12_00 | -54.5, 1254.8, 44.7 | - | MSB SpawnPoint |
 | 31127000 | Golden Rune [7] | Dungeon Pickup | Cave | m31_12_00 | -33.5, 1245.8, 75.5 | - | ItemLotParam_map |
 | 31127010 | Freezing Grease | Dungeon Pickup | Cave | m31_12_00 | 29.8, 1245.8, 110.7 | - | ItemLotParam_map |
@@ -4740,18 +4512,14 @@ Total unique flags: 7575
 | 31127120 | Spiritflame Arrow | Dungeon Pickup | Cave | m31_12_00 | 99.3, 1238.1, 191.0 | - | ItemLotParam_map |
 | 31130800 | Area 31_13 (fast travel unlocked) | Dungeon Cleared | Cave | m31_13_00 | - | - | MapDefaultInfoParam |
 | 31140800 | Area 31_14 (fast travel unlocked) | Dungeon Cleared | Cave | m31_14_00 | - | - | MapDefaultInfoParam |
-| 31150100 | NPC (c1000) | NPC | Cave | m31_15_00 | 21.0, -28.5, -116.4 | - | MSB NPC |
 | 31150700 | Demi-Human Boc | NPC | Cave | m31_15_00 | 42.6, -9.1, -18.4 | - | MSB NPC |
 | 31150800 | Demi-Human Chief | Great Boss Defeat | Cave | m31_15_00 | 30.9, -29.3, -99.9 | - | MSB Enemy |
 | 31150801 | Demi-Human Chief (discovered) | Boss Discovery | Coastal Cave | m31_15_00 | 30.9, -29.3, -99.8 | - | GameAreaParam |
-| 31150950 | NPC (c1000) | NPC | Cave | m31_15_00 | 45.8, -9.4, -18.7 | - | MSB NPC |
 | 31152840 | Stake of Marika (m31_15_00) | Stake of Marika | Cave | m31_15_00 | 48.7, -0.5, -40.1 | - | MSB SpawnPoint |
 | 31157010 | Land Octopus Ovary | Dungeon Pickup | Cave | m31_15_00 | 20.0, -25.9, -68.0 | - | ItemLotParam_map |
 | 31157020 | Smoldering Butterfly | Dungeon Pickup | Cave | m31_15_00 | -1.5, -15.7, -203.8 | - | ItemLotParam_map |
-| 31170100 | NPC (c1000) | NPC | Cave | m31_17_00 | 83.5, -9.7, 164.3 | - | MSB NPC |
 | 31170800 | Guardian Golem | Great Boss Defeat | Cave | m31_17_00 | 74.4, -9.9, 148.7 | - | MSB Enemy |
 | 31170801 | Guardian Golem (discovered) | Boss Discovery | Highroad Cave | m31_17_00 | 74.4, -9.7, 148.7 | - | GameAreaParam |
-| 31170950 | NPC (c1000) | NPC | Cave | m31_17_00 | 32.4, 90.8, 100.4 | - | MSB NPC |
 | 31172840 | Stake of Marika (m31_17_00) | Stake of Marika | Cave | m31_17_00 | 68.0, 99.7, 94.4 | - | MSB SpawnPoint |
 | 31177010 | Golden Rune [1] | Dungeon Pickup | Cave | m31_17_00 | 80.1, 65.0, 184.3 | - | ItemLotParam_map |
 | 31177020 | Arteria Leaf | Dungeon Pickup | Cave | m31_17_00 | 40.5, 26.9, 218.6 | - | ItemLotParam_map |
@@ -4761,9 +4529,7 @@ Total unique flags: 7575
 | 31177060 | Fire Grease | Dungeon Pickup | Cave | m31_17_00 | 47.1, 18.9, 223.8 | - | ItemLotParam_map |
 | 31177070 | Furlcalling Finger Remedy | Dungeon Pickup | Cave | m31_17_00 | 91.5, 0.5, 240.9 | - | ItemLotParam_map |
 | 31177080 | Shamshir | Dungeon Pickup | Cave | m31_17_00 | 81.6, -3.7, 257.7 | - | ItemLotParam_map |
-| 31180100 | NPC (c1000) | NPC | Cave | m31_18_00 | -74.4, 790.8, 183.2 | - | MSB NPC |
 | 31180800 | Miranda Blossom | Great Boss Defeat | Cave | m31_18_00 | -85.2, 790.6, 183.1 | - | MSB Enemy |
-| 31180950 | NPC (c1000) | NPC | Cave | m31_18_00 | 49.3, 837.3, 40.4 | - | MSB NPC |
 | 31182840 | Stake of Marika (m31_18_00) | Stake of Marika | Cave | m31_18_00 | 49.2, 838.1, 26.5 | - | MSB SpawnPoint |
 | 31187020 | Living Jar Shard | Dungeon Pickup | Cave | m31_18_00 | 1.8, 801.1, 130.9 | - | ItemLotParam_map |
 | 31187030 | Living Jar Shard | Dungeon Pickup | Cave | m31_18_00 | -6.3, 809.1, 83.2 | - | ItemLotParam_map |
@@ -4772,11 +4538,8 @@ Total unique flags: 7575
 | 31187060 | Miranda Powder | Dungeon Pickup | Cave | m31_18_00 | -51.8, 790.5, 185.9 | - | ItemLotParam_map |
 | 31187070 | Warming Stone | Dungeon Pickup | Cave | m31_18_00 | -57.4, 790.8, 189.6 | - | ItemLotParam_map |
 | 31187080 | Golden Rune [5] | Dungeon Pickup | Cave | m31_18_00 | -62.4, 790.8, 189.2 | - | ItemLotParam_map |
-| 31190100 | NPC (c1000) | NPC | Cave | m31_19_00 | 139.3, 623.7, -34.1 | - | MSB NPC |
-| 31190102 | NPC (c1000) | NPC | Cave | m31_19_00 | 97.7, 626.5, -55.3 | - | MSB NPC |
 | 31190800 | Black Knife Assassin | Great Boss Defeat | Cave | m31_19_00 | 131.0, 623.5, -12.7 | - | MSB Enemy |
 | 31190850 | Necromancer Garris | Field Boss Defeat | Cave | m31_19_00 | 108.3, 627.3, -45.2 | - | MSB Enemy |
-| 31190950 | NPC (c1000) | NPC | Cave | m31_19_00 | 125.0, 652.2, -52.5 | - | MSB NPC |
 | 31192840 | Stake of Marika (m31_19_00) | Stake of Marika | Cave | m31_19_00 | 103.0, 654.8, -55.2 | - | MSB SpawnPoint |
 | 31197000 | Rejuvenating Boluses | Dungeon Pickup | Cave | m31_19_00 | 119.6, 642.9, -74.7 | - | ItemLotParam_map |
 | 31197010 | Lost Ashes of War | Dungeon Pickup | Cave | m31_19_00 | 119.7, 642.9, -71.8 | - | ItemLotParam_map |
@@ -4792,17 +4555,13 @@ Total unique flags: 7575
 | 31197130 | Skeletal Mask | Dungeon Pickup | Cave | m31_19_00 | 119.7, 630.8, -81.0 | - | ItemLotParam_map |
 | 31197200 | Golden Rune [5] | Dungeon Pickup | Cave | m31_19_00 | 121.5, 636.2, -90.4 | - | ItemLotParam_map |
 | 31197210 | Golden Rune [5] | Dungeon Pickup | Cave | m31_19_00 | 119.0, 636.7, -94.1 | - | ItemLotParam_map |
-| 31200100 | NPC (c1000) | NPC | Cave | m31_20_00 | 183.6, 86.3, 143.8 | - | MSB NPC |
 | 31200800 | Cleanrot Knight | Boss Defeat | Cave | m31_20_00 | 173.7, 87.0, 147.6 | - | MSB Enemy |
-| 31200950 | NPC (c1000) | NPC | Cave | m31_20_00 | 169.2, 116.1, 39.2 | - | MSB NPC |
 | 31202840 | Stake of Marika (m31_20_00) | Stake of Marika | Cave | m31_20_00 | 139.3, 127.3, 42.1 | - | MSB SpawnPoint |
 | 31207000 | Dragonwound Grease | Dungeon Pickup | Cave | m31_20_00 | 200.7, 108.1, 62.4 | - | ItemLotParam_map |
 | 31207010 | Venomous Fang | Dungeon Pickup | Cave | m31_20_00 | 131.7, 90.4, 70.6 | - | ItemLotParam_map |
 | 31207020 | Serpent Bow | Dungeon Pickup | Cave | m31_20_00 | 189.1, 97.6, 91.3 | - | ItemLotParam_map |
 | 31207030 | Fire Grease | Dungeon Pickup | Cave | m31_20_00 | 157.1, 93.8, 20.6 | - | ItemLotParam_map |
-| 31210100 | NPC (c1000) | NPC | Cave | m31_21_00 | -146.7, 11.6, 58.7 | - | MSB NPC |
 | 31210800 | Grave Warden Duelist | Boss Defeat | Cave | m31_21_00 | -166.7, 13.0, 48.6 | - | MSB Enemy |
-| 31210950 | NPC (c1000) | NPC | Cave | m31_21_00 | -76.4, 79.7, 67.3 | - | MSB NPC |
 | 31212190 | Stake of Marika (m31_21_00) | Stake of Marika | Cave | m31_21_00 | -64.2, 87.7, 34.0 | - | MSB SpawnPoint |
 | 31217000 | Golden Rune [2] | Dungeon Pickup | Cave | m31_21_00 | -52.0, 79.0, 81.6 | - | ItemLotParam_map |
 | 31217030 | Golden Rune [2] | Dungeon Pickup | Cave | m31_21_00 | -65.2, 56.8, 182.2 | - | ItemLotParam_map |
@@ -4821,9 +4580,7 @@ Total unique flags: 7575
 | 31217210 | Pillory Shield | Dungeon Pickup | Cave | m31_21_00 | -76.8, 54.4, 190.9 | - | ItemLotParam_map |
 | 31217350 | Regalia of Eochaid | Dungeon Pickup | Cave | m31_21_00 | -196.6, 11.8, 36.5 | - | ItemLotParam_map |
 | 31217400 | Rune Arc | Dungeon Pickup | Cave | m31_21_00 | -80.2, 80.3, 68.5 | - | ItemLotParam_map |
-| 31220100 | NPC (c1000) | NPC | Cave | m31_22_00 | -55.0, 1579.0, -111.7 | - | MSB NPC |
 | 31220800 | Spiritcaller Snail | Great Boss Defeat | Cave | m31_22_00 | -47.5, 1579.2, -113.6 | - | MSB Enemy |
-| 31220950 | NPC (c1000) | NPC | Cave | m31_22_00 | -39.6, 1616.7, 83.4 | - | MSB NPC |
 | 31222840 | Stake of Marika (m31_22_00) | Stake of Marika | Cave | m31_22_00 | -38.0, 1624.9, 108.9 | - | MSB SpawnPoint |
 | 31227000 | Land of Reeds Helm | Dungeon Pickup | Cave | m31_22_00 | -85.5, 1582.1, -50.9 | - | ItemLotParam_map |
 | 31227010 | Golden Rune [6] | Dungeon Pickup | Cave | m31_22_00 | -79.9, 1582.0, -65.0 | - | ItemLotParam_map |
@@ -4834,9 +4591,7 @@ Total unique flags: 7575
 | 31227060 | Rune Arc | Dungeon Pickup | Cave | m31_22_00 | -52.5, 1608.1, -18.8 | - | ItemLotParam_map |
 | 31227070 | Invigorating White Cured Meat | Dungeon Pickup | Cave | m31_22_00 | -68.7, 1582.1, -45.5 | - | ItemLotParam_map |
 | 31227080 | Arteria Leaf | Dungeon Pickup | Cave | m31_22_00 | -9.9, 1607.5, 14.4 | - | ItemLotParam_map |
-| 32000100 | NPC (c1000) | NPC | Tunnel | m32_00_00 | 98.3, -23.8, -33.8 | - | MSB NPC |
 | 32000800 | Scaly Misbegotten | Boss Defeat | Tunnel | m32_00_00 | 83.3, -24.5, -25.4 | - | MSB Enemy |
-| 32000950 | NPC (c1000) | NPC | Tunnel | m32_00_00 | 34.6, -8.6, -85.4 | - | MSB NPC |
 | 32002840 | Stake of Marika (m32_00_00) | Stake of Marika | Tunnel | m32_00_00 | 36.1, 27.9, -69.6 | - | MSB SpawnPoint |
 | 32007000 | Golden Rune [2] | Dungeon Pickup | Tunnel | m32_00_00 | 107.4, -12.0, -134.8 | - | ItemLotParam_map |
 | 32007010 | Golden Rune [4] | Dungeon Pickup | Tunnel | m32_00_00 | 117.4, -14.4, -180.8 | - | ItemLotParam_map |
@@ -4845,19 +4600,15 @@ Total unique flags: 7575
 | 32007060 | Soft Cotton | Dungeon Pickup | Tunnel | m32_00_00 | 33.4, -22.1, -105.7 | - | ItemLotParam_map |
 | 32007070 | Arteria Leaf | Dungeon Pickup | Tunnel | m32_00_00 | 76.0, -20.1, -103.3 | - | ItemLotParam_map |
 | 32007900 | Exalted Flesh | Dungeon Pickup | Tunnel | m32_00_00 | 115.4, -14.4, -178.1 | - | ItemLotParam_map |
-| 32010100 | NPC (c1000) | NPC | Tunnel | m32_01_00 | 42.3, -30.2, -2.6 | - | MSB NPC |
 | 32010800 | Stonedigger Troll | Great Boss Defeat | Tunnel | m32_01_00 | 27.7, -30.4, -0.8 | - | MSB Enemy |
 | 32010801 | Scaly Misbegotten (discovered) | Boss Discovery | Morne Tunnel | m32_00_00 | 83.3, -24.5, -24.2 | - | GameAreaParam |
-| 32010950 | NPC (c1000) | NPC | Tunnel | m32_01_00 | 110.8, 33.6, 16.9 | - | MSB NPC |
 | 32012840 | Stake of Marika (m32_01_00) | Stake of Marika | Tunnel | m32_01_00 | 119.4, 69.0, 2.6 | - | MSB SpawnPoint |
 | 32017000 | Smithing Stone [1] | Dungeon Pickup | Tunnel | m32_01_00 | 67.9, 27.2, 33.6 | - | ItemLotParam_map |
 | 32017010 | Golden Rune [4] | Dungeon Pickup | Tunnel | m32_01_00 | 96.9, 55.3, 30.9 | - | ItemLotParam_map |
 | 32017020 | Large Glintstone Scrap | Dungeon Pickup | Tunnel | m32_01_00 | 98.7, -5.2, 147.3 | - | ItemLotParam_map |
 | 32017030 | Golden Rune [1] | Dungeon Pickup | Tunnel | m32_01_00 | 68.6, -14.5, 38.0 | - | ItemLotParam_map |
 | 32017040 | Glintstone Scrap | Dungeon Pickup | Tunnel | m32_01_00 | 75.6, 10.0, 79.9 | - | ItemLotParam_map |
-| 32020100 | NPC (c1000) | NPC | Tunnel | m32_02_00 | 13.2, 110.5, 20.5 | - | MSB NPC |
 | 32020800 | Crystalian | Boss Defeat | Tunnel | m32_02_00 | 13.1, 110.8, 21.9 | - | MSB Enemy |
-| 32020950 | NPC (c1000) | NPC | Tunnel | m32_02_00 | -57.2, 206.5, 22.6 | - | MSB NPC |
 | 32022840 | Stake of Marika (m32_02_00) | Stake of Marika | Tunnel | m32_02_00 | -101.1, 243.1, 26.0 | - | MSB SpawnPoint |
 | 32027000 | Somber Smithing Stone [2] | Dungeon Pickup | Tunnel | m32_02_00 | -60.1, 209.7, -11.6 | - | ItemLotParam_map |
 | 32027010 | Somber Smithing Stone [3] | Dungeon Pickup | Tunnel | m32_02_00 | 15.7, 204.6, 19.2 | - | ItemLotParam_map |
@@ -4868,9 +4619,7 @@ Total unique flags: 7575
 | 32027070 | Shatter Earth | Dungeon Pickup | Tunnel | m32_02_00 | -8.9, 146.3, -28.7 | - | ItemLotParam_map |
 | 32027900 | Crystal Knife | Dungeon Pickup | Tunnel | m32_02_00 | -51.3, 152.8, 1.6 | - | ItemLotParam_map |
 | 32030800 | Area 32_03 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_03_00 | - | - | MapDefaultInfoParam |
-| 32040100 | NPC (c1000) | NPC | Tunnel | m32_04_00 | -297.5, 676.8, -135.4 | - | MSB NPC |
 | 32040800 | Stonedigger Troll | Great Boss Defeat | Tunnel | m32_04_00 | -298.1, 677.5, -147.7 | - | MSB Enemy |
-| 32040950 | NPC (c1000) | NPC | Tunnel | m32_04_00 | -196.0, 695.8, -95.4 | - | MSB NPC |
 | 32042840 | Stake of Marika (m32_04_00) | Stake of Marika | Tunnel | m32_04_00 | -180.6, 732.4, -100.8 | - | MSB SpawnPoint |
 | 32047000 | Golden Rune [6] | Dungeon Pickup | Tunnel | m32_04_00 | -257.9, 690.4, -121.9 | - | ItemLotParam_map |
 | 32047010 | Stanching Boluses | Dungeon Pickup | Tunnel | m32_04_00 | -282.3, 695.5, -89.8 | - | ItemLotParam_map |
@@ -4878,10 +4627,8 @@ Total unique flags: 7575
 | 32047030 | Explosive Stone Clump | Dungeon Pickup | Tunnel | m32_04_00 | -181.6, 732.5, -97.6 | - | ItemLotParam_map |
 | 32047040 | Boltdrake Talisman +1 | Dungeon Pickup | Tunnel | m32_04_00 | -277.0, 697.3, -95.7 | - | ItemLotParam_map |
 | 32047050 | Troll's Hammer | Dungeon Pickup | Tunnel | m32_04_00 | -259.0, 679.1, -122.0 | - | ItemLotParam_map |
-| 32050100 | NPC (c1000) | NPC | Tunnel | m32_05_00 | 58.4, 777.4, -31.1 | - | MSB NPC |
 | 32050800 | Crystalian | Boss Defeat | Tunnel | m32_05_00 | 62.1, 777.6, -41.3 | - | MSB Enemy |
 | 32050801 | Crystalian | Boss Defeat | Tunnel | m32_05_00 | 56.0, 777.5, -42.5 | - | MSB Enemy |
-| 32050950 | NPC (c1000) | NPC | Tunnel | m32_05_00 | -50.7, 777.5, 12.9 | - | MSB NPC |
 | 32052840 | Stake of Marika (m32_05_00) | Stake of Marika | Tunnel | m32_05_00 | -52.4, 814.0, 31.5 | - | MSB SpawnPoint |
 | 32057000 | Crystal Dart | Dungeon Pickup | Tunnel | m32_05_00 | -45.2, 778.6, -24.7 | - | ItemLotParam_map |
 | 32057010 | Arteria Leaf | Dungeon Pickup | Tunnel | m32_05_00 | -5.0, 782.2, -31.1 | - | ItemLotParam_map |
@@ -4891,11 +4638,8 @@ Total unique flags: 7575
 | 32057900 | Item_3050 | Dungeon Pickup | Tunnel | m32_05_00 | - | - | ItemLotParam_map |
 | 32057910 | Rune Arc | Dungeon Pickup | Tunnel | m32_05_00 | -59.9, 778.3, -13.5 | - | ItemLotParam_map |
 | 32060800 | Area 32_06 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_06_00 | - | - | MapDefaultInfoParam |
-| 32070100 | NPC (c1000) | NPC | Tunnel | m32_07_00 | -16.5, 89.5, 172.4 | - | MSB NPC |
 | 32070700 | Alexander, Warrior Jar | NPC | Tunnel | m32_07_00 | -23.3, 90.5, 117.1 | - | MSB NPC |
 | 32070800 | Magma Wyrm Makar | Great Boss Defeat | Tunnel | m32_07_00 | -20.5, 89.6, 158.7 | - | MSB Enemy |
-| 32070950 | NPC (c1000) | NPC | Tunnel | m32_07_00 | 58.7, 106.3, 90.2 | - | MSB NPC |
-| 32070951 | NPC (c1000) | NPC | Tunnel | m32_07_00 | -34.2, 90.1, 123.1 | - | MSB NPC |
 | 32072840 | Stake of Marika (m32_07_00) | Stake of Marika | Tunnel | m32_07_00 | 62.3, 150.6, 48.6 | - | MSB SpawnPoint |
 | 32077000 | Somber Smithing Stone [2] | Dungeon Pickup | Tunnel | m32_07_00 | 57.3, 130.7, 102.1 | - | ItemLotParam_map |
 | 32077010 | Golden Rune [5] | Dungeon Pickup | Tunnel | m32_07_00 | 55.6, 102.8, 139.2 | - | ItemLotParam_map |
@@ -4903,9 +4647,7 @@ Total unique flags: 7575
 | 32077030 | Gold-Pickled Fowl Foot | Dungeon Pickup | Tunnel | m32_07_00 | 62.4, 98.7, 117.4 | - | ItemLotParam_map |
 | 32077060 | Large Glintstone Scrap | Dungeon Pickup | Tunnel | m32_07_00 | 24.8, 90.3, 156.9 | - | ItemLotParam_map |
 | 32077070 | Grace Mimic | Dungeon Pickup | Tunnel | m32_07_00 | 21.3, 90.3, 153.9 | - | ItemLotParam_map |
-| 32080100 | NPC (c1000) | NPC | Tunnel | m32_08_00 | -59.5, 124.1, 240.1 | - | MSB NPC |
 | 32080800 | Fallingstar Beast | Great Boss Defeat | Tunnel | m32_08_00 | -65.2, 123.9, 239.8 | - | MSB Enemy |
-| 32080950 | NPC (c1000) | NPC | Tunnel | m32_08_00 | 13.1, 86.2, 143.0 | - | MSB NPC |
 | 32082650 | Stake of Marika (m32_08_00) | Stake of Marika | Tunnel | m32_08_00 | 38.1, 112.2, 203.9 | - | MSB SpawnPoint |
 | 32082840 | Stake of Marika (m32_08_00) | Stake of Marika | Tunnel | m32_08_00 | 16.0, 86.4, 136.8 | - | MSB SpawnPoint |
 | 32087000 | Rot Grease | Dungeon Pickup | Tunnel | m32_08_00 | -0.0, 87.8, 149.3 | - | ItemLotParam_map |
@@ -4921,10 +4663,8 @@ Total unique flags: 7575
 | 32087910 | Rock Blaster | Dungeon Pickup | Tunnel | m32_08_00 | 42.1, 122.2, 220.2 | - | ItemLotParam_map |
 | 32090800 | Area 32_09 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_09_00 | - | - | MapDefaultInfoParam |
 | 32100800 | Area 32_10 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_10_00 | - | - | MapDefaultInfoParam |
-| 32110100 | NPC (c1000) | NPC | Tunnel | m32_11_00 | 49.2, 1208.0, 135.8 | - | MSB NPC |
 | 32110800 | Astel, Naturalborn of the Void | Great Boss Defeat | Tunnel | m32_11_00 | 51.8, 1207.5, 149.5 | - | MSB Enemy |
 | 32110801 | Astel, Naturalborn of the Void | Great Boss Defeat | Tunnel | m32_11_00 | 51.2, 1207.5, 96.9 | - | MSB Enemy |
-| 32110950 | NPC (c1000) | NPC | Tunnel | m32_11_00 | 43.6, 1222.3, -16.9 | - | MSB NPC |
 | 32112840 | Stake of Marika (m32_11_00) | Stake of Marika | Tunnel | m32_11_00 | 45.9, 1258.8, -47.1 | - | MSB SpawnPoint |
 | 32117000 | Freezing Grease | Dungeon Pickup | Tunnel | m32_11_00 | 50.8, 1195.0, 27.9 | - | ItemLotParam_map |
 | 32117020 | Golden Rune [10] | Dungeon Pickup | Tunnel | m32_11_00 | 94.8, 1186.7, 4.8 | - | ItemLotParam_map |
@@ -4933,8 +4673,6 @@ Total unique flags: 7575
 | 32117060 | Explosive Stone Clump | Dungeon Pickup | Tunnel | m32_11_00 | 101.4, 1187.9, 41.4 | - | ItemLotParam_map |
 | 32117080 | Hero's Rune [5] | Dungeon Pickup | Tunnel | m32_11_00 | 81.5, 1210.5, 58.5 | - | ItemLotParam_map |
 | 32120800 | Area 32_12 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_12_00 | - | - | MapDefaultInfoParam |
-| 34100950 | NPC (c1000) | NPC | Divine Tower | m34_10_00 | -62.0, 37.9, 131.9 | - | MSB NPC |
-| 34100952 | NPC (c1000) | NPC | Divine Tower | m34_10_00 | 932.1, 340.4, 604.2 | - | MSB NPC |
 | 34102600 | Stake of Marika (m34_10_00) | Stake of Marika | Divine Tower | m34_10_00 | 845.3, 47.1, 562.9 | - | MSB SpawnPoint |
 | 34107000 | Warming Stone | Dungeon Pickup | Divine Tower | m34_10_00 | 159.6, 37.1, 208.7 | - | ItemLotParam_map |
 | 34107010 | Soft Cotton | Dungeon Pickup | Divine Tower | m34_10_00 | 238.3, 19.3, 261.7 | - | ItemLotParam_map |
@@ -4944,9 +4682,6 @@ Total unique flags: 7575
 | 34107100 | Boltdrake Talisman | Dungeon Pickup | Divine Tower | m34_10_00 | -23.6, 46.3, 152.8 | - | ItemLotParam_map |
 | 34107110 | Ash-of-War Scarab | Dungeon Pickup | Divine Tower | m34_10_00 | 236.5, 16.8, 274.9 | - | ItemLotParam_map |
 | 34110700 | Wandering Noble | NPC | Divine Tower | m34_11_00 | -9.0, -158.0, 73.8 | - | MSB NPC |
-| 34110950 | NPC (c1000) | NPC | Divine Tower | m34_11_00 | -12.2, -158.4, 69.3 | - | MSB NPC |
-| 34110951 | NPC (c1000) | NPC | Divine Tower | m34_11_00 | 53.3, -5.5, 14.9 | - | MSB NPC |
-| 34110952 | NPC (c1000) | NPC | Divine Tower | m34_11_00 | 453.8, 287.9, 80.0 | - | MSB NPC |
 | 34112160 | Stake of Marika (m34_11_00) | Stake of Marika | Divine Tower | m34_11_00 | 43.2, -3.2, 7.7 | - | MSB SpawnPoint |
 | 34112920 | Stake of Marika (m34_11_00) | Stake of Marika | Divine Tower | m34_11_00 | 32.5, -1.0, 5.7 | - | MSB SpawnPoint |
 | 34117010 | Golden Rune [3] | Dungeon Pickup | Divine Tower | m34_11_00 | -31.3, -141.6, 7.2 | - | ItemLotParam_map |
@@ -4963,12 +4698,7 @@ Total unique flags: 7575
 | 34117500 | Cursemark of Death | Dungeon Pickup | Divine Tower | m34_11_00 | 428.2, 297.3, 75.7 | - | ItemLotParam_map |
 | 34117700 | Magic Downpour | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | ItemLotParam_map |
 | 34117710 | Lucidity | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | ItemLotParam_map |
-| 34120100 | NPC (c1000) | NPC | Divine Tower | m34_12_00 | -57.5, 711.4, -177.8 | - | MSB NPC |
-| 34120102 | NPC (c1000) | NPC | Divine Tower | m34_12_00 | -131.4, 744.0, -72.0 | - | MSB NPC |
 | 34120800 | Alabaster Lord | Boss Defeat | Divine Tower | m34_12_00 | -49.5, 711.4, -195.9 | - | MSB Enemy |
-| 34120950 | NPC (c1000) | NPC | Divine Tower | m34_12_00 | -47.8, 990.9, -350.0 | - | MSB NPC |
-| 34120951 | NPC (c1000) | NPC | Divine Tower | m34_12_00 | -86.6, 808.1, 4.4 | - | MSB NPC |
-| 34120952 | NPC (c1000) | NPC | Divine Tower | m34_12_00 | -42.0, 698.2, -273.8 | - | MSB NPC |
 | 34122840 | Stake of Marika (m34_12_00) | Stake of Marika | Divine Tower | m34_12_00 | -68.4, 808.7, 46.1 | - | MSB SpawnPoint |
 | 34127010 | Golden Rune [5] | Dungeon Pickup | Divine Tower | m34_12_00 | -127.8, 808.9, -9.0 | - | ItemLotParam_map |
 | 34127020 | Golden Rune [5] | Dungeon Pickup | Divine Tower | m34_12_00 | -147.5, 761.1, -63.0 | - | ItemLotParam_map |
@@ -4985,19 +4715,13 @@ Total unique flags: 7575
 | 34127150 | Lightning Grease | Dungeon Pickup | Divine Tower | m34_12_00 | -55.0, 730.9, -118.3 | - | ItemLotParam_map |
 | 34127160 | Golden Rune [9] | Dungeon Pickup | Divine Tower | m34_12_00 | -51.9, 712.0, -120.2 | - | ItemLotParam_map |
 | 34127900 | Smithing-Stone Miner's Bell Bearing [2] | Dungeon Pickup | Divine Tower | m34_12_00 | -136.8, 802.8, -11.9 | - | ItemLotParam_map |
-| 34130100 | NPC (c1000) | NPC | Divine Tower | m34_13_00 | 86.8, 36.5, -70.6 | - | MSB NPC |
 | 34130800 | Godskin Apostle | Boss Defeat | Divine Tower | m34_13_00 | 77.1, 36.3, -95.7 | - | MSB Enemy |
-| 34130951 | NPC (c1000) | NPC | Divine Tower | m34_13_00 | 87.7, 46.8, -24.2 | - | MSB NPC |
-| 34130952 | NPC (c1000) | NPC | Divine Tower | m34_13_00 | 75.9, 258.8, -7.2 | - | MSB NPC |
 | 34137000 | Stonesword Key | Dungeon Pickup | Divine Tower | m34_13_00 | 66.1, 211.3, -76.2 | - | ItemLotParam_map |
 | 34137010 | Rune Arc | Dungeon Pickup | Divine Tower | m34_13_00 | 107.0, 209.8, -29.0 | - | ItemLotParam_map |
 | 34137020 | Golden Rune [12] | Dungeon Pickup | Divine Tower | m34_13_00 | 100.2, 191.3, -36.6 | - | ItemLotParam_map |
 | 34137900 | Godslayer's Greatsword | Dungeon Pickup | Divine Tower | m34_13_00 | 77.0, 33.9, -141.1 | - | ItemLotParam_map |
-| 34140100 | NPC (c0100) | NPC | Divine Tower | m34_14_00 | 548.6, -373.5, -351.5 | - | MSB NPC |
 | 34140850 | Fell Twin | Field Boss Defeat | Divine Tower | m34_14_00 | 584.4, -373.5, -326.9 | - | MSB Enemy |
 | 34140851 | Fell Twin | Field Boss Defeat | Divine Tower | m34_14_00 | 598.0, -373.5, -341.2 | - | MSB Enemy |
-| 34140950 | NPC (c1000) | NPC | Divine Tower | m34_14_00 | 602.7, 26.0, -489.6 | - | MSB NPC |
-| 34140951 | NPC (c1000) | NPC | Divine Tower | m34_14_00 | 625.0, 330.2, -550.0 | - | MSB NPC |
 | 34142110 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 639.4, 319.3, -540.3 | - | MSB SpawnPoint |
 | 34142111 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 633.4, 30.5, -528.8 | - | MSB SpawnPoint |
 | 34142852 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 591.8, 26.1, -457.7 | - | MSB SpawnPoint |
@@ -5007,20 +4731,12 @@ Total unique flags: 7575
 | 34147720 | Somber Smithing Stone [6] | Dungeon Pickup | Divine Tower | m34_14_00 | - | - | ItemLotParam_map |
 | 34147800 | Golden Rune [9] | Dungeon Pickup | Divine Tower | m34_14_00 | 549.8, -373.3, -357.2 | - | ItemLotParam_map |
 | 34147810 | Blade of Calling | Dungeon Pickup | Divine Tower | m34_14_00 | 418.2, -65.6, -213.8 | - | ItemLotParam_map |
-| 34150950 | NPC (c1000) | NPC | Divine Tower | m34_15_00 | -5.1, 290.9, -26.6 | - | MSB NPC |
 | 34152500 | Stake of Marika (m34_15_00) | Stake of Marika | Divine Tower | m34_15_00 | 5.0, 0.0, 28.9 | - | MSB SpawnPoint |
-| 35000100 | NPC (c0100) | NPC | Mohgwyn Palace | m35_00_00 | 51.0, -298.5, -104.5 | - | MSB NPC |
-| 35000102 | NPC (c0100) | NPC | Mohgwyn Palace | m35_00_00 | -193.1, -153.6, -286.4 | - | MSB NPC |
 | 35000700 | Finger Maiden Hyetta | NPC | Mohgwyn Palace | m35_00_00 | 137.6, -408.5, -77.8 | - | MSB NPC |
 | 35000715 | Dung Eater | NPC | Mohgwyn Palace | m35_00_00 | -197.4, -88.5, -125.2 | - | MSB NPC |
 | 35000716 | Dung Eater | NPC | Mohgwyn Palace | m35_00_00 | -201.9, -88.5, -118.2 | - | MSB NPC |
 | 35000800 | Mohg, Lord of Blood | Great Boss Defeat | Mohgwyn Palace | m35_00_00 | 74.0, -298.6, -80.9 | - | MSB Enemy |
 | 35000850 | NPC Invader | Field Boss Defeat | Mohgwyn Palace | m35_00_00 | -203.8, -153.8, -306.9 | - | MSB Enemy |
-| 35000950 | NPC (c1000) | NPC | Mohgwyn Palace | m35_00_00 | 74.4, -298.0, -80.6 | - | MSB NPC |
-| 35000951 | NPC (c1000) | NPC | Mohgwyn Palace | m35_00_00 | -147.4, -98.0, -166.0 | - | MSB NPC |
-| 35000952 | NPC (c1000) | NPC | Mohgwyn Palace | m35_00_00 | -49.4, -278.8, -152.1 | - | MSB NPC |
-| 35000953 | NPC (c1000) | NPC | Mohgwyn Palace | m35_00_00 | -138.8, -144.2, -242.3 | - | MSB NPC |
-| 35000954 | NPC (c0100) | NPC | Mohgwyn Palace | m35_00_00 | 126.1, -408.0, -63.3 | - | MSB NPC |
 | 35002840 | Stake of Marika (m35_00_00) | Stake of Marika | Mohgwyn Palace | m35_00_00 | -135.6, -143.6, -245.7 | - | MSB SpawnPoint |
 | 35007000 | Poisonbone Dart | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -167.0, -88.2, -180.0 | - | ItemLotParam_map |
 | 35007010 | Glass Shard | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -167.0, -88.2, -200.0 | - | ItemLotParam_map |
@@ -5098,14 +4814,8 @@ Total unique flags: 7575
 | 35007970 | Somber Smithing Stone [6] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | ItemLotParam_map |
 | 35007980 | Somber Smithing Stone [7] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | ItemLotParam_map |
 | 35009326 | [Preceptor Seluvis - Dung Eater Quest] Dung Eater Puppet - Unlocked | Shop Unlock | Mohgwyn Palace | - | - | - | ShopLineupParam |
-| 39200100 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | 1.0, 281.0, -1275.4 | - | MSB NPC |
-| 39200102 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | 2.3, 312.8, -1305.9 | - | MSB NPC |
-| 39200104 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | -90.7, 352.9, -1309.4 | - | MSB NPC |
 | 39200705 | Millicent | NPC | Elden Throne | m39_20_00 | -42.4, 351.3, -1348.4 | - | MSB NPC |
 | 39200800 | Magma Wyrm Makar | Great Boss Defeat | Elden Throne | m39_20_00 | -102.7, 353.0, -1299.2 | - | MSB Enemy |
-| 39200950 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | -124.2, 353.5, -1298.1 | - | MSB NPC |
-| 39200951 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | 91.3, 238.7, -1312.0 | - | MSB NPC |
-| 39200952 | NPC (c1000) | NPC | Elden Throne | m39_20_00 | -13.3, 350.1, -1345.3 | - | MSB NPC |
 | 39202141 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | MSB SpawnPoint |
 | 39202710 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | MSB SpawnPoint |
 | 39202711 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | MSB SpawnPoint |
@@ -5262,9 +4972,6 @@ Total unique flags: 7575
 | 43017030 | Smithing Stone [5] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | ItemLotParam_map |
 | 43017040 | Smithing Stone [4] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | ItemLotParam_map |
 | 43017900 | Dragon Heart | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | ItemLotParam_map |
-| 45000100 | NPC (c1000) | NPC | Dungeon_45 | m45_00_00 | -1.5, 1.1, -28.7 | - | MSB NPC |
-| 45010100 | NPC (c1000) | NPC | Dungeon_45 | m45_01_00 | -0.6, 1.1, -29.2 | - | MSB NPC |
-| 45020100 | NPC (c1000) | NPC | Dungeon_45 | m45_02_00 | -1.1, 1.1, -28.4 | - | MSB NPC |
 | 59930000 | Veteran's Helm | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | ItemLotParam_map |
 | 59930001 | Weapon_205000 | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | ItemLotParam_map |
 | 59930010 | Good_404 | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | ItemLotParam_map |
@@ -5297,7 +5004,6 @@ Total unique flags: 7575
 | 900000017 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | -9.3, 14.1, 131.8 | 10998.7, 8579.8 | MSB MountJump |
 | 900000018 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | 70.0, 13.3, 32.4 | 11078.0, 8480.4 | MSB MountJump |
 | 900000019 | Spirit Spring (m12_03_00) | Spirit Spring | Underground | m12_03_00 | -843.4, 75.8, -350.7 | - | MSB MountJump |
-| 1033400950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_40 | 28.9, 235.6, 50.3 | 8477.0, 10290.3 | MSB NPC |
 | 1033407100 | Ranni's Dark Moon | World Pickup | Liurnia of the Lakes | m60_33_40 | -4.5, 279.6, 27.5 | 8443.5, 10267.5 | ItemLotParam_map |
 | 1033417000 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | 36.6, 305.5, -16.8 | 8484.6, 10479.2 | ItemLotParam_map |
 | 1033417010 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_33_41 | 17.5, 308.7, -30.4 | 8465.5, 10465.6 | ItemLotParam_map |
@@ -5309,9 +5015,7 @@ Total unique flags: 7575
 | 1033422806 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -34.6, 345.2, 66.3 | 8413.4, 10818.3 | MSB SpawnPoint |
 | 1033422807 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | MSB SpawnPoint |
 | 1033422808 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | MSB SpawnPoint |
-| 1033430100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_43 | 61.0, 286.0, 13.2 | 8509.0, 11021.2 | MSB NPC |
 | 1033430800 | Erdtree Avatar | Great Boss Defeat | Liurnia of the Lakes | m60_33_43 | 42.5, 291.7, 31.1 | 8490.5, 11039.1 | MSB Enemy |
-| 1033440950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_44 | 17.4, 256.9, 20.0 | 8465.4, 11284.0 | MSB NPC |
 | 1033447000 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 16.8, 256.9, 26.3 | 8464.8, 11290.3 | ItemLotParam_map |
 | 1033447010 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 30.8 | 8465.9, 11294.8 | ItemLotParam_map |
 | 1033447020 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.0, 256.9, 28.6 | 8467.0, 11292.6 | ItemLotParam_map |
@@ -5322,12 +5026,9 @@ Total unique flags: 7575
 | 1033452806 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -30.2, 243.2, -41.2 | 8417.8, 11478.8 | MSB SpawnPoint |
 | 1033452807 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -52.9, 245.1, -33.9 | 8395.1, 11486.1 | MSB SpawnPoint |
 | 1033457100 | Dragonscale Blade | World Pickup | Liurnia of the Lakes | m60_33_45 | - | - | ItemLotParam_map |
-| 1033460950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_46 | -59.9, 261.1, -64.6 | 8388.1, 11711.4 | MSB NPC |
 | 1033467000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_33_46 | 86.8, 238.5, -61.7 | 8534.8, 11714.3 | ItemLotParam_map |
 | 1033467030 | Blood Grease | World Pickup | Liurnia of the Lakes | m60_33_46 | -59.3, 269.9, 67.9 | 8388.7, 11843.9 | ItemLotParam_map |
 | 1033467040 | Jellyfish Shield | World Pickup | Liurnia of the Lakes | m60_33_46 | -63.1, 269.6, 70.2 | 8384.9, 11846.2 | ItemLotParam_map |
-| 1033470100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_47 | -47.0, 276.5, -97.4 | 8401.0, 11934.6 | MSB NPC |
-| 1033470950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_33_47 | 63.4, 378.1, -102.0 | 8511.4, 11930.0 | MSB NPC |
 | 1033477000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_33_47 | 135.2, 266.4, -44.4 | 8583.2, 11987.6 | ItemLotParam_map |
 | 1033477010 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_33_47 | 25.8, 299.0, -91.8 | 8473.8, 11940.2 | ItemLotParam_map |
 | 1033477020 | Imbued Sword Key | World Pickup | Liurnia of the Lakes | m60_33_47 | 66.5, 379.2, -76.3 | 8514.5, 11955.7 | ItemLotParam_map |
@@ -5335,14 +5036,10 @@ Total unique flags: 7575
 | 1033477200 | Carian Knight's Sword | World Pickup | Liurnia of the Lakes | m60_33_47 | -126.5, 272.4, 357.5 | 8321.5, 12389.5 | ItemLotParam_map |
 | 1033477900 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_33_47 | 21.9, 298.8, -96.6 | 8469.9, 11935.4 | ItemLotParam_map |
 | 1033477910 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_33_47 | -17.1, 277.1, -64.1 | 8430.9, 11967.9 | ItemLotParam_map |
-| 1034410950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_41 | 6.8, 365.8, 79.9 | 8710.8, 10575.9 | MSB NPC |
 | 1034417000 | Gravel Stone | World Pickup | Liurnia of the Lakes | m60_34_41 | -113.6, 359.0, 115.4 | 8590.4, 10611.4 | ItemLotParam_map |
-| 1034420100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_42 | 110.4, 265.8, -78.9 | 8814.4, 10673.1 | MSB NPC |
-| 1034420102 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_42 | 16.3, 389.0, -66.8 | 8720.3, 10685.2 | MSB NPC |
 | 1034420700 | Nepheli Loux, Warrior | NPC | Liurnia of the Lakes | m60_34_42 | 118.8, 264.0, -87.5 | 8822.8, 10664.5 | MSB NPC |
 | 1034420710 | Commoner | NPC | Liurnia of the Lakes | m60_34_42 | 71.2, 269.9, -93.7 | 8775.2, 10658.3 | MSB NPC |
 | 1034420800 | Glintstone Dragon Smarag | Great Boss Defeat | Liurnia of the Lakes | m60_34_42 | 128.2, 401.8, -29.9 | 8832.2, 10722.1 | MSB Enemy |
-| 1034420950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_42 | 50.2, 269.2, -100.4 | 8754.2, 10651.6 | MSB NPC |
 | 1034427000 | Golden Rune [9] | World Pickup | Liurnia of the Lakes | m60_34_42 | -5.3, 399.1, -47.2 | 8698.7, 10704.8 | ItemLotParam_map |
 | 1034427010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_42 | -12.9, 403.4, -7.3 | 8691.1, 10744.7 | ItemLotParam_map |
 | 1034427020 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_34_42 | 44.2, 267.8, 3.1 | 8748.2, 10755.1 | ItemLotParam_map |
@@ -5352,24 +5049,18 @@ Total unique flags: 7575
 | 1034427060 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_34_42 | 88.6, 268.6, -74.0 | 8792.6, 10678.0 | ItemLotParam_map |
 | 1034427100 | Somber Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_34_42 | 51.5, 391.6, 13.1 | 8755.5, 10765.1 | ItemLotParam_map |
 | 1034427400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | - | - | ItemLotParam_map |
-| 1034430950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_43 | -91.2, 263.2, -97.3 | 8612.8, 10910.7 | MSB NPC |
 | 1034437000 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_43 | -84.8, 267.6, -63.9 | 8619.2, 10944.1 | ItemLotParam_map |
 | 1034437200 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_43 | - | - | ItemLotParam_map |
 | 1034437300 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_34_43 | -80.6, 269.7, -73.5 | 8623.4, 10934.5 | ItemLotParam_map |
-| 1034440100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_44 | 61.5, 237.6, 90.5 | 8765.5, 11354.5 | MSB NPC |
 | 1034440700 | Commoner | NPC | Liurnia of the Lakes | m60_34_44 | -106.2, 237.6, -29.2 | 8597.8, 11234.8 | MSB NPC |
-| 1034440950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_44 | -41.8, 237.6, 123.1 | 8662.2, 11387.1 | MSB NPC |
 | 1034447000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_44 | 48.7, 237.6, 73.6 | 8752.7, 11337.6 | ItemLotParam_map |
 | 1034447010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_44 | -31.5, 239.8, -111.1 | 8672.5, 11152.9 | ItemLotParam_map |
 | 1034447900 | Icerind Hatchet | World Pickup | Liurnia of the Lakes | m60_34_44 | 39.7, 238.8, 41.7 | 8743.7, 11305.7 | ItemLotParam_map |
-| 1034450100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_45 | -40.3, 237.9, 47.7 | 8663.7, 11567.7 | MSB NPC |
 | 1034450800 | [Dragon Communion] Smarag's Glintstone Breath - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
 | 1034457010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_34_45 | -56.2, 237.9, 57.8 | 8647.8, 11577.8 | ItemLotParam_map |
 | 1034457020 | Kukri | World Pickup | Liurnia of the Lakes | m60_34_45 | -50.0, 237.8, 57.8 | 8654.0, 11577.8 | ItemLotParam_map |
 | 1034457100 | Academy Glintstone Key | World Pickup | Liurnia of the Lakes | m60_34_45 | -55.7, 238.4, 64.3 | 8648.3, 11584.3 | ItemLotParam_map |
-| 1034460950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_46 | 7.2, 237.4, -69.7 | 8711.2, 11706.3 | MSB NPC |
 | 1034467100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_34_46 | 0.7, 239.8, 9.3 | 8704.7, 11785.3 | ItemLotParam_map |
-| 1034470951 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_47 | 76.7, 240.1, 45.4 | 8780.7, 12077.4 | MSB NPC |
 | 1034477000 | Throwing Dagger | World Pickup | Liurnia of the Lakes | m60_34_47 | -117.0, 242.8, -2.1 | 8587.0, 12029.9 | ItemLotParam_map |
 | 1034477110 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -12.5, 237.4, -82.2 | 8691.5, 11949.8 | ItemLotParam_map |
 | 1034477120 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -15.4, 237.4, -86.6 | 8688.6, 11945.4 | ItemLotParam_map |
@@ -5386,11 +5077,8 @@ Total unique flags: 7575
 | 1034477300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | ItemLotParam_map |
 | 1034477310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | ItemLotParam_map |
 | 1034477500 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -5.5, 237.3, -85.7 | 8698.5, 11946.3 | ItemLotParam_map |
-| 1034480100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_48 | 17.3, 268.1, 129.9 | 8721.3, 12417.9 | MSB NPC |
-| 1034480102 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_48 | 50.1, 252.2, 69.1 | 8754.1, 12357.1 | MSB NPC |
 | 1034480700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_34_48 | 40.3, 268.4, 114.5 | 8744.3, 12402.5 | MSB NPC |
 | 1034480800 | Royal Revenant | Great Boss Defeat | Liurnia of the Lakes | m60_34_48 | 47.0, 252.2, 78.7 | 8751.0, 12366.7 | MSB Enemy |
-| 1034480950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_48 | -52.6, 256.6, 13.4 | 8651.4, 12301.4 | MSB NPC |
 | 1034482620 | Stake of Marika (m60_34_48) | Stake of Marika | Liurnia of the Lakes | m60_34_48 | -17.7, 257.2, 43.7 | 8686.3, 12331.7 | MSB SpawnPoint |
 | 1034487000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_48 | 15.2, 270.9, 151.1 | 8719.1, 12439.1 | ItemLotParam_map |
 | 1034487010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_34_48 | 56.3, 265.6, 99.5 | 8760.3, 12387.5 | ItemLotParam_map |
@@ -5399,9 +5087,7 @@ Total unique flags: 7575
 | 1034487310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_48 | - | - | ItemLotParam_map |
 | 1034490700 | Smithing Master Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.7, -50.5 | 8744.7, 12493.5 | MSB NPC |
 | 1034490711 | War Counselor Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.9, -50.6 | 8744.7, 12493.4 | MSB NPC |
-| 1034490950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_49 | 52.1, 272.9, -68.6 | 8756.1, 12475.4 | MSB NPC |
 | 1034497010 | Good_310 | World Pickup | Liurnia of the Lakes | m60_34_49 | 31.7, 265.6, -106.8 | 8735.7, 12437.2 | ItemLotParam_map |
-| 1034500100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_34_50 | 77.0, 440.4, 64.1 | 8781.0, 12864.1 | MSB NPC |
 | 1034500700 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | -55.2, 471.9, 29.4 | 8648.8, 12829.4 | MSB NPC |
 | 1034500701 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | 69.1, 417.1, -88.8 | 8773.1, 12711.2 | MSB NPC |
 | 1034500703 | Preceptor Seluvis | Invasion Defeat | Liurnia of the Lakes | m60_34_50 | 67.8, 417.1, -89.6 | 8771.8, 12710.4 | MSB Enemy |
@@ -5430,7 +5116,6 @@ Total unique flags: 7575
 | 1034509451 | [Preceptor Seluvis] Glintblade Phalanx - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
 | 1034509455 | [Preceptor Seluvis] Great Glintstone Shard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
 | 1034517900 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -61.7 | 8799.3, 12994.3 | ItemLotParam_map |
-| 1035410100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_41 | -58.5, 351.4, 85.0 | 8901.5, 10581.0 | MSB NPC |
 | 1035417000 | Golden Rune [10] | World Pickup | Liurnia of the Lakes | m60_35_41 | -35.8, 348.0, 75.7 | 8924.2, 10571.7 | ItemLotParam_map |
 | 1035417010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_41 | -69.4, 358.0, 109.4 | 8890.6, 10605.4 | ItemLotParam_map |
 | 1035417100 | Cerulean Amber Medallion +2 | World Pickup | Liurnia of the Lakes | m60_35_41 | -56.1, 339.7, 119.5 | 8903.9, 10615.5 | ItemLotParam_map |
@@ -5439,7 +5124,6 @@ Total unique flags: 7575
 | 1035420700 | Old Albus | NPC | Liurnia of the Lakes | m60_35_42 | -102.3, 285.9, -117.4 | 8857.7, 10634.6 | MSB NPC |
 | 1035420706 | Ranni the Witch | Quest NPC | Liurnia of the Lakes | m60_35_42 | 32.7, 373.2, 5.2 | 8992.7, 10757.2 | MSB NPC |
 | 1035420800 | Omenkiller | Great Boss Defeat | Liurnia of the Lakes | m60_35_42 | -37.5, 269.2, -17.7 | 8922.5, 10734.3 | MSB Enemy |
-| 1035420950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_42 | -14.1, 408.0, -23.9 | 8945.9, 10728.1 | MSB NPC |
 | 1035427010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_42 | 15.7, 237.6, 82.7 | 8975.7, 10834.7 | ItemLotParam_map |
 | 1035427030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_42 | -87.3, 263.8, -49.2 | 8872.7, 10702.8 | ItemLotParam_map |
 | 1035427040 | Ivory Sickle | World Pickup | Liurnia of the Lakes | m60_35_42 | -99.6, 285.7, -111.4 | 8860.4, 10640.6 | ItemLotParam_map |
@@ -5454,7 +5138,6 @@ Total unique flags: 7575
 | 1035427180 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -21.0, 407.8, -19.2 | 8939.0, 10732.8 | ItemLotParam_map |
 | 1035427190 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -28.6, 407.9, -16.2 | 8931.4, 10735.8 | ItemLotParam_map |
 | 1035427200 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.2, 405.0, 31.3 | 8929.8, 10783.3 | ItemLotParam_map |
-| 1035430950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_43 | 26.4, 239.8, -116.2 | 8986.4, 10891.8 | MSB NPC |
 | 1035437010 | Somber Smithing Stone [1] | World Pickup | Liurnia of the Lakes | m60_35_43 | -87.5, 237.6, -19.2 | 8872.5, 10988.8 | ItemLotParam_map |
 | 1035437100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | - | - | ItemLotParam_map |
 | 1035442950 | Stake of Marika (m60_35_44) | Stake of Marika | Liurnia of the Lakes | m60_35_44 | -91.4, 251.4, -88.5 | 8868.6, 11175.5 | MSB SpawnPoint |
@@ -5472,7 +5155,6 @@ Total unique flags: 7575
 | 1035447110 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | -33.7, 239.8, 93.1 | 8926.3, 11357.1 | ItemLotParam_map |
 | 1035447120 | Blue-White Wooden Shield | World Pickup | Liurnia of the Lakes | m60_35_44 | 75.6, 258.0, 99.0 | 9035.6, 11363.0 | ItemLotParam_map |
 | 1035450700 | Isolated Merchant | Merchant | Liurnia of the Lakes | m60_35_45 | 96.3, 284.6, 46.7 | 9056.3, 11566.7 | MSB NPC |
-| 1035450950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_45 | 106.4, 267.5, -62.9 | 9066.4, 11457.1 | MSB NPC |
 | 1035452610 | Stake of Marika (m60_35_45) | Stake of Marika | Liurnia of the Lakes | m60_35_45 | 110.8, 271.6, -40.2 | 9070.8, 11479.8 | MSB SpawnPoint |
 | 1035452630 | Stake of Marika (m60_35_45) | Stake of Marika | Liurnia of the Lakes | m60_35_45 | 110.8, 261.4, -106.1 | 9070.8, 11413.9 | MSB SpawnPoint |
 | 1035457000 | Celestial Dew | World Pickup | Liurnia of the Lakes | m60_35_45 | 113.7, 271.6, -35.9 | 9073.7, 11484.1 | ItemLotParam_map |
@@ -5489,7 +5171,6 @@ Total unique flags: 7575
 | 1035467020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_46 | 28.4, 260.6, -107.5 | 8988.4, 11668.5 | ItemLotParam_map |
 | 1035467100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_46 | 11.6, 312.6, 121.0 | 8971.6, 11897.0 | ItemLotParam_map |
 | 1035467700 | Ash of War: Raptor of the Mists | World Pickup | Liurnia of the Lakes | m60_35_46 | - | - | ItemLotParam_map |
-| 1035470950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_47 | 32.1, 238.0, -96.2 | 8992.1, 11935.8 | MSB NPC |
 | 1035477000 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_47 | - | - | ItemLotParam_map |
 | 1035477010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_47 | -55.7, 239.8, -69.1 | 8904.3, 11962.9 | ItemLotParam_map |
 | 1035487010 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_48 | -66.4, 238.5, -2.9 | 8893.6, 12285.1 | ItemLotParam_map |
@@ -5497,18 +5178,11 @@ Total unique flags: 7575
 | 1035487030 | Lump of Flesh | World Pickup | Liurnia of the Lakes | m60_35_48 | 100.7, 238.2, 10.6 | 9060.7, 12298.6 | ItemLotParam_map |
 | 1035487100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_35_48 | - | - | ItemLotParam_map |
 | 1035497020 | Somber Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_49 | 101.8, 240.4, -23.3 | 9061.8, 12520.7 | ItemLotParam_map |
-| 1035500100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | 29.6, 316.5, -64.3 | 8989.6, 12735.7 | MSB NPC |
 | 1035500102 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -77.6, 340.7, -1.0 | 8882.4, 12799.0 | MSB NPC |
-| 1035500104 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | 85.4, 402.5, 46.1 | 9045.4, 12846.1 | MSB NPC |
-| 1035500106 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | -54.9, 431.0, 93.9 | 8905.1, 12893.9 | MSB NPC |
 | 1035500700 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -107.7, 357.5, -21.7 | 8852.3, 12778.3 | MSB NPC |
 | 1035500701 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -101.1, 357.5, -18.9 | 8858.9, 12781.1 | MSB NPC |
-| 1035500710 | NPC (c0000) | NPC | Liurnia of the Lakes | m60_35_50 | -93.1, 342.2, -22.4 | 8866.9, 12777.6 | MSB NPC |
 | 1035500800 | Loretta, Knight of the Haligtree | Boss Defeat | Liurnia of the Lakes | m60_35_50 | -31.9, 430.9, 100.6 | 8928.1, 12900.6 | MSB Enemy |
-| 1035500950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | 102.2, 405.9, -43.3 | 9062.2, 12756.7 | MSB NPC |
 | 1035500951 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -76.3, 350.0, -36.5 | 8883.7, 12763.5 | MSB NPC |
-| 1035500952 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | -31.9, 430.9, 100.5 | 8928.1, 12900.5 | MSB NPC |
-| 1035500953 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_35_50 | -17.5, 315.5, -134.4 | 8942.5, 12665.6 | MSB NPC |
 | 1035507000 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_50 | 48.8, 349.2, -69.7 | 9008.8, 12730.3 | ItemLotParam_map |
 | 1035507010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.6, 316.2, -45.5 | 8970.6, 12754.5 | ItemLotParam_map |
 | 1035507020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_50 | -35.4, 328.2, -120.7 | 8924.6, 12679.3 | ItemLotParam_map |
@@ -5542,10 +5216,8 @@ Total unique flags: 7575
 | 1035527020 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_35_52 | 98.0, 831.2, 44.5 | 9058.0, 13356.5 | ItemLotParam_map |
 | 1035527030 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 95.4, 831.0, 40.5 | 9055.4, 13352.5 | ItemLotParam_map |
 | 1035527040 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_35_52 | 95.1, 830.5, 34.5 | 9055.1, 13346.5 | ItemLotParam_map |
-| 1035530100 | NPC (c1000) | NPC | Mt. Gelmir | m60_35_53 | -9.8, 823.0, -73.3 | 8950.2, 13494.7 | MSB NPC |
 | 1035530700 | Alexander, Warrior Jar | NPC | Mt. Gelmir | m60_35_53 | 55.5, 831.5, -91.6 | 9015.5, 13476.4 | MSB NPC |
 | 1035530800 | [Dragon Communion] Magma Breath - Unlocked | Shop Unlock | Mt. Gelmir | - | - | - | ShopLineupParam |
-| 1035530950 | NPC (c1000) | NPC | Mt. Gelmir | m60_35_53 | 126.2, 794.2, 80.4 | 9086.2, 13648.4 | MSB NPC |
 | 1035537000 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 15.1, 816.7, 118.9 | 8975.1, 13686.9 | ItemLotParam_map |
 | 1035537010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_53 | 24.9, 825.3, -85.2 | 8984.9, 13482.8 | ItemLotParam_map |
 | 1035537020 | Mushroom | World Pickup | Mt. Gelmir | m60_35_53 | 464.9, 812.6, -49.5 | 9424.9, 13518.5 | ItemLotParam_map |
@@ -5559,7 +5231,6 @@ Total unique flags: 7575
 | 1035547050 | Fire Scorpion Charm | World Pickup | Mt. Gelmir | m60_35_54 | -28.3, 842.7, -169.7 | 8931.7, 13654.3 | ItemLotParam_map |
 | 1035547060 | Golden Rune [8] | World Pickup | Mt. Gelmir | m60_35_54 | -8.0, 842.9, -179.9 | 8952.0, 13644.1 | ItemLotParam_map |
 | 1035547070 | Slumbering Egg | World Pickup | Mt. Gelmir | m60_35_54 | -15.6, 842.8, -173.7 | 8944.4, 13650.3 | ItemLotParam_map |
-| 1036410100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_41 | 77.5, 244.2, 66.7 | 9293.5, 10562.7 | MSB NPC |
 | 1036410700 | Latenna the Albinauric | NPC | Liurnia of the Lakes | m60_36_41 | 131.3, 150.8, -60.3 | 9347.3, 10435.7 | MSB NPC |
 | 1036410950 | Latenna the Albinauric | NPC | Liurnia of the Lakes | m60_36_41 | 139.3, 151.1, -62.9 | 9355.3, 10433.1 | MSB NPC |
 | 1036412950 | Stake of Marika (m60_36_41) | Stake of Marika | Liurnia of the Lakes | m60_36_41 | 140.6, 151.1, -62.5 | 9356.6, 10433.5 | MSB SpawnPoint |
@@ -5567,14 +5238,11 @@ Total unique flags: 7575
 | 1036417010 | Dappled Cured Meat | World Pickup | Liurnia of the Lakes | m60_36_41 | 76.0, 247.4, 47.0 | 9292.0, 10543.0 | ItemLotParam_map |
 | 1036417020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_36_41 | 142.2, 153.0, -73.2 | 9358.2, 10422.8 | ItemLotParam_map |
 | 1036430700 | Blackguard | NPC | Liurnia of the Lakes | m60_36_43 | 85.7, 237.7, -57.0 | 9301.7, 10951.0 | MSB NPC |
-| 1036430950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_43 | 81.7, 237.2, -60.1 | 9297.7, 10947.9 | MSB NPC |
-| 1036430951 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_43 | -119.9, 242.8, 138.8 | 9096.1, 11146.8 | MSB NPC |
 | 1036437000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, 11.3 | 9111.7, 11019.3 | ItemLotParam_map |
 | 1036437010 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, -8.7 | 9111.7, 10999.3 | ItemLotParam_map |
 | 1036437020 | Tarnished Golden Sunflower | World Pickup | Liurnia of the Lakes | m60_36_43 | -12.0, 253.0, 116.5 | 9204.0, 11124.5 | ItemLotParam_map |
 | 1036437030 | Rainbow Stone | World Pickup | Liurnia of the Lakes | m60_36_43 | 106.0, 250.0, 105.8 | 9322.0, 11113.8 | ItemLotParam_map |
 | 1036439209 | [Blackguard Big Boggart] Boiled Prawn - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
-| 1036440100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_44 | -48.8, 246.0, 60.2 | 9167.2, 11324.2 | MSB NPC |
 | 1036440700 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_44 | -38.3, 257.8, -14.4 | 9177.7, 11249.6 | MSB NPC |
 | 1036447000 | Crystal Bud | World Pickup | Liurnia of the Lakes | m60_36_44 | 91.9, 238.4, 49.0 | 9307.9, 11313.0 | ItemLotParam_map |
 | 1036447010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_36_44 | 121.8, 244.6, 12.1 | 9337.8, 11276.1 | ItemLotParam_map |
@@ -5583,7 +5251,6 @@ Total unique flags: 7575
 | 1036447060 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_36_44 | -101.7, 258.2, 116.2 | 9114.3, 11380.2 | ItemLotParam_map |
 | 1036447300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_36_44 | 17.2, 237.6, 14.0 | 9233.2, 11278.0 | ItemLotParam_map |
 | 1036450340 | Death Rite Bird | Boss Defeat | Liurnia of the Lakes | m60_36_45 | -70.1, 237.6, 39.7 | 9145.9, 11559.7 | MSB Enemy |
-| 1036450950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_45 | -63.6, 239.8, 111.3 | 9152.4, 11631.3 | MSB NPC |
 | 1036457020 | Crystal Cave Moss | World Pickup | Liurnia of the Lakes | m60_36_45 | -5.4, 237.5, -71.1 | 9210.6, 11448.9 | ItemLotParam_map |
 | 1036457110 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_36_45 | -73.2, 243.7, -62.3 | 9142.8, 11457.7 | ItemLotParam_map |
 | 1036457400 | Ancient Death Rancor | World Pickup | Liurnia of the Lakes | m60_36_45 | - | - | ItemLotParam_map |
@@ -5591,7 +5258,6 @@ Total unique flags: 7575
 | 1036472610 | Stake of Marika (m60_36_47) | Stake of Marika | Liurnia of the Lakes | m60_36_47 | -74.7, 321.4, 133.6 | 9141.3, 12165.6 | MSB SpawnPoint |
 | 1036477000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_36_47 | -71.8, 238.4, 60.3 | 9144.2, 12092.3 | ItemLotParam_map |
 | 1036477100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_47 | - | - | ItemLotParam_map |
-| 1036480100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_48 | 59.6, 321.4, 71.1 | 9275.6, 12359.1 | MSB NPC |
 | 1036480340 | Night's Cavalry | Boss Arena | Bellum Highway - East Raya Lucaria Gate | m60_36_48 | 21.8, 321.6, 28.8 | 21.8, 28.8 | GameAreaParam |
 | 1036480700 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_36_48 | -84.9, 321.1, -90.6 | 9131.1, 12197.4 | MSB NPC |
 | 1036480710 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_48 | -52.4, 321.5, -107.3 | 9163.6, 12180.7 | MSB NPC |
@@ -5603,11 +5269,8 @@ Total unique flags: 7575
 | 1036490700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 17.2, 322.3, -80.3 | 9233.2, 12463.7 | MSB NPC |
 | 1036490705 | Nomadic Merchant | Merchant | Liurnia of the Lakes | m60_36_49 | 17.5, 297.0, -10.7 | 9233.5, 12533.3 | MSB NPC |
 | 1036490950 | Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 8.3, 322.0, -92.0 | 9224.3, 12452.0 | MSB NPC |
-| 1036490951 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_49 | -61.1, 237.2, -12.0 | 9154.9, 12532.0 | MSB NPC |
 | 1036497000 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_36_49 | 12.1, 322.0, -64.7 | 9228.1, 12479.3 | ItemLotParam_map |
-| 1036500100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_50 | 3.7, 376.6, -15.5 | 9219.7, 12784.5 | MSB NPC |
 | 1036500800 | Onyx Lord | Boss Arena | Liurnia - Royal Grave Evergaol | m60_36_50 | 121.1, 379.6, 10.9 | 121.1, 10.9 | GameAreaParam |
-| 1036500950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_36_50 | -83.4, 396.5, 73.1 | 9132.6, 12873.1 | MSB NPC |
 | 1036502805 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 99.9, 378.2, 16.0 | 9315.9, 12816.0 | MSB SpawnPoint |
 | 1036502806 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 101.3, 378.1, 19.7 | 9317.3, 12819.7 | MSB SpawnPoint |
 | 1036502807 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 122.3, 379.9, 16.9 | 9338.3, 12816.9 | MSB SpawnPoint |
@@ -5615,7 +5278,6 @@ Total unique flags: 7575
 | 1036507020 | Thawfrost Boluses | World Pickup | Liurnia of the Lakes | m60_36_50 | 22.2, 386.0, -11.3 | 9238.2, 12788.7 | ItemLotParam_map |
 | 1036507030 | Albinauric Ashes | World Pickup | Liurnia of the Lakes | m60_36_50 | -51.2, 380.6, -76.7 | 9164.8, 12723.3 | ItemLotParam_map |
 | 1036517000 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_36_51 | -23.5, 672.0, 106.7 | 9192.5, 13162.7 | ItemLotParam_map |
-| 1036520950 | NPC (c1000) | NPC | Mt. Gelmir | m60_36_52 | 101.6, 879.2, -24.6 | 9317.6, 13287.4 | MSB NPC |
 | 1036527000 | Smithing Stone [6] | World Pickup | Mt. Gelmir | m60_36_52 | -114.6, 835.6, -8.2 | 9101.4, 13303.8 | ItemLotParam_map |
 | 1036527010 | Perfumer's Talisman | World Pickup | Mt. Gelmir | m60_36_52 | -50.4, 663.5, -84.8 | 9165.6, 13227.2 | ItemLotParam_map |
 | 1036527020 | Budding Cave Moss | World Pickup | Mt. Gelmir | m60_36_52 | -2.0, 673.6, -113.6 | 9214.0, 13198.4 | ItemLotParam_map |
@@ -5624,12 +5286,8 @@ Total unique flags: 7575
 | 1036527050 | Roiling Magma | World Pickup | Mt. Gelmir | m60_36_52 | -118.5, 846.2, 30.5 | 9097.5, 13342.5 | ItemLotParam_map |
 | 1036527060 | Pulley Crossbow | World Pickup | Mt. Gelmir | m60_36_52 | 90.5, 881.0, -26.7 | 9306.5, 13285.3 | ItemLotParam_map |
 | 1036537000 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_36_53 | -78.5, 792.4, 120.0 | 9137.5, 13688.0 | ItemLotParam_map |
-| 1036540100 | NPC (c1000) | NPC | Mt. Gelmir | m60_36_54 | 108.1, 1058.1, -7.2 | 9324.1, 13816.8 | MSB NPC |
 | 1036540701 | Wandering Noble | NPC | Mt. Gelmir | m60_36_54 | -42.8, 937.1, -91.0 | 9173.2, 13733.0 | MSB NPC |
 | 1036540800 | Fallingstar Beast | Great Boss Defeat | Mt. Gelmir | m60_36_54 | 94.8, 1047.5, -36.2 | 9310.8, 13787.8 | MSB Enemy |
-| 1036540950 | NPC (c1000) | NPC | Mt. Gelmir | m60_36_54 | 86.3, 1058.7, -7.1 | 9302.3, 13816.9 | MSB NPC |
-| 1036540951 | NPC (c1000) | NPC | Mt. Gelmir | m60_36_54 | 117.7, 1010.1, 25.5 | 9333.7, 13849.5 | MSB NPC |
-| 1036540952 | NPC (c1000) | NPC | Mt. Gelmir | m60_36_54 | -18.4, 930.5, -89.9 | 9197.6, 13734.1 | MSB NPC |
 | 1036542950 | Stake of Marika (m60_36_54) | Stake of Marika | Mt. Gelmir | m60_36_54 | 112.4, 1062.5, -45.5 | 9328.4, 13778.5 | MSB SpawnPoint |
 | 1036547000 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_36_54 | 7.0, 1029.3, -18.7 | 9223.0, 13805.3 | ItemLotParam_map |
 | 1036547010 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -71.3, 1008.5, 16.4 | 9144.7, 13840.4 | ItemLotParam_map |
@@ -5640,7 +5298,6 @@ Total unique flags: 7575
 | 1036547100 | Larval Tear | World Pickup | Mt. Gelmir | m60_36_54 | - | - | ItemLotParam_map |
 | 1036547400 | Golden Seed | World Pickup | Mt. Gelmir | m60_36_54 | -117.0, 1009.4, 40.4 | 9099.0, 13864.4 | ItemLotParam_map |
 | 1037417010 | Ballista Bolt | World Pickup | Liurnia of the Lakes | m60_37_41 | -60.1, 265.3, 6.2 | 9411.9, 10502.2 | ItemLotParam_map |
-| 1037420100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_42 | 80.7, 237.8, -117.1 | 9552.7, 10634.9 | MSB NPC |
 | 1037420340 | Death Rite Bird | Boss Defeat | Liurnia of the Lakes | m60_37_42 | -58.2, 237.6, 98.4 | 9413.8, 10850.4 | MSB Enemy |
 | 1037420700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_37_42 | 49.4, 239.8, 43.8 | 9521.4, 10795.8 | MSB NPC |
 | 1037420720 | Patches | NPC | Liurnia of the Lakes | m60_37_42 | -91.8, 248.4, 32.0 | 9380.2, 10784.0 | MSB NPC |
@@ -5652,9 +5309,7 @@ Total unique flags: 7575
 | 1037427900 | Wraith Calling Bell | World Pickup | Liurnia of the Lakes | m60_37_42 | 62.0, 225.7, -128.3 | 9534.0, 10623.7 | ItemLotParam_map |
 | 1037437000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 95.6, 241.0, 104.1 | 9567.6, 11112.1 | ItemLotParam_map |
 | 1037437010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 71.0, 239.8, 40.4 | 9543.0, 11048.4 | ItemLotParam_map |
-| 1037440100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_44 | -122.2, 237.8, 7.5 | 9349.8, 11271.5 | MSB NPC |
 | 1037440700 | Knight Diallos | NPC | Liurnia of the Lakes | m60_37_44 | -61.3, 239.3, 56.7 | 9410.7, 11320.7 | MSB NPC |
-| 1037440950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_44 | -30.1, 237.6, -97.8 | 9441.9, 11166.2 | MSB NPC |
 | 1037447000 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_44 | 82.1, 238.5, -82.2 | 9554.1, 11181.8 | ItemLotParam_map |
 | 1037447010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_37_44 | -6.4, 242.4, 41.7 | 9465.6, 11305.7 | ItemLotParam_map |
 | 1037457100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_45 | 55.6, 239.8, 21.0 | 9527.6, 11541.0 | ItemLotParam_map |
@@ -5682,7 +5337,6 @@ Total unique flags: 7575
 | 1037477020 | Stalwart Horn Charm | World Pickup | Liurnia of the Lakes | m60_37_47 | -13.9, 388.8, 70.8 | 9458.1, 12102.8 | ItemLotParam_map |
 | 1037477030 | Spiralhorn Shield | World Pickup | Liurnia of the Lakes | m60_37_47 | 86.1, 384.4, 19.8 | 9558.1, 12051.8 | ItemLotParam_map |
 | 1037480400 | Walking Mausoleum | NPC | World (9,12) | m60_09_12 | -44.6, 414.5, -390.6 | 2259.4, 2681.4 | MSB NPC |
-| 1037480950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_48 | 49.1, 393.8, -123.5 | 9521.1, 12164.5 | MSB NPC |
 | 1037487000 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_37_48 | -80.9, 359.6, 88.3 | 9391.1, 12376.3 | ItemLotParam_map |
 | 1037487010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -11.6, 433.0, 18.9 | 9460.4, 12306.9 | ItemLotParam_map |
 | 1037487020 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -8.3, 434.2, 24.9 | 9463.7, 12312.9 | ItemLotParam_map |
@@ -5693,8 +5347,6 @@ Total unique flags: 7575
 | 1037487070 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_48 | -20.6, 436.5, 37.8 | 9451.4, 12325.8 | ItemLotParam_map |
 | 1037487080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -17.5, 437.5, 44.3 | 9454.5, 12332.3 | ItemLotParam_map |
 | 1037487100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_37_48 | - | - | ItemLotParam_map |
-| 1037490100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_49 | -32.2, 343.4, 23.4 | 9439.8, 12567.4 | MSB NPC |
-| 1037490950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_37_49 | 76.3, 494.0, -27.0 | 9548.3, 12517.0 | MSB NPC |
 | 1037497000 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_37_49 | -20.2, 342.6, 106.4 | 9451.8, 12650.4 | ItemLotParam_map |
 | 1037497010 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -105.5, 327.9, 75.0 | 9366.5, 12619.0 | ItemLotParam_map |
 | 1037497020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -32.2, 328.1, -29.1 | 9439.8, 12514.9 | ItemLotParam_map |
@@ -5704,13 +5356,10 @@ Total unique flags: 7575
 | 1037497300 | Fingerprint Grape | World Pickup | Liurnia of the Lakes | m60_37_49 | - | - | ItemLotParam_map |
 | 1037507000 | Neutralizing Boluses | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 102.8 | 9575.3, 12902.8 | ItemLotParam_map |
 | 1037507100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_37_50 | 56.3, 237.9, 52.7 | 9528.3, 12852.7 | ItemLotParam_map |
-| 1037510100 | NPC (c1000) | NPC | Mt. Gelmir | m60_37_51 | 87.8, 704.6, 40.3 | 9559.8, 13096.3 | MSB NPC |
 | 1037510800 | Lichdragon Fortissax | Great Boss Defeat | Mt. Gelmir | m60_37_51 | 110.8, 712.6, 49.4 | 9582.8, 13105.4 | MSB Enemy |
-| 1037510950 | NPC (c1000) | NPC | Mt. Gelmir | m60_37_51 | -46.1, 655.9, -62.6 | 9425.9, 12993.4 | MSB NPC |
 | 1037517000 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_51 | -26.1, 658.6, -47.5 | 9445.9, 13008.5 | ItemLotParam_map |
 | 1037517010 | Fulgurbloom | World Pickup | Mt. Gelmir | m60_37_51 | 20.2, 674.4, -46.5 | 9492.2, 13009.5 | ItemLotParam_map |
 | 1037517020 | Consort's Mask | World Pickup | Mt. Gelmir | m60_37_51 | 46.8, 683.8, -11.7 | 9518.8, 13044.3 | ItemLotParam_map |
-| 1037520951 | NPC (c1000) | NPC | Mt. Gelmir | m60_37_52 | 64.4, 792.2, 55.3 | 9536.4, 13367.3 | MSB NPC |
 | 1037522690 | Stake of Marika (m60_37_52) | Stake of Marika | Mt. Gelmir | m60_37_52 | 92.4, 656.9, -59.7 | 9564.4, 13252.3 | MSB SpawnPoint |
 | 1037527020 | Arrow | World Pickup | Mt. Gelmir | m60_37_52 | 87.8, 797.6, 86.9 | 9559.8, 13398.9 | ItemLotParam_map |
 | 1037527030 | Sacramental Bud | World Pickup | Mt. Gelmir | m60_37_52 | -65.1, 896.6, 49.8 | 9406.9, 13361.8 | ItemLotParam_map |
@@ -5721,7 +5370,6 @@ Total unique flags: 7575
 | 1037527080 | Starlight Shards | World Pickup | Mt. Gelmir | m60_37_52 | 44.0, 908.5, 84.3 | 9516.0, 13396.3 | ItemLotParam_map |
 | 1037527090 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -1.5, 905.7, 72.4 | 9470.5, 13384.4 | ItemLotParam_map |
 | 1037527100 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 105.4 | 9460.8, 13417.4 | ItemLotParam_map |
-| 1037530100 | NPC (c1000) | NPC | Mt. Gelmir | m60_37_53 | 54.4, 899.7, -98.7 | 9526.4, 13469.3 | MSB NPC |
 | 1037530700 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.0, 903.3, -69.5 | 9477.0, 13498.5 | MSB NPC |
 | 1037530800 | Demi-Human Queen Maggie | Great Boss Defeat | Mt. Gelmir | m60_37_53 | 11.7, 901.4, -90.8 | 9483.7, 13477.2 | MSB Enemy |
 | 1037530950 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.2, 904.2, -54.8 | 9477.2, 13513.2 | MSB NPC |
@@ -5729,7 +5377,6 @@ Total unique flags: 7575
 | 1037537010 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_53 | 59.8, 914.4, 10.6 | 9531.8, 13578.6 | ItemLotParam_map |
 | 1037537020 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_53 | 26.0, 792.5, 67.6 | 9498.0, 13635.6 | ItemLotParam_map |
 | 1037537400 | Golden Seed | World Pickup | Mt. Gelmir | m60_37_53 | 28.2, 792.8, -10.4 | 9500.2, 13557.6 | ItemLotParam_map |
-| 1037540100 | NPC (c0100) | NPC | Mt. Gelmir | m60_37_54 | -67.9, 870.1, -47.7 | 9404.1, 13776.3 | MSB NPC |
 | 1037540700 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | MSB NPC |
 | 1037540701 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | MSB NPC |
 | 1037540705 | Nomadic Merchant | Merchant | Mt. Gelmir | m60_37_54 | 18.6, 965.0, 55.7 | 9490.6, 13879.7 | MSB NPC |
@@ -5754,13 +5401,11 @@ Total unique flags: 7575
 | 1037552690 | Stake of Marika (m60_37_55) | Stake of Marika | Mt. Gelmir | m60_37_55 | -60.2, 1035.2, -57.9 | 9411.8, 14022.1 | MSB SpawnPoint |
 | 1037557000 | Poison Grease | World Pickup | Mt. Gelmir | m60_37_55 | -24.6, 1029.0, -85.5 | 9447.4, 13994.5 | ItemLotParam_map |
 | 1038397000 | Warming Stone | World Pickup | World (38,39) | m60_38_39 | 95.7, 328.4, 118.5 | 9823.7, 10102.5 | ItemLotParam_map |
-| 1038400100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_40 | 75.4, 261.3, -7.3 | 9803.4, 10232.7 | MSB NPC |
 | 1038400950 | Nomadic Merchant | NPC | Liurnia of the Lakes | m60_38_40 | 44.1, 238.2, 115.2 | 9772.1, 10355.2 | MSB NPC |
 | 1038407000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_40 | 50.8, 260.3, -3.0 | 9778.8, 10237.0 | ItemLotParam_map |
 | 1038410710 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_38_41 | 80.9, 239.8, 95.8 | 9808.9, 10591.8 | MSB NPC |
 | 1038410730 | Nomadic Merchant | Merchant | Liurnia of the Lakes | m60_38_41 | 35.6, 238.0, -125.5 | 9763.6, 10370.5 | MSB NPC |
 | 1038410800 | Adan, Thief of Fire | Boss Arena | Liurnia - Malefactor's Evergaol | m60_38_41 | 3.9, 257.4, -124.9 | 3.9, -124.9 | GameAreaParam |
-| 1038410950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_41 | -80.0, 238.5, 75.0 | 9648.0, 10571.0 | MSB NPC |
 | 1038412210 | Spirit Spring (m60_38_41) | Spirit Spring | Liurnia of the Lakes | m60_38_41 | -37.8, 238.8, -54.3 | 9690.2, 10441.7 | MSB MountJump |
 | 1038412805 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -3.9, 256.2, -104.0 | 9724.1, 10392.0 | MSB SpawnPoint |
 | 1038412806 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -2.6, 256.2, -100.6 | 9725.4, 10395.4 | MSB SpawnPoint |
@@ -5769,13 +5414,11 @@ Total unique flags: 7575
 | 1038417100 | AshOfWar_1007 | World Pickup | Liurnia of the Lakes | m60_38_41 | - | - | ItemLotParam_map |
 | 1038419270 | [Patches] Fan Daggers - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
 | 1038419271 | [Patches] Festering Bloody Finger - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | ShopLineupParam |
-| 1038420100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_42 | 99.6, 289.3, 76.1 | 9827.6, 10828.1 | MSB NPC |
 | 1038422260 | Spirit Spring (m60_38_42) | Spirit Spring | Liurnia of the Lakes | m60_38_42 | 51.5, 238.0, 39.4 | 9779.5, 10791.4 | MSB MountJump |
 | 1038427000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_42 | 24.8, 239.8, 80.8 | 9752.8, 10832.8 | ItemLotParam_map |
 | 1038427010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_38_42 | 105.9, 293.7, 111.5 | 9833.9, 10863.5 | ItemLotParam_map |
 | 1038427020 | Carian Glintblade Staff | World Pickup | Liurnia of the Lakes | m60_38_42 | 125.3, 313.2, 120.1 | 9853.3, 10872.1 | ItemLotParam_map |
 | 1038430700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_38_43 | 67.2, 257.7, 57.1 | 9795.2, 11065.1 | MSB NPC |
-| 1038430950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_43 | 51.6, 257.8, 27.8 | 9779.6, 11035.8 | MSB NPC |
 | 1038437000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_38_43 | 48.8, 237.6, 31.4 | 9776.8, 11039.4 | ItemLotParam_map |
 | 1038437010 | Sliver of Meat | World Pickup | Liurnia of the Lakes | m60_38_43 | 27.8, 255.5, -91.8 | 9755.8, 10916.2 | ItemLotParam_map |
 | 1038437020 | Silver-Pickled Fowl Foot | World Pickup | Liurnia of the Lakes | m60_38_43 | -16.3, 237.9, 106.7 | 9711.7, 11114.7 | ItemLotParam_map |
@@ -5783,24 +5426,17 @@ Total unique flags: 7575
 | 1038447030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_38_44 | -104.5, 237.4, 127.3 | 9623.5, 11391.3 | ItemLotParam_map |
 | 1038447040 | Land Squirt Ashes | World Pickup | Liurnia of the Lakes | m60_38_44 | -4.4, 237.6, 20.1 | 9723.6, 11284.1 | ItemLotParam_map |
 | 1038447100 | Dragon Cult Prayerbook | World Pickup | Liurnia of the Lakes | m60_38_44 | - | - | ItemLotParam_map |
-| 1038450100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_45 | 9.2, 303.3, 126.4 | 9737.2, 11646.4 | MSB NPC |
-| 1038450950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_45 | 95.4, 318.4, -115.3 | 9823.4, 11404.7 | MSB NPC |
-| 1038450951 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_45 | -32.5, 237.9, -20.4 | 9695.5, 11499.6 | MSB NPC |
 | 1038457000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_45 | -12.6, 305.1, 127.4 | 9715.4, 11647.4 | ItemLotParam_map |
 | 1038457010 | Flame, Cleanse Me | World Pickup | Liurnia of the Lakes | m60_38_45 | -16.6, 306.7, 108.5 | 9711.4, 11628.5 | ItemLotParam_map |
 | 1038457020 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_38_45 | 128.6, 314.7, -84.5 | 9856.6, 11435.5 | ItemLotParam_map |
-| 1038460950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_46 | 52.4, 290.8, -49.4 | 9780.4, 11726.6 | MSB NPC |
 | 1038467000 | Immunizing White Cured Meat | World Pickup | Liurnia of the Lakes | m60_38_46 | -13.2, 315.1, 28.8 | 9714.8, 11804.8 | ItemLotParam_map |
 | 1038467400 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_46 | - | - | ItemLotParam_map |
 | 1038470400 | Walking Mausoleum | NPC | World (9,11) | m60_09_11 | -12.6, 374.8, 474.2 | 2291.4, 3290.2 | MSB NPC |
-| 1038470950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_47 | -103.1, 372.8, -7.0 | 9624.9, 12025.0 | MSB NPC |
 | 1038477010 | Frenzyflame Stone | World Pickup | Liurnia of the Lakes | m60_38_47 | -57.1, 362.1, -35.0 | 9670.9, 11997.0 | ItemLotParam_map |
 | 1038477030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_47 | 94.1, 260.7, 21.1 | 9822.1, 12053.1 | ItemLotParam_map |
 | 1038477100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_47 | - | - | ItemLotParam_map |
-| 1038480100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_48 | -46.6, 404.9, -95.6 | 9681.4, 12192.4 | MSB NPC |
 | 1038480700 | Festering Fingerprint Vyke | NPC | Liurnia of the Lakes | m60_37_49 | 73.3, 484.8, -83.1 | 9545.3, 12460.9 | MSB NPC |
 | 1038480800 | Erdtree Avatar | Great Boss Defeat | Liurnia of the Lakes | m60_38_48 | -30.2, 404.1, -102.9 | 9697.8, 12185.1 | MSB Enemy |
-| 1038480950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_48 | 48.5, 449.0, 71.0 | 9776.5, 12359.0 | MSB NPC |
 | 1038487020 | Eye of Yelough | World Pickup | Liurnia of the Lakes | m60_38_48 | -116.9, 441.6, 52.9 | 9611.1, 12340.9 | ItemLotParam_map |
 | 1038487030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_48 | -112.5, 453.2, 23.8 | 9615.5, 12311.8 | ItemLotParam_map |
 | 1038487100 | Shabriri's Woe | World Pickup | Liurnia of the Lakes | m60_38_48 | -82.4, 436.9, 16.9 | 9645.6, 12304.9 | ItemLotParam_map |
@@ -5816,14 +5452,10 @@ Total unique flags: 7575
 | 1038497900 | Howl of Shabriri | World Pickup | Liurnia of the Lakes | m60_38_49 | -7.3, 460.1, -85.0 | 9720.7, 12459.0 | ItemLotParam_map |
 | 1038500700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_38_50 | 66.4, 759.1, -4.7 | 9794.4, 12795.3 | MSB NPC |
 | 1038500710 | Wandering Noble | NPC | Liurnia of the Lakes | m60_38_50 | -28.9, 367.2, -38.2 | 9699.1, 12761.8 | MSB NPC |
-| 1038500950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_50 | -17.3, 366.6, -63.2 | 9710.7, 12736.8 | MSB NPC |
-| 1038500951 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_50 | -123.3, 240.4, 95.0 | 9604.7, 12895.0 | MSB NPC |
-| 1038500952 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_38_50 | 55.8, 763.9, 82.9 | 9783.8, 12882.9 | MSB NPC |
 | 1038502500 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 34.2, 759.5, -28.3 | 9762.2, 12771.7 | MSB SpawnPoint |
 | 1038502502 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 55.5, 374.7, -20.6 | 9783.5, 12779.4 | MSB SpawnPoint |
 | 1038507000 | Smithing Stone [5] | World Pickup | Liurnia of the Lakes | m60_38_50 | -138.6, 238.1, 81.1 | 9589.4, 12881.1 | ItemLotParam_map |
 | 1038507010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_38_50 | -100.1, 356.4, -62.4 | 9627.9, 12737.6 | ItemLotParam_map |
-| 1038510100 | NPC (c1000) | NPC | Altus Plateau | m60_38_51 | -30.7, 770.8, 10.8 | 9697.3, 13066.8 | MSB NPC |
 | 1038510700 | Rya the Scout | NPC | Altus Plateau | m60_38_51 | -17.2, 766.3, 34.0 | 9710.8, 13090.0 | MSB NPC |
 | 1038510705 | Millicent | NPC | Altus Plateau | m60_38_51 | 3.8, 767.5, 114.2 | 9731.8, 13170.2 | MSB NPC |
 | 1038510800 | Demi-Human Queen Maggie | Great Boss Defeat | Altus Plateau | m60_38_51 | -32.5, 770.8, 0.5 | 9695.5, 13056.5 | MSB Enemy |
@@ -5840,7 +5472,6 @@ Total unique flags: 7575
 | 1038517090 | Troll's Golden Sword | World Pickup | Altus Plateau | m60_38_51 | 268.0, 732.8, 384.8 | 9996.0, 13440.8 | ItemLotParam_map |
 | 1038517400 | Golden Seed | World Pickup | Altus Plateau | m60_38_51 | 7.4, 756.0, 76.2 | 9735.4, 13132.2 | ItemLotParam_map |
 | 1038519257 | [Gowry] Pest Threads - Unlocked | Shop Unlock | Altus Plateau | - | - | - | ShopLineupParam |
-| 1038520100 | NPC (c0100) | NPC | Altus Plateau | m60_38_52 | -3.0, 793.1, -57.2 | 9725.0, 13254.8 | MSB NPC |
 | 1038520340 | Tibia Mariner | Boss Defeat | Altus Plateau | m60_38_52 | -40.2, 792.9, -24.9 | 9687.8, 13287.1 | MSB Enemy |
 | 1038520800 | Tibia Mariner | Boss Arena | Altus Plateau - Wyndham Ruins | m60_38_52 | -127.2, 823.4, 71.6 | -127.2, 71.6 | GameAreaParam |
 | 1038527000 | Pearldrake Talisman +1 | World Pickup | Altus Plateau | m60_38_52 | -90.4, 806.1, 46.5 | 9637.6, 13358.5 | ItemLotParam_map |
@@ -5857,7 +5488,6 @@ Total unique flags: 7575
 | 1038537030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_53 | 52.8, 867.2, 109.3 | 9780.8, 13677.3 | ItemLotParam_map |
 | 1038537040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 46.4, 865.3, 117.0 | 9774.4, 13685.0 | ItemLotParam_map |
 | 1038537050 | Somber Smithing Stone [6] | World Pickup | Altus Plateau | m60_38_53 | 75.0, 877.0, 82.5 | 9803.0, 13650.5 | ItemLotParam_map |
-| 1038540950 | NPC (c1000) | NPC | Altus Plateau | m60_38_54 | 28.2, 860.7, -123.3 | 9756.2, 13700.7 | MSB NPC |
 | 1038547000 | Bloodrose | World Pickup | Altus Plateau | m60_38_54 | 71.4, 811.5, -108.6 | 9799.4, 13715.4 | ItemLotParam_map |
 | 1038547010 | Explosive Greatbolt | World Pickup | Altus Plateau | m60_38_54 | 33.0, 808.0, -63.3 | 9761.0, 13760.7 | ItemLotParam_map |
 | 1038547020 | Golden Rune [8] | World Pickup | Altus Plateau | m60_38_54 | 32.6, 808.2, -71.4 | 9760.6, 13752.6 | ItemLotParam_map |
@@ -5877,9 +5507,7 @@ Total unique flags: 7575
 | 1039400950 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_39_40 | 16.2, 337.5, -70.9 | 10000.2, 10169.1 | MSB NPC |
 | 1039402690 | Stake of Marika (m60_39_40) | Stake of Marika | Liurnia of the Lakes | m60_39_40 | 7.9, 239.3, -33.1 | 9991.9, 10206.9 | MSB SpawnPoint |
 | 1039407000 | Academy Scroll | World Pickup | Liurnia of the Lakes | m60_39_40 | -105.9, 315.9, -79.5 | 9878.1, 10160.5 | ItemLotParam_map |
-| 1039410100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_41 | -100.2, 252.3, 90.2 | 9883.8, 10586.2 | MSB NPC |
 | 1039410710 | Commoner | NPC | Liurnia of the Lakes | m60_39_41 | -112.8, 248.5, 107.6 | 9871.2, 10603.6 | MSB NPC |
-| 1039410950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_41 | 36.5, 300.2, -123.8 | 10020.5, 10372.2 | MSB NPC |
 | 1039417000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_41 | -117.6, 249.2, 80.1 | 9866.4, 10576.1 | ItemLotParam_map |
 | 1039417010 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_39_41 | -83.2, 255.5, 98.5 | 9900.8, 10594.5 | ItemLotParam_map |
 | 1039417020 | Somber Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_39_41 | 112.8, 222.7, -38.9 | 10096.8, 10457.1 | ItemLotParam_map |
@@ -5888,9 +5516,7 @@ Total unique flags: 7575
 | 1039417200 | Shabriri Grape | World Pickup | Liurnia of the Lakes | m60_39_41 | -68.2, 243.4, 82.8 | 9915.8, 10578.8 | ItemLotParam_map |
 | 1039417300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | ItemLotParam_map |
 | 1039417310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | ItemLotParam_map |
-| 1039420100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_42 | -35.6, 262.8, 46.5 | 9948.4, 10798.5 | MSB NPC |
 | 1039420700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_39_42 | -9.0, 271.4, -11.3 | 9975.0, 10740.7 | MSB NPC |
-| 1039420950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_42 | -7.6, 273.5, -40.2 | 9976.4, 10711.8 | MSB NPC |
 | 1039427000 | Mushroom | World Pickup | Liurnia of the Lakes | m60_39_42 | -145.2, 249.0, -79.5 | 9838.8, 10672.5 | ItemLotParam_map |
 | 1039427010 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_42 | -65.4, 253.0, 102.7 | 9918.6, 10854.6 | ItemLotParam_map |
 | 1039427020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_42 | -55.8, 255.4, 90.5 | 9928.2, 10842.5 | ItemLotParam_map |
@@ -5908,7 +5534,6 @@ Total unique flags: 7575
 | 1039437060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_43 | 47.7, 221.7, 100.5 | 10031.7, 11108.5 | ItemLotParam_map |
 | 1039437100 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_39_43 | -84.0, 307.9, 61.0 | 9900.0, 11069.0 | ItemLotParam_map |
 | 1039437400 | Ash of War: Ice Spear | World Pickup | Liurnia of the Lakes | m60_39_43 | - | - | ItemLotParam_map |
-| 1039440100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_44 | -50.6, 297.6, -103.2 | 9933.4, 11160.8 | MSB NPC |
 | 1039440700 | Alexander, Warrior Jar | NPC | Liurnia of the Lakes | m60_39_44 | -6.5, 292.9, -99.4 | 9977.5, 11164.6 | MSB NPC |
 | 1039440705 | Jar-Bairn | NPC | Liurnia of the Lakes | m60_39_44 | 22.1, 224.8, -26.9 | 10006.1, 11237.1 | MSB NPC |
 | 1039440706 | Jar-Bairn | NPC | Liurnia of the Lakes | m60_39_44 | 47.6, 213.2, -18.1 | 10031.6, 11245.9 | MSB NPC |
@@ -5917,7 +5542,6 @@ Total unique flags: 7575
 | 1039440710 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 52.4, 212.8, 24.1 | 10036.4, 11288.1 | MSB NPC |
 | 1039440711 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 43.3, 212.2, 4.8 | 10027.3, 11268.8 | MSB NPC |
 | 1039440800 | Tibia Mariner | Great Boss Defeat | Liurnia of the Lakes | m60_39_44 | -81.6, 294.8, -41.4 | 9902.4, 11222.6 | MSB Enemy |
-| 1039440950 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_44 | 47.0, 221.2, -59.0 | 10031.0, 11205.0 | MSB NPC |
 | 1039447000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | -62.3, 294.8, -55.0 | 9921.7, 11209.0 | ItemLotParam_map |
 | 1039447010 | Great Dragonfly Head | World Pickup | Liurnia of the Lakes | m60_39_44 | -104.2, 302.5, 68.3 | 9879.8, 11332.3 | ItemLotParam_map |
 | 1039447020 | Trina's Lily | World Pickup | Liurnia of the Lakes | m60_39_44 | -76.5, 294.8, -67.6 | 9907.5, 11196.4 | ItemLotParam_map |
@@ -5925,7 +5549,6 @@ Total unique flags: 7575
 | 1039447040 | Living Jar Shard | World Pickup | Liurnia of the Lakes | m60_39_44 | 55.1, 212.8, 23.8 | 10039.1, 11287.8 | ItemLotParam_map |
 | 1039487000 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_48 | -37.4, 457.1, 33.9 | 9946.6, 12321.9 | ItemLotParam_map |
 | 1039487100 | Cannon of Haima | World Pickup | Liurnia of the Lakes | m60_39_48 | -24.8, 506.1, 51.6 | 9959.2, 12339.6 | ItemLotParam_map |
-| 1039500100 | NPC (c1000) | NPC | Liurnia of the Lakes | m60_39_50 | -32.8, 755.0, 32.3 | 9951.2, 12832.3 | MSB NPC |
 | 1039500800 | Godrick the Reskinned | Boss Arena | Altus Plateau - Golden Lineage Evergaol | m60_39_50 | -45.6, 709.6, -86.1 | -45.6, -86.1 | GameAreaParam |
 | 1039502805 | Stake of Marika (m60_39_50) | Stake of Marika | Liurnia of the Lakes | m60_39_50 | -64.7, 708.4, -80.0 | 9919.3, 12720.0 | MSB SpawnPoint |
 | 1039502806 | Stake of Marika (m60_39_50) | Stake of Marika | Liurnia of the Lakes | m60_39_50 | -64.4, 708.6, -76.8 | 9919.6, 12723.2 | MSB SpawnPoint |
@@ -5948,7 +5571,6 @@ Total unique flags: 7575
 | 1039527020 | Magic Grease | World Pickup | Altus Plateau | m60_39_52 | -2.5, 767.0, 120.4 | 9981.5, 13432.4 | ItemLotParam_map |
 | 1039527400 | Sacred Tear | World Pickup | Altus Plateau | m60_39_52 | 22.4, 771.8, 58.6 | 10006.4, 13370.6 | ItemLotParam_map |
 | 1039527700 | Eleonora's Poleblade | World Pickup | Altus Plateau | m60_39_52 | - | - | ItemLotParam_map |
-| 1039530950 | NPC (c1000) | NPC | Altus Plateau | m60_39_53 | -98.6, 812.3, 37.5 | 9885.4, 13605.5 | MSB NPC |
 | 1039532141 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | MSB SpawnPoint |
 | 1039532705 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | MSB SpawnPoint |
 | 1039537000 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_53 | 20.5, 827.6, 96.5 | 10004.5, 13664.5 | ItemLotParam_map |
@@ -5961,13 +5583,9 @@ Total unique flags: 7575
 | 1039537070 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -112.1 | 10113.8, 13455.9 | ItemLotParam_map |
 | 1039537080 | Mirage Riddle | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -132.1 | 10113.8, 13435.9 | ItemLotParam_map |
 | 1039537700 | Crepus's Vial | World Pickup | Altus Plateau | m60_39_53 | - | - | ItemLotParam_map |
-| 1039540100 | NPC (c1000) | NPC | Altus Plateau | m60_39_54 | -60.0, 768.5, 47.3 | 9924.0, 13871.3 | MSB NPC |
 | 1039540700 | Patches | NPC | Altus Plateau | m60_39_54 | -13.4, 768.3, 53.5 | 9970.6, 13877.5 | MSB NPC |
 | 1039540701 | Wandering Noble | NPC | Altus Plateau | m60_39_54 | -34.3, 734.7, 73.9 | 9949.7, 13897.9 | MSB NPC |
 | 1039540800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_39_54 | -53.7, 768.3, 56.5 | 9930.3, 13880.5 | MSB Enemy |
-| 1039540950 | NPC (c1000) | NPC | Altus Plateau | m60_39_54 | 22.1, 724.5, -47.5 | 10006.1, 13776.5 | MSB NPC |
-| 1039540951 | NPC (c1000) | NPC | Altus Plateau | m60_39_54 | -50.9, 734.7, 48.1 | 9933.1, 13872.1 | MSB NPC |
-| 1039540952 | NPC (c1000) | NPC | Altus Plateau | m60_39_54 | -47.0, 768.3, 56.4 | 9937.0, 13880.4 | MSB NPC |
 | 1039547010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_54 | -37.3, 717.3, -78.7 | 9946.7, 13745.3 | ItemLotParam_map |
 | 1039547020 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -19.5, 723.6, -86.9 | 9964.5, 13737.1 | ItemLotParam_map |
 | 1039547030 | Poisonbloom | World Pickup | Altus Plateau | m60_39_54 | 0.2, 722.3, -76.9 | 9984.2, 13747.1 | ItemLotParam_map |
@@ -6005,7 +5623,6 @@ Total unique flags: 7575
 | 1040517030 | Beast Blood | World Pickup | Altus Plateau | m60_40_51 | -96.8, 757.4, -122.5 | 10143.2, 12933.5 | ItemLotParam_map |
 | 1040517040 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_40_51 | 15.3, 845.0, 107.3 | 10255.3, 13163.3 | ItemLotParam_map |
 | 1040517400 | Sacred Tear | World Pickup | Altus Plateau | m60_40_51 | 7.6, 845.0, 111.8 | 10247.6, 13167.8 | ItemLotParam_map |
-| 1040520100 | NPC (c1000) | NPC | Altus Plateau | m60_40_52 | 76.9, 884.5, 20.6 | 10316.9, 13332.6 | MSB NPC |
 | 1040520705 | Brother Corhyn | NPC | Altus Plateau | m60_40_52 | -118.0, 793.3, -78.8 | 10122.0, 13233.2 | MSB NPC |
 | 1040520715 | Nomadic Merchant | Merchant | Altus Plateau | m60_40_52 | 103.0, 828.6, 124.6 | 10343.0, 13436.6 | MSB NPC |
 | 1040520720 | Finger Reader Crone | Finger Reader | Altus Plateau | m60_40_52 | 104.0, 828.5, 97.9 | 10344.0, 13409.9 | MSB NPC |
@@ -6018,9 +5635,7 @@ Total unique flags: 7575
 | 1040527040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_40_52 | 68.4, 868.6, -70.1 | 10308.4, 13241.9 | ItemLotParam_map |
 | 1040527050 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 66.4, 866.1, -85.9 | 10306.4, 13226.1 | ItemLotParam_map |
 | 1040529255 | [Brother Corhyn - Altus Plateau] Great Heal - Unlocked | Shop Unlock | Altus Plateau | - | - | - | ShopLineupParam |
-| 1040530102 | NPC (c1000) | NPC | Altus Plateau | m60_40_53 | -79.5, 802.3, 70.6 | 10160.5, 13638.6 | MSB NPC |
 | 1040530800 | Sanguine Noble | Boss Defeat | Altus Plateau | m60_40_53 | -92.9, 802.3, 71.0 | 10147.1, 13639.0 | MSB Enemy |
-| 1040530950 | NPC (c1000) | NPC | Altus Plateau | m60_40_53 | 12.3, 748.8, -80.5 | 10252.3, 13487.5 | MSB NPC |
 | 1040532700 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | MSB SpawnPoint |
 | 1040532701 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | MSB SpawnPoint |
 | 1040537000 | Golden Rune [5] | World Pickup | Altus Plateau | m60_40_53 | -108.1, 816.6, 35.5 | 10131.9, 13603.5 | ItemLotParam_map |
@@ -6032,7 +5647,6 @@ Total unique flags: 7575
 | 1040537060 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_40_53 | 101.2, 768.6, -32.9 | 10341.2, 13535.1 | ItemLotParam_map |
 | 1040540700 | The Noble Goldmask | NPC | Altus Plateau | m60_40_54 | 73.2, 844.2, 28.7 | 10313.2, 13852.7 | MSB NPC |
 | 1040540705 | Scribe Corhyn | NPC | Altus Plateau | m60_40_54 | 73.9, 844.2, 31.5 | 10313.9, 13855.5 | MSB NPC |
-| 1040540950 | NPC (c1000) | NPC | Altus Plateau | m60_40_54 | 66.4, 820.1, 113.1 | 10306.4, 13937.1 | MSB NPC |
 | 1040547000 | Great Stars | World Pickup | Altus Plateau | m60_40_54 | -343.1, 817.4, 193.0 | 9896.9, 14017.0 | ItemLotParam_map |
 | 1040547010 | Gravel Stone | World Pickup | Altus Plateau | m60_40_54 | -124.6, 799.5, 18.2 | 10115.4, 13842.2 | ItemLotParam_map |
 | 1040547030 | Stimulating Boluses | World Pickup | Altus Plateau | m60_40_54 | 55.9, 821.5, -43.3 | 10295.9, 13780.7 | ItemLotParam_map |
@@ -6049,7 +5663,6 @@ Total unique flags: 7575
 | 1041327030 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 135.2, 27.1, -43.4 | 10631.2, 8148.6 | ItemLotParam_map |
 | 1041327040 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 129.5, 25.8, -56.8 | 10625.5, 8135.2 | ItemLotParam_map |
 | 1041327050 | Golden Rune [3] | World Pickup | World (41,32) | m60_41_32 | 125.4, 26.0, -51.0 | 10621.4, 8141.0 | ItemLotParam_map |
-| 1041330100 | NPC (c1000) | NPC | World (41,33) | m60_41_33 | 64.0, 11.4, -25.4 | 10560.0, 8422.6 | MSB NPC |
 | 1041330700 | Sorceress Sellen | NPC | World (41,33) | m60_41_33 | 47.6, -0.8, -7.6 | 10543.6, 8440.4 | MSB NPC |
 | 1041330701 | Sorceress Sellen | NPC | World (41,33) | m60_41_33 | 47.6, -0.8, -7.6 | 10543.6, 8440.4 | MSB NPC |
 | 1041330710 | Castellan Jerren | NPC | World (41,33) | m60_41_33 | 49.4, -0.8, -5.3 | 10545.4, 8442.7 | MSB NPC |
@@ -6062,16 +5675,13 @@ Total unique flags: 7575
 | 1041337100 | Ambush Shard | World Pickup | World (41,33) | m60_41_33 | 52.5, -0.8, -2.9 | 10548.5, 8445.1 | ItemLotParam_map |
 | 1041337200 | Sacred Tear | World Pickup | World (41,33) | m60_41_33 | 45.5, 32.5, 60.2 | 10541.5, 8508.2 | ItemLotParam_map |
 | 1041350700 | Church of Dragon Communion | NPC | World (41,35) | m60_41_35 | -75.8, 27.6, -44.8 | 10420.1, 8915.2 | MSB NPC |
-| 1041350950 | NPC (c1000) | NPC | World (41,35) | m60_41_35 | -55.0, 26.3, -23.1 | 10441.0, 8936.9 | MSB NPC |
 | 1041357000 | Great Dragonfly Head | World Pickup | World (41,35) | m60_41_35 | -130.4, 33.4, -43.4 | 10365.6, 8916.6 | ItemLotParam_map |
 | 1041357010 | Smithing Stone [2] | World Pickup | World (41,35) | m60_41_35 | -29.1, 5.8, -124.2 | 10466.9, 8835.8 | ItemLotParam_map |
 | 1041357020 | Exalted Flesh | World Pickup | World (41,35) | m60_41_35 | -73.2, 44.6, -94.6 | 10422.8, 8865.4 | ItemLotParam_map |
-| 1041360100 | NPC (c1000) | NPC | Limgrave | m60_41_36 | -19.0, 5.6, 83.0 | 10477.0, 9299.0 | MSB NPC |
 | 1041360700 | Nomadic Merchant | Merchant | Limgrave | m60_41_36 | 109.2, 3.0, -99.5 | 10605.2, 9116.5 | MSB NPC |
 | 1041367000 | Land Octopus Ovary | World Pickup | Limgrave | m60_41_36 | -58.7, 0.0, 69.4 | 10437.3, 9285.4 | ItemLotParam_map |
 | 1041377000 | Strip of White Flesh | World Pickup | Limgrave | m60_41_37 | -87.0, 0.7, 51.6 | 10409.0, 9523.6 | ItemLotParam_map |
 | 1041377020 | Starlight Shards | World Pickup | Limgrave | m60_41_37 | -21.8, 144.5, -41.8 | 10474.2, 9430.2 | ItemLotParam_map |
-| 1041380100 | NPC (c1000) | NPC | Limgrave | m60_41_38 | -82.6, 255.0, 56.3 | 10413.4, 9784.3 | MSB NPC |
 | 1041380720 | Heartbroken Maiden | NPC | Limgrave | m60_41_38 | 36.1, 204.6, 9.8 | 10532.1, 9737.8 | MSB NPC |
 | 1041380950 | Roderika | NPC | Limgrave | m60_41_38 | 16.9, 204.1, 17.0 | 10512.9, 9745.0 | MSB NPC |
 | 1041387010 | Magic Grease | World Pickup | Limgrave | m60_41_38 | -53.1, 188.5, -107.8 | 10442.9, 9620.2 | ItemLotParam_map |
@@ -6082,11 +5692,7 @@ Total unique flags: 7575
 | 1041387200 | Bloodrose | World Pickup | Limgrave | m60_41_38 | -52.1, 185.0, -127.0 | 10443.9, 9601.0 | ItemLotParam_map |
 | 1041390700 | Finger Reader Crone | Finger Reader | Limgrave | m60_41_39 | -104.4, 253.5, 21.2 | 10391.6, 10005.2 | MSB NPC |
 | 1041397000 | Lump of Flesh | World Pickup | Limgrave | m60_41_39 | -78.6, 261.0, -86.6 | 10417.4, 9897.4 | ItemLotParam_map |
-| 1041500100 | NPC (c1000) | NPC | Altus Plateau | m60_41_50 | 71.6, 843.8, 84.4 | 10567.6, 12884.4 | MSB NPC |
 | 1041500800 | Fallingstar Beast | Great Boss Defeat | Altus Plateau | m60_41_50 | 42.8, 834.1, 109.2 | 10538.8, 12909.2 | MSB Enemy |
-| 1041510100 | NPC (c1000) | NPC | Altus Plateau | m60_41_51 | 16.4, 837.5, -37.9 | 10512.4, 13018.1 | MSB NPC |
-| 1041510102 | NPC (c1000) | NPC | Altus Plateau | m60_41_51 | 53.4, 894.8, 49.2 | 10549.4, 13105.2 | MSB NPC |
-| 1041510104 | NPC (c1000) | NPC | Altus Plateau | m60_41_51 | -88.2, 810.1, 47.4 | 10407.8, 13103.4 | MSB NPC |
 | 1041510800 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 91.1, 851.3, -31.3 | 10587.1, 13024.7 | MSB Enemy |
 | 1041510801 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 93.7, 851.4, -52.4 | 10589.7, 13003.6 | MSB Enemy |
 | 1041512690 | Stake of Marika (m60_41_51) | Stake of Marika | Altus Plateau | m60_41_51 | 50.7, 840.6, 12.6 | 10546.7, 13068.6 | MSB SpawnPoint |
@@ -6094,9 +5700,7 @@ Total unique flags: 7575
 | 1041517010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_51 | 60.7, 896.6, 51.2 | 10556.7, 13107.2 | ItemLotParam_map |
 | 1041517020 | Silver-Pickled Fowl Foot | World Pickup | Altus Plateau | m60_41_51 | 6.7, 884.6, 35.6 | 10502.7, 13091.6 | ItemLotParam_map |
 | 1041517030 | Gravity Stone Chunk | World Pickup | Altus Plateau | m60_41_51 | -125.1, 794.7, -104.9 | 10370.9, 12951.1 | ItemLotParam_map |
-| 1041520100 | NPC (c1000) | NPC | Altus Plateau | m60_41_52 | 57.7, 925.9, -119.9 | 10553.7, 13192.1 | MSB NPC |
 | 1041520800 | Lichdragon Fortissax | Great Boss Defeat | Altus Plateau | m60_41_52 | 46.6, 924.1, -88.4 | 10542.6, 13223.6 | MSB Enemy |
-| 1041520951 | NPC (c1000) | NPC | Altus Plateau | m60_41_52 | 91.9, 904.2, 19.5 | 10587.9, 13331.5 | MSB NPC |
 | 1041527000 | Golden Rune [8] | World Pickup | Altus Plateau | m60_41_52 | 102.8, 876.6, 109.6 | 10598.8, 13421.6 | ItemLotParam_map |
 | 1041527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_52 | 83.8, 872.9, 108.5 | 10579.8, 13420.5 | ItemLotParam_map |
 | 1041527020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_41_52 | 102.9, 876.3, 113.8 | 10598.9, 13425.8 | ItemLotParam_map |
@@ -6105,8 +5709,6 @@ Total unique flags: 7575
 | 1041527070 | Lump of Flesh | World Pickup | Altus Plateau | m60_41_52 | -113.0, 831.9, 87.9 | 10383.0, 13399.9 | ItemLotParam_map |
 | 1041527080 | Land Octopus Ovary | World Pickup | Altus Plateau | m60_41_52 | 123.7, 905.7, -118.5 | 10619.7, 13193.5 | ItemLotParam_map |
 | 1041527090 | Stonesword Key | World Pickup | Altus Plateau | m60_41_52 | -28.4, 905.0, -95.0 | 10467.6, 13217.0 | ItemLotParam_map |
-| 1041530100 | NPC (c1000) | NPC | Altus Plateau | m60_41_53 | -77.3, 784.8, 44.9 | 10418.7, 13612.9 | MSB NPC |
-| 1041530102 | NPC (c1000) | NPC | Altus Plateau | m60_41_53 | 7.6, 796.1, 108.0 | 10503.6, 13676.0 | MSB NPC |
 | 1041530800 | Wormface | Great Boss Defeat | Altus Plateau | m60_41_53 | -77.5, 785.2, 29.2 | 10418.5, 13597.2 | MSB Enemy |
 | 1041537010 | Poisonbone Dart | World Pickup | Altus Plateau | m60_41_53 | 32.1, 791.3, -63.8 | 10528.1, 13504.2 | ItemLotParam_map |
 | 1041537020 | Wrath of Gold | World Pickup | Altus Plateau | m60_41_53 | 16.2, 783.7, -145.4 | 10512.2, 13422.6 | ItemLotParam_map |
@@ -6116,27 +5718,23 @@ Total unique flags: 7575
 | 1041537070 | Soft Cotton | World Pickup | Altus Plateau | m60_41_53 | 11.6, 791.2, -6.6 | 10507.6, 13561.4 | ItemLotParam_map |
 | 1041537080 | Icon Shield | World Pickup | Altus Plateau | m60_41_53 | 20.0, 796.2, 107.2 | 10516.0, 13675.2 | ItemLotParam_map |
 | 1041540700 | Wandering Noble | NPC | Altus Plateau | m60_41_54 | 86.5, 888.7, 61.4 | 10582.5, 13885.4 | MSB NPC |
-| 1041540950 | NPC (c1000) | NPC | Altus Plateau | m60_41_54 | 76.8, 887.3, 74.0 | 10572.8, 13898.0 | MSB NPC |
 | 1041542650 | Stake of Marika (m60_41_54) | Stake of Marika | Altus Plateau | m60_41_54 | 20.6, 863.4, 32.6 | 10516.6, 13856.6 | MSB SpawnPoint |
 | 1041547000 | Poison Grease | World Pickup | Altus Plateau | m60_41_54 | -33.0, 843.2, 9.3 | 10463.0, 13833.3 | ItemLotParam_map |
 | 1041547400 | Golden Seed | World Pickup | Altus Plateau | m60_41_54 | -127.2, 792.1, -110.4 | 10368.8, 13713.6 | ItemLotParam_map |
 | 1041557000 | Twinned Knight Swords | World Pickup | Altus Plateau | m60_41_55 | -119.2, 849.9, 19.9 | 10376.8, 14099.9 | ItemLotParam_map |
 | 1041557010 | Raw Meat Dumpling | World Pickup | Altus Plateau | m60_41_55 | 38.4, 877.0, -84.1 | 10534.4, 13995.9 | ItemLotParam_map |
 | 1041557020 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 18.5 | 10377.0, 14098.5 | ItemLotParam_map |
-| 1042320102 | NPC (c1000) | NPC | World (42,32) | m60_42_32 | -31.0, 65.7, -36.3 | 10721.0, 8155.7 | MSB NPC |
 | 1042327000 | Great Dragonfly Head | World Pickup | World (42,32) | m60_42_32 | -4.4, 65.0, -6.4 | 10747.6, 8185.6 | ItemLotParam_map |
 | 1042327020 | Mushroom | World Pickup | World (42,32) | m60_42_32 | 27.9, 62.1, -36.3 | 10779.9, 8155.7 | ItemLotParam_map |
 | 1042327100 | Composite Bow | World Pickup | World (42,32) | m60_42_32 | - | - | ItemLotParam_map |
 | 1042330400 | Walking Mausoleum | NPC | World (10,8) | m60_10_08 | 34.9, 9.2, -200.1 | 2594.9, 1847.9 | MSB NPC |
 | 1042330800 | Ancient Hero of Zamor | Boss Arena | Weeping Peninsula - Weeping Evergaol | m60_42_33 | -126.4, 19.9, 108.8 | -126.4, 108.8 | GameAreaParam |
-| 1042330950 | NPC (c1000) | NPC | World (42,33) | m60_42_33 | 77.2, 31.5, -35.5 | 10829.2, 8412.5 | MSB NPC |
 | 1042332805 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -109.7, 18.7, 105.9 | 10642.3, 8553.9 | MSB SpawnPoint |
 | 1042332806 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -112.0, 18.6, 103.2 | 10640.0, 8551.2 | MSB SpawnPoint |
 | 1042332807 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -126.2, 19.2, 116.7 | 10625.8, 8564.7 | MSB SpawnPoint |
 | 1042337000 | Eclipse Crest Heater Shield | World Pickup | World (42,33) | m60_42_33 | 109.3, 59.4, 52.6 | 10861.3, 8500.6 | ItemLotParam_map |
 | 1042337100 | Radagon's Scarseal | World Pickup | World (42,33) | m60_42_33 | - | - | ItemLotParam_map |
 | 1042337200 | Golden Rune [1] | World Pickup | World (42,33) | m60_42_33 | - | - | ItemLotParam_map |
-| 1042340100 | NPC (c1000) | NPC | World (42,34) | m60_42_34 | -11.0, 24.8, -102.4 | 10741.0, 8601.6 | MSB NPC |
 | 1042347000 | Blood Grease | World Pickup | World (42,34) | m60_42_34 | 118.3, 88.8, 99.2 | 10870.3, 8803.2 | ItemLotParam_map |
 | 1042347010 | Beast Liver | World Pickup | World (42,34) | m60_42_34 | -10.3, 24.9, -109.9 | 10741.7, 8594.1 | ItemLotParam_map |
 | 1042347020 | Golden Rune [2] | World Pickup | World (42,34) | m60_42_34 | -96.9, -0.1, -76.5 | 10655.1, 8627.5 | ItemLotParam_map |
@@ -6153,7 +5751,6 @@ Total unique flags: 7575
 | 1042360740 | Smithing Table | NPC | Limgrave | m60_42_36 | -62.0, 92.3, 87.4 | 10690.0, 9303.4 | MSB NPC |
 | 1042360800 | Tree Sentinel | Boss Defeat | Limgrave | m60_42_36 | -12.1, 89.0, 46.8 | 10739.9, 9262.8 | MSB Enemy |
 | 1042360950 | Merchant Kalé | NPC | Limgrave | m60_42_36 | -45.4, 91.7, 81.0 | 10706.6, 9297.0 | MSB NPC |
-| 1042360951 | NPC (c1000) | NPC | Limgrave | m60_42_36 | -12.8, 90.2, -54.5 | 10739.2, 9161.5 | MSB NPC |
 | 1042362020 | Stake of Marika (m60_42_36) | Stake of Marika | Limgrave | m60_42_36 | -5.4, 93.9, -82.6 | 10746.6, 9133.4 | MSB SpawnPoint |
 | 1042367010 | Silver-Pickled Fowl Foot | World Pickup | Limgrave | m60_42_36 | 35.1, 79.7, -126.4 | 10787.1, 9089.6 | ItemLotParam_map |
 | 1042367030 | Golden Rune [2] | World Pickup | Limgrave | m60_42_36 | -20.0, 91.4, 71.3 | 10732.0, 9287.3 | ItemLotParam_map |
@@ -6161,9 +5758,7 @@ Total unique flags: 7575
 | 1042367050 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | 99.3, 64.5, -85.7 | 10851.3, 9130.3 | ItemLotParam_map |
 | 1042367060 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | -62.0, 92.9, 87.4 | 10690.0, 9303.4 | ItemLotParam_map |
 | 1042369416 | [Twin Maiden Husks] Spirit Calling Bell - Unlocked | Shop Unlock | Limgrave | - | - | - | ShopLineupParam |
-| 1042370100 | NPC (c1000) | NPC | Limgrave | m60_42_37 | 68.5, 98.8, 66.5 | 10820.5, 9538.5 | MSB NPC |
 | 1042370800 | Crucible Knight | Boss Arena | Limgrave - Stormhill Evergaol | m60_42_37 | -83.6, 160.6, 65.0 | -83.6, 65.0 | GameAreaParam |
-| 1042370950 | NPC (c1000) | NPC | Limgrave | m60_42_37 | 13.6, 110.2, 110.2 | 10765.6, 9582.2 | MSB NPC |
 | 1042372805 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -66.1, 158.4, 44.2 | 10685.9, 9516.2 | MSB SpawnPoint |
 | 1042372806 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -68.6, 158.4, 40.9 | 10683.4, 9512.9 | MSB SpawnPoint |
 | 1042372807 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -86.6, 160.3, 62.0 | 10665.4, 9534.0 | MSB SpawnPoint |
@@ -6176,7 +5771,6 @@ Total unique flags: 7575
 | 1042377110 | Ash of War: Storm Stomp | World Pickup | Limgrave | m60_42_37 | 73.6, 84.0, 48.6 | 10825.6, 9520.6 | ItemLotParam_map |
 | 1042377300 | Arrow's Reach Talisman | World Pickup | Limgrave | m60_42_37 | -4.8, 144.5, 116.3 | 10747.2, 9588.3 | ItemLotParam_map |
 | 1042377700 | Reduvia | World Pickup | Limgrave | m60_42_37 | - | - | ItemLotParam_map |
-| 1042380100 | NPC (c1000) | NPC | Limgrave | m60_42_38 | -29.3, 121.5, -121.2 | 10722.7, 9606.8 | MSB NPC |
 | 1042380710 | Knight Bernahl | NPC | Limgrave | m60_42_38 | 12.3, 188.0, 89.6 | 10764.3, 9817.6 | MSB NPC |
 | 1042380800 | Death Rite Bird | Great Boss Defeat | Limgrave | m60_42_38 | 126.6, 183.1, 54.6 | 10878.6, 9782.6 | MSB Enemy |
 | 1042380850 | Elemer of the Briar | Field Boss Defeat | Limgrave | m60_42_38 | 11.6, 188.0, 90.5 | 10763.6, 9818.5 | MSB Enemy |
@@ -6198,7 +5792,6 @@ Total unique flags: 7575
 | 1042387400 | Blue-Feathered Branchsword | World Pickup | Limgrave | m60_42_38 | - | - | ItemLotParam_map |
 | 1042387410 | Bone Peddler's Bell Bearing | World Pickup | Limgrave | m60_42_38 | - | - | ItemLotParam_map |
 | 1042387600 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_38 | 87.2, 166.1, -7.5 | 10839.2, 9720.5 | ItemLotParam_map |
-| 1042390100 | NPC (c1000) | NPC | Limgrave | m60_42_39 | 117.7, 189.5, -91.9 | 10869.7, 9892.1 | MSB NPC |
 | 1042392141 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | MSB SpawnPoint |
 | 1042392720 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | MSB SpawnPoint |
 | 1042392721 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | MSB SpawnPoint |
@@ -6206,18 +5799,12 @@ Total unique flags: 7575
 | 1042397500 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | ItemLotParam_map |
 | 1042397700 | Hammer Talisman | World Pickup | Limgrave | m60_42_39 | - | - | ItemLotParam_map |
 | 1042397900 | Beast Crest Heater Shield | World Pickup | Limgrave | m60_42_39 | 116.9, 190.1, -65.6 | 10868.9, 9918.4 | ItemLotParam_map |
-| 1042400700 | NPC (c0000) | NPC | World (42,40) | m60_42_40 | -54.5, 205.8, -129.7 | 10697.5, 10110.3 | MSB NPC |
-| 1042400705 | NPC (c1000) | NPC | World (42,40) | m60_42_40 | -39.9, 206.5, -106.2 | 10712.1, 10133.8 | MSB NPC |
-| 1042500100 | NPC (c1000) | NPC | Altus Plateau | m60_42_50 | -37.1, 865.7, 52.8 | 10714.9, 12852.8 | MSB NPC |
 | 1042507000 | Giant-Crusher | World Pickup | Altus Plateau | m60_42_50 | 84.3, 867.9, 179.7 | 10836.3, 12979.7 | ItemLotParam_map |
 | 1042507020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | - | - | ItemLotParam_map |
-| 1042510100 | NPC (c1000) | NPC | Altus Plateau | m60_42_51 | 23.4, 883.0, 28.3 | 10775.4, 13084.3 | MSB NPC |
-| 1042510950 | NPC (c1000) | NPC | Altus Plateau | m60_42_51 | -51.4, 849.9, -44.3 | 10700.6, 13011.7 | MSB NPC |
 | 1042517000 | Holy Grease | World Pickup | Altus Plateau | m60_42_51 | 36.4, 859.3, -98.5 | 10788.4, 12957.5 | ItemLotParam_map |
 | 1042517400 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -48.9, 850.2, -41.7 | 10703.1, 13014.3 | ItemLotParam_map |
 | 1042517410 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -47.6, 850.2, -40.7 | 10704.4, 13015.3 | ItemLotParam_map |
 | 1042517900 | Gargoyle's Great Axe | World Pickup | Altus Plateau | m60_42_51 | - | - | ItemLotParam_map |
-| 1042520100 | NPC (c1000) | NPC | Altus Plateau | m60_42_52 | 22.0, 940.9, 25.5 | 10774.0, 13337.5 | MSB NPC |
 | 1042527000 | Old Fang | World Pickup | Altus Plateau | m60_42_52 | -3.0, 942.0, -1.6 | 10749.0, 13310.4 | ItemLotParam_map |
 | 1042527010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_42_52 | -44.3, 931.8, -6.4 | 10707.7, 13305.6 | ItemLotParam_map |
 | 1042527020 | Rainbow Stone | World Pickup | Altus Plateau | m60_42_52 | -21.9, 931.4, -6.1 | 10730.1, 13305.9 | ItemLotParam_map |
@@ -6225,7 +5812,6 @@ Total unique flags: 7575
 | 1042527040 | Arteria Leaf | World Pickup | Altus Plateau | m60_42_52 | 115.1, 932.4, 120.4 | 10867.1, 13432.4 | ItemLotParam_map |
 | 1042537000 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_42_53 | -48.6, 906.7, -78.7 | 10703.4, 13489.3 | ItemLotParam_map |
 | 1042537010 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_42_53 | -133.3, 881.4, -0.7 | 10618.7, 13567.3 | ItemLotParam_map |
-| 1042540100 | NPC (c1000) | NPC | Altus Plateau | m60_42_54 | 49.7, 950.1, -52.4 | 10801.7, 13771.6 | MSB NPC |
 | 1042547000 | Four-Toed Fowl Foot | World Pickup | Altus Plateau | m60_42_54 | -119.5, 888.9, -105.8 | 10632.5, 13718.2 | ItemLotParam_map |
 | 1042547010 | Golden Rune [5] | World Pickup | Altus Plateau | m60_42_54 | -129.6, 908.9, 105.2 | 10622.4, 13929.2 | ItemLotParam_map |
 | 1042547020 | Holyproof Dried Liver | World Pickup | Altus Plateau | m60_42_54 | -32.5, 925.9, 82.0 | 10719.5, 13906.0 | ItemLotParam_map |
@@ -6244,17 +5830,12 @@ Total unique flags: 7575
 | 1042550800 | Godskin Apostle | Boss Defeat | Altus Plateau | m60_42_55 | -35.5, 968.2, -38.9 | 10716.5, 14041.1 | MSB Enemy |
 | 1042550950 | Millicent | NPC | Altus Plateau | m60_42_55 | -38.2, 968.4, -36.0 | 10713.8, 14044.0 | MSB NPC |
 | 1042557000 | Celebrant's Skull | World Pickup | Altus Plateau | m60_42_55 | -94.2, 898.8, -105.9 | 10657.8, 13974.1 | ItemLotParam_map |
-| 1043300100 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_30 | -47.8, -0.1, -17.0 | 10960.2, 7663.0 | MSB NPC |
 | 1043300800 | Misbegotten Warrior | Boss Defeat | Weeping Peninsula | m60_43_30 | -30.5, 0.5, -7.4 | 10977.5, 7672.6 | MSB Enemy |
-| 1043300950 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_30 | -30.9, 0.2, -13.3 | 10977.1, 7666.7 | MSB NPC |
 | 1043307000 | Somber Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_30 | -41.3, -0.2, 65.2 | 10966.7, 7745.2 | ItemLotParam_map |
 | 1043307010 | Fire Arrow | World Pickup | Weeping Peninsula | m60_43_30 | -17.7, -0.3, 149.2 | 10990.3, 7829.2 | ItemLotParam_map |
-| 1043310100 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_31 | 12.6, 99.5, -56.4 | 11020.6, 7879.6 | MSB NPC |
 | 1043310700 | Wandering Noble | NPC | Weeping Peninsula | m60_43_31 | 4.5, 78.5, -100.9 | 11012.5, 7835.1 | MSB NPC |
 | 1043310705 | Castellan Edgar | NPC | Weeping Peninsula | m60_43_31 | 98.7, 119.0, -44.2 | 11106.7, 7891.8 | MSB NPC |
 | 1043310950 | Edgar | NPC | Weeping Peninsula | m60_43_31 | 104.4, 13.8, -2.9 | 11112.4, 7933.1 | MSB NPC |
-| 1043310951 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_31 | 38.3, 108.0, -115.7 | 11046.3, 7820.3 | MSB NPC |
-| 1043310952 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_31 | 16.9, 11.2, -143.5 | 11024.9, 7792.5 | MSB NPC |
 | 1043317000 | Fire Grease | World Pickup | Weeping Peninsula | m60_43_31 | 28.8, 102.6, -50.8 | 11036.8, 7885.2 | ItemLotParam_map |
 | 1043317020 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 94.5, 98.3, -40.3 | 11102.5, 7895.7 | ItemLotParam_map |
 | 1043317080 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 15.6, 116.0, -80.4 | 11023.6, 7855.6 | ItemLotParam_map |
@@ -6276,25 +5857,20 @@ Total unique flags: 7575
 | 1043317910 | Claymore | World Pickup | Weeping Peninsula | m60_43_31 | 6.3, 104.0, -27.7 | 11014.3, 7908.3 | ItemLotParam_map |
 | 1043327000 | Yellow Ember | World Pickup | Weeping Peninsula | m60_43_32 | 108.9, 72.5, 110.6 | 11116.9, 8302.6 | ItemLotParam_map |
 | 1043327010 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_43_32 | -62.9, 70.4, 117.1 | 10945.1, 8309.1 | ItemLotParam_map |
-| 1043330102 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_33 | -61.1, 82.9, 28.1 | 10946.9, 8476.1 | MSB NPC |
 | 1043330800 | Erdtree Avatar | Great Boss Defeat | Weeping Peninsula | m60_43_33 | -55.8, 83.1, 18.9 | 10952.2, 8466.9 | MSB Enemy |
 | 1043337000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 101.4, 82.7, -12.8 | 11109.4, 8435.2 | ItemLotParam_map |
 | 1043337010 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 78.3, 13.0, 58.5 | 11086.3, 8506.5 | ItemLotParam_map |
-| 1043340100 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_34 | 46.7, 11.2, -46.5 | 11054.7, 8657.5 | MSB NPC |
 | 1043340700 | Commoner | NPC | Weeping Peninsula | m60_43_34 | -114.7, 88.8, 96.5 | 10893.3, 8800.5 | MSB NPC |
-| 1043340950 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_34 | -110.7, 88.8, 112.1 | 10897.3, 8816.1 | MSB NPC |
 | 1043347000 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_43_34 | 21.6, 12.8, 2.2 | 11029.6, 8706.2 | ItemLotParam_map |
 | 1043347040 | Gold-Tinged Excrement | World Pickup | Weeping Peninsula | m60_43_34 | 84.8, 7.4, -115.7 | 11092.8, 8588.3 | ItemLotParam_map |
 | 1043347050 | String | World Pickup | Weeping Peninsula | m60_43_34 | 87.1, 6.2, -123.0 | 11095.1, 8581.0 | ItemLotParam_map |
 | 1043347100 | Shield of the Guilty | World Pickup | Weeping Peninsula | m60_43_34 | 14.5, -4.0, -56.2 | 11022.5, 8647.8 | ItemLotParam_map |
 | 1043347400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | - | - | ItemLotParam_map |
 | 1043350710 | Yura, Hunter of Bloody Fingers | NPC | Weeping Peninsula | m60_43_35 | 37.6, 72.0, 69.6 | 11045.6, 9029.6 | MSB NPC |
-| 1043350950 | NPC (c1000) | NPC | Weeping Peninsula | m60_43_35 | -16.7, 67.7, 50.1 | 10991.3, 9010.1 | MSB NPC |
 | 1043357000 | Crab Eggs | World Pickup | Weeping Peninsula | m60_43_35 | 16.6, 39.0, -82.7 | 11024.6, 8877.3 | ItemLotParam_map |
 | 1043357010 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_35 | -38.6, 76.2, 111.1 | 10969.4, 9071.1 | ItemLotParam_map |
 | 1043357030 | Slumbering Egg | World Pickup | Weeping Peninsula | m60_43_35 | 50.9, 91.3, 81.1 | 11058.9, 9041.1 | ItemLotParam_map |
 | 1043357100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_43_35 | -110.8, 88.9, -123.9 | 10897.2, 8836.1 | ItemLotParam_map |
-| 1043360100 | NPC (c1000) | NPC | Limgrave | m60_43_36 | -62.0, 64.7, 64.4 | 10946.0, 9280.4 | MSB NPC |
 | 1043360800 | [Dragon Communion] Agheel's Flame - Unlocked | Shop Unlock | Limgrave | - | - | - | ShopLineupParam |
 | 1043367010 | Stonesword Key | World Pickup | Limgrave | m60_43_36 | -27.9, 65.3, -54.9 | 10980.1, 9161.1 | ItemLotParam_map |
 | 1043367020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_36 | -29.1, 65.4, -49.4 | 10978.9, 9166.6 | ItemLotParam_map |
@@ -6304,14 +5880,11 @@ Total unique flags: 7575
 | 1043370720 | Wandering Noble | NPC | Limgrave | m60_43_39 | -83.7, 192.7, 32.7 | 10924.3, 10016.7 | MSB NPC |
 | 1043370750 | Demi-Human Boc | NPC | Limgrave | m60_43_37 | 15.0, 86.8, -5.6 | 11023.0, 9466.4 | MSB NPC |
 | 1043370800 | Night's Cavalry | Boss Arena | Limgrave - Agheel Lake North | m60_43_37 | 72.5, 91.0, -94.7 | 72.5, -94.7 | GameAreaParam |
-| 1043370950 | NPC (c1000) | NPC | Limgrave | m60_43_37 | -80.4, 88.5, 56.2 | 10927.6, 9528.2 | MSB NPC |
 | 1043377000 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_37 | 82.7, 91.8, -108.4 | 11090.7, 9363.6 | ItemLotParam_map |
 | 1043377010 | Fire Grease | World Pickup | Limgrave | m60_43_37 | 95.8, 64.7, -91.3 | 11103.8, 9380.7 | ItemLotParam_map |
 | 1043377020 | Arteria Leaf | World Pickup | Limgrave | m60_43_37 | -0.4, 86.0, -22.2 | 11007.6, 9449.8 | ItemLotParam_map |
 | 1043377400 | Ash of War: Repeating Thrust | World Pickup | Limgrave | m60_43_37 | - | - | ItemLotParam_map |
-| 1043380100 | NPC (c1000) | NPC | Limgrave | m60_43_38 | 25.8, 100.4, -111.5 | 11033.8, 9616.5 | MSB NPC |
 | 1043380700 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_43_38 | 117.4, 64.7, -66.9 | 11125.4, 9661.1 | MSB NPC |
-| 1043380950 | NPC (c1000) | NPC | Limgrave | m60_43_38 | 110.5, 87.0, -43.1 | 11118.5, 9684.9 | MSB NPC |
 | 1043382190 | Stake of Marika (m60_43_38) | Stake of Marika | Limgrave | m60_43_38 | 91.7, 66.2, 66.5 | 11099.7, 9794.5 | MSB SpawnPoint |
 | 1043387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_38 | -23.2, 146.6, 62.2 | 10984.8, 9790.2 | ItemLotParam_map |
 | 1043387020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_38 | 45.2, 105.5, -22.7 | 11053.2, 9705.3 | ItemLotParam_map |
@@ -6323,7 +5896,6 @@ Total unique flags: 7575
 | 1043397200 | Golden Rune [3] | World Pickup | Limgrave | m60_43_39 | 36.8, 202.6, 46.6 | 11044.8, 10030.6 | ItemLotParam_map |
 | 1043407000 | Soporific Grease | World Pickup | World (43,40) | m60_43_40 | -72.0, 227.1, -110.9 | 10936.0, 10129.1 | ItemLotParam_map |
 | 1043407010 | Lance Talisman | World Pickup | World (43,40) | m60_43_40 | 15.2, 201.3, -17.8 | 11023.2, 10222.2 | ItemLotParam_map |
-| 1043500950 | NPC (c1000) | NPC | Altus Plateau | m60_43_50 | -116.5, 910.0, -55.0 | 10891.5, 12745.0 | MSB NPC |
 | 1043507000 | Golden Order Seal | World Pickup | Altus Plateau | m60_43_50 | -113.3, 911.1, -68.0 | 10894.7, 12732.0 | ItemLotParam_map |
 | 1043507010 | Smoldering Butterfly | World Pickup | Altus Plateau | m60_43_50 | -2.0, 884.2, 26.6 | 11006.0, 12826.6 | ItemLotParam_map |
 | 1043520700 | Commoner | NPC | Altus Plateau | m60_43_52 | -97.3, 922.8, 89.3 | 10910.7, 13401.3 | MSB NPC |
@@ -6337,7 +5909,6 @@ Total unique flags: 7575
 | 1043530700 | Hermit Merchant | Merchant | Altus Plateau | m60_43_53 | -21.2, 993.3, 1.3 | 10986.8, 13569.3 | MSB NPC |
 | 1043530800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_43_53 | -22.3, 993.3, 0.5 | 10985.7, 13568.5 | MSB Enemy |
 | 1043530950 | Hermit Merchant | NPC | Altus Plateau | m60_43_53 | -3.2, 992.5, 10.6 | 11004.8, 13578.6 | MSB NPC |
-| 1043530951 | NPC (c1000) | NPC | Altus Plateau | m60_43_53 | -53.7, 949.1, -78.1 | 10954.3, 13489.9 | MSB NPC |
 | 1043537000 | Golden Rune [9] | World Pickup | Altus Plateau | m60_43_53 | -111.1, 965.1, 38.7 | 10896.9, 13606.7 | ItemLotParam_map |
 | 1043537010 | Golden Rune [10] | World Pickup | Altus Plateau | m60_43_53 | 124.1, 1022.0, -18.1 | 11132.1, 13549.9 | ItemLotParam_map |
 | 1043537020 | Grace Mimic | World Pickup | Altus Plateau | m60_43_53 | 123.9, 991.9, -71.4 | 11131.9, 13496.6 | ItemLotParam_map |
@@ -6360,12 +5931,8 @@ Total unique flags: 7575
 | 1044327040 | Great Turtle Shell | World Pickup | Weeping Peninsula | m60_44_32 | 104.6, 106.0, 131.9 | 11368.6, 8323.9 | ItemLotParam_map |
 | 1044327400 | Sacrificial Axe | World Pickup | Weeping Peninsula | m60_44_32 | - | - | ItemLotParam_map |
 | 1044327410 | Ash of War: Barricade Shield | World Pickup | Weeping Peninsula | m60_44_32 | - | - | ItemLotParam_map |
-| 1044330100 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_33 | 66.5, 18.3, 63.8 | 11330.5, 8511.8 | MSB NPC |
-| 1044330102 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_33 | -116.5, 84.5, -12.8 | 11147.5, 8435.2 | MSB NPC |
 | 1044330705 | Nomadic Merchant | Merchant | Weeping Peninsula | m60_44_33 | 74.5, 42.6, -110.6 | 11338.5, 8337.4 | MSB NPC |
 | 1044330950 | Nomadic Merchant | NPC | Weeping Peninsula | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | MSB NPC |
-| 1044330951 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_33 | -21.8, 44.0, 83.0 | 11242.2, 8531.0 | MSB NPC |
-| 1044330952 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_33 | -67.4, 84.3, 74.5 | 11196.6, 8522.5 | MSB NPC |
 | 1044337000 | Flame Crest Wooden Shield | World Pickup | Weeping Peninsula | m60_44_33 | -99.4, 84.6, 19.4 | 11164.6, 8467.4 | ItemLotParam_map |
 | 1044337020 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_33 | 68.0, 45.3, 33.6 | 11332.0, 8481.6 | ItemLotParam_map |
 | 1044337030 | Strip of White Flesh | World Pickup | Weeping Peninsula | m60_44_33 | 69.6, 17.5, 106.7 | 11333.6, 8554.7 | ItemLotParam_map |
@@ -6375,11 +5942,7 @@ Total unique flags: 7575
 | 1044337100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_44_33 | -77.9, 90.7, -72.1 | 11186.1, 8375.9 | ItemLotParam_map |
 | 1044337200 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_33 | 78.9, 17.5, 63.6 | 11342.9, 8511.6 | ItemLotParam_map |
 | 1044337210 | Morning Star | World Pickup | Weeping Peninsula | m60_44_33 | -296.5, 18.5, -40.5 | 10967.5, 8407.5 | ItemLotParam_map |
-| 1044340100 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_34 | -127.6, 27.4, -22.0 | 11136.4, 8682.0 | MSB NPC |
-| 1044340106 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_34 | 91.3, 44.2, 87.6 | 11355.3, 8791.6 | MSB NPC |
-| 1044340108 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_34 | 83.0, 54.7, -92.9 | 11347.0, 8611.1 | MSB NPC |
 | 1044340710 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_34 | -26.6, 105.5, 125.7 | 11237.4, 8829.7 | MSB NPC |
-| 1044340950 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_34 | 103.0, 42.6, 0.6 | 11367.0, 8704.6 | MSB NPC |
 | 1044347000 | Stonesword Key | World Pickup | Weeping Peninsula | m60_44_34 | 125.1, 44.7, 45.6 | 11389.1, 8749.6 | ItemLotParam_map |
 | 1044347010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_34 | 125.0, 45.1, 66.9 | 11389.0, 8770.9 | ItemLotParam_map |
 | 1044347040 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_34 | -46.0, 20.0, -76.4 | 11218.0, 8627.6 | ItemLotParam_map |
@@ -6388,12 +5951,8 @@ Total unique flags: 7575
 | 1044347070 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 33.4, 58.2, -73.9 | 11297.4, 8630.1 | ItemLotParam_map |
 | 1044347080 | Large Club | World Pickup | Weeping Peninsula | m60_44_34 | -38.1, 68.2, 46.4 | 11225.9, 8750.4 | ItemLotParam_map |
 | 1044347100 | Hand Ballista | World Pickup | Weeping Peninsula | m60_44_34 | 2.2, 83.1, -64.2 | 11266.2, 8639.8 | ItemLotParam_map |
-| 1044350100 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_35 | 80.8, 103.6, 30.3 | 11344.8, 8990.3 | MSB NPC |
 | 1044350700 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_35 | -16.5, 104.5, -120.2 | 11247.5, 8839.8 | MSB NPC |
-| 1044350701 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_35 | -17.4, 104.5, -115.1 | 11246.6, 8844.9 | MSB NPC |
-| 1044350703 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_35 | -17.3, 104.5, -114.9 | 11246.7, 8845.1 | MSB NPC |
 | 1044350800 | Bloodhound Knight Darriwil | Boss Arena | Limgrave - Forlorn Hound Evergaol | m60_44_34 | -17.4, 105.7, 119.8 | -17.4, 119.8 | GameAreaParam |
-| 1044350950 | NPC (c1000) | NPC | Weeping Peninsula | m60_44_35 | -38.2, 74.2, 47.3 | 11225.8, 9007.3 | MSB NPC |
 | 1044352805 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -17.4, 104.5, -115.1 | 11246.6, 8844.9 | MSB SpawnPoint |
 | 1044352806 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -14.0, 104.5, -115.2 | 11250.0, 8844.8 | MSB SpawnPoint |
 | 1044352807 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -13.0, 105.6, -137.9 | 11251.0, 8822.1 | MSB SpawnPoint |
@@ -6407,12 +5966,9 @@ Total unique flags: 7575
 | 1044357070 | Starlight Shards | World Pickup | Weeping Peninsula | m60_44_35 | 119.2, 117.4, -37.6 | 11383.2, 8922.4 | ItemLotParam_map |
 | 1044357100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | - | - | ItemLotParam_map |
 | 1044357900 | Great Épée | World Pickup | Weeping Peninsula | m60_44_35 | 82.1, 101.3, 43.5 | 11346.1, 9003.5 | ItemLotParam_map |
-| 1044360100 | NPC (c1000) | NPC | Limgrave | m60_44_36 | 15.3, 80.4, 32.0 | 11279.3, 9248.0 | MSB NPC |
-| 1044360102 | NPC (c1000) | NPC | Limgrave | m60_44_36 | 15.3, 80.4, 32.0 | 11279.3, 9248.0 | MSB NPC |
 | 1044360700 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 18.0, 80.8, 19.1 | 11282.0, 9235.1 | MSB NPC |
 | 1044360710 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 60.4, 85.7, 123.2 | 11324.4, 9339.2 | MSB NPC |
 | 1044360800 | Mad Pumpkin Head | Great Boss Defeat | Limgrave | m60_44_36 | 17.9, 80.8, 31.1 | 11281.9, 9247.1 | MSB Enemy |
-| 1044360950 | NPC (c1000) | NPC | Limgrave | m60_44_36 | 15.3, 80.4, 32.0 | 11279.3, 9248.0 | MSB NPC |
 | 1044367000 | Glowstone | World Pickup | Limgrave | m60_44_36 | 21.5, 92.7, 57.8 | 11285.5, 9273.8 | ItemLotParam_map |
 | 1044367010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 22.2, 93.5, 83.6 | 11286.2, 9299.6 | ItemLotParam_map |
 | 1044367020 | Immunizing Cured Meat | World Pickup | Limgrave | m60_44_36 | 26.8, 94.0, 88.7 | 11290.8, 9304.7 | ItemLotParam_map |
@@ -6429,18 +5985,15 @@ Total unique flags: 7575
 | 1044369245 | [Sorceress Sellen] Glintblade Phalanx - Unlocked | Shop Unlock | Limgrave | - | - | - | ShopLineupParam |
 | 1044369250 | [Sorceress Sellen - Academy Scroll] Great Glintstone Shard - Unlocked | Shop Unlock | Limgrave | - | - | - | ShopLineupParam |
 | 1044370700 | Wandering Noble | NPC | Limgrave | m60_44_37 | 28.3, 90.0, -84.0 | 11292.3, 9388.0 | MSB NPC |
-| 1044370950 | NPC (c1000) | NPC | Limgrave | m60_44_37 | 122.2, 26.2, 108.2 | 11386.2, 9580.2 | MSB NPC |
 | 1044377010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_37 | -7.2, 67.0, 12.8 | 11256.8, 9484.8 | ItemLotParam_map |
 | 1044377020 | Sacrificial Twig | World Pickup | Limgrave | m60_44_37 | 128.8, 33.4, -125.7 | 11392.8, 9346.3 | ItemLotParam_map |
 | 1044377200 | Gold-Pickled Fowl Foot | World Pickup | Limgrave | m60_44_37 | -32.0, 100.3, -124.9 | 11232.0, 9347.1 | ItemLotParam_map |
 | 1044380710 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_44_38 | -121.4, 64.7, -46.5 | 11142.6, 9681.5 | MSB NPC |
-| 1044380950 | NPC (c1000) | NPC | Limgrave | m60_44_38 | -11.8, 93.1, -25.0 | 11252.2, 9703.0 | MSB NPC |
 | 1044387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_44_38 | -16.2, 93.5, -9.0 | 11247.8, 9719.0 | ItemLotParam_map |
 | 1044387040 | Poisonbloom | World Pickup | Limgrave | m60_44_38 | -92.7, 66.4, 1.9 | 11171.3, 9729.9 | ItemLotParam_map |
 | 1044387100 | Golden Rune [1] | World Pickup | Limgrave | m60_44_38 | -116.4, 138.3, 101.8 | 11147.6, 9829.8 | ItemLotParam_map |
 | 1044390700 | D, Hunter of the Dead | NPC | Limgrave | m60_44_39 | 5.2, 131.6, 17.9 | 11269.2, 10002.0 | MSB NPC |
 | 1044390710 | Nomadic Merchant | Merchant | Limgrave | m60_44_39 | -92.0, 152.2, -27.1 | 11172.0, 9956.9 | MSB NPC |
-| 1044390950 | NPC (c1000) | NPC | Limgrave | m60_44_39 | 122.8, 101.4, -40.1 | 11386.8, 9943.9 | MSB NPC |
 | 1044397010 | Good_310 | World Pickup | Limgrave | m60_44_39 | - | - | ItemLotParam_map |
 | 1044520700 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | MSB NPC |
 | 1044520701 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | MSB NPC |
@@ -6448,12 +6001,9 @@ Total unique flags: 7575
 | 1044527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_44_52 | 49.4, 922.0, 39.2 | 11313.4, 13351.2 | ItemLotParam_map |
 | 1044527020 | Golden Rune [2] | World Pickup | Altus Plateau | m60_44_52 | -53.5, 1001.1, 88.6 | 11210.5, 13400.6 | ItemLotParam_map |
 | 1044529255 | [Blackguard Big Boggart] Boiled Crab - Unlocked | Shop Unlock | Altus Plateau | - | - | - | ShopLineupParam |
-| 1044530100 | NPC (c1000) | NPC | Altus Plateau | m60_44_53 | 46.0, 1003.7, 60.1 | 11310.0, 13628.1 | MSB NPC |
 | 1044530800 | Death Rite Bird | Great Boss Defeat | Altus Plateau | m60_44_53 | -25.3, 1026.1, 83.6 | 11238.7, 13651.6 | MSB Enemy |
 | 1044537010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_44_53 | -51.4, 1015.9, -15.3 | 11212.6, 13552.7 | ItemLotParam_map |
 | 1044537300 | Twinbird Kite Shield | World Pickup | Altus Plateau | m60_44_53 | - | - | ItemLotParam_map |
-| 1045330100 | NPC (c1000) | NPC | World (45,33) | m60_45_33 | -85.9, 69.1, 76.8 | 11434.1, 8524.8 | MSB NPC |
-| 1045330950 | NPC (c1000) | NPC | World (45,33) | m60_45_33 | -66.1, 71.8, 59.5 | 11453.9, 8507.5 | MSB NPC |
 | 1045337000 | Starlight Shards | World Pickup | World (45,33) | m60_45_33 | 7.4, 109.9, -86.6 | 11527.4, 8361.4 | ItemLotParam_map |
 | 1045340700 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -104.0, 36.4, -39.1 | 11416.0, 8664.9 | MSB NPC |
 | 1045340701 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -105.1, 36.2, -39.5 | 11414.9, 8664.5 | MSB NPC |
@@ -6471,9 +6021,6 @@ Total unique flags: 7575
 | 1045360700 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.8, 112.6 | 11598.2, 9328.6 | MSB NPC |
 | 1045360702 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.9, 112.6 | 11598.2, 9328.6 | MSB NPC |
 | 1045360710 | Wandering Noble | NPC | Caelid | m60_45_36 | 68.8, 13.8, 26.4 | 11588.8, 9242.4 | MSB NPC |
-| 1045360950 | NPC (c1000) | NPC | Caelid | m60_45_36 | 116.3, 20.5, -44.7 | 11636.3, 9171.3 | MSB NPC |
-| 1045370100 | NPC (c1000) | NPC | Caelid | m60_45_37 | -67.3, 23.8, -113.2 | 11452.7, 9358.8 | MSB NPC |
-| 1045370106 | NPC (c1000) | NPC | Caelid | m60_45_37 | -31.8, 12.4, 46.1 | 11488.2, 9518.1 | MSB NPC |
 | 1045370700 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_45_37 | -64.5, 23.9, -98.5 | 11455.5, 9373.5 | MSB NPC |
 | 1045372710 | Stake of Marika (m60_45_37) | Stake of Marika | Caelid | m60_45_37 | 4.9, 16.3, 28.7 | 11524.9, 9500.7 | MSB SpawnPoint |
 | 1045377000 | Golden Rune [2] | World Pickup | Caelid | m60_45_37 | -82.1, 23.3, -120.0 | 11437.9, 9352.0 | ItemLotParam_map |
@@ -6485,7 +6032,6 @@ Total unique flags: 7575
 | 1045377080 | Throwing Dagger | World Pickup | Caelid | m60_45_37 | -36.6, 11.9, 63.5 | 11483.4, 9535.5 | ItemLotParam_map |
 | 1045377090 | Golden Rune [5] | World Pickup | Caelid | m60_45_37 | -28.8, 11.6, 56.7 | 11491.2, 9528.7 | ItemLotParam_map |
 | 1045377100 | Axe Talisman | World Pickup | Caelid | m60_45_37 | -87.4, 11.1, -117.9 | 11432.6, 9354.1 | ItemLotParam_map |
-| 1045380100 | NPC (c1000) | NPC | Caelid | m60_45_38 | -22.1, 10.1, 15.4 | 11497.9, 9743.4 | MSB NPC |
 | 1045380700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_45_38 | -88.6, 41.7, -29.2 | 11431.4, 9698.8 | MSB NPC |
 | 1045382950 | Stake of Marika (m60_45_38) | Stake of Marika | Caelid | m60_45_38 | 53.7, 18.5, -58.3 | 11573.7, 9669.7 | MSB SpawnPoint |
 | 1045387000 | Magic Grease | World Pickup | Caelid | m60_45_38 | -90.4, 18.7, -42.5 | 11429.6, 9685.5 | ItemLotParam_map |
@@ -6496,7 +6042,6 @@ Total unique flags: 7575
 | 1045387060 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -51.9, 46.1, 87.4 | 11468.1, 9815.4 | ItemLotParam_map |
 | 1045387070 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -66.7, 46.8, 72.6 | 11453.3, 9800.6 | ItemLotParam_map |
 | 1045387080 | Golden Rune [6] | World Pickup | Caelid | m60_45_38 | -76.0, 48.1, 70.6 | 11444.0, 9798.6 | ItemLotParam_map |
-| 1045390100 | NPC (c1000) | NPC | Caelid | m60_45_39 | -94.2, 93.3, -20.0 | 11425.8, 9964.0 | MSB NPC |
 | 1045390700 | D, Hunter of the Dead | NPC | Caelid | m60_45_39 | -77.7, 92.2, -13.1 | 11442.3, 9970.9 | MSB NPC |
 | 1045390800 | Tibia Mariner | Great Boss Defeat | Caelid | m60_45_39 | -35.0, 92.2, 1.3 | 11485.0, 9985.3 | MSB Enemy |
 | 1045397000 | Golden Rune [4] | World Pickup | Caelid | m60_45_39 | -5.7, 111.4, 118.6 | 11514.3, 10102.6 | ItemLotParam_map |
@@ -6512,16 +6057,13 @@ Total unique flags: 7575
 | 1045397120 | Green Turtle Talisman | World Pickup | Caelid | m60_45_39 | 10.8, 83.5, 64.7 | 11530.8, 10048.7 | ItemLotParam_map |
 | 1045397140 | Smithing Stone [1] | World Pickup | Caelid | m60_45_39 | -57.7, 92.2, 81.4 | 11462.3, 10065.4 | ItemLotParam_map |
 | 1045399206 | Limgrave: Rear Gael Tunnel Entrance - Sending Gate | Map POI | Caelid | m60_46_39 | -59.2, 2.2, -124.5 | 11716.8, 9859.5 | WorldMapPointParam |
-| 1045520100 | NPC (c1000) | NPC | World (45,52) | m60_45_52 | 40.7, 1027.8, 30.0 | 11560.7, 13342.0 | MSB NPC |
 | 1045520705 | Dung Eater | NPC | World (45,52) | m60_45_52 | -112.7, 924.7, 46.4 | 11407.3, 13358.4 | MSB NPC |
 | 1045520800 | Draconic Tree Sentinel | Boss Defeat | World (45,52) | m60_45_52 | 27.7, 1023.8, 43.9 | 11547.7, 13355.9 | MSB Enemy |
-| 1045520950 | NPC (c1000) | NPC | World (45,52) | m60_45_52 | -38.0, 1028.4, -55.3 | 11482.0, 13256.7 | MSB NPC |
 | 1045522712 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | 27.3, 809.7, -86.4 | 9499.3, 13737.6 | MSB SpawnPoint |
 | 1045527000 | Gravity Stone Fan | World Pickup | World (45,52) | m60_45_52 | -184.5, 966.7, -412.7 | 11335.5, 12899.3 | ItemLotParam_map |
 | 1045527010 | Gravel Stone | World Pickup | World (45,52) | m60_45_52 | -7.2, 1024.5, 43.9 | 11512.8, 13355.9 | ItemLotParam_map |
 | 1045527020 | Smithing Stone [6] | World Pickup | World (45,52) | m60_45_52 | 41.2, 947.2, -75.0 | 11561.2, 13237.0 | ItemLotParam_map |
 | 1045527030 | Smithing Stone [5] | World Pickup | World (45,52) | m60_45_52 | -100.3, 984.4, 140.9 | 11419.7, 13452.9 | ItemLotParam_map |
-| 1046360100 | NPC (c1000) | NPC | Caelid | m60_46_36 | -11.4, 59.1, -20.3 | 11764.6, 9195.7 | MSB NPC |
 | 1046360700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_46_36 | -9.7, 70.8, -2.1 | 11766.3, 9213.9 | MSB NPC |
 | 1046367000 | Smithing Stone [1] | World Pickup | Caelid | m60_46_36 | -16.7, 67.8, -39.4 | 11759.3, 9176.6 | ItemLotParam_map |
 | 1046367010 | Bloodrose | World Pickup | Caelid | m60_46_36 | 4.6, 70.8, 2.9 | 11780.6, 9218.9 | ItemLotParam_map |
@@ -6530,8 +6072,6 @@ Total unique flags: 7575
 | 1046367500 | Dectus Medallion (Left) | World Pickup | Caelid | m60_46_36 | -4.7, 91.0, -37.1 | 11771.3, 9178.9 | ItemLotParam_map |
 | 1046367700 | Ash of War: Bloody Slash | World Pickup | Caelid | m60_46_36 | - | - | ItemLotParam_map |
 | 1046377000 | Strip of White Flesh | World Pickup | Caelid | m60_46_37 | -79.3, 0.7, 32.4 | 11696.7, 9504.4 | ItemLotParam_map |
-| 1046380100 | NPC (c1000) | NPC | Caelid | m60_46_38 | 127.5, 145.5, 71.7 | 11903.5, 9799.7 | MSB NPC |
-| 1046380950 | NPC (c1000) | NPC | Caelid | m60_46_38 | -92.7, 3.0, 72.6 | 11683.3, 9800.6 | MSB NPC |
 | 1046387010 | Neutralizing Boluses | World Pickup | Caelid | m60_46_38 | 25.2, 45.5, 121.6 | 11801.2, 9849.6 | ItemLotParam_map |
 | 1046387100 | Sacred Tear | World Pickup | Caelid | m60_46_38 | -91.4, 3.3, 90.0 | 11684.6, 9818.0 | ItemLotParam_map |
 | 1046392600 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -94.8, 21.8, -64.3 | 11681.2, 9919.7 | MSB MountJump |
@@ -6540,10 +6080,7 @@ Total unique flags: 7575
 | 1046397000 | Golden Rune [1] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 85.4 | 11825.7, 10069.4 | ItemLotParam_map |
 | 1046397010 | Golden Rune [2] | World Pickup | Caelid | m60_46_39 | 57.4, 170.3, 92.2 | 11833.4, 10076.2 | ItemLotParam_map |
 | 1046397020 | Golden Rune [3] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 99.1 | 11825.7, 10083.1 | ItemLotParam_map |
-| 1046400100 | NPC (c1000) | NPC | Caelid | m60_46_40 | 112.6, 129.0, 97.4 | 11888.6, 10337.4 | MSB NPC |
 | 1046400710 | Wandering Noble | NPC | Caelid | m60_46_40 | 111.2, 171.2, -74.6 | 11887.2, 10165.4 | MSB NPC |
-| 1046400950 | NPC (c1000) | NPC | Caelid | m60_46_40 | -76.9, 151.2, 27.6 | 11699.1, 10267.6 | MSB NPC |
-| 1046400951 | NPC (c1000) | NPC | Caelid | m60_46_40 | 105.4, 170.5, -65.2 | 11881.4, 10174.8 | MSB NPC |
 | 1046407000 | Nascent Butterfly | World Pickup | Caelid | m60_46_40 | 114.9, 170.7, -68.3 | 11890.9, 10171.7 | ItemLotParam_map |
 | 1046407010 | Rune Arc | World Pickup | Caelid | m60_46_40 | 105.9, 145.3, 99.9 | 11881.9, 10339.9 | ItemLotParam_map |
 | 1046407020 | Golden Rune [3] | World Pickup | Caelid | m60_46_40 | 109.4, 171.1, -46.2 | 11885.4, 10193.8 | ItemLotParam_map |
@@ -6559,7 +6096,6 @@ Total unique flags: 7575
 | 1047377040 | Poisonbloom | World Pickup | Caelid | m60_47_37 | 47.3, 103.5, 95.8 | 12079.3, 9567.8 | ItemLotParam_map |
 | 1047377050 | Starlight Shards | World Pickup | Caelid | m60_47_37 | 66.4, 121.9, 14.6 | 12098.4, 9486.6 | ItemLotParam_map |
 | 1047377100 | Larval Tear | World Pickup | Caelid | m60_47_37 | - | - | ItemLotParam_map |
-| 1047380100 | NPC (c1000) | NPC | Caelid | m60_47_38 | 62.6, 98.4, -92.1 | 12094.6, 9635.9 | MSB NPC |
 | 1047380701 | Commoner | NPC | Caelid | m60_47_38 | -93.3, 179.1, -5.5 | 11938.7, 9722.5 | MSB NPC |
 | 1047387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_38 | 25.1, 111.0, 113.8 | 12057.1, 9841.8 | ItemLotParam_map |
 | 1047387030 | Great Dragonfly Head | World Pickup | Caelid | m60_47_38 | 51.0, 98.5, -78.1 | 12083.0, 9649.9 | ItemLotParam_map |
@@ -6574,15 +6110,10 @@ Total unique flags: 7575
 | 1047387900 | Starscourge Heirloom | World Pickup | Caelid | m60_47_38 | -89.3, 179.1, 2.2 | 11942.7, 9730.2 | ItemLotParam_map |
 | 1047387910 | Meteoric Ore Blade | World Pickup | Caelid | m60_47_38 | -5.8, 78.7, -27.6 | 12026.2, 9700.4 | ItemLotParam_map |
 | 1047387920 | Katar | World Pickup | Caelid | m60_47_38 | -104.5, 167.1, -1.6 | 11927.5, 9726.4 | ItemLotParam_map |
-| 1047390100 | NPC (c1000) | NPC | Caelid | m60_47_39 | -35.6, 142.0, 149.0 | 11996.4, 10133.0 | MSB NPC |
-| 1047390950 | NPC (c1000) | NPC | Caelid | m60_47_39 | -127.3, 122.1, -82.1 | 11904.7, 9901.9 | MSB NPC |
 | 1047397000 | Smithing Stone [5] | World Pickup | Caelid | m60_47_39 | -27.8, 155.4, 45.2 | 12004.2, 10029.2 | ItemLotParam_map |
 | 1047397040 | Golden Rune [9] | World Pickup | Caelid | m60_47_39 | 92.0, 151.6, 46.9 | 12124.0, 10030.9 | ItemLotParam_map |
 | 1047397080 | Slumbering Egg | World Pickup | Caelid | m60_47_39 | 78.1, 125.2, -81.4 | 12110.1, 9902.6 | ItemLotParam_map |
-| 1047400100 | NPC (c1000) | NPC | Caelid | m60_47_40 | 20.0, 169.4, 61.0 | 12052.0, 10301.0 | MSB NPC |
-| 1047400102 | NPC (c1000) | NPC | Caelid | m60_47_40 | 123.8, 151.7, -102.9 | 12155.8, 10137.1 | MSB NPC |
 | 1047400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_47_40 | -102.3, 126.1, 102.5 | 11929.7, 10342.5 | MSB Enemy |
-| 1047400950 | NPC (c1000) | NPC | Caelid | m60_47_40 | 105.3, 163.9, -19.6 | 12137.3, 10220.4 | MSB NPC |
 | 1047407000 | Golden Rune [5] | World Pickup | Caelid | m60_47_40 | -84.6, 149.3, -90.7 | 11947.4, 10149.3 | ItemLotParam_map |
 | 1047407020 | Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -103.0, 146.5, -102.0 | 11929.0, 10138.0 | ItemLotParam_map |
 | 1047407030 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -7.5, 178.2, 145.0 | 12024.5, 10385.0 | ItemLotParam_map |
@@ -6594,11 +6125,9 @@ Total unique flags: 7575
 | 1047407920 | Greatsword | World Pickup | Caelid | m60_47_40 | 417.7, 169.1, -345.7 | 12449.7, 9894.3 | ItemLotParam_map |
 | 1047410700 | Greatjar | NPC | World (23,20) | m60_23_20 | 118.6, 145.1, 249.1 | 6006.6, 5369.1 | MSB NPC |
 | 1047420700 | Great-Jar | NPC | Caelid | m60_47_42 | -4.6, 148.1, -85.6 | 12027.4, 10666.4 | MSB NPC |
-| 1047510950 | NPC (c1000) | NPC | World (47,51) | m60_47_51 | -4.6, 998.7, -24.2 | 12027.4, 13031.8 | MSB NPC |
 | 1047517000 | Drawstring Fire Grease | World Pickup | World (47,51) | m60_47_51 | -36.7, 1002.3, -29.1 | 11995.3, 13026.9 | ItemLotParam_map |
 | 1047517010 | Golden Rune [7] | World Pickup | World (47,51) | m60_47_51 | 94.2, 993.8, -13.4 | 12126.2, 13042.6 | ItemLotParam_map |
 | 1047517300 | Dragonwound Grease | World Pickup | World (47,51) | m60_47_51 | 97.4, 1000.4, 33.5 | 12129.4, 13089.5 | ItemLotParam_map |
-| 1047550100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_47_55 | 60.0, 1277.9, 23.0 | 12092.0, 14103.0 | MSB NPC |
 | 1047557000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_47_55 | 114.9, 1274.8, -75.8 | 12146.9, 14004.2 | ItemLotParam_map |
 | 1047557010 | Rimed Rowa | World Pickup | Mountaintops of the Giants | m60_47_55 | 56.3, 1275.3, 20.7 | 12088.3, 14100.7 | ItemLotParam_map |
 | 1047557020 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_47_55 | 76.4, 1278.0, 11.4 | 12108.4, 14091.4 | ItemLotParam_map |
@@ -6618,36 +6147,25 @@ Total unique flags: 7575
 | 1047587000 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_47_58 | 161.7, 1293.2, -5.0 | 12193.7, 14843.0 | ItemLotParam_map |
 | 1047587800 | Silver Mirrorshield | World Pickup | Mountaintops of the Giants | m60_47_58 | 36.3, 1291.6, -14.1 | 12068.3, 14833.9 | ItemLotParam_map |
 | 1048360700 | Cathedral of Dragon Communion | NPC | Caelid | m60_48_36 | 26.5, 127.4, 92.1 | 12314.5, 9308.1 | MSB NPC |
-| 1048360950 | NPC (c1000) | NPC | Caelid | m60_48_36 | 38.5, 126.6, 99.7 | 12326.5, 9315.7 | MSB NPC |
-| 1048370100 | NPC (c1000) | NPC | Caelid | m60_48_37 | -48.1, 115.0, -42.7 | 12239.9, 9429.3 | MSB NPC |
 | 1048370800 | [Dragon Communion] Ekzykes's Decay - Unlocked | Shop Unlock | Caelid | - | - | - | ShopLineupParam |
-| 1048370950 | NPC (c1000) | NPC | Caelid | m60_48_37 | -118.8, 114.4, 39.8 | 12169.2, 9511.8 | MSB NPC |
 | 1048377000 | Crab Eggs | World Pickup | Caelid | m60_48_37 | 105.6, 84.5, 59.6 | 12393.6, 9531.6 | ItemLotParam_map |
 | 1048377020 | Golden Rune [3] | World Pickup | Caelid | m60_48_37 | -7.1, 94.2, 60.9 | 12280.9, 9532.9 | ItemLotParam_map |
 | 1048377030 | Golden Rune [4] | World Pickup | Caelid | m60_48_37 | 21.1, 114.0, 96.6 | 12309.1, 9568.6 | ItemLotParam_map |
-| 1048380100 | NPC (c1000) | NPC | Caelid | m60_48_38 | 13.4, 64.0, 110.5 | 12301.4, 9838.5 | MSB NPC |
 | 1048380701 | Wandering Noble | NPC | Caelid | m60_48_38 | 42.5, 64.4, -15.0 | 12330.5, 9713.0 | MSB NPC |
 | 1048380705 | Nomadic Merchant | Merchant | Caelid | m60_48_38 | -28.6, 84.4, 19.3 | 12259.4, 9747.3 | MSB NPC |
-| 1048380950 | NPC (c1000) | NPC | Caelid | m60_48_38 | -2.0, 71.8, -32.3 | 12286.0, 9695.7 | MSB NPC |
-| 1048380951 | NPC (c1000) | NPC | Caelid | m60_48_38 | -104.2, 97.7, 22.2 | 12183.8, 9750.2 | MSB NPC |
 | 1048387000 | Golden Rune [4] | World Pickup | Caelid | m60_48_38 | -13.8, 67.1, 58.4 | 12274.2, 9786.4 | ItemLotParam_map |
 | 1048387010 | Good_401 | World Pickup | Caelid | m60_48_38 | -41.7, 70.7, -55.9 | 12246.3, 9672.1 | ItemLotParam_map |
 | 1048387020 | Good_401 | World Pickup | Caelid | m60_48_38 | -35.7, 69.1, -56.5 | 12252.3, 9671.5 | ItemLotParam_map |
 | 1048387030 | Good_401 | World Pickup | Caelid | m60_48_38 | -39.5, 70.1, -54.5 | 12248.5, 9673.5 | ItemLotParam_map |
 | 1048387500 | Sacramental Bud | World Pickup | Caelid | m60_48_38 | - | - | ItemLotParam_map |
-| 1048390100 | NPC (c1000) | NPC | Caelid | m60_48_39 | 127.7, 78.6, -34.6 | 12415.7, 9949.4 | MSB NPC |
 | 1048390701 | Putrid Corpse | NPC | Caelid | m60_48_39 | 77.7, 125.7, -44.6 | 12365.7, 9939.4 | MSB NPC |
 | 1048390705 | Finger Reader Crone | Finger Reader | Caelid | m60_48_39 | -112.0, 130.6, 4.0 | 12176.0, 9988.0 | MSB NPC |
-| 1048390950 | NPC (c1000) | NPC | Caelid | m60_48_39 | -87.9, 130.4, 0.9 | 12200.1, 9984.9 | MSB NPC |
 | 1048397000 | Sacramental Bud | World Pickup | Caelid | m60_48_39 | -4.8, 70.6, -30.4 | 12283.2, 9953.6 | ItemLotParam_map |
 | 1048397010 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_48_39 | 109.8, 91.8, 93.4 | 12397.8, 10077.4 | ItemLotParam_map |
 | 1048397040 | Great Dragonfly Head | World Pickup | Caelid | m60_48_39 | -106.7, 150.7, 113.5 | 12181.3, 10097.5 | ItemLotParam_map |
 | 1048397050 | Stonesword Key | World Pickup | Caelid | m60_48_39 | 105.9, 113.1, 105.5 | 12393.9, 10089.5 | ItemLotParam_map |
 | 1048397900 | Rock Sling | World Pickup | Caelid | m60_48_39 | -5.3, 51.8, -114.7 | 12282.7, 9869.3 | ItemLotParam_map |
-| 1048400100 | NPC (c1000) | NPC | Caelid | m60_48_40 | -110.5, 138.4, -84.8 | 12177.5, 10155.2 | MSB NPC |
 | 1048400800 | Mad Pumpkin Head | Great Boss Defeat | Caelid | m60_48_40 | -119.2, 138.4, -95.8 | 12168.8, 10144.2 | MSB Enemy |
-| 1048400950 | NPC (c1000) | NPC | Caelid | m60_48_40 | 110.1, 113.4, 2.0 | 12398.1, 10242.0 | MSB NPC |
-| 1048400951 | NPC (c1000) | NPC | Caelid | m60_48_40 | 109.3, 186.6, 62.8 | 12397.3, 10302.8 | MSB NPC |
 | 1048407010 | Golden Rune [1] | World Pickup | Caelid | m60_48_40 | 85.6, 173.0, -34.9 | 12373.6, 10205.1 | ItemLotParam_map |
 | 1048407020 | Golden Rune [6] | World Pickup | Caelid | m60_48_40 | 73.8, 170.5, -40.6 | 12361.8, 10199.4 | ItemLotParam_map |
 | 1048407030 | Golden Rune [2] | World Pickup | Caelid | m60_48_40 | 80.0, 173.6, -28.5 | 12368.0, 10211.5 | ItemLotParam_map |
@@ -6676,7 +6194,6 @@ Total unique flags: 7575
 | 1048567800 | Somber Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_56 | - | - | ItemLotParam_map |
 | 1048570310 | Enemy (c0100) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 41.2, 1295.5, 32.2 | 12329.2, 14624.2 | MSB Enemy |
 | 1048570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_48_57 | -110.8, 1255.1, 109.7 | 12177.2, 14701.7 | MSB Enemy |
-| 1048570950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_48_57 | 30.6, 1285.4, -35.5 | 12318.6, 14556.5 | MSB NPC |
 | 1048572301 | Stake of Marika (m60_48_57) | Stake of Marika | Mountaintops of the Giants | m60_48_57 | 47.3, 1295.6, 30.1 | 12335.3, 14622.1 | MSB SpawnPoint |
 | 1048577000 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_48_57 | 88.9, 1296.6, -44.2 | 12376.9, 14547.8 | ItemLotParam_map |
 | 1048577010 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 23.3, 1296.4, 17.7 | 12311.3, 14609.7 | ItemLotParam_map |
@@ -6698,13 +6215,11 @@ Total unique flags: 7575
 | 1048577920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | ItemLotParam_map |
 | 1048577930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | ItemLotParam_map |
 | 1048587300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_58 | -100.6, 1274.5, -26.8 | 12187.4, 14821.2 | ItemLotParam_map |
-| 1049360100 | NPC (c1000) | NPC | Caelid | m60_49_36 | 84.5, 51.2, -1.6 | 12628.5, 9214.4 | MSB NPC |
 | 1049367000 | Smoldering Butterfly | World Pickup | Caelid | m60_49_36 | 117.5, 42.2, -27.1 | 12661.5, 9188.9 | ItemLotParam_map |
 | 1049367010 | Fan Daggers | World Pickup | Caelid | m60_49_36 | -9.1, 70.5, 103.7 | 12534.9, 9319.7 | ItemLotParam_map |
 | 1049370700 | Nomadic Merchant | Merchant | Caelid | m60_49_37 | -77.3, 97.7, -15.4 | 12466.7, 9456.6 | MSB NPC |
 | 1049370800 | Night's Cavalry | Boss Defeat | Caelid | m60_49_37 | -122.3, 102.5, -8.5 | 12421.7, 9463.5 | MSB Enemy |
 | 1049370850 | Death Rite Bird | Field Boss Defeat | Caelid | m60_49_37 | 112.2, 102.1, 15.5 | 12656.2, 9487.5 | MSB Enemy |
-| 1049370950 | NPC (c1000) | NPC | Caelid | m60_49_37 | 2.5, 88.3, 62.2 | 12546.5, 9534.2 | MSB NPC |
 | 1049377010 | Beast Blood | World Pickup | Caelid | m60_49_37 | 76.6, 73.1, -94.2 | 12620.6, 9377.8 | ItemLotParam_map |
 | 1049377020 | Golden Seed | World Pickup | Caelid | m60_49_37 | -33.3, 82.8, -108.8 | 12510.7, 9363.2 | ItemLotParam_map |
 | 1049377050 | Beast Blood | World Pickup | Caelid | m60_49_37 | 87.9, 79.3, -70.6 | 12631.9, 9401.4 | ItemLotParam_map |
@@ -6712,10 +6227,7 @@ Total unique flags: 7575
 | 1049377100 | Ash of War: Poison Moth Flight | World Pickup | Caelid | m60_49_37 | - | - | ItemLotParam_map |
 | 1049377110 | Death's Poker | World Pickup | Caelid | m60_49_37 | - | - | ItemLotParam_map |
 | 1049377700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | - | - | ItemLotParam_map |
-| 1049380100 | NPC (c1000) | NPC | Caelid | m60_49_38 | -51.9, 66.0, 65.1 | 12492.1, 9793.1 | MSB NPC |
 | 1049380800 | Commander Niall | Boss Defeat | Caelid | m60_49_38 | -25.2, 65.9, 50.6 | 12518.8, 9778.6 | MSB Enemy |
-| 1049380950 | NPC (c1000) | NPC | Caelid | m60_49_38 | -25.2, 65.8, 46.8 | 12518.8, 9774.8 | MSB NPC |
-| 1049380951 | NPC (c1000) | NPC | Caelid | m60_49_38 | -58.5, 64.3, 115.3 | 12485.5, 9843.3 | MSB NPC |
 | 1049387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | 10.8, 64.0, -23.0 | 12554.8, 9705.0 | ItemLotParam_map |
 | 1049387020 | Aeonian Butterfly | World Pickup | Caelid | m60_49_38 | 6.5, 64.0, -33.4 | 12550.5, 9694.6 | ItemLotParam_map |
 | 1049387030 | Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | -44.4, 69.6, -127.0 | 12499.6, 9601.0 | ItemLotParam_map |
@@ -6726,13 +6238,8 @@ Total unique flags: 7575
 | 1049387110 | Golden Rune [5] | World Pickup | Caelid | m60_49_38 | 84.2, 93.8, -124.7 | 12628.2, 9603.3 | ItemLotParam_map |
 | 1049387120 | Glass Shard | World Pickup | Caelid | m60_49_38 | 125.4, 96.4, -85.7 | 12669.4, 9642.3 | ItemLotParam_map |
 | 1049387800 | Eternal Darkness | World Pickup | Caelid | m60_49_38 | 53.0, 146.2, 55.7 | 12597.0, 9783.7 | ItemLotParam_map |
-| 1049390100 | NPC (c1000) | NPC | Caelid | m60_49_39 | 124.6, 78.4, -60.7 | 12668.6, 9923.3 | MSB NPC |
-| 1049390102 | NPC (c1000) | NPC | Caelid | m60_49_39 | 104.0, 83.7, 92.4 | 12648.0, 10076.4 | MSB NPC |
 | 1049390800 | Nox Swordstress/Monk/Nightmaiden | Boss Defeat | Caelid | m60_49_39 | 94.0, 83.5, 86.5 | 12638.0, 10070.5 | MSB Enemy |
 | 1049390850 | Battlenage | Boss Arena | Caelid - West Sellia | m60_49_39 | -89.5, 164.0, -1.1 | -89.5, -1.1 | GameAreaParam |
-| 1049390950 | NPC (c1000) | NPC | Caelid | m60_49_39 | 128.5, 98.9, 55.0 | 12672.5, 10039.0 | MSB NPC |
-| 1049390951 | NPC (c1000) | NPC | Caelid | m60_49_39 | 97.0, 83.4, 77.6 | 12641.0, 10061.6 | MSB NPC |
-| 1049390952 | NPC (c1000) | NPC | Caelid | m60_49_39 | 99.5, 65.5, -31.7 | 12643.5, 9952.3 | MSB NPC |
 | 1049392855 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.0, 162.9, 12.0 | 12454.0, 9996.0 | MSB SpawnPoint |
 | 1049392856 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.3, 162.8, 15.2 | 12453.7, 9999.2 | MSB SpawnPoint |
 | 1049392857 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -88.0, 164.0, -8.4 | 12456.0, 9975.6 | MSB SpawnPoint |
@@ -6746,7 +6253,6 @@ Total unique flags: 7575
 | 1049397850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | - | - | ItemLotParam_map |
 | 1049397900 | Lusat's Glintstone Staff | World Pickup | Caelid | m60_49_39 | 96.6, 86.4, 104.0 | 12640.6, 10088.0 | ItemLotParam_map |
 | 1049397910 | Spelldrake Talisman +1 | World Pickup | Caelid | m60_49_39 | 118.0, 78.8, -22.8 | 12662.0, 9961.2 | ItemLotParam_map |
-| 1049400700 | NPC (c0000) | NPC | Caelid | m60_49_40 | -101.3, 193.0, 88.7 | 12442.7, 10328.7 | MSB NPC |
 | 1049407000 | Golden Rune [5] | World Pickup | Caelid | m60_49_40 | 57.0, 180.7, 12.1 | 12601.0, 10252.1 | ItemLotParam_map |
 | 1049407010 | Gravel Stone | World Pickup | Caelid | m60_49_40 | 36.1, 180.7, 10.2 | 12580.1, 10250.2 | ItemLotParam_map |
 | 1049407020 | Sliver of Meat | World Pickup | Caelid | m60_49_40 | 39.7, 180.7, 36.6 | 12583.7, 10276.6 | ItemLotParam_map |
@@ -6756,13 +6262,10 @@ Total unique flags: 7575
 | 1049417080 | Rune Arc | World Pickup | Caelid | m60_49_41 | 41.1, 155.0, -75.9 | 12585.1, 10420.1 | ItemLotParam_map |
 | 1049417090 | Somber Smithing Stone [9] | World Pickup | Caelid | m60_49_41 | 39.6, 155.2, -73.7 | 12583.6, 10422.3 | ItemLotParam_map |
 | 1049417100 | Numen's Rune | World Pickup | Caelid | m60_49_41 | 94.8, 231.3, 1.4 | 12638.8, 10497.4 | ItemLotParam_map |
-| 1049520100 | NPC (c1000) | NPC | World (49,52) | m60_49_52 | 1.0, 1046.9, 36.5 | 12545.0, 13348.5 | MSB NPC |
 | 1049520700 | Millicent | NPC | World (49,52) | m60_49_52 | -21.9, 1042.8, -4.7 | 12522.1, 13307.3 | MSB NPC |
 | 1049520800 | Valiant Gargoyle | Great Boss Defeat | World (49,52) | m60_49_52 | -20.2, 1048.5, 58.4 | 12523.8, 13370.4 | MSB Enemy |
 | 1049527000 | Freezing Grease | World Pickup | World (49,52) | m60_49_52 | -77.4, 1048.1, 74.1 | 12466.6, 13386.1 | ItemLotParam_map |
 | 1049527800 | Golden Seed | World Pickup | World (49,52) | m60_49_52 | -81.2, 1010.0, -103.3 | 12462.8, 13208.7 | ItemLotParam_map |
-| 1049530100 | NPC (c1000) | NPC | World (49,53) | m60_49_53 | 137.0, 1563.7, 31.2 | 12681.0, 13599.2 | MSB NPC |
-| 1049530102 | NPC (c1000) | NPC | World (49,53) | m60_49_53 | 74.8, 1577.7, -83.6 | 12618.8, 13484.4 | MSB NPC |
 | 1049530700 | Shabriri | NPC | World (49,53) | m60_49_53 | 90.1, 1560.9, 101.1 | 12634.1, 13669.1 | MSB NPC |
 | 1049530710 | Keeper of Forbidden Lands | Finger Reader | World (49,53) | m60_49_53 | -28.8, 1063.4, -95.0 | 12515.2, 13473.0 | MSB NPC |
 | 1049530950 | Yura, Hunter of Bloody Fingers | NPC | World (49,53) | m60_49_53 | 78.9, 1558.8, 101.0 | 12622.9, 13669.0 | MSB NPC |
@@ -6773,15 +6276,12 @@ Total unique flags: 7575
 | 1049537030 | Zamor Ice Storm | World Pickup | World (49,53) | m60_49_53 | 95.4, 1578.5, -71.1 | 12639.4, 13496.9 | ItemLotParam_map |
 | 1049537300 | Beast Blood | World Pickup | World (49,53) | m60_49_53 | -20.8, 1567.3, -58.4 | 12523.2, 13509.6 | ItemLotParam_map |
 | 1049537900 | Smithing-Stone Miner's Bell Bearing [3] | World Pickup | World (49,53) | m60_49_53 | 85.4, 1564.1, -79.4 | 12629.4, 13488.6 | ItemLotParam_map |
-| 1049540700 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_49_54 | -104.9, 1337.8, -113.2 | 12439.1, 13710.8 | MSB NPC |
 | 1049540710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_54 | -106.1, 1332.3, -88.3 | 12437.9, 13735.7 | MSB NPC |
-| 1049540950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_49_54 | -97.7, 1320.6, -3.7 | 12446.3, 13820.3 | MSB NPC |
 | 1049547300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_49_54 | -57.0, 1344.0, -72.8 | 12487.0, 13751.2 | ItemLotParam_map |
 | 1049547310 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_54 | -44.8, 1355.1, -81.1 | 12499.2, 13742.9 | ItemLotParam_map |
 | 1049547700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | - | - | ItemLotParam_map |
 | 1049547900 | St. Trina's Torch | World Pickup | Mountaintops of the Giants | m60_49_54 | -206.3, 1316.6, 168.2 | 12337.7, 13992.2 | ItemLotParam_map |
 | 1049550710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_55 | 29.3, 1313.6, -40.5 | 12573.3, 14039.5 | MSB NPC |
-| 1049550950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_49_55 | -104.5, 1266.4, 105.8 | 12439.5, 14185.8 | MSB NPC |
 | 1049557300 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_55 | -62.3, 1308.3, -45.0 | 12481.7, 14035.0 | ItemLotParam_map |
 | 1049557310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_55 | 95.8, 1332.7, -101.0 | 12639.8, 13979.0 | ItemLotParam_map |
 | 1049557320 | Fire Blossom | World Pickup | Mountaintops of the Giants | m60_49_55 | 115.9, 1328.9, 24.4 | 12659.9, 14104.4 | ItemLotParam_map |
@@ -6789,19 +6289,15 @@ Total unique flags: 7575
 | 1049557700 | Larval Tear | World Pickup | Mountaintops of the Giants | m60_49_55 | - | - | ItemLotParam_map |
 | 1049557800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_49_55 | -6.8, 1317.4, -87.9 | 12537.2, 13992.1 | ItemLotParam_map |
 | 1049557810 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_55 | 8.4, 1314.5, -86.0 | 12552.4, 13994.0 | ItemLotParam_map |
-| 1049560100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_49_56 | 145.2, 1255.1, -2.3 | 12689.2, 14333.7 | MSB NPC |
-| 1049560102 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_49_56 | 126.8, 1321.3, -100.8 | 12670.8, 14235.2 | MSB NPC |
 | 1049567300 | Albinauric Bloodclot | World Pickup | Mountaintops of the Giants | m60_49_56 | 111.1, 1289.8, 20.7 | 12655.1, 14356.7 | ItemLotParam_map |
 | 1049567310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_56 | 104.6, 1278.7, -73.2 | 12648.6, 14262.8 | ItemLotParam_map |
 | 1049567320 | Strip of White Flesh | World Pickup | Mountaintops of the Giants | m60_49_56 | 86.7, 1255.0, -27.7 | 12630.7, 14308.3 | ItemLotParam_map |
 | 1049567330 | Dragonwound Grease | World Pickup | Mountaintops of the Giants | m60_49_56 | 62.3, 1344.3, 142.4 | 12606.3, 14478.4 | ItemLotParam_map |
 | 1049567340 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_49_56 | 57.9, 1316.1, 52.5 | 12601.9, 14388.5 | ItemLotParam_map |
 | 1049567350 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_56 | -127.2, 1277.0, 64.3 | 12416.8, 14400.3 | ItemLotParam_map |
-| 1049570100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_49_57 | 41.6, 1346.0, -41.1 | 12585.6, 14550.9 | MSB NPC |
 | 1049577700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | ItemLotParam_map |
 | 1049577710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | ItemLotParam_map |
 | 1049577720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | ItemLotParam_map |
-| 1050360950 | NPC (c1000) | NPC | Caelid | m60_50_36 | -68.3, 38.7, -82.8 | 12731.7, 9133.2 | MSB NPC |
 | 1050362690 | Stake of Marika (m60_50_36) | Stake of Marika | Caelid | m60_50_36 | -46.8, 38.0, -76.3 | 12753.2, 9139.7 | MSB SpawnPoint |
 | 1050367000 | Mushroom | World Pickup | Caelid | m60_50_36 | -65.1, 38.5, -59.2 | 12734.9, 9156.8 | ItemLotParam_map |
 | 1050367900 | Arrow's Sting Talisman | World Pickup | Caelid | m60_50_36 | -76.6, 65.9, -94.5 | 12723.4, 9121.5 | ItemLotParam_map |
@@ -6827,14 +6323,11 @@ Total unique flags: 7575
 | 1050397100 | Golden Seed | World Pickup | Caelid | m60_50_39 | -115.5, 92.8, 12.5 | 12684.5, 9996.5 | ItemLotParam_map |
 | 1050397900 | Night Comet | World Pickup | Caelid | m60_50_39 | -120.6, 78.9, -51.2 | 12679.4, 9932.8 | ItemLotParam_map |
 | 1050397910 | Imbued Sword Key | World Pickup | Caelid | m60_50_39 | -78.5, 83.3, -34.2 | 12721.5, 9949.8 | ItemLotParam_map |
-| 1050400100 | NPC (c1000) | NPC | Caelid | m60_50_40 | 13.8, 233.8, -100.5 | 12813.8, 10139.5 | MSB NPC |
 | 1050400800 | [Dragon Communion] Greyoll's Roar - Unlocked | Shop Unlock | Caelid | - | - | - | ShopLineupParam |
-| 1050400950 | NPC (c1000) | NPC | Caelid | m60_50_40 | 76.0, 154.9, 124.1 | 12876.0, 10364.1 | MSB NPC |
 | 1050407800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | - | - | ItemLotParam_map |
 | 1050537000 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | 70.2, 1651.8, 62.6 | 12870.2, 13630.6 | ItemLotParam_map |
 | 1050537300 | Smoldering Butterfly | World Pickup | World (50,53) | m60_50_53 | 8.3, 1598.8, 73.7 | 12808.3, 13641.7 | ItemLotParam_map |
 | 1050537700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | - | - | ItemLotParam_map |
-| 1050540100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_50_54 | 1.6, 1583.0, -113.3 | 12801.6, 13710.7 | MSB NPC |
 | 1050547000 | Lost Ashes of War | World Pickup | Mountaintops of the Giants | m60_50_54 | 37.0, 1543.0, 87.1 | 12837.0, 13911.1 | ItemLotParam_map |
 | 1050547800 | Arteria Leaf | World Pickup | Mountaintops of the Giants | m60_50_54 | 2.8, 1577.7, -86.2 | 12802.8, 13737.8 | ItemLotParam_map |
 | 1050547810 | Briars of Punishment | World Pickup | Mountaintops of the Giants | m60_50_54 | -14.6, 1579.8, -72.3 | 12785.4, 13751.7 | ItemLotParam_map |
@@ -6843,7 +6336,6 @@ Total unique flags: 7575
 | 1050557320 | Lump of Flesh | World Pickup | Mountaintops of the Giants | m60_50_55 | -97.5, 1353.1, -65.0 | 12702.5, 14015.0 | ItemLotParam_map |
 | 1050557800 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_55 | -119.6, 1390.6, 86.3 | 12680.4, 14166.3 | ItemLotParam_map |
 | 1050557900 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_50_55 | -99.4, 1344.7, 150.1 | 12700.6, 14230.1 | ItemLotParam_map |
-| 1050560100 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_50_56 | 102.8, 1604.1, 114.7 | 12902.8, 14450.7 | MSB NPC |
 | 1050560800 | [Dragon Communion] Theodorix's Magma - Unlocked | Shop Unlock | Mountaintops of the Giants | - | - | - | ShopLineupParam |
 | 1050562141 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | MSB SpawnPoint |
 | 1050562500 | Spirit Spring (m60_50_56) | Spirit Spring | Mountaintops of the Giants | m60_50_56 | 70.7, 1609.7, -10.3 | 12870.7, 14325.7 | MSB MountJump |
@@ -6860,7 +6352,6 @@ Total unique flags: 7575
 | 1050567700 | Hoslow's Petal Whip | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | ItemLotParam_map |
 | 1050567800 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_56 | -111.3, 1253.0, 4.2 | 12688.7, 14340.2 | ItemLotParam_map |
 | 1050567820 | Graven-Mass Talisman | World Pickup | Mountaintops of the Giants | m60_50_56 | -107.1, 1349.6, -84.1 | 12692.9, 14251.9 | ItemLotParam_map |
-| 1050570100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_50_57 | 82.2, 1632.5, -86.1 | 12882.2, 14505.9 | MSB NPC |
 | 1050570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_50_57 | 51.2, 1630.4, -92.2 | 12851.2, 14499.8 | MSB Enemy |
 | 1050570850 | Putrid Avatar | Field Boss Defeat | Mountaintops of the Giants | m60_50_57 | -85.4, 1390.1, -56.4 | 12714.6, 14535.6 | MSB Enemy |
 | 1050577300 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_57 | -144.2, 1374.2, -116.9 | 12655.8, 14475.1 | ItemLotParam_map |
@@ -6874,7 +6365,6 @@ Total unique flags: 7575
 | 1051360735 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 74.2, 91.8, 21.7 | 13130.2, 9237.7 | MSB NPC |
 | 1051360800 | Crucible Knight Ordovis | Great Boss Defeat | Caelid | m60_51_36 | 97.3, 105.5, 36.3 | 13153.4, 9252.3 | MSB Enemy |
 | 1051360950 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 81.6, 91.3, 18.9 | 13137.6, 9234.9 | MSB NPC |
-| 1051360951 | NPC (c1000) | NPC | Caelid | m60_51_36 | 93.1, 90.3, -40.2 | 13149.1, 9175.8 | MSB NPC |
 | 1051367000 | Golden Rune [6] | World Pickup | Caelid | m60_51_36 | 13.6, 88.5, -108.9 | 13069.6, 9107.1 | ItemLotParam_map |
 | 1051367020 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | -68.8, 56.4, -60.2 | 12987.2, 9155.8 | ItemLotParam_map |
 | 1051367030 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | -53.4, 41.8, -58.5 | 13002.6, 9157.5 | ItemLotParam_map |
@@ -6893,25 +6383,19 @@ Total unique flags: 7575
 | 1051387000 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 75.4, 16.9, -85.6 | 13131.4, 9642.4 | ItemLotParam_map |
 | 1051387010 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 98.3, 14.4, -53.0 | 13154.3, 9675.0 | ItemLotParam_map |
 | 1051387020 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 83.4, 15.0, 4.3 | 13139.4, 9732.3 | ItemLotParam_map |
-| 1051390100 | NPC (c1000) | NPC | Caelid | m60_51_39 | -80.2, 265.0, 107.5 | 12975.8, 10091.5 | MSB NPC |
-| 1051390950 | NPC (c1000) | NPC | Caelid | m60_51_39 | -79.4, 257.0, 123.4 | 12976.6, 10107.4 | MSB NPC |
 | 1051397040 | Golden Rune [12] | World Pickup | Caelid | m60_51_39 | -51.4, 271.3, 117.8 | 13004.6, 10101.8 | ItemLotParam_map |
 | 1051397050 | Neutralizing Boluses | World Pickup | Caelid | m60_51_39 | -38.3, 277.1, 134.4 | 13017.7, 10118.4 | ItemLotParam_map |
 | 1051397060 | Radagon's Soreseal | World Pickup | Caelid | m60_51_39 | -56.8, 265.0, 97.1 | 12999.2, 10081.1 | ItemLotParam_map |
 | 1051397900 | Dectus Medallion (Right) | World Pickup | Caelid | m60_51_39 | -25.4, 285.6, 135.4 | 13030.6, 10119.4 | ItemLotParam_map |
-| 1051400100 | NPC (c1000) | NPC | Caelid | m60_51_40 | 69.6, 217.0, 98.8 | 13125.6, 10338.8 | MSB NPC |
 | 1051400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_51_40 | 37.4, 209.4, 70.2 | 13093.4, 10310.2 | MSB Enemy |
 | 1051407040 | Rune Arc | World Pickup | Caelid | m60_51_40 | 9.6, 113.6, -55.1 | 13065.6, 10184.9 | ItemLotParam_map |
 | 1051417000 | Soft Cotton | World Pickup | Caelid | m60_51_41 | -129.8, 234.1, 73.2 | 12926.2, 10569.2 | ItemLotParam_map |
 | 1051417010 | Cinquedea | World Pickup | Caelid | m60_51_41 | -146.8, 191.9, 80.1 | 12909.2, 10576.1 | ItemLotParam_map |
 | 1051417030 | Dragoncrest Shield Talisman | World Pickup | Caelid | m60_51_41 | -84.3, 195.2, 100.1 | 12971.7, 10596.1 | ItemLotParam_map |
-| 1051430100 | NPC (c1000) | NPC | Caelid | m60_51_43 | 12.1, 324.6, -37.6 | 13068.1, 10970.4 | MSB NPC |
 | 1051430700 | Gurranq, Beast Clergyman | NPC | Caelid | m60_51_43 | -72.5, 345.3, 30.4 | 12983.5, 11038.4 | MSB NPC |
 | 1051430800 | Valiant Gargoyle | Great Boss Defeat | Caelid | m60_51_43 | -12.9, 336.9, -19.2 | 13043.1, 10988.8 | MSB Enemy |
-| 1051430950 | NPC (c1000) | NPC | Caelid | m60_51_43 | -47.1, 345.4, 15.6 | 13008.9, 11023.6 | MSB NPC |
 | 1051437020 | Golden Seed | World Pickup | Caelid | m60_51_43 | 74.8, 296.1, -91.1 | 13130.8, 10916.9 | ItemLotParam_map |
 | 1051522500 | Spirit Spring (m60_51_52) | Spirit Spring | World (51,52) | m60_51_52 | -25.5, 1813.6, 107.8 | 13030.5, 13419.8 | MSB MountJump |
-| 1051530950 | NPC (c1000) | NPC | World (51,53) | m60_51_53 | -50.9, 1802.1, -65.2 | 13005.1, 13502.8 | MSB NPC |
 | 1051537000 | Ancient Dragon Smithing Stone | World Pickup | World (51,53) | m60_51_53 | -7.8, 1824.9, -97.3 | 13048.2, 13470.7 | ItemLotParam_map |
 | 1051537010 | Smithing Stone [7] | World Pickup | World (51,53) | m60_51_53 | 153.1, 1795.9, -6.4 | 13209.1, 13561.6 | ItemLotParam_map |
 | 1051537300 | Drawstring Holy Grease | World Pickup | World (51,53) | m60_51_53 | -101.5, 1673.2, 106.1 | 12954.5, 13674.1 | ItemLotParam_map |
@@ -6926,14 +6410,11 @@ Total unique flags: 7575
 | 1051557310 | Drawstring Holy Grease | World Pickup | Mountaintops of the Giants | m60_51_55 | -117.4, 1542.4, -22.7 | 12938.6, 14057.3 | ItemLotParam_map |
 | 1051557320 | Rainbow Stone | World Pickup | Mountaintops of the Giants | m60_51_55 | -115.9, 1541.9, -26.6 | 12940.1, 14053.4 | ItemLotParam_map |
 | 1051557330 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_51_55 | -97.7, 1570.1, 84.9 | 12958.3, 14164.9 | ItemLotParam_map |
-| 1051560100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_51_56 | -79.3, 1658.0, 14.5 | 12976.7, 14350.5 | MSB NPC |
 | 1051560700 | Spirit Jellyfish | NPC | Mountaintops of the Giants | m60_51_56 | -10.1, 1660.0, 47.7 | 13045.9, 14383.7 | MSB NPC |
 | 1051560705 | Millicent | NPC | Mountaintops of the Giants | m60_51_56 | -4.3, 1612.5, -39.3 | 13051.7, 14296.7 | MSB NPC |
 | 1051560710 | The Noble Goldmask | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.5, -43.7 | 13064.6, 14292.3 | MSB NPC |
-| 1051560715 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_56 | 77.6, 1615.0, 3.5 | 13133.6, 14339.5 | MSB NPC |
 | 1051560720 | Scribe Corhyn | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.7, -40.7 | 13064.6, 14295.3 | MSB NPC |
 | 1051560725 | Hermit Merchant | Merchant | Mountaintops of the Giants | m60_51_56 | -38.9, 1625.5, -61.4 | 13017.1, 14274.6 | MSB NPC |
-| 1051560950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_56 | -2.9, 1610.6, -43.1 | 13053.1, 14292.9 | MSB NPC |
 | 1051567020 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_51_56 | 17.1, 1674.4, -46.5 | 13073.1, 14289.5 | ItemLotParam_map |
 | 1051567030 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_56 | 29.1, 1664.7, 45.3 | 13085.1, 14381.3 | ItemLotParam_map |
 | 1051567300 | Formic Rock | World Pickup | Mountaintops of the Giants | m60_51_56 | 70.2, 1609.1, -109.8 | 13126.2, 14226.2 | ItemLotParam_map |
@@ -6943,15 +6424,9 @@ Total unique flags: 7575
 | 1051567800 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | ItemLotParam_map |
 | 1051567810 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | ItemLotParam_map |
 | 1051567900 | Primal Glintstone Blade | World Pickup | Mountaintops of the Giants | m60_51_56 | 22.0, 1648.1, 62.8 | 13078.0, 14398.8 | ItemLotParam_map |
-| 1051570102 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_51_57 | 17.0, 1599.5, 92.7 | 13073.0, 14684.7 | MSB NPC |
-| 1051570104 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_57 | 89.2, 1632.0, 214.7 | 13145.2, 14806.7 | MSB NPC |
 | 1051570710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_57 | 71.3, 1616.4, 89.7 | 13127.3, 14681.7 | MSB NPC |
 | 1051570800 | Commander Niall | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 78.0, 1632.0, 210.2 | 13134.0, 14802.2 | MSB Enemy |
 | 1051570801 | Banished Knight | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 74.6, 1632.0, 205.7 | 13130.6, 14797.7 | MSB Enemy |
-| 1051570950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_57 | 121.4, 1670.8, -39.4 | 13177.4, 14552.6 | MSB NPC |
-| 1051570951 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_57 | -16.0, 1596.0, 59.9 | 13040.0, 14651.9 | MSB NPC |
-| 1051570952 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_57 | 73.2, 1615.8, 114.2 | 13129.2, 14706.2 | MSB NPC |
-| 1051570953 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_51_57 | 82.5, 1631.7, 197.4 | 13138.5, 14789.4 | MSB NPC |
 | 1051577000 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_57 | 12.9, 1606.7, 111.4 | 13068.9, 14703.4 | ItemLotParam_map |
 | 1051577010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 28.2, 1600.9, 53.1 | 13084.2, 14645.1 | ItemLotParam_map |
 | 1051577020 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1599.0, 88.1 | 13111.3, 14680.1 | ItemLotParam_map |
@@ -6983,38 +6458,29 @@ Total unique flags: 7575
 | 1051577810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | ItemLotParam_map |
 | 1051580700 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_58 | 86.1, 1664.2, 22.3 | 13142.1, 14870.3 | MSB NPC |
 | 1051587800 | Haligtree Secret Medallion (Left) | World Pickup | Mountaintops of the Giants | m60_51_58 | 87.6, 1664.3, 21.2 | 13143.6, 14869.2 | ItemLotParam_map |
-| 1052380320 | NPC (c0000) | NPC | World (13,9) | m60_13_09 | -482.3, 24.5, 82.5 | 2845.7, 2386.5 | MSB NPC |
 | 1052380706 | Alexander, Warrior Jar | NPC | Caelid | m60_52_38 | -39.1, 27.5, -68.0 | 13272.9, 9660.0 | MSB NPC |
 | 1052380726 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_52_38 | -49.8, 35.1, -38.8 | 13262.2, 9689.2 | MSB NPC |
 | 1052380800 | Starscourge Radahn | Great Boss Defeat | World (13,9) | m60_13_09 | -433.7, 34.6, 106.3 | 2894.3, 2410.3 | MSB Enemy |
 | 1052380950 | Iron Fist Alexander | NPC | Caelid | m60_52_38 | -43.5, 34.3, -41.9 | 13268.5, 9686.1 | MSB NPC |
 | 1052382020 | Stake of Marika (m60_52_38) | Stake of Marika | Caelid | m60_52_38 | -44.2, 33.6, -44.1 | 13267.8, 9683.9 | MSB SpawnPoint |
-| 1052410100 | NPC (c1000) | NPC | Caelid | m60_52_41 | -113.6, 248.3, 130.9 | 13198.4, 10626.9 | MSB NPC |
 | 1052410800 | Flying Dragon Agheel | Great Boss Defeat | Caelid | m60_52_41 | -113.6, 248.5, 137.5 | 13198.4, 10633.5 | MSB Enemy |
 | 1052410850 | Night's Cavalry | Field Boss Defeat | Caelid | m60_52_41 | 8.3, 221.4, 115.7 | 13320.3, 10611.7 | MSB Enemy |
-| 1052410950 | NPC (c1000) | NPC | Caelid | m60_52_41 | 23.5, 219.0, 6.6 | 13335.5, 10502.6 | MSB NPC |
 | 1052412499 | Spirit Spring (m60_52_41) | Spirit Spring | Caelid | m60_52_41 | 47.3, 221.0, -42.1 | 13359.3, 10453.9 | MSB MountJump |
 | 1052417000 | Golden Rune [8] | World Pickup | Caelid | m60_52_41 | 13.9, 246.1, -48.2 | 13325.9, 10447.8 | ItemLotParam_map |
 | 1052417010 | Golden Rune [6] | World Pickup | Caelid | m60_52_41 | 3.9, 244.9, -46.4 | 13315.9, 10449.6 | ItemLotParam_map |
 | 1052417020 | Golden Rune [3] | World Pickup | Caelid | m60_52_41 | 3.4, 244.9, -56.8 | 13315.4, 10439.2 | ItemLotParam_map |
 | 1052417030 | Golden Rune [1] | World Pickup | Caelid | m60_52_41 | 23.8, 246.8, -49.7 | 13335.8, 10446.3 | ItemLotParam_map |
 | 1052417100 | Ash of War: Bloodhound's Step | World Pickup | Caelid | m60_52_41 | - | - | ItemLotParam_map |
-| 1052420950 | NPC (c1000) | NPC | Caelid | m60_52_42 | -108.6, 251.8, 26.1 | 13203.4, 10778.1 | MSB NPC |
 | 1052437000 | Starlight Shards | World Pickup | Caelid | m60_52_43 | -2.9, 293.2, -121.2 | 13309.1, 10886.8 | ItemLotParam_map |
 | 1052520800 | Fire Giant | Great Boss Defeat | World (13,13) | m60_13_13 | -268.7, 1775.5, -293.7 | 3059.3, 3034.3 | MSB Enemy |
 | 1052522810 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.4, 1849.5, -312.8 | 3022.6, 3015.2 | MSB SpawnPoint |
 | 1052522811 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.8, 1846.7, -303.2 | 3022.2, 3024.8 | MSB SpawnPoint |
-| 1052530100 | NPC (c0100) | NPC | World (52,53) | m60_52_53 | 36.5, 1833.3, -131.6 | 13348.5, 13436.4 | MSB NPC |
-| 1052530102 | NPC (c1000) | NPC | World (52,53) | m60_52_53 | 46.1, 1826.7, 104.0 | 13358.1, 13672.0 | MSB NPC |
-| 1052530950 | NPC (c1000) | NPC | World (52,53) | m60_52_53 | -79.2, 1802.3, -46.1 | 13232.8, 13521.9 | MSB NPC |
 | 1052537000 | Golden Rune [10] | World Pickup | World (52,53) | m60_52_53 | -72.5, 1800.7, 36.6 | 13239.5, 13604.6 | ItemLotParam_map |
 | 1052537800 | Golden Seed | World Pickup | World (52,53) | m60_52_53 | 61.7, 1828.2, 118.5 | 13373.7, 13686.5 | ItemLotParam_map |
-| 1052540950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_52_54 | -53.7, 1706.0, 66.8 | 13258.3, 13890.8 | MSB NPC |
 | 1052547000 | Grace Mimic | World Pickup | Mountaintops of the Giants | m60_52_54 | 26.9, 1805.8, -85.4 | 13338.9, 13738.6 | ItemLotParam_map |
 | 1052547010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | -11.7, 1817.2, -88.4 | 13300.3, 13735.6 | ItemLotParam_map |
 | 1052547020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | 56.9, 1797.8, -42.4 | 13368.9, 13781.6 | ItemLotParam_map |
 | 1052547800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_52_54 | 131.0, 1828.3, -71.5 | 13443.0, 13752.5 | ItemLotParam_map |
-| 1052550100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_52_55 | -8.9, 1684.0, 71.2 | 13303.1, 14151.2 | MSB NPC |
 | 1052557000 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -41.2, 1706.7, 47.0 | 13270.8, 14127.0 | ItemLotParam_map |
 | 1052557010 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -45.3, 1705.8, 91.1 | 13266.7, 14171.1 | ItemLotParam_map |
 | 1052557020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.6, 1693.7, 83.5 | 13252.4, 14163.5 | ItemLotParam_map |
@@ -7025,12 +6491,9 @@ Total unique flags: 7575
 | 1052557700 | One-Eyed Shield | World Pickup | Mountaintops of the Giants | m60_52_55 | - | - | ItemLotParam_map |
 | 1052557800 | Gravel Stone | World Pickup | Mountaintops of the Giants | m60_52_55 | -39.0, 1706.9, 95.3 | 13273.0, 14175.4 | ItemLotParam_map |
 | 1052557900 | Giant's Prayerbook | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.3, 1731.2, 4.4 | 13252.7, 14084.4 | ItemLotParam_map |
-| 1052560100 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_52_56 | -63.6, 1680.9, 122.5 | 13248.4, 14458.5 | MSB NPC |
 | 1052560800 | Erdtree Avatar | Great Boss Defeat | Mountaintops of the Giants | m60_52_56 | -44.0, 1674.3, 69.7 | 13268.0, 14405.7 | MSB Enemy |
-| 1052560950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_52_56 | 42.4, 1666.6, -126.1 | 13354.4, 14209.9 | MSB NPC |
 | 1052567300 | Explosive Greatbolt | World Pickup | Mountaintops of the Giants | m60_52_56 | 103.3, 1661.4, -22.0 | 13415.3, 14314.0 | ItemLotParam_map |
 | 1052567310 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_52_56 | -127.5, 1667.7, 63.4 | 13184.5, 14399.4 | ItemLotParam_map |
-| 1052570950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_52_57 | 78.3, 1625.2, 79.2 | 13390.3, 14671.2 | MSB NPC |
 | 1052577000 | Stimulating Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | -16.7, 1676.9, 40.1 | 13295.3, 14632.1 | ItemLotParam_map |
 | 1052577300 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | 57.0, 1665.4, -67.8 | 13369.0, 14524.2 | ItemLotParam_map |
 | 1052577310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_52_57 | 82.6, 1679.5, -69.6 | 13394.6, 14522.4 | ItemLotParam_map |
@@ -7041,7 +6504,6 @@ Total unique flags: 7575
 | 1052587810 | Golden Rune [5] | World Pickup | Mountaintops of the Giants | m60_52_58 | -91.4, 1603.9, -63.4 | 13220.6, 14784.6 | ItemLotParam_map |
 | 1052587820 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_58 | -97.6, 1604.1, -71.6 | 13214.4, 14776.4 | ItemLotParam_map |
 | 1053440700 | White Mask Varré | NPC | Liurnia of the Lakes | m60_35_44 | -71.1, 241.7, -96.7 | 8888.9, 11167.3 | MSB NPC |
-| 1053520950 | NPC (c1000) | NPC | World (53,52) | m60_53_52 | -84.4, 1878.2, 26.1 | 13483.6, 13338.1 | MSB NPC |
 | 1053532950 | Stake of Marika (m60_53_53) | Stake of Marika | World (53,53) | m60_53_53 | 73.9, 1946.9, -1.5 | 13641.9, 13566.5 | MSB SpawnPoint |
 | 1053560800 | Roundtable Knight Vyke | Boss Arena | Mountaintops of the Giants - Lord Contender's Evergaol | m60_53_56 | -52.5, 1668.5, -116.3 | -52.5, -116.3 | GameAreaParam |
 | 1053562500 | Spirit Spring (m60_53_56) | Spirit Spring | Mountaintops of the Giants | m60_53_56 | 8.8, 1643.9, -93.9 | 13576.8, 14242.1 | MSB MountJump |
@@ -7059,12 +6521,9 @@ Total unique flags: 7575
 | 1053567800 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 19.5, 1643.2, -116.3 | 13587.5, 14219.7 | ItemLotParam_map |
 | 1053567810 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 33.8, 1641.4, -109.2 | 13601.8, 14226.8 | ItemLotParam_map |
 | 1053577300 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_53_57 | 108.1, 1638.4, 86.6 | 13676.1, 14678.6 | ItemLotParam_map |
-| 1054530950 | NPC (c1000) | NPC | World (54,53) | m60_54_53 | -21.8, 1969.0, -21.1 | 13802.2, 13546.9 | MSB NPC |
-| 1054550950 | NPC (c1000) | NPC | Mountaintops of the Giants | m60_54_55 | -31.3, 1624.2, 74.4 | 13792.7, 14154.4 | MSB NPC |
 | 1054557000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_54_55 | 9.5, 1641.5, 75.1 | 13833.5, 14155.1 | ItemLotParam_map |
 | 1054557310 | Somberstone Miner's Bell Bearing [3] | World Pickup | Mountaintops of the Giants | m60_54_55 | -37.2, 1621.7, 109.9 | 13786.8, 14189.9 | ItemLotParam_map |
 | 1054557800 | Sacred Tear | World Pickup | Mountaintops of the Giants | m60_54_55 | -30.6, 1625.5, 62.6 | 13793.4, 14142.6 | ItemLotParam_map |
-| 1054560100 | NPC (c0100) | NPC | Mountaintops of the Giants | m60_54_56 | -128.0, 1620.2, 68.2 | 13696.0, 14404.2 | MSB NPC |
 | 1054560800 | Borealis the Freezing Fog | Great Boss Defeat | World (13,14) | m60_13_14 | 1.7, 1620.4, -230.3 | 3329.7, 3353.7 | MSB Enemy |
 | 1247580400 | Walking Mausoleum | NPC | World (11,14) | m60_11_14 | 448.7, 1283.2, 24.8 | 3264.7, 3608.8 | MSB NPC |
 | 1248550800 | Night's Cavalry | Boss Arena | Southwest Mountaintops | m60_48_55 | 108.2, 1281.6, -33.1 | 108.2, -33.1 | GameAreaParam |

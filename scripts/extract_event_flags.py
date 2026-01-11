@@ -1552,6 +1552,64 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
     return flags
 
 
+def get_region_from_poi_name(poi_name: str) -> Optional[str]:
+    """
+    Extract region name from POI paramdexName.
+
+    Patterns:
+    - "Legacy Dungeon - Crumbling Farum Azula" -> "Crumbling Farum Azula"
+    - "Guidance of Grace: Limgrave - Church of Elleh" -> "Limgrave"
+    - "Dungeon - Murkwater Cave" -> "Murkwater Cave"
+    - "Minor Erdtree - Weeping Peninsula" -> "Weeping Peninsula"
+    """
+    if not poi_name:
+        return None
+
+    # Legacy Dungeon pattern: "Legacy Dungeon - {RegionName}"
+    if poi_name.startswith("Legacy Dungeon - "):
+        region = poi_name.replace("Legacy Dungeon - ", "").strip()
+        # Remove "(Miquella's Cross)" suffix if present
+        if " (Miquella's Cross)" in region:
+            region = region.replace(" (Miquella's Cross)", "")
+        return region
+
+    # Guidance of Grace pattern: "Guidance of Grace: {Region} - {Location}"
+    if poi_name.startswith("Guidance of Grace: "):
+        rest = poi_name.replace("Guidance of Grace: ", "")
+        if " - " in rest:
+            region = rest.split(" - ")[0].strip()
+            return region
+        return rest.strip()
+
+    # Dungeon pattern: "Dungeon - {Name}"
+    if poi_name.startswith("Dungeon - "):
+        return poi_name.replace("Dungeon - ", "").strip()
+
+    # Minor Erdtree pattern: "Minor Erdtree - {Region}"
+    if poi_name.startswith("Minor Erdtree - "):
+        return poi_name.replace("Minor Erdtree - ", "").strip()
+
+    # Divine Tower pattern: "Divine Tower - {Name}"
+    if poi_name.startswith("Divine Tower - "):
+        return poi_name.replace("Divine Tower - ", "").strip()
+
+    # Underground regions pattern: "{Region} - {SubLocation}"
+    underground_regions = ["Siofra River", "Ainsel River", "Nokron", "Nokstella",
+                          "Deeproot Depths", "Lake of Rot", "Mohgwyn Palace"]
+    for region in underground_regions:
+        if poi_name.startswith(region):
+            return region
+
+    # DLC regions
+    dlc_regions = ["Gravesite Plain", "Scadu Altus", "Rauh", "Abyssal Woods",
+                   "Cerulean Coast", "Jagged Peak", "Enir-Ilim"]
+    for region in dlc_regions:
+        if region in poi_name:
+            return region
+
+    return None
+
+
 def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -> List[EventFlag]:
     """Extract event flags from WorldMapPointParam (POI discovery flags)."""
     flags = []
@@ -1574,8 +1632,28 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
         else:
             category = "Map POI"
 
-        # Derive region from grid
-        region = get_region_from_flag(flag_id) if flag_id >= 10_000_000 else "Various"
+        # Derive region - try multiple methods
+        region = None
+
+        # Method 1: Try to extract from POI name (paramdexName)
+        poi_name = poi.get("name", "")
+        region = get_region_from_poi_name(poi_name)
+
+        # Method 2: For 10-digit flags, derive from flag ID
+        if not region and flag_id >= 10_000_000:
+            region = get_region_from_flag(flag_id)
+
+        # Method 3: For overworld areas, derive from grid coordinates
+        if not region:
+            area_no = poi["area_no"]
+            if area_no in (60, 61):
+                grid_x = poi["grid_x"]
+                grid_z = poi["grid_z"]
+                region = get_tile_region(grid_x, grid_z)
+
+        # Fallback
+        if not region:
+            region = "Various"
 
         raw_data = {
             "row_id": poi["row_id"],
@@ -1922,16 +2000,27 @@ def load_msb_npc_data(chr_model_names: Dict[int, str], npc_names: Dict[int, str]
     return npcs
 
 
-def extract_msb_npcs(msb_npcs: Dict[int, Dict]) -> List[EventFlag]:
+def extract_msb_npcs(msb_npcs: Dict[int, Dict], filter_generic: bool = True) -> List[EventFlag]:
     """
     Extract event flags from MSB NPC data (characters with dialog).
 
     These are interactive NPCs where the EntityID may be used for
     tracking NPC state (alive, dead, quest progress, etc.)
+
+    Args:
+        msb_npcs: Dictionary of NPC data keyed by entity ID
+        filter_generic: If True, exclude NPCs with generic names like "NPC (c1000)"
     """
     flags = []
+    skipped_generic = 0
 
     for entity_id, npc in msb_npcs.items():
+        npc_name = npc.get("name", f"NPC_{entity_id}")
+
+        # Skip NPCs with generic names if filter is enabled
+        if filter_generic and npc_name.startswith("NPC (c"):
+            skipped_generic += 1
+            continue
         area_no = npc.get("area_no")
         grid_x = npc.get("grid_x")
         grid_z = npc.get("grid_z")
@@ -1975,7 +2064,7 @@ def extract_msb_npcs(msb_npcs: Dict[int, Dict]) -> List[EventFlag]:
 
         flags.append(EventFlag(
             flag_id=entity_id,
-            name=npc.get("name", f"NPC_{entity_id}"),
+            name=npc_name,
             category=category,
             region=region,
             source_file="MSB NPC",
@@ -1993,6 +2082,9 @@ def extract_msb_npcs(msb_npcs: Dict[int, Dict]) -> List[EventFlag]:
             is_dlc=is_dlc,
             raw_data=raw_data
         ))
+
+    if filter_generic and skipped_generic > 0:
+        print(f"  Filtered out {skipped_generic} NPCs with generic names")
 
     return flags
 

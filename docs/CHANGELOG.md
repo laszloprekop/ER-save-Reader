@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.7 - POI Region Derivation & Generic NPC Filtering
+
+### Features
+- **POI Region Extraction**: Added `get_region_from_poi_name()` function
+  - Parses POI paramdexName to extract accurate region names
+  - Handles Legacy Dungeon, Guidance of Grace, Minor Erdtree, Divine Tower patterns
+  - Fixes POIs like "Crumbling Farum Azula" showing region "Various"
+
+- **Generic NPC Filtering**: Added `filter_generic` parameter to NPC extraction
+  - Excludes NPCs with generic names like "NPC (c1000)", "NPC (c0000)"
+  - Reduces noise in exported data (541 generic NPCs filtered)
+  - Keeps 305 named NPCs for cleaner output
+
+### Improvements
+- **Multi-method region assignment** for WorldMapPointParam:
+  1. Extract from POI name (paramdexName)
+  2. Derive from 10-digit flag ID
+  3. Use grid coordinates for overworld areas
+  4. Fallback to "Various"
+
+### Coverage
+- Total unique flags: 7,575 → 7,034 (filtered generic NPCs)
+- POI region accuracy improved for legacy dungeons
+
+---
+
 ## v0.2.6 - NPC Name Resolution Lookup Table
 
 ### Features
