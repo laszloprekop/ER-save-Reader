@@ -4,6 +4,44 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.2.9 - Event Flag Verification Framework
+
+### Features
+- **Verification Framework** (`scripts/verification/`): Complete Python tool suite to systematically test and verify event flag formulas against actual save files
+  - `save_parser.py`: Structural save file parsing with dynamic offset detection
+  - `flag_formulas.py`: All known formulas (block, tile, dungeon) with documented limitations
+  - `diff_analyzer.py`: Before/after comparison for empirical offset discovery
+  - `data_loader.py`: Loads extracted flags and manual completions
+  - `verification_data.py`: Data structures for tracking verification status
+
+- **Ground Truth Documentation** (`docs/SAVE_FILE_GROUND_TRUTH.md`): Single source of truth consolidating all save file parsing research
+  - Verified constants and formulas
+  - Known limitations documented (consumable treasures untrackable)
+  - Formula accuracy statistics
+
+- **Verification Runner** (`scripts/run_verification.py`): Main script to run verification pipeline
+  - Tests all flag formulas against save data
+  - Generates `ground_truth_offsets.json` with verified offsets
+  - Reports formula accuracy by category
+
+### Verification Results
+- **81 grace flags verified** (block formula working)
+- **Block formula**: 26.6% accuracy with evidence
+- **Tile formula**: Needs dungeon base offset discovery
+- **Dungeon formula**: 101/104 base offsets unknown
+
+### Key Findings
+- Block-based formulas (65xxx-76xxx) work reliably for graces/cookbooks
+- LocalId >= 7000 flags are **structurally untrackable** (875 bytes/slot = 7000 flags max)
+- Consumable treasures (Golden Runes, Smithing Stones) cannot be tracked via event flags
+
+### Usage
+```bash
+python scripts/run_verification.py --verbose
+```
+
+---
+
 ## v0.2.8 - Treasure Metadata Fields
 
 ### Features
