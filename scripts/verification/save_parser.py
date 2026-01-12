@@ -38,6 +38,13 @@ GAITEM_HEADER_SIZE = 8              # 4-byte count + 4-byte padding
 # Section offsets (relative to slot start, AFTER 16-byte checksum header)
 FIXED_HEADER_SIZE = 0x20            # Version (4) + MapID (4) + Padding (24)
 
+# Character name extraction
+# Name offset varies due to variable-size sections before it
+# These are empirically verified offsets that work for different slot configurations
+# Note: Offsets must be 2-byte aligned for UTF-16
+CHARACTER_NAME_OFFSET_CANDIDATES = [0xA27C, 0xAE96, 0xA463, 0xA462]
+CHARACTER_NAME_MAX_LEN = 16         # Max 16 UTF-16 characters
+
 # EventFlags offset VARIES per slot due to variable-size GaItems section
 # The Rust code's fixed offset (0x1a104) is incorrect for our saves
 # Empirically, the offset is around 0x12B00-0x13800 depending on GaItems count
@@ -220,6 +227,9 @@ class SaveParser:
         # Validate using anchor flags
         validation_score, validated_graces = self._validate_event_flags(event_flags)
 
+        # Extract character name
+        character_name = self._extract_character_name(slot_data)
+
         return SlotData(
             slot_index=slot_index,
             slot_offset=slot_offset,
@@ -232,7 +242,8 @@ class SaveParser:
             event_flags_offset_absolute=slot_offset + event_flags_offset,
             event_flags=event_flags,
             validation_score=validation_score,
-            validated_graces=validated_graces
+            validated_graces=validated_graces,
+            character_name=character_name
         )
 
     def _find_event_flags_offset(self, slot_data: bytes) -> int:
@@ -277,6 +288,46 @@ class SaveParser:
                     matched.append(name)
 
         return score, matched
+
+    def _extract_character_name(self, slot_data: bytes) -> Optional[str]:
+        """
+        Extract character name from slot data.
+
+        The name is stored as UTF-16LE at a variable offset (due to preceding
+        variable-size sections). We try known offset candidates and return
+        the first valid name found.
+        """
+        for offset in CHARACTER_NAME_OFFSET_CANDIDATES:
+            if offset + CHARACTER_NAME_MAX_LEN * 2 > len(slot_data):
+                continue
+
+            # Read up to 32 bytes (16 UTF-16 chars)
+            name_bytes = slot_data[offset:offset + CHARACTER_NAME_MAX_LEN * 2]
+
+            try:
+                # Decode as UTF-16LE and extract the name (null-terminated)
+                name = name_bytes.decode('utf-16-le').split('\x00')[0]
+
+                # Validate: must be printable, 1-16 chars
+                if not name or not name.isprintable() or not 1 <= len(name) <= CHARACTER_NAME_MAX_LEN:
+                    continue
+
+                # First character should be ASCII letter or common Latin char
+                # This filters out misaligned reads that produce CJK characters
+                first_char = name[0]
+                if not (first_char.isascii() and first_char.isalpha()):
+                    # Allow extended Latin (accented chars) but not CJK
+                    if ord(first_char) > 0x024F:  # Beyond Latin Extended-B
+                        continue
+
+                # Real names should be mostly letters/numbers
+                alnum_count = sum(1 for c in name if c.isalnum())
+                if alnum_count >= len(name) * 0.5:
+                    return name
+            except (UnicodeDecodeError, ValueError):
+                continue
+
+        return None
 
     def check_flag(self, event_flags: bytes, flag_id: int) -> Tuple[bool, Optional[str]]:
         """

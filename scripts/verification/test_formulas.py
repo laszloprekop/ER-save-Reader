@@ -8,19 +8,33 @@ Run this after any changes to flag_formulas.py to catch regressions.
 Usage:
     python -m verification.test_formulas
     python scripts/verification/test_formulas.py
+    python scripts/verification/test_formulas.py --save /path/to/ER0000.sl2
 """
 from __future__ import annotations
 
 import sys
 from pathlib import Path
 from dataclasses import dataclass
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict
 
 # Add scripts directory to path
 script_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(script_dir))
 
 from verification.flag_formulas import FlagFormulas
+from verification.save_parser import SaveParser, SlotData
+
+
+# Default save file location
+DEFAULT_SAVE_PATH = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2")
+
+
+@dataclass
+class SlotInfo:
+    """Character slot identification info."""
+    slot_index: int
+    character_name: str
+    flag_set: bool = False
 
 
 @dataclass
@@ -112,14 +126,67 @@ DUNGEON_FORMULA_TESTS: List[TestCase] = [
 ]
 
 
-def run_tests(verbose: bool = True) -> Tuple[int, int, List[str]]:
+def load_save_slots(save_path: Optional[Path]) -> Optional[List[SlotData]]:
+    """Load save file and return slot data."""
+    if save_path is None:
+        save_path = DEFAULT_SAVE_PATH
+
+    if not save_path.exists():
+        return None
+
+    try:
+        parser = SaveParser()
+        save = parser.parse(save_path)
+        return save.slots
+    except Exception as e:
+        print(f"Warning: Could not load save file: {e}")
+        return None
+
+
+def check_flag_in_slots(
+    slots: List[SlotData],
+    flag_id: int,
+    parser: SaveParser
+) -> List[SlotInfo]:
+    """Check which slots have a flag set and return slot info."""
+    results = []
+    for slot in slots:
+        is_set, _ = parser.check_flag(slot.event_flags, flag_id)
+        results.append(SlotInfo(
+            slot_index=slot.slot_index,
+            character_name=slot.character_name or f"Slot {slot.slot_index}",
+            flag_set=is_set
+        ))
+    return results
+
+
+def format_slot_status(slot_infos: List[SlotInfo], max_name_len: int = 12) -> str:
+    """Format slot status as a compact string."""
+    parts = []
+    for info in slot_infos:
+        name = info.character_name[:max_name_len]
+        marker = "✓" if info.flag_set else "·"
+        parts.append(f"{marker}")
+    return " ".join(parts)
+
+
+def run_tests(
+    verbose: bool = True,
+    save_path: Optional[Path] = None
+) -> Tuple[int, int, List[str]]:
     """
     Run all formula validation tests.
+
+    Args:
+        verbose: Print detailed output
+        save_path: Optional path to save file for slot verification
 
     Returns:
         Tuple of (passed_count, failed_count, failure_messages)
     """
     formulas = FlagFormulas()
+    parser = SaveParser()
+    slots = load_save_slots(save_path)
 
     all_tests = (
         ANCHOR_FLAGS +
@@ -142,9 +209,19 @@ def run_tests(verbose: bool = True) -> Tuple[int, int, List[str]]:
     failures = []
 
     if verbose:
-        print("=" * 70)
+        print("=" * 90)
         print("EVENT FLAG FORMULA VALIDATION TEST SUITE")
-        print("=" * 70)
+        print("=" * 90)
+
+        # Print slot legend if save file loaded
+        if slots:
+            print()
+            print("Character Slots:")
+            for slot in slots:
+                name = slot.character_name or f"Slot {slot.slot_index}"
+                print(f"  S{slot.slot_index}: {name}")
+            print()
+            print("Flag Status: ✓ = set, · = not set")
         print()
 
     for test in unique_tests:
@@ -170,10 +247,16 @@ def run_tests(verbose: bool = True) -> Tuple[int, int, List[str]]:
         byte_ok = result.byte_offset == test.expected_byte_offset
         bit_ok = result.bit_position == test.expected_bit_position
 
+        # Check slots if available
+        slot_status = ""
+        if slots:
+            slot_infos = check_flag_in_slots(slots, test.flag_id, parser)
+            slot_status = f" [{format_slot_status(slot_infos)}]"
+
         if byte_ok and bit_ok:
             passed += 1
             if verbose:
-                print(f"  ✓ {test.flag_id} ({test.name}): byte={result.byte_offset}, bit={result.bit_position}")
+                print(f"  ✓ {test.flag_id} ({test.name}): byte={result.byte_offset}, bit={result.bit_position}{slot_status}")
         else:
             failed += 1
             msg = (f"FAIL: {test.flag_id} ({test.name}) - "
@@ -181,12 +264,14 @@ def run_tests(verbose: bool = True) -> Tuple[int, int, List[str]]:
                    f"Got byte={result.byte_offset}, bit={result.bit_position}")
             failures.append(msg)
             if verbose:
-                print(f"  ✗ {msg}")
+                print(f"  ✗ {msg}{slot_status}")
 
     if verbose:
         print()
-        print("-" * 70)
+        print("-" * 90)
         print(f"Results: {passed} passed, {failed} failed, {len(unique_tests)} total")
+        if slots:
+            print(f"Save file: {save_path or DEFAULT_SAVE_PATH}")
         if failures:
             print()
             print("FAILURES:")
@@ -225,6 +310,10 @@ def main():
                         help="Only show failures")
     parser.add_argument("--anchors-only", action="store_true",
                         help="Only test anchor flags (fast)")
+    parser.add_argument("--save", type=Path,
+                        help="Path to save file for slot verification (default: uses standard location)")
+    parser.add_argument("--no-save", action="store_true",
+                        help="Skip save file loading entirely")
     args = parser.parse_args()
 
     if args.anchors_only:
@@ -235,7 +324,8 @@ def main():
             print("✗ Anchor flag validation failed!")
             sys.exit(1)
 
-    passed, failed, failures = run_tests(verbose=not args.quiet)
+    save_path = None if args.no_save else args.save
+    passed, failed, failures = run_tests(verbose=not args.quiet, save_path=save_path)
 
     if failed > 0:
         sys.exit(1)
