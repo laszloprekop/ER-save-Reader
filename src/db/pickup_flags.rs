@@ -6,33 +6,42 @@
 /// - Dungeon flags (10000000-43999999): Map base + local offset
 /// - Open world (1000000000+): Formula-based tile calculation
 ///
-/// V2: Uses formula-based tile offset calculation for ~90% coverage
-/// Based on elden-map project's test-event-flag-calculations.ts
+/// V3: Uses verified ground truth offsets from ground_truth_offsets.json
+/// Generated at build time via build.rs
 
 use std::collections::HashMap;
 use once_cell::sync::Lazy;
 
+// Import verified constants from generated module
+use crate::generated::ground_truth::{
+    VERIFIED_TILE_BASE_OFFSET,
+    TILE_BYTES_PER_SLOT as GT_TILE_BYTES_PER_SLOT,
+    TILE_SLOTS_PER_ROW as GT_TILE_SLOTS_PER_ROW,
+    TILE_ROW_BASE as GT_TILE_ROW_BASE,
+    TILE_COL_BASE as GT_TILE_COL_BASE,
+    TILE_MAX_LOCAL_ID,
+    VERIFIED_BLOCK_BASES,
+    VERIFIED_DUNGEON_BASES,
+};
+
 // ============================================================================
-// CONSTANTS (derived from elden-map analysis)
+// CONSTANTS (from verified ground_truth_offsets.json)
 // ============================================================================
 
-/// Base offset for small flags (subtract from byte calculation)
-pub const FLAG_BASE_OFFSET: u32 = 6250;
-
-/// Base offset where tile flags start in event flags array
-pub const TILE_BASE_OFFSET: u32 = 347000;
+/// Base offset where tile flags start in event flags array (VERIFIED)
+pub const TILE_BASE_OFFSET: u32 = VERIFIED_TILE_BASE_OFFSET;
 
 /// First row (X coordinate) of world tiles
-pub const TILE_ROW_BASE: u32 = 33;
+pub const TILE_ROW_BASE: u32 = GT_TILE_ROW_BASE;
 
 /// First column (Y coordinate) of world tiles
-pub const TILE_COL_BASE: u32 = 42;
+pub const TILE_COL_BASE: u32 = GT_TILE_COL_BASE;
 
-/// Bytes allocated per tile slot (1000 flags / 8 bits * ~7 categories)
-pub const TILE_BYTES_PER_SLOT: u32 = 875;
+/// Bytes allocated per tile slot (875 bytes = 7000 flags max)
+pub const TILE_BYTES_PER_SLOT: u32 = GT_TILE_BYTES_PER_SLOT;
 
 /// Number of tile slots per row
-pub const TILE_SLOTS_PER_ROW: u32 = 40;
+pub const TILE_SLOTS_PER_ROW: u32 = GT_TILE_SLOTS_PER_ROW;
 
 /// Total size of event flags section
 pub const EVENT_FLAGS_SIZE: u32 = 0x1BF99F; // 1,833,375 bytes
@@ -40,11 +49,8 @@ pub const EVENT_FLAGS_SIZE: u32 = 0x1BF99F; // 1,833,375 bytes
 /// Bytes per dungeon section
 pub const DUNGEON_SECTION_SIZE: u32 = 1125;
 
-/// Bytes per category in open world tiles
-pub const CATEGORY_SIZE_BYTES: u32 = 125;
-
-/// Category 7 is used for item pickups (treasures)
-pub const TREASURE_CATEGORY: u32 = 7;
+/// Maximum local ID for tile flags (7000+ are untrackable)
+pub const MAX_TILE_LOCAL_ID: u32 = TILE_MAX_LOCAL_ID;
 
 // ============================================================================
 // DUNGEON BASE OFFSETS (complete mapping from elden-map)
@@ -124,21 +130,8 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
 });
 
 /// Block bases for flags 60000-99999 (special system flags)
-/// Verified against EVENT_FLAGS static mappings
-pub static BLOCK_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
-    HashMap::from([
-        (60000, 1250),   // Map flags
-        (62000, 1500),   // Grace flags
-        (65000, 1875),   // Whetblade flags (verified: 65610 → 0x79f = 1951)
-        (66000, 2000),   // Pot flags
-        (67000, 2125),   // Cookbook flags (verified: 67000 → 0x84d = 2125)
-        (68000, 2250),   // Cookbook flags continued
-        (69000, 2375),   // Remembrance flags
-        (71000, 2625),   // Boss/dungeon flags
-        (73000, 2875),   // System flags
-        (76000, 3250),   // Other system flags
-    ])
-});
+/// Now uses VERIFIED_BLOCK_BASES from ground_truth_offsets.json
+/// The old hardcoded values were incorrect (e.g., 67000 was 2125, verified is 3546)
 
 // ============================================================================
 // FLAG OFFSET CALCULATIONS
@@ -146,16 +139,23 @@ pub static BLOCK_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
 
 /// Calculate byte offset and bit position for a tile (open world) flag
 ///
-/// Flag format: 10XXYYZZZN where:
+/// Flag format: 1XXYYZZZZ where:
 /// - XX: tile row (33-60+)
 /// - YY: tile column (30-58+)
-/// - Z: category (0-9)
-/// - NNN: local offset (0-999)
+/// - ZZZZ: local ID (0-6999 trackable, 7000+ untrackable)
+///
+/// Uses VERIFIED_TILE_BASE_OFFSET (495830) from ground_truth_offsets.json
 fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let bit = (7 - (flag_id % 8)) as u8;
 
     let tile_index = (flag_id - 1_000_000_000) / 10000;
     let local_id = flag_id % 10000;
+
+    // LocalId > 6999 has no storage (consumables, etc.)
+    // MAX_TILE_LOCAL_ID is 6999 (the highest valid ID), so 7000+ are invalid
+    if local_id > MAX_TILE_LOCAL_ID {
+        return None;
+    }
 
     let row = tile_index / 100;
     let col = tile_index % 100;
@@ -180,19 +180,37 @@ fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
 
 /// Calculate byte offset and bit position for a dungeon flag
 ///
-/// Flag format: XXYYZZZZ where:
-/// - XX: map area (10-43)
-/// - YY: section (00-22)
+/// Flag format: AASSZZZZ where:
+/// - AA: map area (10-43)
+/// - SS: section (00-22)
 /// - ZZZZ: local offset (0-9999)
+///
+/// Uses VERIFIED_DUNGEON_BASES for areas 30, 31, 32 (catacombs, caves, tunnels)
+/// Falls back to DUNGEON_BASE_OFFSETS for other areas
 fn calculate_dungeon_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let bit = (7 - (flag_id % 8)) as u8;
 
+    let area = flag_id / 1_000_000;
+    let section = (flag_id / 10_000) % 100;
+    let local_id = flag_id % 10_000;
+
+    // First, check verified dungeon bases (only use if status is "verified")
+    // Areas 30, 31, 32 (catacombs, caves, tunnels) are verified
+    if let Some(dungeon_base) = VERIFIED_DUNGEON_BASES.get(&area) {
+        if dungeon_base.status == "verified" && dungeon_base.base_offset > 0 {
+            let byte_offset = dungeon_base.base_offset + section * dungeon_base.section_size + local_id / 8;
+            if byte_offset < EVENT_FLAGS_SIZE {
+                return Some((byte_offset, bit));
+            }
+        }
+    }
+
+    // Fall back to detailed DUNGEON_BASE_OFFSETS mapping
     let flag_str = format!("{:08}", flag_id);
     let dungeon_area = &flag_str[0..2];
-    let section = &flag_str[2..4];
-    let local_id: u32 = flag_str[4..8].parse().ok()?;
+    let section_str = &flag_str[2..4];
 
-    let key = format!("{}_{}", dungeon_area, section);
+    let key = format!("{}_{}", dungeon_area, section_str);
 
     // Try to get exact base offset
     let base_offset = if let Some(&base) = DUNGEON_BASE_OFFSETS.get(key.as_str()) {
@@ -200,7 +218,7 @@ fn calculate_dungeon_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     } else {
         // Fall back to calculating from base section
         let base_key = format!("{}_00", dungeon_area);
-        let section_num: u32 = section.parse().ok()?;
+        let section_num: u32 = section_str.parse().ok()?;
         let section_00_base = DUNGEON_BASE_OFFSETS.get(base_key.as_str())?;
         section_00_base + section_num * DUNGEON_SECTION_SIZE
     };
@@ -215,6 +233,7 @@ fn calculate_dungeon_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
 }
 
 /// Calculate byte offset and bit position for a simple flag (< 100000)
+/// Uses VERIFIED_BLOCK_BASES from ground_truth_offsets.json for block flags
 fn calculate_simple_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let bit = (7 - (flag_id % 8)) as u8;
 
@@ -227,11 +246,11 @@ fn calculate_simple_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
         return Some((byte_offset, bit));
     }
 
-    // Block flags (60000-99999)
+    // Block flags (60000-99999) - use verified block bases
     let block_start = (flag_id / 1000) * 1000;
-    if let Some(&base) = BLOCK_BASES.get(&block_start) {
+    if let Some(block_base) = VERIFIED_BLOCK_BASES.get(&block_start) {
         let relative = flag_id - block_start;
-        let byte_offset = base + relative / 8;
+        let byte_offset = block_base.base_offset + relative / 8;
         if byte_offset < EVENT_FLAGS_SIZE {
             return Some((byte_offset, bit));
         }
@@ -442,15 +461,27 @@ mod tests {
     }
 
     #[test]
-    fn test_tile_flag_formula() {
-        // Test Limgrave tile 42_37
+    fn test_tile_flag_formula_verified() {
+        // Test Limgrave tile 42_37 with VERIFIED base offset
         // Slot = (42-33)*40 + (37-42) = 360 - 5 = 355
-        // Base = 347000 + 355*875 = 347000 + 310625 = 657625
+        // Base = 495830 (verified) + 355*875 = 495830 + 310625 = 806455
         let result = get_flag_offset(1042370000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 657625);
+        assert_eq!(byte, 806455);  // Updated from 657625 (old wrong value)
         assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_tile_untrackable_local_id() {
+        // LocalId >= 7000 should return None (consumables, etc.)
+        // Flag 1042377300 has localId 7300 which exceeds max
+        let result = get_flag_offset(1042377300);
+        assert!(result.is_none(), "LocalId 7300 should be untrackable");
+
+        // LocalId 6999 should still work
+        let result = get_flag_offset(1042376999);
+        assert!(result.is_some(), "LocalId 6999 should be trackable");
     }
 
     #[test]
@@ -466,22 +497,22 @@ mod tests {
     }
 
     #[test]
-    fn test_stormveil_godskin_prayerbook() {
-        // Godskin Prayerbook (flag 10007990) - verified against actual save file
-        // Local ID: 7990, byte within section: 7990/8 = 998
-        // Byte offset: 4112 + 998 = 5110
-        // Bit position: 7 - (7990 % 8) = 7 - 6 = 1
-        let result = get_flag_offset(10007990);
+    fn test_verified_dungeon_catacombs() {
+        // Test catacombs (area 30) using VERIFIED_DUNGEON_BASES
+        // Base for area 30 = 27411, section_size = 1125
+        // Flag 30000100 -> area=30, section=0, local=100
+        // byte = 27411 + 0*1125 + 100/8 = 27411 + 12 = 27423
+        let result = get_flag_offset(30000100);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 5110);
-        assert_eq!(bit, 1);
+        assert_eq!(byte, 27411 + 100 / 8);  // 27423
+        assert_eq!(bit, (7 - (100 % 8)) as u8);  // 3
     }
 
     #[test]
     fn test_bit_calculation() {
         // Verify bit position is always 7 - (flag % 8)
-        for flag in [1042377000u32, 1042377001, 1042377007, 1042377008] {
+        for flag in [1042370000u32, 1042370001, 1042370007, 1042370008] {
             if let Some((_, bit)) = get_flag_offset(flag) {
                 assert_eq!(bit, (7 - (flag % 8)) as u8);
             }
@@ -489,12 +520,25 @@ mod tests {
     }
 
     #[test]
+    fn test_block_flag_verified() {
+        // Test block flag 76100 (The First Step grace) using VERIFIED_BLOCK_BASES
+        // Block 76000 base = 3250, relative = 100
+        // byte = 3250 + 100/8 = 3250 + 12 = 3262
+        // bit = 7 - (76100 % 8) = 7 - 4 = 3
+        let result = get_flag_offset(76100);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3262);
+        assert_eq!(bit, 3);
+    }
+
+    #[test]
     fn test_coverage_improvement() {
         // Test some flags that were previously not calculable
         // These should now work with the formula approach
 
-        // Tile 33_40 (Liurnia)
-        assert!(get_flag_offset(1033400000).is_some());
+        // Tile 33_42 (first valid tile)
+        assert!(get_flag_offset(1033420000).is_some());
 
         // Tile 45_37 (Caelid)
         assert!(get_flag_offset(1045370000).is_some());
