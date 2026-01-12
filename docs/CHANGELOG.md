@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.3.0 - Ground Truth Code Generation & Cross-Project Integration
+
+### Features
+- **Code Generation from JSON** (`build.rs`): Generates Rust code from `ground_truth_offsets.json` at compile time
+  - `src/generated/ground_truth.rs`: Auto-generated with verified block bases, tile formula, dungeon bases
+  - Provides `calculate_block_flag_offset()`, `calculate_tile_flag_offset()`, `calculate_dungeon_flag_offset()`
+  - Single source of truth shared between Rust and TypeScript projects
+
+- **TypeScript Integration** (elden-map): Symlink and TypeScript module for web app
+  - `ground-truth-formulas.ts`: Type-safe offset calculation functions
+  - Imports directly from shared `ground_truth_offsets.json`
+
+- **Character Slot Identification**: Test output now shows character names and per-slot flag status
+  - Extracts UTF-16LE names from save slots at variable offsets
+  - Display format: `Slot 0 (Confessor): [✓ ✓ ✓ ✓ ✓ ✓]`
+
+- **Formula Test Suite** (`scripts/verification/test_formulas.py`): Comprehensive formula validation
+  - Tests block, tile, and dungeon formulas against actual save data
+  - Reports per-slot verification status
+
+### Verification Results
+- **392 flags proven** (from 656 tested)
+- **Block formula**: Verified for 60000, 62000, 67000, 71000, 73000, 76000 ranges
+- **Tile formula**: Verified with base offset 495830
+- **Dungeon formula**: Verified for areas 30 (catacombs), 31 (caves), 32 (tunnels)
+
+### Files Modified
+- `build.rs`: Extended with JSON code generation
+- `Cargo.toml`: Added serde_json build dependency, bumped to 0.3.0
+- `src/generated/mod.rs`: Module wrapper for generated code
+- `.gitignore`: Exclude generated ground_truth.rs
+- `scripts/verification/test_formulas.py`: Added character slot display
+- `scripts/verification/save_parser.py`: Added character name extraction
+
+---
+
 ## v0.2.9 - Event Flag Verification Framework
 
 ### Features
