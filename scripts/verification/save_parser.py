@@ -20,8 +20,13 @@ from .flag_formulas import FlagFormulas
 # ============================================================================
 
 # Save file structure
-SAVE_HEADER_OFFSET = 0x310          # Start of first slot after BND4 header
-SLOT_SIZE = 0x280000                # 2,621,440 bytes per slot
+# NOTE: Slot offsets are NOT at fixed intervals! They must be read from BND4 entries.
+# Each BND4 entry points to a 16-byte checksum header, followed by the actual slot data.
+BND4_HEADER_SIZE = 0x40             # BND4 header before file entries
+BND4_ENTRY_SIZE = 0x20              # Each BND4 file entry is 32 bytes
+BND4_ENTRY_OFFSET_POS = 0x10        # Offset within entry for data offset (4-byte LE)
+SLOT_CHECKSUM_SIZE = 16             # 16-byte checksum header before slot data
+SLOT_SIZE = 0x280000                # 2,621,440 bytes per slot (approximate)
 SLOT_COUNT = 10                     # Maximum 10 character slots
 EVENT_FLAGS_SIZE = 0x1BF99F         # 1,833,375 bytes
 
@@ -30,10 +35,16 @@ GAITEM_SIZE = 48                    # Each GaItem entry is 48 bytes
 GAITEM_MAX_COUNT = 0x1400           # 5,120 entries max
 GAITEM_HEADER_SIZE = 8              # 4-byte count + 4-byte padding
 
-# Section offsets (relative to slot start, BEFORE variable GaItems)
+# Section offsets (relative to slot start, AFTER 16-byte checksum header)
 FIXED_HEADER_SIZE = 0x20            # Version (4) + MapID (4) + Padding (24)
 
-# Validation flags for detecting event flags offset
+# EventFlags offset VARIES per slot due to variable-size GaItems section
+# The Rust code's fixed offset (0x1a104) is incorrect for our saves
+# Empirically, the offset is around 0x12B00-0x13800 depending on GaItems count
+EVENT_FLAGS_SEARCH_MIN = 0x10000  # Minimum search offset
+EVENT_FLAGS_SEARCH_MAX = 0x20000  # Maximum search offset
+
+# Validation flags for verifying event flags offset is correct
 VALIDATION_FLAGS = [
     (71800, 2725, 7, "Cave of Knowledge"),
     (71801, 2725, 6, "Stranded Graveyard"),
@@ -91,6 +102,27 @@ class SaveParser:
     def __init__(self):
         self.formulas = FlagFormulas()
 
+    def _read_bnd4_slot_offsets(self, data: bytes) -> List[int]:
+        """
+        Read slot data offsets from BND4 file entries.
+
+        The BND4 header contains 12 file entries (10 slots + 2 other files).
+        Each entry has the data offset at position 0x10 (4-byte little-endian).
+        The offset points to a 16-byte checksum header; actual slot data is +16 bytes.
+        """
+        offsets = []
+        for i in range(SLOT_COUNT):
+            entry_offset = BND4_HEADER_SIZE + (i * BND4_ENTRY_SIZE) + BND4_ENTRY_OFFSET_POS
+            if entry_offset + 4 <= len(data):
+                # Read the BND4 entry's data offset
+                bnd4_offset = struct.unpack_from('<I', data, entry_offset)[0]
+                # Add 16 bytes to skip the checksum header
+                slot_offset = bnd4_offset + SLOT_CHECKSUM_SIZE
+                offsets.append(slot_offset)
+            else:
+                offsets.append(0)
+        return offsets
+
     def parse(self, filepath: str | Path, slots_to_parse: Optional[List[int]] = None) -> ParsedSave:
         """
         Parse a save file and extract all character slot data.
@@ -111,13 +143,17 @@ class SaveParser:
         if data[:4] != b'BND4':
             raise ValueError(f"Not a valid BND4 file: {filepath}")
 
+        # Read slot offsets from BND4 entries
+        slot_offsets = self._read_bnd4_slot_offsets(data)
+
         # Parse each slot
         slots = []
         active_slots = []
 
         indices = slots_to_parse or range(SLOT_COUNT)
         for i in indices:
-            slot = self._parse_slot(data, i)
+            slot_offset = slot_offsets[i] if i < len(slot_offsets) else 0
+            slot = self._parse_slot(data, i, slot_offset)
             if slot:
                 slots.append(slot)
                 if slot.validation_score > 0:  # Has at least one grace discovered
@@ -130,15 +166,26 @@ class SaveParser:
             active_slots=active_slots
         )
 
-    def _parse_slot(self, data: bytes, slot_index: int) -> Optional[SlotData]:
-        """Parse a single character slot."""
-        slot_offset = SAVE_HEADER_OFFSET + (slot_index * SLOT_SIZE)
+    def _parse_slot(self, data: bytes, slot_index: int, slot_offset: int) -> Optional[SlotData]:
+        """Parse a single character slot.
+
+        Args:
+            data: Full save file bytes
+            slot_index: Index of slot (0-9)
+            slot_offset: Absolute offset of slot data (after 16-byte checksum header)
+        """
+        # Check if slot offset is valid
+        if slot_offset == 0:
+            return None
 
         # Check if slot is within file bounds
         if slot_offset + SLOT_SIZE > len(data):
-            return None
-
-        slot_data = data[slot_offset:slot_offset + SLOT_SIZE]
+            # Allow partial reads for last valid data
+            slot_data = data[slot_offset:]
+            if len(slot_data) < FIXED_HEADER_SIZE:
+                return None
+        else:
+            slot_data = data[slot_offset:slot_offset + SLOT_SIZE]
 
         # Parse header
         version = struct.unpack_from('<I', slot_data, 0)[0]
@@ -160,7 +207,7 @@ class SaveParser:
 
         gaitem_size = GAITEM_HEADER_SIZE + (gaitem_count * GAITEM_SIZE)
 
-        # Find event flags offset using validation flags
+        # Find EventFlags offset by searching for validation pattern
         event_flags_offset = self._find_event_flags_offset(slot_data)
 
         # Extract event flags
@@ -192,18 +239,15 @@ class SaveParser:
         """
         Find the event flags section offset using validation flag patterns.
 
-        The offset varies due to variable-size GaItems section.
-        We search for the offset where validation flags match.
+        The offset varies due to variable-size GaItems section (depends on inventory).
+        Empirically, the offset is around 0x12B00-0x13800 for our test saves.
+        We search for the offset where at least 2 validation flags match (First Step + Church of Elleh).
         """
-        # Expected range based on documented structure
-        # Event flags are typically around 0x379C5 but can vary
-        min_search = 0x30000    # Minimum expected offset
-        max_search = 0x40000    # Maximum expected offset
-
-        best_offset = 0x379C5   # Default fallback
+        best_offset = 0x12B00  # Default fallback based on empirical testing
         best_score = 0
 
-        for test_offset in range(min_search, min(max_search, len(slot_data) - EVENT_FLAGS_SIZE), 16):
+        # Search in 4-byte increments for speed
+        for test_offset in range(EVENT_FLAGS_SEARCH_MIN, min(EVENT_FLAGS_SEARCH_MAX, len(slot_data) - EVENT_FLAGS_SIZE), 4):
             score = 0
             for flag_id, byte_off, bit_pos, name in VALIDATION_FLAGS:
                 abs_pos = test_offset + byte_off

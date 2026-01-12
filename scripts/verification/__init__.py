@@ -18,7 +18,7 @@ Usage:
     result = run_verification(
         save_file="path/to/ER0000.sl2",
         extracted_flags="path/to/extracted_event_flags.json",
-        manual_completions="path/to/user-manually-set completions.txt"
+        manual_completions="path/to/verification-records.jsonl"
     )
     result.export_ground_truth("ground_truth_offsets.json")
 """

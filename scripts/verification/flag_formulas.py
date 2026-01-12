@@ -70,22 +70,41 @@ class FlagFormulas:
     # bit_position = 7 - (flag_id % 8)
 
     BLOCK_BASES: Dict[int, BlockConfig] = {
-        # System and progression flags
-        60000: BlockConfig(60000, 1250, 1000, "unverified", "Progression flags"),
-        62000: BlockConfig(62000, 1500, 1000, "unverified", "Map fragments"),
+        # IMPORTANT: Block bases are NOT contiguous! Different flag categories
+        # are stored in different regions. Only use empirically verified bases.
+        #
+        # Empirically verified bases (2026-01-11):
+        # - 71000 (tutorial graces): 2625 - from validation flags 71800, 71801
+        # - 76000 (world graces): 3250 - from validation flags 76100, 76101
+        # - 67000 (cookbooks): 3987 - from Missionary's Cookbook [4] diff
 
-        # Whetblades and shop unlocks
-        65000: BlockConfig(65000, 1875, 1000, "verified", "Whetblades - verified working"),
+        # System and progression flags (VERIFIED 2026-01-11)
+        # Cross-validated with 60100 (Crafting Kit), 60130 (Whetstone Knife), 60220 (Furled Finger)
+        60000: BlockConfig(60000, 2548, 1000, "verified", "Progression flags - verified from multiple items"),
+        # Map fragments (VERIFIED 2026-01-11 from 62174 Ailing Village match at offset 1521)
+        62000: BlockConfig(62000, 1500, 1000, "verified", "Map fragments - verified from 62174 match"),
+        65000: BlockConfig(65000, 1875, 1000, "unverified", "Whetblades - base unconfirmed"),
 
-        # Cookbooks
-        67000: BlockConfig(67000, 2125, 1000, "verified", "Cookbooks - verified working"),
-        68000: BlockConfig(68000, 2250, 1000, "verified", "Cookbooks continued"),
+        # Cookbooks (RE-VERIFIED 2026-01-11 from precise diff analysis)
+        # Previous value of 3987 was WRONG - byte 3990 did not change during pickup
+        # Actual change was at byte 3549, which gives base=3546
+        67000: BlockConfig(67000, 3546, 1000, "verified", "Cookbooks - re-verified from Missionary's Cookbook [4], byte 3549"),
+        68000: BlockConfig(68000, 3671, 1000, "calculated", "Cookbooks continued (67000 + 125)"),
 
-        # Tutorial graces
+        # Tutorial graces (VERIFIED from validation flags)
         71000: BlockConfig(71000, 2625, 1000, "verified", "Tutorial graces (71800, 71801)"),
 
-        # World graces
+        # Dungeon graces (PARTIALLY VERIFIED 2026-01-11)
+        72000: BlockConfig(72000, 2750, 1000, "unverified", "Dungeon graces - base unconfirmed"),
+        # 73xxx VERIFIED from slot comparison - 13/13 dungeon graces matched at base 2664
+        73000: BlockConfig(73000, 2664, 1000, "verified", "Dungeon graces - verified from 13 catacombs/caves/tunnels"),
+        74000: BlockConfig(74000, 3000, 1000, "unverified", "Extended dungeon graces - base unconfirmed"),
+        75000: BlockConfig(75000, 3125, 1000, "unverified", "Extended graces - base unconfirmed"),
+
+        # World graces (VERIFIED from validation flags)
         76000: BlockConfig(76000, 3250, 1000, "verified", "World graces - The First Step (76100)"),
+        77000: BlockConfig(77000, 3375, 1000, "calculated", "Extended world graces (76000 + 125)"),
+        78000: BlockConfig(78000, 3500, 1000, "unverified", "Map POI flags - base unconfirmed"),
     }
 
     # Validation flags - these are ALWAYS correct (anchors for detection)
@@ -100,18 +119,27 @@ class FlagFormulas:
     # =========================================================================
     # TILE-BASED FORMULA (10-digit base game flags)
     # =========================================================================
-    # Format: 1XXYYZZZZ where XX=row, YY=col, ZZZZ=localId
+    # Format: 10XXYYZZZZ where 10=prefix (base game), XX=row, YY=col, ZZZZ=localId
+    # Example: 1043500010 = prefix 10, row 43, col 50, local 10
+    # Parse: row = flag_str[2:4], col = flag_str[4:6], local = flag_str[6:]
     # Formula: offset = base + ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot + localId // 8
-    # LIMITATION: Only works for localId 0-6999 (slots are 875 bytes = 7000 flags)
+    # Bit: 7 - (local_id % 8), same convention as block formula
+    #
+    # LIMITATIONS:
+    # 1. Only works for localId 0-6999 (slots are 875 bytes = 7000 flags)
+    # 2. col_base=42 verified; tiles with col < 42 may use different storage region
+    #    (empirical testing needed for western map tiles)
+    #
+    # VERIFIED: Flag 1043500010 (Smoldering Butterfly) at byte 852831, bit 5 (base=495830)
 
     TILE_CONFIG = TileConfig(
-        base_offset=347375,     # Offset for tile 33,42 (verified)
+        base_offset=495830,     # RE-VERIFIED 2026-01-12: Smoldering Butterfly at byte 852831
         bytes_per_slot=875,     # 875 bytes = 7000 flags per slot
         slots_per_row=40,       # 40 columns per row
         row_base=33,            # First tile row
         col_base=42,            # First tile column
         max_local_id=6999,      # LocalId >= 7000 has no storage!
-        status="partial"        # Works for localId < 7000 only
+        status="verified"       # Verified from Smoldering Butterfly pickup (2026-01-12)
     )
 
     # =========================================================================
@@ -121,6 +149,7 @@ class FlagFormulas:
     # Each dungeon has its own base offset
 
     DUNGEON_CONFIGS: Dict[int, DungeonConfig] = {
+        # Legacy Dungeons (need more investigation)
         10: DungeonConfig(10, 1383375, 1125, "unverified", "Stormveil Castle"),
         11: DungeonConfig(11, 0, 1125, "unverified", "Leyndell, Royal Capital"),
         12: DungeonConfig(12, 0, 1125, "unverified", "Underground (Siofra, etc.)"),
@@ -132,9 +161,13 @@ class FlagFormulas:
         19: DungeonConfig(19, 0, 1125, "unverified", "Chapel of Anticipation"),
         20: DungeonConfig(20, 0, 1125, "unverified", "Stranded Graveyard"),
         21: DungeonConfig(21, 0, 1125, "unverified", "Miquella's Haligtree"),
-        30: DungeonConfig(30, 0, 1125, "unverified", "Catacombs"),
-        31: DungeonConfig(31, 0, 1125, "unverified", "Caves"),
-        32: DungeonConfig(32, 0, 1125, "unverified", "Tunnels"),
+
+        # Minor Dungeons (VERIFIED 2026-01-12 via slot comparison)
+        # Formula: byte = base + section * 1125 + local_id // 8
+        30: DungeonConfig(30, 27411, 1125, "verified", "Catacombs - 5 bosses matched"),
+        31: DungeonConfig(31, 28634, 1125, "verified", "Caves - 5 bosses matched"),
+        32: DungeonConfig(32, 31577, 1125, "verified", "Tunnels - 4 bosses matched"),
+
         34: DungeonConfig(34, 0, 1125, "unverified", "Divine Towers"),
         35: DungeonConfig(35, 0, 1125, "unverified", "Mohgwyn Palace"),
         39: DungeonConfig(39, 0, 1125, "unverified", "Elden Throne"),
@@ -218,12 +251,21 @@ class FlagFormulas:
         return None
 
     def _calc_tile_offset(self, flag_id: int) -> Optional[FormulaResult]:
-        """Calculate offset using tile-based formula for 10-digit flags."""
-        # Check if this is a 10-digit base game flag (1XXYYZZZZ)
+        """Calculate offset using tile-based formula for 10-digit flags.
+
+        Format: 10XXYYZZZZ where:
+        - 10 = base game prefix
+        - XX = tile row (e.g., 43)
+        - YY = tile column (e.g., 50)
+        - ZZZZ = local ID within tile (e.g., 0010)
+
+        Example: 1043500010 = row 43, col 50, local 10
+        """
+        # Check if this is a 10-digit base game flag (10XXXXXXXX)
         if not (1_000_000_000 <= flag_id < 2_000_000_000):
             return None
 
-        # Extract components
+        # Extract components - note prefix is "10" (2 digits), not "1" (1 digit)
         flag_str = str(flag_id)
         if len(flag_str) != 10:
             return FormulaResult(
@@ -235,9 +277,11 @@ class FlagFormulas:
             )
 
         try:
-            row = int(flag_str[1:3])     # XX
-            col = int(flag_str[3:5])     # YY
-            local_id = int(flag_str[5:]) # ZZZZ
+            # Correct parsing: 10XXYYZZZZ
+            # prefix = flag_str[0:2]  # "10" for base game
+            row = int(flag_str[2:4])     # XX (tile row)
+            col = int(flag_str[4:6])     # YY (tile column)
+            local_id = int(flag_str[6:]) # ZZZZ (local ID)
         except (ValueError, IndexError) as e:
             return FormulaResult(
                 formula_name="tile",
@@ -257,16 +301,53 @@ class FlagFormulas:
                 error_message=f"LocalId {local_id} >= {self.TILE_CONFIG.max_local_id}: UNTRACKABLE (no storage space)"
             )
 
-        # Calculate tile slot offset
+        # Check row/col produce valid offset
+        # Note: col can be < col_base (giving negative col_index), which is valid
+        # as long as the final offset is non-negative
         config = self.TILE_CONFIG
+
+        # Basic sanity check - row and col should be reasonable values
+        if not (30 <= row <= 60):  # Reasonable range for Elden Ring map tiles
+            return FormulaResult(
+                formula_name="tile",
+                byte_offset=None,
+                bit_position=None,
+                is_valid=False,
+                error_message=f"Row {row} out of reasonable range (30-60)"
+            )
+        if not (30 <= col <= 60):  # Reasonable range for Elden Ring map tiles
+            return FormulaResult(
+                formula_name="tile",
+                byte_offset=None,
+                bit_position=None,
+                is_valid=False,
+                error_message=f"Col {col} out of reasonable range (30-60)"
+            )
+
+        # Calculate tile slot offset
         tile_offset = (
             (row - config.row_base) * config.slots_per_row +
             (col - config.col_base)
         ) * config.bytes_per_slot
 
-        # Final offset
+        # Final offset calculation
         byte_offset = config.base_offset + tile_offset + (local_id // 8)
-        bit_position = 7 - (flag_id % 8)
+
+        # Validate final offset is non-negative
+        if byte_offset < 0:
+            return FormulaResult(
+                formula_name="tile",
+                byte_offset=None,
+                bit_position=None,
+                is_valid=False,
+                error_message=f"Calculated offset {byte_offset} is negative (row={row}, col={col})"
+            )
+
+        # Bit position formula - SAME convention as block formula
+        # Returns physical bit position (0-7 from right) for direct checking
+        # Verified empirically: flag 1043500010 (localId=10) at physical bit 5
+        # (byte 0x20 = 0b00100000 has bit 5 set)
+        bit_position = 7 - (local_id % 8)
 
         return FormulaResult(
             formula_name="tile",

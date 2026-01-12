@@ -136,72 +136,87 @@ class DataLoader:
 
     def load_manual_completions(self, filepath: str | Path) -> List[ManualCompletion]:
         """
-        Load manual completions from user-manually-set completions.txt.
+        Load manual completions from verification-records.jsonl or legacy txt format.
 
-        Expected format (based on file content):
+        JSONL format (preferred):
+        {"flagId": 76117, "flagName": "Saintsbridge", "flagCategory": "Grace",
+         "slotIndex": 5, "manualStatus": true, ...}
+
+        Legacy txt format:
         - Lines starting with # are comments
         - Each completion is a line with: Name (optional details)
-        - Categories are marked with headers like "## Graces"
         """
         filepath = Path(filepath)
         completions = []
-        current_category = "Unknown"
 
-        with open(filepath, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+        # Handle JSONL format
+        if filepath.suffix == '.jsonl':
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        record = json.loads(line)
+                        # Only include records where manualStatus is true
+                        if record.get('manualStatus', False):
+                            completions.append(ManualCompletion(
+                                name=record.get('flagName', 'Unknown'),
+                                flag_id=record.get('flagId'),
+                                category=record.get('flagCategory', 'Unknown'),
+                                slot=record.get('slotIndex'),
+                                completed=True,
+                                notes=record.get('flagRegion')
+                            ))
+                    except json.JSONDecodeError:
+                        continue
+        else:
+            # Legacy txt format parsing
+            current_category = "Unknown"
 
-        for line in lines:
-            line = line.strip()
+            with open(filepath, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
 
-            # Skip empty lines
-            if not line:
-                continue
+            for line in lines:
+                line = line.strip()
 
-            # Category headers
-            if line.startswith("## "):
-                current_category = line[3:].strip()
-                continue
+                if not line:
+                    continue
 
-            # Skip comments
-            if line.startswith("#"):
-                continue
+                if line.startswith("## "):
+                    current_category = line[3:].strip()
+                    continue
 
-            # Parse completion entry
-            # Formats:
-            # - "The First Step" (simple grace name)
-            # - "Nomadic Warrior's Cookbook [10] - flag 67030"
-            # - "Golden Order Seal (slot 0)"
+                if line.startswith("#"):
+                    continue
 
-            name = line
-            flag_id = None
-            slot = None
-            notes = None
+                name = line
+                flag_id = None
+                slot = None
+                notes = None
 
-            # Extract flag ID if present
-            flag_match = re.search(r'flag[:\s]+(\d+)', line, re.IGNORECASE)
-            if flag_match:
-                flag_id = int(flag_match.group(1))
-                name = line[:flag_match.start()].strip(' -')
+                flag_match = re.search(r'flag[:\s]+(\d+)', line, re.IGNORECASE)
+                if flag_match:
+                    flag_id = int(flag_match.group(1))
+                    name = line[:flag_match.start()].strip(' -')
 
-            # Extract slot if present
-            slot_match = re.search(r'\(slot\s*(\d+)\)', line, re.IGNORECASE)
-            if slot_match:
-                slot = int(slot_match.group(1))
-                name = re.sub(r'\(slot\s*\d+\)', '', name).strip()
+                slot_match = re.search(r'\(slot\s*(\d+)\)', line, re.IGNORECASE)
+                if slot_match:
+                    slot = int(slot_match.group(1))
+                    name = re.sub(r'\(slot\s*\d+\)', '', name).strip()
 
-            # Extract notes in parentheses
-            notes_match = re.search(r'\(([^)]+)\)', line)
-            if notes_match and not slot_match:
-                notes = notes_match.group(1)
+                notes_match = re.search(r'\(([^)]+)\)', line)
+                if notes_match and not slot_match:
+                    notes = notes_match.group(1)
 
-            completions.append(ManualCompletion(
-                name=name.strip(' -:'),
-                flag_id=flag_id,
-                category=current_category,
-                slot=slot,
-                completed=True,
-                notes=notes
-            ))
+                completions.append(ManualCompletion(
+                    name=name.strip(' -:'),
+                    flag_id=flag_id,
+                    category=current_category,
+                    slot=slot,
+                    completed=True,
+                    notes=notes
+                ))
 
         self.manual_completions = completions
 
@@ -404,7 +419,7 @@ if __name__ == "__main__":
     # Default paths
     base_path = Path(__file__).parent.parent.parent
     extracted_path = base_path / "scripts" / "extracted_event_flags.json"
-    manual_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/user-manually-set completions.txt")
+    manual_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl")
 
     loader = DataLoader()
 

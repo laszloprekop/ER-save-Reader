@@ -179,30 +179,30 @@ class DiffAnalyzer:
 
         Returns multiple candidates because different flag ranges may
         map to the same offset.
+
+        Note: bit_position is stored as (7 - physical_bit) where physical_bit
+        is the actual bit index in the byte (0-7 from right).
         """
         candidates = []
 
         # Reverse block-based calculation
+        # Formula: bit_position = 7 - (flag_id % 8)
+        # So: flag_id % 8 = 7 - bit_position
         for block_start, config in self.formulas.BLOCK_BASES.items():
-            # offset = base + (flag - block_start) / 8
-            # flag - block_start = (offset - base) * 8
-            # flag = block_start + (offset - base) * 8 + bit_correction
-
             relative_offset = byte_offset - config.base_offset
             if 0 <= relative_offset < config.block_size // 8:
                 base_flag = block_start + relative_offset * 8
-                # Account for bit position
+                # bit_position = 7 - (flag_id % 8), so flag_id % 8 = 7 - bit_position
                 flag_id = base_flag + (7 - bit_position)
                 if block_start <= flag_id < block_start + config.block_size:
                     candidates.append(flag_id)
 
         # Reverse tile-based calculation
+        # Format: 10XXYYZZZZ where XX=row, YY=col, ZZZZ=local_id
+        # Bit formula: bit_position = local_id % 8
         tc = self.formulas.TILE_CONFIG
         if byte_offset >= tc.base_offset:
             relative = byte_offset - tc.base_offset
-
-            # offset = base + ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot + local_id // 8
-            # relative = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot + local_id // 8
 
             tile_slot = relative // tc.bytes_per_slot
             local_byte = relative % tc.bytes_per_slot
@@ -214,15 +214,17 @@ class DiffAnalyzer:
             row = tc.row_base + row_offset
             col = tc.col_base + col_offset
 
-            # Calculate local_id from local_byte and bit
+            # For tile formula, bit_position = local_id % 8 directly
+            # (not 7 - local_id % 8 like block formula)
             local_id_base = local_byte * 8
-            local_id = local_id_base + (7 - bit_position)
+            local_id = local_id_base + bit_position
 
             if 0 <= local_id < tc.max_local_id:
-                # Construct 10-digit flag ID
-                flag_id = 1_000_000_000 + row * 100_000_000 + col * 1_000_000 + local_id
-                # Validate it's in expected range
-                if 33 <= row <= 54 and 31 <= col <= 58:
+                # Construct 10-digit flag ID: 10XXYYZZZZ
+                # 10 (prefix) + XX (row) + YY (col) + ZZZZ (local)
+                flag_id = int(f"10{row:02d}{col:02d}{local_id:04d}")
+                # Validate it's in reasonable range (Elden Ring map bounds)
+                if 30 <= row <= 60 and 30 <= col <= 60:
                     candidates.append(flag_id)
 
         return candidates
