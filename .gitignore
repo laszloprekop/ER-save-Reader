@@ -1,4 +1,8 @@
 /target
 /.vscode
 /.idea
-/.claude__pycache__/
+/.claude/
+__pycache__/
+**/__pycache__/
+*.pyc
+scripts/verification_results.json
