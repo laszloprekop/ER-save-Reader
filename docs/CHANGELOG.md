@@ -4,6 +4,24 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.3.1 - Wire Generated Ground Truth into App
+
+### Bug Fix
+- **pickup_flags.rs now uses verified offsets**: The generated ground truth module is now wired into the app's event flag calculations
+  - Tile base offset: 347,000 → **495,830** (verified)
+  - Block bases: Now uses `VERIFIED_BLOCK_BASES` from JSON
+  - Dungeon bases: Uses verified bases for areas 30, 31, 32 (catacombs, caves, tunnels)
+
+### Features
+- **Untrackable flag filtering**: LocalId > 6999 now returns `None` (consumables with localId 7000+ cannot be tracked)
+- **Status-aware dungeon lookup**: Only uses verified dungeon bases when status is "verified"
+
+### Files Modified
+- `src/main.rs`: Added `mod generated;`
+- `src/db/pickup_flags.rs`: Imports from generated module, uses verified constants
+
+---
+
 ## v0.3.0 - Ground Truth Code Generation & Cross-Project Integration
 
 ### Features
