@@ -4,6 +4,20 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.3.2 - Fix Event Flags Offset Detection
+
+### Critical Bug Fix
+- **Dynamic event flags offset detection**: Fixed save parser using wrong hardcoded offset
+  - Was using `0x1a104` (~107KB) but actual offset is `~0x12B00` (~76KB)
+  - Caused massive false positives (55 items showing "collected" when they weren't)
+  - Now uses validation-based detection to find correct offset per slot
+  - Detection uses anchor flags (tutorial graces) that all characters should have
+
+### Files Modified
+- `src/save/common/save_slot.rs`: Replace hardcoded offset with dynamic detection
+
+---
+
 ## v0.3.1 - Wire Generated Ground Truth into App
 
 ### Bug Fix
