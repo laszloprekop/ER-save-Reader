@@ -1,3 +1,9 @@
+## Commit Protocol
+
+**IMPORTANT**: Never commit automatically. Always use the `/snapshot` command to ensure the commit protocol is followed properly. This ensures version bumps, changelog updates, and documentation are handled consistently.
+
+---
+
 ## Knowledge Resource files (single source of truth):
 
 Decompiled game resource files:
