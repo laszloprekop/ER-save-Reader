@@ -4,6 +4,36 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.2 - Expanded Flag Catalog
+
+### Features
+- **Expanded Flag Catalog**: Increased from 7,034 to 22,376 documented flags
+  - Extracted 5,047 flags from ItemLotParam_map.param.xml
+  - Extracted 1,291 flags from ShopLineupParam.param.xml
+  - Extracted 15,921 flags from event scripts (*.emevd.js)
+
+- **Automatic Name Generation**: All discovered flags now get descriptive names
+  - Pattern-based naming for undocumented flags (e.g., "Sewers Event 8642")
+  - Dungeon/region prefixes: Stormveil, Raya Lucaria, Sewers, Cave, etc.
+  - World pickup names include map tile coordinates
+  - Catalog lookup takes precedence when flag is documented
+
+### Technical Details
+- `FlagCatalog::get_name_or_generate()` provides fallback naming
+- `FlagCatalog::generate_flag_name()` maps ID patterns to descriptive names
+- Batch analysis now loads catalog once and passes to all operations
+
+### Files Created
+- `scripts/expand_flag_catalog.py`: Extraction tool for expanding catalog
+
+### Files Modified
+- `scripts/extracted_event_flags.json`: Expanded from 7,034 to 22,376 flags
+- `src/discovery/flag_catalog.rs`: Added name generation methods
+- `src/discovery/integration.rs`: Use `get_name_or_generate()` for lookups
+- `src/discovery/snapshot_batch.rs`: Load catalog for batch processing
+
+---
+
 ## v0.4.1 - Discovery CLI Commands
 
 ### Features

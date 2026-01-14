@@ -243,6 +243,76 @@ impl FlagCatalog {
         self.flags.get(&flag_id)
     }
 
+    /// Get flag name, or generate one based on ID pattern if not in catalog
+    pub fn get_name_or_generate(&self, flag_id: u32) -> String {
+        if let Some(flag) = self.flags.get(&flag_id) {
+            return flag.name.clone();
+        }
+
+        // Generate name based on flag ID pattern
+        Self::generate_flag_name(flag_id)
+    }
+
+    /// Generate a descriptive name for a flag based on its ID pattern
+    pub fn generate_flag_name(flag_id: u32) -> String {
+        match flag_id {
+            // Simple flags (0-59999)
+            0..=59999 => format!("Simple Flag {}", flag_id),
+
+            // Block flags (60000-99999)
+            60000..=60999 => format!("Progression Flag {}", flag_id),
+            61000..=61999 => format!("Quest Flag {}", flag_id),
+            62000..=62999 => format!("Map Discovery {}", flag_id),
+            63000..=63999 => format!("Map Revealed {}", flag_id),
+            64000..=64999 => format!("Talisman Slot {}", flag_id),
+            65000..=65999 => format!("Whetblade {}", flag_id),
+            66000..=66999 => format!("Pot Upgrade {}", flag_id),
+            67000..=68999 => format!("Cookbook {}", flag_id),
+            69000..=69999 => format!("Duplication {}", flag_id),
+            70000..=79999 => format!("Block Flag {}", flag_id),
+            80000..=89999 => format!("Block Flag {}", flag_id),
+            90000..=91999 => format!("Remembrance {}", flag_id),
+            92000..=92999 => format!("Container Upgrade {}", flag_id),
+            93000..=99999 => format!("Block Flag {}", flag_id),
+
+            // Legacy dungeon flags (10M-44M)
+            10_000_000..=10_999_999 => format!("Stormveil Event {}", flag_id % 1_000_000),
+            11_000_000..=11_999_999 => format!("Raya Lucaria Event {}", flag_id % 1_000_000),
+            12_000_000..=12_999_999 => format!("Underground Event {}", flag_id % 1_000_000),
+            13_000_000..=13_999_999 => format!("Leyndell Event {}", flag_id % 1_000_000),
+            14_000_000..=14_999_999 => format!("Sewers Event {}", flag_id % 1_000_000),
+            15_000_000..=15_999_999 => format!("Haligtree Event {}", flag_id % 1_000_000),
+            16_000_000..=16_999_999 => format!("Farum Azula Event {}", flag_id % 1_000_000),
+            18_000_000..=18_999_999 => format!("Roundtable Event {}", flag_id % 1_000_000),
+            19_000_000..=19_999_999 => format!("Ainsel River Event {}", flag_id % 1_000_000),
+
+            // Minor dungeons
+            30_000_000..=30_999_999 => format!("Catacomb Event {}", flag_id % 1_000_000),
+            31_000_000..=31_999_999 => format!("Cave Event {}", flag_id % 1_000_000),
+            32_000_000..=32_999_999 => format!("Tunnel Event {}", flag_id % 1_000_000),
+            34_000_000..=34_999_999 => format!("Divine Tower Event {}", flag_id % 1_000_000),
+            35_000_000..=35_999_999 => format!("Mohgwyn Event {}", flag_id % 1_000_000),
+            39_000_000..=39_999_999 => format!("Deeproot Event {}", flag_id % 1_000_000),
+
+            // World pickup flags (1B+)
+            1_000_000_000..=1_999_999_999 => {
+                let tile_x = (flag_id / 10_000_000) % 100;
+                let tile_y = (flag_id / 100_000) % 100;
+                let local = flag_id % 100_000;
+                format!("World Pickup m60_{}_{} #{}", tile_x, tile_y, local)
+            }
+            2_000_000_000..=u32::MAX => {
+                let tile_x = (flag_id / 10_000_000) % 100;
+                let tile_y = (flag_id / 100_000) % 100;
+                let local = flag_id % 100_000;
+                format!("DLC Pickup m20_{}_{} #{}", tile_x, tile_y, local)
+            }
+
+            // Everything else
+            _ => format!("Event Flag {}", flag_id),
+        }
+    }
+
     /// Search flags by name (case-insensitive, partial match)
     ///
     /// Supports both single-word and multi-word queries:

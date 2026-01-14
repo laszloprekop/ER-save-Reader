@@ -14,6 +14,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use super::discovery_store::DiscoveryStore;
+use super::flag_catalog::FlagCatalog;
 use super::integration::run_differential_discovery_with_persistence;
 
 /// Metadata extracted from a snapshot filename
@@ -301,6 +302,19 @@ pub fn run_batch_analysis(
     println!("║              BATCH SNAPSHOT ANALYSIS                          ║");
     println!("╠══════════════════════════════════════════════════════════════╣");
 
+    // Load flag catalog once for all pairs
+    let catalog = match FlagCatalog::load_default() {
+        Ok(c) => {
+            println!("║ Loaded flag catalog ({} flags)", c.len());
+            Some(c)
+        }
+        Err(e) => {
+            println!("║ Warning: Could not load flag catalog: {}", e);
+            println!("║ Flag names will not be populated");
+            None
+        }
+    };
+
     let snapshots = scan_snapshot_directory(snapshot_dir);
     println!("║ Scanned {} snapshot files", snapshots.len());
 
@@ -327,6 +341,7 @@ pub fn run_batch_analysis(
             pair.slot_index,
             store,
             Some(&pair.action_description),
+            catalog.as_ref(),
         ) {
             Ok(diff_result) => {
                 result.pairs_processed += 1;

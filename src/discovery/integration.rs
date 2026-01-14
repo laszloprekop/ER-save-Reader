@@ -20,6 +20,7 @@ use super::offset_probe::{probe_failing_flags, generate_ground_truth_updates};
 use super::discovery_store::{
     DiscoveryStore, OffsetObservation, ObservationSource, StoreError,
 };
+use super::flag_catalog::FlagCatalog;
 
 /// Run full discovery workflow on a save file slot
 pub fn run_discovery_workflow(
@@ -317,6 +318,7 @@ pub fn run_differential_discovery_with_persistence(
     slot_index: usize,
     store: &mut DiscoveryStore,
     action_description: Option<&str>,
+    catalog: Option<&FlagCatalog>,
 ) -> Result<DifferentialResult, String> {
     let before_save = Save::from_path(&before_path.to_path_buf())
         .map_err(|e| format!("Failed to load before save: {}", e))?;
@@ -372,9 +374,13 @@ pub fn run_differential_discovery_with_persistence(
                     0.8, // High confidence for snapshot diffs
                 );
 
+                // Look up flag name from catalog, or generate from ID pattern
+                let flag_name = catalog
+                    .map(|c| c.get_name_or_generate(flag_id));
+
                 store.add_observation_with_metadata(
                     flag_id,
-                    None, // We'd need flag catalog to get name
+                    flag_name,
                     categorize_flag_id(flag_id),
                     observation,
                 );
@@ -506,12 +512,16 @@ pub fn differential_discovery_and_save(
     let mut store = DiscoveryStore::load_or_create(store_path)
         .map_err(|e| format!("Failed to load store: {}", e))?;
 
+    // Load flag catalog for name lookups
+    let catalog = FlagCatalog::load_default().ok();
+
     let result = run_differential_discovery_with_persistence(
         before_path,
         after_path,
         slot_index,
         &mut store,
         action_description,
+        catalog.as_ref(),
     )?;
 
     store.save(store_path)
