@@ -14,6 +14,8 @@ use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, La
 use rfd::FileDialog;
 use save::save::save::{Save, SaveType};
 use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{menu, database_menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}};
+use vm::verification_vm::VerificationViewModel;
+use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
 use crate::write::write::Write as w;
 use rust_embed::RustEmbed;
@@ -71,6 +73,8 @@ pub struct App {
     shop_items_view_state: ShopItemsViewState,
     world_pickups_view_state: WorldPickupsViewState,
     event_flags_db_view_state: EventFlagsDbViewState,
+    // Track which slots have had verification records loaded
+    verification_loaded_slots: [bool; 10],
 }
 
 impl App {
@@ -88,13 +92,88 @@ impl App {
             shop_items_view_state: ShopItemsViewState::default(),
             world_pickups_view_state: WorldPickupsViewState::default(),
             event_flags_db_view_state: EventFlagsDbViewState::default(),
+            // Track which slots have had verification records loaded
+            verification_loaded_slots: [false; 10],
         }
+    }
+
+    /// Load verification records for the current slot into slot's events_vm
+    fn load_verification_records_for_slot(&mut self) {
+        let slot_index = self.vm.index;
+
+        // Default path - relative to typical development location
+        let default_path = std::path::Path::new("../elden-map/server/data/verification-records-manually-set-to-complete.jsonl");
+
+        // Try environment variable first
+        let path = std::env::var("ER_VERIFICATION_RECORDS_PATH")
+            .map(PathBuf::from)
+            .unwrap_or_else(|_| default_path.to_path_buf());
+
+        if let Ok(all_records) = load_verification_records(&path) {
+            let mut slot_records = get_records_for_slot(&all_records, slot_index as u32);
+
+            // Re-compute auto_status based on actual save data
+            if let Some(event_flags) = self.save.save_type.get_event_flags(slot_index) {
+                recompute_auto_status(&mut slot_records, event_flags);
+            }
+
+            let mut verification_vm = VerificationViewModel::from_records(slot_records);
+            verification_vm.records_path = Some(path.to_string_lossy().to_string());
+
+            // Compute discovered regions from grace flags
+            let discovered_regions = self.get_discovered_regions();
+            verification_vm.set_discovered_regions(discovered_regions);
+
+            self.vm.slots[slot_index].events_vm.verification_vm = verification_vm;
+        } else {
+            self.vm.slots[slot_index].events_vm.verification_vm = VerificationViewModel::default();
+        }
+        self.verification_loaded_slots[slot_index] = true;
+    }
+
+    /// Get regions that have at least one discovered grace
+    fn get_discovered_regions(&self) -> std::collections::HashSet<String> {
+        use crate::db::graces::maps::GRACES;
+        use crate::db::map_name::map_name::MAP_NAME;
+        use crate::db::pickup_flags::is_flag_set;
+
+        let mut regions = std::collections::HashSet::new();
+
+        let event_flags = match self.save.save_type.get_event_flags(self.vm.index) {
+            Some(flags) => flags,
+            None => return regions,
+        };
+
+        // Check each grace and see if it's discovered
+        let graces = match GRACES.lock() {
+            Ok(g) => g,
+            Err(_) => return regions,
+        };
+
+        let map_names = match MAP_NAME.lock() {
+            Ok(m) => m,
+            Err(_) => return regions,
+        };
+
+        for (_grace, (map_name, flag_id, _name)) in graces.iter() {
+            // Check if this grace is discovered
+            if is_flag_set(event_flags, *flag_id) {
+                // Get the region name string
+                if let Some(region_str) = map_names.get(map_name) {
+                    regions.insert(region_str.to_string());
+                }
+            }
+        }
+
+        regions
     }
 
     fn open(&mut self, path: PathBuf) {
         self.save = Save::from_path(&path).expect("Failed to read save");
         self.vm = ViewModel::from_save(&self.save);
         self.picked_path = path.clone();
+        // Reset verification state - will be loaded on demand per slot
+        self.verification_loaded_slots = [false; 10];
     }
 
     fn save(&mut self, path: PathBuf) {
@@ -135,15 +214,26 @@ impl App {
         .save_file()
     }
 
-    fn export_character(&self) {
-        let character_name = self.vm.slots[self.vm.index].general_vm.character_name.trim_matches('\0');
+    fn export_character(&mut self) {
+        let slot_index = self.vm.index;
+        let character_name = self.vm.slots[slot_index].general_vm.character_name.trim_matches('\0');
         let path = Self::export_file_dialog(character_name);
 
         match path {
             Some(path) => {
                 let steam_id: u64 = self.vm.steam_id.parse().unwrap_or(0);
-                let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                let export_data = self.vm.slots[self.vm.index].to_export_data(self.vm.index, steam_id, event_flags);
+                let event_flags = self.save.save_type.get_event_flags(slot_index);
+                let mut export_data = self.vm.slots[slot_index].to_export_data(slot_index, steam_id, event_flags);
+
+                // Load verification records if not already loaded for this slot
+                if !self.verification_loaded_slots[slot_index] {
+                    self.load_verification_records_for_slot();
+                }
+
+                // Add verification data to export from slot's events_vm
+                export_data.verification = vm::slot::slot_view_model::SlotViewModel::build_verification_export(
+                    &self.vm.slots[slot_index].events_vm.verification_vm
+                );
 
                 match serde_json::to_string_pretty(&export_data) {
                     Ok(json) => {
@@ -294,6 +384,10 @@ impl eframe::App for App {
                     Route::Equipment => equipment(ui, &mut self.vm),
                     Route::Inventory => inventory(ui, &mut self.vm),
                     Route::EventFlags => {
+                        // Load verification records on demand for current slot
+                        if !self.verification_loaded_slots[self.vm.index] {
+                            self.load_verification_records_for_slot();
+                        }
                         let event_flags = self.save.save_type.get_event_flags(self.vm.index);
                         events(ui, &mut self.vm, event_flags);
                     },

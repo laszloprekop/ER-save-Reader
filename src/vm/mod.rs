@@ -1,5 +1,5 @@
 mod profile_summary;
-mod slot;
+pub mod slot;
 pub mod general;
 pub mod stats;
 pub mod events;
@@ -10,3 +10,4 @@ pub mod vm;
 pub mod regulation;
 pub mod equipment;
 pub mod export;
+pub mod verification_vm;

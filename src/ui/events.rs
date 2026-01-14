@@ -1,7 +1,7 @@
 pub mod events {
 
-    use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::is_flag_set}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use eframe::egui::{self, Ui, Color32, RichText, ScrollArea};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::is_flag_set}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
@@ -17,6 +17,8 @@ pub mod events {
                     let summoning_pools = ui.add_sized([100., 60.], egui::Button::new("Summoning\nPools"));
                     let colosseums = ui.add_sized([100., 40.], egui::Button::new("Colosseums"));
                     let world_pickups = ui.add_sized([100., 40.], egui::Button::new("World Pickups"));
+                    ui.separator();
+                    let verification = ui.add_sized([100., 40.], egui::Button::new("Verification"));
 
                     if sites_of_grace.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::SitesOfGrace}
                     if whetblades.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Whetblades}
@@ -26,6 +28,7 @@ pub mod events {
                     if summoning_pools.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::SummoningPools}
                     if colosseums.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Colosseums}
                     if world_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::WorldPickups}
+                    if verification.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Verification}
 
                     // Highlight active
                     match vm.slots[vm.index].events_vm.current_route {
@@ -38,6 +41,7 @@ pub mod events {
                         EventsRoute::SummoningPools => {summoning_pools.highlight();},
                         EventsRoute::Colosseums => {colosseums.highlight();},
                         EventsRoute::WorldPickups => {world_pickups.highlight();},
+                        EventsRoute::Verification => {verification.highlight();},
                     }
                 })
             });
@@ -58,6 +62,9 @@ pub mod events {
                     EventsRoute::SummoningPools => {summoning_pools(ui, vm);},
                     EventsRoute::Colosseums => {colosseums(ui, vm);},
                     EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags);},
+                    EventsRoute::Verification => {
+                        verification_view(ui, &mut vm.slots[vm.index].events_vm.verification_vm);
+                    },
                 }
             });
         });

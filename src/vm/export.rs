@@ -1,4 +1,5 @@
 use serde::Serialize;
+use std::collections::BTreeMap;
 
 #[derive(Serialize)]
 pub struct ExportData {
@@ -9,6 +10,71 @@ pub struct ExportData {
     pub inventory: ExportInventory,
     pub events: ExportEvents,
     pub regions: ExportRegions,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub verification: Option<VerificationExport>,
+}
+
+/// Verification comparison export data
+#[derive(Serialize)]
+pub struct VerificationExport {
+    pub total_records: usize,
+    pub matches: usize,
+    pub mismatches: usize,
+    pub agreement_rate: f64,
+    pub by_category: BTreeMap<String, CategoryStatsExport>,
+    pub flagged_count: usize,
+    pub formula_error_count: usize,
+    pub informational_count: usize,
+    pub flagged_by_category: BTreeMap<String, usize>,
+    pub flagged_detections: Vec<SuspiciousDetectionExport>,
+    pub comparisons: Vec<VerificationComparison>,
+    // Deprecated aliases for backwards compatibility
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suspicious_count: Option<usize>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suspicious_by_reason: Option<BTreeMap<String, usize>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub suspicious_detections: Option<Vec<SuspiciousDetectionExport>>,
+}
+
+/// A flagged detection for export
+#[derive(Serialize)]
+pub struct FlaggedDetectionExport {
+    pub flag_id: u32,
+    pub flag_name: String,
+    pub flag_category: String,
+    pub region: String,
+    pub detection_category: String,
+    pub is_error: bool,
+    pub description: String,
+    pub auto_status: bool,
+    pub manual_status: Option<bool>,
+}
+
+// Type alias for backwards compatibility
+pub type SuspiciousDetectionExport = FlaggedDetectionExport;
+
+/// Per-category statistics for export
+#[derive(Serialize)]
+pub struct CategoryStatsExport {
+    pub total: usize,
+    pub matches: usize,
+    pub rate: f64,
+}
+
+/// Individual verification comparison item for export
+#[derive(Serialize)]
+pub struct VerificationComparison {
+    pub flag_id: u32,
+    pub flag_name: String,
+    pub category: String,
+    pub region: String,
+    pub flag_type: String,
+    pub manual_status: bool,
+    pub auto_status: bool,
+    pub matches: bool,
+    pub byte_offset: i32,
+    pub bit_position: i32,
 }
 
 #[derive(Serialize)]

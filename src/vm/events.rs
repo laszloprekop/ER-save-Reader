@@ -1,7 +1,7 @@
 pub mod events_view_model {
     use std::collections::BTreeMap;
 
-    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, event_flags::event_flags::EVENT_FLAGS, graces::maps::{Grace, GRACES}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit};
+    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, event_flags::event_flags::EVENT_FLAGS, graces::maps::{Grace, GRACES}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
 
     #[derive(Clone)]
     pub enum EventsRoute {
@@ -14,6 +14,7 @@ pub mod events_view_model {
         SummoningPools,
         Colosseums,
         WorldPickups,
+        Verification,
     }
 
     #[derive(Clone, Copy, PartialEq)]
@@ -71,6 +72,8 @@ pub mod events_view_model {
         pub summoning_pools: BTreeMap<SummoningPool, bool>,
         pub colosseums: BTreeMap<Colosseum, bool>,
         pub world_pickups_filter: WorldPickupsFilter,
+        /// Verification comparison view model (per-slot)
+        pub verification_vm: VerificationViewModel,
     }
 
     impl Default for EventsViewModel {
@@ -86,6 +89,7 @@ pub mod events_view_model {
                 summoning_pools: Default::default(),
                 colosseums: Default::default(),
                 world_pickups_filter: Default::default(),
+                verification_vm: Default::default(),
              }
         }
     }

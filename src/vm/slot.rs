@@ -129,7 +129,66 @@ pub mod slot_view_model {
                 inventory,
                 events,
                 regions,
+                verification: None,
             }
+        }
+
+        /// Build verification export from verification view model
+        pub fn build_verification_export(vm: &crate::vm::verification_vm::VerificationViewModel) -> Option<crate::vm::export::VerificationExport> {
+            if !vm.has_records() {
+                return None;
+            }
+
+            let summary = vm.get_summary();
+
+            Some(crate::vm::export::VerificationExport {
+                total_records: summary.total,
+                matches: summary.matches,
+                mismatches: summary.mismatches,
+                agreement_rate: summary.agreement_rate,
+                by_category: summary.by_category.into_iter()
+                    .map(|(k, v)| (k, crate::vm::export::CategoryStatsExport {
+                        total: v.total,
+                        matches: v.matches,
+                        rate: v.rate,
+                    }))
+                    .collect(),
+                flagged_count: vm.suspicious_count(),
+                formula_error_count: vm.formula_error_count(),
+                informational_count: vm.informational_count(),
+                flagged_by_category: vm.suspicious_by_reason(),
+                flagged_detections: vm.suspicious_detections.iter()
+                    .map(|d| crate::vm::export::SuspiciousDetectionExport {
+                        flag_id: d.flag_id,
+                        flag_name: d.flag_name.clone(),
+                        flag_category: d.flag_category.clone(),
+                        region: d.region.clone(),
+                        detection_category: d.detection_category.as_str().to_string(),
+                        is_error: d.detection_category.is_error(),
+                        description: d.description.clone(),
+                        auto_status: d.auto_status,
+                        manual_status: d.manual_status,
+                    })
+                    .collect(),
+                comparisons: vm.records.iter()
+                    .map(|r| crate::vm::export::VerificationComparison {
+                        flag_id: r.flag_id,
+                        flag_name: r.flag_name.clone(),
+                        category: r.flag_category.clone(),
+                        region: r.flag_region.clone(),
+                        flag_type: r.flag_type.clone(),
+                        manual_status: r.manual_status,
+                        auto_status: r.auto_status,
+                        matches: r.matches,
+                        byte_offset: r.computed_byte_offset,
+                        bit_position: r.computed_bit_position,
+                    })
+                    .collect(),
+                // Deprecated aliases - set to None
+                suspicious_count: None,
+                suspicious_by_reason: None,
+                suspicious_detections: None,
+            })
         }
 
         fn build_equipment_export(&self) -> ExportEquipment {

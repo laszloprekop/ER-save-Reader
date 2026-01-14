@@ -13,3 +13,4 @@ pub mod npcs_view;
 pub mod shop_items_view;
 pub mod world_pickups_view;
 pub mod event_flags_db_view;
+pub mod verification_view;

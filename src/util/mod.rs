@@ -6,3 +6,4 @@ pub mod param_structs;
 pub mod regulation;
 pub mod validator;
 pub mod verification;
+pub mod verification_records;

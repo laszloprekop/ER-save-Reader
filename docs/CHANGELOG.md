@@ -4,6 +4,49 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.3.4 - Verification Integration & Detection Categories
+
+### Features
+- **Verification moved to Event Flags**: Verification view now integrated as a per-character tab within Event Flags section instead of a standalone database view
+  - Loads verification records specific to selected character slot
+  - Per-slot loading state tracked with `verification_loaded_slots: [bool; 10]`
+
+- **Detection category refactor**: Renamed misleading "False Positive" labels to proper detection categories
+  - `FormulaError` (RED): manual=true, auto=false - User confirmed collection but formula missed it. **Primary indicator of formula problems**
+  - `PendingVerification` (ORANGE): auto=true, manual=false - Formula detected but not manually confirmed. Could be: forgotten, no POI exists, or actual error
+  - `UndiscoveredRegion` (YELLOW): Both agree but no graces discovered in region. Informational only
+
+- **Enhanced flagged detection UI**:
+  - Color-coded rows by detection category severity
+  - Auto-opens section when Formula Errors exist (immediate attention needed)
+  - Hover tooltips with detailed descriptions
+  - Context menu with copy options and full details
+  - Formula error count prominently displayed at top
+
+- **Updated export format**: New fields in verification export
+  - `flagged_count`, `formula_error_count`, `informational_count`
+  - `flagged_by_category` breakdown
+  - `FlaggedDetectionExport` with `detection_category`, `is_error`, `description` fields
+
+### Technical Details
+- Verification methodology: Only flags EXPLICITLY marked as complete are in verification file
+  - `manual=false` is ambiguous (true negative OR forgotten)
+  - `manual=true, auto=false` is the reliable signal for formula errors
+- Formula Errors sorted first in flagged list for priority attention
+- 45 Formula Errors identified for investigation
+
+### Files Modified
+- `src/vm/verification_vm.rs`: Refactored detection categories and methods
+- `src/vm/events.rs`: Added `Verification` route and `verification_vm` field
+- `src/ui/events.rs`: Added Verification tab to Event Flags
+- `src/ui/verification_view.rs`: Updated UI with color coding and auto-open
+- `src/ui/menu.rs`: Removed standalone Verification route
+- `src/vm/export.rs`: Updated export structures
+- `src/vm/slot.rs`: Updated export building
+- `src/main.rs`: Per-slot verification loading
+
+---
+
 ## v0.3.3 - Improve Event Flags Offset Detection Accuracy
 
 ### Critical Bug Fix
