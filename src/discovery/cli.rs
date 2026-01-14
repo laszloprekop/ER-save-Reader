@@ -10,12 +10,15 @@ use std::path::{Path, PathBuf};
 
 use super::{
     batch_analyze_and_save, get_snapshot_summary,
+    run_discovery_workflow,
     DiscoveryStore, ConsensusBuilder, ConsensusStatus,
     GroundTruthUpdater, UpdateConfig,
 };
+use super::test_cases::{TestCaseValidator, print_validation_report};
 
 /// Default paths
 const DEFAULT_SNAPSHOT_DIR: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging";
+const DEFAULT_SAVE_PATH: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2";
 const DEFAULT_STORE_PATH: &str = "discoveries.json";
 const DEFAULT_GROUND_TRUTH: &str = "ground_truth_offsets.json";
 
@@ -27,6 +30,9 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
     }
 
     match args[0].as_str() {
+        "analyze" | "a" => cmd_analyze(&args[1..]),
+        "validate" | "v" => cmd_validate(&args[1..]),
+        "probe" => cmd_probe(&args[1..]),
         "batch-analyze" | "batch" => cmd_batch_analyze(&args[1..]),
         "status" | "s" => cmd_status(&args[1..]),
         "promotable" | "p" => cmd_promotable(&args[1..]),
@@ -46,6 +52,9 @@ fn print_help() {
     println!("    er-save-editor discovery <COMMAND>");
     println!();
     println!("COMMANDS:");
+    println!("    analyze          Analyze a single save file slot");
+    println!("    validate         Run curated test cases against save slots");
+    println!("    probe            Directly read bytes at specific offsets");
     println!("    batch-analyze    Process all snapshot pairs and persist discoveries");
     println!("    status           Show discovery store statistics");
     println!("    promotable       List discoveries ready for promotion");
@@ -53,10 +62,209 @@ fn print_help() {
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
+    println!("    er-save-editor discovery analyze 0");
+    println!("    er-save-editor discovery analyze 0 /path/to/ER0000.sl2");
+    println!("    er-save-editor discovery validate 2 3 4    # Validate slots 2, 3, 4");
+    println!("    er-save-editor discovery validate --all    # Validate all defined slots");
     println!("    er-save-editor discovery batch-analyze");
     println!("    er-save-editor discovery status");
     println!("    er-save-editor discovery promotable");
     println!("    er-save-editor discovery promote --dry-run");
+}
+
+/// Analyze a single save file slot
+fn cmd_analyze(args: &[String]) -> Result<(), String> {
+    let slot_index: usize = args.get(0)
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+
+    let save_path = args.get(1)
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
+
+    println!("Analyzing save file: {:?}", save_path);
+    println!("Slot index: {}", slot_index);
+    println!();
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    let result = run_discovery_workflow(&save_path, slot_index)
+        .map_err(|e| format!("Discovery failed: {}", e))?;
+
+    println!();
+    println!("Discovery Summary:");
+    println!("  Segments found: {}", result.segments_found);
+    println!("  Flag bytes: {} ({:.1}%)", result.flag_bytes,
+        result.flag_bytes as f64 / (result.flag_bytes + result.empty_bytes) as f64 * 100.0);
+    println!("  Verification: {} passed, {} failed",
+        result.verification_passed, result.verification_failed);
+    println!("  Coverage: {:.1}% ({}/{} bits)",
+        result.coverage.coverage_percent,
+        result.coverage.covered_bits,
+        result.coverage.total_set_bits);
+
+    if !result.failed_flags.is_empty() {
+        println!();
+        println!("Failed flags (offset mismatch):");
+        for (flag_id, name, expected, actual) in result.failed_flags.iter().take(10) {
+            println!("  {} ({}): expected {}, got {}", name, flag_id, expected, actual);
+        }
+        if result.failed_flags.len() > 10 {
+            println!("  ... and {} more", result.failed_flags.len() - 10);
+        }
+    }
+
+    Ok(())
+}
+
+/// Validate curated test cases against save file
+fn cmd_validate(args: &[String]) -> Result<(), String> {
+    let save_path = PathBuf::from(DEFAULT_SAVE_PATH);
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    let validator = TestCaseValidator::new();
+
+    // Check for --all flag
+    let validate_all = args.iter().any(|a| a == "--all" || a == "-a");
+
+    if validate_all {
+        println!("Validating all defined slots...");
+        println!("Save file: {:?}", save_path);
+
+        let results = validator.validate_all_slots(&save_path)
+            .map_err(|e| format!("Validation failed: {}", e))?;
+
+        for result in &results {
+            print_validation_report(result);
+        }
+
+        // Summary
+        let total_passed: usize = results.iter().map(|r| r.passed).sum();
+        let total_failed: usize = results.iter().map(|r| r.failed).sum();
+        let total_errors: usize = results.iter().map(|r| r.errors).sum();
+        let total_tests: usize = results.iter().map(|r| r.total_tests).sum();
+
+        println!();
+        println!("Overall Summary: {}/{} passed ({:.1}%)",
+            total_passed, total_tests,
+            if total_tests > 0 { total_passed as f64 / total_tests as f64 * 100.0 } else { 0.0 });
+        println!("  Failed: {} | Errors: {}", total_failed, total_errors);
+    } else {
+        // Validate specific slots
+        let slots: Vec<usize> = args.iter()
+            .filter_map(|s| s.parse().ok())
+            .collect();
+
+        if slots.is_empty() {
+            println!("Usage: discovery validate <slot1> [slot2] ... [--all]");
+            println!();
+            println!("Available slots with test cases:");
+            for (slot_index, suite) in validator.suite().slots.iter() {
+                let true_count = suite.known_true.len();
+                let false_count = suite.known_false.len();
+                println!("  Slot {}: {} ({} true, {} false tests)",
+                    slot_index, suite.character_name, true_count, false_count);
+            }
+            return Ok(());
+        }
+
+        println!("Validating slots: {:?}", slots);
+        println!("Save file: {:?}", save_path);
+
+        for slot_index in slots {
+            match validator.validate_slot(&save_path, slot_index) {
+                Ok(result) => print_validation_report(&result),
+                Err(e) => println!("Slot {} error: {}", slot_index, e),
+            }
+        }
+    }
+
+    Ok(())
+}
+
+/// Directly probe bytes at specific offsets for debugging
+fn cmd_probe(args: &[String]) -> Result<(), String> {
+    use crate::save::save::save::Save;
+
+    let slot_index: usize = args.get(0)
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(2);
+
+    // Parse byte offsets (can be decimal or hex with 0x prefix)
+    let offsets: Vec<usize> = args.iter().skip(1)
+        .filter_map(|s| {
+            if s.starts_with("0x") || s.starts_with("0X") {
+                usize::from_str_radix(&s[2..], 16).ok()
+            } else {
+                s.parse().ok()
+            }
+        })
+        .collect();
+
+    if offsets.is_empty() {
+        // Default: probe the contested grace offsets
+        println!("Usage: discovery probe <slot> <offset1> [offset2] ...");
+        println!("  Offsets can be decimal or hex (0x prefix)");
+        println!();
+        println!("Probing default grace region (3258-3270) on slot {}...", slot_index);
+        return probe_bytes_at_offsets(slot_index, &(3258..=3270).collect::<Vec<_>>());
+    }
+
+    probe_bytes_at_offsets(slot_index, &offsets)
+}
+
+fn probe_bytes_at_offsets(slot_index: usize, offsets: &[usize]) -> Result<(), String> {
+    use crate::save::save::save::Save;
+
+    let save_path = PathBuf::from(DEFAULT_SAVE_PATH);
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    let save = Save::from_path(&save_path)
+        .map_err(|e| format!("Failed to load save: {}", e))?;
+
+    let slot = save.save_type.get_slot(slot_index);
+    let event_flags = &slot.event_flags.flags;
+
+    println!("Probing slot {} ({} bytes of event flags)", slot_index, event_flags.len());
+    println!();
+
+    for &offset in offsets {
+        if offset >= event_flags.len() {
+            println!("0x{:04x} ({:5}): OUT OF BOUNDS", offset, offset);
+            continue;
+        }
+
+        let byte = event_flags[offset];
+        let bits: Vec<&str> = (0..8)
+            .rev()
+            .map(|b| if (byte >> b) & 1 == 1 { "1" } else { "0" })
+            .collect();
+
+        // Show which flags would map to this byte (for 76xxx block)
+        // Block 76000 base = 3248, so byte 3260 = flags 76096-76103
+        let block_76000_base = 3248_usize;
+        let flags_at_byte = if offset >= block_76000_base {
+            let relative_byte = offset - block_76000_base;
+            let first_flag = 76000 + (relative_byte * 8);
+            format!("flags {}-{}", first_flag, first_flag + 7)
+        } else {
+            String::new()
+        };
+
+        println!("0x{:04x} ({:5}): {:02x} = {} {} {}",
+            offset, offset, byte, bits.join(""),
+            if byte != 0 { "<- has bits set" } else { "" },
+            flags_at_byte);
+    }
+
+    Ok(())
 }
 
 /// Process all snapshots and persist discoveries

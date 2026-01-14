@@ -7,7 +7,7 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-14 - blocks 73000, 76000 corrected via automated probe"
+    "last_probe_run": "2026-01-14 - Fixed 76xxx flag offsets to match block base formula"
   },
   "summary": {
     "by_category": {
@@ -1331,7 +1331,7 @@
       "confidence": 0.9
     },
     "76100": {
-      "offset": 3262,
+      "offset": 3260,
       "bit": 3,
       "name": "Church of Elleh",
       "category": "Grace",
@@ -1339,7 +1339,7 @@
       "confidence": 0.9
     },
     "76101": {
-      "offset": 3262,
+      "offset": 3260,
       "bit": 2,
       "name": "The First Step",
       "category": "Grace",
@@ -1347,7 +1347,7 @@
       "confidence": 0.9
     },
     "76102": {
-      "offset": 3262,
+      "offset": 3260,
       "bit": 1,
       "name": "Stormhill Shack",
       "category": "Grace",
@@ -1355,7 +1355,7 @@
       "confidence": 0.9
     },
     "76103": {
-      "offset": 3262,
+      "offset": 3260,
       "bit": 0,
       "name": "Artist's Shack",
       "category": "Grace",
@@ -1363,7 +1363,7 @@
       "confidence": 0.9
     },
     "76104": {
-      "offset": 3263,
+      "offset": 3261,
       "bit": 7,
       "name": "Third Church of Marika",
       "category": "Grace",
@@ -1371,7 +1371,7 @@
       "confidence": 0.9
     },
     "76105": {
-      "offset": 3263,
+      "offset": 3261,
       "bit": 6,
       "name": "Fort Haight West",
       "category": "Grace",
@@ -1379,7 +1379,7 @@
       "confidence": 0.9
     },
     "76108": {
-      "offset": 3263,
+      "offset": 3261,
       "bit": 3,
       "name": "Agheel Lake North",
       "category": "Grace",
@@ -1387,7 +1387,7 @@
       "confidence": 0.9
     },
     "76110": {
-      "offset": 3263,
+      "offset": 3261,
       "bit": 1,
       "name": "Church of Dragon Communion",
       "category": "Grace",
@@ -1395,7 +1395,7 @@
       "confidence": 0.9
     },
     "76111": {
-      "offset": 3263,
+      "offset": 3261,
       "bit": 0,
       "name": "Gatefront",
       "category": "Grace",
@@ -1403,7 +1403,7 @@
       "confidence": 0.9
     },
     "76113": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 6,
       "name": "Seaside Ruins",
       "category": "Grace",
@@ -1411,7 +1411,7 @@
       "confidence": 0.9
     },
     "76114": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 5,
       "name": "Mistwood Outskirts",
       "category": "Grace",
@@ -1419,7 +1419,7 @@
       "confidence": 0.9
     },
     "76116": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 3,
       "name": "Murkwater Coast",
       "category": "Grace",
@@ -1427,7 +1427,7 @@
       "confidence": 0.9
     },
     "76117": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 2,
       "name": "Saintsbridge",
       "category": "Grace",
@@ -1435,7 +1435,7 @@
       "confidence": 0.9
     },
     "76118": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 1,
       "name": "Warmaster's Shack",
       "category": "Grace",
@@ -1443,7 +1443,7 @@
       "confidence": 0.9
     },
     "76119": {
-      "offset": 3264,
+      "offset": 3262,
       "bit": 0,
       "name": "Summonwater Village Outskirts",
       "category": "Grace",
@@ -1451,7 +1451,7 @@
       "confidence": 0.9
     },
     "76120": {
-      "offset": 3265,
+      "offset": 3263,
       "bit": 7,
       "name": "Waypoint Ruins Cellar",
       "category": "Grace",
@@ -1459,7 +1459,7 @@
       "confidence": 0.9
     },
     "76150": {
-      "offset": 3268,
+      "offset": 3266,
       "bit": 1,
       "name": "Church of Pilgrimage",
       "category": "Grace",
@@ -1467,7 +1467,7 @@
       "confidence": 0.9
     },
     "76151": {
-      "offset": 3268,
+      "offset": 3266,
       "bit": 0,
       "name": "Castle Morne Rampart",
       "category": "Grace",
@@ -1475,7 +1475,7 @@
       "confidence": 0.9
     },
     "76152": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 7,
       "name": "Tombsward",
       "category": "Grace",
@@ -1483,7 +1483,7 @@
       "confidence": 0.9
     },
     "76153": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 6,
       "name": "South of the Lookout Tower",
       "category": "Grace",
@@ -1491,7 +1491,7 @@
       "confidence": 0.9
     },
     "76154": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 5,
       "name": "Ailing Village Outskirts",
       "category": "Grace",
@@ -1499,7 +1499,7 @@
       "confidence": 0.9
     },
     "76155": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 4,
       "name": "Beside the Crater-Pocked Glade",
       "category": "Grace",
@@ -1507,7 +1507,7 @@
       "confidence": 0.9
     },
     "76156": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 3,
       "name": "Isolated Merchant's Shack",
       "category": "Grace",
@@ -1515,7 +1515,7 @@
       "confidence": 0.9
     },
     "76157": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 2,
       "name": "Bridge of Sacrifice",
       "category": "Grace",
@@ -1523,7 +1523,7 @@
       "confidence": 0.9
     },
     "76158": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 1,
       "name": "Castle Morne Lift",
       "category": "Grace",
@@ -1531,7 +1531,7 @@
       "confidence": 0.9
     },
     "76159": {
-      "offset": 3269,
+      "offset": 3267,
       "bit": 0,
       "name": "Behind the Castle",
       "category": "Grace",
@@ -1539,7 +1539,7 @@
       "confidence": 0.9
     },
     "76160": {
-      "offset": 3270,
+      "offset": 3268,
       "bit": 7,
       "name": "Beside the Rampart Gaol",
       "category": "Grace",
@@ -1547,7 +1547,7 @@
       "confidence": 0.9
     },
     "76161": {
-      "offset": 3270,
+      "offset": 3268,
       "bit": 6,
       "name": "Morne Moangrave",
       "category": "Grace",
@@ -1555,7 +1555,7 @@
       "confidence": 0.9
     },
     "76162": {
-      "offset": 3270,
+      "offset": 3268,
       "bit": 5,
       "name": "Fourth Church of Marika",
       "category": "Grace",

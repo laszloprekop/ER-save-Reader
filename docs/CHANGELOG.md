@@ -4,6 +4,40 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.3 - Test Case Validation System
+
+### Features
+- **Test Case Validator**: Curated test cases for verifying flag offset formulas
+  - `FlagTestCase` struct with category, verification method, expected state
+  - `SlotTestSuite` for per-character test suites
+  - `TestCaseValidator` for running validation against save files
+  - Helper functions: `grace()`, `world_pickup()`, `boss_defeat()`, `cookbook()`
+
+- **CLI Commands**:
+  - `discovery validate <slot> [slot...]` - Run curated test cases
+  - `discovery validate --all` - Validate all defined slots
+  - `discovery probe <slot> <offset>...` - Direct byte inspection for debugging
+
+### Bug Fixes
+- **Fixed 29 incorrect flag offsets** in `ground_truth_offsets.json` for 76xxx grace flags
+  - All 76xxx flags were consistently 2 bytes off from correct formula
+  - Root cause: Individual entries were added independently without verifying against block base
+  - Fixed by recalculating offsets from verified block base (76000 → 3248)
+
+### Verification Results
+- The First Step (76101) validates correctly @ 0xcbc:2 = TRUE across slots 2, 3, 4
+- Test case system distinguishes true positives from false negatives
+
+### Files Created
+- `src/discovery/test_cases.rs`: Test case infrastructure
+
+### Files Modified
+- `src/discovery/cli.rs`: Added validate and probe commands
+- `src/discovery/mod.rs`: Export test_cases module
+- `ground_truth_offsets.json`: Corrected 76xxx flag offsets
+
+---
+
 ## v0.4.2 - Expanded Flag Catalog
 
 ### Features
