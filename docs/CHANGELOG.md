@@ -4,6 +4,27 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.3.3 - Improve Event Flags Offset Detection Accuracy
+
+### Critical Bug Fix
+- **Negative validation for offset detection**: Fixed false positives in event flags detection
+  - Previous algorithm found 396 offsets matching the 4 tutorial grace pattern
+  - Was picking first match (0x12CF0) instead of correct offset (0x12D76)
+  - Added 6 late-game grace flags as NEGATIVE validation (must NOT be set)
+  - Algorithm now: (1) finds all 4/4 positive matches, (2) picks best by negative score
+  - Fixes late-game items incorrectly showing as "collected" for early-game characters
+
+### Technical Details
+- Detection now uses 3-phase approach:
+  1. Find all offsets where ALL positive flags match (early-game graces)
+  2. Among those, pick offset with highest negative score (late-game graces NOT set)
+  3. Fall back to partial match if no perfect match found
+
+### Files Modified
+- `src/save/common/event_flags_detection.rs`: Added `NEGATIVE_VALIDATION_FLAGS`, rewrote detection algorithm
+
+---
+
 ## v0.3.2 - Fix Event Flags Offset Detection
 
 ### Critical Bug Fix
