@@ -36,6 +36,7 @@ pub mod snapshot_batch;
 pub mod consensus;
 pub mod cross_validator;
 pub mod ground_truth_updater;
+pub mod cli;
 
 pub use byte_diff::ByteDiffScanner;
 pub use segment_analysis::SegmentAnalyzer;

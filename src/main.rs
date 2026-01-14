@@ -9,7 +9,7 @@ mod db;
 mod generated;
 mod discovery;
 
-use std::{fs::File, io::Write, path::PathBuf};
+use std::{env, fs::File, io::Write, path::PathBuf};
 
 use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, Layout, Order, RichText, Rounding, Style}, epaint::Color32};
 use rfd::FileDialog;
@@ -29,6 +29,19 @@ const WINDOW_WIDTH: f32 = 1920.;
 const WINDOW_HEIGHT: f32 = 1200.;
 
 fn main() -> Result<(), eframe::Error> {
+    // Check for CLI commands
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 && args[1] == "discovery" {
+        let cli_args: Vec<String> = args.into_iter().skip(2).collect();
+        match discovery::cli::run_cli(&cli_args) {
+            Ok(()) => std::process::exit(0),
+            Err(e) => {
+                eprintln!("Error: {}", e);
+                std::process::exit(1);
+            }
+        }
+    }
+
     // App Icon
     let mut app_icon = egui::IconData::default();
 

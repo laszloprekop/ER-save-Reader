@@ -4,6 +4,36 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.1 - Discovery CLI Commands
+
+### Features
+- **CLI Interface**: Run discovery operations from command line
+  - `discovery batch-analyze`: Process all snapshot pairs and persist discoveries
+  - `discovery status`: Show discovery store statistics and consensus report
+  - `discovery promotable`: List discoveries ready for promotion
+  - `discovery promote [--dry-run]`: Promote confirmed discoveries to ground truth
+
+### Usage
+```bash
+# Process snapshots
+cargo run -- discovery batch-analyze
+
+# Check status
+cargo run -- discovery status
+
+# Preview promotions
+cargo run -- discovery promote --dry-run
+```
+
+### Files Created
+- `src/discovery/cli.rs`: CLI command handlers
+
+### Files Modified
+- `src/main.rs`: CLI argument detection before GUI launch
+- `src/discovery/mod.rs`: Added cli module export
+
+---
+
 ## v0.4.0 - Event Flag Discovery System
 
 ### Features
