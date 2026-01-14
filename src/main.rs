@@ -7,6 +7,7 @@ mod write;
 mod ui;
 mod db;
 mod generated;
+mod discovery;
 
 use std::{fs::File, io::Write, path::PathBuf};
 

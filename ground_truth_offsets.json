@@ -1,12 +1,13 @@
 {
   "metadata": {
-    "generated_date": "2026-01-12T09:32:57.717938",
-    "verification_method": "empirical_multi_save",
+    "generated_date": "2026-01-14T12:00:00.000000",
+    "verification_method": "empirical_multi_save_with_probe",
     "total_flags_tested": 656,
     "proven_count": 392,
     "disproven_count": 0,
     "unverified_count": 263,
-    "untrackable_count": 0
+    "untrackable_count": 0,
+    "last_probe_run": "2026-01-14 - blocks 73000, 76000 corrected via automated probe"
   },
   "summary": {
     "by_category": {
@@ -3255,10 +3256,10 @@
       },
       "73000": {
         "block_start": 73000,
-        "base_offset": 2664,
+        "base_offset": 2662,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Dungeon graces - verified from 13 catacombs/caves/tunnels"
+        "notes": "Dungeon graces - corrected via probe (73011=2663, base=2662)"
       },
       "74000": {
         "block_start": 74000,
@@ -3276,14 +3277,14 @@
       },
       "76000": {
         "block_start": 76000,
-        "base_offset": 3250,
+        "base_offset": 3248,
         "block_size": 1000,
         "status": "verified",
-        "notes": "World graces - The First Step (76100)"
+        "notes": "World graces - corrected via probe (76117=3262, base=3248)"
       },
       "77000": {
         "block_start": 77000,
-        "base_offset": 3375,
+        "base_offset": 3373,
         "block_size": 1000,
         "status": "calculated",
         "notes": "Extended world graces (76000 + 125)"
@@ -3387,8 +3388,8 @@
         "map_area": 30,
         "base_offset": 27411,
         "section_size": 1125,
-        "status": "verified",
-        "notes": "Catacombs - 5 bosses matched"
+        "status": "needs_review",
+        "notes": "Catacombs - probe found 30117020 at ~28187, doesn't match formula. Needs investigation."
       },
       "31": {
         "map_area": 31,
@@ -3402,7 +3403,7 @@
         "base_offset": 31577,
         "section_size": 1125,
         "status": "verified",
-        "notes": "Tunnels - 4 bosses matched"
+        "notes": "Tunnels - probe confirmed: 32017000 found at ~33573-33577, formula gives 33577"
       },
       "34": {
         "map_area": 34,

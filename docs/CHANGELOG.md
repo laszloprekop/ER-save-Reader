@@ -4,6 +4,61 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.0 - Event Flag Discovery System
+
+### Features
+- **Flag Catalog Integration**: Load and index 7,034 flags from `extracted_event_flags.json`
+  - Search by name with multi-word query support
+  - Autocomplete functionality for flag lookup
+  - Category and region-based lookups (39 categories, 158 regions)
+
+- **Discovery Store**: Persistent storage with full provenance tracking
+  - Observations tracked with source type: SnapshotDiff, ProbeResult, CrossSlotValidation, ManualVerification
+  - Status pipeline: Pending → Confirmed → Promoted (or Rejected)
+  - Automatic consensus recalculation when observations are added
+  - Persists to `discoveries.json`
+
+- **Batch Snapshot Analyzer**: Process all granular before/after save snapshots
+  - Parses filenames to extract character, sequence number, action description
+  - Groups files into before/after pairs automatically
+  - Runs differential discovery on each pair
+
+- **Consensus Engine**: Multi-observation consensus with weighted voting
+  - Source weights: Manual verification (1.0), Cross-slot (0.95), Snapshot diff (0.85), Probe (0.7)
+  - Configurable thresholds: min 2 observations, 80% agreement to confirm
+  - Reports contested vs confirmed discoveries
+
+- **Cross-Slot Validator**: Validate discoveries across multiple save slots
+  - Checks same offset/bit across different character slots
+  - Confidence adjustments based on agreement/disagreement
+  - Supports batch validation
+
+- **Ground Truth Updater**: Safe automated updates to `ground_truth_offsets.json`
+  - Timestamped backups before any modification
+  - Block base recalculation when enough flags confirmed
+  - Rollback capability
+
+### Technical Details
+- Consensus requires: 2+ observations, 80%+ agreement, 75%+ confidence for promotion
+- Finding one verified flag in a block unlocks ~125 adjacent flags (block formula)
+- 41 unit tests added (7 integration tests require save files)
+
+### Files Created
+- `src/discovery/flag_catalog.rs`: Flag catalog loader and search
+- `src/discovery/discovery_store.rs`: Persistent discovery storage
+- `src/discovery/snapshot_batch.rs`: Batch snapshot processor
+- `src/discovery/consensus.rs`: Consensus building engine
+- `src/discovery/cross_validator.rs`: Cross-slot validation
+- `src/discovery/ground_truth_updater.rs`: Safe ground truth updates
+
+### Files Modified
+- `src/discovery/mod.rs`: Added new module exports
+- `src/discovery/offset_probe.rs`: Added persistence hooks
+- `src/discovery/integration.rs`: Added persistence-enabled workflows
+- `Cargo.toml`: Added chrono dependency for timestamps
+
+---
+
 ## v0.3.4 - Verification Integration & Detection Categories
 
 ### Features
