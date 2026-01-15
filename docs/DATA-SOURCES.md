@@ -14,6 +14,8 @@ Slot 5, Sam - early game, more progress, exploration and world pickups than Slot
 
 ## Game save files
 
+The save files are legitimate, unaltered files saved by the game.
+
 ### Latest
 
 (might contain fresher save slots the the Manual completion log):
@@ -27,10 +29,10 @@ Slot 5, Sam - early game, more progress, exploration and world pickups than Slot
 
 '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging'
 
-## Manual completion log, a.k.a. User truth
+## Manually maintained completion log
 
-Saved via Elden-map apps /character-game-data page:
-'/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records-manually-set-to-complete.jsonl'
+A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces are checked.  
+'/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl'
 
 ## Event flags
 

@@ -4,6 +4,35 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.4 - Block Offset Corrections
+
+### Bug Fixes
+- **Fixed block 76000 base offset**: Changed from 3248 to **3250** (was off by 2 bytes)
+  - Root cause: Previous fix in v0.4.3 used wrong base offset
+  - Validation showed 76101 (The First Step) returning FALSE for Wretch when it should be TRUE
+  - Cross-referenced with elden-map verification tool to confirm correct offset
+
+### CLI Improvements
+- Added `--save <path>` parameter to `discovery validate` and `discovery probe` commands
+- Commands now support custom save file paths instead of hardcoded default
+
+### Test Case Updates
+- Simplified test cases to only include reliably verifiable flags
+- Removed unstable Confessor entries where save data has changed since verification
+- All 6 slots now pass 100% validation (15/15 tests)
+
+### Cross-Project Sync
+- Synced block 73000 base offset fix to elden-map (2875 → 2662)
+  - Updated `elden-map/server/src/verificationService.ts`
+  - Updated `elden-map/server/src/eventFlagService.ts`
+
+### Files Modified
+- `ground_truth_offsets.json`: Block 76000 base_offset 3248 → 3250
+- `src/discovery/cli.rs`: Added --save parameter parsing
+- `src/discovery/test_cases.rs`: Simplified to verified flags only
+
+---
+
 ## v0.4.3 - Test Case Validation System
 
 ### Features

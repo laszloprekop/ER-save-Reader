@@ -3277,10 +3277,10 @@
       },
       "76000": {
         "block_start": 76000,
-        "base_offset": 3248,
+        "base_offset": 3250,
         "block_size": 1000,
         "status": "verified",
-        "notes": "World graces - corrected via probe (76117=3262, base=3248)"
+        "notes": "Limgrave world graces - base corrected: 76101=3262, 76117=3264"
       },
       "77000": {
         "block_start": 77000,

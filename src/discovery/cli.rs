@@ -121,7 +121,12 @@ fn cmd_analyze(args: &[String]) -> Result<(), String> {
 
 /// Validate curated test cases against save file
 fn cmd_validate(args: &[String]) -> Result<(), String> {
-    let save_path = PathBuf::from(DEFAULT_SAVE_PATH);
+    // Parse --save argument
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
 
     if !save_path.exists() {
         return Err(format!("Save file not found: {:?}", save_path));
@@ -189,14 +194,31 @@ fn cmd_validate(args: &[String]) -> Result<(), String> {
 
 /// Directly probe bytes at specific offsets for debugging
 fn cmd_probe(args: &[String]) -> Result<(), String> {
-    use crate::save::save::save::Save;
+    // Parse --save argument
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.as_str());
 
-    let slot_index: usize = args.get(0)
+    // Filter out --save and its value from args
+    let filtered_args: Vec<&String> = args.iter()
+        .enumerate()
+        .filter(|(i, a)| {
+            let is_save_flag = *a == "--save" || *a == "-s";
+            let is_save_value = args.get(i.saturating_sub(1))
+                .map(|prev| prev == "--save" || prev == "-s")
+                .unwrap_or(false);
+            !is_save_flag && !is_save_value
+        })
+        .map(|(_, a)| a)
+        .collect();
+
+    let slot_index: usize = filtered_args.get(0)
         .and_then(|s| s.parse().ok())
         .unwrap_or(2);
 
     // Parse byte offsets (can be decimal or hex with 0x prefix)
-    let offsets: Vec<usize> = args.iter().skip(1)
+    let offsets: Vec<usize> = filtered_args.iter().skip(1)
         .filter_map(|s| {
             if s.starts_with("0x") || s.starts_with("0X") {
                 usize::from_str_radix(&s[2..], 16).ok()
@@ -208,20 +230,22 @@ fn cmd_probe(args: &[String]) -> Result<(), String> {
 
     if offsets.is_empty() {
         // Default: probe the contested grace offsets
-        println!("Usage: discovery probe <slot> <offset1> [offset2] ...");
+        println!("Usage: discovery probe <slot> <offset1> [offset2] ... [--save <path>]");
         println!("  Offsets can be decimal or hex (0x prefix)");
         println!();
         println!("Probing default grace region (3258-3270) on slot {}...", slot_index);
-        return probe_bytes_at_offsets(slot_index, &(3258..=3270).collect::<Vec<_>>());
+        return probe_bytes_at_offsets(slot_index, &(3258..=3270).collect::<Vec<_>>(), save_path);
     }
 
-    probe_bytes_at_offsets(slot_index, &offsets)
+    probe_bytes_at_offsets(slot_index, &offsets, save_path)
 }
 
-fn probe_bytes_at_offsets(slot_index: usize, offsets: &[usize]) -> Result<(), String> {
+fn probe_bytes_at_offsets(slot_index: usize, offsets: &[usize], save_path: Option<&str>) -> Result<(), String> {
     use crate::save::save::save::Save;
 
-    let save_path = PathBuf::from(DEFAULT_SAVE_PATH);
+    let save_path = save_path
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
     if !save_path.exists() {
         return Err(format!("Save file not found: {:?}", save_path));
     }
