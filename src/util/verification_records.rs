@@ -7,6 +7,7 @@ use serde::Deserialize;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::Path;
+use crate::db::pickup_flags::get_flag_offset;
 
 /// A verification record from the JSONL file
 #[derive(Debug, Clone, Deserialize)]
@@ -55,20 +56,32 @@ pub fn get_records_for_slot(records: &[VerificationRecord], slot_index: u32) -> 
 }
 
 /// Re-compute auto_status for records based on actual save data
+///
+/// Uses the CURRENT formula (get_flag_offset) instead of stored offsets,
+/// ensuring the comparison reflects the latest offset calculations.
 pub fn recompute_auto_status(
     records: &mut [VerificationRecord],
     event_flags: &[u8],
 ) {
     for record in records {
-        if record.computed_byte_offset >= 0 && record.computed_bit_position >= 0 {
-            let offset = record.computed_byte_offset as usize;
+        // Use current formula instead of stored offsets
+        if let Some((byte_offset, bit_position)) = get_flag_offset(record.flag_id) {
+            let offset = byte_offset as usize;
             if offset < event_flags.len() {
                 let byte = event_flags[offset];
-                let bit = record.computed_bit_position as u8;
-                let is_set = (byte & (1 << bit)) != 0;
+                let is_set = (byte >> bit_position) & 1 == 1;
                 record.auto_status = is_set;
+                // Update stored offsets to reflect current formula
+                record.computed_byte_offset = byte_offset as i32;
+                record.computed_bit_position = bit_position as i32;
                 record.matches = record.manual_status == record.auto_status;
             }
+        } else {
+            // No formula for this flag - mark as not computable
+            record.computed_byte_offset = -1;
+            record.computed_bit_position = -1;
+            record.auto_status = false;
+            record.matches = !record.manual_status; // Matches only if manual is also false
         }
     }
 }

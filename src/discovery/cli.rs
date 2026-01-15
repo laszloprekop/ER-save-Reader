@@ -13,8 +13,10 @@ use super::{
     run_discovery_workflow,
     DiscoveryStore, ConsensusBuilder, ConsensusStatus,
     GroundTruthUpdater, UpdateConfig,
+    RelationshipGraph, CorroborationEngine, CorroborationStatus,
 };
 use super::test_cases::{TestCaseValidator, DynamicTestCaseValidator, print_validation_report};
+use crate::save::save::save::Save;
 
 /// Default paths
 const DEFAULT_SNAPSHOT_DIR: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging";
@@ -34,10 +36,13 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "analyze" | "a" => cmd_analyze(&args[1..]),
         "validate" | "v" => cmd_validate(&args[1..]),
         "probe" => cmd_probe(&args[1..]),
+        "inventory" | "inv" => cmd_inventory(&args[1..]),
         "batch-analyze" | "batch" => cmd_batch_analyze(&args[1..]),
         "status" | "s" => cmd_status(&args[1..]),
         "promotable" | "p" => cmd_promotable(&args[1..]),
         "promote" => cmd_promote(&args[1..]),
+        "corroborate" | "corr" => cmd_corroborate(&args[1..]),
+        "graph" | "g" => cmd_graph(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -56,10 +61,13 @@ fn print_help() {
     println!("    analyze          Analyze a single save file slot");
     println!("    validate         Run curated test cases against save slots");
     println!("    probe            Directly read bytes at specific offsets");
+    println!("    inventory        Search inventory for items by ID or name");
     println!("    batch-analyze    Process all snapshot pairs and persist discoveries");
     println!("    status           Show discovery store statistics");
     println!("    promotable       List discoveries ready for promotion");
     println!("    promote          Promote confirmed discoveries to ground truth");
+    println!("    corroborate      Multi-point validation using relationship graph");
+    println!("    graph            Show relationship graph statistics");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -370,8 +378,8 @@ fn probe_bytes_at_offsets(slot_index: usize, offsets: &[usize], save_path: Optio
             .collect();
 
         // Show which flags would map to this byte (for 76xxx block)
-        // Block 76000 base = 3248, so byte 3260 = flags 76096-76103
-        let block_76000_base = 3248_usize;
+        // Block 76000 base = 3250, so byte 3262 = flags 76096-76103
+        let block_76000_base = 3250_usize;
         let flags_at_byte = if offset >= block_76000_base {
             let relative_byte = offset - block_76000_base;
             let first_flag = 76000 + (relative_byte * 8);
@@ -385,6 +393,137 @@ fn probe_bytes_at_offsets(slot_index: usize, offsets: &[usize], save_path: Optio
             if byte != 0 { "<- has bits set" } else { "" },
             flags_at_byte);
     }
+
+    Ok(())
+}
+
+/// Check inventory for specific items
+fn cmd_inventory(args: &[String]) -> Result<(), String> {
+    use crate::save::save::save::Save;
+
+    // Parse --save argument
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
+
+    // Filter out --save and its value from args
+    let filtered_args: Vec<&String> = args.iter()
+        .enumerate()
+        .filter(|(i, a)| {
+            let is_save_flag = *a == "--save" || *a == "-s";
+            let is_save_value = args.get(i.saturating_sub(1))
+                .map(|prev| prev == "--save" || prev == "-s")
+                .unwrap_or(false);
+            !is_save_flag && !is_save_value
+        })
+        .map(|(_, a)| a)
+        .collect();
+
+    let slot_index: usize = filtered_args.get(0)
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+
+    // Search term can be item ID or name substring
+    let search_term = filtered_args.get(1).map(|s| s.as_str()).unwrap_or("");
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    let save = Save::from_path(&save_path)
+        .map_err(|e| format!("Failed to load save: {}", e))?;
+
+    let slot = save.save_type.get_slot(slot_index);
+    let storage = &slot.equip_inventory_data;
+
+    // Convert character name from UTF-16
+    let character_name_raw = slot.player_game_data.character_name;
+    let mut character_name_trimmed: [u16; 0x10] = [0; 0x10];
+    for (i, ch) in character_name_raw.iter().enumerate() {
+        if *ch == 0 { break; }
+        character_name_trimmed[i] = *ch;
+    }
+    let character_name = String::from_utf16(&character_name_trimmed).unwrap_or_else(|_| "Unknown".to_string());
+
+    println!("Checking inventory for slot {} ({})", slot_index, character_name);
+    println!("Search term: '{}'", search_term);
+    println!();
+
+    // Parse search term as item ID if it's a number
+    let search_id: Option<u32> = search_term.parse().ok()
+        .or_else(|| {
+            if search_term.starts_with("0x") {
+                u32::from_str_radix(&search_term[2..], 16).ok()
+            } else {
+                None
+            }
+        });
+
+    let search_lower = search_term.to_lowercase();
+    let mut found_count = 0;
+
+    // Check common items (consumables, materials, cookbooks, etc.)
+    println!("=== Common Items ===");
+    for item in &storage.common_items {
+        if item.ga_item_handle == 0 || item.quantity == 0 {
+            continue;
+        }
+
+        let item_id = item.ga_item_handle & 0x0FFFFFFF;
+        let item_type = (item.ga_item_handle >> 28) & 0xF;
+
+        // Get item name if available
+        let item_name = crate::db::item_name::item_name::ITEM_NAME
+            .lock()
+            .unwrap()
+            .get(&item_id)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("Unknown (type {})", item_type));
+
+        let matches = search_term.is_empty()
+            || search_id.map(|id| item_id == id).unwrap_or(false)
+            || item_name.to_lowercase().contains(&search_lower);
+
+        if matches {
+            println!("  ID: {:8} | GA: 0x{:08X} | Qty: {:3} | {}",
+                item_id, item.ga_item_handle, item.quantity, item_name);
+            found_count += 1;
+        }
+    }
+
+    // Check key items
+    println!();
+    println!("=== Key Items ===");
+    for item in &storage.key_items {
+        if item.ga_item_handle == 0 || item.quantity == 0 {
+            continue;
+        }
+
+        let item_id = item.ga_item_handle & 0x0FFFFFFF;
+        let item_type = (item.ga_item_handle >> 28) & 0xF;
+
+        let item_name = crate::db::item_name::item_name::ITEM_NAME
+            .lock()
+            .unwrap()
+            .get(&item_id)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("Unknown (type {})", item_type));
+
+        let matches = search_term.is_empty()
+            || search_id.map(|id| item_id == id).unwrap_or(false)
+            || item_name.to_lowercase().contains(&search_lower);
+
+        if matches {
+            println!("  ID: {:8} | GA: 0x{:08X} | Qty: {:3} | {}",
+                item_id, item.ga_item_handle, item.quantity, item_name);
+            found_count += 1;
+        }
+    }
+
+    println!();
+    println!("Found {} matching items", found_count);
 
     Ok(())
 }
@@ -574,6 +713,178 @@ fn cmd_promote(args: &[String]) -> Result<(), String> {
         for err in &result.errors {
             println!("  - {}", err);
         }
+    }
+
+    Ok(())
+}
+
+/// Show relationship graph statistics
+fn cmd_graph(_args: &[String]) -> Result<(), String> {
+    let graph = RelationshipGraph::load_default()
+        .map_err(|e| format!("Failed to load relationship graph: {}", e))?;
+
+    let summary = graph.summary();
+    println!("{}", summary);
+
+    // Show some example corroboration pairs
+    let pairs = graph.get_corroboration_pairs();
+    if !pairs.is_empty() {
+        println!();
+        println!("Example dual-formula corroboration pairs:");
+        println!("{:<14} {:<10} {}", "Tile Flag", "Block Flag", "Item");
+        println!("{}", "-".repeat(50));
+
+        for pair in pairs.iter().take(10) {
+            let item = pair.item_name.as_deref().unwrap_or("Unknown");
+            println!("{:<14} {:<10} {}", pair.tile_flag, pair.block_flag, item);
+        }
+
+        if pairs.len() > 10 {
+            println!("... and {} more pairs", pairs.len() - 10);
+        }
+    }
+
+    // Show highly connected flags
+    let high_conn = graph.flags_with_min_connections(5);
+    if !high_conn.is_empty() {
+        println!();
+        println!("Highly connected flags (5+ connections):");
+        for (flag, count) in high_conn.iter().take(10) {
+            println!("  Flag {:>10}: {} connections", flag, count);
+        }
+    }
+
+    Ok(())
+}
+
+/// Multi-point corroboration validation
+fn cmd_corroborate(args: &[String]) -> Result<(), String> {
+    // Parse arguments
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
+
+    let slot_index: usize = args.iter()
+        .position(|a| a == "--slot")
+        .and_then(|i| args.get(i + 1))
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+
+    // Check for --all flag first
+    let check_all = args.iter().any(|a| a == "--all" || a == "-a");
+
+    // Check for specific flag ID (exclude values after --slot and --save)
+    let flag_id: Option<u32> = if check_all {
+        None
+    } else {
+        // Find positions of --slot and --save to exclude their values
+        let slot_pos = args.iter().position(|a| a == "--slot");
+        let save_pos = args.iter().position(|a| a == "--save" || a == "-s");
+
+        args.iter()
+            .enumerate()
+            .find(|(i, a)| {
+                // Skip values that follow --slot or --save
+                if slot_pos.map(|p| *i == p + 1).unwrap_or(false) { return false; }
+                if save_pos.map(|p| *i == p + 1).unwrap_or(false) { return false; }
+                // Must be a positive integer that doesn't start with -
+                !a.starts_with('-') && a.parse::<u32>().is_ok()
+            })
+            .and_then(|(_, s)| s.parse().ok())
+    };
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    // Load save file
+    let save = Save::from_path(&save_path)
+        .map_err(|e| format!("Failed to load save: {}", e))?;
+
+    let slot = save.save_type.get_slot(slot_index);
+    let event_flags = &slot.event_flags.flags;
+
+    // Load corroboration engine
+    let engine = CorroborationEngine::load_default()
+        .map_err(|e| format!("Failed to load corroboration engine: {}", e))?;
+
+    if let Some(flag_id) = flag_id {
+        // Check single flag
+        println!("Corroboration check for flag {}:", flag_id);
+        println!();
+
+        let result = engine.check_corroboration(flag_id, true, event_flags);
+
+        println!("Status: {}", result.status);
+        println!("Agreement: {:.1}%", result.agreement_ratio * 100.0);
+        println!("Confidence adjustment: {:+.2}", result.confidence_adjustment);
+
+        if !result.related_checks.is_empty() {
+            println!();
+            println!("Related flag checks:");
+            for check in &result.related_checks {
+                let status = if check.agrees { "OK" } else { "MISMATCH" };
+                let actual = check.actual_set.map(|b| if b { "SET" } else { "UNSET" })
+                    .unwrap_or("N/A");
+                println!("  {} ({}) - Expected: {}, Actual: {} [{}]",
+                    check.flag_id,
+                    check.relationship_type,
+                    if check.expected_set { "SET" } else { "UNSET" },
+                    actual,
+                    status);
+            }
+        }
+
+        if let Some(ref df) = result.dual_formula {
+            println!();
+            println!("Dual-formula check:");
+            println!("  Tile flag {}: {:?}", df.tile_flag, df.tile_set);
+            println!("  Block flag {}: {:?}", df.block_flag, df.block_set);
+            println!("  Agreement: {}", if df.both_agree { "YES" } else { "NO" });
+            if let Some(ref name) = df.item_name {
+                println!("  Item: {}", name);
+            }
+        }
+    } else if check_all {
+        // Validate all corroboration pairs
+        println!("Validating all corroboration pairs against slot {}...", slot_index);
+        println!();
+
+        let result = engine.validate_all_pairs(event_flags);
+        println!("{}", result);
+
+        // Show contradictions
+        let contradictions: Vec<_> = result.results.iter()
+            .filter(|r| r.status == super::PairStatus::Contradicts)
+            .collect();
+
+        if !contradictions.is_empty() {
+            println!();
+            println!("Contradictions found ({}):", contradictions.len());
+            for r in contradictions.iter().take(10) {
+                println!("  Tile {} ({:?}) vs Block {} ({:?}) - {}",
+                    r.tile_flag,
+                    r.tile_set,
+                    r.block_flag,
+                    r.block_set,
+                    r.item_name.as_deref().unwrap_or("Unknown"));
+            }
+        }
+    } else {
+        println!("Usage:");
+        println!("  discovery corroborate <flag_id>     Check single flag corroboration");
+        println!("  discovery corroborate --all         Validate all corroboration pairs");
+        println!();
+        println!("Options:");
+        println!("  --save, -s <path>    Save file path (default: {})", DEFAULT_SAVE_PATH);
+        println!("  --slot <index>       Slot index (default: 0)");
+        println!();
+        println!("Examples:");
+        println!("  discovery corroborate 67650");
+        println!("  discovery corroborate 67650 --slot 5");
+        println!("  discovery corroborate --all --slot 0");
     }
 
     Ok(())

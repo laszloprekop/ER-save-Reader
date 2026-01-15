@@ -4,6 +4,61 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.6 - Multi-Point Corroboration System
+
+### Features
+- **Relationship Graph Module** (`src/discovery/relationship_graph.rs`):
+  - Loads 2,796 flag relationships across 5,079 flags from `scripts/flag_relationships.json`
+  - Indexes relationships by source, target, and type for O(1) lookups
+  - Extracts 122 dual-formula corroboration pairs (tile↔block)
+  - Supports 6 relationship types: pickup_sets_flag, enables_purchase, grace_discovery, boss_remembrance, event_sequence, map_fragment
+
+- **Corroboration Engine** (`src/discovery/corroboration.rs`):
+  - Multi-point validation using relationship graph
+  - Dual-formula validation: cross-checks tile flag (10-digit) with block flag (5-digit) for same item
+  - Confidence scoring with agreement ratios
+  - Batch validation of all corroboration pairs
+
+- **New CLI Commands**:
+  - `discovery corroborate <flag_id>` - Single flag validation with related flag checks
+  - `discovery corroborate --all` - Batch validate all 122 corroboration pairs
+  - `discovery graph` - Show relationship graph statistics
+
+- **Flag Extraction Script** (`scripts/extract_flag_relationships.py`):
+  - Extracts flag relationships from decompiled game files
+  - Parses ItemLotParam_map, ShopLineupParam, BonfireWarpParam, common.emevd.js
+  - Generates `flag_relationships.json` for runtime use
+
+### Bug Fixes
+- **Tile formula col_base corrected**: Changed from 42 to **30**
+  - Actual column range is 30-58, formula was excluding columns 30-41
+  - Discovered through corroboration analysis showing contradictions
+  - Fixed in `ground_truth_offsets.json`
+
+- **Bit mask bug in corroboration**: Changed `(1 << (7 - bit))` to `(1 << bit)`
+  - Bit was already calculated as `7 - (flag % 8)`, double-negation caused wrong bit reads
+  - Affected check_dual_formula, read_flag, and validate_all_pairs methods
+
+### Validation Results
+| Slot | Character | Agreements | Contradictions | Status |
+|------|-----------|------------|----------------|--------|
+| 0 | Confessor (mid-game) | 57 | 5 | Expected (4 world pickups + 1 shop) |
+| 1 | Wretch (early-game) | 62 | 0 | Formula validated |
+
+### Files Added
+- `src/discovery/relationship_graph.rs`: Relationship graph loader and indexer
+- `src/discovery/corroboration.rs`: Multi-point validation engine
+- `scripts/extract_flag_relationships.py`: Game data extraction script
+- `scripts/flag_relationships.json`: 2,796 relationships, 5,079 flags
+- `tests/regression_suite.rs`: Ground truth schema validation tests
+
+### Files Modified
+- `src/discovery/mod.rs`: Export new modules
+- `src/discovery/cli.rs`: Added corroborate and graph commands
+- `ground_truth_offsets.json`: Fixed tile formula col_base (42→30)
+
+---
+
 ## v0.4.5 - Dynamic Test Validation & UI Improvements
 
 ### Features

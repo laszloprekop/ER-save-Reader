@@ -36,6 +36,8 @@ pub mod snapshot_batch;
 pub mod consensus;
 pub mod cross_validator;
 pub mod ground_truth_updater;
+pub mod relationship_graph;
+pub mod corroboration;
 pub mod cli;
 pub mod test_cases;
 
@@ -72,4 +74,12 @@ pub use cross_validator::{
 pub use ground_truth_updater::{
     GroundTruthUpdater, UpdateConfig, PendingUpdate, UpdateResult, UpdateError,
     list_backups,
+};
+pub use relationship_graph::{
+    RelationshipGraph, FlagRelationship, RelationshipType,
+    CorroborationPair, GraphSummary, GraphError,
+};
+pub use corroboration::{
+    CorroborationEngine, CorroborationConfig, CorroborationResult, CorroborationStatus,
+    DualFormulaResult, RelatedFlagCheck, BatchCorroborationResult, PairStatus,
 };

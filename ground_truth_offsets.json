@@ -3228,17 +3228,17 @@
       },
       "67000": {
         "block_start": 67000,
-        "base_offset": 3546,
+        "base_offset": 2280,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Cookbooks - re-verified from Missionary's Cookbook [4], byte 3549"
+        "notes": "Cookbooks - verified: flag 67610 at byte 2356 bit 5 (Confessor)"
       },
       "68000": {
         "block_start": 68000,
-        "base_offset": 3671,
+        "base_offset": 2405,
         "block_size": 1000,
         "status": "calculated",
-        "notes": "Cookbooks continued (67000 + 125)"
+        "notes": "Cookbooks continued (67000 base 2280 + 125 = 2405)"
       },
       "71000": {
         "block_start": 71000,
@@ -3302,9 +3302,10 @@
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
-      "col_base": 42,
+      "col_base": 30,
       "max_local_id": 6999,
-      "status": "verified"
+      "status": "needs_revalidation",
+      "notes": "col_base corrected from 42 to 30 based on corroboration analysis - actual tile columns range 30-58"
     },
     "dungeon_formula": {
       "10": {
