@@ -116,7 +116,7 @@ impl App {
         let slot_index = self.vm.index;
 
         // Default path - relative to typical development location
-        let default_path = std::path::Path::new("../elden-map/server/data/verification-records-manually-set-to-complete.jsonl");
+        let default_path = std::path::Path::new("../elden-map/server/data/verification-records.jsonl");
 
         // Try environment variable first
         let path = std::env::var("ER_VERIFICATION_RECORDS_PATH")

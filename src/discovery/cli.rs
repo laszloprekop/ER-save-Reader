@@ -14,13 +14,14 @@ use super::{
     DiscoveryStore, ConsensusBuilder, ConsensusStatus,
     GroundTruthUpdater, UpdateConfig,
 };
-use super::test_cases::{TestCaseValidator, print_validation_report};
+use super::test_cases::{TestCaseValidator, DynamicTestCaseValidator, print_validation_report};
 
 /// Default paths
 const DEFAULT_SNAPSHOT_DIR: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging";
 const DEFAULT_SAVE_PATH: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2";
 const DEFAULT_STORE_PATH: &str = "discoveries.json";
 const DEFAULT_GROUND_TRUTH: &str = "ground_truth_offsets.json";
+const DEFAULT_RECORDS_PATH: &str = "../elden-map/server/data/verification-records.jsonl";
 
 /// Run discovery CLI with given arguments
 pub fn run_cli(args: &[String]) -> Result<(), String> {
@@ -119,7 +120,11 @@ fn cmd_analyze(args: &[String]) -> Result<(), String> {
     Ok(())
 }
 
-/// Validate curated test cases against save file
+/// Validate test cases against save file
+///
+/// Supports two modes:
+/// 1. Static mode (default): Uses hardcoded test cases from build_test_suite()
+/// 2. Dynamic mode (--records): Loads test cases from verification-records.jsonl
 fn cmd_validate(args: &[String]) -> Result<(), String> {
     // Parse --save argument
     let save_path = args.iter()
@@ -128,20 +133,101 @@ fn cmd_validate(args: &[String]) -> Result<(), String> {
         .map(|s| PathBuf::from(s))
         .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
 
+    // Parse --records argument for dynamic mode
+    let records_path = args.iter()
+        .position(|a| a == "--records" || a == "-r")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s));
+
+    // Check for --dynamic flag (uses default records path)
+    let use_dynamic = args.iter().any(|a| a == "--dynamic" || a == "-d") || records_path.is_some();
+
     if !save_path.exists() {
         return Err(format!("Save file not found: {:?}", save_path));
     }
 
-    let validator = TestCaseValidator::new();
-
     // Check for --all flag
     let validate_all = args.iter().any(|a| a == "--all" || a == "-a");
 
-    if validate_all {
-        println!("Validating all defined slots...");
-        println!("Save file: {:?}", save_path);
+    // Filter out flag arguments to get slot numbers
+    let slots: Vec<usize> = args.iter()
+        .filter(|s| !s.starts_with('-') && !s.starts_with("--"))
+        .filter(|s| {
+            // Also filter out values that follow flags
+            let prev_idx = args.iter().position(|x| x == *s).unwrap_or(0);
+            if prev_idx > 0 {
+                let prev = &args[prev_idx - 1];
+                !(prev == "--save" || prev == "-s" || prev == "--records" || prev == "-r")
+            } else {
+                true
+            }
+        })
+        .filter_map(|s| s.parse().ok())
+        .collect();
 
-        let results = validator.validate_all_slots(&save_path)
+    if use_dynamic {
+        // Dynamic mode: load from verification records
+        let records = records_path.unwrap_or_else(|| PathBuf::from(DEFAULT_RECORDS_PATH));
+
+        if !records.exists() {
+            return Err(format!("Verification records not found: {:?}", records));
+        }
+
+        println!("=== DYNAMIC VALIDATION MODE ===");
+        println!("Records: {:?}", records);
+        println!("Save: {:?}", save_path);
+
+        let validator = DynamicTestCaseValidator::from_records(&records)?;
+        println!("Loaded {} test cases across {} slots",
+            validator.total_test_count(), validator.slot_count());
+        println!();
+
+        run_validation(&validator, &save_path, &slots, validate_all)?;
+    } else {
+        // Static mode: use hardcoded test cases
+        println!("=== STATIC VALIDATION MODE ===");
+        println!("(Use --dynamic or --records <path> for verification-record-based testing)");
+        println!("Save: {:?}", save_path);
+        println!();
+
+        let validator = TestCaseValidator::new();
+
+        if slots.is_empty() && !validate_all {
+            println!("Usage: discovery validate [slots...] [--all] [--dynamic] [--records <path>]");
+            println!();
+            println!("Options:");
+            println!("  --all, -a           Validate all slots");
+            println!("  --dynamic, -d       Use verification records (default path)");
+            println!("  --records, -r PATH  Use verification records from PATH");
+            println!("  --save, -s PATH     Use save file at PATH");
+            println!();
+            println!("Available slots with static test cases:");
+            for (slot_index, suite) in validator.suite().slots.iter() {
+                let true_count = suite.known_true.len();
+                let false_count = suite.known_false.len();
+                println!("  Slot {}: {} ({} true, {} false tests)",
+                    slot_index, suite.character_name, true_count, false_count);
+            }
+            return Ok(());
+        }
+
+        run_validation(&validator, &save_path, &slots, validate_all)?;
+    }
+
+    Ok(())
+}
+
+/// Common validation logic for both static and dynamic validators
+fn run_validation<V: Validator>(
+    validator: &V,
+    save_path: &Path,
+    slots: &[usize],
+    validate_all: bool,
+) -> Result<(), String> {
+    if validate_all {
+        println!("Validating all slots with test cases...");
+
+        let results = validator.validate_all_slots(save_path)
             .map_err(|e| format!("Validation failed: {}", e))?;
 
         for result in &results {
@@ -155,34 +241,16 @@ fn cmd_validate(args: &[String]) -> Result<(), String> {
         let total_tests: usize = results.iter().map(|r| r.total_tests).sum();
 
         println!();
+        println!("═══════════════════════════════════════════════════════════════");
         println!("Overall Summary: {}/{} passed ({:.1}%)",
             total_passed, total_tests,
             if total_tests > 0 { total_passed as f64 / total_tests as f64 * 100.0 } else { 0.0 });
         println!("  Failed: {} | Errors: {}", total_failed, total_errors);
-    } else {
-        // Validate specific slots
-        let slots: Vec<usize> = args.iter()
-            .filter_map(|s| s.parse().ok())
-            .collect();
-
-        if slots.is_empty() {
-            println!("Usage: discovery validate <slot1> [slot2] ... [--all]");
-            println!();
-            println!("Available slots with test cases:");
-            for (slot_index, suite) in validator.suite().slots.iter() {
-                let true_count = suite.known_true.len();
-                let false_count = suite.known_false.len();
-                println!("  Slot {}: {} ({} true, {} false tests)",
-                    slot_index, suite.character_name, true_count, false_count);
-            }
-            return Ok(());
-        }
-
+    } else if !slots.is_empty() {
         println!("Validating slots: {:?}", slots);
-        println!("Save file: {:?}", save_path);
 
-        for slot_index in slots {
-            match validator.validate_slot(&save_path, slot_index) {
+        for &slot_index in slots {
+            match validator.validate_slot(save_path, slot_index) {
                 Ok(result) => print_validation_report(&result),
                 Err(e) => println!("Slot {} error: {}", slot_index, e),
             }
@@ -190,6 +258,36 @@ fn cmd_validate(args: &[String]) -> Result<(), String> {
     }
 
     Ok(())
+}
+
+/// Trait to abstract over static and dynamic validators
+trait Validator {
+    fn validate_slot(&self, save_path: &Path, slot_index: usize)
+        -> Result<super::test_cases::SlotValidationResult, String>;
+    fn validate_all_slots(&self, save_path: &Path)
+        -> Result<Vec<super::test_cases::SlotValidationResult>, String>;
+}
+
+impl Validator for TestCaseValidator {
+    fn validate_slot(&self, save_path: &Path, slot_index: usize)
+        -> Result<super::test_cases::SlotValidationResult, String> {
+        TestCaseValidator::validate_slot(self, save_path, slot_index)
+    }
+    fn validate_all_slots(&self, save_path: &Path)
+        -> Result<Vec<super::test_cases::SlotValidationResult>, String> {
+        TestCaseValidator::validate_all_slots(self, save_path)
+    }
+}
+
+impl Validator for DynamicTestCaseValidator {
+    fn validate_slot(&self, save_path: &Path, slot_index: usize)
+        -> Result<super::test_cases::SlotValidationResult, String> {
+        DynamicTestCaseValidator::validate_slot(self, save_path, slot_index)
+    }
+    fn validate_all_slots(&self, save_path: &Path)
+        -> Result<Vec<super::test_cases::SlotValidationResult>, String> {
+        DynamicTestCaseValidator::validate_all_slots(self, save_path)
+    }
 }
 
 /// Directly probe bytes at specific offsets for debugging

@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.5 - Dynamic Test Validation & UI Improvements
+
+### Features
+- **Dynamic Test Case Loading**: Test cases now load from verification records instead of hardcoded values
+  - `DynamicTestCaseValidator` loads expectations from JSONL file
+  - `--dynamic` or `--records <path>` flags for CLI validation
+  - Adapts automatically when verification records are updated
+  - `build_test_suite_from_records()` function for programmatic use
+
+### UI Improvements
+- **Catppuccin Frappé color palette** for verification view
+  - Consistent colors: Red (#e78284), Green (#a6d189), Yellow (#e5c890), Peach (#ef9f76), Teal (#81c8be)
+- **Monospace font size reduced to 85%** (12px) for better table density
+- **Removed text truncation** - full flag names now visible with horizontal scrolling
+
+### Bug Fixes
+- Fixed verification records path: now correctly points to `verification-records.jsonl`
+
+### Files Modified
+- `src/discovery/test_cases.rs`: Added DynamicTestCaseValidator, build_test_suite_from_records()
+- `src/discovery/cli.rs`: Added --dynamic, --records flags, Validator trait
+- `src/ui/verification_view.rs`: Catppuccin Frappé palette, font sizing, no truncation
+- `src/main.rs`: Fixed verification records path
+
+---
+
 ## v0.4.4 - Block Offset Corrections
 
 ### Bug Fixes

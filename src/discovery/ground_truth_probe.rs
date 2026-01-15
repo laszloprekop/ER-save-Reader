@@ -195,7 +195,7 @@ mod tests {
     #[ignore]
     fn test_ground_truth_probe_slot0() {
         let save_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2");
-        let records_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records-manually-set-to-complete.jsonl");
+        let records_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl");
 
         if save_path.exists() && records_path.exists() {
             // Test slot 0 (Confessor - level 93)
@@ -218,7 +218,7 @@ mod tests {
     #[ignore]
     fn test_ground_truth_probe_slot5() {
         let save_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2");
-        let records_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records-manually-set-to-complete.jsonl");
+        let records_path = Path::new("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl");
 
         if save_path.exists() && records_path.exists() {
             // Test slot 5 (Sam - level 10, more detailed verification data)

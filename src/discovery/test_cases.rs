@@ -25,6 +25,8 @@
 /// - Slot 4: V3, control character
 
 use std::collections::HashMap;
+use std::path::Path;
+use crate::util::verification_records::{VerificationRecord, load_verification_records, get_records_for_slot};
 
 /// A single test case for flag validation
 #[derive(Debug, Clone)]
@@ -86,6 +88,20 @@ impl FlagCategory {
             FlagCategory::Cookbook => "Cookbook",
             FlagCategory::MapFragment => "Map Fragment",
             FlagCategory::Progression => "Progression",
+        }
+    }
+
+    /// Parse category from verification record string
+    pub fn from_str(s: &str) -> Self {
+        match s.to_lowercase().as_str() {
+            "grace" => FlagCategory::Grace,
+            "boss defeat" | "bossdefeat" | "field boss defeat" => FlagCategory::BossDefeat,
+            "world pickup" | "worldpickup" | "pickup" => FlagCategory::WorldPickup,
+            "npc event" | "npcevent" | "npc" => FlagCategory::NpcEvent,
+            "cookbook" => FlagCategory::Cookbook,
+            "map fragment" | "mapfragment" | "map" => FlagCategory::MapFragment,
+            "map poi" | "mappoi" | "poi" => FlagCategory::Progression, // Map POI goes to progression
+            _ => FlagCategory::Progression,
         }
     }
 }
@@ -391,10 +407,117 @@ pub fn cookbook(flag_id: u32, name: &str, location: &str) -> FlagTestCase {
 }
 
 // ============================================================================
+// DYNAMIC TEST SUITE FROM VERIFICATION RECORDS
+// ============================================================================
+
+/// Build test suite dynamically from verification records
+///
+/// This replaces hardcoded test cases with data loaded from the verification
+/// records JSONL file. Each record's `manual_status` becomes the expected value.
+///
+/// # Arguments
+/// * `records_path` - Path to the verification-records.jsonl file
+///
+/// # Returns
+/// A TestSuiteCollection with test cases for all slots found in the records
+pub fn build_test_suite_from_records(records_path: &Path) -> Result<TestSuiteCollection, String> {
+    let records = load_verification_records(records_path)
+        .map_err(|e| format!("Failed to load verification records: {}", e))?;
+
+    if records.is_empty() {
+        return Err("No verification records found".to_string());
+    }
+
+    let mut collection = TestSuiteCollection::new();
+
+    // Group records by slot
+    let mut slots_map: HashMap<u32, Vec<&VerificationRecord>> = HashMap::new();
+    for record in &records {
+        slots_map.entry(record.slot_index).or_default().push(record);
+    }
+
+    // Build test suite for each slot
+    for (slot_index, slot_records) in slots_map {
+        // Get character info from first record
+        let first = slot_records.first().unwrap();
+        let mut suite = SlotTestSuite::new(
+            slot_index as usize,
+            &first.character_name,
+            &format!("Dynamically loaded from verification records ({} test cases)", slot_records.len())
+        );
+
+        // Convert each record to a test case
+        for record in slot_records {
+            let case = FlagTestCase {
+                flag_id: record.flag_id,
+                name: record.flag_name.clone(),
+                category: FlagCategory::from_str(&record.flag_category),
+                expected: record.manual_status,
+                verification_method: format!("From verification record ({})", record.flag_region),
+                item_name: None,
+                location: Some(record.flag_region.clone()),
+            };
+
+            // Add to appropriate list based on expected value
+            if record.manual_status {
+                suite.add_true(case);
+            } else {
+                suite.add_false(case);
+            }
+        }
+
+        collection.add_slot(suite);
+    }
+
+    Ok(collection)
+}
+
+/// Build test suite for a specific slot from verification records
+pub fn build_slot_test_suite_from_records(
+    records_path: &Path,
+    slot_index: usize,
+) -> Result<SlotTestSuite, String> {
+    let records = load_verification_records(records_path)
+        .map_err(|e| format!("Failed to load verification records: {}", e))?;
+
+    let slot_records = get_records_for_slot(&records, slot_index as u32);
+
+    if slot_records.is_empty() {
+        return Err(format!("No verification records found for slot {}", slot_index));
+    }
+
+    let first = &slot_records[0];
+    let mut suite = SlotTestSuite::new(
+        slot_index,
+        &first.character_name,
+        &format!("Dynamically loaded ({} test cases)", slot_records.len())
+    );
+
+    for record in &slot_records {
+        let case = FlagTestCase {
+            flag_id: record.flag_id,
+            name: record.flag_name.clone(),
+            category: FlagCategory::from_str(&record.flag_category),
+            expected: record.manual_status,
+            verification_method: format!("From verification record ({})", record.flag_region),
+            item_name: None,
+            location: Some(record.flag_region.clone()),
+        };
+
+        if record.manual_status {
+            suite.add_true(case);
+        } else {
+            suite.add_false(case);
+        }
+    }
+
+    Ok(suite)
+}
+
+// ============================================================================
 // VALIDATION ENGINE
 // ============================================================================
 
-use std::path::Path;
 use crate::save::save::save::Save;
 use crate::db::pickup_flags::get_flag_offset;
 
@@ -575,6 +698,169 @@ impl TestCaseValidator {
 impl Default for TestCaseValidator {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+// ============================================================================
+// DYNAMIC VALIDATOR (loads from verification records)
+// ============================================================================
+
+/// A test case validator that loads test cases dynamically from verification records
+///
+/// Unlike `TestCaseValidator` which uses hardcoded test cases, this validator
+/// loads expectations from an external JSONL file. This makes tests adaptive
+/// to changes in save files and verification data.
+pub struct DynamicTestCaseValidator {
+    suite: TestSuiteCollection,
+    records_path: std::path::PathBuf,
+}
+
+impl DynamicTestCaseValidator {
+    /// Create a new validator loading from the specified verification records file
+    pub fn from_records(records_path: &Path) -> Result<Self, String> {
+        let suite = build_test_suite_from_records(records_path)?;
+        Ok(Self {
+            suite,
+            records_path: records_path.to_path_buf(),
+        })
+    }
+
+    /// Get the path to the verification records file
+    pub fn records_path(&self) -> &Path {
+        &self.records_path
+    }
+
+    /// Validate all test cases for a specific slot
+    pub fn validate_slot(
+        &self,
+        save_path: &Path,
+        slot_index: usize,
+    ) -> Result<SlotValidationResult, String> {
+        let save = Save::from_path(&save_path.to_path_buf())
+            .map_err(|e| format!("Failed to load save: {}", e))?;
+
+        let slot = save.save_type.get_slot(slot_index);
+        let event_flags = &slot.event_flags.flags;
+
+        let test_suite = self.suite.get_slot(slot_index)
+            .ok_or_else(|| format!("No verification records for slot {}", slot_index))?;
+
+        let mut results = Vec::new();
+        let mut passed = 0;
+        let mut failed = 0;
+        let mut errors = 0;
+
+        for (case, expected_state) in test_suite.all_cases() {
+            let result = validate_single_case(event_flags, case, expected_state);
+
+            if result.error.is_some() {
+                errors += 1;
+            } else if result.passed {
+                passed += 1;
+            } else {
+                failed += 1;
+            }
+
+            results.push(result);
+        }
+
+        Ok(SlotValidationResult {
+            slot_index,
+            character_name: test_suite.character_name.clone(),
+            total_tests: results.len(),
+            passed,
+            failed,
+            errors,
+            results,
+        })
+    }
+
+    /// Validate all slots that have verification records
+    pub fn validate_all_slots(
+        &self,
+        save_path: &Path,
+    ) -> Result<Vec<SlotValidationResult>, String> {
+        let mut all_results = Vec::new();
+
+        for slot_index in self.suite.slots.keys() {
+            match self.validate_slot(save_path, *slot_index) {
+                Ok(result) => all_results.push(result),
+                Err(e) => println!("Warning: Slot {} validation failed: {}", slot_index, e),
+            }
+        }
+
+        Ok(all_results)
+    }
+
+    /// Get the test suite collection
+    pub fn suite(&self) -> &TestSuiteCollection {
+        &self.suite
+    }
+
+    /// Get count of slots with test cases
+    pub fn slot_count(&self) -> usize {
+        self.suite.slots.len()
+    }
+
+    /// Get total test case count across all slots
+    pub fn total_test_count(&self) -> usize {
+        self.suite.slots.values()
+            .map(|s| s.known_true.len() + s.known_false.len())
+            .sum()
+    }
+}
+
+/// Validate a single test case (shared logic)
+fn validate_single_case(
+    event_flags: &[u8],
+    case: &FlagTestCase,
+    expected: bool,
+) -> TestCaseResult {
+    let offset = get_flag_offset(case.flag_id);
+
+    match offset {
+        Some((byte_offset, bit_pos)) => {
+            if byte_offset as usize >= event_flags.len() {
+                return TestCaseResult {
+                    flag_id: case.flag_id,
+                    name: case.name.clone(),
+                    category: case.category,
+                    expected,
+                    actual: None,
+                    passed: false,
+                    offset: Some((byte_offset as usize, bit_pos)),
+                    error: Some(format!("Offset {} out of bounds (max {})",
+                        byte_offset, event_flags.len())),
+                };
+            }
+
+            let byte = event_flags[byte_offset as usize];
+            let actual = (byte >> bit_pos) & 1 == 1;
+            let passed = actual == expected;
+
+            TestCaseResult {
+                flag_id: case.flag_id,
+                name: case.name.clone(),
+                category: case.category,
+                expected,
+                actual: Some(actual),
+                passed,
+                offset: Some((byte_offset as usize, bit_pos)),
+                error: None,
+            }
+        }
+        None => {
+            TestCaseResult {
+                flag_id: case.flag_id,
+                name: case.name.clone(),
+                category: case.category,
+                expected,
+                actual: None,
+                passed: false,
+                offset: None,
+                error: Some("No offset formula for this flag ID".to_string()),
+            }
+        }
     }
 }
 
