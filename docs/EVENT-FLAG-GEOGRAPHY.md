@@ -33,10 +33,10 @@ Lands Between (World)
 │   └── Deeproot Depths (Area 39)
 │
 ├── Special Areas
+│   ├── Tutorial Areas (Area 14) - Chapel of Anticipation, Cave of Knowledge, Stranded Graveyard
 │   ├── Roundtable Hold (Area 18)
-│   ├── Shunning-Grounds / Sewers (Area 14)
-│   ├── Chapel of Anticipation (Area 19)
-│   └── Stranded Graveyard (Area 20)
+│   ├── Elden Throne (Area 19) - Final boss area
+│   └── Area 20 - Needs investigation (may be unused)
 │
 └── DLC Regions (Shadow of the Erdtree)
     └── World Pickups (2XXYYZZZZ tile flags - 10 digits)

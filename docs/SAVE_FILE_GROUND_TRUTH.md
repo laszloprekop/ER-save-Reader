@@ -21,8 +21,8 @@ This document is the **single source of truth** for Elden Ring save file parsing
 | **Cookbooks (67xxx-68xxx)** | **VERIFIED** | Block base=3546 (corrected from 3987!) |
 | **Dungeon Graces (73xxx)** | **VERIFIED** | Block base=2664, 13/13 dungeon graces matched |
 | **Whetblades (65xxx)** | Unverified | Block base ~1875 needs testing |
-| **World Pickups (col >= 42)** | **VERIFIED** | Tile formula works, base=495830 |
-| **World Pickups (col < 42)** | Unverified | Western tiles may use different storage |
+| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=485330, col_base=30 |
+| **World Pickups (col < 30)** | Unverified | Western tiles may use different storage |
 | **Dungeon Boss Flags (30,31,32)** | **VERIFIED** | Catacombs/Caves/Tunnels bases discovered |
 | **Dungeon Boss Flags (Legacy)** | Unverified | Stormveil, Academy, etc. need investigation |
 | **Consumable Treasures** | **UNTRACKABLE** | LocalId >= 7000 has no storage space |
@@ -128,12 +128,12 @@ row = int(flag_str[2:4])      # XX (tile row, e.g., 43)
 col = int(flag_str[4:6])      # YY (tile column, e.g., 50)
 local_id = int(flag_str[6:])  # ZZZZ (local flag ID, e.g., 0010)
 
-# Calculate offset (verified 2026-01-11)
-base_offset = 495830          # Verified from Smoldering Butterfly (was 347375)
+# Calculate offset (verified 2026-01-11, updated 2026-01-20)
+base_offset = 485330          # Verified (was 495830, corrected)
 bytes_per_slot = 875
 slots_per_row = 40
 row_base = 33
-col_base = 42
+col_base = 30                 # Corrected from 42 to 30
 
 tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
 byte_offset = base_offset + tile_offset + (local_id // 8)
@@ -142,15 +142,15 @@ bit_position = 7 - (local_id % 8)  # Uses local_id, not flag_id
 
 **Verified Example**: Flag 1043500010 (Smoldering Butterfly at m60_43_50)
 - row=43, col=50, local=10
-- tile_offset = ((43-33)*40 + (50-42)) * 875 = 408 * 875 = 357000
-- byte_offset = 495830 + 357000 + 1 = 852831
+- tile_offset = ((43-33)*40 + (50-30)) * 875 = 420 * 875 = 367500
+- byte_offset = 485330 + 367500 + 1 = 852831
 - bit_position = 7 - (10 % 8) = 5
 - Extraction: (byte >> 5) & 1
 
 **LIMITATIONS**:
 
 1. **LocalId >= 7000 is UNTRACKABLE**: Each tile slot has 875 bytes = 7000 flags max. ItemLotParam `eventFlagId` often creates localId 7300+ for treasures - these flags have no storage space.
-2. **Col < 42 may not work**: Tiles west of col_base=42 may use different storage region (needs empirical verification with western map pickups).
+2. **Col < 30 may not work**: Tiles west of col_base=30 may use different storage region (needs empirical verification).
 
 ### Dungeon Formula (8-digit flags)
 
@@ -247,8 +247,8 @@ For items that can't be tracked via event flags:
 | Block 76000 | World Graces | **VERIFIED** | Validation flags 76100, 76101 (base=3250), 65% match rate |
 | Block 73000 | Dungeon Graces | **VERIFIED** | 13/13 dungeon graces matched via slot comparison (base=2664) |
 | Block 78000 | POI Flags | UNVERIFIED | 0% match rate - base offset needs discovery |
-| Tile (col >= 42) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) diff |
-| Tile (col < 42) | World Pickups | UNVERIFIED | Western tiles may use different storage |
+| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) diff, col_base=30 |
+| Tile (col < 30) | World Pickups | UNVERIFIED | Western tiles may use different storage |
 | Dungeon Area 30 | Catacombs | **VERIFIED** | 5 boss flags matched (base=27411) |
 | Dungeon Area 31 | Caves | **VERIFIED** | 5 boss flags matched (base=28634) |
 | Dungeon Area 32 | Tunnels | **VERIFIED** | 4 boss flags matched (base=31577) |
@@ -371,8 +371,8 @@ To improve the ground truth:
 ### 2026-01-11 (Initial)
 - Created ground truth document
 - Verified 71xxx (base=2625), 76xxx (base=3250) from validation flags
-- Verified tile formula for col >= 42 (base=495830)
+- Verified tile formula for col >= 30 (base=485330, col_base=30)
 
 ---
 
-*Last updated: 2026-01-12*
+*Last updated: 2026-01-20*
