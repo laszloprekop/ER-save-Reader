@@ -3436,6 +3436,22 @@
         "status": "unverified",
         "notes": "Elden Throne"
       }
+    },
+    "dungeon_areas": {
+      "19": {
+        "map_area": 19,
+        "base_offset": 1426125,
+        "section_size": 1125,
+        "status": "needs_review",
+        "notes": "Elden Throne (final boss area) - derived from event_flags.rs. Contains Radagon/Elden Beast defeat flag (19000810). Chapel of Anticipation does NOT use this area - it shares Area 10 (Stormveil)."
+      },
+      "20": {
+        "map_area": 20,
+        "base_offset": 2500000,
+        "section_size": 1125,
+        "status": "needs_review",
+        "notes": "Stranded Graveyard / Cave of Knowledge dungeon events - derived from event_flags.rs. Tutorial area. Grace flags use Block 71000 (71800, 71801), not this area."
+      }
     }
   },
   "untrackable_categories": [],

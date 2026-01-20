@@ -4,6 +4,38 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.13 - Area 19/20 Formula Investigation
+
+### Features
+- **Area 19 (Elden Throne)**: Added formula base_offset=1426125 (derived from event_flags.rs)
+  - Corrected: Area 19 is NOT Chapel of Anticipation - it's the final boss area
+  - Contains Radagon/Elden Beast defeat flag (19000810)
+  - Status: needs_review (no empirical verification yet)
+- **Area 20 (Stranded Graveyard)**: Added formula base_offset=2500000 (derived from event_flags.rs)
+  - Tutorial dungeon events (20007xxx flags)
+  - Status: needs_review
+
+### Key Findings
+- **Chapel of Anticipation** shares Area 10 (Stormveil Castle) flags, NOT Area 19
+  - Grafted Scion boss uses flag 10010800
+- Tutorial grace flags (71800, 71801) use Block 71000, not dungeon areas
+
+### Documentation Updates
+- **EVENT-FLAG-GEOGRAPHY.md**: Updated Special Areas table with correct names
+- **flag_catalog.rs**: Changed "Chapel Event" → "Elden Throne Event" with clarifying comment
+
+### Data Collection Issues Identified
+- Stranded Graveyard save snapshots (Wretch 11-12) are identical - snapshot wasn't captured correctly
+- Grace flag 71800 not captured due to snapshot pairing limitations
+
+### Files Modified
+- `ground_truth_offsets.json`: Added Areas 19, 20 with needs_review status
+- `src/discovery/flag_catalog.rs`: Fixed Area 19 UI label
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Updated Special Areas table
+- `Cargo.toml`: Bumped to 0.4.13
+
+---
+
 ## v0.4.12 - Dungeon Area Formula Verification
 
 ### Features

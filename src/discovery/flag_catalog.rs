@@ -275,16 +275,20 @@ impl FlagCatalog {
             92000..=92999 => format!("Container Upgrade {}", flag_id),
             93000..=99999 => format!("Block Flag {}", flag_id),
 
-            // Legacy dungeon flags (10M-44M)
+            // Legacy dungeons (8-digit AASSZZZZ format)
             10_000_000..=10_999_999 => format!("Stormveil Event {}", flag_id % 1_000_000),
             11_000_000..=11_999_999 => format!("Raya Lucaria Event {}", flag_id % 1_000_000),
             12_000_000..=12_999_999 => format!("Underground Event {}", flag_id % 1_000_000),
             13_000_000..=13_999_999 => format!("Leyndell Event {}", flag_id % 1_000_000),
-            14_000_000..=14_999_999 => format!("Sewers Event {}", flag_id % 1_000_000),
+            14_000_000..=14_999_999 => format!("Shunning-Grounds Event {}", flag_id % 1_000_000),
             15_000_000..=15_999_999 => format!("Haligtree Event {}", flag_id % 1_000_000),
             16_000_000..=16_999_999 => format!("Farum Azula Event {}", flag_id % 1_000_000),
+
+            // Special areas
             18_000_000..=18_999_999 => format!("Roundtable Event {}", flag_id % 1_000_000),
-            19_000_000..=19_999_999 => format!("Ainsel River Event {}", flag_id % 1_000_000),
+            19_000_000..=19_999_999 => format!("Elden Throne Event {}", flag_id % 1_000_000), // Final boss area, NOT Chapel of Anticipation
+            20_000_000..=20_999_999 => format!("Stranded Graveyard Event {}", flag_id % 1_000_000),
+            21_000_000..=21_999_999 => format!("Elphael Event {}", flag_id % 1_000_000),
 
             // Minor dungeons
             30_000_000..=30_999_999 => format!("Catacomb Event {}", flag_id % 1_000_000),
