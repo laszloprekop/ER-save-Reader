@@ -100,7 +100,7 @@ impl FlagCategory {
             "npc event" | "npcevent" | "npc" => FlagCategory::NpcEvent,
             "cookbook" => FlagCategory::Cookbook,
             "map fragment" | "mapfragment" | "map" => FlagCategory::MapFragment,
-            "map poi" | "mappoi" | "poi" => FlagCategory::Progression, // Map POI goes to progression
+            "landmark" | "landmarks" | "map poi" | "mappoi" | "poi" => FlagCategory::Progression, // Landmarks go to progression
             _ => FlagCategory::Progression,
         }
     }

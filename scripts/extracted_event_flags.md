@@ -42,7 +42,7 @@ Total unique flags: 7034
 | 196 | Malenia's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 197 | Remembrance of the Full Moon Queen | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 200 | Grace_211200 | Grace | Various | m10_00_00 | 0.4, -9.7, -14.0 | - | - | - | - | - | BonfireWarpParam |
-| 6001 | Jagged Peak: Foot of the Jagged Peak - Igon | Map POI | Jagged Peak | m61_52_40 | -6.4, 298.9, -73.2 | 13305.6, 10166.8 | - | - | - | - | WorldMapPointParam |
+| 6001 | Jagged Peak: Foot of the Jagged Peak - Igon | Landmark | Jagged Peak | m61_52_40 | -6.4, 298.9, -73.2 | 13305.6, 10166.8 | - | - | - | - | WorldMapPointParam |
 | 6700 | Flask of Wondrous Physick | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 9100 | Remembrance of the Grafted | Remembrance | Various | - | - | - | - | - | - | - | common |
 | 9101 | [Enia - Forging] Remembrance of the Grafted - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -145,296 +145,296 @@ Total unique flags: 7034
 | 62082 | Map: Southern Shore | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 62083 | Map: Rauh Ruins | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 62084 | Map: Abyss | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62100 | Stormveil Castle | Map POI | Stormveil Castle | m10_00_00 | -119.4, 21.3, 29.4 | - | - | - | - | - | WorldMapPointParam |
-| 62101 | Stranded Graveyard | Map POI | Various | m18_00_00 | -91.0, 11.9, 24.6 | - | - | - | - | - | WorldMapPointParam |
-| 62102 | Fringefolk Hero's Grave | Map POI | Various | m18_00_00 | -106.8, 3.9, 83.8 | - | - | - | - | - | WorldMapPointParam |
-| 62103 | Stormfoot Catacombs | Map POI | Various | m30_02_00 | 42.6, 144.9, -11.2 | - | - | - | - | - | WorldMapPointParam |
-| 62104 | Deathtouched Catacombs | Map POI | Various | m30_11_00 | -86.1, 192.8, 30.2 | - | - | - | - | - | WorldMapPointParam |
-| 62105 | Murkwater Catacombs | Map POI | Various | m30_04_00 | 89.2, 66.3, 65.0 | - | - | - | - | - | WorldMapPointParam |
-| 62106 | Tombsward Cave | Map POI | World (42,33) | m60_42_33 | -114.1, 6.7, 31.2 | 10637.9, 8479.2 | - | - | - | - | WorldMapPointParam |
-| 62107 | Groveside Cave | Map POI | Various | m31_03_00 | -59.6, 110.8, -11.0 | - | - | - | - | - | WorldMapPointParam |
-| 62108 | Coastal Cave | Map POI | Various | m31_15_00 | 48.1, -0.3, -41.9 | - | - | - | - | - | WorldMapPointParam |
-| 62109 | Highroad Cave | Map POI | Various | m31_17_00 | 60.1, 96.5, 96.4 | - | - | - | - | - | WorldMapPointParam |
-| 62110 | Limgrave Tunnels | Map POI | Limgrave | m60_42_37 | 133.8, 67.6, -25.4 | 10885.8, 9446.6 | - | - | - | - | WorldMapPointParam |
-| 62111 | Divine Tower of Limgrave | Map POI | Various | m34_10_00 | 907.4, 49.5, 592.5 | - | - | - | - | - | WorldMapPointParam |
-| 62120 | Church of Elleh | Map POI | Limgrave | m60_42_36 | -40.7, 91.0, 79.3 | 10711.3, 9295.3 | - | - | - | - | WorldMapPointParam |
-| 62121 | Church of Dragon Communion | Map POI | World (41,35) | m60_41_35 | -71.1, 27.3, -48.9 | 10424.9, 8911.1 | - | - | - | - | WorldMapPointParam |
-| 62122 | Third Church of Marika | Map POI | Caelid | m60_46_38 | -101.6, 3.5, 71.8 | 11674.4, 9799.8 | - | - | - | - | WorldMapPointParam |
-| 62123 | Mistwood Ruins | Map POI | Caelid | m60_45_37 | -64.8, 22.4, -108.8 | 11455.2, 9363.2 | - | - | - | - | WorldMapPointParam |
-| 62124 | Waypoint Ruins | Map POI | Limgrave | m60_44_36 | 7.2, 90.8, 67.1 | 11271.2, 9283.1 | - | - | - | - | WorldMapPointParam |
-| 62125 | Dragon-Burnt Ruins | Map POI | Limgrave | m60_43_36 | -5.2, 63.7, -76.3 | 11002.8, 9139.7 | - | - | - | - | WorldMapPointParam |
-| 62126 | Gatefront Ruins | Map POI | Limgrave | m60_42_37 | 73.8, 93.2, 77.0 | 10825.8, 9549.0 | - | - | - | - | WorldMapPointParam |
-| 62127 | Summonwater Village | Map POI | Caelid | m60_45_39 | -18.8, 90.2, 35.6 | 11501.2, 10019.6 | - | - | - | - | WorldMapPointParam |
-| 62128 | Artist's Shack | Map POI | Limgrave | m60_44_38 | -10.9, 92.8, -20.4 | 11253.1, 9707.6 | - | - | - | - | WorldMapPointParam |
-| 62129 | Warmaster's Shack | Map POI | Limgrave | m60_42_38 | 10.4, 186.9, 87.5 | 10762.4, 9815.5 | - | - | - | - | WorldMapPointParam |
-| 62130 | Stormhill Shack | Map POI | Limgrave | m60_41_38 | 33.6, 204.7, 10.4 | 10529.6, 9738.4 | - | - | - | - | WorldMapPointParam |
-| 62131 | Forlorn Hound Evergaol | Map POI | Weeping Peninsula | m60_44_35 | -17.5, 104.5, -115.4 | 11246.5, 8844.6 | - | - | - | - | WorldMapPointParam |
-| 62132 | Stormhill Evergaol | Map POI | Limgrave | m60_42_37 | -66.0, 158.4, 44.0 | 10686.0, 9516.0 | - | - | - | - | WorldMapPointParam |
-| 62133 | Bridge of Sacrifice | Map POI | Weeping Peninsula | m60_44_34 | 120.0, 36.7, 48.5 | 11384.0, 8752.5 | - | - | - | - | WorldMapPointParam |
-| 62134 | Siofra River Well | Map POI | Caelid | m60_45_37 | 103.9, 29.6, 8.0 | 11623.9, 9480.0 | - | - | - | - | WorldMapPointParam |
-| 62135 | Fort Haight | Map POI | Caelid | m60_46_36 | -25.3, 31.3, -20.3 | 11750.7, 9195.7 | - | - | - | - | WorldMapPointParam |
-| 62137 | Minor Erdtree | Map POI | Caelid | m60_45_37 | 84.1, 33.6, -49.2 | 11604.1, 9422.8 | - | - | - | - | WorldMapPointParam |
-| 62138 | Stormgate | Map POI | Limgrave | m60_42_38 | -37.1, 121.8, -125.4 | 10714.9, 9602.6 | - | - | - | - | WorldMapPointParam |
-| 62150 | Tombsward Catacombs | Map POI | Various | m30_00_00 | -95.7, 66.1, 107.3 | - | - | - | - | - | WorldMapPointParam |
-| 62151 | Impaler's Catacombs | Map POI | Various | m30_01_00 | -26.7, 50.3, -50.3 | - | - | - | - | - | WorldMapPointParam |
-| 62152 | Murkwater Cave | Map POI | Limgrave | m60_43_37 | 75.2, 62.9, 61.1 | 11083.2, 9533.1 | - | - | - | - | WorldMapPointParam |
-| 62153 | Earthbore Cave | Map POI | Various | m31_01_00 | -103.2, -1.1, -40.2 | - | - | - | - | - | WorldMapPointParam |
-| 62154 | Morne Tunnel | Map POI | Various | m32_00_00 | 36.1, 27.9, -59.9 | - | - | - | - | - | WorldMapPointParam |
-| 62170 | Fourth Church of Marika | Map POI | World (41,33) | m60_41_33 | 82.8, 32.9, 68.9 | 10578.8, 8516.9 | - | - | - | - | WorldMapPointParam |
-| 62171 | Church of Pilgrimage | Map POI | Weeping Peninsula | m60_43_34 | -110.6, 88.8, 115.5 | 10897.4, 8819.5 | - | - | - | - | WorldMapPointParam |
-| 62172 | Callu Baptismal Church | Map POI | Weeping Peninsula | m60_44_33 | -85.8, 89.7, -60.9 | 11178.2, 8387.1 | - | - | - | - | WorldMapPointParam |
-| 62173 | Isolated Merchant's Shack | Map POI | World (41,32) | m60_41_32 | 6.9, 0.7, 100.7 | 10502.9, 8292.7 | - | - | - | - | WorldMapPointParam |
-| 62174 | Ailing Village | Map POI | Weeping Peninsula | m60_44_33 | -106.2, 87.1, -21.1 | 11157.8, 8426.9 | - | - | - | - | WorldMapPointParam |
-| 62175 | Oridys's Rise | Map POI | World (45,33) | m60_45_33 | -66.2, 95.4, -58.5 | 11453.8, 8389.5 | - | - | - | - | WorldMapPointParam |
-| 62176 | Forest Lookout Tower | Map POI | Weeping Peninsula | m60_44_34 | 2.4, 83.1, -60.4 | 11266.4, 8643.6 | - | - | - | - | WorldMapPointParam |
-| 62177 | Tower of Return | Map POI | World (42,32) | m60_42_32 | -51.0, 66.7, -43.2 | 10701.0, 8148.8 | - | - | - | - | WorldMapPointParam |
-| 62178 | Weeping Evergaol | Map POI | World (42,33) | m60_42_33 | -109.8, 18.7, 105.9 | 10642.2, 8553.9 | - | - | - | - | WorldMapPointParam |
-| 62180 | Witchbane Ruins | Map POI | World (41,33) | m60_41_33 | 48.3, 9.0, -2.6 | 10544.3, 8445.4 | - | - | - | - | WorldMapPointParam |
-| 62181 | Tombsward Ruins | Map POI | World (42,34) | m60_42_34 | -7.5, 24.8, -111.9 | 10744.5, 8592.1 | - | - | - | - | WorldMapPointParam |
-| 62182 | Demi-Human Forest Ruins | Map POI | Weeping Peninsula | m60_43_34 | 22.7, 1.9, -64.4 | 11030.7, 8639.6 | - | - | - | - | WorldMapPointParam |
-| 62183 | Castle Morne | Map POI | Weeping Peninsula | m60_43_31 | 131.1, 11.0, 24.0 | 11139.1, 7960.0 | - | - | - | - | WorldMapPointParam |
-| 62184 | Minor Erdtree | Map POI | Weeping Peninsula | m60_43_33 | -60.0, 83.1, -42.4 | 10948.0, 8405.6 | - | - | - | - | WorldMapPointParam |
-| 62200 | Academy of Raya Lucaria | Map POI | Academy of Raya Lucaria | m14_00_00 | -7.2, 50.0, -10.2 | - | - | - | - | - | WorldMapPointParam |
-| 62201 | Black Knife Catacombs | Map POI | Various | m30_05_00 | -73.2, 426.5, 111.2 | - | - | - | - | - | WorldMapPointParam |
-| 62202 | Road's End Catacombs | Map POI | Various | m30_03_00 | -9.4, 223.8, -24.1 | - | - | - | - | - | WorldMapPointParam |
-| 62203 | Cliffbottom Catacombs | Map POI | Various | m30_06_00 | 75.5, 239.8, 69.7 | - | - | - | - | - | WorldMapPointParam |
-| 62204 | Stillwater Cave | Map POI | Various | m31_04_00 | 14.5, 237.3, -38.1 | - | - | - | - | - | WorldMapPointParam |
-| 62205 | Lakeside Crystal Cave | Map POI | Various | m31_05_00 | -116.1, 225.6, -4.2 | - | - | - | - | - | WorldMapPointParam |
-| 62206 | Academy Crystal Cave | Map POI | Various | m31_06_00 | 73.0, 236.4, 120.5 | - | - | - | - | - | WorldMapPointParam |
-| 62207 | Raya Lucaria Crystal Tunnel | Map POI | Liurnia of the Lakes | m60_37_47 | -112.0, 243.0, 26.3 | 9360.0, 12058.3 | - | - | - | - | WorldMapPointParam |
-| 62208 | Carian Study Hall | Map POI | Various | m34_11_00 | -0.5, -132.8, 1.9 | - | - | - | - | - | WorldMapPointParam |
-| 62209 | Divine Tower of Liurnia | Map POI | Various | m34_11_00 | 428.0, -0.8, 75.5 | - | - | - | - | - | WorldMapPointParam |
-| 62220 | Church of Irith | Map POI | World (39,39) | m60_39_39 | -30.4, 320.0, 106.7 | 9953.6, 10090.7 | - | - | - | - | WorldMapPointParam |
-| 62221 | Church of Vows | Map POI | Liurnia of the Lakes | m60_37_46 | -43.7, 398.1, 11.5 | 9428.3, 11787.5 | - | - | - | - | WorldMapPointParam |
-| 62222 | Rose Church | Map POI | Liurnia of the Lakes | m60_35_44 | -88.4, 241.8, -112.5 | 8871.6, 11151.5 | - | - | - | - | WorldMapPointParam |
-| 62223 | Bellum Church | Map POI | Liurnia of the Lakes | m60_36_49 | 12.1, 321.9, -84.0 | 9228.1, 12460.0 | - | - | - | - | WorldMapPointParam |
-| 62224 | Church of Inhibition | Map POI | Liurnia of the Lakes | m60_37_49 | 72.1, 494.2, -37.9 | 9544.1, 12506.1 | - | - | - | - | WorldMapPointParam |
-| 62225 | Purified Ruins | Map POI | Liurnia of the Lakes | m60_39_41 | -87.8, 255.3, 87.0 | 9896.2, 10583.0 | - | - | - | - | WorldMapPointParam |
-| 62226 | Kingsrealm Ruins | Map POI | Liurnia of the Lakes | m60_34_48 | 52.2, 262.4, 93.3 | 8756.2, 12381.3 | - | - | - | - | WorldMapPointParam |
-| 62227 | Laskyar Ruins | Map POI | Liurnia of the Lakes | m60_37_42 | 108.1, 237.4, -116.3 | 9580.1, 10635.7 | - | - | - | - | WorldMapPointParam |
-| 62228 | Slumbering Wolf's Shack | Map POI | Liurnia of the Lakes | m60_36_41 | 136.3, 151.2, -62.7 | 9352.3, 10433.3 | - | - | - | - | WorldMapPointParam |
-| 62229 | Boilprawn Shack | Map POI | Liurnia of the Lakes | m60_36_43 | 90.8, 237.7, -58.2 | 9306.8, 10949.8 | - | - | - | - | WorldMapPointParam |
-| 62230 | Artist's Shack | Map POI | Liurnia of the Lakes | m60_38_45 | 87.4, 318.4, -110.7 | 9815.4, 11409.3 | - | - | - | - | WorldMapPointParam |
-| 62231 | Revenger's Shack | Map POI | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 28.1 | 8465.9, 11292.0 | - | - | - | - | WorldMapPointParam |
-| 62232 | Village of the Albinaurics | Map POI | Liurnia of the Lakes | m60_34_42 | 66.6, 269.6, -94.5 | 8770.6, 10657.5 | - | - | - | - | WorldMapPointParam |
-| 62233 | Frenzied Flame Village | Map POI | Liurnia of the Lakes | m60_38_48 | -39.3, 429.5, -13.5 | 9688.7, 12274.5 | - | - | - | - | WorldMapPointParam |
-| 62234 | Jarburg | Map POI | Liurnia of the Lakes | m60_39_44 | 43.8, 212.5, -6.7 | 10027.8, 11257.3 | - | - | - | - | WorldMapPointParam |
-| 62235 | Highway Lookout Tower | Map POI | Liurnia of the Lakes | m60_38_42 | 107.6, 294.7, 120.3 | 9835.6, 10872.3 | - | - | - | - | WorldMapPointParam |
-| 62236 | Frenzy-Flaming Tower | Map POI | Liurnia of the Lakes | m60_38_49 | -11.5, 448.1, -85.0 | 9716.5, 12459.0 | - | - | - | - | WorldMapPointParam |
-| 62237 | Malefactor's Evergaol | Map POI | Liurnia of the Lakes | m60_38_41 | -4.0, 256.2, -104.0 | 9724.0, 10392.0 | - | - | - | - | WorldMapPointParam |
-| 62238 | Cuckoo's Evergaol | Map POI | Liurnia of the Lakes | m60_33_45 | -30.1, 243.2, -37.8 | 8417.9, 11482.2 | - | - | - | - | WorldMapPointParam |
-| 62239 | Royal Grave Evergaol | Map POI | Liurnia of the Lakes | m60_36_50 | 99.8, 380.1, 16.0 | 9315.8, 12816.0 | - | - | - | - | WorldMapPointParam |
-| 62240 | Ainsel River Well | Map POI | Liurnia of the Lakes | m60_38_46 | 89.0, 248.8, 76.7 | 9817.0, 11852.7 | - | - | - | - | WorldMapPointParam |
-| 62241 | Converted Tower | Map POI | Liurnia of the Lakes | m60_34_43 | -87.4, 269.5, -76.3 | 8616.6, 10931.7 | - | - | - | - | WorldMapPointParam |
-| 62242 | Testu's Rise | Map POI | Liurnia of the Lakes | m60_35_47 | -86.7, 260.3, 75.1 | 8873.4, 12107.1 | - | - | - | - | WorldMapPointParam |
-| 62243 | Seluvis's Rise | Map POI | Liurnia of the Lakes | m60_34_50 | 67.8, 413.8, -89.5 | 8771.8, 12710.5 | - | - | - | - | WorldMapPointParam |
-| 62244 | Ranni's Rise | Map POI | Liurnia of the Lakes | m60_34_50 | -54.7, 471.7, 25.1 | 8649.3, 12825.1 | - | - | - | - | WorldMapPointParam |
-| 62245 | Renna's Rise | Map POI | Mt. Gelmir | m60_34_51 | 92.7, 455.3, -60.1 | 8796.6, 12995.9 | - | - | - | - | WorldMapPointParam |
-| 62246 | Converted Fringe Tower | Map POI | Liurnia of the Lakes | m60_39_48 | -24.8, 466.3, 51.2 | 9959.2, 12339.2 | - | - | - | - | WorldMapPointParam |
-| 62247 | Caria Manor | Map POI | Liurnia of the Lakes | m60_35_50 | 4.4, 319.9, -12.2 | 8964.4, 12787.8 | - | - | - | - | WorldMapPointParam |
-| 62248 | Minor Erdtree | Map POI | Liurnia of the Lakes | m60_33_43 | 32.8, 298.2, 58.5 | 8480.8, 11066.5 | - | - | - | - | WorldMapPointParam |
-| 62249 | Minor Erdtree | Map POI | Liurnia of the Lakes | m60_38_48 | -14.4, 404.0, -119.1 | 9713.6, 12168.9 | - | - | - | - | WorldMapPointParam |
-| 62250 | Academy Gate Town | Map POI | Liurnia of the Lakes | m60_37_44 | -87.5, 237.7, 45.3 | 9384.5, 11309.3 | - | - | - | - | WorldMapPointParam |
-| 62251 | Temple Quarter | Map POI | Liurnia of the Lakes | m60_34_44 | 52.5, 237.6, 75.0 | 8756.5, 11339.0 | - | - | - | - | WorldMapPointParam |
-| 62252 | The Four Belfries | Map POI | Liurnia of the Lakes | m60_33_47 | 68.5, 376.4, -77.1 | 8516.5, 11954.9 | - | - | - | - | WorldMapPointParam |
-| 62253 | Uld Palace Ruins | Map POI | Liurnia of the Lakes | m60_38_47 | -52.3, 346.6, -72.7 | 9675.7, 11959.3 | - | - | - | - | WorldMapPointParam |
-| 62254 | Three Sisters | Map POI | Mt. Gelmir | m60_35_51 | -63.8, 431.3, -111.6 | 8896.2, 12944.4 | - | - | - | - | WorldMapPointParam |
-| 62280 | Cathedral of Manus Celes | Map POI | Liurnia of the Lakes | m60_35_42 | -47.9, 408.0, -23.5 | 8912.1, 10728.5 | - | - | - | - | WorldMapPointParam |
-| 62281 | Ringleader's Evergaol | Map POI | Liurnia of the Lakes | m60_33_42 | -31.7, 345.4, 68.0 | 8416.3, 10820.0 | - | - | - | - | WorldMapPointParam |
-| 62282 | Deep Ainsel Well | Map POI | Liurnia of the Lakes | m60_34_41 | -21.1, 364.4, 26.9 | 8682.9, 10522.9 | - | - | - | - | WorldMapPointParam |
-| 62283 | Chelona's Rise | Map POI | Liurnia of the Lakes | m60_33_40 | -2.1, 240.0, 27.6 | 8445.9, 10267.6 | - | - | - | - | WorldMapPointParam |
-| 62284 | Moonfolk Ruins | Map POI | Liurnia of the Lakes | m60_34_42 | 9.1, 397.5, -25.2 | 8713.1, 10726.8 | - | - | - | - | WorldMapPointParam |
-| 62285 | Lunar Estate Ruins | Map POI | Liurnia of the Lakes | m60_35_41 | 22.5, 342.6, 76.7 | 8982.5, 10572.7 | - | - | - | - | WorldMapPointParam |
-| 62300 | Leyndell, Royal Capital | Map POI | Leyndell Royal Capital | m11_00_00 | -226.1, -21.9, -213.9 | - | - | - | - | - | WorldMapPointParam |
-| 62310 | Sainted Hero's Grave | Map POI | Various | m30_08_00 | 47.1, 884.0, 8.1 | - | - | - | - | - | WorldMapPointParam |
-| 62311 | Gelmir Hero's Grave | Map POI | Various | m30_09_00 | 104.6, 902.6, 15.7 | - | - | - | - | - | WorldMapPointParam |
-| 62312 | Auriza Hero's Grave | Map POI | Various | m30_10_00 | 62.5, 952.8, 137.7 | - | - | - | - | - | WorldMapPointParam |
-| 62313 | Unsightly Catacombs | Map POI | Various | m30_12_00 | -39.0, 653.6, 105.4 | - | - | - | - | - | WorldMapPointParam |
-| 62314 | Wyndham Catacombs | Map POI | Various | m30_07_00 | -127.1, 835.8, 121.8 | - | - | - | - | - | WorldMapPointParam |
-| 62315 | Auriza Side Tomb | Map POI | Various | m30_13_00 | 102.8, 969.7, 25.8 | - | - | - | - | - | WorldMapPointParam |
-| 62316 | Seethewater Cave | Map POI | Various | m31_07_00 | -9.1, 799.9, 141.3 | - | - | - | - | - | WorldMapPointParam |
-| 62317 | Volcano Cave | Map POI | Various | m31_09_00 | -67.3, 1033.4, -60.2 | - | - | - | - | - | WorldMapPointParam |
-| 62318 | Perfumer's Grotto | Map POI | Various | m31_18_00 | 49.5, 838.1, 23.1 | - | - | - | - | - | WorldMapPointParam |
-| 62319 | Sage's Cave | Map POI | Various | m31_19_00 | 101.3, 654.7, -55.8 | - | - | - | - | - | WorldMapPointParam |
-| 62320 | Old Altus Tunnel | Map POI | Altus Plateau | m60_38_53 | 87.7, 732.3, -104.5 | 9815.7, 13463.5 | - | - | - | - | WorldMapPointParam |
-| 62321 | Sealed Tunnel | Map POI | Altus Plateau | m60_43_50 | -66.4, 808.8, 47.0 | 10941.6, 12847.0 | - | - | - | - | WorldMapPointParam |
-| 62322 | Altus Tunnel | Map POI | Various | m32_05_00 | -52.3, 814.0, 50.7 | - | - | - | - | - | WorldMapPointParam |
-| 62323 | Divine Tower of West Altus | Map POI | Various | m34_12_00 | -48.1, 699.9, -291.4 | - | - | - | - | - | WorldMapPointParam |
-| 62324 | Subterranean Shunning-Grounds | Map POI | Subterranean Shunning-Grounds | m35_00_00 | -161.8, -88.5, -191.2 | - | - | - | - | - | WorldMapPointParam |
-| 62325 | Ruin-Strewn Precipice | Map POI | Ruin-Strewn Precipice | m39_20_00 | 96.3, 238.4, -1322.3 | - | - | - | - | - | WorldMapPointParam |
-| 62330 | Grand Lift of Dectus | Map POI | Liurnia of the Lakes | m60_38_50 | 55.1, 759.5, -20.7 | 9783.1, 12779.3 | - | - | - | - | WorldMapPointParam |
-| 62331 | Stormcaller Church | Map POI | Altus Plateau | m60_40_51 | 19.3, 845.0, 108.3 | 10259.3, 13164.4 | - | - | - | - | WorldMapPointParam |
-| 62332 | Second Church of Marika | Map POI | Altus Plateau | m60_39_52 | 29.1, 771.8, 55.8 | 10013.1, 13367.8 | - | - | - | - | WorldMapPointParam |
-| 62333 | Minor Erdtree Church | Map POI | Altus Plateau | m60_43_50 | -115.4, 910.1, -45.3 | 10892.6, 12754.7 | - | - | - | - | WorldMapPointParam |
-| 62334 | Woodfolk Ruins | Map POI | Altus Plateau | m60_41_53 | 19.4, 788.2, 21.1 | 10515.4, 13589.1 | - | - | - | - | WorldMapPointParam |
-| 62335 | Lux Ruins | Map POI | Altus Plateau | m60_38_51 | -29.7, 789.0, 5.7 | 9698.3, 13061.7 | - | - | - | - | WorldMapPointParam |
-| 62336 | St. Trina's Hideaway | Map POI | Altus Plateau | m60_40_52 | 3.3, 815.6, -55.5 | 10243.3, 13256.5 | - | - | - | - | WorldMapPointParam |
-| 62337 | Hermit Merchant's Shack | Map POI | Altus Plateau | m60_43_53 | -20.5, 993.4, 0.8 | 10987.5, 13568.8 | - | - | - | - | WorldMapPointParam |
-| 62338 | West Windmill Pasture | Map POI | Altus Plateau | m60_40_55 | -74.4, 877.1, -83.6 | 10165.6, 13996.4 | - | - | - | - | WorldMapPointParam |
-| 62339 | East Windmill Pasture | Map POI | Altus Plateau | m60_41_55 | -106.7, 877.0, 39.5 | 10389.3, 14119.5 | - | - | - | - | WorldMapPointParam |
-| 62340 | Village Windmill Pasture | Map POI | Altus Plateau | m60_41_55 | 47.6, 899.5, -101.3 | 10543.6, 13978.7 | - | - | - | - | WorldMapPointParam |
-| 62341 | Dominula, Windmill Village | Map POI | Altus Plateau | m60_42_54 | -77.8, 926.8, 96.8 | 10674.2, 13920.8 | - | - | - | - | WorldMapPointParam |
-| 62342 | Mirage Rise | Map POI | Altus Plateau | m60_39_53 | 92.7, 758.9, -74.1 | 10076.7, 13493.9 | - | - | - | - | WorldMapPointParam |
-| 62343 | Highway Lookout Tower | Map POI | Altus Plateau | m60_42_54 | 28.3, 948.1, -36.8 | 10780.3, 13787.2 | - | - | - | - | WorldMapPointParam |
-| 62344 | Golden Lineage Evergaol | Map POI | Liurnia of the Lakes | m60_39_50 | -64.7, 708.5, -80.1 | 9919.3, 12719.9 | - | - | - | - | WorldMapPointParam |
-| 62345 | The Shaded Castle | Map POI | Altus Plateau | m60_39_54 | -25.7, 723.8, 13.1 | 9958.3, 13837.1 | - | - | - | - | WorldMapPointParam |
-| 62346 | Minor Erdtree | Map POI | Altus Plateau | m60_41_53 | -72.8, 784.6, 24.1 | 10423.2, 13592.1 | - | - | - | - | WorldMapPointParam |
-| 62347 | Minor Erdtree | Map POI | Altus Plateau | m60_44_53 | 63.6, 1009.9, 80.5 | 11327.6, 13648.5 | - | - | - | - | WorldMapPointParam |
-| 62348 | Perfumer's Ruins | Map POI | Mt. Gelmir | m60_36_51 | -21.1, 672.0, 125.5 | 9194.9, 13181.5 | - | - | - | - | WorldMapPointParam |
-| 62360 | Volcano Manor | Map POI | Volcano Manor | m60_36_53 | 11.9, 979.0, 109.8 | 9227.9, 13677.8 | - | - | - | - | WorldMapPointParam |
-| 62380 | Writheblood Ruins | Map POI | Altus Plateau | m60_40_53 | -65.7, 814.4, 72.8 | 10174.3, 13640.8 | - | - | - | - | WorldMapPointParam |
-| 62381 | Corpse-Stench Shack | Map POI | Altus Plateau | m60_38_54 | -100.8, 809.5, -0.9 | 9627.2, 13823.1 | - | - | - | - | WorldMapPointParam |
-| 62382 | Hermit Village | Map POI | Mt. Gelmir | m60_37_52 | 2.0, 897.1, 93.9 | 9474.0, 13405.9 | - | - | - | - | WorldMapPointParam |
-| 62383 | Fort Laiedd | Map POI | Mt. Gelmir | m60_35_54 | -14.6, 829.2, -134.3 | 8945.4, 13689.7 | - | - | - | - | WorldMapPointParam |
-| 62384 | Minor Erdtree | Map POI | Mt. Gelmir | m60_37_54 | -3.3, 849.2, -86.5 | 9468.7, 13737.5 | - | - | - | - | WorldMapPointParam |
-| 62385 | Wyndham Ruins | Map POI | Altus Plateau | m60_38_52 | -53.3, 801.1, 15.5 | 9674.7, 13327.5 | - | - | - | - | WorldMapPointParam |
-| 62386 | Hermit's Shack | Map POI | Mt. Gelmir | m60_36_52 | -116.8, 846.2, 28.9 | 9099.2, 13340.9 | - | - | - | - | WorldMapPointParam |
-| 62389 | Craftsman's Shack | Map POI | Mt. Gelmir | m60_36_52 | 90.7, 879.8, -20.8 | 9306.7, 13291.2 | - | - | - | - | WorldMapPointParam |
-| 62410 | Minor Erdtree Catacombs | Map POI | Various | m30_14_00 | -54.5, 123.4, 67.6 | - | - | - | - | - | WorldMapPointParam |
-| 62411 | Caelid Catacombs | Map POI | Various | m30_15_00 | 90.2, 54.5, 69.1 | - | - | - | - | - | WorldMapPointParam |
-| 62412 | War-Dead Catacombs | Map POI | Various | m30_16_00 | 37.7, 5.2, -134.7 | - | - | - | - | - | WorldMapPointParam |
-| 62413 | Dragonbarrow Cave | Map POI | Various | m31_10_00 | 2.8, 160.5, 84.7 | - | - | - | - | - | WorldMapPointParam |
-| 62414 | Abandoned Cave | Map POI | Various | m31_20_00 | 137.8, 127.6, 42.4 | - | - | - | - | - | WorldMapPointParam |
-| 62415 | Gaol Cave | Map POI | Various | m31_21_00 | -64.3, 87.8, 33.9 | - | - | - | - | - | WorldMapPointParam |
-| 62416 | Gael Tunnel | Map POI | Various | m32_07_00 | 62.0, 150.6, 48.6 | - | - | - | - | - | WorldMapPointParam |
-| 62417 | Sellia Crystal Tunnel | Map POI | Various | m32_08_00 | 18.4, 86.4, 120.6 | - | - | - | - | - | WorldMapPointParam |
-| 62420 | Smoldering Church | Map POI | Caelid | m60_46_40 | -72.5, 151.6, 15.3 | 11703.5, 10255.3 | - | - | - | - | WorldMapPointParam |
-| 62421 | Cathedral of Dragon Communion | Map POI | Caelid | m60_48_36 | 27.5, 127.7, 96.3 | 12315.5, 9312.3 | - | - | - | - | WorldMapPointParam |
-| 62422 | Church of the Plague | Map POI | Caelid | m60_50_39 | 17.5, 160.9, -125.9 | 12817.5, 9858.1 | - | - | - | - | WorldMapPointParam |
-| 62423 | Forsaken Ruins | Map POI | Caelid | m60_47_40 | -101.1, 146.3, -102.2 | 11930.9, 10137.8 | - | - | - | - | WorldMapPointParam |
-| 62424 | Caelid Waypoint Ruins | Map POI | Caelid | m60_47_38 | 50.3, 98.4, -96.0 | 12082.3, 9632.0 | - | - | - | - | WorldMapPointParam |
-| 62425 | Street of Sages Ruins | Map POI | Caelid | m60_48_38 | 37.4, 64.0, 117.2 | 12325.4, 9845.2 | - | - | - | - | WorldMapPointParam |
-| 62426 | Caelem Ruins | Map POI | Caelid | m60_47_40 | 121.0, 150.8, -103.5 | 12153.0, 10136.5 | - | - | - | - | WorldMapPointParam |
-| 62427 | Shack of the Rotting | Map POI | Caelid | m60_46_40 | 82.7, 171.0, -90.3 | 11858.7, 10149.7 | - | - | - | - | WorldMapPointParam |
-| 62428 | Gowry's Shack | Map POI | Caelid | m60_50_38 | -87.8, 95.0, 45.9 | 12712.2, 9773.9 | - | - | - | - | WorldMapPointParam |
-| 62429 | Fort Gael | Map POI | Caelid | m60_47_38 | -119.6, 165.1, -28.1 | 11912.4, 9699.9 | - | - | - | - | WorldMapPointParam |
-| 62430 | Swamp Lookout Tower | Map POI | Caelid | m60_49_38 | 54.9, 146.2, 50.8 | 12598.9, 9778.8 | - | - | - | - | WorldMapPointParam |
-| 62432 | Sellia Gateway | Map POI | Caelid | m60_49_38 | 125.7, 95.7, -49.8 | 12669.7, 9678.2 | - | - | - | - | WorldMapPointParam |
-| 62434 | Deep Siofra Well | Map POI | Caelid | m60_49_40 | -112.5, 117.0, -12.1 | 12431.5, 10227.9 | - | - | - | - | WorldMapPointParam |
-| 62435 | Sellia, Town of Sorcery | Map POI | Caelid | m60_50_39 | -125.8, 78.4, -58.2 | 12674.2, 9925.8 | - | - | - | - | WorldMapPointParam |
-| 62436 | Redmane Castle | Map POI | Caelid | m60_51_36 | 41.0, 89.6, -56.5 | 13097.0, 9159.5 | - | - | - | - | WorldMapPointParam |
-| 62437 | Minor Erdtree | Map POI | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | - | - | - | - | WorldMapPointParam |
-| 62438 | Wailing Dunes | Map POI | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | - | - | - | - | WorldMapPointParam |
-| 62460 | Sellia Hideaway | Map POI | Various | m31_11_00 | 127.1, 207.6, 63.9 | - | - | - | - | - | WorldMapPointParam |
-| 62461 | Divine Tower of Caelid | Map POI | Various | m34_13_00 | 77.3, 276.3, -35.8 | - | - | - | - | - | WorldMapPointParam |
-| 62470 | Isolated Merchant's Shack | Map POI | Caelid | m60_48_41 | -86.4, 226.3, -81.7 | 12201.6, 10414.3 | - | - | - | - | WorldMapPointParam |
-| 62471 | Sellia Evergaol | Map POI | Caelid | m60_49_39 | -90.2, 162.9, 12.2 | 12453.8, 9996.2 | - | - | - | - | WorldMapPointParam |
-| 62472 | Lenne's Rise | Map POI | Caelid | m60_52_41 | 65.1, 221.0, -22.3 | 13377.1, 10473.7 | - | - | - | - | WorldMapPointParam |
-| 62473 | Fort Faroth | Map POI | Caelid | m60_51_39 | -55.2, 267.1, 105.8 | 13000.8, 10089.8 | - | - | - | - | WorldMapPointParam |
-| 62474 | Minor Erdtree | Map POI | Caelid | m60_51_40 | 22.0, 210.5, 34.1 | 13078.0, 10274.1 | - | - | - | - | WorldMapPointParam |
-| 62475 | Bestial Sanctum | Map POI | Caelid | m60_51_43 | -38.4, 344.3, 1.9 | 13017.6, 11009.9 | - | - | - | - | WorldMapPointParam |
-| 62510 | Giant-Conquering Hero's Grave | Map POI | World (50,53) | m60_50_53 | -118.6, 1511.8, 120.0 | 12681.4, 13688.0 | - | - | - | - | WorldMapPointParam |
-| 62511 | Giants' Mountaintop Catacombs | Map POI | World (50,53) | m60_50_53 | 26.2, 1577.7, 109.3 | 12826.2, 13677.3 | - | - | - | - | WorldMapPointParam |
-| 62512 | Consecrated Snowfield Catacombs | Map POI | Mountaintops of the Giants | m60_50_55 | -69.6, 1360.0, -86.4 | 12730.4, 13993.6 | - | - | - | - | WorldMapPointParam |
-| 62513 | Cave of the Forlorn | Map POI | Various | m31_12_00 | -54.9, 1254.8, 44.0 | - | - | - | - | - | WorldMapPointParam |
-| 62514 | Spiritcaller Cave | Map POI | Mountaintops of the Giants | m60_53_56 | -38.3, 1626.3, 114.5 | 13529.7, 14450.5 | - | - | - | - | WorldMapPointParam |
-| 62515 | Yelough Anix Tunnel | Map POI | Mountaintops of the Giants | m60_47_55 | 45.9, 1258.8, -51.0 | 12077.9, 14029.0 | - | - | - | - | WorldMapPointParam |
-| 62516 | Divine Tower of East Altus | Map POI | Various | m34_14_00 | 649.4, 30.3, -532.9 | - | - | - | - | - | WorldMapPointParam |
-| 62520 | First Church of Marika | Map POI | Mountaintops of the Giants | m60_54_55 | -31.1, 1625.1, 73.0 | 13792.9, 14153.0 | - | - | - | - | WorldMapPointParam |
-| 62521 | Church of Repose | Map POI | World (51,53) | m60_51_53 | -58.3, 1802.6, -65.5 | 12997.7, 13502.5 | - | - | - | - | WorldMapPointParam |
-| 62522 | Zamor Ruins | Map POI | World (49,53) | m60_49_53 | 102.4, 1578.2, -59.5 | 12646.4, 13508.5 | - | - | - | - | WorldMapPointParam |
-| 62523 | Stargazers' Ruins | Map POI | Mountaintops of the Giants | m60_51_56 | -52.0, 1657.7, 32.9 | 13004.0, 14368.9 | - | - | - | - | WorldMapPointParam |
-| 62524 | Shack of the Lofty | Map POI | Mountaintops of the Giants | m60_50_56 | 37.8, 1603.9, 81.1 | 12837.8, 14417.1 | - | - | - | - | WorldMapPointParam |
-| 62525 | Lord Contender's Evergaol | Map POI | Mountaintops of the Giants | m60_53_56 | -47.0, 1667.2, -109.0 | 13521.0, 14227.0 | - | - | - | - | WorldMapPointParam |
-| 62526 | Heretical Rise | Map POI | Mountaintops of the Giants | m60_52_57 | 111.2, 1681.0, -62.5 | 13423.2, 14529.5 | - | - | - | - | WorldMapPointParam |
-| 62527 | Guardians' Garrison | Map POI | Mountaintops of the Giants | m60_52_55 | -53.4, 1694.1, 76.7 | 13258.6, 14156.7 | - | - | - | - | WorldMapPointParam |
-| 62528 | Grand Lift of Rold | Map POI | World (49,53) | m60_49_53 | -20.1, 1568.6, -27.7 | 12523.9, 13540.3 | - | - | - | - | WorldMapPointParam |
-| 62529 | Castle Sol | Map POI | Mountaintops of the Giants | m60_51_57 | 11.9, 1599.0, 78.0 | 13067.9, 14670.0 | - | - | - | - | WorldMapPointParam |
-| 62530 | Minor Erdtree | Map POI | Mountaintops of the Giants | m60_52_56 | -42.1, 1673.7, 72.5 | 13269.9, 14408.5 | - | - | - | - | WorldMapPointParam |
-| 62531 | Forge of the Giants | Map POI | World (54,53) | m60_54_53 | -83.9, 1959.9, -35.4 | 13740.1, 13532.6 | - | - | - | - | WorldMapPointParam |
-| 62550 | Miquella's Haligtree | Map POI | Miquella's Haligtree | m15_00_00 | 50.1, 552.3, 168.6 | - | - | - | - | - | WorldMapPointParam |
-| 62551 | Elphael, Brace of the Haligtree | Map POI | Elphael Brace of the Haligtree | m15_00_00 | -4.9, 145.5, 493.9 | - | - | - | - | - | WorldMapPointParam |
-| 62560 | Hidden Path to the Haligtree | Map POI | Various | m30_20_00 | -105.1, 1338.6, -122.7 | - | - | - | - | - | WorldMapPointParam |
-| 62570 | Apostate Derelict | Map POI | Mountaintops of the Giants | m60_47_58 | 48.1, 1289.6, -27.1 | 12080.1, 14820.9 | - | - | - | - | WorldMapPointParam |
-| 62571 | Yelough Anix Ruins | Map POI | Mountaintops of the Giants | m60_47_55 | 67.9, 1277.9, 18.8 | 12099.9, 14098.8 | - | - | - | - | WorldMapPointParam |
-| 62572 | Ordina, Liturgical Town | Map POI | Mountaintops of the Giants | m60_48_57 | 61.3, 1290.9, -3.4 | 12349.3, 14588.6 | - | - | - | - | WorldMapPointParam |
-| 62573 | Albinauric Rise | Map POI | Mountaintops of the Giants | m60_50_56 | -111.0, 1323.0, -85.2 | 12689.0, 14250.8 | - | - | - | - | WorldMapPointParam |
-| 62574 | Minor Erdtree | Map POI | Mountaintops of the Giants | m60_50_56 | -126.2, 1378.7, 126.6 | 12673.8, 14462.6 | - | - | - | - | WorldMapPointParam |
-| 62610 | Uhl Palace Ruins | Map POI | Ainsel River | m12_01_00 | 162.9, -205.5, -169.2 | - | - | - | - | - | WorldMapPointParam |
-| 62620 | Uhl Palace Ruins | Map POI | Ainsel River | m12_01_00 | 285.1, -80.5, 117.5 | - | - | - | - | - | WorldMapPointParam |
-| 62621 | Nokstella, Eternal City | Map POI | Ainsel River | m12_01_00 | -96.6, -129.0, 204.3 | - | - | - | - | - | WorldMapPointParam |
-| 62622 | Grand Cloister | Map POI | Lake of Rot | m12_01_00 | -531.9, -373.2, -544.1 | - | - | - | - | - | WorldMapPointParam |
-| 62630 | Nokron, Eternal City | Map POI | Nokron | m12_07_00 | 754.6, -585.1, 1248.8 | - | - | - | - | - | WorldMapPointParam |
-| 62631 | Night's Sacred Ground | Map POI | Siofra River | m12_02_00 | 1016.2, -664.1, 1405.0 | - | - | - | - | - | WorldMapPointParam |
-| 62632 | Siofra Aqueduct | Map POI | Siofra River | m12_02_00 | 1309.0, -627.0, 1789.6 | - | - | - | - | - | WorldMapPointParam |
-| 62633 | Hallowhorn Grounds | Map POI | Siofra River | m12_02_00 | 1221.3, -809.2, 1195.6 | - | - | - | - | - | WorldMapPointParam |
-| 62634 | Hallowhorn Grounds | Map POI | Siofra River | m12_02_00 | 1169.8, -611.8, 1598.7 | - | - | - | - | - | WorldMapPointParam |
-| 62640 | Mohgwyn Dynasty Mausoleum | Map POI | Mohgwyn Palace | m12_05_00 | 1618.3, 505.8, 1203.9 | - | - | - | - | - | WorldMapPointParam |
-| 62700 | Crumbling Farum Azula | Map POI | Crumbling Farum Azula | m13_00_00 | 76.4, -1.7, 276.1 | - | - | - | - | - | WorldMapPointParam |
-| 62710 | Isolated Divine Tower | Map POI | World (51,46) | m60_51_46 | -23.6, 111.0, -82.0 | 13032.4, 11694.0 | - | - | - | - | WorldMapPointParam |
-| 62720 | Royal Colosseum | Map POI | Various | m11_00_00 | -348.7, 28.4, -428.9 | - | - | - | - | - | WorldMapPointParam |
-| 62730 | Limgrave Colosseum | Map POI | World (42,40) | m60_42_40 | -40.2, 206.5, -107.2 | 10711.8, 10132.9 | - | - | - | - | WorldMapPointParam |
-| 62740 | Caelid Colosseum | Map POI | Caelid | m60_47_42 | -4.6, 148.1, -86.6 | 12027.4, 10665.4 | - | - | - | - | WorldMapPointParam |
-| 62800 | Belurat Gaol | Map POI | Gravesite Plain | m41_00_00 | -100.7, 259.8, -106.4 | - | - | - | - | - | WorldMapPointParam |
-| 62805 | Miquella's Cross | Map POI | Gravesite Plain | m61_46_42 | -7.7, 297.2, 94.4 | 11768.3, 10846.4 | - | - | - | - | WorldMapPointParam |
-| 62806 | Miquella's Cross | Map POI | Gravesite Plain | m61_45_42 | -101.2, 392.6, 97.1 | 11418.8, 10849.1 | - | - | - | - | WorldMapPointParam |
-| 62807 | Abandoned Ailing Village | Map POI | Gravesite Plain | m61_46_44 | -12.7, 276.7, -29.1 | 11763.3, 11234.9 | - | - | - | - | WorldMapPointParam |
-| 62808 | Church of Consolation | Map POI | Gravesite Plain | m61_48_41 | -82.7, 228.8, -74.3 | 12205.3, 10421.7 | - | - | - | - | WorldMapPointParam |
-| 62809 | Church of Benediction | Map POI | Gravesite Plain | m61_46_40 | 3.7, 365.0, -73.3 | 11779.7, 10166.7 | - | - | - | - | WorldMapPointParam |
-| 62810 | Scorched Ruins | Map POI | Gravesite Plain | m61_47_41 | -80.8, 300.9, 3.3 | 11951.2, 10499.3 | - | - | - | - | WorldMapPointParam |
-| 62811 | Prospect Town | Map POI | Gravesite Plain | m61_45_41 | -27.9, 421.0, -102.4 | 11492.1, 10393.6 | - | - | - | - | WorldMapPointParam |
-| 62812 | Western Nameless Mausoleum | Map POI | Gravesite Plain | m61_46_41 | -130.0, 330.0, 54.7 | 11646.0, 10550.7 | - | - | - | - | WorldMapPointParam |
-| 62813 | Run-Down Traveler's Rest | Map POI | Gravesite Plain | m61_46_43 | 21.1, 257.2, 3.2 | 11797.1, 11011.2 | - | - | - | - | WorldMapPointParam |
-| 62814 | Ellac Greatbridge | Map POI | Gravesite Plain | m61_46_43 | 109.3, 308.4, 46.9 | 11885.3, 11054.9 | - | - | - | - | WorldMapPointParam |
-| 62815 | Artist's Shack | Map POI | Gravesite Plain | m61_46_40 | 29.0, 403.1, -6.0 | 11805.0, 10234.0 | - | - | - | - | WorldMapPointParam |
-| 62820 | Legacy Dungeon - Unused | Map POI | Unused | m60_35_32 | -341.7, 66.2, -47.8 | 8618.3, 8144.2 | - | - | - | - | WorldMapPointParam |
-| 62821 | Dragon's Pit | Map POI | Jagged Peak | m43_01_00 | -99.9, 360.7, 16.6 | - | - | - | - | - | WorldMapPointParam |
-| 62822 | Ruined Forge Lava Intake | Map POI | Gravesite Plain | m42_00_00 | -116.3, 269.3, 71.3 | - | - | - | - | - | WorldMapPointParam |
-| 62823 | Fog Rift Catacombs | Map POI | Scadu Altus | m40_00_00 | -92.0, 259.0, -69.0 | - | - | - | - | - | WorldMapPointParam |
-| 62825 | Miquella's Cross | Map POI | Abyssal Woods | m61_48_43 | 39.6, 313.6, -85.0 | 12327.6, 10923.0 | - | - | - | - | WorldMapPointParam |
-| 62826 | Suppressing Pillar | Map POI | Gravesite Plain | m61_48_41 | 7.2, 424.7, -15.0 | 12295.2, 10481.0 | - | - | - | - | WorldMapPointParam |
-| 62827 | Elder's Hovel | Map POI | Abyssal Woods | m61_49_42 | 119.7, 216.4, 70.8 | 12663.7, 10822.8 | - | - | - | - | WorldMapPointParam |
-| 62830 | Castle Ensis | Map POI | Gravesite Plain | m61_47_44 | 111.4, 365.9, 37.7 | 12143.4, 11301.7 | - | - | - | - | WorldMapPointParam |
-| 62831 | Miquella's Cross | Map POI | Gravesite Plain | m61_47_44 | 80.9, 359.4, 64.4 | 12112.9, 11328.4 | - | - | - | - | WorldMapPointParam |
-| 62840 | Finger Ruins of Rhia | Map POI | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | - | - | - | - | WorldMapPointParam |
-| 62841 | Finger-Weaver's Hovel | Map POI | Cerulean Coast | m61_49_38 | -70.4, 20.9, 106.1 | 12473.6, 9834.1 | - | - | - | - | WorldMapPointParam |
-| 62842 | Miquella's Cross | Map POI | Cerulean Coast | m61_48_37 | 29.7, 60.1, -97.0 | 12317.7, 9375.0 | - | - | - | - | WorldMapPointParam |
-| 62843 | Southern Nameless Mausoleum | Map POI | Cerulean Coast | m61_46_38 | -3.1, 21.4, -62.7 | 11772.9, 9665.3 | - | - | - | - | WorldMapPointParam |
-| 62844 | Finger Ruins of Rhia | Map POI | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | - | - | - | - | WorldMapPointParam |
-| 62850 | Lamenter's Gaol | Map POI | Various | m41_02_00 | 85.8, 76.5, 4.6 | - | - | - | - | - | WorldMapPointParam |
-| 62855 | Grand Altar of Dragon Communion | Map POI | Jagged Peak | m61_49_39 | 82.3, 80.5, -105.8 | 12626.3, 9878.2 | - | - | - | - | WorldMapPointParam |
-| 62860 | Midra's Manse | Map POI | Midra's Manse | m28_00_00 | -8.5, 16.0, -69.9 | - | - | - | - | - | WorldMapPointParam |
-| 62865 | Abandoned Church | Map POI | Abyssal Woods | m61_53_41 | -121.5, -539.9, -33.1 | 13446.5, 10462.9 | - | - | - | - | WorldMapPointParam |
-| 62870 | Stone Coffin Fissure | Map POI | Stone Coffin Fissure | m22_00_00 | -407.7, 311.1, 21.8 | - | - | - | - | - | WorldMapPointParam |
-| 62871 | Miquella's Cross | Map POI | Stone Coffin Fissure | m22_00_00 | -236.6, 215.7, -24.2 | - | - | - | - | - | WorldMapPointParam |
-| 62880 | Belurat, Tower Settlement | Map POI | Belurat, Tower Settlement | m20_00_00 | -25.0, 5.1, 24.9 | - | - | - | - | - | WorldMapPointParam |
-| 62881 | Miquella's Cross | Map POI | Belurat, Tower Settlement | m20_00_00 | -32.2, 77.2, 264.6 | - | - | - | - | - | WorldMapPointParam |
-| 62890 | Enir-Ilim | Map POI | Enir-Ilim | m20_01_00 | -150.2, 6.2, -4.8 | - | - | - | - | - | WorldMapPointParam |
-| 62891 | Miquella's Cross | Map POI | Enir-Ilim | m20_01_00 | -294.8, 65.1, -80.5 | - | - | - | - | - | WorldMapPointParam |
-| 62900 | Miquella's Cross | Map POI | Scadu Altus | m61_48_44 | -28.0, 410.4, 134.4 | 12260.0, 11398.4 | - | - | - | - | WorldMapPointParam |
-| 62901 | Miquella's Cross | Map POI | Scadu Altus | m61_50_43 | -25.6, 459.8, -61.0 | 12774.4, 10947.0 | - | - | - | - | WorldMapPointParam |
-| 62902 | Fort of Reprimand | Map POI | Scadu Altus | m61_49_43 | 56.0, 396.5, -72.2 | 12600.0, 10935.8 | - | - | - | - | WorldMapPointParam |
-| 62903 | Miquella's Cross | Map POI | Scadu Altus | m61_49_44 | -47.9, 350.5, 119.7 | 12496.1, 11383.7 | - | - | - | - | WorldMapPointParam |
-| 62904 | Fog Rift Fort | Map POI | Gravesite Plain | m61_47_45 | -50.3, 330.0, -103.2 | 11981.7, 11416.8 | - | - | - | - | WorldMapPointParam |
-| 62905 | Church of the Crusade | Map POI | Scadu Altus | m61_47_46 | -1.9, 440.2, -69.3 | 12030.1, 11706.7 | - | - | - | - | WorldMapPointParam |
-| 62906 | Cathedral of Manus Metyr | Map POI | Scadu Altus | m61_51_45 | -91.7, 472.0, 21.5 | 12964.3, 11541.5 | - | - | - | - | WorldMapPointParam |
-| 62907 | Moorth Ruins | Map POI | Scadu Altus | m61_49_44 | 40.1, 345.1, 74.0 | 12584.1, 11338.0 | - | - | - | - | WorldMapPointParam |
-| 62908 | Rabbath's Rise | Map POI | Scadu Altus | m61_51_47 | 109.9, 447.9, -117.3 | 13165.9, 11914.7 | - | - | - | - | WorldMapPointParam |
-| 62909 | Whipping Hut | Map POI | Scadu Altus | m61_50_44 | 126.0, 311.8, 11.6 | 12926.0, 11275.5 | - | - | - | - | WorldMapPointParam |
-| 62910 | Bonny Village | Map POI | Scadu Altus | m61_50_44 | -54.0, 306.3, -3.6 | 12746.0, 11260.4 | - | - | - | - | WorldMapPointParam |
-| 62911 | Finger Ruins of Miyr | Map POI | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | - | - | - | - | WorldMapPointParam |
-| 62912 | Finger Ruins of Miyr | Map POI | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | - | - | - | - | WorldMapPointParam |
-| 62915 | Scorpion River Catacombs | Map POI | Rauh | m40_01_00 | -62.7, 295.1, 58.3 | - | - | - | - | - | WorldMapPointParam |
-| 62916 | Bonny Gaol | Map POI | Scadu Altus | m41_01_00 | -45.4, 304.6, -25.5 | - | - | - | - | - | WorldMapPointParam |
-| 62917 | Taylew's Ruined Forge | Map POI | Rauh | m42_03_00 | -39.9, 353.1, -92.4 | - | - | - | - | - | WorldMapPointParam |
-| 62918 | POI_62918 | Map POI | Various | m42_01_00 | 37.1, 349.3, -119.8 | - | - | - | - | - | WorldMapPointParam |
-| 62919 | Rivermouth Cave | Map POI | Gravesite Plain | m43_00_00 | -82.4, 163.7, 143.8 | - | - | - | - | - | WorldMapPointParam |
-| 62920 | Temple Town Ruins | Map POI | Rauh | m61_46_45 | -109.7, 308.8, 3.5 | 11666.3, 11523.5 | - | - | - | - | WorldMapPointParam |
-| 62921 | Northern Nameless Mausoleum | Map POI | Gravesite Plain | m61_46_45 | 86.6, 408.2, -42.5 | 11862.6, 11477.5 | - | - | - | - | WorldMapPointParam |
-| 62931 | Scadutree Chalice | Map POI | World (49,49) | m61_49_49 | 19.1, 625.0, 115.1 | 12563.1, 12659.1 | - | - | - | - | WorldMapPointParam |
-| 62932 | Albinauric's Shack | Map POI | World (49,49) | m61_49_49 | -122.0, 612.0, -99.9 | 12422.0, 12444.1 | - | - | - | - | WorldMapPointParam |
-| 62940 | Finger Ruins of Dheo | Map POI | World (53,47) | m61_53_47 | 86.9, -76.8, -22.5 | 13654.9, 12009.5 | - | - | - | - | WorldMapPointParam |
-| 62941 | Shaman Village | Map POI | World (51,47) | m61_51_47 | 18.9, 593.9, 35.3 | 13074.9, 12067.3 | - | - | - | - | WorldMapPointParam |
-| 62942 | Finger Ruins of Dheo | Map POI | World (53,46) | m61_53_46 | 65.6, 321.3, -22.3 | 13633.6, 11753.7 | - | - | - | - | WorldMapPointParam |
-| 62943 | Ruined Forge of Starfall Past | Map POI | Scadu Altus | m42_02_00 | 64.5, 357.9, -94.5 | - | - | - | - | - | WorldMapPointParam |
-| 62950 | Miquella's Cross | Map POI | Rauh | m61_46_47 | -95.7, 560.8, -84.2 | 11680.3, 11947.8 | - | - | - | - | WorldMapPointParam |
-| 62960 | Ruins of Unte | Map POI | Scadu Altus | m61_50_46 | -41.9, 260.7, 112.9 | 12758.1, 11888.9 | - | - | - | - | WorldMapPointParam |
-| 62961 | Eastern Nameless Mausoleum | Map POI | Scadu Altus | m61_51_44 | -26.9, 170.3, 77.8 | 13029.1, 11341.8 | - | - | - | - | WorldMapPointParam |
-| 62962 | Village of Flies | Map POI | Scadu Altus | m61_50_44 | -9.3, 214.6, -106.6 | 12790.7, 11157.4 | - | - | - | - | WorldMapPointParam |
-| 62965 | Darklight Catacombs | Map POI | Scadu Altus | m40_02_00 | -46.2, 80.0, 111.5 | - | - | - | - | - | WorldMapPointParam |
-| 62970 | Scadutree Base | Map POI | World (50,48) | m61_50_48 | -27.8, 190.0, 122.0 | 12772.2, 12410.0 | - | - | - | - | WorldMapPointParam |
-| 62980 | Shadow Keep | Map POI | Shadow Keep | m21_00_00 | 161.4, 183.0, 203.4 | - | - | - | - | - | WorldMapPointParam |
-| 62981 | Miquella's Cross | Map POI | Shadow Keep | m21_01_00 | 173.6, 298.1, 277.5 | - | - | - | - | - | WorldMapPointParam |
+| 62100 | Stormveil Castle | Landmark | Stormveil Castle | m10_00_00 | -119.4, 21.3, 29.4 | - | - | - | - | - | WorldMapPointParam |
+| 62101 | Stranded Graveyard | Landmark | Various | m18_00_00 | -91.0, 11.9, 24.6 | - | - | - | - | - | WorldMapPointParam |
+| 62102 | Fringefolk Hero's Grave | Landmark | Various | m18_00_00 | -106.8, 3.9, 83.8 | - | - | - | - | - | WorldMapPointParam |
+| 62103 | Stormfoot Catacombs | Landmark | Various | m30_02_00 | 42.6, 144.9, -11.2 | - | - | - | - | - | WorldMapPointParam |
+| 62104 | Deathtouched Catacombs | Landmark | Various | m30_11_00 | -86.1, 192.8, 30.2 | - | - | - | - | - | WorldMapPointParam |
+| 62105 | Murkwater Catacombs | Landmark | Various | m30_04_00 | 89.2, 66.3, 65.0 | - | - | - | - | - | WorldMapPointParam |
+| 62106 | Tombsward Cave | Landmark | World (42,33) | m60_42_33 | -114.1, 6.7, 31.2 | 10637.9, 8479.2 | - | - | - | - | WorldMapPointParam |
+| 62107 | Groveside Cave | Landmark | Various | m31_03_00 | -59.6, 110.8, -11.0 | - | - | - | - | - | WorldMapPointParam |
+| 62108 | Coastal Cave | Landmark | Various | m31_15_00 | 48.1, -0.3, -41.9 | - | - | - | - | - | WorldMapPointParam |
+| 62109 | Highroad Cave | Landmark | Various | m31_17_00 | 60.1, 96.5, 96.4 | - | - | - | - | - | WorldMapPointParam |
+| 62110 | Limgrave Tunnels | Landmark | Limgrave | m60_42_37 | 133.8, 67.6, -25.4 | 10885.8, 9446.6 | - | - | - | - | WorldMapPointParam |
+| 62111 | Divine Tower of Limgrave | Landmark | Various | m34_10_00 | 907.4, 49.5, 592.5 | - | - | - | - | - | WorldMapPointParam |
+| 62120 | Church of Elleh | Landmark | Limgrave | m60_42_36 | -40.7, 91.0, 79.3 | 10711.3, 9295.3 | - | - | - | - | WorldMapPointParam |
+| 62121 | Church of Dragon Communion | Landmark | World (41,35) | m60_41_35 | -71.1, 27.3, -48.9 | 10424.9, 8911.1 | - | - | - | - | WorldMapPointParam |
+| 62122 | Third Church of Marika | Landmark | Caelid | m60_46_38 | -101.6, 3.5, 71.8 | 11674.4, 9799.8 | - | - | - | - | WorldMapPointParam |
+| 62123 | Mistwood Ruins | Landmark | Caelid | m60_45_37 | -64.8, 22.4, -108.8 | 11455.2, 9363.2 | - | - | - | - | WorldMapPointParam |
+| 62124 | Waypoint Ruins | Landmark | Limgrave | m60_44_36 | 7.2, 90.8, 67.1 | 11271.2, 9283.1 | - | - | - | - | WorldMapPointParam |
+| 62125 | Dragon-Burnt Ruins | Landmark | Limgrave | m60_43_36 | -5.2, 63.7, -76.3 | 11002.8, 9139.7 | - | - | - | - | WorldMapPointParam |
+| 62126 | Gatefront Ruins | Landmark | Limgrave | m60_42_37 | 73.8, 93.2, 77.0 | 10825.8, 9549.0 | - | - | - | - | WorldMapPointParam |
+| 62127 | Summonwater Village | Landmark | Caelid | m60_45_39 | -18.8, 90.2, 35.6 | 11501.2, 10019.6 | - | - | - | - | WorldMapPointParam |
+| 62128 | Artist's Shack | Landmark | Limgrave | m60_44_38 | -10.9, 92.8, -20.4 | 11253.1, 9707.6 | - | - | - | - | WorldMapPointParam |
+| 62129 | Warmaster's Shack | Landmark | Limgrave | m60_42_38 | 10.4, 186.9, 87.5 | 10762.4, 9815.5 | - | - | - | - | WorldMapPointParam |
+| 62130 | Stormhill Shack | Landmark | Limgrave | m60_41_38 | 33.6, 204.7, 10.4 | 10529.6, 9738.4 | - | - | - | - | WorldMapPointParam |
+| 62131 | Forlorn Hound Evergaol | Landmark | Weeping Peninsula | m60_44_35 | -17.5, 104.5, -115.4 | 11246.5, 8844.6 | - | - | - | - | WorldMapPointParam |
+| 62132 | Stormhill Evergaol | Landmark | Limgrave | m60_42_37 | -66.0, 158.4, 44.0 | 10686.0, 9516.0 | - | - | - | - | WorldMapPointParam |
+| 62133 | Bridge of Sacrifice | Landmark | Weeping Peninsula | m60_44_34 | 120.0, 36.7, 48.5 | 11384.0, 8752.5 | - | - | - | - | WorldMapPointParam |
+| 62134 | Siofra River Well | Landmark | Caelid | m60_45_37 | 103.9, 29.6, 8.0 | 11623.9, 9480.0 | - | - | - | - | WorldMapPointParam |
+| 62135 | Fort Haight | Landmark | Caelid | m60_46_36 | -25.3, 31.3, -20.3 | 11750.7, 9195.7 | - | - | - | - | WorldMapPointParam |
+| 62137 | Minor Erdtree | Landmark | Caelid | m60_45_37 | 84.1, 33.6, -49.2 | 11604.1, 9422.8 | - | - | - | - | WorldMapPointParam |
+| 62138 | Stormgate | Landmark | Limgrave | m60_42_38 | -37.1, 121.8, -125.4 | 10714.9, 9602.6 | - | - | - | - | WorldMapPointParam |
+| 62150 | Tombsward Catacombs | Landmark | Various | m30_00_00 | -95.7, 66.1, 107.3 | - | - | - | - | - | WorldMapPointParam |
+| 62151 | Impaler's Catacombs | Landmark | Various | m30_01_00 | -26.7, 50.3, -50.3 | - | - | - | - | - | WorldMapPointParam |
+| 62152 | Murkwater Cave | Landmark | Limgrave | m60_43_37 | 75.2, 62.9, 61.1 | 11083.2, 9533.1 | - | - | - | - | WorldMapPointParam |
+| 62153 | Earthbore Cave | Landmark | Various | m31_01_00 | -103.2, -1.1, -40.2 | - | - | - | - | - | WorldMapPointParam |
+| 62154 | Morne Tunnel | Landmark | Various | m32_00_00 | 36.1, 27.9, -59.9 | - | - | - | - | - | WorldMapPointParam |
+| 62170 | Fourth Church of Marika | Landmark | World (41,33) | m60_41_33 | 82.8, 32.9, 68.9 | 10578.8, 8516.9 | - | - | - | - | WorldMapPointParam |
+| 62171 | Church of Pilgrimage | Landmark | Weeping Peninsula | m60_43_34 | -110.6, 88.8, 115.5 | 10897.4, 8819.5 | - | - | - | - | WorldMapPointParam |
+| 62172 | Callu Baptismal Church | Landmark | Weeping Peninsula | m60_44_33 | -85.8, 89.7, -60.9 | 11178.2, 8387.1 | - | - | - | - | WorldMapPointParam |
+| 62173 | Isolated Merchant's Shack | Landmark | World (41,32) | m60_41_32 | 6.9, 0.7, 100.7 | 10502.9, 8292.7 | - | - | - | - | WorldMapPointParam |
+| 62174 | Ailing Village | Landmark | Weeping Peninsula | m60_44_33 | -106.2, 87.1, -21.1 | 11157.8, 8426.9 | - | - | - | - | WorldMapPointParam |
+| 62175 | Oridys's Rise | Landmark | World (45,33) | m60_45_33 | -66.2, 95.4, -58.5 | 11453.8, 8389.5 | - | - | - | - | WorldMapPointParam |
+| 62176 | Forest Lookout Tower | Landmark | Weeping Peninsula | m60_44_34 | 2.4, 83.1, -60.4 | 11266.4, 8643.6 | - | - | - | - | WorldMapPointParam |
+| 62177 | Tower of Return | Landmark | World (42,32) | m60_42_32 | -51.0, 66.7, -43.2 | 10701.0, 8148.8 | - | - | - | - | WorldMapPointParam |
+| 62178 | Weeping Evergaol | Landmark | World (42,33) | m60_42_33 | -109.8, 18.7, 105.9 | 10642.2, 8553.9 | - | - | - | - | WorldMapPointParam |
+| 62180 | Witchbane Ruins | Landmark | World (41,33) | m60_41_33 | 48.3, 9.0, -2.6 | 10544.3, 8445.4 | - | - | - | - | WorldMapPointParam |
+| 62181 | Tombsward Ruins | Landmark | World (42,34) | m60_42_34 | -7.5, 24.8, -111.9 | 10744.5, 8592.1 | - | - | - | - | WorldMapPointParam |
+| 62182 | Demi-Human Forest Ruins | Landmark | Weeping Peninsula | m60_43_34 | 22.7, 1.9, -64.4 | 11030.7, 8639.6 | - | - | - | - | WorldMapPointParam |
+| 62183 | Castle Morne | Landmark | Weeping Peninsula | m60_43_31 | 131.1, 11.0, 24.0 | 11139.1, 7960.0 | - | - | - | - | WorldMapPointParam |
+| 62184 | Minor Erdtree | Landmark | Weeping Peninsula | m60_43_33 | -60.0, 83.1, -42.4 | 10948.0, 8405.6 | - | - | - | - | WorldMapPointParam |
+| 62200 | Academy of Raya Lucaria | Landmark | Academy of Raya Lucaria | m14_00_00 | -7.2, 50.0, -10.2 | - | - | - | - | - | WorldMapPointParam |
+| 62201 | Black Knife Catacombs | Landmark | Various | m30_05_00 | -73.2, 426.5, 111.2 | - | - | - | - | - | WorldMapPointParam |
+| 62202 | Road's End Catacombs | Landmark | Various | m30_03_00 | -9.4, 223.8, -24.1 | - | - | - | - | - | WorldMapPointParam |
+| 62203 | Cliffbottom Catacombs | Landmark | Various | m30_06_00 | 75.5, 239.8, 69.7 | - | - | - | - | - | WorldMapPointParam |
+| 62204 | Stillwater Cave | Landmark | Various | m31_04_00 | 14.5, 237.3, -38.1 | - | - | - | - | - | WorldMapPointParam |
+| 62205 | Lakeside Crystal Cave | Landmark | Various | m31_05_00 | -116.1, 225.6, -4.2 | - | - | - | - | - | WorldMapPointParam |
+| 62206 | Academy Crystal Cave | Landmark | Various | m31_06_00 | 73.0, 236.4, 120.5 | - | - | - | - | - | WorldMapPointParam |
+| 62207 | Raya Lucaria Crystal Tunnel | Landmark | Liurnia of the Lakes | m60_37_47 | -112.0, 243.0, 26.3 | 9360.0, 12058.3 | - | - | - | - | WorldMapPointParam |
+| 62208 | Carian Study Hall | Landmark | Various | m34_11_00 | -0.5, -132.8, 1.9 | - | - | - | - | - | WorldMapPointParam |
+| 62209 | Divine Tower of Liurnia | Landmark | Various | m34_11_00 | 428.0, -0.8, 75.5 | - | - | - | - | - | WorldMapPointParam |
+| 62220 | Church of Irith | Landmark | World (39,39) | m60_39_39 | -30.4, 320.0, 106.7 | 9953.6, 10090.7 | - | - | - | - | WorldMapPointParam |
+| 62221 | Church of Vows | Landmark | Liurnia of the Lakes | m60_37_46 | -43.7, 398.1, 11.5 | 9428.3, 11787.5 | - | - | - | - | WorldMapPointParam |
+| 62222 | Rose Church | Landmark | Liurnia of the Lakes | m60_35_44 | -88.4, 241.8, -112.5 | 8871.6, 11151.5 | - | - | - | - | WorldMapPointParam |
+| 62223 | Bellum Church | Landmark | Liurnia of the Lakes | m60_36_49 | 12.1, 321.9, -84.0 | 9228.1, 12460.0 | - | - | - | - | WorldMapPointParam |
+| 62224 | Church of Inhibition | Landmark | Liurnia of the Lakes | m60_37_49 | 72.1, 494.2, -37.9 | 9544.1, 12506.1 | - | - | - | - | WorldMapPointParam |
+| 62225 | Purified Ruins | Landmark | Liurnia of the Lakes | m60_39_41 | -87.8, 255.3, 87.0 | 9896.2, 10583.0 | - | - | - | - | WorldMapPointParam |
+| 62226 | Kingsrealm Ruins | Landmark | Liurnia of the Lakes | m60_34_48 | 52.2, 262.4, 93.3 | 8756.2, 12381.3 | - | - | - | - | WorldMapPointParam |
+| 62227 | Laskyar Ruins | Landmark | Liurnia of the Lakes | m60_37_42 | 108.1, 237.4, -116.3 | 9580.1, 10635.7 | - | - | - | - | WorldMapPointParam |
+| 62228 | Slumbering Wolf's Shack | Landmark | Liurnia of the Lakes | m60_36_41 | 136.3, 151.2, -62.7 | 9352.3, 10433.3 | - | - | - | - | WorldMapPointParam |
+| 62229 | Boilprawn Shack | Landmark | Liurnia of the Lakes | m60_36_43 | 90.8, 237.7, -58.2 | 9306.8, 10949.8 | - | - | - | - | WorldMapPointParam |
+| 62230 | Artist's Shack | Landmark | Liurnia of the Lakes | m60_38_45 | 87.4, 318.4, -110.7 | 9815.4, 11409.3 | - | - | - | - | WorldMapPointParam |
+| 62231 | Revenger's Shack | Landmark | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 28.1 | 8465.9, 11292.0 | - | - | - | - | WorldMapPointParam |
+| 62232 | Village of the Albinaurics | Landmark | Liurnia of the Lakes | m60_34_42 | 66.6, 269.6, -94.5 | 8770.6, 10657.5 | - | - | - | - | WorldMapPointParam |
+| 62233 | Frenzied Flame Village | Landmark | Liurnia of the Lakes | m60_38_48 | -39.3, 429.5, -13.5 | 9688.7, 12274.5 | - | - | - | - | WorldMapPointParam |
+| 62234 | Jarburg | Landmark | Liurnia of the Lakes | m60_39_44 | 43.8, 212.5, -6.7 | 10027.8, 11257.3 | - | - | - | - | WorldMapPointParam |
+| 62235 | Highway Lookout Tower | Landmark | Liurnia of the Lakes | m60_38_42 | 107.6, 294.7, 120.3 | 9835.6, 10872.3 | - | - | - | - | WorldMapPointParam |
+| 62236 | Frenzy-Flaming Tower | Landmark | Liurnia of the Lakes | m60_38_49 | -11.5, 448.1, -85.0 | 9716.5, 12459.0 | - | - | - | - | WorldMapPointParam |
+| 62237 | Malefactor's Evergaol | Landmark | Liurnia of the Lakes | m60_38_41 | -4.0, 256.2, -104.0 | 9724.0, 10392.0 | - | - | - | - | WorldMapPointParam |
+| 62238 | Cuckoo's Evergaol | Landmark | Liurnia of the Lakes | m60_33_45 | -30.1, 243.2, -37.8 | 8417.9, 11482.2 | - | - | - | - | WorldMapPointParam |
+| 62239 | Royal Grave Evergaol | Landmark | Liurnia of the Lakes | m60_36_50 | 99.8, 380.1, 16.0 | 9315.8, 12816.0 | - | - | - | - | WorldMapPointParam |
+| 62240 | Ainsel River Well | Landmark | Liurnia of the Lakes | m60_38_46 | 89.0, 248.8, 76.7 | 9817.0, 11852.7 | - | - | - | - | WorldMapPointParam |
+| 62241 | Converted Tower | Landmark | Liurnia of the Lakes | m60_34_43 | -87.4, 269.5, -76.3 | 8616.6, 10931.7 | - | - | - | - | WorldMapPointParam |
+| 62242 | Testu's Rise | Landmark | Liurnia of the Lakes | m60_35_47 | -86.7, 260.3, 75.1 | 8873.4, 12107.1 | - | - | - | - | WorldMapPointParam |
+| 62243 | Seluvis's Rise | Landmark | Liurnia of the Lakes | m60_34_50 | 67.8, 413.8, -89.5 | 8771.8, 12710.5 | - | - | - | - | WorldMapPointParam |
+| 62244 | Ranni's Rise | Landmark | Liurnia of the Lakes | m60_34_50 | -54.7, 471.7, 25.1 | 8649.3, 12825.1 | - | - | - | - | WorldMapPointParam |
+| 62245 | Renna's Rise | Landmark | Mt. Gelmir | m60_34_51 | 92.7, 455.3, -60.1 | 8796.6, 12995.9 | - | - | - | - | WorldMapPointParam |
+| 62246 | Converted Fringe Tower | Landmark | Liurnia of the Lakes | m60_39_48 | -24.8, 466.3, 51.2 | 9959.2, 12339.2 | - | - | - | - | WorldMapPointParam |
+| 62247 | Caria Manor | Landmark | Liurnia of the Lakes | m60_35_50 | 4.4, 319.9, -12.2 | 8964.4, 12787.8 | - | - | - | - | WorldMapPointParam |
+| 62248 | Minor Erdtree | Landmark | Liurnia of the Lakes | m60_33_43 | 32.8, 298.2, 58.5 | 8480.8, 11066.5 | - | - | - | - | WorldMapPointParam |
+| 62249 | Minor Erdtree | Landmark | Liurnia of the Lakes | m60_38_48 | -14.4, 404.0, -119.1 | 9713.6, 12168.9 | - | - | - | - | WorldMapPointParam |
+| 62250 | Academy Gate Town | Landmark | Liurnia of the Lakes | m60_37_44 | -87.5, 237.7, 45.3 | 9384.5, 11309.3 | - | - | - | - | WorldMapPointParam |
+| 62251 | Temple Quarter | Landmark | Liurnia of the Lakes | m60_34_44 | 52.5, 237.6, 75.0 | 8756.5, 11339.0 | - | - | - | - | WorldMapPointParam |
+| 62252 | The Four Belfries | Landmark | Liurnia of the Lakes | m60_33_47 | 68.5, 376.4, -77.1 | 8516.5, 11954.9 | - | - | - | - | WorldMapPointParam |
+| 62253 | Uld Palace Ruins | Landmark | Liurnia of the Lakes | m60_38_47 | -52.3, 346.6, -72.7 | 9675.7, 11959.3 | - | - | - | - | WorldMapPointParam |
+| 62254 | Three Sisters | Landmark | Mt. Gelmir | m60_35_51 | -63.8, 431.3, -111.6 | 8896.2, 12944.4 | - | - | - | - | WorldMapPointParam |
+| 62280 | Cathedral of Manus Celes | Landmark | Liurnia of the Lakes | m60_35_42 | -47.9, 408.0, -23.5 | 8912.1, 10728.5 | - | - | - | - | WorldMapPointParam |
+| 62281 | Ringleader's Evergaol | Landmark | Liurnia of the Lakes | m60_33_42 | -31.7, 345.4, 68.0 | 8416.3, 10820.0 | - | - | - | - | WorldMapPointParam |
+| 62282 | Deep Ainsel Well | Landmark | Liurnia of the Lakes | m60_34_41 | -21.1, 364.4, 26.9 | 8682.9, 10522.9 | - | - | - | - | WorldMapPointParam |
+| 62283 | Chelona's Rise | Landmark | Liurnia of the Lakes | m60_33_40 | -2.1, 240.0, 27.6 | 8445.9, 10267.6 | - | - | - | - | WorldMapPointParam |
+| 62284 | Moonfolk Ruins | Landmark | Liurnia of the Lakes | m60_34_42 | 9.1, 397.5, -25.2 | 8713.1, 10726.8 | - | - | - | - | WorldMapPointParam |
+| 62285 | Lunar Estate Ruins | Landmark | Liurnia of the Lakes | m60_35_41 | 22.5, 342.6, 76.7 | 8982.5, 10572.7 | - | - | - | - | WorldMapPointParam |
+| 62300 | Leyndell, Royal Capital | Landmark | Leyndell Royal Capital | m11_00_00 | -226.1, -21.9, -213.9 | - | - | - | - | - | WorldMapPointParam |
+| 62310 | Sainted Hero's Grave | Landmark | Various | m30_08_00 | 47.1, 884.0, 8.1 | - | - | - | - | - | WorldMapPointParam |
+| 62311 | Gelmir Hero's Grave | Landmark | Various | m30_09_00 | 104.6, 902.6, 15.7 | - | - | - | - | - | WorldMapPointParam |
+| 62312 | Auriza Hero's Grave | Landmark | Various | m30_10_00 | 62.5, 952.8, 137.7 | - | - | - | - | - | WorldMapPointParam |
+| 62313 | Unsightly Catacombs | Landmark | Various | m30_12_00 | -39.0, 653.6, 105.4 | - | - | - | - | - | WorldMapPointParam |
+| 62314 | Wyndham Catacombs | Landmark | Various | m30_07_00 | -127.1, 835.8, 121.8 | - | - | - | - | - | WorldMapPointParam |
+| 62315 | Auriza Side Tomb | Landmark | Various | m30_13_00 | 102.8, 969.7, 25.8 | - | - | - | - | - | WorldMapPointParam |
+| 62316 | Seethewater Cave | Landmark | Various | m31_07_00 | -9.1, 799.9, 141.3 | - | - | - | - | - | WorldMapPointParam |
+| 62317 | Volcano Cave | Landmark | Various | m31_09_00 | -67.3, 1033.4, -60.2 | - | - | - | - | - | WorldMapPointParam |
+| 62318 | Perfumer's Grotto | Landmark | Various | m31_18_00 | 49.5, 838.1, 23.1 | - | - | - | - | - | WorldMapPointParam |
+| 62319 | Sage's Cave | Landmark | Various | m31_19_00 | 101.3, 654.7, -55.8 | - | - | - | - | - | WorldMapPointParam |
+| 62320 | Old Altus Tunnel | Landmark | Altus Plateau | m60_38_53 | 87.7, 732.3, -104.5 | 9815.7, 13463.5 | - | - | - | - | WorldMapPointParam |
+| 62321 | Sealed Tunnel | Landmark | Altus Plateau | m60_43_50 | -66.4, 808.8, 47.0 | 10941.6, 12847.0 | - | - | - | - | WorldMapPointParam |
+| 62322 | Altus Tunnel | Landmark | Various | m32_05_00 | -52.3, 814.0, 50.7 | - | - | - | - | - | WorldMapPointParam |
+| 62323 | Divine Tower of West Altus | Landmark | Various | m34_12_00 | -48.1, 699.9, -291.4 | - | - | - | - | - | WorldMapPointParam |
+| 62324 | Subterranean Shunning-Grounds | Landmark | Subterranean Shunning-Grounds | m35_00_00 | -161.8, -88.5, -191.2 | - | - | - | - | - | WorldMapPointParam |
+| 62325 | Ruin-Strewn Precipice | Landmark | Ruin-Strewn Precipice | m39_20_00 | 96.3, 238.4, -1322.3 | - | - | - | - | - | WorldMapPointParam |
+| 62330 | Grand Lift of Dectus | Landmark | Liurnia of the Lakes | m60_38_50 | 55.1, 759.5, -20.7 | 9783.1, 12779.3 | - | - | - | - | WorldMapPointParam |
+| 62331 | Stormcaller Church | Landmark | Altus Plateau | m60_40_51 | 19.3, 845.0, 108.3 | 10259.3, 13164.4 | - | - | - | - | WorldMapPointParam |
+| 62332 | Second Church of Marika | Landmark | Altus Plateau | m60_39_52 | 29.1, 771.8, 55.8 | 10013.1, 13367.8 | - | - | - | - | WorldMapPointParam |
+| 62333 | Minor Erdtree Church | Landmark | Altus Plateau | m60_43_50 | -115.4, 910.1, -45.3 | 10892.6, 12754.7 | - | - | - | - | WorldMapPointParam |
+| 62334 | Woodfolk Ruins | Landmark | Altus Plateau | m60_41_53 | 19.4, 788.2, 21.1 | 10515.4, 13589.1 | - | - | - | - | WorldMapPointParam |
+| 62335 | Lux Ruins | Landmark | Altus Plateau | m60_38_51 | -29.7, 789.0, 5.7 | 9698.3, 13061.7 | - | - | - | - | WorldMapPointParam |
+| 62336 | St. Trina's Hideaway | Landmark | Altus Plateau | m60_40_52 | 3.3, 815.6, -55.5 | 10243.3, 13256.5 | - | - | - | - | WorldMapPointParam |
+| 62337 | Hermit Merchant's Shack | Landmark | Altus Plateau | m60_43_53 | -20.5, 993.4, 0.8 | 10987.5, 13568.8 | - | - | - | - | WorldMapPointParam |
+| 62338 | West Windmill Pasture | Landmark | Altus Plateau | m60_40_55 | -74.4, 877.1, -83.6 | 10165.6, 13996.4 | - | - | - | - | WorldMapPointParam |
+| 62339 | East Windmill Pasture | Landmark | Altus Plateau | m60_41_55 | -106.7, 877.0, 39.5 | 10389.3, 14119.5 | - | - | - | - | WorldMapPointParam |
+| 62340 | Village Windmill Pasture | Landmark | Altus Plateau | m60_41_55 | 47.6, 899.5, -101.3 | 10543.6, 13978.7 | - | - | - | - | WorldMapPointParam |
+| 62341 | Dominula, Windmill Village | Landmark | Altus Plateau | m60_42_54 | -77.8, 926.8, 96.8 | 10674.2, 13920.8 | - | - | - | - | WorldMapPointParam |
+| 62342 | Mirage Rise | Landmark | Altus Plateau | m60_39_53 | 92.7, 758.9, -74.1 | 10076.7, 13493.9 | - | - | - | - | WorldMapPointParam |
+| 62343 | Highway Lookout Tower | Landmark | Altus Plateau | m60_42_54 | 28.3, 948.1, -36.8 | 10780.3, 13787.2 | - | - | - | - | WorldMapPointParam |
+| 62344 | Golden Lineage Evergaol | Landmark | Liurnia of the Lakes | m60_39_50 | -64.7, 708.5, -80.1 | 9919.3, 12719.9 | - | - | - | - | WorldMapPointParam |
+| 62345 | The Shaded Castle | Landmark | Altus Plateau | m60_39_54 | -25.7, 723.8, 13.1 | 9958.3, 13837.1 | - | - | - | - | WorldMapPointParam |
+| 62346 | Minor Erdtree | Landmark | Altus Plateau | m60_41_53 | -72.8, 784.6, 24.1 | 10423.2, 13592.1 | - | - | - | - | WorldMapPointParam |
+| 62347 | Minor Erdtree | Landmark | Altus Plateau | m60_44_53 | 63.6, 1009.9, 80.5 | 11327.6, 13648.5 | - | - | - | - | WorldMapPointParam |
+| 62348 | Perfumer's Ruins | Landmark | Mt. Gelmir | m60_36_51 | -21.1, 672.0, 125.5 | 9194.9, 13181.5 | - | - | - | - | WorldMapPointParam |
+| 62360 | Volcano Manor | Landmark | Volcano Manor | m60_36_53 | 11.9, 979.0, 109.8 | 9227.9, 13677.8 | - | - | - | - | WorldMapPointParam |
+| 62380 | Writheblood Ruins | Landmark | Altus Plateau | m60_40_53 | -65.7, 814.4, 72.8 | 10174.3, 13640.8 | - | - | - | - | WorldMapPointParam |
+| 62381 | Corpse-Stench Shack | Landmark | Altus Plateau | m60_38_54 | -100.8, 809.5, -0.9 | 9627.2, 13823.1 | - | - | - | - | WorldMapPointParam |
+| 62382 | Hermit Village | Landmark | Mt. Gelmir | m60_37_52 | 2.0, 897.1, 93.9 | 9474.0, 13405.9 | - | - | - | - | WorldMapPointParam |
+| 62383 | Fort Laiedd | Landmark | Mt. Gelmir | m60_35_54 | -14.6, 829.2, -134.3 | 8945.4, 13689.7 | - | - | - | - | WorldMapPointParam |
+| 62384 | Minor Erdtree | Landmark | Mt. Gelmir | m60_37_54 | -3.3, 849.2, -86.5 | 9468.7, 13737.5 | - | - | - | - | WorldMapPointParam |
+| 62385 | Wyndham Ruins | Landmark | Altus Plateau | m60_38_52 | -53.3, 801.1, 15.5 | 9674.7, 13327.5 | - | - | - | - | WorldMapPointParam |
+| 62386 | Hermit's Shack | Landmark | Mt. Gelmir | m60_36_52 | -116.8, 846.2, 28.9 | 9099.2, 13340.9 | - | - | - | - | WorldMapPointParam |
+| 62389 | Craftsman's Shack | Landmark | Mt. Gelmir | m60_36_52 | 90.7, 879.8, -20.8 | 9306.7, 13291.2 | - | - | - | - | WorldMapPointParam |
+| 62410 | Minor Erdtree Catacombs | Landmark | Various | m30_14_00 | -54.5, 123.4, 67.6 | - | - | - | - | - | WorldMapPointParam |
+| 62411 | Caelid Catacombs | Landmark | Various | m30_15_00 | 90.2, 54.5, 69.1 | - | - | - | - | - | WorldMapPointParam |
+| 62412 | War-Dead Catacombs | Landmark | Various | m30_16_00 | 37.7, 5.2, -134.7 | - | - | - | - | - | WorldMapPointParam |
+| 62413 | Dragonbarrow Cave | Landmark | Various | m31_10_00 | 2.8, 160.5, 84.7 | - | - | - | - | - | WorldMapPointParam |
+| 62414 | Abandoned Cave | Landmark | Various | m31_20_00 | 137.8, 127.6, 42.4 | - | - | - | - | - | WorldMapPointParam |
+| 62415 | Gaol Cave | Landmark | Various | m31_21_00 | -64.3, 87.8, 33.9 | - | - | - | - | - | WorldMapPointParam |
+| 62416 | Gael Tunnel | Landmark | Various | m32_07_00 | 62.0, 150.6, 48.6 | - | - | - | - | - | WorldMapPointParam |
+| 62417 | Sellia Crystal Tunnel | Landmark | Various | m32_08_00 | 18.4, 86.4, 120.6 | - | - | - | - | - | WorldMapPointParam |
+| 62420 | Smoldering Church | Landmark | Caelid | m60_46_40 | -72.5, 151.6, 15.3 | 11703.5, 10255.3 | - | - | - | - | WorldMapPointParam |
+| 62421 | Cathedral of Dragon Communion | Landmark | Caelid | m60_48_36 | 27.5, 127.7, 96.3 | 12315.5, 9312.3 | - | - | - | - | WorldMapPointParam |
+| 62422 | Church of the Plague | Landmark | Caelid | m60_50_39 | 17.5, 160.9, -125.9 | 12817.5, 9858.1 | - | - | - | - | WorldMapPointParam |
+| 62423 | Forsaken Ruins | Landmark | Caelid | m60_47_40 | -101.1, 146.3, -102.2 | 11930.9, 10137.8 | - | - | - | - | WorldMapPointParam |
+| 62424 | Caelid Waypoint Ruins | Landmark | Caelid | m60_47_38 | 50.3, 98.4, -96.0 | 12082.3, 9632.0 | - | - | - | - | WorldMapPointParam |
+| 62425 | Street of Sages Ruins | Landmark | Caelid | m60_48_38 | 37.4, 64.0, 117.2 | 12325.4, 9845.2 | - | - | - | - | WorldMapPointParam |
+| 62426 | Caelem Ruins | Landmark | Caelid | m60_47_40 | 121.0, 150.8, -103.5 | 12153.0, 10136.5 | - | - | - | - | WorldMapPointParam |
+| 62427 | Shack of the Rotting | Landmark | Caelid | m60_46_40 | 82.7, 171.0, -90.3 | 11858.7, 10149.7 | - | - | - | - | WorldMapPointParam |
+| 62428 | Gowry's Shack | Landmark | Caelid | m60_50_38 | -87.8, 95.0, 45.9 | 12712.2, 9773.9 | - | - | - | - | WorldMapPointParam |
+| 62429 | Fort Gael | Landmark | Caelid | m60_47_38 | -119.6, 165.1, -28.1 | 11912.4, 9699.9 | - | - | - | - | WorldMapPointParam |
+| 62430 | Swamp Lookout Tower | Landmark | Caelid | m60_49_38 | 54.9, 146.2, 50.8 | 12598.9, 9778.8 | - | - | - | - | WorldMapPointParam |
+| 62432 | Sellia Gateway | Landmark | Caelid | m60_49_38 | 125.7, 95.7, -49.8 | 12669.7, 9678.2 | - | - | - | - | WorldMapPointParam |
+| 62434 | Deep Siofra Well | Landmark | Caelid | m60_49_40 | -112.5, 117.0, -12.1 | 12431.5, 10227.9 | - | - | - | - | WorldMapPointParam |
+| 62435 | Sellia, Town of Sorcery | Landmark | Caelid | m60_50_39 | -125.8, 78.4, -58.2 | 12674.2, 9925.8 | - | - | - | - | WorldMapPointParam |
+| 62436 | Redmane Castle | Landmark | Caelid | m60_51_36 | 41.0, 89.6, -56.5 | 13097.0, 9159.5 | - | - | - | - | WorldMapPointParam |
+| 62437 | Minor Erdtree | Landmark | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | - | - | - | - | WorldMapPointParam |
+| 62438 | Wailing Dunes | Landmark | Caelid | m60_47_40 | -78.6, 128.3, 110.0 | 11953.4, 10350.0 | - | - | - | - | WorldMapPointParam |
+| 62460 | Sellia Hideaway | Landmark | Various | m31_11_00 | 127.1, 207.6, 63.9 | - | - | - | - | - | WorldMapPointParam |
+| 62461 | Divine Tower of Caelid | Landmark | Various | m34_13_00 | 77.3, 276.3, -35.8 | - | - | - | - | - | WorldMapPointParam |
+| 62470 | Isolated Merchant's Shack | Landmark | Caelid | m60_48_41 | -86.4, 226.3, -81.7 | 12201.6, 10414.3 | - | - | - | - | WorldMapPointParam |
+| 62471 | Sellia Evergaol | Landmark | Caelid | m60_49_39 | -90.2, 162.9, 12.2 | 12453.8, 9996.2 | - | - | - | - | WorldMapPointParam |
+| 62472 | Lenne's Rise | Landmark | Caelid | m60_52_41 | 65.1, 221.0, -22.3 | 13377.1, 10473.7 | - | - | - | - | WorldMapPointParam |
+| 62473 | Fort Faroth | Landmark | Caelid | m60_51_39 | -55.2, 267.1, 105.8 | 13000.8, 10089.8 | - | - | - | - | WorldMapPointParam |
+| 62474 | Minor Erdtree | Landmark | Caelid | m60_51_40 | 22.0, 210.5, 34.1 | 13078.0, 10274.1 | - | - | - | - | WorldMapPointParam |
+| 62475 | Bestial Sanctum | Landmark | Caelid | m60_51_43 | -38.4, 344.3, 1.9 | 13017.6, 11009.9 | - | - | - | - | WorldMapPointParam |
+| 62510 | Giant-Conquering Hero's Grave | Landmark | World (50,53) | m60_50_53 | -118.6, 1511.8, 120.0 | 12681.4, 13688.0 | - | - | - | - | WorldMapPointParam |
+| 62511 | Giants' Mountaintop Catacombs | Landmark | World (50,53) | m60_50_53 | 26.2, 1577.7, 109.3 | 12826.2, 13677.3 | - | - | - | - | WorldMapPointParam |
+| 62512 | Consecrated Snowfield Catacombs | Landmark | Mountaintops of the Giants | m60_50_55 | -69.6, 1360.0, -86.4 | 12730.4, 13993.6 | - | - | - | - | WorldMapPointParam |
+| 62513 | Cave of the Forlorn | Landmark | Various | m31_12_00 | -54.9, 1254.8, 44.0 | - | - | - | - | - | WorldMapPointParam |
+| 62514 | Spiritcaller Cave | Landmark | Mountaintops of the Giants | m60_53_56 | -38.3, 1626.3, 114.5 | 13529.7, 14450.5 | - | - | - | - | WorldMapPointParam |
+| 62515 | Yelough Anix Tunnel | Landmark | Mountaintops of the Giants | m60_47_55 | 45.9, 1258.8, -51.0 | 12077.9, 14029.0 | - | - | - | - | WorldMapPointParam |
+| 62516 | Divine Tower of East Altus | Landmark | Various | m34_14_00 | 649.4, 30.3, -532.9 | - | - | - | - | - | WorldMapPointParam |
+| 62520 | First Church of Marika | Landmark | Mountaintops of the Giants | m60_54_55 | -31.1, 1625.1, 73.0 | 13792.9, 14153.0 | - | - | - | - | WorldMapPointParam |
+| 62521 | Church of Repose | Landmark | World (51,53) | m60_51_53 | -58.3, 1802.6, -65.5 | 12997.7, 13502.5 | - | - | - | - | WorldMapPointParam |
+| 62522 | Zamor Ruins | Landmark | World (49,53) | m60_49_53 | 102.4, 1578.2, -59.5 | 12646.4, 13508.5 | - | - | - | - | WorldMapPointParam |
+| 62523 | Stargazers' Ruins | Landmark | Mountaintops of the Giants | m60_51_56 | -52.0, 1657.7, 32.9 | 13004.0, 14368.9 | - | - | - | - | WorldMapPointParam |
+| 62524 | Shack of the Lofty | Landmark | Mountaintops of the Giants | m60_50_56 | 37.8, 1603.9, 81.1 | 12837.8, 14417.1 | - | - | - | - | WorldMapPointParam |
+| 62525 | Lord Contender's Evergaol | Landmark | Mountaintops of the Giants | m60_53_56 | -47.0, 1667.2, -109.0 | 13521.0, 14227.0 | - | - | - | - | WorldMapPointParam |
+| 62526 | Heretical Rise | Landmark | Mountaintops of the Giants | m60_52_57 | 111.2, 1681.0, -62.5 | 13423.2, 14529.5 | - | - | - | - | WorldMapPointParam |
+| 62527 | Guardians' Garrison | Landmark | Mountaintops of the Giants | m60_52_55 | -53.4, 1694.1, 76.7 | 13258.6, 14156.7 | - | - | - | - | WorldMapPointParam |
+| 62528 | Grand Lift of Rold | Landmark | World (49,53) | m60_49_53 | -20.1, 1568.6, -27.7 | 12523.9, 13540.3 | - | - | - | - | WorldMapPointParam |
+| 62529 | Castle Sol | Landmark | Mountaintops of the Giants | m60_51_57 | 11.9, 1599.0, 78.0 | 13067.9, 14670.0 | - | - | - | - | WorldMapPointParam |
+| 62530 | Minor Erdtree | Landmark | Mountaintops of the Giants | m60_52_56 | -42.1, 1673.7, 72.5 | 13269.9, 14408.5 | - | - | - | - | WorldMapPointParam |
+| 62531 | Forge of the Giants | Landmark | World (54,53) | m60_54_53 | -83.9, 1959.9, -35.4 | 13740.1, 13532.6 | - | - | - | - | WorldMapPointParam |
+| 62550 | Miquella's Haligtree | Landmark | Miquella's Haligtree | m15_00_00 | 50.1, 552.3, 168.6 | - | - | - | - | - | WorldMapPointParam |
+| 62551 | Elphael, Brace of the Haligtree | Landmark | Elphael Brace of the Haligtree | m15_00_00 | -4.9, 145.5, 493.9 | - | - | - | - | - | WorldMapPointParam |
+| 62560 | Hidden Path to the Haligtree | Landmark | Various | m30_20_00 | -105.1, 1338.6, -122.7 | - | - | - | - | - | WorldMapPointParam |
+| 62570 | Apostate Derelict | Landmark | Mountaintops of the Giants | m60_47_58 | 48.1, 1289.6, -27.1 | 12080.1, 14820.9 | - | - | - | - | WorldMapPointParam |
+| 62571 | Yelough Anix Ruins | Landmark | Mountaintops of the Giants | m60_47_55 | 67.9, 1277.9, 18.8 | 12099.9, 14098.8 | - | - | - | - | WorldMapPointParam |
+| 62572 | Ordina, Liturgical Town | Landmark | Mountaintops of the Giants | m60_48_57 | 61.3, 1290.9, -3.4 | 12349.3, 14588.6 | - | - | - | - | WorldMapPointParam |
+| 62573 | Albinauric Rise | Landmark | Mountaintops of the Giants | m60_50_56 | -111.0, 1323.0, -85.2 | 12689.0, 14250.8 | - | - | - | - | WorldMapPointParam |
+| 62574 | Minor Erdtree | Landmark | Mountaintops of the Giants | m60_50_56 | -126.2, 1378.7, 126.6 | 12673.8, 14462.6 | - | - | - | - | WorldMapPointParam |
+| 62610 | Uhl Palace Ruins | Landmark | Ainsel River | m12_01_00 | 162.9, -205.5, -169.2 | - | - | - | - | - | WorldMapPointParam |
+| 62620 | Uhl Palace Ruins | Landmark | Ainsel River | m12_01_00 | 285.1, -80.5, 117.5 | - | - | - | - | - | WorldMapPointParam |
+| 62621 | Nokstella, Eternal City | Landmark | Ainsel River | m12_01_00 | -96.6, -129.0, 204.3 | - | - | - | - | - | WorldMapPointParam |
+| 62622 | Grand Cloister | Landmark | Lake of Rot | m12_01_00 | -531.9, -373.2, -544.1 | - | - | - | - | - | WorldMapPointParam |
+| 62630 | Nokron, Eternal City | Landmark | Nokron | m12_07_00 | 754.6, -585.1, 1248.8 | - | - | - | - | - | WorldMapPointParam |
+| 62631 | Night's Sacred Ground | Landmark | Siofra River | m12_02_00 | 1016.2, -664.1, 1405.0 | - | - | - | - | - | WorldMapPointParam |
+| 62632 | Siofra Aqueduct | Landmark | Siofra River | m12_02_00 | 1309.0, -627.0, 1789.6 | - | - | - | - | - | WorldMapPointParam |
+| 62633 | Hallowhorn Grounds | Landmark | Siofra River | m12_02_00 | 1221.3, -809.2, 1195.6 | - | - | - | - | - | WorldMapPointParam |
+| 62634 | Hallowhorn Grounds | Landmark | Siofra River | m12_02_00 | 1169.8, -611.8, 1598.7 | - | - | - | - | - | WorldMapPointParam |
+| 62640 | Mohgwyn Dynasty Mausoleum | Landmark | Mohgwyn Palace | m12_05_00 | 1618.3, 505.8, 1203.9 | - | - | - | - | - | WorldMapPointParam |
+| 62700 | Crumbling Farum Azula | Landmark | Crumbling Farum Azula | m13_00_00 | 76.4, -1.7, 276.1 | - | - | - | - | - | WorldMapPointParam |
+| 62710 | Isolated Divine Tower | Landmark | World (51,46) | m60_51_46 | -23.6, 111.0, -82.0 | 13032.4, 11694.0 | - | - | - | - | WorldMapPointParam |
+| 62720 | Royal Colosseum | Landmark | Various | m11_00_00 | -348.7, 28.4, -428.9 | - | - | - | - | - | WorldMapPointParam |
+| 62730 | Limgrave Colosseum | Landmark | World (42,40) | m60_42_40 | -40.2, 206.5, -107.2 | 10711.8, 10132.9 | - | - | - | - | WorldMapPointParam |
+| 62740 | Caelid Colosseum | Landmark | Caelid | m60_47_42 | -4.6, 148.1, -86.6 | 12027.4, 10665.4 | - | - | - | - | WorldMapPointParam |
+| 62800 | Belurat Gaol | Landmark | Gravesite Plain | m41_00_00 | -100.7, 259.8, -106.4 | - | - | - | - | - | WorldMapPointParam |
+| 62805 | Miquella's Cross | Landmark | Gravesite Plain | m61_46_42 | -7.7, 297.2, 94.4 | 11768.3, 10846.4 | - | - | - | - | WorldMapPointParam |
+| 62806 | Miquella's Cross | Landmark | Gravesite Plain | m61_45_42 | -101.2, 392.6, 97.1 | 11418.8, 10849.1 | - | - | - | - | WorldMapPointParam |
+| 62807 | Abandoned Ailing Village | Landmark | Gravesite Plain | m61_46_44 | -12.7, 276.7, -29.1 | 11763.3, 11234.9 | - | - | - | - | WorldMapPointParam |
+| 62808 | Church of Consolation | Landmark | Gravesite Plain | m61_48_41 | -82.7, 228.8, -74.3 | 12205.3, 10421.7 | - | - | - | - | WorldMapPointParam |
+| 62809 | Church of Benediction | Landmark | Gravesite Plain | m61_46_40 | 3.7, 365.0, -73.3 | 11779.7, 10166.7 | - | - | - | - | WorldMapPointParam |
+| 62810 | Scorched Ruins | Landmark | Gravesite Plain | m61_47_41 | -80.8, 300.9, 3.3 | 11951.2, 10499.3 | - | - | - | - | WorldMapPointParam |
+| 62811 | Prospect Town | Landmark | Gravesite Plain | m61_45_41 | -27.9, 421.0, -102.4 | 11492.1, 10393.6 | - | - | - | - | WorldMapPointParam |
+| 62812 | Western Nameless Mausoleum | Landmark | Gravesite Plain | m61_46_41 | -130.0, 330.0, 54.7 | 11646.0, 10550.7 | - | - | - | - | WorldMapPointParam |
+| 62813 | Run-Down Traveler's Rest | Landmark | Gravesite Plain | m61_46_43 | 21.1, 257.2, 3.2 | 11797.1, 11011.2 | - | - | - | - | WorldMapPointParam |
+| 62814 | Ellac Greatbridge | Landmark | Gravesite Plain | m61_46_43 | 109.3, 308.4, 46.9 | 11885.3, 11054.9 | - | - | - | - | WorldMapPointParam |
+| 62815 | Artist's Shack | Landmark | Gravesite Plain | m61_46_40 | 29.0, 403.1, -6.0 | 11805.0, 10234.0 | - | - | - | - | WorldMapPointParam |
+| 62820 | Legacy Dungeon - Unused | Landmark | Unused | m60_35_32 | -341.7, 66.2, -47.8 | 8618.3, 8144.2 | - | - | - | - | WorldMapPointParam |
+| 62821 | Dragon's Pit | Landmark | Jagged Peak | m43_01_00 | -99.9, 360.7, 16.6 | - | - | - | - | - | WorldMapPointParam |
+| 62822 | Ruined Forge Lava Intake | Landmark | Gravesite Plain | m42_00_00 | -116.3, 269.3, 71.3 | - | - | - | - | - | WorldMapPointParam |
+| 62823 | Fog Rift Catacombs | Landmark | Scadu Altus | m40_00_00 | -92.0, 259.0, -69.0 | - | - | - | - | - | WorldMapPointParam |
+| 62825 | Miquella's Cross | Landmark | Abyssal Woods | m61_48_43 | 39.6, 313.6, -85.0 | 12327.6, 10923.0 | - | - | - | - | WorldMapPointParam |
+| 62826 | Suppressing Pillar | Landmark | Gravesite Plain | m61_48_41 | 7.2, 424.7, -15.0 | 12295.2, 10481.0 | - | - | - | - | WorldMapPointParam |
+| 62827 | Elder's Hovel | Landmark | Abyssal Woods | m61_49_42 | 119.7, 216.4, 70.8 | 12663.7, 10822.8 | - | - | - | - | WorldMapPointParam |
+| 62830 | Castle Ensis | Landmark | Gravesite Plain | m61_47_44 | 111.4, 365.9, 37.7 | 12143.4, 11301.7 | - | - | - | - | WorldMapPointParam |
+| 62831 | Miquella's Cross | Landmark | Gravesite Plain | m61_47_44 | 80.9, 359.4, 64.4 | 12112.9, 11328.4 | - | - | - | - | WorldMapPointParam |
+| 62840 | Finger Ruins of Rhia | Landmark | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | - | - | - | - | WorldMapPointParam |
+| 62841 | Finger-Weaver's Hovel | Landmark | Cerulean Coast | m61_49_38 | -70.4, 20.9, 106.1 | 12473.6, 9834.1 | - | - | - | - | WorldMapPointParam |
+| 62842 | Miquella's Cross | Landmark | Cerulean Coast | m61_48_37 | 29.7, 60.1, -97.0 | 12317.7, 9375.0 | - | - | - | - | WorldMapPointParam |
+| 62843 | Southern Nameless Mausoleum | Landmark | Cerulean Coast | m61_46_38 | -3.1, 21.4, -62.7 | 11772.9, 9665.3 | - | - | - | - | WorldMapPointParam |
+| 62844 | Finger Ruins of Rhia | Landmark | Caelid | m61_50_40 | 86.9, -76.8, -22.5 | 12886.9, 10217.5 | - | - | - | - | WorldMapPointParam |
+| 62850 | Lamenter's Gaol | Landmark | Various | m41_02_00 | 85.8, 76.5, 4.6 | - | - | - | - | - | WorldMapPointParam |
+| 62855 | Grand Altar of Dragon Communion | Landmark | Jagged Peak | m61_49_39 | 82.3, 80.5, -105.8 | 12626.3, 9878.2 | - | - | - | - | WorldMapPointParam |
+| 62860 | Midra's Manse | Landmark | Midra's Manse | m28_00_00 | -8.5, 16.0, -69.9 | - | - | - | - | - | WorldMapPointParam |
+| 62865 | Abandoned Church | Landmark | Abyssal Woods | m61_53_41 | -121.5, -539.9, -33.1 | 13446.5, 10462.9 | - | - | - | - | WorldMapPointParam |
+| 62870 | Stone Coffin Fissure | Landmark | Stone Coffin Fissure | m22_00_00 | -407.7, 311.1, 21.8 | - | - | - | - | - | WorldMapPointParam |
+| 62871 | Miquella's Cross | Landmark | Stone Coffin Fissure | m22_00_00 | -236.6, 215.7, -24.2 | - | - | - | - | - | WorldMapPointParam |
+| 62880 | Belurat, Tower Settlement | Landmark | Belurat, Tower Settlement | m20_00_00 | -25.0, 5.1, 24.9 | - | - | - | - | - | WorldMapPointParam |
+| 62881 | Miquella's Cross | Landmark | Belurat, Tower Settlement | m20_00_00 | -32.2, 77.2, 264.6 | - | - | - | - | - | WorldMapPointParam |
+| 62890 | Enir-Ilim | Landmark | Enir-Ilim | m20_01_00 | -150.2, 6.2, -4.8 | - | - | - | - | - | WorldMapPointParam |
+| 62891 | Miquella's Cross | Landmark | Enir-Ilim | m20_01_00 | -294.8, 65.1, -80.5 | - | - | - | - | - | WorldMapPointParam |
+| 62900 | Miquella's Cross | Landmark | Scadu Altus | m61_48_44 | -28.0, 410.4, 134.4 | 12260.0, 11398.4 | - | - | - | - | WorldMapPointParam |
+| 62901 | Miquella's Cross | Landmark | Scadu Altus | m61_50_43 | -25.6, 459.8, -61.0 | 12774.4, 10947.0 | - | - | - | - | WorldMapPointParam |
+| 62902 | Fort of Reprimand | Landmark | Scadu Altus | m61_49_43 | 56.0, 396.5, -72.2 | 12600.0, 10935.8 | - | - | - | - | WorldMapPointParam |
+| 62903 | Miquella's Cross | Landmark | Scadu Altus | m61_49_44 | -47.9, 350.5, 119.7 | 12496.1, 11383.7 | - | - | - | - | WorldMapPointParam |
+| 62904 | Fog Rift Fort | Landmark | Gravesite Plain | m61_47_45 | -50.3, 330.0, -103.2 | 11981.7, 11416.8 | - | - | - | - | WorldMapPointParam |
+| 62905 | Church of the Crusade | Landmark | Scadu Altus | m61_47_46 | -1.9, 440.2, -69.3 | 12030.1, 11706.7 | - | - | - | - | WorldMapPointParam |
+| 62906 | Cathedral of Manus Metyr | Landmark | Scadu Altus | m61_51_45 | -91.7, 472.0, 21.5 | 12964.3, 11541.5 | - | - | - | - | WorldMapPointParam |
+| 62907 | Moorth Ruins | Landmark | Scadu Altus | m61_49_44 | 40.1, 345.1, 74.0 | 12584.1, 11338.0 | - | - | - | - | WorldMapPointParam |
+| 62908 | Rabbath's Rise | Landmark | Scadu Altus | m61_51_47 | 109.9, 447.9, -117.3 | 13165.9, 11914.7 | - | - | - | - | WorldMapPointParam |
+| 62909 | Whipping Hut | Landmark | Scadu Altus | m61_50_44 | 126.0, 311.8, 11.6 | 12926.0, 11275.5 | - | - | - | - | WorldMapPointParam |
+| 62910 | Bonny Village | Landmark | Scadu Altus | m61_50_44 | -54.0, 306.3, -3.6 | 12746.0, 11260.4 | - | - | - | - | WorldMapPointParam |
+| 62911 | Finger Ruins of Miyr | Landmark | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | - | - | - | - | WorldMapPointParam |
+| 62912 | Finger Ruins of Miyr | Landmark | Scadu Altus | m61_51_45 | -104.2, 447.6, 150.1 | 12951.8, 11670.1 | - | - | - | - | WorldMapPointParam |
+| 62915 | Scorpion River Catacombs | Landmark | Rauh | m40_01_00 | -62.7, 295.1, 58.3 | - | - | - | - | - | WorldMapPointParam |
+| 62916 | Bonny Gaol | Landmark | Scadu Altus | m41_01_00 | -45.4, 304.6, -25.5 | - | - | - | - | - | WorldMapPointParam |
+| 62917 | Taylew's Ruined Forge | Landmark | Rauh | m42_03_00 | -39.9, 353.1, -92.4 | - | - | - | - | - | WorldMapPointParam |
+| 62918 | POI_62918 | Landmark | Various | m42_01_00 | 37.1, 349.3, -119.8 | - | - | - | - | - | WorldMapPointParam |
+| 62919 | Rivermouth Cave | Landmark | Gravesite Plain | m43_00_00 | -82.4, 163.7, 143.8 | - | - | - | - | - | WorldMapPointParam |
+| 62920 | Temple Town Ruins | Landmark | Rauh | m61_46_45 | -109.7, 308.8, 3.5 | 11666.3, 11523.5 | - | - | - | - | WorldMapPointParam |
+| 62921 | Northern Nameless Mausoleum | Landmark | Gravesite Plain | m61_46_45 | 86.6, 408.2, -42.5 | 11862.6, 11477.5 | - | - | - | - | WorldMapPointParam |
+| 62931 | Scadutree Chalice | Landmark | World (49,49) | m61_49_49 | 19.1, 625.0, 115.1 | 12563.1, 12659.1 | - | - | - | - | WorldMapPointParam |
+| 62932 | Albinauric's Shack | Landmark | World (49,49) | m61_49_49 | -122.0, 612.0, -99.9 | 12422.0, 12444.1 | - | - | - | - | WorldMapPointParam |
+| 62940 | Finger Ruins of Dheo | Landmark | World (53,47) | m61_53_47 | 86.9, -76.8, -22.5 | 13654.9, 12009.5 | - | - | - | - | WorldMapPointParam |
+| 62941 | Shaman Village | Landmark | World (51,47) | m61_51_47 | 18.9, 593.9, 35.3 | 13074.9, 12067.3 | - | - | - | - | WorldMapPointParam |
+| 62942 | Finger Ruins of Dheo | Landmark | World (53,46) | m61_53_46 | 65.6, 321.3, -22.3 | 13633.6, 11753.7 | - | - | - | - | WorldMapPointParam |
+| 62943 | Ruined Forge of Starfall Past | Landmark | Scadu Altus | m42_02_00 | 64.5, 357.9, -94.5 | - | - | - | - | - | WorldMapPointParam |
+| 62950 | Miquella's Cross | Landmark | Rauh | m61_46_47 | -95.7, 560.8, -84.2 | 11680.3, 11947.8 | - | - | - | - | WorldMapPointParam |
+| 62960 | Ruins of Unte | Landmark | Scadu Altus | m61_50_46 | -41.9, 260.7, 112.9 | 12758.1, 11888.9 | - | - | - | - | WorldMapPointParam |
+| 62961 | Eastern Nameless Mausoleum | Landmark | Scadu Altus | m61_51_44 | -26.9, 170.3, 77.8 | 13029.1, 11341.8 | - | - | - | - | WorldMapPointParam |
+| 62962 | Village of Flies | Landmark | Scadu Altus | m61_50_44 | -9.3, 214.6, -106.6 | 12790.7, 11157.4 | - | - | - | - | WorldMapPointParam |
+| 62965 | Darklight Catacombs | Landmark | Scadu Altus | m40_02_00 | -46.2, 80.0, 111.5 | - | - | - | - | - | WorldMapPointParam |
+| 62970 | Scadutree Base | Landmark | World (50,48) | m61_50_48 | -27.8, 190.0, 122.0 | 12772.2, 12410.0 | - | - | - | - | WorldMapPointParam |
+| 62980 | Shadow Keep | Landmark | Shadow Keep | m21_00_00 | 161.4, 183.0, 203.4 | - | - | - | - | - | WorldMapPointParam |
+| 62981 | Miquella's Cross | Landmark | Shadow Keep | m21_01_00 | 173.6, 298.1, 277.5 | - | - | - | - | - | WorldMapPointParam |
 | 65000 | Crimsonspill Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65010 | Greenspill Crystal Tear | Crystal Tear | Various | m60_45_37 | 67.1, 35.1, -56.7 | 11587.1, 9415.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 65020 | Crimson Crystal Tear | Crystal Tear | Various | m60_46_38 | -80.2, 4.5, 69.1 | 11695.8, 9797.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
@@ -1196,11 +1196,11 @@ Total unique flags: 7034
 | 78111 | Guidance of Grace: Weeping Peninsula - Bridge of Sacrifice, Forest Lookout Tower, Earthbore Cave Entrance | Grace | Weeping Peninsula | m60_44_34 | 103.0, 42.6, 0.6 | 11367.0, 8704.6 | - | - | - | - | WorldMapPointParam |
 | 78112 | Guidance of Grace: Weeping Peninsula - Castle Morne Rampart, Ailing Village Outskirts | Grace | Weeping Peninsula | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | - | - | - | - | WorldMapPointParam |
 | 78113 | Guidance of Grace: Weeping Peninsula - Castle Morne | Grace | Weeping Peninsula | m60_43_31 | 104.4, 14.3, -2.9 | 11112.4, 7933.1 | - | - | - | - | WorldMapPointParam |
-| 78190 | Catacomb Guidance: Limgrave - Church of Elleh, Stranded Graveyard Exit | Map POI | Limgrave | m60_42_36 | -125.8, 115.4, 116.6 | 10626.1, 9332.6 | - | - | - | - | WorldMapPointParam |
-| 78192 | Catacomb Guidance: Stormhill - Saintsbridge, Deathtouched Catacombs Entrance, Highroad Cave Entrance | Map POI | Limgrave | m60_43_39 | -75.7, 196.9, -32.8 | 10932.3, 9951.2 | - | - | - | - | WorldMapPointParam |
-| 78194 | Catacomb Guidance: Limgrave - Murkwater Coast, Murkwater Catacombs Entrance | Map POI | Limgrave | m60_43_38 | 137.1, 102.5, 33.4 | 11145.0, 9761.4 | - | - | - | - | WorldMapPointParam |
-| 78196 | Catacomb Guidance: Weeping Peninsula - Church of Pilgrimage, Demi-Human Forest Ruins | Map POI | Weeping Peninsula | m60_43_34 | -125.1, 74.2, -80.0 | 10882.9, 8624.0 | - | - | - | - | WorldMapPointParam |
-| 78198 | Catacomb Guidance: Weeping Peninsula - Impaler's Catacombs Entrance | Map POI | World (45,34) | m60_45_34 | -90.0, 86.1, -50.0 | 11430.0, 8654.0 | - | - | - | - | WorldMapPointParam |
+| 78190 | Catacomb Guidance: Limgrave - Church of Elleh, Stranded Graveyard Exit | Landmark | Limgrave | m60_42_36 | -125.8, 115.4, 116.6 | 10626.1, 9332.6 | - | - | - | - | WorldMapPointParam |
+| 78192 | Catacomb Guidance: Stormhill - Saintsbridge, Deathtouched Catacombs Entrance, Highroad Cave Entrance | Landmark | Limgrave | m60_43_39 | -75.7, 196.9, -32.8 | 10932.3, 9951.2 | - | - | - | - | WorldMapPointParam |
+| 78194 | Catacomb Guidance: Limgrave - Murkwater Coast, Murkwater Catacombs Entrance | Landmark | Limgrave | m60_43_38 | 137.1, 102.5, 33.4 | 11145.0, 9761.4 | - | - | - | - | WorldMapPointParam |
+| 78196 | Catacomb Guidance: Weeping Peninsula - Church of Pilgrimage, Demi-Human Forest Ruins | Landmark | Weeping Peninsula | m60_43_34 | -125.1, 74.2, -80.0 | 10882.9, 8624.0 | - | - | - | - | WorldMapPointParam |
+| 78198 | Catacomb Guidance: Weeping Peninsula - Impaler's Catacombs Entrance | Landmark | World (45,34) | m60_45_34 | -90.0, 86.1, -50.0 | 11430.0, 8654.0 | - | - | - | - | WorldMapPointParam |
 | 78200 | Guidance of Grace: Liurnia of the Lakes - Lake-Facing Cliffs, Stormveil Castle Exit, Stillwater Cave Entrance | Grace | Liurnia of the Lakes | m60_39_40 | 16.2, 337.7, -71.1 | 10000.2, 10168.9 | - | - | - | - | WorldMapPointParam |
 | 78201 | Guidance of Grace: Liurnia of the Lakes - Liurnia Lake Shore | Grace | Liurnia of the Lakes | m60_38_40 | 44.1, 238.2, 115.2 | 9772.1, 10355.2 | - | - | - | - | WorldMapPointParam |
 | 78202 | Guidance of Grace: Liurnia of the Lakes - Laskyar Ruins, Malefactor's Evergaol | Grace | Liurnia of the Lakes | m60_38_41 | -79.0, 237.4, 76.5 | 9649.0, 10572.5 | - | - | - | - | WorldMapPointParam |
@@ -1217,9 +1217,9 @@ Total unique flags: 7034
 | 78223 | Guidance of Grace: Liurnia of the Lakes - Road to the Manor | Grace | Liurnia of the Lakes | m60_34_49 | 52.1, 272.9, -68.6 | 8756.1, 12475.4 | - | - | - | - | WorldMapPointParam |
 | 78224 | Guidance of Grace: Liurnia of the Lakes - Caria Manor | Grace | Liurnia of the Lakes | m60_35_50 | -17.5, 316.1, -134.5 | 8942.5, 12665.5 | - | - | - | - | WorldMapPointParam |
 | 78230 | Guidance of Grace: Liurnia of the Lakes - Ranni's Rise, Seluvis's Rise | Grace | Liurnia of the Lakes | m60_34_50 | -56.5, 511.6, 23.9 | 8647.5, 12823.9 | - | - | - | - | WorldMapPointParam |
-| 78290 | Catacomb Guidance: Bellum Highway - Frenzied Flame Village, Minor Erdtree | Map POI | Liurnia of the Lakes | m60_38_48 | 85.2, 460.2, 98.8 | 9813.2, 12386.8 | - | - | - | - | WorldMapPointParam |
-| 78292 | Catacomb Guidance: Liurnia of the Lakes - Revenger's Shack | Map POI | Liurnia of the Lakes | m60_33_44 | -40.3, 280.1, -81.4 | 8407.7, 11182.6 | - | - | - | - | WorldMapPointParam |
-| 78294 | Catacomb Guidance: Liurnia of the Lakes - Liurnia Highway North | Map POI | Liurnia of the Lakes | m60_39_42 | 79.9, 275.3, 19.8 | 10063.9, 10771.8 | - | - | - | - | WorldMapPointParam |
+| 78290 | Catacomb Guidance: Bellum Highway - Frenzied Flame Village, Minor Erdtree | Landmark | Liurnia of the Lakes | m60_38_48 | 85.2, 460.2, 98.8 | 9813.2, 12386.8 | - | - | - | - | WorldMapPointParam |
+| 78292 | Catacomb Guidance: Liurnia of the Lakes - Revenger's Shack | Landmark | Liurnia of the Lakes | m60_33_44 | -40.3, 280.1, -81.4 | 8407.7, 11182.6 | - | - | - | - | WorldMapPointParam |
+| 78294 | Catacomb Guidance: Liurnia of the Lakes - Liurnia Highway North | Landmark | Liurnia of the Lakes | m60_39_42 | 79.9, 275.3, 19.8 | 10063.9, 10771.8 | - | - | - | - | WorldMapPointParam |
 | 78300 | Guidance of Grace: Altus Plateau - Abandoned Coffin, Ruin-Strewn Precipice Exit | Grace | Altus Plateau | m60_37_51 | -46.1, 656.4, -62.5 | 9425.9, 12993.5 | - | - | - | - | WorldMapPointParam |
 | 78301 | Guidance of Grace: Altus Plateau - Erdtree-Gazing Hill, Lux Ruins | Grace | Altus Plateau | m60_38_51 | -21.8, 766.1, 50.1 | 9706.2, 13106.1 | - | - | - | - | WorldMapPointParam |
 | 78302 | Guidance of Grace: Altus Plateau - Altus Highway Junction | Grace | Altus Plateau | m60_39_51 | 92.6, 760.5, -0.2 | 10076.6, 13055.8 | - | - | - | - | WorldMapPointParam |
@@ -1231,9 +1231,9 @@ Total unique flags: 7034
 | 78351 | Guidance of Grace: Altus Plateau - Mirage Rise; Mt. Gelmir - Bridge of Iniquity | Grace | Altus Plateau | m60_39_53 | -98.6, 812.8, 37.5 | 9885.4, 13605.5 | - | - | - | - | WorldMapPointParam |
 | 78352 | Guidance of Grace: Mt. Gelmir - First Mt. Gelmir Campsite, Corpse-Stench Shack; Altus Plateau - West of Shaded Castle | Grace | Mt. Gelmir | m60_38_54 | 28.2, 861.0, -123.2 | 9756.2, 13700.8 | - | - | - | - | WorldMapPointParam |
 | 78353 | Guidance of Grace: Mt. Gelmir - Ninth Mt. Gelmir Campsite, Road of Iniquity, Volcano Manor Entrance | Grace | Mt. Gelmir | m60_36_54 | 117.7, 1010.8, 25.5 | 9333.7, 13849.5 | - | - | - | - | WorldMapPointParam |
-| 78390 | Catacomb Guidance: Altus Plateau - Perfumer's Ruins, Unsightly Catacombs Entrance | Map POI | Mt. Gelmir | m60_36_51 | -17.8, 672.5, 72.5 | 9198.2, 13128.5 | - | - | - | - | WorldMapPointParam |
-| 78392 | Catacomb Guidance: Altus Plateau - Wyndham Ruins, Wyndham Catacombs Entrance | Map POI | Altus Plateau | m60_38_52 | 45.8, 800.1, -36.0 | 9773.8, 13276.0 | - | - | - | - | WorldMapPointParam |
-| 78394 | Catacomb Guidance: Capital Outskirts - Capital Rampart, Auriza Side Tomb Entrance | Map POI | World (45,52) | m60_45_52 | 99.2, 1025.5, 24.7 | 11619.2, 13336.7 | - | - | - | - | WorldMapPointParam |
+| 78390 | Catacomb Guidance: Altus Plateau - Perfumer's Ruins, Unsightly Catacombs Entrance | Landmark | Mt. Gelmir | m60_36_51 | -17.8, 672.5, 72.5 | 9198.2, 13128.5 | - | - | - | - | WorldMapPointParam |
+| 78392 | Catacomb Guidance: Altus Plateau - Wyndham Ruins, Wyndham Catacombs Entrance | Landmark | Altus Plateau | m60_38_52 | 45.8, 800.1, -36.0 | 9773.8, 13276.0 | - | - | - | - | WorldMapPointParam |
+| 78394 | Catacomb Guidance: Capital Outskirts - Capital Rampart, Auriza Side Tomb Entrance | Landmark | World (45,52) | m60_45_52 | 99.2, 1025.5, 24.7 | 11619.2, 13336.7 | - | - | - | - | WorldMapPointParam |
 | 78400 | Guidance of Grace: Caelid - Smoldering Church, Rotview Balcony | Grace | Caelid | m60_46_40 | 105.4, 171.0, -65.2 | 11881.4, 10174.8 | - | - | - | - | WorldMapPointParam |
 | 78401 | Guidance of Grace: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Grace | Caelid | m60_47_40 | 105.3, 164.4, -19.6 | 12137.3, 10220.4 | - | - | - | - | WorldMapPointParam |
 | 78402 | Guidance of Grace: Caelid - Smoldering Wall, Abandoned Cave Entrance | Grace | Caelid | m60_48_39 | -87.9, 130.9, 0.9 | 12200.1, 9984.9 | - | - | - | - | WorldMapPointParam |
@@ -1247,9 +1247,9 @@ Total unique flags: 7034
 | 78412 | Guidance of Grace: Caelid - Impassable Greatbridge | Grace | Caelid | m60_50_36 | -68.3, 38.7, -82.8 | 12731.7, 9133.2 | - | - | - | - | WorldMapPointParam |
 | 78413 | Guidance of Grace: Caelid - Redmane Castle | Grace | Caelid | m60_51_36 | 93.1, 90.8, -40.2 | 13149.1, 9175.8 | - | - | - | - | WorldMapPointParam |
 | 78414 | Guidance of Grace: Caelid - Redmane Castle | Grace | Caelid | m60_51_36 | 81.6, 91.8, 18.9 | 13137.6, 9234.9 | - | - | - | - | WorldMapPointParam |
-| 78490 | Catacomb Guidance: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Map POI | Caelid | m60_47_40 | -84.1, 166.5, 80.1 | 11947.9, 10320.1 | - | - | - | - | WorldMapPointParam |
-| 78492 | Catacomb Guidance: Caelid - Southwest of Caelid Highway South | Map POI | Caelid | m60_49_36 | -25.4, 56.7, -7.8 | 12518.6, 9208.2 | - | - | - | - | WorldMapPointParam |
-| 78494 | Catacomb Guidance: Greyoll's Dragonbarrow - Fort Faroth | Map POI | Caelid | m60_51_39 | -110.3, 165.2, -64.8 | 12945.7, 9919.2 | - | - | - | - | WorldMapPointParam |
+| 78490 | Catacomb Guidance: Caelid - Caelem Ruins, Forsaken Ruins, Minor Erdtree, Minor Erdtree Catacombs Entrance | Landmark | Caelid | m60_47_40 | -84.1, 166.5, 80.1 | 11947.9, 10320.1 | - | - | - | - | WorldMapPointParam |
+| 78492 | Catacomb Guidance: Caelid - Southwest of Caelid Highway South | Landmark | Caelid | m60_49_36 | -25.4, 56.7, -7.8 | 12518.6, 9208.2 | - | - | - | - | WorldMapPointParam |
+| 78494 | Catacomb Guidance: Greyoll's Dragonbarrow - Fort Faroth | Landmark | Caelid | m60_51_39 | -110.3, 165.2, -64.8 | 12945.7, 9919.2 | - | - | - | - | WorldMapPointParam |
 | 78500 | Guidance of Grace: Leyndell - Divine Tower of East Altus Entrance; Mountaintops of the Giants - Forbidden Lands Start | Grace | Leyndell | m60_47_51 | -4.6, 999.2, -24.2 | 12027.4, 13031.8 | - | - | - | - | WorldMapPointParam |
 | 78501 | Guidance of Grace: Mountaintops of the Giants - West Zamor Ruins, Grand Lift of Rold | Grace | Mountaintops of the Giants | m60_49_53 | 78.9, 1559.3, 101.0 | 12622.9, 13669.0 | - | - | - | - | WorldMapPointParam |
 | 78502 | Guidance of Grace: Mountaintops of the Giants - Ancient Snow Valley Ruins, Stargazers' Ruins | Grace | Mountaintops of the Giants | m60_51_56 | -2.9, 1611.1, -43.1 | 13053.1, 14292.9 | - | - | - | - | WorldMapPointParam |
@@ -1262,8 +1262,8 @@ Total unique flags: 7034
 | 78511 | Guidance of Grace: Mountaintops of the Giants - South Castle Sol, Snow Valley Ruins Overlook | Grace | Mountaintops of the Giants | m60_51_57 | -16.0, 1596.5, 59.9 | 13040.0, 14651.9 | - | - | - | - | WorldMapPointParam |
 | 78520 | Guidance of Grace: Consecrated Snowfield - Hidden Path to the Haligtree, Southeast Foggy Area | Grace | Consecrated Snowfield | m60_49_54 | -97.7, 1321.2, -3.7 | 12446.3, 13820.3 | - | - | - | - | WorldMapPointParam |
 | 78521 | Guidance of Grace: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Grace | Consecrated Snowfield | m60_49_55 | -104.5, 1266.9, 105.8 | 12439.5, 14185.8 | - | - | - | - | WorldMapPointParam |
-| 78592 | Catacomb Guidance: Mountaintops of the Giants - East Zamor Ruins; Flame Peak - Giant-Conquering Hero's Grave Entrance | Map POI | World (50,53) | m60_50_53 | -5.4, 1576.2, -42.6 | 12794.6, 13525.4 | - | - | - | - | WorldMapPointParam |
-| 78594 | Catacomb Guidance: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Map POI | Mountaintops of the Giants | m60_49_55 | 12.6, 1314.7, -47.0 | 12556.6, 14033.0 | - | - | - | - | WorldMapPointParam |
+| 78592 | Catacomb Guidance: Mountaintops of the Giants - East Zamor Ruins; Flame Peak - Giant-Conquering Hero's Grave Entrance | Landmark | World (50,53) | m60_50_53 | -5.4, 1576.2, -42.6 | 12794.6, 13525.4 | - | - | - | - | WorldMapPointParam |
+| 78594 | Catacomb Guidance: Consecrated Snowfield - Northeast Foggy Area, Inner Consecrated Snowfield | Landmark | Mountaintops of the Giants | m60_49_55 | 12.6, 1314.7, -47.0 | 12556.6, 14033.0 | - | - | - | - | WorldMapPointParam |
 | 78600 | Guidance of Grace: Siofra River / Nokron | Grace | Siofra River / Nokron | m12_02_00 | 1185.0, -619.2, 1909.6 | - | - | - | - | - | WorldMapPointParam |
 | 78800 | Guidance of Grace: Belurat, Tower Settlement | Grace | Belurat, Tower Settlement | m20_00_00 | -49.7, 118.1, 311.8 | - | - | - | - | - | WorldMapPointParam |
 | 78900 | Guidance of Grace: Specimen Storehouse | Grace | Specimen Storehouse | m21_01_00 | 86.0, 351.8, 362.2 | - | - | - | - | - | WorldMapPointParam |
@@ -2896,7 +2896,7 @@ Total unique flags: 7034
 | 11107700 | Assassin's Prayerbook | Dungeon Pickup | Leyndell | m11_10_00 | -284.7, -32.6, -327.7 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11107710 | Crepus's Black-Key Crossbow | Dungeon Pickup | Leyndell | m11_10_00 | -295.3, -32.6, -318.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11107900 | Clinging Bone | Dungeon Pickup | Leyndell | m11_10_00 | - | - | - | 2 | none | - | ItemLotParam_map |
-| 11109687 | Divine Tower of East Altus - The Rold Route | Map POI | Leyndell | m34_14_00 | 131.8, 17.9, -199.8 | - | - | - | - | - | WorldMapPointParam |
+| 11109687 | Divine Tower of East Altus - The Rold Route | Landmark | Leyndell | m34_14_00 | 131.8, 17.9, -199.8 | - | - | - | - | - | WorldMapPointParam |
 | 11109745 | [Twin Maiden Husks] Thin Beast Bones - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109746 | [Twin Maiden Husks] Sliver of Meat - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109747 | [Twin Maiden Husks] Neutralizing Boluses - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
@@ -6056,7 +6056,7 @@ Total unique flags: 7034
 | 1045397110 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 55.4, 66.4, -62.4 | 11575.4, 9921.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045397120 | Green Turtle Talisman | World Pickup | Caelid | m60_45_39 | 10.8, 83.5, 64.7 | 11530.8, 10048.7 | chest | - | high | Y | ItemLotParam_map |
 | 1045397140 | Smithing Stone [1] | World Pickup | Caelid | m60_45_39 | -57.7, 92.2, 81.4 | 11462.3, 10065.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1045399206 | Limgrave: Rear Gael Tunnel Entrance - Sending Gate | Map POI | Caelid | m60_46_39 | -59.2, 2.2, -124.5 | 11716.8, 9859.5 | - | - | - | - | WorldMapPointParam |
+| 1045399206 | Limgrave: Rear Gael Tunnel Entrance - Sending Gate | Landmark | Caelid | m60_46_39 | -59.2, 2.2, -124.5 | 11716.8, 9859.5 | - | - | - | - | WorldMapPointParam |
 | 1045520705 | Dung Eater | NPC | World (45,52) | m60_45_52 | -112.7, 924.7, 46.4 | 11407.3, 13358.4 | - | - | - | - | MSB NPC |
 | 1045520800 | Draconic Tree Sentinel | Boss Defeat | World (45,52) | m60_45_52 | 27.7, 1023.8, 43.9 | 11547.7, 13355.9 | - | - | - | - | MSB Enemy |
 | 1045522712 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | 27.3, 809.7, -86.4 | 9499.3, 13737.6 | - | - | - | - | MSB SpawnPoint |

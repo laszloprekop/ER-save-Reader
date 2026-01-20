@@ -4,6 +4,40 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.7 - Landmark Integration & Event Flag Geography
+
+### Features
+- **Landmark Category in Event Flags DB**: Added Landmark (62xxx) as a filterable category
+  - 308 landmarks from LANDMARKS lookup table imported into database
+  - Region resolution based on flag ID ranges (Limgrave, Liurnia, Caelid, etc.)
+  - Light blue color coding in UI (RGB 180,220,255)
+  - New filter button in category row
+
+- **Event Flag Geography Documentation** (`docs/EVENT-FLAG-GEOGRAPHY.md`):
+  - Complete world hierarchy (Regions → Sub-regions → Landmarks/Graces/Dungeons)
+  - Geographic flag groupings (tile system, block-based, legacy dungeons)
+  - Flag chaining systems (quests, area unlocks, merchant purchases, boss rewards)
+  - Source game file reference with paths
+
+### Bug Fixes
+- **Fixed ~200 landmark byte offsets**: Flags 62100-62981 had incorrect offsets
+  - Was using wrong formula `flag_id / 8` instead of `base_offset + (flag_id - block_start) / 8`
+  - Old offsets: 0x1e52-0x1e73 (~7762-7795 bytes)
+  - New offsets: 0x5e8-0x656 (~1512-1622 bytes)
+  - Block 62000 base offset confirmed as 0x5dc (1500)
+
+### Files Added
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Comprehensive event flag system documentation
+- `src/db/landmarks.rs`: Landmarks lookup table module
+
+### Files Modified
+- `src/db/event_flags.rs`: Corrected 62100-62981 byte offsets
+- `src/db/event_flags_db.rs`: Added Landmark category, get_landmark_region(), LANDMARKS import
+- `src/db/mod.rs`: Export landmarks module
+- `src/ui/event_flags_db_view.rs`: Added Landmark filter and color
+
+---
+
 ## v0.4.6 - Multi-Point Corroboration System
 
 ### Features
@@ -701,7 +735,7 @@ python scripts/run_verification.py --verbose
 
 ### Spatial Data Coverage
 - Graces: 100% with full coordinates (422 entries)
-- Map POIs: 100% with full coordinates (379 entries)
+- Landmarks: 100% with full coordinates (379 entries)
 - World pickups: 81% with map tiles derived from flag ID
 - New fields: `area_no`, `grid_x`, `grid_z`, `pos_x`, `pos_y`, `pos_z`, `map_tile`, `region_id`
 

@@ -709,7 +709,7 @@ fn categorize_flag(flag_id: u32) -> Option<String> {
         66_000..=66_999 => "Container Upgrade".to_string(),
         67_000..=68_999 => "Cookbook".to_string(),
         71_000..=77_999 => "Grace".to_string(),
-        78_000..=99_999 => "Map POI".to_string(),
+        78_000..=99_999 => "Landmark".to_string(),
         10_000_000..=19_999_999 => "Stormveil/Leyndell".to_string(),
         30_000_000..=30_999_999 => "Catacomb".to_string(),
         31_000_000..=31_999_999 => "Cave".to_string(),

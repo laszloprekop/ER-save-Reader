@@ -9,6 +9,7 @@ This document describes the corroboration system for empirical validation of eve
 The corroboration system provides automated cross-validation of flag offset formulas using relationships extracted from decompiled game files. Instead of manually verifying each flag, we can use known relationships between flags to detect formula errors.
 
 **Key insight**: When a player picks up an item from the world, two flags are typically set:
+
 1. **Tile flag** (10-digit): Records the world pickup location was looted
 2. **Block flag** (5-digit): Records the item is now owned
 
@@ -18,15 +19,15 @@ If our formulas are correct, both flags should agree (both SET or both UNSET). C
 
 ## Terminology
 
-| Term | Definition |
-|------|------------|
-| **Corroboration** | Independent observations agreeing on the same result |
+| Term                  | Definition                                                  |
+| --------------------- | ----------------------------------------------------------- |
+| **Corroboration**     | Independent observations agreeing on the same result        |
 | **Dual-formula pair** | A tile flag and block flag that should have matching states |
-| **Tile flag** | 10-digit flag (1XXYYZZZZ) tracking world pickup location |
-| **Block flag** | 5-digit flag (60000-99999) tracking item possession |
-| **Relationship** | Connection between two flags extracted from game data |
-| **Agreement** | Both flags in a pair have matching SET/UNSET state |
-| **Contradiction** | Flags in a pair have mismatched states |
+| **Tile flag**         | 10-digit flag (1XXYYZZZZ) tracking world pickup location    |
+| **Block flag**        | 5-digit flag (60000-99999) tracking item possession         |
+| **Relationship**      | Connection between two flags extracted from game data       |
+| **Agreement**         | Both flags in a pair have matching SET/UNSET state          |
+| **Contradiction**     | Flags in a pair have mismatched states                      |
 
 ---
 
@@ -53,27 +54,30 @@ If our formulas are correct, both flags should agree (both SET or both UNSET). C
          │  2,796 relationships, 5,079 flags   │
          └─────────────────┬───────────────────┘
                            │
-         ┌─────────────────┼─────────────────┐
-         ▼                 ▼                 ▼
-┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐
+         ┌─────────────────┼────────────────────┐
+         ▼                 ▼                    ▼
+┌──────────────────┐ ┌───────────────────┐ ┌─────────────────┐
 │ RelationshipGraph│ │CorroborationEngine│ │  CLI Commands   │
-│ (indexing)      │ │ (validation)    │ │ (user interface)│
-└─────────────────┘ └─────────────────┘ └─────────────────┘
+│ (indexing)       │ │ (validation)      │ │ (user interface)│
+└──────────────────┘ └───────────────────┘ └─────────────────┘
 ```
 
 ### Components
 
 **1. `scripts/extract_flag_relationships.py`**
+
 - Parses decompiled game files (XML params, event scripts)
 - Extracts flag relationships with type annotations
 - Outputs `flag_relationships.json`
 
 **2. `src/discovery/relationship_graph.rs`**
+
 - Loads relationship JSON at runtime
 - Indexes by source flag, target flag, and relationship type
 - Extracts dual-formula corroboration pairs (122 pairs)
 
 **3. `src/discovery/corroboration.rs`**
+
 - Validates flag pairs against save file data
 - Calculates agreement ratios and confidence scores
 - Reports contradictions for investigation
@@ -82,14 +86,14 @@ If our formulas are correct, both flags should agree (both SET or both UNSET). C
 
 ## Relationship Types
 
-| Type | Source | Target | Meaning |
-|------|--------|--------|---------|
+| Type               | Source               | Target               | Meaning                      |
+| ------------------ | -------------------- | -------------------- | ---------------------------- |
 | `pickup_sets_flag` | Tile flag (10-digit) | Block flag (5-digit) | World pickup sets possession |
-| `enables_purchase` | Release flag | Stock flag | Unlocking enables shop item |
-| `grace_discovery` | Entity ID | Grace flag | Resting at grace sets flag |
-| `boss_remembrance` | Boss defeat flag | Remembrance flag | Boss drops remembrance |
-| `event_sequence` | Flag A | Flag B | Flags set together in events |
-| `map_fragment` | Pickup flag | Possession flag | Map fragment discovery |
+| `enables_purchase` | Release flag         | Stock flag           | Unlocking enables shop item  |
+| `grace_discovery`  | Entity ID            | Grace flag           | Resting at grace sets flag   |
+| `boss_remembrance` | Boss defeat flag     | Remembrance flag     | Boss drops remembrance       |
+| `event_sequence`   | Flag A               | Flag B               | Flags set together in events |
+| `map_fragment`     | Pickup flag          | Possession flag      | Map fragment discovery       |
 
 ---
 
@@ -102,11 +106,13 @@ cargo run -- discovery corroborate <flag_id> --slot <N> --save <path>
 ```
 
 Example:
+
 ```bash
 cargo run -- discovery corroborate 67650 --slot 0 --save ER0000.sl2
 ```
 
 Output:
+
 ```
 Corroboration check for flag 67650:
 
@@ -130,11 +136,13 @@ cargo run -- discovery corroborate --all --slot <N> --save <path>
 ```
 
 Example:
+
 ```bash
 cargo run -- discovery corroborate --all --slot 1 --save ER0000.sl2
 ```
 
 Output:
+
 ```
 Validating all corroboration pairs against slot 1...
 
@@ -152,6 +160,7 @@ cargo run -- discovery graph
 ```
 
 Output:
+
 ```
 Relationship Graph Summary:
   Total relationships: 2796
@@ -184,20 +193,22 @@ cargo run -- discovery corroborate --all --slot 1 --save ER0000.sl2
 
 If contradictions appear, they fall into categories:
 
-| Pattern | Block Flag | Tile Flag | Likely Cause |
-|---------|------------|-----------|--------------|
-| A | SET | UNSET | Item from shop/quest, OR tile formula error |
-| B | UNSET | SET | Block formula error |
-| C | Both SET but different | - | Read logic error |
+| Pattern | Block Flag             | Tile Flag | Likely Cause                                |
+| ------- | ---------------------- | --------- | ------------------------------------------- |
+| A       | SET                    | UNSET     | Item from shop/quest, OR tile formula error |
+| B       | UNSET                  | SET       | Block formula error                         |
+| C       | Both SET but different | -         | Read logic error                            |
 
 ### Step 3: Investigate Each Contradiction
 
 For each contradiction, check:
 
 1. **Is the item available from shops?**
+
    ```bash
    grep 'eventFlag_forStock="<flag>"' ShopLineupParam.param.xml
    ```
+
    If found → Expected behavior (shop purchase)
 
 2. **Is the item only world-pickup?**
@@ -210,11 +221,11 @@ For each contradiction, check:
 
 Common issues discovered:
 
-| Issue | Symptom | Fix |
-|-------|---------|-----|
-| Wrong base offset | All flags in block off | Adjust `base_offset` in ground_truth |
-| Wrong col_base | Tiles in certain columns fail | Adjust `col_base` (was 42→30) |
-| Bit mask error | Random flag misreads | Check `(1 << bit)` vs `(1 << (7-bit))` |
+| Issue             | Symptom                       | Fix                                    |
+| ----------------- | ----------------------------- | -------------------------------------- |
+| Wrong base offset | All flags in block off        | Adjust `base_offset` in ground_truth   |
+| Wrong col_base    | Tiles in certain columns fail | Adjust `col_base` (was 42→30)          |
+| Bit mask error    | Random flag misreads          | Check `(1 << bit)` vs `(1 << (7-bit))` |
 
 ### Step 5: Revalidate
 
@@ -232,6 +243,7 @@ cargo run -- discovery corroborate --all --slot 1 --save ER0000.sl2
 ### `scripts/flag_relationships.json`
 
 Structure:
+
 ```json
 {
   "nodes": {
@@ -260,6 +272,7 @@ Structure:
 ### `ground_truth_offsets.json`
 
 Tile formula section:
+
 ```json
 {
   "formulas": {
@@ -282,16 +295,17 @@ Tile formula section:
 
 ### Agreement Percentage
 
-| Range | Interpretation |
-|-------|----------------|
-| 90-100% | Formulas highly reliable |
-| 70-90% | Some items obtained via non-pickup methods |
-| 50-70% | Mixed acquisition (shop purchases common) |
-| <50% | Potential formula errors, investigate |
+| Range   | Interpretation                             |
+| ------- | ------------------------------------------ |
+| 90-100% | Formulas highly reliable                   |
+| 70-90%  | Some items obtained via non-pickup methods |
+| 50-70%  | Mixed acquisition (shop purchases common)  |
+| <50%    | Potential formula errors, investigate      |
 
 ### Inconclusive Results
 
 Pairs are marked "inconclusive" when:
+
 - Tile offset calculation fails (invalid coordinates)
 - Block offset calculation fails (unverified block base)
 - Either flag returns `None`
@@ -301,6 +315,7 @@ High inconclusive count indicates gaps in formula coverage.
 ### Expected Contradictions
 
 Not all contradictions are errors. Valid reasons:
+
 - Item purchased from merchant (shop flag, not world pickup)
 - Item obtained via quest reward
 - Item found in chest (different flag system)
@@ -318,6 +333,7 @@ python3 extract_flag_relationships.py
 ```
 
 Requires:
+
 - Python 3.8+
 - Decompiled game files at configured path
 - Access to `regulation-bin/*.param.xml` and `event/common.emevd.js`
@@ -329,6 +345,7 @@ Requires:
 ### Bit Position Convention
 
 The system uses consistent bit positioning:
+
 ```rust
 // Calculate bit position
 let bit_position = 7 - ((flag_id % 8) as u8);
@@ -351,6 +368,7 @@ let bit = 7 - (local_id % 8);
 ```
 
 Constants (verified):
+
 - `BASE_OFFSET`: 495830
 - `BYTES_PER_SLOT`: 875
 - `SLOTS_PER_ROW`: 40

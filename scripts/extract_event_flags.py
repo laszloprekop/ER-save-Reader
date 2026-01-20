@@ -1803,7 +1803,7 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
         if icon_id == 83:
             category = "Grace"
         else:
-            category = "Map POI"
+            category = "Landmark"
 
         # Derive region - try multiple methods
         region = None

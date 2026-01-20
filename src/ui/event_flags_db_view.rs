@@ -15,6 +15,7 @@ pub mod event_flags_db_view {
         BossDefeat,
         Remembrance,
         MapFragment,
+        Landmark,
         Grace,
         Cookbook,
         Whetblade,
@@ -41,6 +42,7 @@ pub mod event_flags_db_view {
                 EventFlagCategoryFilter::BossDefeat => category == EventFlagCategory::BossDefeat,
                 EventFlagCategoryFilter::Remembrance => category == EventFlagCategory::Remembrance,
                 EventFlagCategoryFilter::MapFragment => category == EventFlagCategory::MapFragment,
+                EventFlagCategoryFilter::Landmark => category == EventFlagCategory::Landmark,
                 EventFlagCategoryFilter::Grace => category == EventFlagCategory::Grace,
                 EventFlagCategoryFilter::Cookbook => category == EventFlagCategory::Cookbook,
                 EventFlagCategoryFilter::Whetblade => category == EventFlagCategory::Whetblade,
@@ -100,6 +102,7 @@ pub mod event_flags_db_view {
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Remembrance, "Remembrance");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Grace, "Grace");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::MapFragment, "Map");
+            ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Landmark, "Landmark");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Cookbook, "Cookbook");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Whetblade, "Whetblade");
         });
@@ -357,6 +360,7 @@ pub mod event_flags_db_view {
             EventFlagCategory::BossDefeat => Color32::from_rgb(255, 100, 100),   // Red
             EventFlagCategory::Remembrance => Color32::from_rgb(255, 180, 100),  // Orange
             EventFlagCategory::MapFragment => Color32::from_rgb(150, 200, 255),  // Light blue
+            EventFlagCategory::Landmark => Color32::from_rgb(180, 220, 255),     // Slightly different blue
             EventFlagCategory::Grace => Color32::from_rgb(255, 255, 150),        // Light yellow
             EventFlagCategory::Cookbook => Color32::from_rgb(200, 255, 200),     // Light green
             EventFlagCategory::Whetblade => Color32::from_rgb(200, 200, 255),    // Light purple

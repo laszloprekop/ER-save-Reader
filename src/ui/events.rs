@@ -1,7 +1,7 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText, ScrollArea};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::is_flag_set}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::is_flag_set}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
@@ -16,6 +16,7 @@ pub mod events {
                     let bosses = ui.add_sized([100., 40.], egui::Button::new("Bosses"));
                     let summoning_pools = ui.add_sized([100., 60.], egui::Button::new("Summoning\nPools"));
                     let colosseums = ui.add_sized([100., 40.], egui::Button::new("Colosseums"));
+                    let landmarks = ui.add_sized([100., 40.], egui::Button::new("Landmarks"));
                     let world_pickups = ui.add_sized([100., 40.], egui::Button::new("World Pickups"));
                     ui.separator();
                     let verification = ui.add_sized([100., 40.], egui::Button::new("Verification"));
@@ -27,6 +28,7 @@ pub mod events {
                     if bosses.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Bosses}
                     if summoning_pools.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::SummoningPools}
                     if colosseums.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Colosseums}
+                    if landmarks.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Landmarks}
                     if world_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::WorldPickups}
                     if verification.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Verification}
 
@@ -40,6 +42,7 @@ pub mod events {
                         EventsRoute::Bosses => {bosses.highlight();},
                         EventsRoute::SummoningPools => {summoning_pools.highlight();},
                         EventsRoute::Colosseums => {colosseums.highlight();},
+                        EventsRoute::Landmarks => {landmarks.highlight();},
                         EventsRoute::WorldPickups => {world_pickups.highlight();},
                         EventsRoute::Verification => {verification.highlight();},
                     }
@@ -61,6 +64,7 @@ pub mod events {
                     EventsRoute::Bosses => {bosses(ui, vm);},
                     EventsRoute::SummoningPools => {summoning_pools(ui, vm);},
                     EventsRoute::Colosseums => {colosseums(ui, vm);},
+                    EventsRoute::Landmarks => {landmarks_view(ui, vm);},
                     EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags);},
                     EventsRoute::Verification => {
                         verification_view(ui, &mut vm.slots[vm.index].events_vm.verification_vm);
@@ -269,6 +273,33 @@ pub mod events {
 
         for (colosseum, discovered) in colosseums_data {
             if let Some(info) = colosseums_lookup.get(colosseum) {
+                let status = if *discovered { "[X]" } else { "[ ]" };
+                let row_text = format!("{} | {} | {}", status, info.1, info.0);
+                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+            }
+        }
+    }
+
+    fn landmarks_view(ui: &mut Ui, vm: &mut ViewModel) {
+        let landmarks_data = &vm.slots[vm.index].events_vm.landmarks;
+
+        let discovered_count = landmarks_data.values().filter(|v| **v).count();
+        let total_count = landmarks_data.len();
+
+        // Header
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+        });
+        ui.separator();
+
+        let summary = format!("Landmarks: {}/{} discovered", discovered_count, total_count);
+        ui.label(RichText::new(&summary).strong());
+        ui.separator();
+
+        let landmarks_lookup = LANDMARKS.lock().unwrap();
+
+        for (landmark, discovered) in landmarks_data {
+            if let Some(info) = landmarks_lookup.get(landmark) {
                 let status = if *discovered { "[X]" } else { "[ ]" };
                 let row_text = format!("{} | {} | {}", status, info.1, info.0);
                 display_event_row(ui, &row_text, info.1, info.0, *discovered);

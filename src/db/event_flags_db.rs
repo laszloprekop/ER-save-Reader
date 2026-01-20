@@ -14,6 +14,7 @@ pub mod event_flags_db {
     use crate::db::bosses::bosses::BOSSES;
     use crate::db::cookbooks::books::COOKBOKS;
     use crate::db::whetblades::whetblades::WHETBLADES;
+    use crate::db::landmarks::landmarks::LANDMARKS;
     use crate::db::map_name::map_name::MapName;
 
     /// Event flag categories based on flag ID ranges and purposes
@@ -23,6 +24,7 @@ pub mod event_flags_db {
         BossDefeat,      // Boss defeat markers
         Remembrance,     // 9100-9199: Boss remembrance possession
         MapFragment,     // 62010-62084: Map fragment discovery
+        Landmark,        // 62100-62999: Map landmarks (POIs)
         Grace,           // Grace site discovery
         Cookbook,        // 67000-68950: Cookbook pickups
         Whetblade,       // 65000-65720: Whetstone blade unlocks
@@ -48,6 +50,7 @@ pub mod event_flags_db {
                 EventFlagCategory::BossDefeat => "Boss Defeat",
                 EventFlagCategory::Remembrance => "Remembrance",
                 EventFlagCategory::MapFragment => "Map Fragment",
+                EventFlagCategory::Landmark => "Landmark",
                 EventFlagCategory::Grace => "Grace",
                 EventFlagCategory::Cookbook => "Cookbook",
                 EventFlagCategory::Whetblade => "Whetblade",
@@ -73,6 +76,7 @@ pub mod event_flags_db {
                 EventFlagCategory::BossDefeat,
                 EventFlagCategory::Remembrance,
                 EventFlagCategory::MapFragment,
+                EventFlagCategory::Landmark,
                 EventFlagCategory::Grace,
                 EventFlagCategory::Cookbook,
                 EventFlagCategory::Whetblade,
@@ -220,8 +224,55 @@ pub mod event_flags_db {
             return get_dungeon_name(map_area, section);
         }
 
-        // System/progression flags
-        "Various"
+        // Landmark flags (62100-62999)
+        if flag_id >= 62100 && flag_id < 63000 {
+            return get_landmark_region(flag_id);
+        }
+
+        // System/progression flags - no specific region
+        ""
+    }
+
+    /// Get region name for landmark flags based on flag ID ranges
+    fn get_landmark_region(flag_id: u32) -> &'static str {
+        match flag_id {
+            // Limgrave & Stormveil
+            62100..=62138 => "Limgrave",
+            // Weeping Peninsula
+            62150..=62184 => "Weeping Peninsula",
+            // Liurnia of the Lakes
+            62200..=62284 => "Liurnia of the Lakes",
+            // Altus Plateau
+            62300..=62348 => "Altus Plateau",
+            // Mt. Gelmir
+            62350..=62389 => "Mt. Gelmir",
+            // Caelid
+            62400..=62438 => "Caelid",
+            // Greyoll's Dragonbarrow
+            62460..=62475 => "Greyoll's Dragonbarrow",
+            // Mountaintops of the Giants
+            62510..=62531 => "Mountaintops of the Giants",
+            // Consecrated Snowfield
+            62550..=62574 => "Consecrated Snowfield",
+            // Siofra River
+            62610..=62634 => "Siofra River",
+            // Ainsel River
+            62640..=62640 => "Ainsel River",
+            // Deeproot Depths
+            62700..=62740 => "Deeproot Depths",
+            // Mohgwyn Palace
+            62800..=62831 => "Mohgwyn Palace",
+            // Lake of Rot
+            62840..=62844 => "Lake of Rot",
+            // Nokron / Nokstella
+            62850..=62891 => "Nokron / Nokstella",
+            // Leyndell
+            62900..=62943 => "Leyndell",
+            // Crumbling Farum Azula
+            62950..=62981 => "Crumbling Farum Azula",
+            // DLC areas (if any in this range)
+            _ => ""
+        }
     }
 
     /// Get region name from tile coordinates
@@ -456,7 +507,7 @@ pub mod event_flags_db {
                     flag_id: *flag_id,
                     name: name.to_string(),
                     category: EventFlagCategory::Cookbook,
-                    region: "Various".to_string(),
+                    region: String::new(), // No specific region data
                     coords: None,
                 });
             }
@@ -476,7 +527,27 @@ pub mod event_flags_db {
                     flag_id: *flag_id,
                     name: name.to_string(),
                     category: EventFlagCategory::Whetblade,
-                    region: "Various".to_string(),
+                    region: String::new(), // No specific region data
+                    coords: None,
+                });
+            }
+        }
+
+        // ========================================================================
+        // IMPORT FROM LANDMARKS (landmarks.rs) - ~308 entries
+        // ========================================================================
+        if let Ok(landmarks_guard) = LANDMARKS.lock() {
+            for (_landmark, (flag_id, name)) in landmarks_guard.iter() {
+                if *flag_id == 0 || seen_flags.contains(flag_id) {
+                    continue;
+                }
+                seen_flags.insert(*flag_id);
+
+                entries.push(EventFlagEntryOwned {
+                    flag_id: *flag_id,
+                    name: name.to_string(),
+                    category: EventFlagCategory::Landmark,
+                    region: resolve_region(*flag_id).to_string(),
                     coords: None,
                 });
             }

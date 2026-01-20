@@ -104,7 +104,7 @@ class FlagFormulas:
         # World graces (VERIFIED from validation flags)
         76000: BlockConfig(76000, 3250, 1000, "verified", "World graces - The First Step (76100)"),
         77000: BlockConfig(77000, 3375, 1000, "calculated", "Extended world graces (76000 + 125)"),
-        78000: BlockConfig(78000, 3500, 1000, "unverified", "Map POI flags - base unconfirmed"),
+        78000: BlockConfig(78000, 3500, 1000, "unverified", "Landmark flags - base unconfirmed"),
     }
 
     # Validation flags - these are ALWAYS correct (anchors for detection)

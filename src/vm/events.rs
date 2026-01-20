@@ -1,7 +1,7 @@
 pub mod events_view_model {
     use std::collections::BTreeMap;
 
-    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, event_flags::event_flags::EVENT_FLAGS, graces::maps::{Grace, GRACES}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
+    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, event_flags::event_flags::EVENT_FLAGS, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
 
     #[derive(Clone)]
     pub enum EventsRoute {
@@ -13,6 +13,7 @@ pub mod events_view_model {
         Bosses,
         SummoningPools,
         Colosseums,
+        Landmarks,
         WorldPickups,
         Verification,
     }
@@ -71,6 +72,7 @@ pub mod events_view_model {
         pub bosses: BTreeMap<Boss, bool>,
         pub summoning_pools: BTreeMap<SummoningPool, bool>,
         pub colosseums: BTreeMap<Colosseum, bool>,
+        pub landmarks: BTreeMap<Landmark, bool>,
         pub world_pickups_filter: WorldPickupsFilter,
         /// Verification comparison view model (per-slot)
         pub verification_vm: VerificationViewModel,
@@ -88,6 +90,7 @@ pub mod events_view_model {
                 bosses: Default::default(),
                 summoning_pools: Default::default(),
                 colosseums: Default::default(),
+                landmarks: Default::default(),
                 world_pickups_filter: Default::default(),
                 verification_vm: Default::default(),
              }
@@ -149,6 +152,18 @@ pub mod events_view_model {
                 let event_flag_info = id_to_offset_lookup[&value.0];
                 let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
                 events_vm.colosseums.insert(*key, on);
+            }
+
+            // Landmarks
+            for (key, value) in LANDMARKS.lock().unwrap().iter() {
+                // value.0 is the flag_id
+                if let Some(event_flag_info) = id_to_offset_lookup.get(&value.0) {
+                    let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
+                    events_vm.landmarks.insert(*key, on);
+                } else {
+                    // Flag not in lookup, default to false (not discovered)
+                    events_vm.landmarks.insert(*key, false);
+                }
             }
 
             events_vm
