@@ -181,13 +181,24 @@ fn extract_flag_id(filename: &str) -> Option<u32> {
 
 /// Map character name to slot index
 fn character_to_slot(character: &str) -> usize {
-    match character.to_lowercase().as_str() {
+    let lower = character.to_lowercase();
+
+    // Handle "Slot X" pattern dynamically
+    if lower.starts_with("slot ") {
+        if let Ok(slot_num) = lower[5..].trim().parse::<usize>() {
+            return slot_num;
+        }
+    }
+
+    // Named character mappings
+    match lower.as_str() {
         "confessor" => 0,
         "wretch" => 1,
         "v1" => 2,
         "v2" => 3,
         "v3" => 4,
         "sam" => 5,
+        "wr1" => 6,
         _ => 0, // Default to slot 0
     }
 }

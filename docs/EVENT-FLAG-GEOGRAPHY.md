@@ -144,14 +144,16 @@ Dungeons and special areas use an 8-digit format:
 
 | Area | Name | Base Offset | Status |
 |------|------|-------------|--------|
-| 14 | Subterranean Shunning-Grounds (Sewers) | 29987 | Verified |
+| 14 | **Tutorial Areas** (Chapel, Cave of Knowledge, Stranded Graveyard) | 29987 | Verified |
 | 18 | Roundtable Hold | 43487 | Verified |
-| 19 | Elden Throne (final boss area) | 1426125 | Needs Review |
-| 20 | Stranded Graveyard / Cave of Knowledge | 2500000 | Needs Review |
+| 19 | Chapel of Anticipation (per code) | 46862 | Needs Review |
+| 20 | Stranded Graveyard (per code) | 50237 | Needs Review |
 | 35 | Mohgwyn Palace | - | Unverified |
-| 39 | Deeproot Depths | - | Unverified |
+| 39 | Deeproot Depths / Elden Throne | - | Unverified |
 
-**Note**: Chapel of Anticipation does NOT use Area 19 - it shares Area 10 (Stormveil Castle) flags. The Grafted Scion boss uses flag 10010800.
+**IMPORTANT**: Empirical testing (Slot 6 Chapel, Slot 1 Cave) shows tutorial events write to Area 14 offset (29987), NOT Areas 19/20. The areas 19/20 offsets from pickup_flags.rs may be unused or for different events.
+
+**Note**: The Grafted Scion boss uses flag 10010800 (Area 10 format).
 
 **Section Size**: 1125 bytes per section
 

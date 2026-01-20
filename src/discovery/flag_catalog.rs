@@ -280,7 +280,7 @@ impl FlagCatalog {
             11_000_000..=11_999_999 => format!("Raya Lucaria Event {}", flag_id % 1_000_000),
             12_000_000..=12_999_999 => format!("Underground Event {}", flag_id % 1_000_000),
             13_000_000..=13_999_999 => format!("Leyndell Event {}", flag_id % 1_000_000),
-            14_000_000..=14_999_999 => format!("Shunning-Grounds Event {}", flag_id % 1_000_000),
+            14_000_000..=14_999_999 => format!("Tutorial Event {}", flag_id % 1_000_000), // Chapel, Cave of Knowledge, Stranded Graveyard
             15_000_000..=15_999_999 => format!("Haligtree Event {}", flag_id % 1_000_000),
             16_000_000..=16_999_999 => format!("Farum Azula Event {}", flag_id % 1_000_000),
 

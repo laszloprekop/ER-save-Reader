@@ -4,6 +4,40 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.14 - Area 14 = Tutorial Areas Discovery
+
+### Key Discovery
+- **Area 14 is Tutorial Areas, NOT Shunning-Grounds**
+  - Chapel of Anticipation, Cave of Knowledge, and Stranded Graveyard all write to Area 14 (offset 29987)
+  - Verified from 6,722 unique flags across Slot 6 Chapel and Slot 1 Cave empirical data
+  - Areas 19/20 offsets from code appear unused for tutorial events
+
+### Bug Fixes
+- **Fixed reverse lookup priority**: Block flags now checked BEFORE simple flags
+  - Prevents misidentification of flags in 2500-3500 byte range
+  - Example: byte 2625 correctly identified as block 71000, not simple flag 21000
+
+### Features
+- **Dynamic slot mapping**: snapshot_batch.rs now handles "Slot X" pattern dynamically
+  - Added "wr1" => 6, "sam" => 5 character mappings
+
+### Documentation
+- **Block overlaps documented**: Flag-islands.md now explains non-contiguous storage
+  - Blocks 60000, 71000, 72000, 73000 have overlapping byte ranges
+  - Not a bug - reflects FromSoft's flag allocation strategy
+- **EVENT-FLAG-GEOGRAPHY.md**: Corrected Area 14 from "Shunning-Grounds" to "Tutorial Areas"
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated Area 14, 19, 20 with corrected notes
+- `src/discovery/reverse_lookup.rs`: Fixed block flag priority
+- `src/discovery/flag_catalog.rs`: Changed Area 14 label to "Tutorial Event"
+- `src/discovery/snapshot_batch.rs`: Added dynamic slot mapping
+- `docs/Flag-islands.md`: Added block overlap documentation
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Corrected Area 14 documentation
+- `Cargo.toml`: Bumped to 0.4.14
+
+---
+
 ## v0.4.13 - Area 19/20 Formula Investigation
 
 ### Features

@@ -97,17 +97,20 @@ impl FlagReverser {
     pub fn reverse_lookup(&self, byte_offset: usize, bit_position: u8) -> Vec<PossibleFlagType> {
         let mut results = Vec::new();
 
+        // IMPORTANT: Check block flags FIRST - they are verified and more specific
+        // than simple flags. Block 71000+ can have base_offsets < 7500, which would
+        // otherwise incorrectly match simple flag calculation.
+        if let Some(block_flag) = self.try_reverse_block(byte_offset, bit_position) {
+            results.push(block_flag);
+        }
+
         // Try simple flag (0-59999): byte = flag_id / 8, bit = 7 - (flag_id % 8)
-        if byte_offset < 7500 { // 60000 / 8 = 7500
+        // Only if no block flag matched at this offset
+        if results.is_empty() && byte_offset < 7500 { // 60000 / 8 = 7500
             let flag_id = (byte_offset * 8 + (7 - bit_position as usize)) as u32;
             if flag_id < 60000 {
                 results.push(PossibleFlagType::Simple(flag_id));
             }
-        }
-
-        // Try block flag (60000-99999)
-        if let Some(block_flag) = self.try_reverse_block(byte_offset, bit_position) {
-            results.push(block_flag);
         }
 
         // Try tile flag (10-digit)
