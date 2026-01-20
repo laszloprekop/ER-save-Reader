@@ -144,7 +144,7 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
 /// - YY: tile column (30-58+)
 /// - ZZZZ: local ID (0-6999 trackable, 7000+ untrackable)
 ///
-/// Uses VERIFIED_TILE_BASE_OFFSET (495830) from ground_truth_offsets.json
+/// Uses VERIFIED_TILE_BASE_OFFSET (485330) from ground_truth_offsets.json
 fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let bit = (7 - (flag_id % 8)) as u8;
 
@@ -554,12 +554,28 @@ mod tests {
         // tile_index = (1042370000 - 1_000_000_000) / 10000 = 4237
         // row = 4237 / 100 = 42, col = 4237 % 100 = 37
         // Slot = (42-33)*40 + (37-30) = 9*40 + 7 = 367
-        // Base = 337359 (verified) + 367*875 = 337359 + 321125 = 658484
+        // Base = 485330 (verified via 69 empirical flags) + 367*875 = 485330 + 321125 = 806455
         let result = get_flag_offset(1042370000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 658484);  // Corrected with TILE_BASE=337359
+        assert_eq!(byte, 806455);  // Corrected with TILE_BASE=485330
         assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_tile_confirmed_empirical() {
+        // Test confirmed flag from discoveries.json (status=confirmed)
+        // Flag 1041740610: empirical byte_offset=803906
+        // tile_index = (1041740610 - 1_000_000_000) / 10000 = 4174
+        // local_id = 1041740610 % 10000 = 610
+        // row = 4174 / 100 = 41, col = 4174 % 100 = 74
+        // slot = (41-33)*40 + (74-30) = 8*40 + 44 = 364
+        // byte_offset = 485330 + 364*875 + 610/8 = 485330 + 318500 + 76 = 803906
+        let result = get_flag_offset(1041740610);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 803906, "Empirically confirmed byte offset");
+        assert_eq!(bit, 5); // 7 - (610 % 8) = 7 - 2 = 5
     }
 
     #[test]
@@ -584,6 +600,28 @@ mod tests {
         let (byte, bit) = result.unwrap();
         assert_eq!(byte, 4112 + 7030 / 8);  // 4990
         assert_eq!(bit, (7 - (7030 % 8)) as u8);
+    }
+
+    #[test]
+    fn test_verified_stormveil_bosses() {
+        // Stormveil Castle (area 10) verified via verification-records.jsonl
+        // Base for 10_00 is 4112, verified by:
+        //   10000800 (Godrick): byte=4212, matches=true
+        //   10000850 (Margit): byte=4218, matches=true
+
+        // Flag 10000800 (Godrick): byte=4112+800/8=4212, bit=7-(800%8)=7
+        let result = get_flag_offset(10000800);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 4212);
+        assert_eq!(bit, 7);
+
+        // Flag 10000850 (Margit): byte=4112+850/8=4218, bit=7-(850%8)=5
+        let result = get_flag_offset(10000850);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 4218);
+        assert_eq!(bit, 5);
     }
 
     #[test]

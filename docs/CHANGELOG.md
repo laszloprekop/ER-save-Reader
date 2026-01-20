@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.11 - Tile Formula Base Offset Correction
+
+### Fixes
+- **Tile formula base offset**: Corrected from 337359 to 485330
+  - Analysis of 69 empirical flags from discoveries.json showed consistent +147971 byte offset difference
+  - Confirmed via flag 1041740610 (byte_offset=803906 matches formula exactly)
+  - All 69 tile flags now calculate correct offsets
+
+### Technical Details
+- **Root cause**: Previous base offset (337359) was incorrectly derived
+- **Verification method**: Cross-referenced all tile flags in discoveries.json against calculated offsets
+- **Result**: 100% match rate after correction
+
+### Tests Added
+- `test_tile_confirmed_empirical()`: Validates empirically confirmed flag 1041740610
+- Updated `test_tile_flag_formula_verified()` with corrected expected values
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated tile_formula.base_offset to 485330, added proven tile flag
+- `src/db/pickup_flags.rs`: Updated comment, fixed test values, added new test
+- `src/discovery/offset_probe.rs`: Updated tile_base constant from 495830 to 485330
+- `src/generated/ground_truth.rs`: Auto-regenerated with correct value
+- `Cargo.toml`: Bumped to 0.4.11
+
+---
+
 ## v0.4.10 - UI Unverified Indicator Fix
 
 ### Fixes

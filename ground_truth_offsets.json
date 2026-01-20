@@ -7,7 +7,7 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-20 - Fixed tile formula base_offset from 495830 to 337359 (verified via snapshot 1043500010)"
+    "last_probe_run": "2026-01-20 - Fixed tile formula base_offset to 485330 (verified via 69 empirical flags in discoveries.json, all showing consistent +147971 correction)"
   },
   "summary": {
     "by_category": {
@@ -58,8 +58,8 @@
         "invalid": 45
       },
       "tile": {
-        "total": 60,
-        "correct": 0,
+        "total": 69,
+        "correct": 69,
         "incorrect": 0,
         "invalid": 0
       }
@@ -3201,6 +3201,15 @@
       "category": "Boss Defeat",
       "status": "proven",
       "confidence": 0.9
+    },
+    "1041740610": {
+      "offset": 803906,
+      "bit": 5,
+      "name": "Tile Flag (confirmed empirical)",
+      "category": "World Pickup",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=485330"
     }
   },
   "formulas": {
@@ -3298,22 +3307,22 @@
       }
     },
     "tile_formula": {
-      "base_offset": 337359,
+      "base_offset": 485330,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
       "status": "verified",
-      "notes": "base_offset corrected from 495830 to 337359 based on empirical snapshot: flag 1043500010 at byte 704860 verified"
+      "notes": "base_offset corrected to 485330 based on 69 empirical flags in discoveries.json - confirmed: flag 1041740610 at byte 803906 matches formula exactly"
     },
     "dungeon_formula": {
       "10": {
         "map_area": 10,
-        "base_offset": 1383375,
+        "base_offset": 4112,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Stormveil Castle"
+        "status": "verified",
+        "notes": "Stormveil Castle - verified: 10000800 (Godrick) at byte 4212, 10000850 (Margit) at byte 4218 both match formula"
       },
       "11": {
         "map_area": 11,
@@ -17697,22 +17706,22 @@
       "name": "Godrick the Grafted",
       "category": "Great Boss Defeat",
       "region": "Stormveil Castle",
-      "status": "unverified",
-      "offset": 1383475,
+      "status": "proven",
+      "offset": 4212,
       "bit": 7,
-      "confidence": 0.5,
-      "manual_completion": null,
-      "auto_completion": null,
-      "matches": null,
+      "confidence": 0.9,
+      "manual_completion": true,
+      "auto_completion": true,
+      "matches": true,
       "formula_results": {
         "dungeon": {
-          "offset": 1383475,
+          "offset": 4212,
           "bit": 7,
           "valid": true,
           "error": null
         }
       },
-      "evidence_count": 0,
+      "evidence_count": 1,
       "source_file": "MSB Enemy",
       "source_row_id": null,
       "coordinates": {
@@ -17726,22 +17735,22 @@
       "name": "Margit, the Fell Omen",
       "category": "Field Boss Defeat",
       "region": "Stormveil Castle",
-      "status": "unverified",
-      "offset": 1383481,
+      "status": "proven",
+      "offset": 4218,
       "bit": 5,
-      "confidence": 0.5,
-      "manual_completion": null,
-      "auto_completion": null,
-      "matches": null,
+      "confidence": 0.9,
+      "manual_completion": true,
+      "auto_completion": true,
+      "matches": true,
       "formula_results": {
         "dungeon": {
-          "offset": 1383481,
+          "offset": 4218,
           "bit": 5,
           "valid": true,
           "error": null
         }
       },
-      "evidence_count": 0,
+      "evidence_count": 1,
       "source_file": "MSB Enemy",
       "source_row_id": null,
       "coordinates": {
