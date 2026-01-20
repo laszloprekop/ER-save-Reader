@@ -56,76 +56,34 @@ pub const MAX_TILE_LOCAL_ID: u32 = TILE_MAX_LOCAL_ID;
 // DUNGEON BASE OFFSETS (complete mapping from elden-map)
 // ============================================================================
 
-/// Complete dungeon base offsets for save file event flags
+/// Dungeon base offsets for save file event flags (VERIFIED ONLY)
+///
+/// IMPORTANT: Only include areas that have been EMPIRICALLY VERIFIED against actual save files.
+/// Unverified areas cause false positives in the UI. Use VERIFIED_DUNGEON_BASES (from
+/// ground_truth_offsets.json) for areas with verified formulas.
 ///
 /// CORRECTED (2026-01-09): Empirical verification against actual save files showed
 /// the previous offsets (1,383,375+) were from runtime memory, not save file format.
-/// Correct base for Stormveil (10_00) is 4112, verified against:
-/// - Godskin Prayerbook (flag 10007990): byte 5110, bit 1 ✓
-/// - Fire Grease (flag 10007040): byte 4992 ✓
-/// - Arbalest (flag 10007550): byte 5055 ✓
 ///
 /// Key format: "XX_YY" where XX is map area, YY is section
-/// Formula: offset = 4112 + slot_index * 1125 (where slot comes from legacymap.eventflagalloclist)
+/// Formula: offset = 4112 + slot_index * 1125 (from legacymap.eventflagalloclist)
+///
+/// VERIFIED areas (matched empirical save file data):
+/// - Area 10: Stormveil Castle - Godskin Prayerbook, Fire Grease, Arbalest all verified
+/// - Area 14: Tutorial Areas - 1968/1968 flags match (also verified slot formula)
+/// - Area 18: Roundtable Hold - 176/176 flags match (also verified slot formula)
+/// - Areas 30, 31, 32: Use VERIFIED_DUNGEON_BASES (different values than slot formula!)
 pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(|| {
     HashMap::from([
-        // Stormveil Castle (m10) - Slot 0, 1
+        // Stormveil Castle (m10) - Slot 0, 1 - VERIFIED
         ("10_00", 4112), ("10_01", 5237),
-        // Leyndell (m11) - Slots 4, 5, 6, 7
-        ("11_00", 8612), ("11_05", 9737), ("11_10", 10862), ("11_71", 11987),
-        // Underground areas (m12) - Slots 11-19
-        ("12_01", 16487), ("12_02", 17612), ("12_03", 18737), ("12_04", 19862),
-        ("12_05", 20987), ("12_06", 22112), ("12_07", 23237), ("12_08", 24362),
-        ("12_09", 25487),
-        // Crumbling Farum Azula (m13) - Slot 20
-        ("13_00", 26612),
-        // Academy of Raya Lucaria (m14) - Slot 23
+        // Tutorial Areas (m14) - Slot 23 - VERIFIED (1968/1968 flags match)
         ("14_00", 29987),
-        // Caria Manor (m15) - Slot 26
-        ("15_00", 33362),
-        // Volcano Manor (m16) - Slot 29
-        ("16_00", 36737),
-        // Roundtable Hold (m18) - Slot 35
+        // Roundtable Hold (m18) - Slot 35 - VERIFIED (176/176 flags match)
         ("18_00", 43487),
-        // Chapel of Anticipation (m19) - Slot 38
-        ("19_00", 46862),
-        // Stranded Graveyard / Cave of Knowledge (m20) - Slot 41
-        ("20_00", 50237),
-        // Miquella's Haligtree (m21) - Slots 44, 45, 46
-        ("21_00", 53612), ("21_01", 54737), ("21_02", 55862),
-        // Castle Sol (m22) - Slot 47
-        ("22_00", 59237),
-        // Catacombs (m30) - Slots 78-98
-        ("30_00", 94112), ("30_01", 95237), ("30_02", 96362), ("30_03", 97487),
-        ("30_04", 98612), ("30_05", 99737), ("30_06", 100862), ("30_07", 101987),
-        ("30_08", 103112), ("30_09", 104237), ("30_10", 105362), ("30_11", 106487),
-        ("30_12", 107612), ("30_13", 108737), ("30_14", 109862), ("30_15", 110987),
-        ("30_16", 112112), ("30_17", 113237), ("30_18", 114362), ("30_19", 115487),
-        ("30_20", 116612),
-        // Caves (m31) - Slots 108-129
-        ("31_00", 127862), ("31_01", 128987), ("31_02", 130112), ("31_03", 131237),
-        ("31_04", 132362), ("31_05", 133487), ("31_06", 134612), ("31_07", 135737),
-        ("31_09", 137987), ("31_10", 139112), ("31_11", 140237), ("31_12", 141362),
-        ("31_15", 144737), ("31_17", 145862), ("31_18", 146987), ("31_19", 148112),
-        ("31_20", 149237), ("31_21", 150362), ("31_22", 151487),
-        // Tunnels (m32) - Slots 138-149
-        ("32_00", 161612), ("32_01", 162737), ("32_02", 163862), ("32_04", 164987),
-        ("32_05", 167237), ("32_07", 168362), ("32_08", 169487), ("32_11", 170612),
-        // Divine Towers (m34) - Slots 58-64
-        ("34_10", 71612), ("34_11", 72737), ("34_12", 73862), ("34_13", 74987),
-        ("34_14", 76112), ("34_15", 77237), ("34_16", 78362),
-        // Mohgwyn Palace (m35) - Slot 41 (same as m20)
-        ("35_00", 50237),
-        // Elden Throne (m39) - Slot 44 (same as m21_00)
-        ("39_20", 53612),
-        // Hero's Graves (m40) - Slot 150+
-        ("40_00", 171737),
-        // Minor dungeons (m41) - Slot 158+
-        ("41_00", 180737),
-        // Crystal tunnels (m42) - Slot 167+
-        ("42_00", 190737), ("42_02", 191862),
-        // Misc dungeons (m43) - Slot 176+
-        ("43_00", 200737),
+        // NOTE: Areas 30, 31, 32 (catacombs, caves, tunnels) are handled by
+        // VERIFIED_DUNGEON_BASES with empirically-discovered bases (27411, 28634, 31577)
+        // which differ from the slot formula. Do NOT add them here.
     ])
 });
 
