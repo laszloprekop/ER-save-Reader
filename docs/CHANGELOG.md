@@ -4,6 +4,20 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.10 - UI Unverified Indicator Fix
+
+### Fixes
+- **Unverified indicator position**: Moved "!" indicator from end of row to directly after status brackets
+  - Before: `[X] | Grace Name | Region | 76100!`
+  - After: `[X]! | Grace Name | Region | 76100`
+- **Import cleanup**: Removed unused `ScrollArea` and `VerificationStatus` imports from events.rs
+
+### Files Modified
+- `src/ui/events.rs`: Updated `display_event_row()` to insert "!" after brackets
+- `Cargo.toml`: Bumped to 0.4.10
+
+---
+
 ## v0.4.9 - Block and Dungeon Formula Verification
 
 ### Features

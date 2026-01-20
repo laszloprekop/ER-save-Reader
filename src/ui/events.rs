@@ -1,7 +1,7 @@
 pub mod events {
 
-    use eframe::egui::{self, Ui, Color32, RichText, ScrollArea};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, VerificationStatus}}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use eframe::egui::{self, Ui, Color32, RichText};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
@@ -311,9 +311,11 @@ pub mod events {
         let verification_status = get_flag_verification_status(flag_id);
         let is_unverified = verification_status.is_uncertain();
 
-        // Add "!" indicator for unverified flags
+        // Add "!" indicator for unverified flags - insert after the status brackets [X] or [ ]
         let display_text = if is_unverified {
-            format!("{}!", row_text)
+            // Insert "!" after the first 3 characters (the [X] or [ ] part)
+            let (status_part, rest) = row_text.split_at(3.min(row_text.len()));
+            format!("{}!{}", status_part, rest)
         } else {
             row_text.to_string()
         };
