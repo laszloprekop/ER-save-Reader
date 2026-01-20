@@ -16,6 +16,11 @@ use crate::db::pickup_flags::EVENT_FLAGS_SIZE;
 
 use super::relationship_graph::{RelationshipGraph, CorroborationPair, RelationshipType};
 use super::discovery_store::{DiscoveryStore, OffsetObservation, ObservationSource};
+use super::chain_data::{
+    BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES, GEOGRAPHIC_REGIONS,
+    find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
+    is_late_game_flag, get_geographic_correlations,
+};
 
 /// Configuration for corroboration engine
 #[derive(Debug, Clone)]
@@ -92,6 +97,45 @@ pub struct DualFormulaResult {
     pub item_name: Option<String>,
 }
 
+/// Result of boss defeat chain validation
+#[derive(Debug, Clone)]
+pub struct BossChainResult {
+    pub boss_name: String,
+    pub defeat_flag: u32,
+    pub defeat_set: Option<bool>,
+    pub remembrance_flag: u32,
+    pub remembrance_set: Option<bool>,
+    pub great_rune_flag: Option<u32>,
+    pub great_rune_set: Option<bool>,
+    pub activation_flag: Option<u32>,
+    pub activation_set: Option<bool>,
+    pub chain_valid: bool,
+    pub contradiction: Option<String>,
+}
+
+/// Result of area prerequisite validation
+#[derive(Debug, Clone)]
+pub struct AreaPrerequisiteResult {
+    pub area_name: String,
+    pub area_flag_checked: u32,
+    pub area_flag_set: Option<bool>,
+    pub required_flags: Vec<(u32, Option<bool>)>,
+    pub all_required_set: bool,
+    pub any_required_set: bool,
+    pub valid: bool,
+    pub contradiction: Option<String>,
+}
+
+/// Result of geographic correlation validation
+#[derive(Debug, Clone)]
+pub struct GeographicCorrelationResult {
+    pub region_name: String,
+    pub source_flag: u32,
+    pub source_set: Option<bool>,
+    pub correlated_flags: Vec<(u32, &'static str, Option<bool>)>,
+    pub correlation_ratio: f64,
+}
+
 /// Result of corroboration check for a flag
 #[derive(Debug, Clone)]
 pub struct CorroborationResult {
@@ -99,6 +143,9 @@ pub struct CorroborationResult {
     pub status: CorroborationStatus,
     pub related_checks: Vec<RelatedFlagCheck>,
     pub dual_formula: Option<DualFormulaResult>,
+    pub boss_chain: Option<BossChainResult>,
+    pub area_prerequisite: Option<AreaPrerequisiteResult>,
+    pub geographic_correlation: Option<GeographicCorrelationResult>,
     pub agreement_ratio: f64,
     pub confidence_adjustment: f64,
 }
@@ -185,6 +232,22 @@ impl CorroborationEngine {
                     // Map discovery links
                     Some(expected_set)
                 }
+                RelationshipType::BossDefeatChain => {
+                    // Boss chain: if later flag is set, earlier must be set
+                    Some(expected_set)
+                }
+                RelationshipType::AreaPrerequisite => {
+                    // Area prerequisite: if area flag set, prerequisite must be set
+                    if expected_set { Some(true) } else { None }
+                }
+                RelationshipType::GeographicProximity => {
+                    // Geographic proximity: soft correlation
+                    None  // Don't count towards agreement, just informational
+                }
+                RelationshipType::ScrollUnlock => {
+                    // If unlock (spell) is available, scroll pickup should be set
+                    if expected_set { Some(true) } else { None }
+                }
             };
 
             // Skip if can't determine expectation
@@ -225,6 +288,29 @@ impl CorroborationEngine {
             }
         }
 
+        // Check boss defeat chain if applicable
+        let boss_chain = self.check_boss_chain(flag_id, event_flags);
+        if let Some(ref bc) = boss_chain {
+            if bc.chain_valid {
+                agrees += 1;
+            } else if bc.contradiction.is_some() {
+                disagrees += 2; // Boss chain contradictions are severe
+            }
+        }
+
+        // Check area prerequisite if this is a late-game flag
+        let area_prerequisite = self.check_area_prerequisite(flag_id, expected_set, event_flags);
+        if let Some(ref ap) = area_prerequisite {
+            if ap.valid {
+                agrees += 1;
+            } else if ap.contradiction.is_some() {
+                disagrees += 2; // Area prerequisite contradictions are severe
+            }
+        }
+
+        // Check geographic correlation
+        let geographic_correlation = self.check_geographic_correlation(flag_id, event_flags);
+
         // Calculate agreement ratio
         let total_checks = agrees + disagrees;
         let agreement_ratio = if total_checks > 0 {
@@ -259,6 +345,9 @@ impl CorroborationEngine {
             status,
             related_checks,
             dual_formula,
+            boss_chain,
+            area_prerequisite,
+            geographic_correlation,
             agreement_ratio,
             confidence_adjustment,
         }
@@ -315,6 +404,183 @@ impl CorroborationEngine {
             block_set,
             both_agree,
             item_name: pair.item_name.clone(),
+        })
+    }
+
+    /// Check boss defeat chain validation
+    /// Validates that boss defeat → remembrance → great rune → activation chain is consistent
+    fn check_boss_chain(&self, flag_id: u32, event_flags: &[u8]) -> Option<BossChainResult> {
+        // Check if this flag is part of a boss chain
+        let chain = if let Some(c) = find_boss_chain_by_defeat(flag_id) {
+            c
+        } else if let Some(c) = find_boss_chain_by_remembrance(flag_id) {
+            c
+        } else if (160..=167).contains(&flag_id) {
+            // Great rune possession flags
+            BOSS_DEFEAT_CHAINS.iter().find(|c| c.great_rune_flag == Some(flag_id))?
+        } else if (180..=187).contains(&flag_id) {
+            // Great rune activation flags
+            BOSS_DEFEAT_CHAINS.iter().find(|c| c.activation_flag == Some(flag_id))?
+        } else if (9101..=9120).contains(&flag_id) {
+            // Remembrance flags
+            find_boss_chain_by_remembrance(flag_id)?
+        } else {
+            return None;
+        };
+
+        // Read all chain flags
+        let defeat_set = self.read_flag(chain.defeat_flag, event_flags);
+        let remembrance_set = self.read_flag(chain.remembrance_flag, event_flags);
+        let great_rune_set = chain.great_rune_flag.and_then(|f| self.read_flag(f, event_flags));
+        let activation_set = chain.activation_flag.and_then(|f| self.read_flag(f, event_flags));
+
+        // Check for contradictions (later flags set without earlier flags)
+        let mut contradiction = None;
+
+        // Remembrance requires defeat
+        if remembrance_set == Some(true) && defeat_set == Some(false) {
+            contradiction = Some(format!("Remembrance set but {} not defeated", chain.name));
+        }
+
+        // Great rune requires defeat
+        if great_rune_set == Some(true) && defeat_set == Some(false) {
+            contradiction = Some(format!("Great Rune possessed but {} not defeated", chain.name));
+        }
+
+        // Activation requires possession
+        if activation_set == Some(true) && great_rune_set == Some(false) {
+            contradiction = Some(format!("Great Rune activated but not possessed for {}", chain.name));
+        }
+
+        // Chain is valid if no contradictions and at least one flag readable
+        let chain_valid = contradiction.is_none() &&
+            (defeat_set.is_some() || remembrance_set.is_some());
+
+        Some(BossChainResult {
+            boss_name: chain.name.to_string(),
+            defeat_flag: chain.defeat_flag,
+            defeat_set,
+            remembrance_flag: chain.remembrance_flag,
+            remembrance_set,
+            great_rune_flag: chain.great_rune_flag,
+            great_rune_set,
+            activation_flag: chain.activation_flag,
+            activation_set,
+            chain_valid,
+            contradiction,
+        })
+    }
+
+    /// Check area prerequisite validation
+    /// Validates that late-game area flags are only set if prerequisites are met
+    fn check_area_prerequisite(&self, flag_id: u32, expected_set: bool, event_flags: &[u8]) -> Option<AreaPrerequisiteResult> {
+        // Only check if flag is expected to be set and is in a late-game area
+        if !expected_set || !is_late_game_flag(flag_id) {
+            return None;
+        }
+
+        // Find which area this flag belongs to
+        let area = AREA_PREREQUISITES.iter().find(|a| {
+            // Check landmark range
+            if let Some((start, end)) = a.landmark_range {
+                if flag_id >= start && flag_id <= end {
+                    return true;
+                }
+            }
+            // Check area flags
+            flag_id >= a.area_flags_start && flag_id < a.area_flags_start + 10_000_000
+        })?;
+
+        // Read area flag status
+        let area_flag_set = self.read_flag(flag_id, event_flags);
+
+        // Read all required flags
+        let required_flags: Vec<(u32, Option<bool>)> = area.required_flags
+            .iter()
+            .map(|&f| (f, self.read_flag(f, event_flags)))
+            .collect();
+
+        // Check if all required flags are set
+        let all_required_set = required_flags.iter()
+            .all(|(_, set)| *set == Some(true));
+
+        // Read any-of flags
+        let any_required: Vec<(u32, Option<bool>)> = area.required_any
+            .iter()
+            .map(|&f| (f, self.read_flag(f, event_flags)))
+            .collect();
+
+        // Check if at least one any-required flag is set (or no any-required)
+        let any_required_set = area.required_any.is_empty() ||
+            any_required.iter().any(|(_, set)| *set == Some(true));
+
+        // Determine if valid
+        let prerequisites_met = (area.required_flags.is_empty() || all_required_set) &&
+            (area.required_any.is_empty() || any_required_set);
+
+        let contradiction = if area_flag_set == Some(true) && !prerequisites_met {
+            Some(format!("{} flag set without prerequisites", area.area_name))
+        } else {
+            None
+        };
+
+        let valid = contradiction.is_none();
+
+        // Combine required flags
+        let mut all_required = required_flags;
+        all_required.extend(any_required);
+
+        Some(AreaPrerequisiteResult {
+            area_name: area.area_name.to_string(),
+            area_flag_checked: flag_id,
+            area_flag_set,
+            required_flags: all_required,
+            all_required_set,
+            any_required_set,
+            valid,
+            contradiction,
+        })
+    }
+
+    /// Check geographic correlation
+    /// Looks at other flags in the same region for soft correlation
+    fn check_geographic_correlation(&self, flag_id: u32, event_flags: &[u8]) -> Option<GeographicCorrelationResult> {
+        let region = find_region_for_flag(flag_id)?;
+
+        let source_set = self.read_flag(flag_id, event_flags);
+
+        // Get correlated flags
+        let correlations = get_geographic_correlations(flag_id);
+        if correlations.is_empty() {
+            return None;
+        }
+
+        let correlated_flags: Vec<(u32, &'static str, Option<bool>)> = correlations
+            .into_iter()
+            .map(|(f, desc)| (f, desc, self.read_flag(f, event_flags)))
+            .collect();
+
+        // Calculate correlation ratio
+        let readable: Vec<_> = correlated_flags.iter()
+            .filter(|(_, _, set)| set.is_some())
+            .collect();
+
+        let correlation_ratio = if !readable.is_empty() && source_set.is_some() {
+            let source_val = source_set.unwrap();
+            let matching = readable.iter()
+                .filter(|(_, _, set)| set.unwrap() == source_val)
+                .count();
+            matching as f64 / readable.len() as f64
+        } else {
+            0.0
+        };
+
+        Some(GeographicCorrelationResult {
+            region_name: region.name.to_string(),
+            source_flag: flag_id,
+            source_set,
+            correlated_flags,
+            correlation_ratio,
         })
     }
 

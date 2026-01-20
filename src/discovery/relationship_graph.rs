@@ -31,6 +31,14 @@ pub enum RelationshipType {
     EventSequence,
     /// Map fragment discovery → possession
     MapFragment,
+    /// Boss defeat chain: defeat → remembrance → great rune possession → activation
+    BossDefeatChain,
+    /// Area prerequisite: items/flags required to access an area
+    AreaPrerequisite,
+    /// Geographic proximity: flags in the same region correlate
+    GeographicProximity,
+    /// Scroll/item given to NPC unlocks spells/items
+    ScrollUnlock,
 }
 
 impl RelationshipType {
@@ -42,6 +50,10 @@ impl RelationshipType {
             "boss_remembrance" => Some(Self::BossRemembrance),
             "event_sequence" => Some(Self::EventSequence),
             "map_fragment" => Some(Self::MapFragment),
+            "boss_defeat_chain" => Some(Self::BossDefeatChain),
+            "area_prerequisite" => Some(Self::AreaPrerequisite),
+            "geographic_proximity" => Some(Self::GeographicProximity),
+            "scroll_unlock" => Some(Self::ScrollUnlock),
             _ => None,
         }
     }
@@ -56,6 +68,10 @@ impl std::fmt::Display for RelationshipType {
             Self::BossRemembrance => write!(f, "boss_remembrance"),
             Self::EventSequence => write!(f, "event_sequence"),
             Self::MapFragment => write!(f, "map_fragment"),
+            Self::BossDefeatChain => write!(f, "boss_defeat_chain"),
+            Self::AreaPrerequisite => write!(f, "area_prerequisite"),
+            Self::GeographicProximity => write!(f, "geographic_proximity"),
+            Self::ScrollUnlock => write!(f, "scroll_unlock"),
         }
     }
 }

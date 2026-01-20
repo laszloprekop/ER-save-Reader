@@ -38,6 +38,7 @@ pub mod cross_validator;
 pub mod ground_truth_updater;
 pub mod relationship_graph;
 pub mod corroboration;
+pub mod chain_data;
 pub mod cli;
 pub mod test_cases;
 
@@ -82,4 +83,11 @@ pub use relationship_graph::{
 pub use corroboration::{
     CorroborationEngine, CorroborationConfig, CorroborationResult, CorroborationStatus,
     DualFormulaResult, RelatedFlagCheck, BatchCorroborationResult, PairStatus,
+    BossChainResult, AreaPrerequisiteResult, GeographicCorrelationResult,
+};
+pub use chain_data::{
+    BossDefeatChain, AreaPrerequisite, GeographicRegion, ScrollUnlock, BlockBaseOffset,
+    BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES, GEOGRAPHIC_REGIONS, SCROLL_UNLOCKS, VERIFIED_BLOCK_BASES,
+    find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
+    find_area_prerequisite, is_late_game_flag, get_geographic_correlations,
 };

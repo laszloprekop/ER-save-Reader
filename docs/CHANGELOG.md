@@ -4,6 +4,45 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.8 - Enhanced Corroboration with Chain Validation
+
+### Features
+- **Chain Data Module** (`src/discovery/chain_data.rs`):
+  - Boss defeat chains: 10 major bosses with defeat→remembrance→great rune→activation flag sequences
+  - Area prerequisites: 6 late-game areas (Consecrated Snowfield, Haligtree, Leyndell, Farum Azula, etc.)
+  - Geographic regions: 17 regions with landmark ranges, tile coordinates, grace ranges, map fragments
+  - Scroll unlocks: 10 scroll/prayerbook→spell unlock chains
+  - Verified block bases: 10 block base offsets for cross-validation
+
+- **New RelationshipTypes**:
+  - `BossDefeatChain`: Validates boss defeat → remembrance → great rune → activation consistency
+  - `AreaPrerequisite`: Validates late-game flags have required prerequisites
+  - `GeographicProximity`: Soft correlation for flags in same region
+  - `ScrollUnlock`: Scroll pickup enables spell availability
+
+- **Enhanced Corroboration Engine**:
+  - `check_boss_chain()`: Detects contradictions like "Remembrance set but boss not defeated"
+  - `check_area_prerequisite()`: Detects "Haligtree flag set without medallion halves"
+  - `check_geographic_correlation()`: Regional flag correlation analysis
+  - New result types: `BossChainResult`, `AreaPrerequisiteResult`, `GeographicCorrelationResult`
+
+### Chain Validation Examples
+| Chain Type | Validation | Contradiction Detection |
+|------------|------------|------------------------|
+| Boss | Godrick defeat (171) → Remembrance (9101) → Great Rune (160) → Activation (180) | Activation without possession |
+| Area | Medallion halves (60430, 60431) → Consecrated Snowfield (62550+) | Late-game flags without prereqs |
+| Geographic | Limgrave landmarks (62100-62138) correlate with Limgrave graces (76100-76199) | Soft validation |
+
+### Files Added
+- `src/discovery/chain_data.rs`: Static chain data and helper functions
+
+### Files Modified
+- `src/discovery/relationship_graph.rs`: 4 new RelationshipTypes
+- `src/discovery/corroboration.rs`: 3 new validation methods, 3 new result types
+- `src/discovery/mod.rs`: Exports for chain_data module
+
+---
+
 ## v0.4.7 - Landmark Integration & Event Flag Geography
 
 ### Features
