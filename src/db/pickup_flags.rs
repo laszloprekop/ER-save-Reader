@@ -283,6 +283,78 @@ pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     None
 }
 
+/// Verification status for flag offset calculations
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum VerificationStatus {
+    /// Formula has been empirically verified against save files
+    Verified,
+    /// Formula is calculated/extrapolated but not directly verified
+    Calculated,
+    /// Formula base is unverified - results may be inaccurate
+    Unverified,
+    /// Flag type is unknown or unsupported
+    Unknown,
+}
+
+impl VerificationStatus {
+    /// Returns true if this status indicates potential inaccuracy
+    pub fn is_uncertain(&self) -> bool {
+        matches!(self, VerificationStatus::Unverified | VerificationStatus::Unknown)
+    }
+}
+
+/// Get the verification status for a flag's offset calculation
+pub fn get_flag_verification_status(flag_id: u32) -> VerificationStatus {
+    // 10-digit tile flags - tile formula is verified
+    if flag_id >= 1_000_000_000 {
+        return VerificationStatus::Verified;
+    }
+
+    // 8-digit dungeon flags
+    if flag_id >= 10_000_000 && flag_id < 44_000_000 {
+        let area = flag_id / 1_000_000;
+
+        // Check VERIFIED_DUNGEON_BASES first
+        if let Some(dungeon_base) = VERIFIED_DUNGEON_BASES.get(&area) {
+            return match dungeon_base.status {
+                "verified" => VerificationStatus::Verified,
+                "calculated" => VerificationStatus::Calculated,
+                "needs_review" => VerificationStatus::Unverified,
+                _ => VerificationStatus::Unverified,
+            };
+        }
+
+        // Fall back to DUNGEON_BASE_OFFSETS - these are from eventflagalloclist
+        let section = (flag_id / 10_000) % 100;
+        let key = format!("{}_{:02}", area, section);
+        if DUNGEON_BASE_OFFSETS.contains_key(key.as_str()) {
+            return VerificationStatus::Calculated; // From game files but not empirically verified
+        }
+
+        return VerificationStatus::Unknown;
+    }
+
+    // Simple flags (< 60000) - direct calculation is verified
+    if flag_id < 60000 {
+        return VerificationStatus::Verified;
+    }
+
+    // Block flags (60000-99999) - check VERIFIED_BLOCK_BASES
+    if flag_id < 100_000 {
+        let block_start = (flag_id / 1000) * 1000;
+        if let Some(block_base) = VERIFIED_BLOCK_BASES.get(&block_start) {
+            return match block_base.status {
+                "verified" => VerificationStatus::Verified,
+                "calculated" => VerificationStatus::Calculated,
+                _ => VerificationStatus::Unverified,
+            };
+        }
+        return VerificationStatus::Unknown;
+    }
+
+    VerificationStatus::Unknown
+}
+
 /// Check if an event flag is set in the save file's EventFlags section
 pub fn is_flag_set(event_flags: &[u8], flag_id: u32) -> bool {
     if let Some((byte_off, bit)) = get_flag_offset(flag_id) {
@@ -291,6 +363,22 @@ pub fn is_flag_set(event_flags: &[u8], flag_id: u32) -> bool {
         }
     }
     false
+}
+
+/// Check if an event flag is set and return verification status
+/// Returns (is_set, verification_status)
+pub fn is_flag_set_with_status(event_flags: &[u8], flag_id: u32) -> (bool, VerificationStatus) {
+    let status = get_flag_verification_status(flag_id);
+    let is_set = if let Some((byte_off, bit)) = get_flag_offset(flag_id) {
+        if (byte_off as usize) < event_flags.len() {
+            (event_flags[byte_off as usize] & (1 << bit)) != 0
+        } else {
+            false
+        }
+    } else {
+        false
+    };
+    (is_set, status)
 }
 
 /// Set an event flag in the save file's EventFlags section
@@ -463,12 +551,14 @@ mod tests {
     #[test]
     fn test_tile_flag_formula_verified() {
         // Test Limgrave tile 42_37 with VERIFIED base offset
-        // Slot = (42-33)*40 + (37-42) = 360 - 5 = 355
-        // Base = 495830 (verified) + 355*875 = 495830 + 310625 = 806455
+        // tile_index = (1042370000 - 1_000_000_000) / 10000 = 4237
+        // row = 4237 / 100 = 42, col = 4237 % 100 = 37
+        // Slot = (42-33)*40 + (37-30) = 9*40 + 7 = 367
+        // Base = 337359 (verified) + 367*875 = 337359 + 321125 = 658484
         let result = get_flag_offset(1042370000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 806455);  // Updated from 657625 (old wrong value)
+        assert_eq!(byte, 658484);  // Corrected with TILE_BASE=337359
         assert_eq!(bit, 7);
     }
 
@@ -499,14 +589,169 @@ mod tests {
     #[test]
     fn test_verified_dungeon_catacombs() {
         // Test catacombs (area 30) using VERIFIED_DUNGEON_BASES
-        // Base for area 30 = 27411, section_size = 1125
-        // Flag 30000100 -> area=30, section=0, local=100
-        // byte = 27411 + 0*1125 + 100/8 = 27411 + 12 = 27423
-        let result = get_flag_offset(30000100);
+        // Area 30 has status="verified", base_offset=27411, section_size=1125
+        // Verified against 7 boss flags: 30020800=29761, 30030800=30886, etc.
+
+        // Flag 30020800 (Erdtree Burial Watchdog): byte=27411+2*1125+100=29761, bit=7
+        let result = get_flag_offset(30020800);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 27411 + 100 / 8);  // 27423
-        assert_eq!(bit, (7 - (100 % 8)) as u8);  // 3
+        assert_eq!(byte, 29761);
+        assert_eq!(bit, 7);
+
+        // Flag 30050800 (Cemetery Shade): byte=27411+5*1125+100=33136, bit=7
+        let result = get_flag_offset(30050800);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 33136);
+        assert_eq!(bit, 7);
+
+        // Flag 30110800 (Black Knife Assassin): byte=27411+11*1125+100=39886, bit=7
+        let result = get_flag_offset(30110800);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 39886);
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_verified_dungeon_tunnels() {
+        // Test tunnels (area 32) using VERIFIED_DUNGEON_BASES
+        // Area 32 has status="verified", base_offset=31577, section_size=1125
+        // Flag 32017000 -> area=32, section=1, local_id=7000
+        // byte = 31577 + 1*1125 + 7000/8 = 31577 + 1125 + 875 = 33577
+        // bit = 7 - (7000 % 8) = 7 - 0 = 7
+        let result = get_flag_offset(32017000);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 33577);  // Verified via probe
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_verified_dungeon_caves() {
+        // Test caves (area 31) using VERIFIED_DUNGEON_BASES
+        // Area 31 has status="verified", base_offset=28634, section_size=1125
+        // Flag 31112840 -> area=31, section=11, local_id=2840
+        // byte = 28634 + 11*1125 + 2840/8 = 28634 + 12375 + 355 = 41364
+        // bit = 7 - (2840 % 8) = 7 - 0 = 7
+        let result = get_flag_offset(31112840);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 41364);  // Verified via boss matching
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_block_78000_grace_guidance_verified() {
+        // Block 78000 (Grace Guidance) verified via 8+ proven flags
+        // Block base_offset=3500, verified by matching proven flags
+
+        // Flag 78210 (Bellum Highway guidance): byte=3500+210/8=3526, bit=7-(210%8)=5
+        let result = get_flag_offset(78210);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3526);
+        assert_eq!(bit, 5);
+
+        // Flag 78304 (Capital Outskirts guidance): byte=3500+304/8=3538, bit=7-(304%8)=7
+        let result = get_flag_offset(78304);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3538);
+        assert_eq!(bit, 7);
+
+        // Flag 78352 (Mt. Gelmir guidance): byte=3500+352/8=3544, bit=7-(352%8)=7
+        let result = get_flag_offset(78352);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3544);
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_block_72000_dlc_graces_verified() {
+        // Block 72000 (DLC Enir-Ilim graces) verified via multiple proven flags
+        // Block base_offset=2750, verified by matching 10+ consistent proven flags
+
+        // Flag 72000 (Theatre of the Divine Beast): byte=2750, bit=7
+        let result = get_flag_offset(72000);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 2750);
+        assert_eq!(bit, 7);
+
+        // Flag 72010 (Gate of Divinity): byte=2750+10/8=2751, bit=7-(10%8)=5
+        let result = get_flag_offset(72010);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 2751);
+        assert_eq!(bit, 5);
+
+        // Flag 72016 (Divine Gate Front Staircase): byte=2750+16/8=2752, bit=7-(16%8)=7
+        let result = get_flag_offset(72016);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 2752);
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_block_74000_dlc_dungeon_graces_verified() {
+        // Block 74000 (DLC dungeon graces) verified via multiple proven flags
+        // Block base_offset=3000, verified by matching 8+ consistent proven flags
+
+        // Flag 74000 (Fog Rift Catacombs): byte=3000, bit=7
+        let result = get_flag_offset(74000);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3000);
+        assert_eq!(bit, 7);
+
+        // Flag 74100 (Belurat Gaol): byte=3000+100/8=3012, bit=7-(100%8)=3
+        let result = get_flag_offset(74100);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3012);
+        assert_eq!(bit, 3);
+
+        // Flag 74200 (Ruined Forge Lava Intake): byte=3000+200/8=3025, bit=7-(200%8)=7
+        let result = get_flag_offset(74200);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 3025);
+        assert_eq!(bit, 7);
+    }
+
+    #[test]
+    fn test_block_65000_whetblades_verified() {
+        // Block 65000 (Whetblades) verified via hardcoded offsets in event_flags.rs
+        // Block base_offset=1875, verified by matching:
+        //   65610 -> 0x79f (1951) = 1875 + 610/8 = 1875 + 76 = 1951 ✓
+        //   65700 -> 0x7aa (1962) = 1875 + 700/8 = 1875 + 87 = 1962 ✓
+        //   65710 -> 0x7ab (1963) = 1875 + 710/8 = 1875 + 88 = 1963 ✓
+        //   65720 -> 0x7ad (1965) = 1875 + 720/8 = 1875 + 90 = 1965 ✓
+
+        // Flag 65610 (Iron Whetblade): byte=1951, bit=7-(610%8)=7-2=5
+        let result = get_flag_offset(65610);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 1951);
+        assert_eq!(bit, 5);
+
+        // Flag 65700 (Black Whetblade Poison): byte=1962, bit=7-(700%8)=7-4=3
+        let result = get_flag_offset(65700);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 1962);
+        assert_eq!(bit, 3);
+
+        // Flag 65720 (Black Whetblade): byte=1965, bit=7-(720%8)=7-0=7
+        let result = get_flag_offset(65720);
+        assert!(result.is_some());
+        let (byte, bit) = result.unwrap();
+        assert_eq!(byte, 1965);
+        assert_eq!(bit, 7);
     }
 
     #[test]

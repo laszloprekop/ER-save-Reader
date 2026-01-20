@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.9 - Block and Dungeon Formula Verification
+
+### Features
+- **Block Formula Verification**: Verified 5 previously unverified block bases
+  - Block 65000 (Whetblades): Verified via hardcoded offsets (65610=0x79f, 65700=0x7aa, 65720=0x7ad)
+  - Block 72000 (DLC Enir-Ilim graces): 10+ consistent proven flags
+  - Block 74000 (DLC dungeon graces): 8+ consistent proven flags
+  - Block 75000: Marked as "calculated" (no known flags in range)
+  - Block 78000 (Grace guidance): 8+ proven flags (78210=3526, 78304=3538, etc.)
+
+- **Dungeon Formula Verification**: Verified Area 30 (Catacombs)
+  - Corrected from "needs_review" to "verified" status
+  - 7 boss defeat flags matched formula (30020800=29761, 30030800=30886, etc.)
+  - Confirmed base_offset=27411, section_size=1125
+
+- **Verification Tests**: Added 6 new tests
+  - `test_block_65000_whetblades_verified`
+  - `test_block_72000_dlc_graces_verified`
+  - `test_block_74000_dlc_dungeon_graces_verified`
+  - `test_block_78000_grace_guidance_verified`
+  - Updated `test_verified_dungeon_catacombs` with proven boss flags
+
+### Verification Status Summary
+| Formula Type | Verified | Calculated | Unverified |
+|--------------|----------|------------|------------|
+| Block bases  | 10       | 3          | 0          |
+| Dungeon areas| 4        | 0          | 11         |
+| Tile formula | 1        | 0          | 0          |
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated status for 6 blocks/areas
+- `src/db/pickup_flags.rs`: Added 6 verification tests
+- `Cargo.toml`: Bumped to 0.4.9
+
+---
+
 ## v0.4.8 - Enhanced Corroboration with Chain Validation
 
 ### Features

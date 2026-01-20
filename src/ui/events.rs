@@ -1,7 +1,7 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText, ScrollArea};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::is_flag_set}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, VerificationStatus}}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
@@ -308,24 +308,36 @@ pub mod events {
     }
 
     fn display_event_row(ui: &mut Ui, row_text: &str, name: &str, flag_id: u32, discovered: bool) {
-        let text_color = if discovered {
+        let verification_status = get_flag_verification_status(flag_id);
+        let is_unverified = verification_status.is_uncertain();
+
+        // Add "!" indicator for unverified flags
+        let display_text = if is_unverified {
+            format!("{}!", row_text)
+        } else {
+            row_text.to_string()
+        };
+
+        let text_color = if is_unverified {
+            Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
+        } else if discovered {
             Color32::from_rgb(100, 200, 100)
         } else {
             Color32::LIGHT_GRAY
         };
 
         let response = ui.add(
-            egui::Label::new(RichText::new(row_text).color(text_color).monospace())
+            egui::Label::new(RichText::new(&display_text).color(text_color).monospace())
                 .sense(egui::Sense::click())
         );
 
         if response.double_clicked() {
-            ui.output_mut(|o| o.copied_text = row_text.to_string());
+            ui.output_mut(|o| o.copied_text = display_text.clone());
         }
 
         response.context_menu(|ui| {
             if ui.button("Copy row").clicked() {
-                ui.output_mut(|o| o.copied_text = row_text.to_string());
+                ui.output_mut(|o| o.copied_text = display_text.clone());
                 ui.close_menu();
             }
             if ui.button("Copy name").clicked() {
@@ -425,13 +437,17 @@ pub mod events {
         let mut total = 0;
         let mut filtered_total = 0;
         let mut filtered_collected = 0;
+        let mut unverified_count = 0;
 
         let ef = event_flags.unwrap_or(&[]);
 
         for pickup in WORLD_PICKUPS.iter() {
-            let is_collected = is_flag_set(ef, pickup.event_flag);
+            let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
             if is_collected {
                 collected += 1;
+            }
+            if status.is_uncertain() {
+                unverified_count += 1;
             }
             total += 1;
 
@@ -448,11 +464,18 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Lot ID | Flag ID | Item | Category | Qty | Region").color(Color32::YELLOW).monospace());
         });
+        if unverified_count > 0 {
+            ui.label(RichText::new("! = unverified formula (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
+        }
         ui.separator();
 
         // Summary
         let summary = if filtered_total == total {
-            format!("World Pickups: {}/{} collected", collected, total)
+            if unverified_count > 0 {
+                format!("World Pickups: {}/{} collected ({} unverified)", collected, total, unverified_count)
+            } else {
+                format!("World Pickups: {}/{} collected", collected, total)
+            }
         } else {
             format!("World Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
         };
@@ -471,7 +494,7 @@ pub mod events {
             let mut region_filtered = 0;
 
             for pickup in &pickups {
-                let is_collected = is_flag_set(ef, pickup.event_flag);
+                let (is_collected, _) = is_flag_set_with_status(ef, pickup.event_flag);
                 if is_collected {
                     region_collected += 1;
                 }
@@ -493,22 +516,26 @@ pub mod events {
             ui.label(RichText::new(region_header).strong());
 
             for pickup in &pickups {
-                let is_collected = is_flag_set(ef, pickup.event_flag);
+                let (is_collected, verification_status) = is_flag_set_with_status(ef, pickup.event_flag);
 
                 // Apply filters
                 if !passes_pickup_filters(pickup, is_collected, type_filter, collected_filter, &region_filter, &search_lower) {
                     continue;
                 }
 
+                // Add "!" indicator for unverified flags
+                let unverified_marker = if verification_status.is_uncertain() { "!" } else { "" };
                 let status = if is_collected { "[X]" } else { "[ ]" };
 
                 let row_text = format!(
-                    "{} | {} | {} | {} | {} | {} | {}",
-                    status, pickup.item_lot_id, pickup.event_flag, pickup.name,
+                    "{}{} | {} | {} | {} | {} | {} | {}",
+                    status, unverified_marker, pickup.item_lot_id, pickup.event_flag, pickup.name,
                     pickup.category.display_name(), pickup.quantity, region
                 );
 
-                let text_color = if is_collected {
+                let text_color = if verification_status.is_uncertain() {
+                    Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
+                } else if is_collected {
                     Color32::from_rgb(100, 200, 100)
                 } else {
                     Color32::LIGHT_GRAY

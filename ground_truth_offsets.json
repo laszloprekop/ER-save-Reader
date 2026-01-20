@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "generated_date": "2026-01-14T12:00:00.000000",
+    "generated_date": "2026-01-20T12:00:00.000000",
     "verification_method": "empirical_multi_save_with_probe",
     "total_flags_tested": 656,
     "proven_count": 392,
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-14 - Fixed 76xxx flag offsets to match block base formula"
+    "last_probe_run": "2026-01-20 - Fixed tile formula base_offset from 495830 to 337359 (verified via snapshot 1043500010)"
   },
   "summary": {
     "by_category": {
@@ -3223,8 +3223,8 @@
         "block_start": 65000,
         "base_offset": 1875,
         "block_size": 1000,
-        "status": "unverified",
-        "notes": "Whetblades - base unconfirmed"
+        "status": "verified",
+        "notes": "Whetblades - verified: hardcoded offsets match (65610=0x79f=1951, 65700=0x7aa=1962, 65720=0x7ad=1965)"
       },
       "67000": {
         "block_start": 67000,
@@ -3251,8 +3251,8 @@
         "block_start": 72000,
         "base_offset": 2750,
         "block_size": 1000,
-        "status": "unverified",
-        "notes": "Dungeon graces - base unconfirmed"
+        "status": "verified",
+        "notes": "DLC graces (Enir-Ilim) - verified: 10+ consistent proven flags (72000-72016 all match formula)"
       },
       "73000": {
         "block_start": 73000,
@@ -3265,15 +3265,15 @@
         "block_start": 74000,
         "base_offset": 3000,
         "block_size": 1000,
-        "status": "unverified",
-        "notes": "Extended dungeon graces - base unconfirmed"
+        "status": "verified",
+        "notes": "DLC dungeon graces - verified: 8+ consistent proven flags (74000-74202 all match formula)"
       },
       "75000": {
         "block_start": 75000,
         "base_offset": 3125,
         "block_size": 1000,
-        "status": "unverified",
-        "notes": "Extended graces - base unconfirmed"
+        "status": "calculated",
+        "notes": "Extended graces - no known flags in this range, base derived from pattern (74000+125)"
       },
       "76000": {
         "block_start": 76000,
@@ -3293,19 +3293,19 @@
         "block_start": 78000,
         "base_offset": 3500,
         "block_size": 1000,
-        "status": "unverified",
-        "notes": "Landmark flags - base unconfirmed"
+        "status": "verified",
+        "notes": "Grace guidance flags - verified: 8+ proven flags match (78210=3526, 78304=3538, 78352=3544, etc.)"
       }
     },
     "tile_formula": {
-      "base_offset": 495830,
+      "base_offset": 337359,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
-      "status": "needs_revalidation",
-      "notes": "col_base corrected from 42 to 30 based on corroboration analysis - actual tile columns range 30-58"
+      "status": "verified",
+      "notes": "base_offset corrected from 495830 to 337359 based on empirical snapshot: flag 1043500010 at byte 704860 verified"
     },
     "dungeon_formula": {
       "10": {
@@ -3389,8 +3389,8 @@
         "map_area": 30,
         "base_offset": 27411,
         "section_size": 1125,
-        "status": "needs_review",
-        "notes": "Catacombs - probe found 30117020 at ~28187, doesn't match formula. Needs investigation."
+        "status": "verified",
+        "notes": "Catacombs - verified: 7 boss flags match (30020800=29761, 30030800=30886, 30040800=32011, 30050800=33136, 30060800=34261, 30080800=36511, 30110800=39886)"
       },
       "31": {
         "map_area": 31,
