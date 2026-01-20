@@ -7,7 +7,7 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-20 - Fixed tile formula base_offset to 485330 (verified via 69 empirical flags in discoveries.json, all showing consistent +147971 correction)"
+    "last_probe_run": "2026-01-20 - CORRECTED tile formula base_offset from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff (flag 1043500010 at byte 857482)."
   },
   "summary": {
     "by_category": {
@@ -3209,7 +3209,7 @@
       "category": "World Pickup",
       "status": "proven",
       "confidence": 1.0,
-      "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=485330"
+      "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=489981 (corrected 2026-01-20)"
     }
   },
   "formulas": {
@@ -3307,14 +3307,14 @@
       }
     },
     "tile_formula": {
-      "base_offset": 485330,
+      "base_offset": 489981,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
       "status": "verified",
-      "notes": "base_offset corrected to 485330 based on 69 empirical flags in discoveries.json - confirmed: flag 1041740610 at byte 803906 matches formula exactly"
+      "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly."
     },
     "dungeon_formula": {
       "10": {
@@ -3326,24 +3326,24 @@
       },
       "11": {
         "map_area": 11,
-        "base_offset": 4112,
+        "base_offset": 8612,
         "section_size": 1125,
-        "status": "needs_review",
-        "notes": "Academy of Raya Lucaria - base=4112 matches 172/187 (92%), same base as Area 10; section 00 (15 flags) uses different base=8612"
+        "status": "calculated",
+        "notes": "Leyndell, Royal Capital - calculated from legacymap slot 4: 4112 + 4*1125 = 8612. NOTE: sections 00, 05, 10 map to slots 4, 5, 6 (non-consecutive sections!)"
       },
       "12": {
         "map_area": 12,
-        "base_offset": 0,
+        "base_offset": 15362,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Underground (Siofra, etc.)"
+        "status": "calculated",
+        "notes": "Underground (Siofra, Ainsel, etc.) - calculated from legacymap slot 10: 4112 + 10*1125 = 15362. Sections 00-09 are consecutively allocated."
       },
       "13": {
         "map_area": 13,
-        "base_offset": 0,
+        "base_offset": 26612,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Leyndell, Royal Capital"
+        "status": "calculated",
+        "notes": "Leyndell, Royal Capital / Crumbling Farum Azula - calculated from legacymap slot 20: 4112 + 20*1125 = 26612"
       },
       "14": {
         "map_area": 14,
@@ -3354,17 +3354,17 @@
       },
       "15": {
         "map_area": 15,
-        "base_offset": 0,
+        "base_offset": 33362,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Miquella's Haligtree"
+        "status": "calculated",
+        "notes": "Miquella's Haligtree / Elphael - calculated from legacymap slot 26: 4112 + 26*1125 = 33362"
       },
       "16": {
         "map_area": 16,
-        "base_offset": 0,
+        "base_offset": 36737,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Crumbling Farum Azula"
+        "status": "calculated",
+        "notes": "Volcano Manor - calculated from legacymap slot 29: 4112 + 29*1125 = 36737"
       },
       "18": {
         "map_area": 18,
@@ -3375,10 +3375,10 @@
       },
       "19": {
         "map_area": 19,
-        "base_offset": 0,
+        "base_offset": 46862,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Chapel of Anticipation"
+        "status": "calculated",
+        "notes": "Chapel of Anticipation - calculated from legacymap slot 38: 4112 + 38*1125 = 46862"
       },
       "20": {
         "map_area": 20,
@@ -3417,24 +3417,24 @@
       },
       "34": {
         "map_area": 34,
-        "base_offset": 0,
+        "base_offset": 60362,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Divine Towers"
+        "status": "calculated",
+        "notes": "Divine Towers - calculated: sections 10-15 at slots 60-65. Base derived: 71612 - 10*1125 = 60362"
       },
       "35": {
         "map_area": 35,
-        "base_offset": 0,
+        "base_offset": 50237,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Mohgwyn Palace"
+        "status": "calculated",
+        "notes": "Mohgwyn Palace - calculated from legacymap slot 41: 4112 + 41*1125 = 50237"
       },
       "39": {
         "map_area": 39,
-        "base_offset": 0,
+        "base_offset": 31112,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Elden Throne"
+        "status": "calculated",
+        "notes": "Elden Throne / Deeproot Depths - calculated: section 20 at slot 44 (53612). Base derived: 53612 - 20*1125 = 31112"
       }
     },
     "dungeon_areas": {

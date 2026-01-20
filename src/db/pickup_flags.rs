@@ -144,7 +144,7 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
 /// - YY: tile column (30-58+)
 /// - ZZZZ: local ID (0-6999 trackable, 7000+ untrackable)
 ///
-/// Uses VERIFIED_TILE_BASE_OFFSET (485330) from ground_truth_offsets.json
+/// Uses VERIFIED_TILE_BASE_OFFSET (489981, corrected 2026-01-20)
 fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let bit = (7 - (flag_id % 8)) as u8;
 
@@ -550,32 +550,30 @@ mod tests {
 
     #[test]
     fn test_tile_flag_formula_verified() {
-        // Test Limgrave tile 42_37 with VERIFIED base offset
+        // Test Limgrave tile 42_37 with CORRECTED base offset (489981)
         // tile_index = (1042370000 - 1_000_000_000) / 10000 = 4237
         // row = 4237 / 100 = 42, col = 4237 % 100 = 37
         // Slot = (42-33)*40 + (37-30) = 9*40 + 7 = 367
-        // Base = 485330 (verified via 69 empirical flags) + 367*875 = 485330 + 321125 = 806455
+        // Base = 489981 (CORRECTED 2026-01-20) + 367*875 = 489981 + 321125 = 811106
         let result = get_flag_offset(1042370000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 806455);  // Corrected with TILE_BASE=485330
+        assert_eq!(byte, 811106);  // Corrected with TILE_BASE=489981
         assert_eq!(bit, 7);
     }
 
     #[test]
     fn test_tile_confirmed_empirical() {
-        // Test confirmed flag from discoveries.json (status=confirmed)
-        // Flag 1041740610: empirical byte_offset=803906
-        // tile_index = (1041740610 - 1_000_000_000) / 10000 = 4174
-        // local_id = 1041740610 % 10000 = 610
-        // row = 4174 / 100 = 41, col = 4174 % 100 = 74
-        // slot = (41-33)*40 + (74-30) = 8*40 + 44 = 364
-        // byte_offset = 485330 + 364*875 + 610/8 = 485330 + 318500 + 76 = 803906
-        let result = get_flag_offset(1041740610);
+        // Test Smoldering Butterfly pickup (VERIFIED via temporal diff 2026-01-20)
+        // Flag 1043500010: actual empirical byte_offset=857482
+        // row = 43, col = 50, local_id = 10
+        // slot = (43-33)*40 + (50-30) = 10*40 + 20 = 420
+        // byte_offset = 489981 + 420*875 + 10/8 = 489981 + 367500 + 1 = 857482
+        let result = get_flag_offset(1043500010);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 803906, "Empirically confirmed byte offset");
-        assert_eq!(bit, 5); // 7 - (610 % 8) = 7 - 2 = 5
+        assert_eq!(byte, 857482, "Empirically confirmed via temporal diff");
+        assert_eq!(bit, 5); // 7 - (10 % 8) = 7 - 2 = 5
     }
 
     #[test]

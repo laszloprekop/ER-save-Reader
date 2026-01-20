@@ -130,16 +130,17 @@ class FlagFormulas:
     # 2. col_base=30 verified; tiles with col < 30 may use different storage region
     #    (empirical testing needed for western map tiles)
     #
-    # VERIFIED: Flag 1043500010 (Smoldering Butterfly) at byte 852831, bit 5 (base=485330, col_base=30)
+    # VERIFIED 2026-01-20: Flag 1043500010 (Smoldering Butterfly) at byte 857482, bit 5
+    # Previous base_offset=485330 was wrong by 4651 bytes. Corrected via temporal diff.
 
     TILE_CONFIG = TileConfig(
-        base_offset=485330,     # CORRECTED 2026-01-20: was 495830
+        base_offset=489981,     # CORRECTED 2026-01-20: was 485330, verified via Smoldering Butterfly
         bytes_per_slot=875,     # 875 bytes = 7000 flags per slot
         slots_per_row=40,       # 40 columns per row
         row_base=33,            # First tile row
-        col_base=30,            # CORRECTED 2026-01-20: was 42
+        col_base=30,            # First tile column
         max_local_id=6999,      # LocalId >= 7000 has no storage!
-        status="verified"       # Verified from Smoldering Butterfly pickup
+        status="verified"       # Verified from Smoldering Butterfly temporal diff
     )
 
     # =========================================================================

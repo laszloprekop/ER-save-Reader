@@ -21,7 +21,7 @@ This document is the **single source of truth** for Elden Ring save file parsing
 | **Cookbooks (67xxx-68xxx)** | **VERIFIED** | Block base=3546 (corrected from 3987!) |
 | **Dungeon Graces (73xxx)** | **VERIFIED** | Block base=2664, 13/13 dungeon graces matched |
 | **Whetblades (65xxx)** | Unverified | Block base ~1875 needs testing |
-| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=485330, col_base=30 |
+| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=489981 (CORRECTED 2026-01-20) |
 | **World Pickups (col < 30)** | Unverified | Western tiles may use different storage |
 | **Dungeon Boss Flags (30,31,32)** | **VERIFIED** | Catacombs/Caves/Tunnels bases discovered |
 | **Dungeon Boss Flags (Legacy)** | Unverified | Stormveil, Academy, etc. need investigation |
@@ -128,12 +128,12 @@ row = int(flag_str[2:4])      # XX (tile row, e.g., 43)
 col = int(flag_str[4:6])      # YY (tile column, e.g., 50)
 local_id = int(flag_str[6:])  # ZZZZ (local flag ID, e.g., 0010)
 
-# Calculate offset (verified 2026-01-11, updated 2026-01-20)
-base_offset = 485330          # Verified (was 495830, corrected)
+# Calculate offset (CORRECTED 2026-01-20)
+base_offset = 489981          # CORRECTED: was 485330 (+4651), verified via temporal diff
 bytes_per_slot = 875
 slots_per_row = 40
 row_base = 33
-col_base = 30                 # Corrected from 42 to 30
+col_base = 30
 
 tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
 byte_offset = base_offset + tile_offset + (local_id // 8)
@@ -143,9 +143,10 @@ bit_position = 7 - (local_id % 8)  # Uses local_id, not flag_id
 **Verified Example**: Flag 1043500010 (Smoldering Butterfly at m60_43_50)
 - row=43, col=50, local=10
 - tile_offset = ((43-33)*40 + (50-30)) * 875 = 420 * 875 = 367500
-- byte_offset = 485330 + 367500 + 1 = 852831
+- byte_offset = 489981 + 367500 + 1 = **857482**
 - bit_position = 7 - (10 % 8) = 5
 - Extraction: (byte >> 5) & 1
+- **Empirically verified via before/after pickup temporal diff (2026-01-20)**
 
 **LIMITATIONS**:
 
@@ -247,7 +248,7 @@ For items that can't be tracked via event flags:
 | Block 76000 | World Graces | **VERIFIED** | Validation flags 76100, 76101 (base=3250), 65% match rate |
 | Block 73000 | Dungeon Graces | **VERIFIED** | 13/13 dungeon graces matched via slot comparison (base=2664) |
 | Block 78000 | POI Flags | UNVERIFIED | 0% match rate - base offset needs discovery |
-| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) diff, col_base=30 |
+| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) temporal diff, base=489981 |
 | Tile (col < 30) | World Pickups | UNVERIFIED | Western tiles may use different storage |
 | Dungeon Area 30 | Catacombs | **VERIFIED** | 5 boss flags matched (base=27411) |
 | Dungeon Area 31 | Caves | **VERIFIED** | 5 boss flags matched (base=28634) |
@@ -348,9 +349,14 @@ To improve the ground truth:
 
 ## Changelog
 
-### 2026-01-12 (Tile Fix)
-- **CORRECTED** Tile formula base: 349750 → **495830**
-- Verified with Smoldering Butterfly (1043500010) granular snapshot at byte 852831, bit 5
+### 2026-01-20
+- **CRITICAL CORRECTION** tile formula base_offset: 485330 → **489981** (+4651 bytes)
+- Previous value was wrong due to incorrect derivation from discoveries.json empirical data
+- Verified via Smoldering Butterfly temporal diff: flag 1043500010 confirmed at byte **857482**
+
+### 2026-01-12 (Tile Fix) - SUPERSEDED by 2026-01-20
+- **CORRECTED** Tile formula base: 349750 → 495830 → 485330 → **489981** (final)
+- Original verification at byte 852831 was incorrect - actual verified offset is 857482
 
 ### 2026-01-12
 - **VERIFIED** Dungeon formula bases for minor dungeons:
@@ -371,7 +377,7 @@ To improve the ground truth:
 ### 2026-01-11 (Initial)
 - Created ground truth document
 - Verified 71xxx (base=2625), 76xxx (base=3250) from validation flags
-- Verified tile formula for col >= 30 (base=485330, col_base=30)
+- Verified tile formula for col >= 30 (base=485330, col_base=30) - LATER CORRECTED
 
 ---
 

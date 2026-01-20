@@ -272,7 +272,7 @@ impl OffsetProber {
         // Add type-specific regions
         if flag_id >= 1_000_000_000 {
             // Tile flag - search tile region
-            let tile_base = 485330usize; // Verified from 69 empirical flags in discoveries.json
+            let tile_base = 489981usize; // CORRECTED 2026-01-20: was 485330, verified via Smoldering Butterfly
             let tile_end = (tile_base + 700_000).min(EVENT_FLAGS_SIZE as usize);
             regions.push((tile_base, tile_end, "tile_flags".to_string()));
         } else if flag_id >= 10_000_000 && flag_id < 44_000_000 {

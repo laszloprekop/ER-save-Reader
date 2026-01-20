@@ -237,18 +237,88 @@ pub fn build_test_suite() -> TestSuiteCollection {
         "Mid-game progression, many graces, bosses, items collected"
     );
 
-    // --- KNOWN TRUE: Graces (from verification-records.jsonl) ---
-    // NOTE: Confessor save data may have changed since verification. Only include
-    // flags that are stable and verifiable.
-    // Graces with matches=true AND working in current save:
+    // --- KNOWN TRUE: Graces (from verification-records.jsonl 2026-01-20) ---
+    // 38 confirmed matches extracted from JSONL where matches=true AND manualStatus=true
+
+    // Tutorial graces (71xxx) - Block base 2625
     slot0.add_true(grace(71800, "Cave of Knowledge", "Tutorial area"));
     slot0.add_true(grace(71801, "Stranded Graveyard", "Tutorial area"));
 
-    // NOTE: Many graces from verification (76100, 76216, 76217, etc.) now show FALSE
-    // in the CrossOver save. The save data has changed since verification was done.
-    // These entries are commented out until re-verified with current save:
-    // slot0.add_true(grace(76100, "Church of Elleh", "Limgrave"));
-    // slot0.add_true(grace(76101, "The First Step", "Limgrave starting area"));
+    // World graces (76xxx) - Block base 3250
+    slot0.add_true(grace(76100, "Church of Elleh", "Limgrave"));
+    slot0.add_true(grace(76101, "The First Step", "Limgrave"));
+    slot0.add_true(grace(76120, "Waypoint Ruins Cellar", "Limgrave"));
+    slot0.add_true(grace(76162, "Fourth Church of Marika", "Weeping Peninsula"));
+    slot0.add_true(grace(76204, "Academy Gate Town", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76206, "Main Academy Gate", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76207, "East Raya Lucaria Gate", "Bellum Highway"));
+    slot0.add_true(grace(76216, "Boilprawn Shack", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76218, "Revenger's Shack", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76219, "Folly on the Lake", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76231, "Manor Lower Level", "Liurnia of the Lakes"));
+    slot0.add_true(grace(76300, "Abandoned Coffin", "Altus Plateau"));
+    slot0.add_true(grace(76301, "Altus Plateau", "Altus Plateau"));
+    slot0.add_true(grace(76353, "Road of Iniquity", "Mt. Gelmir"));
+    slot0.add_true(grace(76400, "Smoldering Church", "Caelid"));
+    slot0.add_true(grace(76411, "Southern Aeonia Swamp Bank", "Caelid"));
+    slot0.add_true(grace(76450, "Dragonbarrow West", "Greyoll's Dragonbarrow"));
+
+    // Dungeon graces (73xxx) - Block base 2664
+    slot0.add_true(grace(73000, "Tombsward Catacombs", "Weeping Peninsula"));
+    slot0.add_true(grace(73003, "Road's End Catacombs", "Liurnia of the Lakes"));
+    slot0.add_true(grace(73005, "Black Knife Catacombs", "Liurnia of the Lakes"));
+    slot0.add_true(grace(73006, "Cliffbottom Catacombs", "Liurnia of the Lakes"));
+    slot0.add_true(grace(73014, "Minor Erdtree Catacombs", "Caelid"));
+    slot0.add_true(grace(73103, "Groveside Cave", "Limgrave"));
+    slot0.add_true(grace(73202, "Raya Lucaria Crystal Tunnel", "Liurnia of the Lakes"));
+    slot0.add_true(grace(73257, "Rear Gael Tunnel Entrance", "Caelid"));
+
+    // --- KNOWN TRUE: Boss defeats (dungeon type, Area 10 = Stormveil) ---
+    slot0.add_true(boss_defeat(10000800, "Godrick the Grafted", "Stormveil Castle"));
+    slot0.add_true(boss_defeat(10000850, "Margit, the Fell Omen", "Stormveil Castle"));
+
+    // --- KNOWN TRUE: Dungeon pickups (Area 10 = Stormveil) ---
+    slot0.add_true(world_pickup(10007990, "Godskin Prayerbook", "Godskin Prayerbook", "Stormveil Castle"));
+    slot0.add_true(world_pickup(10007230, "Claw Talisman", "Claw Talisman", "Stormveil Castle"));
+
+    // --- KNOWN TRUE: Progression flags (60xxx) ---
+    slot0.add_true(FlagTestCase {
+        flag_id: 60130,
+        name: "Whetstone Knife".to_string(),
+        category: FlagCategory::Progression,
+        expected: true,
+        verification_method: "verification-records.jsonl".to_string(),
+        item_name: Some("Whetstone Knife".to_string()),
+        location: Some("Gatefront Ruins".to_string()),
+    });
+
+    // --- KNOWN TRUE: Map fragments (62xxx) ---
+    slot0.add_true(FlagTestCase {
+        flag_id: 62063,
+        name: "Map: Siofra River".to_string(),
+        category: FlagCategory::MapFragment,
+        expected: true,
+        verification_method: "verification-records.jsonl".to_string(),
+        item_name: Some("Map: Siofra River".to_string()),
+        location: Some("Underground".to_string()),
+    });
+
+    // --- KNOWN TRUE: Cookbooks (67xxx, 68xxx) ---
+    slot0.add_true(cookbook(67430, "Nomadic Warrior's Cookbook [9]", "Various"));
+    slot0.add_true(cookbook(67630, "Missionary's Cookbook [5]", "Various"));
+    slot0.add_true(cookbook(67840, "Perfumer's Cookbook [1]", "Various"));
+    slot0.add_true(cookbook(68000, "Ancient Dragon Apostle's Cookbook [1]", "Various"));
+
+    // --- KNOWN TRUE: Crystal Tears (65xxx) ---
+    slot0.add_true(FlagTestCase {
+        flag_id: 65120,
+        name: "Winged Crystal Tear".to_string(),
+        category: FlagCategory::Progression,
+        expected: true,
+        verification_method: "verification-records.jsonl".to_string(),
+        item_name: Some("Winged Crystal Tear".to_string()),
+        location: Some("Minor Erdtree".to_string()),
+    });
 
     collection.add_slot(slot0);
 

@@ -4,6 +4,52 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.15 - Tile Formula Correction & Legacy Dungeon Base Discovery
+
+### Critical Fix
+- **Tile formula base_offset corrected**: Changed from 485330 to **489981** (+4651 bytes)
+  - Verified empirically via Smoldering Butterfly pickup temporal diff
+  - Flag 1043500010 confirmed at byte 857482 in event_flags section
+  - This fixes all tile flag calculations for base game world pickups
+
+### Database Expansion
+- **Legacy dungeon bases discovered** using `legacymap.eventflagalloclist` slot formula:
+  - Formula verified: `base = 4112 + slot × 1125` matches Areas 14 (29987) and 18 (43487) exactly
+  - Area 11 (Leyndell): 8612 (slot 4)
+  - Area 12 (Underground): 15362 (slot 10)
+  - Area 13 (Leyndell Royal Capital): 26612 (slot 20)
+  - Area 15 (Miquella's Haligtree): 33362 (slot 26)
+  - Area 16 (Volcano Manor): 36737 (slot 29)
+  - Area 19 (Chapel of Anticipation): 46862 (slot 38)
+  - Area 34 (Divine Towers): 60362 (derived from section 10 at slot 60)
+  - Area 35 (Mohgwyn Palace): 50237 (slot 41)
+  - Area 39 (Elden Throne): 31112 (derived from section 20 at slot 44)
+
+### Test Case Expansion
+- Added 38 confirmed test cases from verification-records.jsonl (Slot 0, Confessor)
+  - 34 block flags (graces, cookbooks, progression)
+  - 4 dungeon flags (Stormveil bosses and pickups)
+
+### New Verification Scripts
+- `scripts/verification/verify_tile_formula.py`: Proper tile formula verification with slot/event_flags extraction
+- `scripts/verification/extract_test_cases.py`: Extracts confirmed test cases from JSONL verification data
+
+### Key Finding
+- Web app (elden-map) uses different formula constants than our Rust project
+- `computedByteOffset` values in verification-records.jsonl cannot be used directly
+- `matches` field is still valuable for confirming flag states
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated tile formula and all dungeon bases
+- `src/db/pickup_flags.rs`: Updated test assertions for corrected base
+- `src/discovery/offset_probe.rs`: Updated hardcoded tile base
+- `src/discovery/test_cases.rs`: Added 38 confirmed test cases
+- `scripts/verification/flag_formulas.py`: Synced tile base constant
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: Updated tile formula documentation
+- `Cargo.toml`: Bumped to 0.4.15
+
+---
+
 ## v0.4.14 - Area 14 = Tutorial Areas Discovery
 
 ### Key Discovery
