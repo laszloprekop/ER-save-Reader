@@ -52,10 +52,10 @@
         "invalid": 0
       },
       "dungeon": {
-        "total": 104,
-        "correct": 17,
-        "incorrect": 0,
-        "invalid": 45
+        "total": 2331,
+        "correct": 2316,
+        "incorrect": 15,
+        "invalid": 0
       },
       "tile": {
         "total": 69,
@@ -3326,10 +3326,10 @@
       },
       "11": {
         "map_area": 11,
-        "base_offset": 0,
+        "base_offset": 4112,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Leyndell, Royal Capital"
+        "status": "needs_review",
+        "notes": "Academy of Raya Lucaria - base=4112 matches 172/187 (92%), same base as Area 10; section 00 (15 flags) uses different base=8612"
       },
       "12": {
         "map_area": 12,
@@ -3343,35 +3343,35 @@
         "base_offset": 0,
         "section_size": 1125,
         "status": "unverified",
-        "notes": "Crumbling Farum Azula"
+        "notes": "Leyndell, Royal Capital"
       },
       "14": {
         "map_area": 14,
-        "base_offset": 0,
+        "base_offset": 29987,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Academy of Raya Lucaria"
+        "status": "verified",
+        "notes": "Subterranean Shunning-Grounds (Sewers) - verified: 1968/1968 flags match formula exactly"
       },
       "15": {
         "map_area": 15,
         "base_offset": 0,
         "section_size": 1125,
         "status": "unverified",
-        "notes": "Caria Manor"
+        "notes": "Miquella's Haligtree"
       },
       "16": {
         "map_area": 16,
         "base_offset": 0,
         "section_size": 1125,
         "status": "unverified",
-        "notes": "Volcano Manor"
+        "notes": "Crumbling Farum Azula"
       },
       "18": {
         "map_area": 18,
-        "base_offset": 0,
+        "base_offset": 43487,
         "section_size": 1125,
-        "status": "unverified",
-        "notes": "Roundtable Hold"
+        "status": "verified",
+        "notes": "Roundtable Hold - verified: 176/176 flags match formula exactly"
       },
       "19": {
         "map_area": 19,

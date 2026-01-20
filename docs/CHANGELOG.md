@@ -4,6 +4,43 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.12 - Dungeon Area Formula Verification
+
+### Features
+- **Area 14 (Shunning-Grounds)**: Verified base_offset=29987 with 1968/1968 flags matching (100%)
+- **Area 18 (Roundtable Hold)**: Verified base_offset=43487 with 176/176 flags matching (100%)
+- **Area 11 (Raya Lucaria)**: Identified base_offset=4112 (same as Stormveil), 172/187 match (92%), marked needs_review
+
+### Documentation Updates
+- **EVENT-FLAG-GEOGRAPHY.md**: Major restructure
+  - Fixed terminology: Legacy Dungeons vs Minor Dungeons vs Special Areas
+  - Corrected flag format from `XXYYYZZZZ` to `AASSZZZZ`
+  - Fixed Area 18 = Roundtable Hold (was incorrectly documented as Area 19)
+  - Added verification status for all dungeon areas
+  - Added Flag Format Summary table
+  - Reorganized World Hierarchy diagram
+
+### Dungeon Area Name Corrections
+| Area | Old Name | Correct Name |
+|------|----------|--------------|
+| 11 | Leyndell | Academy of Raya Lucaria |
+| 13 | Farum Azula | Leyndell, Royal Capital |
+| 14 | Raya Lucaria | Shunning-Grounds (Sewers) |
+| 15 | Caria Manor | Miquella's Haligtree |
+| 16 | Volcano Manor | Crumbling Farum Azula |
+
+### Tests Added
+- `test_verified_dungeon_shunning_grounds()`: Area 14 formula validation
+- `test_verified_dungeon_roundtable()`: Area 18 formula validation
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated Areas 11, 13, 14, 15, 16, 18 with correct names and offsets
+- `src/db/pickup_flags.rs`: Added 2 new dungeon verification tests
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Restructured hierarchy and terminology
+- `Cargo.toml`: Bumped to 0.4.12
+
+---
+
 ## v0.4.11 - Tile Formula Base Offset Correction
 
 ### Fixes

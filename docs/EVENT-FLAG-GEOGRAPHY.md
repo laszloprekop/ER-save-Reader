@@ -10,22 +10,45 @@ This document describes how Elden Ring event flags are organized geographically 
 Lands Between (World)
 ├── Overworld Regions (Major Geographic Areas)
 │   ├── Sub-regions (Named Areas within Regions)
-│   │   ├── Sites of Grace (7XXXX flags)
-│   │   ├── Landmarks/POIs (62XXX flags)
-│   │   ├── World Pickups (10XXYYZZZZ flags)
-│   │   └── Minor Dungeons (30XXXXXX flags)
-│   └── Legacy Dungeons (1XXXXXXX, 35XXXXXX flags)
+│   │   ├── Sites of Grace (76XXX-79XXX block flags)
+│   │   ├── Landmarks/POIs (62XXX block flags)
+│   │   └── World Pickups (1XXYYZZZZ tile flags - 10 digits)
+│   │
+│   ├── Legacy Dungeons (AASSZZZZ dungeon flags - 8 digits)
+│   │   ├── Stormveil Castle (Area 10)
+│   │   ├── Raya Lucaria Academy (Area 11)
+│   │   ├── Leyndell, Royal Capital (Area 13)
+│   │   ├── Haligtree (Area 15)
+│   │   └── Farum Azula (Area 16)
+│   │
+│   └── Minor Dungeons (AASSZZZZ dungeon flags - 8 digits)
+│       ├── Catacombs (Area 30)
+│       ├── Caves (Area 31)
+│       ├── Tunnels (Area 32)
+│       └── Hero's Graves / Divine Towers (Area 33-34)
 │
-├── Underground Regions
-│   ├── Siofra River
-│   ├── Ainsel River
-│   ├── Deeproot Depths
-│   ├── Lake of Rot
-│   └── Mohgwyn Palace
+├── Underground Regions (Area 12, 35, 39)
+│   ├── Siofra River / Ainsel River (Area 12)
+│   ├── Mohgwyn Palace (Area 35)
+│   └── Deeproot Depths (Area 39)
+│
+├── Special Areas
+│   ├── Roundtable Hold (Area 18)
+│   ├── Shunning-Grounds / Sewers (Area 14)
+│   ├── Chapel of Anticipation (Area 19)
+│   └── Stranded Graveyard (Area 20)
 │
 └── DLC Regions (Shadow of the Erdtree)
-    └── World Pickups (20XXYYZZZZ flags)
+    └── World Pickups (2XXYYZZZZ tile flags - 10 digits)
 ```
+
+### Flag Format Summary
+
+| Format | Digits | Example | Used For |
+|--------|--------|---------|----------|
+| Block | 5-6 | `76100` | Graces, landmarks, progression |
+| Dungeon | 8 | `14000080` | Legacy dungeons, minor dungeons, special areas |
+| Tile | 10 | `1042370000` | Overworld pickups (base game: 1XXX, DLC: 2XXX) |
 
 ---
 
@@ -85,27 +108,56 @@ bit_position = 7 - (flag_id % 8)
 
 **Source File**: Derived from `common.emevd.js` event definitions
 
-### 3. Legacy Dungeon Flags (8-digit flags)
+### 3. Dungeon & Area Flags (8-digit flags)
 
-Major dungeons use an 8-digit format:
+Dungeons and special areas use an 8-digit format:
 
-**Format**: `XXYYYZZZZ`
+**Format**: `AASSZZZZ`
 
-| XX | Dungeon |
-|----|---------|
-| 10 | Stormveil Castle |
-| 11 | Raya Lucaria Academy |
-| 12 | Various minor dungeons |
-| 13 | Leyndell, Royal Capital |
-| 14 | Subterranean Shunning-Grounds |
-| 15 | Miquella's Haligtree |
-| 16 | Crumbling Farum Azula |
-| 19 | Roundtable Hold |
-| 30-34 | Catacombs, Caves, Tunnels |
-| 35 | Mohgwyn Palace |
-| 39 | Deeproot Depths |
+| Component | Meaning | Range |
+|-----------|---------|-------|
+| `AA` | Area ID | 10-39 |
+| `SS` | Section within area | 00-22 |
+| `ZZZZ` | Local flag index | 0000-9999 |
 
-**Section Size**: 1125 bytes per dungeon section
+#### Legacy Dungeons (Major Story Areas)
+
+| Area | Name | Base Offset | Status |
+|------|------|-------------|--------|
+| 10 | Stormveil Castle | 4112 | Verified |
+| 11 | Academy of Raya Lucaria | 4112 | Needs Review (92% match) |
+| 13 | Leyndell, Royal Capital | - | Unverified |
+| 15 | Miquella's Haligtree | - | Unverified |
+| 16 | Crumbling Farum Azula | - | Unverified |
+
+#### Minor Dungeons
+
+| Area | Name | Base Offset | Status |
+|------|------|-------------|--------|
+| 12 | Underground (Siofra, Ainsel, etc.) | - | Unverified |
+| 30 | Catacombs | 27411 | Verified |
+| 31 | Caves | 28634 | Verified |
+| 32 | Tunnels | 31577 | Verified |
+| 34 | Divine Towers | - | Unverified |
+
+#### Special Areas
+
+| Area | Name | Base Offset | Status |
+|------|------|-------------|--------|
+| 14 | Subterranean Shunning-Grounds (Sewers) | 29987 | Verified |
+| 18 | Roundtable Hold | 43487 | Verified |
+| 19 | Chapel of Anticipation | - | Unverified |
+| 20 | Stranded Graveyard | - | Unverified |
+| 35 | Mohgwyn Palace | - | Unverified |
+| 39 | Deeproot Depths / Elden Throne | - | Unverified |
+
+**Section Size**: 1125 bytes per section
+
+**Offset Formula**:
+```
+byte_offset = area_base_offset + section * 1125 + local_id / 8
+bit_position = 7 - (flag_id % 8)
+```
 
 **Source File**: `legacymap.eventflagalloclist`
 
