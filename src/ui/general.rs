@@ -1,13 +1,14 @@
 pub mod general {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::{general::general_view_model::Gender, vm::vm::ViewModel};
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     pub fn general(ui: &mut Ui, vm: &mut ViewModel) {
         let general_vm = &vm.slots[vm.index].general_vm;
 
         // Column headers
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Property | Value").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Property | Value").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -48,7 +49,7 @@ pub mod general {
 
     fn display_row(ui: &mut Ui, row_text: &str, _label: &str, value: &str) {
         let response = ui.add(
-            egui::Label::new(RichText::new(row_text).color(Color32::LIGHT_GRAY).monospace())
+            egui::Label::new(RichText::new(row_text).color(Color32::LIGHT_GRAY).monospace().size(TABLE_MONO_SIZE))
                 .sense(egui::Sense::click())
         );
 

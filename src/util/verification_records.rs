@@ -10,6 +10,11 @@ use std::path::Path;
 use crate::db::pickup_flags::get_flag_offset;
 
 /// A verification record from the JSONL file
+///
+/// Field name changes (2026-01-21):
+/// - manualStatus → userMarkedComplete
+/// - autoStatus → webappParsedStatus
+/// - matches → statusesAlign
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VerificationRecord {
@@ -25,9 +30,15 @@ pub struct VerificationRecord {
     pub flag_type: String,
     pub computed_byte_offset: i32,
     pub computed_bit_position: i32,
-    pub manual_status: bool,
-    pub auto_status: bool,
-    pub matches: bool,
+    /// User manually marked this flag as complete
+    #[serde(alias = "manualStatus")]
+    pub user_marked_complete: bool,
+    /// Web app's formula detection result
+    #[serde(alias = "autoStatus")]
+    pub webapp_parsed_status: bool,
+    /// Whether user marking and webapp detection agree
+    #[serde(alias = "matches")]
+    pub statuses_align: bool,
 }
 
 /// Load verification records from a JSONL file
@@ -70,18 +81,18 @@ pub fn recompute_auto_status(
             if offset < event_flags.len() {
                 let byte = event_flags[offset];
                 let is_set = (byte >> bit_position) & 1 == 1;
-                record.auto_status = is_set;
+                record.webapp_parsed_status = is_set;
                 // Update stored offsets to reflect current formula
                 record.computed_byte_offset = byte_offset as i32;
                 record.computed_bit_position = bit_position as i32;
-                record.matches = record.manual_status == record.auto_status;
+                record.statuses_align = record.user_marked_complete == record.webapp_parsed_status;
             }
         } else {
             // No formula for this flag - mark as not computable
             record.computed_byte_offset = -1;
             record.computed_bit_position = -1;
-            record.auto_status = false;
-            record.matches = !record.manual_status; // Matches only if manual is also false
+            record.webapp_parsed_status = false;
+            record.statuses_align = !record.user_marked_complete; // Aligns only if user also marked false
         }
     }
 }

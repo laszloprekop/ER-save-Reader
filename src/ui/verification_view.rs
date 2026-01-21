@@ -1,20 +1,10 @@
 pub mod verification_view {
-    use eframe::egui::{self, Ui, Color32, RichText, ScrollArea};
+    use eframe::egui::{self, Ui, RichText, ScrollArea};
     use crate::vm::verification_vm::{VerificationViewModel, VerificationFilterStatus, DetectionCategory};
-
-    // =========================================================================
-    // Catppuccin Frappé Color Palette
-    // =========================================================================
-    const CAT_RED: Color32 = Color32::from_rgb(231, 130, 132);      // #e78284
-    const CAT_GREEN: Color32 = Color32::from_rgb(166, 209, 137);    // #a6d189
-    const CAT_YELLOW: Color32 = Color32::from_rgb(229, 200, 144);   // #e5c890
-    const CAT_PEACH: Color32 = Color32::from_rgb(239, 159, 118);    // #ef9f76
-    const CAT_TEAL: Color32 = Color32::from_rgb(129, 200, 190);     // #81c8be
-    const CAT_SUBTEXT: Color32 = Color32::from_rgb(165, 173, 206);  // #a5adce
-    const CAT_OVERLAY: Color32 = Color32::from_rgb(131, 139, 167);  // #838ba7
-
-    /// Monospace font size (85% of default ~14px)
-    const MONO_SIZE: f32 = 12.0;
+    use crate::ui::style::{
+        TABLE_MONO_SIZE,
+        CAT_RED, CAT_GREEN, CAT_YELLOW, CAT_PEACH, CAT_TEAL, CAT_SUBTEXT, CAT_OVERLAY,
+    };
 
     /// Main verification comparison view
     pub fn verification_view(ui: &mut Ui, vm: &mut VerificationViewModel) {
@@ -111,7 +101,7 @@ pub mod verification_view {
                     ui.horizontal(|ui| {
                         ui.label(RichText::new(
                             "Flag ID      | Name                                                                              | Category         | Region           | Status"
-                        ).color(CAT_YELLOW).monospace().size(MONO_SIZE));
+                        ).color(CAT_YELLOW).monospace().size(TABLE_MONO_SIZE));
                     });
 
                     for det in &vm.suspicious_detections {
@@ -133,7 +123,7 @@ pub mod verification_view {
                         let response = ui.add(egui::Label::new(RichText::new(&row)
                             .color(row_color)
                             .monospace()
-                            .size(MONO_SIZE))
+                            .size(TABLE_MONO_SIZE))
                             .sense(egui::Sense::click()))
                             .on_hover_text(&det.description);
 
@@ -185,8 +175,8 @@ pub mod verification_view {
             ui.selectable_value(&mut vm.filter_status, VerificationFilterStatus::Mismatched, "Mismatched");
         });
 
-        // Filter controls - Category
-        ui.horizontal(|ui| {
+        // Filter controls - Category (wrapped to handle many categories)
+        ui.horizontal_wrapped(|ui| {
             ui.label(RichText::new("Category:").color(CAT_SUBTEXT));
             if ui.selectable_label(vm.filter_category.is_none(), "All").clicked() {
                 vm.filter_category = None;
@@ -214,7 +204,7 @@ pub mod verification_view {
         ui.horizontal(|ui| {
             ui.label(RichText::new(
                 "Flag ID      | Name                                                                              | Category         | Manual | Auto   | Match"
-            ).color(CAT_YELLOW).monospace().size(MONO_SIZE));
+            ).color(CAT_YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -223,7 +213,7 @@ pub mod verification_view {
             .auto_shrink(false)
             .show(ui, |ui| {
                 for record in vm.get_filtered_records() {
-                    let match_color = if record.matches {
+                    let match_color = if record.statuses_align {
                         CAT_GREEN
                     } else {
                         CAT_RED
@@ -234,14 +224,14 @@ pub mod verification_view {
                         record.flag_id,
                         &record.flag_name,
                         &record.flag_category,
-                        if record.manual_status { "TRUE" } else { "false" },
-                        if record.auto_status { "TRUE" } else { "false" },
-                        if record.matches { "OK" } else { "DIFF" }
+                        if record.user_marked_complete { "TRUE" } else { "false" },
+                        if record.webapp_parsed_status { "TRUE" } else { "false" },
+                        if record.statuses_align { "OK" } else { "DIFF" }
                     );
 
                     // Make row clickable for context menu
                     let response = ui.add(egui::Label::new(
-                        RichText::new(&row).color(match_color).monospace().size(MONO_SIZE)
+                        RichText::new(&row).color(match_color).monospace().size(TABLE_MONO_SIZE)
                     ).sense(egui::Sense::click()));
 
                     // Context menu

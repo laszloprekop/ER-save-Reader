@@ -4,6 +4,34 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.20 - UI Improvements and Verification Updates
+
+### UI Improvements
+- **Category filter overflow**: Fixed verification page category filters to wrap instead of overflow (changed to `horizontal_wrapped`)
+- **Smaller monospace fonts**: Reduced table monospace font size from 12px to 9px (75% reduction) for better density
+- **Consolidated styling**: Created `src/ui/style.rs` with shared `TABLE_MONO_SIZE` constant used across 10 view files
+- **File dialog memory**: Open/save dialogs now remember the last used directory
+
+### Verification Framework Updates
+- Updated Rust code to use renamed correlation file (`flag-correlation-candidates.jsonl`)
+- Updated field names in `VerificationRecord`:
+  - `manual_status` → `user_marked_complete` (with serde alias for compatibility)
+  - `auto_status` → `webapp_parsed_status`
+  - `matches` → `statuses_align`
+
+### Files Modified
+- `src/ui/style.rs`: New shared style constants module
+- `src/ui/verification_view.rs`: Category filter wrapping, style imports
+- `src/ui/events.rs`, `src/ui/event_flags_db_view.rs`, `src/ui/world_pickups_view.rs`: Monospace size
+- `src/ui/equipment.rs`, `src/ui/general.rs`, `src/ui/stats.rs`: Monospace size
+- `src/ui/npcs_view.rs`, `src/ui/spells_view.rs`, `src/ui/shop_items_view.rs`: Monospace size
+- `src/main.rs`: File dialog directory memory
+- `src/util/verification_records.rs`: Field name updates
+- `src/vm/verification_vm.rs`, `src/vm/slot.rs`: Field references
+- `src/discovery/ground_truth_probe.rs`, `src/discovery/cli.rs`, `src/discovery/test_cases.rs`: Field names
+
+---
+
 ## v0.4.19 - Major Block Base Corrections
 
 ### Critical Fixes

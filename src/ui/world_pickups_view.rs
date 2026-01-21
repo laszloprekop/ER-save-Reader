@@ -3,6 +3,7 @@ pub mod world_pickups_view {
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
     use crate::db::event_flags::event_flags::EVENT_FLAGS;
     use crate::util::bit::bit::get_bit;
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum PickupFilter {
@@ -109,7 +110,7 @@ pub mod world_pickups_view {
             "Lot ID | Flag ID | Item | Type | Qty | Region | Tile"
         };
         ui.horizontal(|ui| {
-            ui.label(RichText::new(header).color(Color32::YELLOW).monospace());
+            ui.label(RichText::new(header).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -218,7 +219,7 @@ pub mod world_pickups_view {
                     };
 
                     let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace())
+                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                             .sense(egui::Sense::click())
                     );
 

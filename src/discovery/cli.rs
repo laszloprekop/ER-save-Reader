@@ -23,7 +23,7 @@ const DEFAULT_SNAPSHOT_DIR: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Eld
 const DEFAULT_SAVE_PATH: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/ER0000.sl2";
 const DEFAULT_STORE_PATH: &str = "discoveries.json";
 const DEFAULT_GROUND_TRUTH: &str = "ground_truth_offsets.json";
-const DEFAULT_RECORDS_PATH: &str = "../elden-map/server/data/verification-records.jsonl";
+const DEFAULT_RECORDS_PATH: &str = "../elden-map/server/data/flag-correlation-candidates.jsonl";
 
 /// Run discovery CLI with given arguments
 pub fn run_cli(args: &[String]) -> Result<(), String> {

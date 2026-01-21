@@ -110,7 +110,7 @@ impl VerificationViewModel {
             // PRIMARY: Formula Errors (manual=true, auto=false)
             // User explicitly confirmed collection, but formula doesn't detect it
             // This is the most reliable indicator of a formula problem
-            if record.manual_status && !record.auto_status {
+            if record.user_marked_complete && !record.webapp_parsed_status {
                 let description = format!(
                     "FORMULA ERROR: '{}' (flag {}) was manually confirmed as collected, but the formula does NOT detect it. \
                     This strongly indicates an error in the offset calculation for {} items. \
@@ -124,8 +124,8 @@ impl VerificationViewModel {
                     flag_category: record.flag_category.clone(),
                     region: record.flag_region.clone(),
                     detection_category: DetectionCategory::FormulaError,
-                    auto_status: record.auto_status,
-                    manual_status: Some(record.manual_status),
+                    auto_status: record.webapp_parsed_status,
+                    manual_status: Some(record.user_marked_complete),
                     description,
                 });
             }
@@ -133,7 +133,7 @@ impl VerificationViewModel {
             // INFORMATIONAL: Pending Verification (auto=true, manual=false)
             // Formula detected it, but user hasn't confirmed
             // Could be: 1) User forgot to mark it, 2) No POI exists, 3) True false positive
-            if record.auto_status && !record.manual_status {
+            if record.webapp_parsed_status && !record.user_marked_complete {
                 let description = format!(
                     "Auto-detected '{}' (flag {}) as collected, but not manually confirmed. \
                     This could mean: 1) User forgot to mark it, 2) No POI exists for this flag, or 3) Actual formula error. \
@@ -146,15 +146,15 @@ impl VerificationViewModel {
                     flag_category: record.flag_category.clone(),
                     region: record.flag_region.clone(),
                     detection_category: DetectionCategory::PendingVerification,
-                    auto_status: record.auto_status,
-                    manual_status: Some(record.manual_status),
+                    auto_status: record.webapp_parsed_status,
+                    manual_status: Some(record.user_marked_complete),
                     description,
                 });
             }
 
             // INFORMATIONAL: Undiscovered Region (auto=true, in unvisited region)
             // Only flag if both auto and manual agree it's collected, but region seems unvisited
-            if record.auto_status && record.manual_status && !self.is_region_discovered(&record.flag_region) {
+            if record.webapp_parsed_status && record.user_marked_complete && !self.is_region_discovered(&record.flag_region) {
                 let description = format!(
                     "Both auto and manual confirm '{}' (flag {}) as collected, but no graces discovered in '{}'. \
                     This is likely valid (item obtained via drop/trade/different path) but worth noting.",
@@ -166,8 +166,8 @@ impl VerificationViewModel {
                     flag_category: record.flag_category.clone(),
                     region: record.flag_region.clone(),
                     detection_category: DetectionCategory::UndiscoveredRegion,
-                    auto_status: record.auto_status,
-                    manual_status: Some(record.manual_status),
+                    auto_status: record.webapp_parsed_status,
+                    manual_status: Some(record.user_marked_complete),
                     description,
                 });
             }
@@ -250,8 +250,8 @@ impl VerificationViewModel {
                 // Status filter
                 match self.filter_status {
                     VerificationFilterStatus::All => true,
-                    VerificationFilterStatus::Matching => r.matches,
-                    VerificationFilterStatus::Mismatched => !r.matches,
+                    VerificationFilterStatus::Matching => r.statuses_align,
+                    VerificationFilterStatus::Mismatched => !r.statuses_align,
                 }
             })
             .collect()
@@ -260,7 +260,7 @@ impl VerificationViewModel {
     /// Get summary statistics
     pub fn get_summary(&self) -> VerificationSummary {
         let total = self.records.len();
-        let matches = self.records.iter().filter(|r| r.matches).count();
+        let matches = self.records.iter().filter(|r| r.statuses_align).count();
         let by_category = self.get_category_stats();
 
         VerificationSummary {
@@ -283,7 +283,7 @@ impl VerificationViewModel {
         for r in &self.records {
             let entry = stats.entry(r.flag_category.clone()).or_insert((0, 0));
             entry.0 += 1;
-            if r.matches {
+            if r.statuses_align {
                 entry.1 += 1;
             }
         }

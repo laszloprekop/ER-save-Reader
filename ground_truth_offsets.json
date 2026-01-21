@@ -3226,7 +3226,7 @@
         "base_offset": 9359,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Map fragments - CORRECTED 2026-01-21: Base 9359 gives 12/12 match (100%) on Slot 0 confirmed flags AND 12/12 UNSET on Slot 1 early-game character. Old base 1500 gave 0% match. Validated with positive AND negative evidence across multiple slots."
+        "notes": "Map fragments - CORRECTED 2026-01-21: Base 9359 gives 12/12 match (100%) on Slot 0 confirmed flags. NOTE: Temporal diff on separate Wretch save suggests base 28407 for that context - base may vary between save states. Using 9359 as primary (more evidence: 12 maps vs 1 map temporal)."
       },
       "65000": {
         "block_start": 65000,

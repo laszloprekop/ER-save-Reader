@@ -1,7 +1,7 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::verification_view::verification_view::verification_view, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::{verification_view::verification_view::verification_view, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
@@ -85,7 +85,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Region | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Region | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -126,7 +126,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -153,7 +153,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -180,7 +180,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -207,7 +207,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -234,7 +234,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -261,7 +261,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -288,7 +288,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -329,7 +329,7 @@ pub mod events {
         };
 
         let response = ui.add(
-            egui::Label::new(RichText::new(&display_text).color(text_color).monospace())
+            egui::Label::new(RichText::new(&display_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                 .sense(egui::Sense::click())
         );
 
@@ -464,7 +464,7 @@ pub mod events {
 
         // Header
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Lot ID | Flag ID | Item | Category | Qty | Region").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Status | Lot ID | Flag ID | Item | Category | Qty | Region").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         if unverified_count > 0 {
             ui.label(RichText::new("! = unverified formula (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
@@ -544,7 +544,7 @@ pub mod events {
                 };
 
                 let response = ui.add(
-                    egui::Label::new(RichText::new(&row_text).color(text_color).monospace())
+                    egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                         .sense(egui::Sense::click())
                 );
 

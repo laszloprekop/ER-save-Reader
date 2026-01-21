@@ -29,9 +29,12 @@ pub struct VerificationRecord {
     pub flag_type: String,
     pub computed_byte_offset: i32,
     pub computed_bit_position: i8,
-    pub manual_status: bool,
-    pub auto_status: bool,
-    pub matches: bool,
+    #[serde(alias = "manualStatus")]
+    pub user_marked_complete: bool,
+    #[serde(alias = "autoStatus")]
+    pub webapp_parsed_status: bool,
+    #[serde(alias = "matches")]
+    pub statuses_align: bool,
 }
 
 /// Load verification records from JSONL file
@@ -70,7 +73,7 @@ pub fn probe_from_verification_records(
 
     // Filter to this slot's mismatched records where manual=true
     let mismatched: Vec<_> = all_records.iter()
-        .filter(|r| r.slot_index == slot_index && r.manual_status && !r.matches)
+        .filter(|r| r.slot_index == slot_index && r.user_marked_complete && !r.statuses_align)
         .collect();
 
     println!("\n╔══════════════════════════════════════════════════════════════╗");
@@ -108,7 +111,7 @@ pub fn probe_from_verification_records(
                 event_flags,
                 record.flag_id,
                 &record.flag_name,
-                record.manual_status,
+                record.user_marked_complete,
             );
 
             // Verify against actual save state
@@ -131,7 +134,7 @@ pub fn probe_from_verification_records(
                     let found_value = (byte & bit_mask) != 0;
                     println!("║   Value at found position: {}", found_value);
 
-                    if found_value == record.manual_status {
+                    if found_value == record.user_marked_complete {
                         println!("║   ✓ MATCH! This is likely the correct offset");
                     }
                 }

@@ -89,6 +89,8 @@ pub struct App {
     event_flags_db_view_state: EventFlagsDbViewState,
     // Track which slots have had verification records loaded
     verification_loaded_slots: [bool; 10],
+    // Remember the last directory used for file dialogs
+    last_directory: Option<PathBuf>,
 }
 
 impl App {
@@ -108,6 +110,8 @@ impl App {
             event_flags_db_view_state: EventFlagsDbViewState::default(),
             // Track which slots have had verification records loaded
             verification_loaded_slots: [false; 10],
+            // Initialize last directory to None (will use system default)
+            last_directory: None,
         }
     }
 
@@ -116,7 +120,7 @@ impl App {
         let slot_index = self.vm.index;
 
         // Default path - relative to typical development location
-        let default_path = std::path::Path::new("../elden-map/server/data/verification-records.jsonl");
+        let default_path = std::path::Path::new("../elden-map/server/data/flag-correlation-candidates.jsonl");
 
         // Try environment variable first
         let path = std::env::var("ER_VERIFICATION_RECORDS_PATH")
@@ -185,6 +189,10 @@ impl App {
     fn open(&mut self, path: PathBuf) {
         self.save = Save::from_path(&path).expect("Failed to read save");
         self.vm = ViewModel::from_save(&self.save);
+        // Remember the parent directory for next file dialog
+        if let Some(parent) = path.parent() {
+            self.last_directory = Some(parent.to_path_buf());
+        }
         self.picked_path = path.clone();
         // Reset verification state - will be loaded on demand per slot
         self.verification_loaded_slots = [false; 10];
@@ -202,36 +210,42 @@ impl App {
         }
     }
 
-    fn open_file_dialog() -> Option<PathBuf> {
-        FileDialog::new()
-        .add_filter("SL2", &["sl2", "Regular Save File"])
-        .add_filter("TXT", &["txt", "Save Wizard Exported TXT File"])
-        .add_filter("*", &["*", "All files"])
-        .set_directory("/")
-        .pick_file()
+    fn open_file_dialog(last_dir: Option<&PathBuf>) -> Option<PathBuf> {
+        let mut dialog = FileDialog::new()
+            .add_filter("SL2", &["sl2", "Regular Save File"])
+            .add_filter("TXT", &["txt", "Save Wizard Exported TXT File"])
+            .add_filter("*", &["*", "All files"]);
+        if let Some(dir) = last_dir {
+            dialog = dialog.set_directory(dir);
+        }
+        dialog.pick_file()
     }
 
-    fn save_file_dialog() -> Option<PathBuf> {
-        FileDialog::new()
-        .add_filter("SL2", &["sl2", "Regular Save File"])
-        .add_filter("TXT", &["txt", "Save Wizard Exported TXT File"])
-        .add_filter("*", &["*", "Any format"])
-        .set_directory("/")
-        .save_file()
+    fn save_file_dialog(last_dir: Option<&PathBuf>) -> Option<PathBuf> {
+        let mut dialog = FileDialog::new()
+            .add_filter("SL2", &["sl2", "Regular Save File"])
+            .add_filter("TXT", &["txt", "Save Wizard Exported TXT File"])
+            .add_filter("*", &["*", "Any format"]);
+        if let Some(dir) = last_dir {
+            dialog = dialog.set_directory(dir);
+        }
+        dialog.save_file()
     }
 
-    fn export_file_dialog(character_name: &str) -> Option<PathBuf> {
-        FileDialog::new()
-        .add_filter("JSON", &["json"])
-        .set_file_name(&format!("{}.json", character_name))
-        .set_directory("/")
-        .save_file()
+    fn export_file_dialog(character_name: &str, last_dir: Option<&PathBuf>) -> Option<PathBuf> {
+        let mut dialog = FileDialog::new()
+            .add_filter("JSON", &["json"])
+            .set_file_name(&format!("{}.json", character_name));
+        if let Some(dir) = last_dir {
+            dialog = dialog.set_directory(dir);
+        }
+        dialog.save_file()
     }
 
     fn export_character(&mut self) {
         let slot_index = self.vm.index;
         let character_name = self.vm.slots[slot_index].general_vm.character_name.trim_matches('\0');
-        let path = Self::export_file_dialog(character_name);
+        let path = Self::export_file_dialog(character_name, self.last_directory.as_ref());
 
         match path {
             Some(path) => {
@@ -274,7 +288,7 @@ impl eframe::App for App {
             ui.columns(2, |uis|{
                 uis[0].with_layout(Layout::left_to_right(Align::Center),| ui| {
                     if ui.button(egui::RichText::new(format!("{} open", egui_phosphor::regular::FOLDER_OPEN))).clicked() {
-                        let files = Self::open_file_dialog();
+                        let files = Self::open_file_dialog(self.last_directory.as_ref());
                         match files {
                             Some(path) => self.open(path),
                             None => {},

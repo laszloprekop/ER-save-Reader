@@ -522,14 +522,14 @@ pub fn build_test_suite_from_records(records_path: &Path) -> Result<TestSuiteCol
                 flag_id: record.flag_id,
                 name: record.flag_name.clone(),
                 category: FlagCategory::from_str(&record.flag_category),
-                expected: record.manual_status,
+                expected: record.user_marked_complete,
                 verification_method: format!("From verification record ({})", record.flag_region),
                 item_name: None,
                 location: Some(record.flag_region.clone()),
             };
 
             // Add to appropriate list based on expected value
-            if record.manual_status {
+            if record.user_marked_complete {
                 suite.add_true(case);
             } else {
                 suite.add_false(case);
@@ -568,13 +568,13 @@ pub fn build_slot_test_suite_from_records(
             flag_id: record.flag_id,
             name: record.flag_name.clone(),
             category: FlagCategory::from_str(&record.flag_category),
-            expected: record.manual_status,
+            expected: record.user_marked_complete,
             verification_method: format!("From verification record ({})", record.flag_region),
             item_name: None,
             location: Some(record.flag_region.clone()),
         };
 
-        if record.manual_status {
+        if record.user_marked_complete {
             suite.add_true(case);
         } else {
             suite.add_false(case);

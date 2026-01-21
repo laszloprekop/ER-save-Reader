@@ -7,6 +7,7 @@ pub mod event_flags_db_view {
         EVENT_FLAGS_DB, EventFlagCategory, EventFlagEntryOwned, get_unique_regions,
         export_to_json, export_filtered_to_json
     };
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum EventFlagCategoryFilter {
@@ -231,7 +232,7 @@ pub mod event_flags_db_view {
             ui.label(RichText::new(format!(
                 "{:<12} | {:<50} | {:<15} | {}",
                 "Flag ID", "Name", "Category", "Region"
-            )).color(Color32::YELLOW).monospace());
+            )).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -279,7 +280,7 @@ pub mod event_flags_db_view {
                     };
 
                     let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace())
+                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                             .sense(egui::Sense::click())
                     );
 

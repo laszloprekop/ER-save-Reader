@@ -1,6 +1,7 @@
 pub mod stats {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::vm::vm::ViewModel;
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     pub fn stats(ui: &mut Ui, vm: &mut ViewModel) {
         let stats_vm = &vm.slots[vm.index].stats_vm;
@@ -12,7 +13,7 @@ pub mod stats {
 
         // Column headers
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Stat | Value").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Stat | Value").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -56,7 +57,7 @@ pub mod stats {
         let row_text = format!("{} | {}", stat_name, value);
 
         let response = ui.add(
-            egui::Label::new(RichText::new(&row_text).color(Color32::LIGHT_GRAY).monospace())
+            egui::Label::new(RichText::new(&row_text).color(Color32::LIGHT_GRAY).monospace().size(TABLE_MONO_SIZE))
                 .sense(egui::Sense::click())
         );
 

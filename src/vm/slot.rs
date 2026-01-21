@@ -177,9 +177,9 @@ pub mod slot_view_model {
                         category: r.flag_category.clone(),
                         region: r.flag_region.clone(),
                         flag_type: r.flag_type.clone(),
-                        manual_status: r.manual_status,
-                        auto_status: r.auto_status,
-                        matches: r.matches,
+                        manual_status: r.user_marked_complete,
+                        auto_status: r.webapp_parsed_status,
+                        matches: r.statuses_align,
                         byte_offset: r.computed_byte_offset,
                         bit_position: r.computed_bit_position,
                     })

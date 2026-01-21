@@ -1,13 +1,14 @@
 pub mod equipment {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::vm::vm::ViewModel;
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     pub fn equipment(ui: &mut Ui, vm: &mut ViewModel) {
         let equipment_vm = &vm.slots[vm.index].equipment_vm;
 
         // Column headers
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Slot | Item Name | Item ID | GA Handle").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("Slot | Item Name | Item ID | GA Handle").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -98,7 +99,7 @@ pub mod equipment {
         };
 
         let response = ui.add(
-            egui::Label::new(RichText::new(&row_text).color(text_color).monospace())
+            egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                 .sense(egui::Sense::click())
         );
 

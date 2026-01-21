@@ -1,6 +1,7 @@
 pub mod npcs_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::npcs::{NPCS, NpcType};
+    use crate::ui::style::TABLE_MONO_SIZE;
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum NpcFilter {
@@ -44,7 +45,7 @@ pub mod npcs_view {
 
         // Column headers
         ui.horizontal(|ui| {
-            ui.label(RichText::new("ID | Name | Type | Location | Discovery Flag | Death Flag").color(Color32::YELLOW).monospace());
+            ui.label(RichText::new("ID | Name | Type | Location | Discovery Flag | Death Flag").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
         ui.separator();
 
@@ -101,7 +102,7 @@ pub mod npcs_view {
                     let text_color = if is_selected { Color32::YELLOW } else { Color32::LIGHT_GRAY };
 
                     let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace())
+                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                             .sense(egui::Sense::click())
                     );
 
