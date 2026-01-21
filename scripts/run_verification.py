@@ -11,7 +11,7 @@ Usage:
 Options:
     --save PATH         Path to save file (default: searches common locations)
     --extracted PATH    Path to extracted_event_flags.json
-    --manual PATH       Path to verification-records.jsonl
+    --manual PATH       Path to flag-correlation-candidates.jsonl
     --output PATH       Output path for ground_truth_offsets.json
     --categories CAT    Comma-separated list of categories to verify (default: priority)
     --verbose          Print detailed output
@@ -65,8 +65,8 @@ def find_default_paths():
 
     # Manual completions (JSONL format preferred)
     manual_locations = [
-        Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl"),
-        base.parent / "elden-map" / "server" / "data" / "verification-records.jsonl",
+        Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl"),
+        base.parent / "elden-map" / "server" / "data" / "flag-correlation-candidates.jsonl",
     ]
     manual_path = None
     for loc in manual_locations:
@@ -238,7 +238,7 @@ def main():
     parser.add_argument(
         "--manual",
         type=Path,
-        help="Path to verification-records.jsonl"
+        help="Path to flag-correlation-candidates.jsonl"
     )
     parser.add_argument(
         "--output",

@@ -137,7 +137,7 @@ def reverse_calc_block_base(byte_offset: int, flag_id: int) -> int:
 
 def main():
     # Load verification data to see what flags we know about
-    jsonl_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl")
+    jsonl_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl")
     save_path = Path("/Users/laszloprekop/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/76561197969778805/ER0000.sl2")
 
     print("Loading verification records...")
@@ -191,7 +191,7 @@ def main():
         # Find flags with differing states across slots
         flag_states = defaultdict(dict)  # flag_id -> {slot_idx: status}
         for rec in block_records:
-            flag_states[rec["flagId"]][rec["slotIndex"]] = rec["manualStatus"]
+            flag_states[rec["flagId"]][rec["slotIndex"]] = rec["userMarkedComplete"]
 
         # Look for flags where we have both TRUE and FALSE across different slots
         for flag_id, states in flag_states.items():

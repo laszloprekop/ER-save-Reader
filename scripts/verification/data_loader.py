@@ -136,11 +136,11 @@ class DataLoader:
 
     def load_manual_completions(self, filepath: str | Path) -> List[ManualCompletion]:
         """
-        Load manual completions from verification-records.jsonl or legacy txt format.
+        Load manual completions from flag-correlation-candidates.jsonl or legacy txt format.
 
         JSONL format (preferred):
         {"flagId": 76117, "flagName": "Saintsbridge", "flagCategory": "Grace",
-         "slotIndex": 5, "manualStatus": true, ...}
+         "slotIndex": 5, "userMarkedComplete": true, ...}
 
         Legacy txt format:
         - Lines starting with # are comments
@@ -158,8 +158,8 @@ class DataLoader:
                         continue
                     try:
                         record = json.loads(line)
-                        # Only include records where manualStatus is true
-                        if record.get('manualStatus', False):
+                        # Only include records where userMarkedComplete is true
+                        if record.get('userMarkedComplete', False):
                             completions.append(ManualCompletion(
                                 name=record.get('flagName', 'Unknown'),
                                 flag_id=record.get('flagId'),
@@ -419,7 +419,7 @@ if __name__ == "__main__":
     # Default paths
     base_path = Path(__file__).parent.parent.parent
     extracted_path = base_path / "scripts" / "extracted_event_flags.json"
-    manual_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl")
+    manual_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl")
 
     loader = DataLoader()
 

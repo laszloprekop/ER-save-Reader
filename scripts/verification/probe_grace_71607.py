@@ -2,8 +2,8 @@
 """
 Probe for the correct offset of grace flag 71607 (Subterranean Inquisition Chamber).
 
-User confirmed: Slot 0 Confessor HAS this grace (manualStatus=true)
-Current formula gives: byte 2700, bit 0 = NOT SET (autoStatus=false)
+User confirmed: Slot 0 Confessor HAS this grace (userMarkedComplete=true)
+Current formula gives: byte 2700, bit 0 = NOT SET (webappParsedStatus=false)
 
 This script searches for the correct offset where bit 0 is SET.
 """

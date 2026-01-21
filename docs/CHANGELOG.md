@@ -4,12 +4,39 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.18 - Correlation Schema Updates
+
+### Schema Alignment
+- Updated all verification scripts to use renamed file `flag-correlation-candidates.jsonl`
+  - Previously named `verification-records.jsonl`
+  - Better reflects the file's purpose as correlation candidates, not verified records
+
+### Field Name Updates
+All scripts updated to use new field names from elden-map webapp:
+- `manualStatus` → `userMarkedComplete` (user manually marked flag as complete)
+- `autoStatus` → `webappParsedStatus` (webapp's formula detection result)
+- `matches` → `statusesAlign` (whether user and webapp agree)
+
+### Documentation Fixes
+- Fixed VM grace base in VERIFICATION-LEADS.md (2726 → 2825)
+- Fixed inconsistent Area 16 status in CORROBORATION-SYSTEM.md (was "verified", now "disproven")
+
+### Files Modified
+- `scripts/run_verification.py`: Updated paths and help text
+- `scripts/verify_from_jsonl.py`: Updated paths and field references
+- `scripts/discover_block_bases.py`: Updated path and field references
+- `scripts/verification/*.py`: All scripts updated with new schema
+- `docs/VERIFICATION-LEADS.md`: Fixed filename and base offset references
+- `docs/CORROBORATION-SYSTEM.md`: Fixed inconsistent Area 16 status
+
+---
+
 ## v0.4.17 - Volcano Manor Grace Sub-Block Discovery
 
 ### Critical Fix
 - **Block 71600 discovered**: Volcano Manor graces use different base than tutorial graces
   - Flag 71607 (Subterranean Inquisition Chamber) empirically at byte 2825, bit 0
-  - Sub-block 71600-71699 uses base 2750, NOT base 2625 like rest of block 71000
+  - Sub-block 71600-71699 uses base 2825 (corrected from initial 2750 discovery)
   - User confirmed grace SET, but formula returned NOT SET - probing found correct location
   - Block 71000 has **discontinuous allocation** - different sub-ranges use different bases
 

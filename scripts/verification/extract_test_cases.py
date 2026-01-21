@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Extract test cases from verification-records.jsonl for use in the Rust test suite.
+Extract test cases from flag-correlation-candidates.jsonl for use in the Rust test suite.
 
 This script:
 1. Loads verification records from the JSONL file
@@ -136,7 +136,7 @@ def analyze_records(records: List[Dict], slot_index: int = 0):
     }
 
     for record in slot_records:
-        if not record.get('manualStatus'):
+        if not record.get('userMarkedComplete'):
             continue  # Skip flags where user didn't confirm state
 
         flag_id = record.get('flagId')
@@ -173,7 +173,7 @@ def analyze_records(records: List[Dict], slot_index: int = 0):
 
 def print_test_cases(results: Dict, slot_name: str = "Confessor"):
     """Print test cases in a format suitable for Rust."""
-    print(f"// Test cases extracted from verification-records.jsonl for {slot_name}")
+    print(f"// Test cases extracted from flag-correlation-candidates.jsonl for {slot_name}")
     print(f"// Total: {len(results['confirmed_matches'])} confirmed matches")
     print()
 
@@ -225,7 +225,7 @@ def print_discovery_opportunities(results: Dict):
 
 
 def main():
-    jsonl_path = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl"
+    jsonl_path = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl"
 
     if len(sys.argv) > 1:
         jsonl_path = sys.argv[1]

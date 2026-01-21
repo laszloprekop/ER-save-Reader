@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Verify flags from elden-map verification-records.jsonl against actual save files.
+Verify flags from elden-map flag-correlation-candidates.jsonl against actual save files.
 
 This script reads the JSONL file, parses the save files, and checks if the
 computed offsets match the actual flag states.
@@ -39,7 +39,7 @@ def group_by_slot(records: list) -> dict:
 def verify_record(record: dict, event_flags: bytes, formulas: FlagFormulas) -> dict:
     """Verify a single record against actual save data."""
     flag_id = record["flagId"]
-    manual_status = record["manualStatus"]
+    manual_status = record["userMarkedComplete"]
     flag_type = record["flagType"]
 
     # Calculate offset using our formulas
@@ -122,7 +122,7 @@ def verify_record(record: dict, event_flags: bytes, formulas: FlagFormulas) -> d
 
 def main():
     # Paths
-    jsonl_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl")
+    jsonl_path = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl")
     # Use the current save file from CrossOver
     save_path = Path("/Users/laszloprekop/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/76561197969778805/ER0000.sl2")
 

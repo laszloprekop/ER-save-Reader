@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 """
-Analyze verification-records.jsonl to find leads for formula verification.
+Analyze flag-correlation-candidates.jsonl to find leads for formula verification.
+
+This file contains user-marked completions cross-referenced with webapp formula results.
+Field meanings:
+- userMarkedComplete: User manually marked this flag as complete/discovered
+- webappParsedStatus: Web app's formula detected this from the save file
+- statusesAlign: Whether user marking and webapp detection agree
 
 Strategy:
-1. Identify mismatches (manualStatus != autoStatus)
+1. Identify misalignments (userMarkedComplete != webappParsedStatus)
 2. Group by category, region, and formula type
 3. Look for patterns that suggest formula errors vs user errors
 4. Apply inseparable evidence methodology where possible
+
+Note: Web app may use different detection logic than our formulas.
+Misalignments could indicate errors in either system.
 """
 
 import json
@@ -14,7 +23,7 @@ from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Any
 
-RECORDS_PATH = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl"
+RECORDS_PATH = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl"
 
 
 def load_records() -> List[Dict]:
@@ -42,7 +51,7 @@ def analyze_records(records: List[Dict]):
         by_region[r.get('flagRegion', 'Unknown')].append(r)
         by_flag_type[r['flagType']].append(r)
 
-        if r['matches']:
+        if r['statusesAlign']:
             agreements.append(r)
         else:
             mismatches.append(r)
@@ -73,7 +82,7 @@ def print_summary(analysis: Dict):
     print("-"*60)
     for slot, records in sorted(analysis['by_slot'].items()):
         char_name = records[0]['characterName'] if records else 'Unknown'
-        matches = sum(1 for r in records if r['matches'])
+        matches = sum(1 for r in records if r['statusesAlign'])
         mismatches = len(records) - matches
         print(f"  Slot {slot} ({char_name}): {len(records)} records, {matches} match, {mismatches} mismatch")
 
@@ -82,7 +91,7 @@ def print_summary(analysis: Dict):
     print("BY CATEGORY:")
     print("-"*60)
     for cat, records in sorted(analysis['by_category'].items(), key=lambda x: -len(x[1])):
-        matches = sum(1 for r in records if r['matches'])
+        matches = sum(1 for r in records if r['statusesAlign'])
         mismatches = len(records) - matches
         print(f"  {cat:30} {len(records):4} records, {matches:4} match, {mismatches:4} mismatch")
 
@@ -91,7 +100,7 @@ def print_summary(analysis: Dict):
     print("BY FLAG TYPE:")
     print("-"*60)
     for ftype, records in sorted(analysis['by_flag_type'].items()):
-        matches = sum(1 for r in records if r['matches'])
+        matches = sum(1 for r in records if r['statusesAlign'])
         mismatches = len(records) - matches
         print(f"  {ftype:10} {len(records):4} records, {matches:4} match, {mismatches:4} mismatch")
 
@@ -106,8 +115,8 @@ def find_mismatch_patterns(analysis: Dict):
     mismatches = analysis['mismatches']
 
     # Categorize mismatches
-    user_set_formula_not = [r for r in mismatches if r['manualStatus'] and not r['autoStatus']]
-    user_not_formula_set = [r for r in mismatches if not r['manualStatus'] and r['autoStatus']]
+    user_set_formula_not = [r for r in mismatches if r['userMarkedComplete'] and not r['webappParsedStatus']]
+    user_not_formula_set = [r for r in mismatches if not r['userMarkedComplete'] and r['webappParsedStatus']]
 
     print(f"\nUser SET, Formula NOT SET: {len(user_set_formula_not)}")
     print(f"User NOT SET, Formula SET: {len(user_not_formula_set)}")
@@ -181,7 +190,7 @@ def find_corroboration_opportunities(analysis: Dict):
     print("="*80)
 
     # Look for grace clusters - if user has grace A, check nearby graces
-    grace_records = [r for r in analysis['by_category'].get('Grace', []) if r['manualStatus']]
+    grace_records = [r for r in analysis['by_category'].get('Grace', []) if r['userMarkedComplete']]
 
     print(f"\nGraces marked as discovered: {len(grace_records)}")
 
@@ -194,12 +203,12 @@ def find_corroboration_opportunities(analysis: Dict):
     print("\nGrace clusters by slot and region:")
     for (slot, region), records in sorted(by_slot_region.items()):
         char = records[0]['characterName']
-        matches = sum(1 for r in records if r['matches'])
+        matches = sum(1 for r in records if r['statusesAlign'])
         mismatches = len(records) - matches
         if mismatches > 0:
             print(f"  Slot {slot} ({char}) - {region}: {len(records)} graces, {mismatches} MISMATCHES")
             for r in records:
-                if not r['matches']:
+                if not r['statusesAlign']:
                     print(f"    ! {r['flagId']} {r['flagName'][:40]} (formula says NOT SET)")
 
 
@@ -213,7 +222,7 @@ def identify_high_confidence_leads(analysis: Dict):
     mismatches = analysis['mismatches']
 
     # Find blocks/areas with MANY mismatches - suggests formula error
-    user_set_not_auto = [r for r in mismatches if r['manualStatus'] and not r['autoStatus']]
+    user_set_not_auto = [r for r in mismatches if r['userMarkedComplete'] and not r['webappParsedStatus']]
 
     # Count by block for block-type flags
     block_counts = defaultdict(int)

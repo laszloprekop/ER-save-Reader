@@ -1,6 +1,6 @@
 # Verification Leads from User Records
 
-Analysis of `verification-records.jsonl` (473 records) to identify formula errors and verification opportunities.
+Analysis of `flag-correlation-candidates.jsonl` (473 records) to identify formula errors and verification opportunities.
 
 ## Summary Statistics
 
@@ -38,7 +38,7 @@ Block 71000 has discontinuous allocation with multiple sub-ranges:
 |-----------|--------|-----------|-------|--------|
 | 71000-71099 | Stormveil Castle | 2821 | 7/9 (77.8%) | Partial - 71000, 71008 don't match |
 | 71100-71199 | Leyndell | 2725 | 1/1 | 71109 Divine Bridge matches |
-| 71600-71699 | Volcano Manor | 2726 | 2/2 (100%) | **VERIFIED** - v0.4.17 |
+| 71600-71699 | Volcano Manor | 2825 | 2/2 (100%) | **VERIFIED** - corrected v0.4.18 |
 | 71800-71899 | Tutorial | 2725 | 2/2 (100%) | **VERIFIED** |
 
 **Stormveil Deep Dive (Base 2821):**

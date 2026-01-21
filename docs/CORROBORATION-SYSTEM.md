@@ -409,7 +409,7 @@ Slot assignments from `legacymap.eventflagalloclist`:
 |------|--------|----------|--------------------------------------------------|
 | 10   | 4112   | calculated | Test character bypassed Stormveil              |
 | 11   | 8612   | verified | 50+ non-zero bytes, flags 11000001-11000950    |
-| 16   | 36737  | verified | 16000800 (Rykard) = 0xFF bit 7 = DEFEATED      |
+| 16   | 36737  | **disproven** | Reads unrelated data - see Inseparable Evidence section |
 | 18   | 43487  | verified | 60+ non-zero bytes, extensive section 0 data   |
 
 ### Verification Method

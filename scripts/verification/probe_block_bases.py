@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Systematically probe block bases using known flag states from verification records.
+Systematically probe block bases using known flag states from correlation candidates.
 
 Strategy:
-1. Load verification records with manualStatus=true (user confirmed flags)
+1. Load flag-correlation-candidates with userMarkedComplete=true (user confirmed flags)
 2. For each problematic block, search for the correct base offset
 3. A correct base should make MOST user-confirmed flags show as SET
+
+Note: userMarkedComplete indicates user manually marked this flag as complete.
 """
 
 import json
@@ -13,7 +15,7 @@ from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
 
-RECORDS_PATH = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl"
+RECORDS_PATH = "/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl"
 SAVE_PATH = "/Users/laszloprekop/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/76561197969778805/ER0000.sl2"
 
 SLOT_SIZE = 0x280020
@@ -120,7 +122,7 @@ def main():
     # Group records by block (for block-type flags)
     block_records = defaultdict(list)
     for r in slot_records:
-        if r['flagType'] == 'block' and r['manualStatus']:  # User confirmed as SET
+        if r['flagType'] == 'block' and r['userMarkedComplete']:  # User confirmed as SET
             block = (r['flagId'] // 1000) * 1000
             block_records[block].append(r)
 

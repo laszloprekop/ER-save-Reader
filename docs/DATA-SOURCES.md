@@ -31,8 +31,8 @@ The save files are legitimate, unaltered files saved by the game.
 
 ## Manually maintained completion log
 
-A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces are checked.  
-'/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/verification-records.jsonl'
+A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces, unique item pickups, boss drops are checked.  
+''/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl''
 
 ## Event flags
 
