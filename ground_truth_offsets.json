@@ -3251,17 +3251,31 @@
       },
       "71000": {
         "block_start": 71000,
-        "base_offset": 2625,
-        "block_size": 1000,
+        "base_offset": 2821,
+        "block_size": 100,
         "status": "partial",
-        "notes": "Tutorial graces (71800, 71801) - WARNING: Block has discontinuous allocation. Sub-range 71600-71699 uses different base (see 71600 entry)."
+        "notes": "Stormveil graces (71000-71099) - PROBED 2026-01-21: Base 2821 gives 7/9 match (77.8%). Byte 0x7F has 71001-71007 SET. Flags 71000 (Godrick) and 71008 (Main Gate) don't match - need further investigation."
+      },
+      "71100": {
+        "block_start": 71100,
+        "base_offset": 2725,
+        "block_size": 100,
+        "status": "partial",
+        "notes": "Leyndell graces (71100-71199) - PROBED 2026-01-21: Flag 71109 (Divine Bridge) found at byte 2726, bit 2. Shares byte range with 71800 but uses different bit positions."
       },
       "71600": {
         "block_start": 71600,
-        "base_offset": 2750,
+        "base_offset": 2825,
         "block_size": 100,
         "status": "verified",
-        "notes": "Volcano Manor graces - DISCOVERED 2026-01-21: Flag 71607 empirically at byte 2825, bit 0. User confirmed Subterranean Inquisition Chamber grace SET. This sub-range uses base 2750 (NOT 2625 like rest of 71000 block). Flags 71600-71699 mapped here."
+        "notes": "Volcano Manor graces (71600-71699) - VERIFIED 2026-01-21: Base 2825 confirmed via inseparable evidence. Byte 0x01 shows only 71607 SET while 71600/71606 (Rykard graces) are NOT SET. User confirmed Rykard not defeated."
+      },
+      "71800": {
+        "block_start": 71800,
+        "base_offset": 2625,
+        "block_size": 200,
+        "status": "verified",
+        "notes": "Tutorial graces (71800-71999) - Base 2625 verified via Cave of Knowledge (71800) and Stranded Graveyard (71801) at byte 2725."
       },
       "72000": {
         "block_start": 72000,
