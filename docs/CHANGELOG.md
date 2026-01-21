@@ -4,6 +4,33 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.17 - Volcano Manor Grace Sub-Block Discovery
+
+### Critical Fix
+- **Block 71600 discovered**: Volcano Manor graces use different base than tutorial graces
+  - Flag 71607 (Subterranean Inquisition Chamber) empirically at byte 2825, bit 0
+  - Sub-block 71600-71699 uses base 2750, NOT base 2625 like rest of block 71000
+  - User confirmed grace SET, but formula returned NOT SET - probing found correct location
+  - Block 71000 has **discontinuous allocation** - different sub-ranges use different bases
+
+### Technical Improvement
+- **Sub-block support added** to `calculate_block_flag_offset()`
+  - Now checks 100-flag granularity first (e.g., 71600)
+  - Falls back to 1000-flag granularity if no sub-block found (e.g., 71000)
+  - Enables future sub-block discoveries without code changes
+
+### New Verification Scripts
+- `scripts/verification/verify_grace_blocks.py`: Cross-validate grace blocks
+- `scripts/verification/probe_vm_graces_extended.py`: Probe VM grace locations
+- `scripts/verification/probe_grace_71607.py`: Find correct 71607 offset
+
+### Files Modified
+- `ground_truth_offsets.json`: Added 71600 sub-block, marked 71000 as partial
+- `build.rs`: Added sub-block handling to code generator
+- `docs/CHANGELOG.md`: v0.4.17
+
+---
+
 ## v0.4.16 - Inseparable Evidence Methodology & Area 16 Disproven
 
 ### Critical Fix

@@ -170,7 +170,18 @@ fn generate_offsets_from_json() -> io::Result<()> {
     output.push_str("// ============================================================================\n\n");
 
     output.push_str("/// Calculate byte offset and bit position for a block-based flag (5-digit)\n");
+    output.push_str("/// Note: Some blocks have sub-ranges with different bases (e.g., 71600 within 71000)\n");
     output.push_str("pub fn calculate_block_flag_offset(flag_id: u32) -> Option<(u32, u8)> {\n");
+    output.push_str("    // First try sub-block at 100-flag granularity (e.g., 71600 for flag 71607)\n");
+    output.push_str("    let sub_block_start = (flag_id / 100) * 100;\n");
+    output.push_str("    if let Some(base) = VERIFIED_BLOCK_BASES.get(&sub_block_start) {\n");
+    output.push_str("        let relative = flag_id - sub_block_start;\n");
+    output.push_str("        let byte_offset = base.base_offset + relative / 8;\n");
+    output.push_str("        let bit_position = 7 - ((flag_id % 8) as u8);\n");
+    output.push_str("        return Some((byte_offset, bit_position));\n");
+    output.push_str("    }\n");
+    output.push_str("    \n");
+    output.push_str("    // Fall back to main block at 1000-flag granularity (e.g., 71000)\n");
     output.push_str("    let block_start = (flag_id / 1000) * 1000;\n");
     output.push_str("    let base = VERIFIED_BLOCK_BASES.get(&block_start)?;\n");
     output.push_str("    let relative = flag_id - block_start;\n");

@@ -3253,8 +3253,15 @@
         "block_start": 71000,
         "base_offset": 2625,
         "block_size": 1000,
+        "status": "partial",
+        "notes": "Tutorial graces (71800, 71801) - WARNING: Block has discontinuous allocation. Sub-range 71600-71699 uses different base (see 71600 entry)."
+      },
+      "71600": {
+        "block_start": 71600,
+        "base_offset": 2750,
+        "block_size": 100,
         "status": "verified",
-        "notes": "Tutorial graces (71800, 71801)"
+        "notes": "Volcano Manor graces - DISCOVERED 2026-01-21: Flag 71607 empirically at byte 2825, bit 0. User confirmed Subterranean Inquisition Chamber grace SET. This sub-range uses base 2750 (NOT 2625 like rest of 71000 block). Flags 71600-71699 mapped here."
       },
       "72000": {
         "block_start": 72000,
