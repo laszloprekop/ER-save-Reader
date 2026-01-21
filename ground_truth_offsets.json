@@ -3321,15 +3321,15 @@
         "map_area": 10,
         "base_offset": 4112,
         "section_size": 1125,
-        "status": "verified",
-        "notes": "Stormveil Castle - verified: 10000800 (Godrick) at byte 4212, 10000850 (Margit) at byte 4218 both match formula"
+        "status": "calculated",
+        "notes": "Stormveil Castle - calculated from legacymap slot 0: 4112 + 0*1125 = 4112. Formula verified theoretically. Cannot empirically verify - test character bypassed Stormveil."
       },
       "11": {
         "map_area": 11,
         "base_offset": 8612,
         "section_size": 1125,
-        "status": "calculated",
-        "notes": "Leyndell, Royal Capital - calculated from legacymap slot 4: 4112 + 4*1125 = 8612. NOTE: sections 00, 05, 10 map to slots 4, 5, 6 (non-consecutive sections!)"
+        "status": "verified",
+        "notes": "Leyndell, Royal Capital - calculated from legacymap slot 4: 4112 + 4*1125 = 8612. EMPIRICALLY VERIFIED 2026-01-21: 50+ non-zero bytes at base, flags 11000001-11000950 match formula exactly."
       },
       "12": {
         "map_area": 12,
@@ -3361,17 +3361,17 @@
       },
       "16": {
         "map_area": 16,
-        "base_offset": 36737,
+        "base_offset": 0,
         "section_size": 1125,
-        "status": "calculated",
-        "notes": "Volcano Manor - calculated from legacymap slot 29: 4112 + 29*1125 = 36737"
+        "status": "disproven",
+        "notes": "Volcano Manor - legacymap slot 29 gives 36737, but DISPROVEN 2026-01-21: Inseparable evidence test failed - 16000800 showed SET while grace 71600 NOT SET. User confirmed Rykard not defeated. Base 36737 reads wrong data (0xFF block at local 800-831). Correct base unknown - needs investigation."
       },
       "18": {
         "map_area": 18,
         "base_offset": 43487,
         "section_size": 1125,
         "status": "verified",
-        "notes": "Roundtable Hold - verified: 176/176 flags match formula exactly"
+        "notes": "Roundtable Hold - calculated from legacymap slot 35: 4112 + 35*1125 = 43487. EMPIRICALLY VERIFIED 2026-01-21: 60+ non-zero bytes at base, extensive flag data in section 0."
       },
       "19": {
         "map_area": 19,

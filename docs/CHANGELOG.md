@@ -4,6 +4,39 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.16 - Inseparable Evidence Methodology & Area 16 Disproven
+
+### Critical Fix
+- **Area 16 (Volcano Manor) base disproven**: Base 36737 (slot 29) reads unrelated data
+  - Inseparable evidence test: 16000800 (Rykard defeat) showed SET, but grace 71600 showed NOT SET
+  - User confirmed character has not defeated Rykard
+  - Byte at 36837 (0xFF) is unrelated data, not Rykard defeat flag
+  - Area 16 marked as "disproven" with base_offset = 0
+
+### New Methodology: Inseparable Evidence
+- **Inseparable flags**: Flags that cannot be set individually in normal gameplay
+- **Boss-grace pairs**: Boss defeat flag + post-boss grace must be consistent
+- Cross-validation catches false positives from formulas reading wrong data
+- Documented in `docs/CORROBORATION-SYSTEM.md`
+
+### Documentation
+- **Boss Remembrance System**: Complete mapping of boss defeat → remembrance → pickup chains
+  - Event 1100 awards progression items (Talisman Pouch), NOT remembrances
+  - 91xx flags trigger Event 1100 on boss death
+  - 510xxx flags track remembrance pickups
+- **Inseparable Evidence Methodology**: Validation technique for dungeon base verification
+
+### New Verification Scripts
+- `scripts/verification/verify_boss_chain.py`: Validates boss defeat → remembrance pickup chains
+- `scripts/verification/verify_rykard_chain.py`: Rykard-specific chain verification
+
+### Files Modified
+- `ground_truth_offsets.json`: Area 16 marked as disproven
+- `docs/CORROBORATION-SYSTEM.md`: Added inseparable evidence methodology
+- `Cargo.toml`: Bumped to 0.4.16
+
+---
+
 ## v0.4.15 - Tile Formula Correction & Legacy Dungeon Base Discovery
 
 ### Critical Fix

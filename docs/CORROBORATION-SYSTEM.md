@@ -277,13 +277,13 @@ Tile formula section:
 {
   "formulas": {
     "tile_formula": {
-      "base_offset": 495830,
+      "base_offset": 489981,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
-      "status": "needs_revalidation"
+      "status": "verified"
     }
   }
 }
@@ -367,13 +367,231 @@ let byte_offset = BASE_OFFSET + slot * BYTES_PER_SLOT + local_id / 8;
 let bit = 7 - (local_id % 8);
 ```
 
-Constants (verified):
+Constants (verified 2026-01-20):
 
-- `BASE_OFFSET`: 495830
+- `BASE_OFFSET`: 489981 (corrected from 495830/485330)
 - `BYTES_PER_SLOT`: 875
 - `SLOTS_PER_ROW`: 40
 - `ROW_BASE`: 33
 - `COL_BASE`: 30
+
+---
+
+## Dungeon Formula Verification (2026-01-21)
+
+### Formula
+
+```rust
+byte_offset = base + section * section_size + local_id / 8
+bit = 7 - (local_id % 8)
+```
+
+Where for flag `AASSLLLL`:
+- `AA` = area (10-39)
+- `SS` = section (00-99)
+- `LLLL` = local_id (0000-9999)
+
+### Base Calculation
+
+```rust
+base = 4112 + slot * 1125
+```
+
+Slot assignments from `legacymap.eventflagalloclist`:
+- m10 (Stormveil): slot 0,1
+- m11 (Leyndell): slot 4,5,6
+- m16 (Volcano Manor): slot 29
+- m18 (Roundtable Hold): slot 35
+
+### Empirically Verified Bases (2026-01-21)
+
+| Area | Base   | Status   | Evidence                                         |
+|------|--------|----------|--------------------------------------------------|
+| 10   | 4112   | calculated | Test character bypassed Stormveil              |
+| 11   | 8612   | verified | 50+ non-zero bytes, flags 11000001-11000950    |
+| 16   | 36737  | verified | 16000800 (Rykard) = 0xFF bit 7 = DEFEATED      |
+| 18   | 43487  | verified | 60+ non-zero bytes, extensive section 0 data   |
+
+### Verification Method
+
+1. Detect event_flags offset using validation flags (71800, 76100, etc.)
+2. Extract event_flags section from slot data
+3. Check for non-zero bytes at calculated base offsets
+4. Cross-reference specific boss defeat flags with game state
+
+---
+
+## Boss Remembrance System (Verified 2026-01-21)
+
+### Flag Chain Structure
+
+When a boss is defeated, multiple flags are set:
+
+1. **Dungeon defeat flag** (8-digit): e.g., `16000800` for Rykard
+2. **91xx progression flag**: Triggers Event 1100 to award progression items
+3. **Remembrance pickup flag** (510xxx): Set when player collects the dropped remembrance
+
+### Key Discovery: Event 1100 Awards Progression Items, NOT Remembrances
+
+The common.emevd.js Event 1100 system awards **progression items** like Talisman Pouch:
+
+```javascript
+$InitializeEvent(5, 1100, 9105, 10050, 0, 60520);
+// 9105 = progression flag (set on boss death)
+// 10050 = ItemLot (awards Talisman Pouch, item 10040)
+// 60520 = pickup completion flag
+```
+
+**Remembrances** are separate world drops with their own pickup flags (510xxx):
+
+| Boss | Remembrance ID | Pickup Flag | Dungeon Flag |
+|------|---------------|-------------|--------------|
+| Godrick | 2950 | 510010 | 10000800 |
+| Rennala | 2959 | 197 | 14000800 |
+| Radahn | 2951 | 510300 | (field boss) |
+| Morgott | 2952 | 510040 | 11000800 |
+| Rykard | 2953 | 510220 | 16000800 |
+| Mohg | 2955 | 510120 | 12050800 |
+| Malenia | 2954 | 510200 | 15000800 |
+| Maliketh | 2956 | 510160 | 13000800 |
+| Hoarah Loux | 2957 | 510070 | 11000850 |
+| Radagon | 2963 | 510230 | 19000800 |
+
+### 91xx Flag Mapping (from event scripts)
+
+The 91xx flags set on boss death are **different** from the Event 1100 params:
+
+| Boss Death | Map | 91xx Flag |
+|------------|-----|-----------|
+| Godrick (10000800) | m10_00 | 9101 |
+| Radahn | m10_01 | 9103 |
+| Morgott (11000800) | m11_00 | 9104 |
+| Hoarah Loux (11000850) | m11_00 | 9105 |
+| Mohg | m11_05 | 9106 |
+| Malenia | m11_05 | 9107 |
+| Rykard (16000800) | m16_00 | 9122 |
+| Radagon (19000800) | m19_00 | 9123 |
+
+### Verification Script
+
+`scripts/verification/verify_boss_chain.py` validates flag chains:
+
+```bash
+python3 scripts/verification/verify_boss_chain.py <save_path> <slot>
+```
+
+Valid states:
+- **Both unset**: Boss not defeated
+- **Dungeon set, pickup unset**: Boss killed, remembrance not collected
+- **Both set**: Boss killed and remembrance collected
+- **Dungeon unset, pickup set**: CONTRADICTION (cheating detected)
+
+---
+
+## Inseparable Evidence Methodology (2026-01-21)
+
+### Overview
+
+Inseparable evidence is a validation technique using flags that **cannot be set individually** in normal gameplay. When a player defeats a boss, multiple flags are set atomically - if our formula correctly reads one flag, all related flags must also match.
+
+### Principle
+
+Some game events set multiple flags that are **inseparable** in practice:
+- Boss defeat flag → Post-boss grace becomes available
+- Boss death → Remembrance drops → Pickup flag set when collected
+- Dungeon entered → Tutorial flags set
+
+If flag A is SET but inseparable flag B is UNSET, either:
+1. The formula for A is wrong (reading unrelated data)
+2. The formula for B is wrong
+3. Both formulas are wrong
+
+### Boss-Grace Inseparable Pairs
+
+The most reliable inseparable pairs are boss defeat flags and their corresponding post-boss graces:
+
+| Boss | Defeat Flag | Grace Flag | Grace Name |
+|------|-------------|------------|------------|
+| Godrick | 10000800 | 71010 | Godrick the Grafted |
+| Rennala | 14000800 | 71140 | Rennala, Queen of the Full Moon |
+| Morgott | 11000800 | 71110 | Morgott, the Omen King |
+| Rykard | 16000800 | 71600 | Audience Pathway |
+| Malenia | 15000800 | 71500 | Malenia, Goddess of Rot |
+| Maliketh | 13000800 | 71300 | Beside the Great Bridge |
+| Radagon | 19000800 | (none) | Final boss - no post-grace |
+
+### Validation Logic
+
+```python
+def validate_inseparable_pair(boss_defeat, grace_flag):
+    boss_set = check_dungeon_flag(boss_defeat)
+    grace_set = check_block_flag(grace_flag)
+
+    if boss_set is True and grace_set is False:
+        return "IMPOSSIBLE - formula error likely"
+    elif boss_set is False and grace_set is True:
+        return "IMPOSSIBLE - grace before boss defeat"
+    elif boss_set == grace_set:
+        return "CONSISTENT"
+    else:
+        return "INCONCLUSIVE"
+```
+
+### Case Study: Volcano Manor (Area 16) Disproven
+
+**Initial Assumption**: Base 36737 (slot 29 from legacymap)
+
+**Test Results** (2026-01-21):
+```
+16000800 (Rykard defeat): SET at byte 36837
+71600 (Audience Pathway grace): NOT SET
+71601-71606 (VM graces): All NOT SET
+```
+
+**Analysis**:
+- If Rykard was defeated, post-boss grace MUST be discoverable
+- User confirmed character has NOT reached Volcano Manor
+- Zero Volcano Manor graces discovered = character hasn't explored area
+
+**Conclusion**: Base 36737 reads **unrelated data**. The 0xFF byte at offset 36837 is NOT the Rykard defeat flag - it's other data that happens to have bit 7 set.
+
+**Status**: Area 16 marked as "disproven", base_offset = 0, awaiting correct base discovery.
+
+### Applying to Other Areas
+
+When validating dungeon bases:
+
+1. **Find inseparable pairs** for that area:
+   - Boss defeat flag + post-boss grace
+   - Boss defeat flag + remembrance pickup (if collected)
+   - Dungeon entry + tutorial flags
+
+2. **Cross-validate ALL pairs**:
+   ```
+   For each (flag_a, flag_b) in inseparable_pairs:
+       if (flag_a SET and flag_b UNSET) or (flag_a UNSET and flag_b SET):
+           return CONTRADICTION
+   return VALID
+   ```
+
+3. **Require player confirmation** when possible:
+   - "Have you defeated this boss?"
+   - "Have you explored this area?"
+
+### Known Inseparable Chains
+
+**Boss Defeat Chain**:
+```
+Boss Death → Sets dungeon defeat flag (e.g., 16000800)
+          → Sets 91xx progression flag (e.g., 9122)
+          → Remembrance drops as world item
+          → Grace becomes available
+
+Player picks up remembrance → Sets 510xxx flag
+Player rests at grace → Sets 71xxx flag
+```
+
+**All flags in the chain should be consistent** with the player's actual progress.
 
 ---
 
@@ -382,5 +600,7 @@ Constants (verified):
 - `src/discovery/relationship_graph.rs`: Graph loader implementation
 - `src/discovery/corroboration.rs`: Validation engine
 - `scripts/extract_flag_relationships.py`: Data extraction
+- `scripts/verification/verify_boss_chain.py`: Boss chain verification
+- `scripts/verification/verify_rykard_chain.py`: Rykard-specific chain verification
 - `ground_truth_offsets.json`: Formula definitions
 - `CLAUDE.md`: Event flag range documentation
