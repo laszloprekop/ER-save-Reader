@@ -3223,31 +3223,31 @@
       },
       "62000": {
         "block_start": 62000,
-        "base_offset": 1500,
+        "base_offset": 9359,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Map fragments - verified from 62174 match"
+        "notes": "Map fragments - CORRECTED 2026-01-21: Base 9359 gives 12/12 match (100%) on Slot 0 confirmed flags AND 12/12 UNSET on Slot 1 early-game character. Old base 1500 gave 0% match. Validated with positive AND negative evidence across multiple slots."
       },
       "65000": {
         "block_start": 65000,
-        "base_offset": 1875,
+        "base_offset": 37412,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Whetblades - verified: hardcoded offsets match (65610=0x79f=1951, 65700=0x7aa=1962, 65720=0x7ad=1965)"
+        "notes": "Crystal Tears - CORRECTED 2026-01-21: Base 37412 gives 15/15 match (100%) on Slot 0 confirmed flags AND 15/15 UNSET on Slot 1 early-game character. Old base 1875 gave 0% match."
       },
       "67000": {
         "block_start": 67000,
-        "base_offset": 2280,
+        "base_offset": 37411,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Cookbooks - verified: flag 67610 at byte 2356 bit 5 (Confessor)"
+        "notes": "Cookbooks - CORRECTED 2026-01-21: Base 37411 gives 34/34 match (100%) on Slot 0 confirmed flags AND 34/34 UNSET on Slot 1 early-game character. Old base 2280 gave 0% match."
       },
       "68000": {
         "block_start": 68000,
-        "base_offset": 2405,
+        "base_offset": 37536,
         "block_size": 1000,
         "status": "calculated",
-        "notes": "Cookbooks continued (67000 base 2280 + 125 = 2405)"
+        "notes": "Cookbooks continued - RECALCULATED 2026-01-21: 67000 base 37411 + 125 = 37536. Needs empirical verification."
       },
       "71000": {
         "block_start": 71000,

@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.19 - Major Block Base Corrections
+
+### Critical Fixes
+Three block bases were found to be completely incorrect (0% match against actual save data):
+
+| Block | Category | Old Base | New Base | Evidence |
+|-------|----------|----------|----------|----------|
+| 62000 | Map Fragments | 1500 | **9359** | 12/12 match + negative validation |
+| 65000 | Crystal Tears | 1875 | **37412** | 15/15 match + negative validation |
+| 67000 | Cookbooks | 2280 | **37411** | 34/34 match + negative validation |
+
+### Methodology: Multi-Slot Validation
+- **Positive evidence**: Slot 0 (mid-game Confessor) - all confirmed items show as SET
+- **Negative evidence**: Slot 1 (early-game Wretch) - all items show as UNSET
+- Both conditions required for verification
+
+### Key Finding
+The old bases (1500-2280) were in the typical block range but gave 0% match.
+The correct bases (9359-37412) are in higher ranges, suggesting these item categories
+use a different storage region than grace/progression flags.
+
+### New Verification Scripts
+- `probe_wide_search.py`: Search entire event_flags section for bases
+- `probe_maps_with_negatives.py`: Validate with positive AND negative evidence
+- `probe_items_with_negatives.py`: Multi-slot validation for items
+- `compare_bases.py`: Compare old vs new bases side-by-side
+- `validate_map_fragments.py`: Inseparable evidence validation for maps
+- `verify_map_base_multi_slot.py`: Cross-character validation
+
+### Files Modified
+- `ground_truth_offsets.json`: Corrected bases for blocks 62000, 65000, 67000, 68000
+- `Cargo.lock`: Updated from build
+- Added 7 new verification scripts
+
+---
+
 ## v0.4.18 - Correlation Schema Updates
 
 ### Schema Alignment
