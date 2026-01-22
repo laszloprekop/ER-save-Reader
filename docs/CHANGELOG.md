@@ -4,6 +4,27 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.21 - Fix Block 71000 Stormveil Grace Offsets
+
+### Database Fix
+- **Block 71000 (Stormveil Graces)**: Corrected base offset from 2673 to 9315
+  - Previous base showed only 3/9 graces, new base shows 8/9 graces
+  - Flag 71008 (Stormveil Main Gate) now correctly detected as SET
+  - Verified via full search across bases 0-15000 with differential slot analysis
+
+### Key Finding
+- Grace blocks are NOT contiguous in memory:
+  - Block 71000 (Stormveil) at base 9315
+  - Block 71800 (Tutorial) at base 2725
+  - These are stored ~6590 bytes apart despite sequential flag IDs
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated block 71000 base_offset and all 71000-71008 flag entries
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: Updated block table and key findings
+- `docs/CHANGELOG.md`: Added version entry
+
+---
+
 ## v0.4.20 - UI Improvements and Verification Updates
 
 ### UI Improvements

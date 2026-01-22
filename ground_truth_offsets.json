@@ -67,15 +67,16 @@
   },
   "verified_flags": {
     "71000": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 7,
       "name": "Godrick the Grafted",
       "category": "Grace",
       "status": "proven",
-      "confidence": 0.9
+      "confidence": 0.9,
+      "notes": "CORRECTED 2026-01-22: Base changed from 2625 to 9315. Offset varies with EF start."
     },
     "71001": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 6,
       "name": "Margit, the Fell Omen",
       "category": "Grace",
@@ -83,7 +84,7 @@
       "confidence": 0.9
     },
     "71002": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 5,
       "name": "Castleward Tunnel",
       "category": "Grace",
@@ -91,7 +92,7 @@
       "confidence": 0.9
     },
     "71003": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 4,
       "name": "Gateside Chamber",
       "category": "Grace",
@@ -99,7 +100,7 @@
       "confidence": 0.9
     },
     "71004": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 3,
       "name": "Stormveil Cliffside",
       "category": "Grace",
@@ -107,7 +108,7 @@
       "confidence": 0.9
     },
     "71005": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 2,
       "name": "Rampart Tower",
       "category": "Grace",
@@ -115,7 +116,7 @@
       "confidence": 0.9
     },
     "71006": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 1,
       "name": "Liftside Chamber",
       "category": "Grace",
@@ -123,7 +124,7 @@
       "confidence": 0.9
     },
     "71007": {
-      "offset": 2625,
+      "offset": 9315,
       "bit": 0,
       "name": "Secluded Cell",
       "category": "Grace",
@@ -131,7 +132,7 @@
       "confidence": 0.9
     },
     "71008": {
-      "offset": 2626,
+      "offset": 9316,
       "bit": 7,
       "name": "Stormveil Main Gate",
       "category": "Grace",
@@ -3251,17 +3252,17 @@
       },
       "71000": {
         "block_start": 71000,
-        "base_offset": 2821,
+        "base_offset": 9315,
         "block_size": 100,
-        "status": "partial",
-        "notes": "Stormveil graces (71000-71099) - PROBED 2026-01-21: Base 2821 gives 7/9 match (77.8%). Byte 0x7F has 71001-71007 SET. Flags 71000 (Godrick) and 71008 (Main Gate) don't match - need further investigation."
+        "status": "verified",
+        "notes": "Stormveil graces (71000-71099) - RE-CORRECTED 2026-01-22: Base 9315 for EF start 0x125A5. Full search across all bases 0-15000 found 8/9 graces SET [71001-71008] at base 9315 (Jan 11 backup) and base 9439 (Dec 25 snapshot). 71008 (Main Gate) IS SET. Previous base 2673 was wrong - only showed 3/9 graces. Absolute offset ~0x14A08 in slot data. NOTE: Base varies with EF start offset due to variable-size EF header data."
       },
       "71100": {
         "block_start": 71100,
-        "base_offset": 2725,
+        "base_offset": 2705,
         "block_size": 100,
-        "status": "partial",
-        "notes": "Leyndell graces (71100-71199) - PROBED 2026-01-21: Flag 71109 (Divine Bridge) found at byte 2726, bit 2. Shares byte range with 71800 but uses different bit positions."
+        "status": "candidate",
+        "notes": "Leyndell graces (71100-71199) - CORRECTED 2026-01-22: Base 2705 is best candidate. Shows only Divine Bridge (71107) SET in S0, matching teleport trap access pattern. Previous base 2725 collided with block 71800 (Tutorial). Multiple candidates exist - needs user confirmation of Leyndell progression."
       },
       "71600": {
         "block_start": 71600,
@@ -3272,10 +3273,10 @@
       },
       "71800": {
         "block_start": 71800,
-        "base_offset": 2625,
+        "base_offset": 2725,
         "block_size": 200,
         "status": "verified",
-        "notes": "Tutorial graces (71800-71999) - Base 2625 verified via Cave of Knowledge (71800) and Stranded Graveyard (71801) at byte 2725."
+        "notes": "Tutorial graces (71800-71999) - CORRECTED 2026-01-22: Base 2725 (71800 at byte 2725, bit 7). This is a SEPARATE block from 71000 (Stormveil). The grace blocks are NOT contiguous in memory."
       },
       "72000": {
         "block_start": 72000,
@@ -3382,10 +3383,10 @@
       },
       "16": {
         "map_area": 16,
-        "base_offset": 0,
+        "base_offset": 40517,
         "section_size": 1125,
-        "status": "disproven",
-        "notes": "Volcano Manor - legacymap slot 29 gives 36737, but DISPROVEN 2026-01-21: Inseparable evidence test failed - 16000800 showed SET while grace 71600 NOT SET. User confirmed Rykard not defeated. Base 36737 reads wrong data (0xFF block at local 800-831). Correct base unknown - needs investigation."
+        "status": "candidate",
+        "notes": "Volcano Manor - CANDIDATE 2026-01-22: Base 40517 discovered via inseparable evidence. User killed Abductor Virgin boss (teleport trap escape) but NOT Rykard. At base 40517: local 860 (Abductor) SET in slot 0 only, locals 500/800/801/850 all UNSET. Sparsity analysis shows only 1 set bit in 125 bytes. Alternative candidate: 42687. Original legacymap formula (slot 29 = 36737) DISPROVEN."
       },
       "18": {
         "map_area": 18,
@@ -3512,7 +3513,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 7,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3520,7 +3521,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 7,
           "valid": true,
           "error": null
@@ -3541,7 +3542,7 @@
       "category": "Grace",
       "region": "Stormhill",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 6,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3549,7 +3550,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 6,
           "valid": true,
           "error": null
@@ -3570,7 +3571,7 @@
       "category": "Grace",
       "region": "Stormhill",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 5,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3578,7 +3579,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 5,
           "valid": true,
           "error": null
@@ -3599,7 +3600,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 4,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3607,7 +3608,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 4,
           "valid": true,
           "error": null
@@ -3628,7 +3629,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 3,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3636,7 +3637,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 3,
           "valid": true,
           "error": null
@@ -3657,7 +3658,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 2,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3665,7 +3666,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 2,
           "valid": true,
           "error": null
@@ -3686,7 +3687,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 1,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3694,7 +3695,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 1,
           "valid": true,
           "error": null
@@ -3715,7 +3716,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2625,
+      "offset": 9315,
       "bit": 0,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3723,7 +3724,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2625,
+          "offset": 9315,
           "bit": 0,
           "valid": true,
           "error": null
@@ -3744,7 +3745,7 @@
       "category": "Grace",
       "region": "Stormveil Castle",
       "status": "proven",
-      "offset": 2626,
+      "offset": 9316,
       "bit": 7,
       "confidence": 0.9,
       "manual_completion": null,
@@ -3752,7 +3753,7 @@
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2626,
+          "offset": 9316,
           "bit": 7,
           "valid": true,
           "error": null

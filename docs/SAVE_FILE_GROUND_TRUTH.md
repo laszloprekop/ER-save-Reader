@@ -15,7 +15,8 @@ This document is the **single source of truth** for Elden Ring save file parsing
 | Category | Status | Details |
 |----------|--------|---------|
 | **Graces (76xxx)** | **VERIFIED** | Block base=3250, empirically confirmed |
-| **Tutorial Graces (71xxx)** | **VERIFIED** | Block base=2625, empirically confirmed |
+| **Stormveil Graces (71xxx)** | **VERIFIED** | Block base=9315, 8/9 graces matched (CORRECTED 2026-01-22) |
+| **Tutorial Graces (71800)** | **VERIFIED** | Block base=2725, validation flags confirmed |
 | **Progression (60xxx)** | **VERIFIED** | Block base=2548, cross-validated with 3 items |
 | **Map Fragments (62xxx)** | **VERIFIED** | Block base=1500, verified from 62174 match |
 | **Cookbooks (67xxx-68xxx)** | **VERIFIED** | Block base=3546 (corrected from 3987!) |
@@ -104,11 +105,14 @@ bit_position = 7 - (flag_id % 8)
 | 62000 | **1500** | Map Fragments | **Verified** | 62174 (Ailing Village) matched at offset 1521 |
 | 67000 | **3546** | Cookbooks | **Verified** | Missionary's Cookbook [4] diff - byte 3549 changed (NOT 3990!) |
 | 68000 | 3671 | Cookbooks (continued) | Calculated | 67000 base + 125 |
-| 71000 | **2625** | Tutorial Graces | **Verified** | Validation flags 71800, 71801 |
+| 71000 | **9315** | Stormveil Graces | **Verified** | Full search found 8/9 graces at base 9315 (CORRECTED 2026-01-22) |
+| 71800 | **2725** | Tutorial Graces | **Verified** | Validation flags 71800, 71801 at byte 2725 |
 | 73000 | **2664** | Dungeon Graces | **Verified** | 13/13 catacombs/caves/tunnels matched via slot comparison |
 | 76000 | **3250** | World Graces | **Verified** | Validation flags 76100, 76101 |
 
-**IMPORTANT**: Block bases are NOT contiguous! The 67xxx range is stored AFTER 76xxx in memory. The 73xxx range (2664) is between 71xxx (2625) and 76xxx (3250) as expected.
+**IMPORTANT**: Block bases are NOT contiguous! Grace blocks are stored at completely different offsets:
+- Block 71000 (Stormveil) at base 9315 is FAR from block 71800 (Tutorial) at base 2725
+- The 67xxx range is stored AFTER 76xxx in memory
 
 **Unverified Block Bases** (need empirical testing):
 
@@ -244,7 +248,8 @@ For items that can't be tracked via event flags:
 | Block 60000 | Progression | **VERIFIED** | Cross-validated with 60100, 60130, 60220 (base=2548) |
 | Block 62000 | Map Fragments | **VERIFIED** | 62174 (Ailing Village) matched at offset 1521 (base=1500) |
 | Block 67000 | Cookbooks | **VERIFIED** | Missionary's Cookbook [4] pickup diff (base=3546, NOT 3987!) |
-| Block 71000 | Tutorial Graces | **VERIFIED** | Validation flags 71800, 71801 (base=2625) |
+| Block 71000 | Stormveil Graces | **VERIFIED** | 8/9 graces matched (base=9315, CORRECTED from 2625 on 2026-01-22) |
+| Block 71800 | Tutorial Graces | **VERIFIED** | Validation flags 71800, 71801 (base=2725) |
 | Block 76000 | World Graces | **VERIFIED** | Validation flags 76100, 76101 (base=3250), 65% match rate |
 | Block 73000 | Dungeon Graces | **VERIFIED** | 13/13 dungeon graces matched via slot comparison (base=2664) |
 | Block 78000 | POI Flags | UNVERIFIED | 0% match rate - base offset needs discovery |
