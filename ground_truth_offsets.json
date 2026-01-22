@@ -3222,6 +3222,13 @@
         "status": "verified",
         "notes": "Progression flags - verified from multiple items"
       },
+      "61000": {
+        "block_start": 61000,
+        "base_offset": 2671,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "Map area visit flags - VERIFIED 2026-01-23: Base 2671 confirmed via multi-flag correlation. Slot 0 mid-game: 61100 (Stormveil) SET at byte 2683 bit 4, 61104 (Raya Lucaria) SET at byte 2684 bit 0, 61128 (Roundtable Hold) SET at byte 2687 bit 0. Pattern: 611xx correlates to mXX dungeon map codes. 108 EMEVD flags in this block."
+      },
       "62000": {
         "block_start": 62000,
         "base_offset": 9359,
@@ -3339,12 +3346,26 @@
       "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly."
     },
     "midrange_formula": {
+      "510000": {
+        "block_start": 510000,
+        "base_offset": 63750,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010→(63751,5), 510020→(63752,3), 510030→(63753,1), 510040→(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
+      },
       "540000": {
         "block_start": 540000,
         "base_offset": 67500,
         "block_size": 1000,
         "status": "verified",
         "notes": "Sorcery/Incantation/Ash of War unlock flags - VERIFIED 2026-01-22: Formula byte_offset = 67500 + (flag_id - 540000) // 8 matches 129/129 flags in event_flags.rs hardcoded data. Range covers 540100-540652."
+      },
+      "710000": {
+        "block_start": 710000,
+        "base_offset": 13875,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "Roundtable Hold NPC progression flags - VERIFIED 2026-01-23: Base 13875 derived from event_flags.rs hardcoded 710620→(0x3680,3). Formula: byte = 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8). 41 EMEVD flags primarily from m18 (Roundtable Hold). Most track NPC state changes during game progression."
       }
     },
     "dungeon_formula": {

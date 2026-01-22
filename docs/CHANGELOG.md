@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.28 - Flag Formula Discovery
+
+### New Formulas
+- **Block 61000**: Base 2671 - Map area visit tracking flags (108 flags)
+  - Correlates 611xx to mXX dungeon map codes (e.g., 61100→m10 Stormveil, 61128→m18 Roundtable Hold)
+  - Verified via multi-flag correlation on Slot 0 mid-game save
+
+- **Midrange 510000**: Base 63750 - Remembrance consumption flags (64 flags)
+  - Set when remembrance is USED at Enia, not when obtained
+  - Derived from event_flags.rs hardcoded data
+
+- **Midrange 710000**: Base 13875 - Roundtable Hold NPC progression flags (41 flags)
+  - Tracks NPC state changes during game progression
+  - Derived from event_flags.rs hardcoded data
+
+### Coverage Improvement
+- Formula coverage: 57.4% → 60.9% (+3.5%, +213 flags)
+- Remembrance context now 100% covered (68/68 flags)
+
+### Files Modified
+- `ground_truth_offsets.json`: Added 61000, 510000, 710000 formulas
+- `docs/CHANGELOG.md`: Version 0.4.28
+- `Cargo.toml`: Bumped to 0.4.28
+
+---
+
 ## v0.4.27 - Unified Flag Database
 
 ### Features
