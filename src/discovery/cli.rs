@@ -15,6 +15,8 @@ use super::{
     GroundTruthUpdater, UpdateConfig,
     RelationshipGraph, CorroborationEngine, CorroborationStatus,
     EventGraph,
+    ParamFlagDb, FlagCategory,
+    UnifiedFlagDb, SourceConfidence,
 };
 use super::test_cases::{TestCaseValidator, DynamicTestCaseValidator, print_validation_report};
 use crate::save::save::save::Save;
@@ -46,6 +48,9 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "graph" | "g" => cmd_graph(&args[1..]),
         "event-graph" | "eg" => cmd_event_graph(&args[1..]),
         "batch-validate" | "bv" => cmd_batch_validate(&args[1..]),
+        "param-extract" | "pe" => cmd_param_extract(&args[1..]),
+        "param-query" | "pq" => cmd_param_query(&args[1..]),
+        "unified" | "u" => cmd_unified(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -73,6 +78,9 @@ fn print_help() {
     println!("    graph            Show relationship graph statistics");
     println!("    event-graph      Query EMEVD event graph for flag triggers");
     println!("    batch-validate   Validate all EMEVD-backed flags against save data");
+    println!("    param-extract    Extract flags from regulation-bin XML params");
+    println!("    param-query      Query the param flags database");
+    println!("    unified          Query unified flag database (catalog + params + EMEVD)");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -88,6 +96,10 @@ fn print_help() {
     println!("    er-save-editor discovery event-graph --stats   # Show event graph stats");
     println!("    er-save-editor discovery batch-validate 0      # Validate all EMEVD flags on slot 0");
     println!("    er-save-editor discovery batch-validate 0 --context boss_defeat");
+    println!("    er-save-editor discovery param-extract        # Extract flags from regulation-bin");
+    println!("    er-save-editor discovery param-query 400000   # Query block 400000 flags");
+    println!("    er-save-editor discovery unified --build      # Build unified database");
+    println!("    er-save-editor discovery unified 76100        # Query flag in unified db");
 }
 
 /// Analyze a single save file slot
@@ -1006,8 +1018,8 @@ fn cmd_event_graph(args: &[String]) -> Result<(), String> {
         for chain in map_frags.iter().take(10) {
             if let Some(ref params) = chain.params.get(0..2) {
                 println!("  Discovery {:>6} -> Possession {:>6}",
-                    params.get(0).unwrap_or(&0),
-                    params.get(1).unwrap_or(&0));
+                    params.get(0).unwrap_or(&0_i64),
+                    params.get(1).unwrap_or(&0_i64));
             }
         }
         if map_frags.len() > 10 {
@@ -1381,4 +1393,601 @@ struct BlockStats {
     with_formula: usize,
     no_formula: usize,
     set_flags: usize,
+}
+
+// Default param directory
+const DEFAULT_PARAM_DIR: &str = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files/regulation-bin";
+const DEFAULT_PARAM_DB_PATH: &str = "param_flags.json";
+
+/// Extract flags from regulation-bin XML param files
+fn cmd_param_extract(args: &[String]) -> Result<(), String> {
+    let param_dir = args.iter()
+        .position(|a| a == "--dir" || a == "-d")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_PARAM_DIR));
+
+    let output_path = args.iter()
+        .position(|a| a == "--output" || a == "-o")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_PARAM_DB_PATH));
+
+    if !param_dir.exists() {
+        return Err(format!("Param directory not found: {:?}", param_dir));
+    }
+
+    println!("=== Param Flag Extraction ===");
+    println!();
+    println!("Source: {:?}", param_dir);
+    println!("Output: {:?}", output_path);
+    println!();
+
+    // Extract flags
+    let db = ParamFlagDb::extract_from_directory(&param_dir)
+        .map_err(|e| format!("Extraction failed: {}", e))?;
+
+    println!();
+    db.print_summary();
+
+    // Save to JSON
+    db.save_to_json(&output_path)
+        .map_err(|e| format!("Failed to save: {}", e))?;
+
+    println!();
+    println!("Saved to {:?}", output_path);
+
+    Ok(())
+}
+
+/// Query the param flags database
+fn cmd_param_query(args: &[String]) -> Result<(), String> {
+    let db_path = args.iter()
+        .position(|a| a == "--db")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_PARAM_DB_PATH));
+
+    // Check for --blocks to list midrange blocks
+    let show_blocks = args.iter().any(|a| a == "--blocks" || a == "-b");
+    // Check for --stats
+    let show_stats = args.iter().any(|a| a == "--stats" || a == "-s");
+    // Check for --bosses
+    let show_bosses = args.iter().any(|a| a == "--bosses");
+    // Check for --param filter
+    let param_filter = args.iter()
+        .position(|a| a == "--param" || a == "-p")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.to_string());
+
+    // Check for block number or flag ID
+    let query_id: Option<u32> = args.iter()
+        .filter(|a| !a.starts_with('-'))
+        .filter(|a| {
+            let idx = args.iter().position(|x| x == *a).unwrap_or(0);
+            if idx > 0 {
+                let prev = &args[idx - 1];
+                !(prev == "--db" || prev == "--param" || prev == "-p")
+            } else {
+                true
+            }
+        })
+        .find_map(|s| s.parse().ok());
+
+    // Try to load existing database or extract fresh
+    let db = if db_path.exists() {
+        ParamFlagDb::load_from_json(&db_path)
+            .map_err(|e| format!("Failed to load param database: {}", e))?
+    } else {
+        println!("Param database not found at {:?}", db_path);
+        println!("Extracting from default location...");
+        println!();
+
+        let db = ParamFlagDb::extract_from_directory(DEFAULT_PARAM_DIR)
+            .map_err(|e| format!("Extraction failed: {}", e))?;
+
+        db.save_to_json(&db_path)
+            .map_err(|e| format!("Failed to save: {}", e))?;
+
+        db
+    };
+
+    if show_stats {
+        db.print_summary();
+        return Ok(());
+    }
+
+    if show_blocks {
+        println!("=== Midrange Blocks with Param Flags ===");
+        println!();
+        let blocks = db.midrange_blocks();
+        println!("{:<10} {:>6}", "Block", "Count");
+        println!("{}", "-".repeat(20));
+        for block in &blocks {
+            let count = db.flags_in_block(*block).len();
+            println!("{:<10} {:>6}", block, count);
+        }
+        println!();
+        println!("Total: {} blocks, {} midrange flags",
+            blocks.len(),
+            db.flags_in_category(FlagCategory::Midrange).len());
+        return Ok(());
+    }
+
+    if show_bosses {
+        println!("=== Boss Defeat Flags ===");
+        println!();
+        let game_area_flags = db.flags_from_param("GameAreaParam");
+        let mut boss_entries: Vec<_> = game_area_flags.iter()
+            .filter_map(|f| {
+                db.get_boss_name(f.flag_id).map(|name| (f.flag_id, name))
+            })
+            .collect();
+        boss_entries.sort_by_key(|(id, _)| *id);
+
+        println!("{:<12} {}", "Flag ID", "Boss Name");
+        println!("{}", "-".repeat(60));
+        for (flag_id, name) in &boss_entries {
+            println!("{:<12} {}", flag_id, name);
+        }
+        println!();
+        println!("Total: {} named boss flags", boss_entries.len());
+        return Ok(());
+    }
+
+    if let Some(ref param) = param_filter {
+        println!("=== Flags from {} ===", param);
+        println!();
+        let flags = db.flags_from_param(param);
+        if flags.is_empty() {
+            println!("No flags found from param: {}", param);
+            println!();
+            println!("Available params:");
+            for (name, _) in &db.stats().by_param {
+                println!("  {}", name);
+            }
+            return Ok(());
+        }
+
+        println!("{:<12} {:>10} {}", "Flag ID", "Category", "Sources");
+        println!("{}", "-".repeat(50));
+        for flag in flags.iter().take(50) {
+            let sources: Vec<_> = flag.sources.iter()
+                .map(|s| s.field_name().to_string())
+                .collect();
+            println!("{:<12} {:>10} {}",
+                flag.flag_id,
+                flag.category.name(),
+                sources.join(", "));
+        }
+        if flags.len() > 50 {
+            println!("... and {} more flags", flags.len() - 50);
+        }
+        println!();
+        println!("Total: {} flags from {}", flags.len(), param);
+        return Ok(());
+    }
+
+    if let Some(id) = query_id {
+        // Check if this is a block query (exact 1000 multiple) or flag query
+        if id % 1000 == 0 && id >= 100000 && id < 1000000 {
+            // Block query
+            println!("=== Block {} Flags ===", id);
+            println!();
+            let flags = db.flags_in_block(id);
+            if flags.is_empty() {
+                println!("No flags found in block {}", id);
+                return Ok(());
+            }
+
+            println!("{:<12} {}", "Flag ID", "Sources");
+            println!("{}", "-".repeat(60));
+            for flag in &flags {
+                let sources: Vec<_> = flag.sources.iter()
+                    .map(|s| format!("{}:{}", s.param_name(), s.field_name()))
+                    .collect();
+                println!("{:<12} {}", flag.flag_id, sources.join(", "));
+            }
+            println!();
+            println!("Total: {} flags in block {}", flags.len(), id);
+        } else {
+            // Single flag query
+            println!("=== Flag {} ===", id);
+            println!();
+            if let Some(flag) = db.get(id) {
+                println!("Category: {}", flag.category.name());
+                println!();
+                println!("Sources:");
+                for source in &flag.sources {
+                    println!("  {} (row {}, field: {})",
+                        source.param_name(),
+                        source.row_id(),
+                        source.field_name());
+                    if let super::param_flags::ParamSource::GameArea { boss_name: Some(ref name), .. } = source {
+                        println!("    Boss: {}", name);
+                    }
+                }
+
+                // Also check if in event graph
+                if let Ok(graph) = EventGraph::load_default() {
+                    if graph.has_trigger(id) {
+                        println!();
+                        println!("EMEVD: Found in event graph");
+                        if let Some(ctx) = graph.get_trigger_context(id) {
+                            println!("  Context: {}", ctx);
+                        }
+                    }
+                }
+            } else {
+                println!("Flag {} not found in param database", id);
+                println!();
+                println!("This flag may exist in:");
+                println!("  - Event graph (EMEVD files)");
+                println!("  - Other game mechanisms");
+            }
+        }
+        return Ok(());
+    }
+
+    // Show usage
+    println!("Param Flags Database Query");
+    println!();
+    println!("USAGE:");
+    println!("    discovery param-query <block>     Query block (e.g., 400000)");
+    println!("    discovery param-query <flag_id>   Query specific flag");
+    println!("    discovery param-query --stats     Show database statistics");
+    println!("    discovery param-query --blocks    List all midrange blocks");
+    println!("    discovery param-query --bosses    List boss defeat flags with names");
+    println!("    discovery param-query --param <name>  List flags from specific param");
+    println!();
+    println!("OPTIONS:");
+    println!("    --db <path>       Path to param_flags.json");
+    println!("    --stats, -s       Show summary statistics");
+    println!("    --blocks, -b      List midrange blocks");
+    println!("    --bosses          List boss defeat flags");
+    println!("    --param, -p NAME  Filter by param name");
+    println!();
+    println!("EXAMPLES:");
+    println!("    discovery param-query --stats");
+    println!("    discovery param-query 400000      # Block 400000 flags");
+    println!("    discovery param-query 510120      # Specific flag");
+    println!("    discovery param-query --param GameAreaParam");
+    println!("    discovery param-query --bosses");
+    println!();
+    println!("Current database: {} flags", db.len());
+
+    Ok(())
+}
+
+const DEFAULT_UNIFIED_DB_PATH: &str = "unified_flags.json";
+
+/// Unified database commands
+fn cmd_unified(args: &[String]) -> Result<(), String> {
+    let db_path = args.iter()
+        .position(|a| a == "--db")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_UNIFIED_DB_PATH));
+
+    // Check for --build flag
+    let do_build = args.iter().any(|a| a == "--build" || a == "-b");
+    // Check for --stats flag
+    let show_stats = args.iter().any(|a| a == "--stats" || a == "-s");
+    // Check for --search
+    let search_query = args.iter()
+        .position(|a| a == "--search")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.to_string());
+    // Check for --needs-formula
+    let show_needs_formula = args.iter().any(|a| a == "--needs-formula" || a == "-f");
+    // Check for --category filter
+    let category_filter = args.iter()
+        .position(|a| a == "--category" || a == "-c")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.to_string());
+    // Check for --context filter
+    let context_filter = args.iter()
+        .position(|a| a == "--context")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.to_string());
+    // Check for --high-confidence
+    let show_high_conf = args.iter().any(|a| a == "--high" || a == "--high-confidence");
+
+    // Query flag ID
+    let query_id: Option<u32> = args.iter()
+        .filter(|a| !a.starts_with('-'))
+        .filter(|a| {
+            let idx = args.iter().position(|x| x == *a).unwrap_or(0);
+            if idx > 0 {
+                let prev = &args[idx - 1];
+                !(prev == "--db" || prev == "--search" || prev == "--category" || prev == "-c" || prev == "--context")
+            } else {
+                true
+            }
+        })
+        .find_map(|s| s.parse().ok());
+
+    if do_build {
+        println!("=== Building Unified Flag Database ===");
+        println!();
+
+        // Ensure param_flags.json exists
+        if !Path::new("param_flags.json").exists() {
+            println!("Extracting param flags first...");
+            let param_db = ParamFlagDb::extract_from_directory(DEFAULT_PARAM_DIR)
+                .map_err(|e| format!("Failed to extract params: {}", e))?;
+            param_db.save_to_json("param_flags.json")
+                .map_err(|e| format!("Failed to save params: {}", e))?;
+            println!("Saved param_flags.json");
+            println!();
+        }
+
+        let db = UnifiedFlagDb::build_default()
+            .map_err(|e| format!("Failed to build unified database: {}", e))?;
+
+        db.print_summary();
+
+        db.save_to_json(&db_path)
+            .map_err(|e| format!("Failed to save: {}", e))?;
+
+        println!();
+        println!("Saved to {:?}", db_path);
+        return Ok(());
+    }
+
+    // Load database
+    let db = if db_path.exists() {
+        UnifiedFlagDb::load_from_json(&db_path)
+            .map_err(|e| format!("Failed to load: {}", e))?
+    } else {
+        println!("Unified database not found at {:?}", db_path);
+        println!("Building from sources...");
+        println!();
+
+        let db = UnifiedFlagDb::build_default()
+            .map_err(|e| format!("Failed to build: {}", e))?;
+
+        db.save_to_json(&db_path)
+            .map_err(|e| format!("Failed to save: {}", e))?;
+
+        db
+    };
+
+    if show_stats {
+        db.print_summary();
+        return Ok(());
+    }
+
+    if show_needs_formula {
+        println!("=== Flags Needing Formula Discovery ===");
+        println!("(In params but NOT in EMEVD)");
+        println!();
+
+        let flags = db.flags_needing_formulas();
+        println!("{:<12} {:>12} {}", "Flag ID", "Category", "Param Source");
+        println!("{}", "-".repeat(60));
+
+        for flag in flags.iter().take(50) {
+            let param = flag.param_sources.first()
+                .map(|s| s.param_name.as_str())
+                .unwrap_or("?");
+            println!("{:<12} {:>12} {}",
+                flag.flag_id,
+                flag.flag_category.name(),
+                param);
+        }
+
+        if flags.len() > 50 {
+            println!("... and {} more", flags.len() - 50);
+        }
+        println!();
+        println!("Total: {} flags need formula discovery", flags.len());
+        return Ok(());
+    }
+
+    if show_high_conf {
+        println!("=== High Confidence Flags (All 3 Sources) ===");
+        println!();
+
+        let flags = db.flags_by_confidence(SourceConfidence::High);
+        println!("{:<12} {:>20} {:>15} {}", "Flag ID", "Name", "Category", "Context");
+        println!("{}", "-".repeat(80));
+
+        for flag in flags.iter().take(30) {
+            let name = flag.name.as_deref().unwrap_or("-");
+            let name_short = if name.len() > 18 { &name[..18] } else { name };
+            let cat = flag.category.as_deref().unwrap_or("-");
+            let ctx = flag.trigger_context.as_deref().unwrap_or("-");
+            println!("{:<12} {:>20} {:>15} {}",
+                flag.flag_id, name_short, cat, ctx);
+        }
+
+        println!();
+        println!("Total: {} high-confidence flags", flags.len());
+        return Ok(());
+    }
+
+    if let Some(ref query) = search_query {
+        println!("=== Search: '{}' ===", query);
+        println!();
+
+        let results = db.search_by_name(query);
+        for flag in results.iter().take(20) {
+            let name = flag.display_name();
+            let sources = format!("{}{}{}",
+                if flag.has_catalog_data() { "C" } else { "-" },
+                if flag.has_param_data() { "P" } else { "-" },
+                if flag.has_emevd_data() { "E" } else { "-" });
+            println!("{:<12} [{}] {}",
+                flag.flag_id, sources, name);
+        }
+
+        if results.len() > 20 {
+            println!("... and {} more", results.len() - 20);
+        }
+        println!();
+        println!("Found {} matching flags", results.len());
+        return Ok(());
+    }
+
+    if let Some(ref cat) = category_filter {
+        println!("=== Category: {} ===", cat);
+        println!();
+
+        let flags = db.flags_by_category(cat);
+        if flags.is_empty() {
+            println!("No flags in category: {}", cat);
+            println!();
+            println!("Available categories:");
+            for c in db.categories().iter().take(20) {
+                println!("  {}", c);
+            }
+            return Ok(());
+        }
+
+        for flag in flags.iter().take(30) {
+            let name = flag.name.as_deref().unwrap_or("-");
+            println!("{:<12} {}", flag.flag_id, name);
+        }
+
+        if flags.len() > 30 {
+            println!("... and {} more", flags.len() - 30);
+        }
+        println!();
+        println!("Total: {} flags in category", flags.len());
+        return Ok(());
+    }
+
+    if let Some(ref ctx) = context_filter {
+        println!("=== Trigger Context: {} ===", ctx);
+        println!();
+
+        let flags = db.flags_by_trigger_context(ctx);
+        if flags.is_empty() {
+            println!("No flags with context: {}", ctx);
+            println!();
+            println!("Available contexts:");
+            for c in db.trigger_contexts().iter().take(20) {
+                println!("  {}", c);
+            }
+            return Ok(());
+        }
+
+        for flag in flags.iter().take(30) {
+            let name = flag.display_name();
+            println!("{:<12} {}", flag.flag_id, name);
+        }
+
+        if flags.len() > 30 {
+            println!("... and {} more", flags.len() - 30);
+        }
+        println!();
+        println!("Total: {} flags with context", flags.len());
+        return Ok(());
+    }
+
+    if let Some(id) = query_id {
+        println!("=== Flag {} ===", id);
+        println!();
+
+        if let Some(flag) = db.get(id) {
+            // Display name
+            println!("Name: {}", flag.display_name());
+            if let Some(ref boss) = flag.boss_name {
+                println!("Boss: {}", boss);
+            }
+            println!();
+
+            // Source coverage
+            let sources = format!("{}{}{}",
+                if flag.has_catalog_data() { "Catalog " } else { "" },
+                if flag.has_param_data() { "Params " } else { "" },
+                if flag.has_emevd_data() { "EMEVD" } else { "" });
+            println!("Sources: {} ({:?})", sources.trim(), flag.confidence);
+            println!("Category: {} / {:?}",
+                flag.category.as_deref().unwrap_or("-"),
+                flag.flag_category);
+            if let Some(ref region) = flag.region {
+                println!("Region: {}", region);
+            }
+            if let Some(ref tile) = flag.map_tile {
+                println!("Map tile: {}", tile);
+            }
+
+            // Position
+            if let Some(ref pos) = flag.position {
+                println!();
+                println!("Position: ({:.1}, {:.1}, {:.1})", pos.pos_x, pos.pos_y, pos.pos_z);
+                if let (Some(wx), Some(wz)) = (pos.world_x, pos.world_z) {
+                    println!("World: ({:.1}, {:.1})", wx, wz);
+                }
+            }
+
+            // Item info
+            if let Some(ref item) = flag.item_info {
+                println!();
+                println!("Item ID: {}", item.item_id);
+                if let Some(cat) = item.item_category {
+                    println!("Item category: {}", cat);
+                }
+                if let Some(ref tt) = item.treasure_type {
+                    println!("Treasure type: {}", tt);
+                }
+            }
+
+            // Param sources
+            if !flag.param_sources.is_empty() {
+                println!();
+                println!("Param Sources:");
+                for source in &flag.param_sources {
+                    println!("  {} row {} ({})",
+                        source.param_name, source.row_id, source.field_name);
+                }
+            }
+
+            // EMEVD triggers
+            if !flag.emevd_triggers.is_empty() {
+                println!();
+                println!("EMEVD Triggers:");
+                for trigger in flag.emevd_triggers.iter().take(5) {
+                    println!("  Event {} [{}] in {}",
+                        trigger.event_id, trigger.context, trigger.source_file);
+                }
+                if flag.emevd_triggers.len() > 5 {
+                    println!("  ... and {} more", flag.emevd_triggers.len() - 5);
+                }
+            }
+
+            // Progression chain
+            if let Some(ref chain) = flag.in_progression_chain {
+                println!();
+                println!("Progression chain: {}", chain);
+            }
+        } else {
+            println!("Flag {} not found in unified database", id);
+        }
+        return Ok(());
+    }
+
+    // Show usage
+    println!("Unified Flag Database");
+    println!();
+    println!("Combines: Flag Catalog + Param Database + Event Graph");
+    println!();
+    println!("USAGE:");
+    println!("    discovery unified --build         Build/rebuild the database");
+    println!("    discovery unified <flag_id>       Query specific flag");
+    println!("    discovery unified --stats         Show statistics");
+    println!("    discovery unified --search NAME   Search by name");
+    println!("    discovery unified --needs-formula Flags needing formula discovery");
+    println!("    discovery unified --high          High-confidence flags (all 3 sources)");
+    println!("    discovery unified --category CAT  Filter by catalog category");
+    println!("    discovery unified --context CTX   Filter by EMEVD trigger context");
+    println!();
+    println!("OPTIONS:");
+    println!("    --db <path>       Path to unified_flags.json");
+    println!();
+    println!("Current database: {} flags", db.len());
+
+    Ok(())
 }

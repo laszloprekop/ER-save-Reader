@@ -42,6 +42,8 @@ pub mod chain_data;
 pub mod cli;
 pub mod test_cases;
 pub mod event_graph;
+pub mod param_flags;
+pub mod unified_db;
 
 pub use byte_diff::ByteDiffScanner;
 pub use segment_analysis::SegmentAnalyzer;
@@ -98,4 +100,13 @@ pub use event_graph::{
     DependencyInfo, EnablesInfo, EntityFlagMapping, AssociatedFlag,
     ProgressionChain, GraphMetadata, GraphError as EventGraphError,
     ValidationEvidence,
+};
+pub use param_flags::{
+    ParamFlagDb, ParamFlag, ParamSource, FlagCategory,
+    ExtractionStats, ExtractionMetadata, ParamError,
+};
+pub use unified_db::{
+    UnifiedFlagDb, UnifiedFlag, UnifiedStats, UnifiedMetadata,
+    SourceConfidence, Position, ItemInfo, ParamSourceInfo, TriggerInfo,
+    UnifiedDbError,
 };

@@ -4,6 +4,46 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.27 - Unified Flag Database
+
+### Features
+- **Unified Flag Database**: Merges three data sources into single queryable database
+  - Flag Catalog: names, positions, regions, item associations
+  - Param Database: source traceability (param file, row ID, field)
+  - Event Graph: EMEVD triggers, dependencies, progression chains
+
+- **New `param-extract` CLI command**: Extracts flags from regulation-bin XML params
+  - Supports: ItemLotParam_map, BonfireWarpParam, WorldMapPointParam, ShopLineupParam, GameAreaParam, NpcParam
+  - Outputs to param_flags.json for reuse
+
+- **New `param-query` CLI command**: Query param flag database
+  - `--stats`: Show summary statistics
+  - `--blocks`: List midrange blocks with flags
+  - `--bosses`: List boss defeat flags with names
+  - `--param <name>`: Filter by param source
+
+- **New `unified` CLI command**: Query unified flag database
+  - `--build`: Build/rebuild from all sources
+  - `--search <name>`: Search flags by name
+  - `--needs-formula`: Flags in params but not EMEVD
+  - `--high`: High-confidence flags (all 3 sources)
+  - `--category`, `--context`: Filter queries
+
+### Technical Details
+- `SourceConfidence` enum: High/Medium/Low/Inferred based on source count
+- Indexed lookups by category, param, trigger context, region
+- JSON persistence for fast subsequent loads
+
+### Files Modified
+- `src/discovery/unified_db.rs`: New unified database implementation
+- `src/discovery/param_flags.rs`: New param extraction module
+- `src/discovery/mod.rs`: Module exports for new components
+- `src/discovery/cli.rs`: CLI commands for unified and param modules
+- `docs/CHANGELOG.md`: Version 0.4.27
+- `Cargo.toml`: Bumped to 0.4.27
+
+---
+
 ## v0.4.26 - Batch Validation Tool for EMEVD-Backed Flags
 
 ### Features
