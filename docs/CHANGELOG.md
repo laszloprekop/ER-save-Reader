@@ -4,6 +4,53 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.23 - EMEVD Event Graph Extraction System
+
+### Features
+- **New extraction system**: Parses all 587 EMEVD files to build queryable event graph
+- **Python extraction script** (`scripts/extract_event_graph.py`):
+  - Parses `common_func.emevd.js` for event templates (183 templates)
+  - Parses `common.emevd.js` for known progression chains
+  - Processes all map EMEVD files for flag triggers and dependencies
+  - Outputs structured JSON for Rust consumption
+
+- **Rust loader module** (`src/discovery/event_graph.rs`):
+  - O(1) flag trigger lookup via HashMap indexes
+  - Dependency graph traversal methods
+  - Entity-to-flag mapping queries
+  - Progression chain lookup (remembrances, map fragments)
+  - Validation evidence API for formula verification
+
+### Extraction Results
+- **6,161 unique flags** extracted with trigger information
+- **13,612 total triggers** (SetEventFlagID calls)
+- **1,932 dependency relationships** (EventFlag conditions)
+- **378 entity mappings** (boss/grace entities to flags)
+- **92 progression chains** (remembrances, map fragments)
+
+### Key Methods
+```rust
+// Validate flag existence via SetEventFlagID evidence
+graph.has_trigger(flag_id) -> bool
+
+// Get trigger context (boss_defeat, grace_discovery, etc.)
+graph.get_trigger_context(flag_id) -> Option<&str>
+
+// Find remembrance chain by boss defeat flag
+graph.find_remembrance_chain(9100) -> Option<&ProgressionChain>
+```
+
+### Files Created
+- `scripts/extract_event_graph.py`: Python extraction (~400 lines)
+- `scripts/event_graph.json`: Generated graph data (6.1 MB)
+- `src/discovery/event_graph.rs`: Rust loader module (~460 lines)
+
+### Files Modified
+- `src/discovery/mod.rs`: Added event_graph module export
+- `Cargo.toml`: Bumped to 0.4.23
+
+---
+
 ## v0.4.22 - Documentation Restructuring & Verification Framework DRY Refactor
 
 ### Documentation Restructuring

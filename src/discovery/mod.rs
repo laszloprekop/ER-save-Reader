@@ -41,6 +41,7 @@ pub mod corroboration;
 pub mod chain_data;
 pub mod cli;
 pub mod test_cases;
+pub mod event_graph;
 
 pub use byte_diff::ByteDiffScanner;
 pub use segment_analysis::SegmentAnalyzer;
@@ -90,4 +91,10 @@ pub use chain_data::{
     BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES, GEOGRAPHIC_REGIONS, SCROLL_UNLOCKS, VERIFIED_BLOCK_BASES,
     find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
     find_area_prerequisite, is_late_game_flag, get_geographic_correlations,
+};
+pub use event_graph::{
+    EventGraph, FlagTrigger, FlagTriggerEntry, FlagDependencyEntry,
+    DependencyInfo, EnablesInfo, EntityFlagMapping, AssociatedFlag,
+    ProgressionChain, GraphMetadata, GraphError as EventGraphError,
+    ValidationEvidence,
 };
