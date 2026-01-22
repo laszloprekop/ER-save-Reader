@@ -448,6 +448,11 @@ impl EventGraph {
     pub fn list_contexts(&self) -> Vec<&str> {
         self.by_context.keys().map(|s| s.as_str()).collect()
     }
+
+    /// Get all flag IDs that have triggers
+    pub fn get_all_flag_ids(&self) -> Vec<u32> {
+        self.flag_triggers.keys().copied().collect()
+    }
 }
 
 /// Evidence that a flag exists in EMEVD

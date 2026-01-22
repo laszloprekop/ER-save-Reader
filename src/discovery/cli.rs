@@ -45,6 +45,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "corroborate" | "corr" => cmd_corroborate(&args[1..]),
         "graph" | "g" => cmd_graph(&args[1..]),
         "event-graph" | "eg" => cmd_event_graph(&args[1..]),
+        "batch-validate" | "bv" => cmd_batch_validate(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -71,6 +72,7 @@ fn print_help() {
     println!("    corroborate      Multi-point validation using relationship graph");
     println!("    graph            Show relationship graph statistics");
     println!("    event-graph      Query EMEVD event graph for flag triggers");
+    println!("    batch-validate   Validate all EMEVD-backed flags against save data");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -84,6 +86,8 @@ fn print_help() {
     println!("    er-save-editor discovery promote --dry-run");
     println!("    er-save-editor discovery event-graph 76100     # Query flag triggers");
     println!("    er-save-editor discovery event-graph --stats   # Show event graph stats");
+    println!("    er-save-editor discovery batch-validate 0      # Validate all EMEVD flags on slot 0");
+    println!("    er-save-editor discovery batch-validate 0 --context boss_defeat");
 }
 
 /// Analyze a single save file slot
@@ -1108,4 +1112,273 @@ fn cmd_event_graph(args: &[String]) -> Result<(), String> {
         summary.total_flags, summary.total_triggers, summary.files_parsed);
 
     Ok(())
+}
+
+/// Batch validate all EMEVD-backed flags against save file
+fn cmd_batch_validate(args: &[String]) -> Result<(), String> {
+    use crate::save::save::save::Save;
+    use crate::db::pickup_flags::{get_flag_offset, get_flag_verification_status, VerificationStatus};
+    use std::collections::HashMap;
+
+    // Parse --save argument
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
+
+    // Parse --context filter
+    let context_filter = args.iter()
+        .position(|a| a == "--context" || a == "-c")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| s.to_string());
+
+    // Parse --block filter (e.g., --block 9000 for flags 9000-9999)
+    let block_filter: Option<u32> = args.iter()
+        .position(|a| a == "--block" || a == "-b")
+        .and_then(|i| args.get(i + 1))
+        .and_then(|s| s.parse().ok());
+
+    // Parse slot index
+    let slot_index: usize = args.iter()
+        .filter(|a| !a.starts_with('-'))
+        .filter(|a| {
+            let idx = args.iter().position(|x| x == *a).unwrap_or(0);
+            if idx > 0 {
+                let prev = &args[idx - 1];
+                !(prev == "--save" || prev == "-s" || prev == "--context" || prev == "-c" || prev == "--block" || prev == "-b")
+            } else {
+                true
+            }
+        })
+        .find_map(|s| s.parse().ok())
+        .unwrap_or(0);
+
+    // Check for --unset flag (only show unset flags)
+    let show_unset_only = args.iter().any(|a| a == "--unset" || a == "-u");
+    // Check for --set flag (only show set flags)
+    let show_set_only = args.iter().any(|a| a == "--set");
+    // Check for --invalid flag (only show flags with no formula)
+    let show_invalid_only = args.iter().any(|a| a == "--invalid" || a == "-i");
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    // Load event graph
+    let graph = EventGraph::load_default()
+        .map_err(|e| format!("Failed to load event graph: {}", e))?;
+
+    // Load save
+    let save = Save::from_path(&save_path)
+        .map_err(|e| format!("Failed to load save: {}", e))?;
+
+    let slot = save.save_type.get_slot(slot_index);
+    let event_flags = &slot.event_flags.flags;
+
+    // Convert character name
+    let character_name_raw = slot.player_game_data.character_name;
+    let mut character_name_trimmed: [u16; 0x10] = [0; 0x10];
+    for (i, ch) in character_name_raw.iter().enumerate() {
+        if *ch == 0 { break; }
+        character_name_trimmed[i] = *ch;
+    }
+    let character_name = String::from_utf16(&character_name_trimmed).unwrap_or_else(|_| "Unknown".to_string());
+
+    println!("=== EMEVD Flag Batch Validation ===");
+    println!();
+    println!("Save: {:?}", save_path);
+    println!("Slot: {} ({})", slot_index, character_name);
+    if let Some(ref ctx) = context_filter {
+        println!("Filter: context = {}", ctx);
+    }
+    if let Some(block) = block_filter {
+        println!("Filter: block = {}-{}", block, block + 999);
+    }
+    println!();
+
+    // Collect all flags with triggers
+    let all_flags = graph.get_all_flag_ids();
+    let mut stats = BatchValidationStats::default();
+    let mut by_context: HashMap<String, ContextStats> = HashMap::new();
+    let mut by_block: HashMap<u32, BlockStats> = HashMap::new();
+
+    for &flag_id in &all_flags {
+        // Apply block filter
+        if let Some(block) = block_filter {
+            if flag_id < block || flag_id >= block + 1000 {
+                continue;
+            }
+        }
+
+        // Apply context filter
+        let context = graph.get_trigger_context(flag_id)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| "unknown".to_string());
+
+        if let Some(ref filter) = context_filter {
+            if !context.contains(filter) {
+                continue;
+            }
+        }
+
+        stats.total_flags += 1;
+
+        // Try to calculate offset
+        let offset_result = get_flag_offset(flag_id);
+        let verification_status = get_flag_verification_status(flag_id);
+
+        let (has_formula, is_set) = if let Some((byte_off, bit)) = offset_result {
+            let set = if (byte_off as usize) < event_flags.len() {
+                (event_flags[byte_off as usize] & (1 << bit)) != 0
+            } else {
+                false
+            };
+            (true, set)
+        } else {
+            (false, false)
+        };
+
+        // Update global stats
+        if has_formula {
+            stats.with_formula += 1;
+            if is_set {
+                stats.set_flags += 1;
+            } else {
+                stats.unset_flags += 1;
+            }
+            match verification_status {
+                VerificationStatus::Verified => stats.verified_formula += 1,
+                VerificationStatus::Calculated => stats.calculated_formula += 1,
+                VerificationStatus::Unverified => stats.unverified_formula += 1,
+                VerificationStatus::Unknown => stats.unknown_formula += 1,
+            }
+        } else {
+            stats.no_formula += 1;
+        }
+
+        // Update per-context stats
+        let ctx_stats = by_context.entry(context.clone()).or_default();
+        ctx_stats.total += 1;
+        if has_formula {
+            ctx_stats.with_formula += 1;
+            if is_set { ctx_stats.set_flags += 1; }
+        } else {
+            ctx_stats.no_formula += 1;
+        }
+
+        // Update per-block stats (1000-flag blocks)
+        let block_id = (flag_id / 1000) * 1000;
+        let block_stats = by_block.entry(block_id).or_default();
+        block_stats.total += 1;
+        if has_formula {
+            block_stats.with_formula += 1;
+            if is_set { block_stats.set_flags += 1; }
+        } else {
+            block_stats.no_formula += 1;
+        }
+
+        // Output individual flags if filtered
+        let show_flag = if show_invalid_only {
+            !has_formula
+        } else if show_unset_only {
+            has_formula && !is_set
+        } else if show_set_only {
+            has_formula && is_set
+        } else {
+            false
+        };
+
+        if show_flag {
+            let status_str = if has_formula {
+                if is_set { "SET" } else { "UNSET" }
+            } else {
+                "NO_FORMULA"
+            };
+            println!("  {:>10} [{:10}] {} ({})",
+                flag_id, status_str, context,
+                graph.get_triggers(flag_id)
+                    .and_then(|t| t.first())
+                    .map(|t| t.source_file.as_str())
+                    .unwrap_or("unknown"));
+        }
+    }
+
+    // Print summary
+    println!("=== Summary ===");
+    println!();
+    println!("Total flags with triggers:  {:>6}", stats.total_flags);
+    println!("With formula:               {:>6} ({:.1}%)",
+        stats.with_formula, stats.with_formula as f64 / stats.total_flags as f64 * 100.0);
+    println!("  - Verified:               {:>6}", stats.verified_formula);
+    println!("  - Calculated:             {:>6}", stats.calculated_formula);
+    println!("  - Unverified:             {:>6}", stats.unverified_formula);
+    println!("  - Unknown:                {:>6}", stats.unknown_formula);
+    println!("No formula:                 {:>6}", stats.no_formula);
+    println!();
+    println!("Set flags:                  {:>6} ({:.1}%)",
+        stats.set_flags, stats.set_flags as f64 / stats.with_formula.max(1) as f64 * 100.0);
+    println!("Unset flags:                {:>6}", stats.unset_flags);
+
+    // Print by-context breakdown
+    println!();
+    println!("=== By Context ===");
+    let mut contexts: Vec<_> = by_context.iter().collect();
+    contexts.sort_by(|a, b| b.1.total.cmp(&a.1.total));
+    for (ctx, cstats) in contexts.iter().take(15) {
+        let set_pct = if cstats.with_formula > 0 {
+            cstats.set_flags as f64 / cstats.with_formula as f64 * 100.0
+        } else { 0.0 };
+        println!("{:25} {:>5} flags, {:>5} formula, {:>5} set ({:.0}%)",
+            ctx, cstats.total, cstats.with_formula, cstats.set_flags, set_pct);
+    }
+    if contexts.len() > 15 {
+        println!("... and {} more contexts", contexts.len() - 15);
+    }
+
+    // Print by-block breakdown (only blocks with no formula or high unset rate)
+    println!();
+    println!("=== Blocks Needing Formula ===");
+    let mut blocks: Vec<_> = by_block.iter()
+        .filter(|(_, s)| s.no_formula > 0 || (s.with_formula > 0 && s.set_flags == 0))
+        .collect();
+    blocks.sort_by(|a, b| b.1.no_formula.cmp(&a.1.no_formula));
+    for (block, bstats) in blocks.iter().take(20) {
+        println!("{:>8}-{:<8}: {:>4} flags, {:>4} no formula, {:>4} formula ({} set)",
+            block, *block + 999, bstats.total, bstats.no_formula, bstats.with_formula, bstats.set_flags);
+    }
+    if blocks.len() > 20 {
+        println!("... and {} more blocks", blocks.len() - 20);
+    }
+
+    Ok(())
+}
+
+#[derive(Default)]
+struct BatchValidationStats {
+    total_flags: usize,
+    with_formula: usize,
+    no_formula: usize,
+    set_flags: usize,
+    unset_flags: usize,
+    verified_formula: usize,
+    calculated_formula: usize,
+    unverified_formula: usize,
+    unknown_formula: usize,
+}
+
+#[derive(Default)]
+struct ContextStats {
+    total: usize,
+    with_formula: usize,
+    no_formula: usize,
+    set_flags: usize,
+}
+
+#[derive(Default)]
+struct BlockStats {
+    total: usize,
+    with_formula: usize,
+    no_formula: usize,
+    set_flags: usize,
 }

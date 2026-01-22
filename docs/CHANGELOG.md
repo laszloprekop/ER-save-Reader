@@ -4,6 +4,33 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.26 - Batch Validation Tool for EMEVD-Backed Flags
+
+### Features
+- **New `batch-validate` CLI command**: Validates all EMEVD-backed flags against save data
+  - Reports formula coverage, set/unset status, and verification levels
+  - Breaks down by trigger context and flag block
+  - Identifies blocks needing formula coverage
+
+### Command Options
+- `--block <id>`: Filter to specific 1000-flag block (e.g., `--block 9000`)
+- `--context <name>`: Filter by trigger context (e.g., `--context boss_defeat`)
+- `--set` / `--unset`: Show only set or unset flags
+- `--invalid`: Show only flags without offset formulas
+
+### Key Findings
+- Block 9000 (remembrance flags 91xx) confirmed using simple formula
+- 6,161 flags with EMEVD triggers, 3,537 (57.4%) have formulas
+- Identified coverage gaps: blocks 510000, 710000, 61000
+
+### Files Modified
+- `src/discovery/cli.rs`: Added cmd_batch_validate function and stats structs
+- `src/discovery/event_graph.rs`: Added get_all_flag_ids() method
+- `docs/CHANGELOG.md`: Version 0.4.26
+- `Cargo.toml`: Bumped to 0.4.26
+
+---
+
 ## v0.4.25 - Midrange Flag Formula Support (Sorceries/Incantations)
 
 ### Features
