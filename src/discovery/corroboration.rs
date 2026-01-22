@@ -21,6 +21,7 @@ use super::chain_data::{
     find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
     is_late_game_flag, get_geographic_correlations,
 };
+use super::event_graph::{EventGraph, FlagTrigger, ProgressionChain};
 
 /// Configuration for corroboration engine
 #[derive(Debug, Clone)]
@@ -136,6 +137,54 @@ pub struct GeographicCorrelationResult {
     pub correlation_ratio: f64,
 }
 
+/// Result of event graph validation (EMEVD evidence)
+#[derive(Debug, Clone)]
+pub struct EventGraphValidation {
+    /// Flag has at least one SetEventFlagID trigger in EMEVD
+    pub has_trigger: bool,
+    /// Number of triggers found
+    pub trigger_count: usize,
+    /// Primary trigger context (e.g., "boss_defeat", "grace_discovery")
+    pub trigger_context: Option<String>,
+    /// Source files containing triggers
+    pub source_files: Vec<String>,
+    /// Related progression chain if any
+    pub progression_chain: Option<String>,
+    /// Validation confidence boost (0.0-0.2)
+    pub confidence_boost: f64,
+}
+
+impl EventGraphValidation {
+    /// Create validation result indicating flag exists in EMEVD
+    pub fn found(
+        trigger_count: usize,
+        context: Option<String>,
+        sources: Vec<String>,
+        chain: Option<String>,
+    ) -> Self {
+        Self {
+            has_trigger: true,
+            trigger_count,
+            trigger_context: context,
+            source_files: sources,
+            progression_chain: chain,
+            confidence_boost: if trigger_count > 0 { 0.1 } else { 0.0 },
+        }
+    }
+
+    /// Create validation result indicating flag NOT found in EMEVD
+    pub fn not_found() -> Self {
+        Self {
+            has_trigger: false,
+            trigger_count: 0,
+            trigger_context: None,
+            source_files: Vec::new(),
+            progression_chain: None,
+            confidence_boost: 0.0,
+        }
+    }
+}
+
 /// Result of corroboration check for a flag
 #[derive(Debug, Clone)]
 pub struct CorroborationResult {
@@ -146,6 +195,8 @@ pub struct CorroborationResult {
     pub boss_chain: Option<BossChainResult>,
     pub area_prerequisite: Option<AreaPrerequisiteResult>,
     pub geographic_correlation: Option<GeographicCorrelationResult>,
+    /// Event graph validation (EMEVD evidence)
+    pub event_graph: Option<EventGraphValidation>,
     pub agreement_ratio: f64,
     pub confidence_adjustment: f64,
 }
@@ -153,28 +204,61 @@ pub struct CorroborationResult {
 /// Corroboration engine using relationship graph
 pub struct CorroborationEngine {
     graph: Arc<RelationshipGraph>,
+    event_graph: Option<Arc<EventGraph>>,
     config: CorroborationConfig,
 }
 
 impl CorroborationEngine {
-    /// Create a new engine with the given graph
+    /// Create a new engine with the given relationship graph
     pub fn new(graph: Arc<RelationshipGraph>) -> Self {
         Self {
             graph,
+            event_graph: None,
             config: CorroborationConfig::default(),
         }
     }
 
     /// Create with custom config
     pub fn with_config(graph: Arc<RelationshipGraph>, config: CorroborationConfig) -> Self {
-        Self { graph, config }
+        Self { graph, event_graph: None, config }
     }
 
-    /// Load graph from default location
+    /// Add event graph for EMEVD validation
+    pub fn with_event_graph(mut self, event_graph: Arc<EventGraph>) -> Self {
+        self.event_graph = Some(event_graph);
+        self
+    }
+
+    /// Load graphs from default locations
     pub fn load_default() -> Result<Self, String> {
         let graph = RelationshipGraph::load_default()
             .map_err(|e| format!("Failed to load relationship graph: {}", e))?;
         Ok(Self::new(Arc::new(graph)))
+    }
+
+    /// Load with event graph from default locations
+    pub fn load_with_event_graph() -> Result<Self, String> {
+        let graph = RelationshipGraph::load_default()
+            .map_err(|e| format!("Failed to load relationship graph: {}", e))?;
+        let event_graph = EventGraph::load_default()
+            .map_err(|e| format!("Failed to load event graph: {}", e))?;
+        Ok(Self::new(Arc::new(graph)).with_event_graph(Arc::new(event_graph)))
+    }
+
+    /// Check if event graph is available
+    pub fn has_event_graph(&self) -> bool {
+        self.event_graph.is_some()
+    }
+
+    /// Get event graph summary if available
+    pub fn event_graph_summary(&self) -> Option<String> {
+        self.event_graph.as_ref().map(|eg| {
+            let summary = eg.summary();
+            format!(
+                "EventGraph: {} flags, {} triggers, {} chains",
+                summary.total_flags, summary.total_triggers, summary.progression_chains
+            )
+        })
     }
 
     /// Check corroboration for a flag using event flags data
@@ -311,6 +395,16 @@ impl CorroborationEngine {
         // Check geographic correlation
         let geographic_correlation = self.check_geographic_correlation(flag_id, event_flags);
 
+        // Check event graph validation (EMEVD evidence)
+        let event_graph = self.check_event_graph(flag_id);
+        if let Some(ref eg) = event_graph {
+            if eg.has_trigger {
+                agrees += 1;  // Flag exists in EMEVD
+            }
+            // Note: Not having a trigger isn't necessarily a contradiction,
+            // as some flags may be set through other mechanisms
+        }
+
         // Calculate agreement ratio
         let total_checks = agrees + disagrees;
         let agreement_ratio = if total_checks > 0 {
@@ -340,6 +434,9 @@ impl CorroborationEngine {
             CorroborationStatus::Contradiction => -self.config.contradiction_penalty,
         };
 
+        // Include event graph confidence boost
+        let event_graph_boost = event_graph.as_ref().map(|eg| eg.confidence_boost).unwrap_or(0.0);
+
         CorroborationResult {
             flag_id,
             status,
@@ -348,8 +445,9 @@ impl CorroborationEngine {
             boss_chain,
             area_prerequisite,
             geographic_correlation,
+            event_graph,
             agreement_ratio,
-            confidence_adjustment,
+            confidence_adjustment: confidence_adjustment + event_graph_boost,
         }
     }
 
@@ -582,6 +680,36 @@ impl CorroborationEngine {
             correlated_flags,
             correlation_ratio,
         })
+    }
+
+    /// Check event graph validation (EMEVD evidence)
+    /// Validates that the flag has a SetEventFlagID trigger in EMEVD files
+    fn check_event_graph(&self, flag_id: u32) -> Option<EventGraphValidation> {
+        let event_graph = self.event_graph.as_ref()?;
+
+        if event_graph.has_trigger(flag_id) {
+            let triggers = event_graph.get_triggers(flag_id);
+            let trigger_count = triggers.map(|t| t.len()).unwrap_or(0);
+            let context = event_graph.get_trigger_context(flag_id).map(|s| s.to_string());
+            let sources: Vec<String> = triggers
+                .map(|t| t.iter().map(|tr| tr.source_file.clone()).collect())
+                .unwrap_or_default();
+
+            // Check for progression chain
+            let chain = event_graph.find_remembrance_chain(flag_id)
+                .map(|c| format!("remembrance_{}", flag_id))
+                .or_else(|| event_graph.find_map_fragment_chain(flag_id)
+                    .map(|c| format!("map_fragment_{}", flag_id)));
+
+            Some(EventGraphValidation::found(trigger_count, context, sources, chain))
+        } else {
+            Some(EventGraphValidation::not_found())
+        }
+    }
+
+    /// Validate a flag using only the event graph (without save data)
+    pub fn validate_via_event_graph(&self, flag_id: u32) -> Option<EventGraphValidation> {
+        self.check_event_graph(flag_id)
     }
 
     /// Read a flag from event flags data

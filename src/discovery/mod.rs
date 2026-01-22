@@ -85,6 +85,7 @@ pub use corroboration::{
     CorroborationEngine, CorroborationConfig, CorroborationResult, CorroborationStatus,
     DualFormulaResult, RelatedFlagCheck, BatchCorroborationResult, PairStatus,
     BossChainResult, AreaPrerequisiteResult, GeographicCorrelationResult,
+    EventGraphValidation,
 };
 pub use chain_data::{
     BossDefeatChain, AreaPrerequisite, GeographicRegion, ScrollUnlock, BlockBaseOffset,

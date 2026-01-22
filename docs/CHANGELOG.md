@@ -4,6 +4,45 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.24 - EventGraph Integration into Verification Chain
+
+### Features
+- **Corroboration engine integration**: EventGraph now provides EMEVD evidence during flag validation
+  - Adds +1 to agreement count when flag has SetEventFlagID trigger
+  - Adds +0.1 confidence boost for flags found in EMEVD
+  - Reports trigger context, source files, and progression chains
+
+- **New CLI command** `discovery event-graph`:
+  - `<flag_id>` - Query specific flag for triggers, dependencies, entity mappings
+  - `--stats` - Show event graph statistics (6,161 flags, 13,612 triggers)
+  - `--contexts` - List all trigger contexts with counts
+  - `--chains` - Show remembrance and map fragment progression chains
+
+- **Enhanced corroborate command**:
+  - Automatically loads event graph when available
+  - Shows EMEVD validation in output (trigger count, context, sources)
+  - Falls back gracefully if event graph unavailable
+
+### Integration Points
+```rust
+// Load corroboration engine with EMEVD validation
+let engine = CorroborationEngine::load_with_event_graph()?;
+
+// Result now includes event graph evidence
+result.event_graph.has_trigger      // Flag exists in EMEVD
+result.event_graph.trigger_context  // "boss_defeat", "grace_discovery", etc.
+result.event_graph.confidence_boost // +0.1 when found
+```
+
+### Files Modified
+- `src/discovery/corroboration.rs`: Added EventGraphValidation, integration methods
+- `src/discovery/cli.rs`: Added event-graph command, enhanced corroborate output
+- `src/discovery/mod.rs`: Added EventGraphValidation export
+- `docs/CHANGELOG.md`: Version 0.4.24
+- `Cargo.toml`: Bumped to 0.4.24
+
+---
+
 ## v0.4.23 - EMEVD Event Graph Extraction System
 
 ### Features

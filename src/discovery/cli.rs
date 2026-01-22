@@ -14,6 +14,7 @@ use super::{
     DiscoveryStore, ConsensusBuilder, ConsensusStatus,
     GroundTruthUpdater, UpdateConfig,
     RelationshipGraph, CorroborationEngine, CorroborationStatus,
+    EventGraph,
 };
 use super::test_cases::{TestCaseValidator, DynamicTestCaseValidator, print_validation_report};
 use crate::save::save::save::Save;
@@ -43,6 +44,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "promote" => cmd_promote(&args[1..]),
         "corroborate" | "corr" => cmd_corroborate(&args[1..]),
         "graph" | "g" => cmd_graph(&args[1..]),
+        "event-graph" | "eg" => cmd_event_graph(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -68,6 +70,7 @@ fn print_help() {
     println!("    promote          Promote confirmed discoveries to ground truth");
     println!("    corroborate      Multi-point validation using relationship graph");
     println!("    graph            Show relationship graph statistics");
+    println!("    event-graph      Query EMEVD event graph for flag triggers");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -79,6 +82,8 @@ fn print_help() {
     println!("    er-save-editor discovery status");
     println!("    er-save-editor discovery promotable");
     println!("    er-save-editor discovery promote --dry-run");
+    println!("    er-save-editor discovery event-graph 76100     # Query flag triggers");
+    println!("    er-save-editor discovery event-graph --stats   # Show event graph stats");
 }
 
 /// Analyze a single save file slot
@@ -806,9 +811,20 @@ fn cmd_corroborate(args: &[String]) -> Result<(), String> {
     let slot = save.save_type.get_slot(slot_index);
     let event_flags = &slot.event_flags.flags;
 
-    // Load corroboration engine
-    let engine = CorroborationEngine::load_default()
+    // Load corroboration engine with event graph for EMEVD validation
+    let engine = CorroborationEngine::load_with_event_graph()
+        .or_else(|_| {
+            // Fall back to without event graph if it fails to load
+            println!("Note: Event graph not available, using relationship graph only");
+            CorroborationEngine::load_default()
+        })
         .map_err(|e| format!("Failed to load corroboration engine: {}", e))?;
+
+    if engine.has_event_graph() {
+        if let Some(summary) = engine.event_graph_summary() {
+            println!("{}", summary);
+        }
+    }
 
     if let Some(flag_id) = flag_id {
         // Check single flag
@@ -845,6 +861,28 @@ fn cmd_corroborate(args: &[String]) -> Result<(), String> {
             println!("  Agreement: {}", if df.both_agree { "YES" } else { "NO" });
             if let Some(ref name) = df.item_name {
                 println!("  Item: {}", name);
+            }
+        }
+
+        // Show event graph validation (EMEVD evidence)
+        if let Some(ref eg) = result.event_graph {
+            println!();
+            println!("Event graph (EMEVD) validation:");
+            if eg.has_trigger {
+                println!("  Found in EMEVD: YES ({} triggers)", eg.trigger_count);
+                if let Some(ref ctx) = eg.trigger_context {
+                    println!("  Primary context: {}", ctx);
+                }
+                if !eg.source_files.is_empty() {
+                    println!("  Sources: {}", eg.source_files.join(", "));
+                }
+                if let Some(ref chain) = eg.progression_chain {
+                    println!("  Progression chain: {}", chain);
+                }
+                println!("  Confidence boost: +{:.2}", eg.confidence_boost);
+            } else {
+                println!("  Found in EMEVD: NO");
+                println!("  (Flag may be set via other mechanisms)");
             }
         }
     } else if check_all {
@@ -886,6 +924,188 @@ fn cmd_corroborate(args: &[String]) -> Result<(), String> {
         println!("  discovery corroborate 67650 --slot 5");
         println!("  discovery corroborate --all --slot 0");
     }
+
+    Ok(())
+}
+
+/// Query EMEVD event graph for flag triggers and validation
+fn cmd_event_graph(args: &[String]) -> Result<(), String> {
+    let show_stats = args.iter().any(|a| a == "--stats" || a == "-s");
+    let show_contexts = args.iter().any(|a| a == "--contexts" || a == "-c");
+    let show_chains = args.iter().any(|a| a == "--chains");
+
+    // Check for specific flag ID
+    let flag_id: Option<u32> = args.iter()
+        .filter(|a| !a.starts_with('-'))
+        .find_map(|s| s.parse().ok());
+
+    // Load event graph
+    let graph = EventGraph::load_default()
+        .map_err(|e| format!("Failed to load event graph: {}", e))?;
+
+    let summary = graph.summary();
+
+    if show_stats {
+        println!("=== EMEVD Event Graph Statistics ===");
+        println!();
+        println!("Files parsed:        {}", summary.files_parsed);
+        println!("Unique flags:        {}", summary.total_flags);
+        println!("Total triggers:      {}", summary.total_triggers);
+        println!("Dependencies:        {}", summary.total_dependencies);
+        println!("Entity mappings:     {}", summary.entity_mappings);
+        println!("Progression chains:  {}", summary.progression_chains);
+        println!();
+
+        // Show trigger context distribution
+        let contexts = graph.list_contexts();
+        println!("Trigger contexts ({}):", contexts.len());
+        for ctx in contexts.iter().take(15) {
+            let count = graph.get_flags_by_context(ctx).map(|f| f.len()).unwrap_or(0);
+            println!("  {:25} {:>6} flags", ctx, count);
+        }
+        if contexts.len() > 15 {
+            println!("  ... and {} more contexts", contexts.len() - 15);
+        }
+
+        return Ok(());
+    }
+
+    if show_contexts {
+        println!("=== Trigger Contexts ===");
+        println!();
+        let contexts = graph.list_contexts();
+        for ctx in &contexts {
+            let count = graph.get_flags_by_context(ctx).map(|f| f.len()).unwrap_or(0);
+            println!("{:30} {:>6} flags", ctx, count);
+        }
+        return Ok(());
+    }
+
+    if show_chains {
+        println!("=== Progression Chains ===");
+        println!();
+
+        let remembrances = graph.get_chains_by_type("remembrance");
+        println!("Remembrance chains ({}):", remembrances.len());
+        for chain in remembrances.iter().take(10) {
+            println!("  Boss defeat {:>6} -> Possession {:>6}",
+                chain.boss_defeat.unwrap_or(0),
+                chain.possession_flag.unwrap_or(0));
+        }
+        if remembrances.len() > 10 {
+            println!("  ... and {} more", remembrances.len() - 10);
+        }
+        println!();
+
+        let map_frags = graph.get_chains_by_type("map_fragment");
+        println!("Map fragment chains ({}):", map_frags.len());
+        for chain in map_frags.iter().take(10) {
+            if let Some(ref params) = chain.params.get(0..2) {
+                println!("  Discovery {:>6} -> Possession {:>6}",
+                    params.get(0).unwrap_or(&0),
+                    params.get(1).unwrap_or(&0));
+            }
+        }
+        if map_frags.len() > 10 {
+            println!("  ... and {} more", map_frags.len() - 10);
+        }
+
+        return Ok(());
+    }
+
+    if let Some(flag_id) = flag_id {
+        // Query specific flag
+        println!("=== Event Graph Query: Flag {} ===", flag_id);
+        println!();
+
+        if graph.has_trigger(flag_id) {
+            println!("Status: FOUND in EMEVD");
+            println!();
+
+            if let Some(triggers) = graph.get_triggers(flag_id) {
+                println!("Triggers ({}):", triggers.len());
+                for (i, trigger) in triggers.iter().enumerate() {
+                    println!("  [{}] Event {}: {} ({})",
+                        i + 1,
+                        trigger.event_id,
+                        trigger.action,
+                        trigger.trigger_context);
+                    println!("      Source: {}", trigger.source_file);
+                    if let Some(entity) = trigger.entity_id {
+                        println!("      Entity: {}", entity);
+                    }
+                }
+            }
+
+            // Check dependencies
+            if let Some(deps) = graph.get_dependencies(flag_id) {
+                if !deps.is_empty() {
+                    println!();
+                    println!("Dependencies ({}):", deps.len());
+                    for dep in deps.iter().take(10) {
+                        println!("  Requires flag {} ({})", dep.required_flag, dep.condition_type);
+                    }
+                }
+            }
+
+            // Check what this flag enables
+            if let Some(enables) = graph.get_enables(flag_id) {
+                if !enables.is_empty() {
+                    println!();
+                    println!("Enables ({}):", enables.len());
+                    for en in enables.iter().take(10) {
+                        println!("  Flag {} ({})", en.enabled_flag, en.relationship);
+                    }
+                }
+            }
+
+            // Check progression chains
+            if let Some(chain) = graph.find_remembrance_chain(flag_id) {
+                println!();
+                println!("Part of remembrance chain:");
+                println!("  Boss defeat: {:?}", chain.boss_defeat);
+                println!("  Possession flag: {:?}", chain.possession_flag);
+            }
+
+            // Check entity mapping
+            if let Some(entity_id) = graph.find_entity_for_flag(flag_id) {
+                if let Some(mapping) = graph.get_entity_flags(entity_id) {
+                    println!();
+                    println!("Entity mapping:");
+                    println!("  Entity ID: {}", entity_id);
+                    println!("  Type: {}", mapping.entity_type);
+                    println!("  Map tile: {}", mapping.map_tile);
+                }
+            }
+        } else {
+            println!("Status: NOT FOUND in EMEVD");
+            println!();
+            println!("This flag has no SetEventFlagID triggers in the parsed EMEVD files.");
+            println!("This could mean:");
+            println!("  - Flag is set through a different mechanism (param files, etc.)");
+            println!("  - Flag ID may be incorrect");
+            println!("  - The extraction may have missed this pattern");
+        }
+
+        return Ok(());
+    }
+
+    // Show usage
+    println!("EMEVD Event Graph Query Tool");
+    println!();
+    println!("USAGE:");
+    println!("    discovery event-graph <flag_id>    Query specific flag");
+    println!("    discovery event-graph --stats      Show statistics");
+    println!("    discovery event-graph --contexts   List all trigger contexts");
+    println!("    discovery event-graph --chains     Show progression chains");
+    println!();
+    println!("EXAMPLES:");
+    println!("    discovery event-graph 76100        # First Step grace");
+    println!("    discovery event-graph 9100         # Godrick remembrance");
+    println!("    discovery event-graph --stats");
+    println!();
+    println!("Current graph: {} flags, {} triggers from {} files",
+        summary.total_flags, summary.total_triggers, summary.files_parsed);
 
     Ok(())
 }
