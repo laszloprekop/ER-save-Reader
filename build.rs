@@ -125,6 +125,42 @@ fn generate_offsets_from_json() -> io::Result<()> {
             output.push_str("\n");
         }
 
+        // Generate midrange formula bases (100000-999999 flags like sorceries/incantations)
+        if let Some(midrange) = formulas.get("midrange_formula").and_then(|v| v.as_object()) {
+            output.push_str("// ============================================================================\n");
+            output.push_str("// MIDRANGE FORMULA (verified from ground_truth_offsets.json)\n");
+            output.push_str("// ============================================================================\n\n");
+
+            output.push_str("/// Midrange base offsets for flags 100000-999999 (sorceries, incantations, etc.)\n");
+            output.push_str("/// Formula: byte_offset = base + (flag_id - block_start) / 8\n");
+            output.push_str("pub static VERIFIED_MIDRANGE_BASES: Lazy<HashMap<u32, MidrangeBase>> = Lazy::new(|| {\n");
+            output.push_str("    HashMap::from([\n");
+
+            let mut entries: Vec<_> = midrange.iter().collect();
+            entries.sort_by_key(|(k, _)| k.parse::<u32>().unwrap_or(0));
+
+            for (block_start, info) in entries {
+                if let Some(base_offset) = info.get("base_offset").and_then(|v| v.as_u64()) {
+                    let status = info.get("status").and_then(|v| v.as_str()).unwrap_or("unknown");
+                    let notes = info.get("notes").and_then(|v| v.as_str()).unwrap_or("");
+                    output.push_str(&format!(
+                        "        ({}, MidrangeBase {{ base_offset: {}, status: \"{}\", notes: \"{}\" }}),\n",
+                        block_start, base_offset, status, notes.replace("\"", "\\\"")
+                    ));
+                }
+            }
+
+            output.push_str("    ])\n");
+            output.push_str("});\n\n");
+
+            output.push_str("#[derive(Debug, Clone)]\n");
+            output.push_str("pub struct MidrangeBase {\n");
+            output.push_str("    pub base_offset: u32,\n");
+            output.push_str("    pub status: &'static str,\n");
+            output.push_str("    pub notes: &'static str,\n");
+            output.push_str("}\n\n");
+        }
+
         // Generate dungeon formula bases
         if let Some(dungeon) = formulas.get("dungeon_formula").and_then(|v| v.as_object()) {
             output.push_str("// ============================================================================\n");
@@ -210,6 +246,32 @@ fn generate_offsets_from_json() -> io::Result<()> {
     output.push_str("    let byte_offset = VERIFIED_TILE_BASE_OFFSET + (slot as u32) * TILE_BYTES_PER_SLOT + local_id / 8;\n");
     output.push_str("    let bit_position = 7 - ((local_id % 8) as u8);\n");
     output.push_str("    Some((byte_offset, bit_position))\n");
+    output.push_str("}\n\n");
+
+    output.push_str("/// Calculate byte offset and bit position for a midrange flag (6-digit, 100000-999999)\n");
+    output.push_str("/// Used for sorceries, incantations, ashes of war unlock flags\n");
+    output.push_str("pub fn calculate_midrange_flag_offset(flag_id: u32) -> Option<(u32, u8)> {\n");
+    output.push_str("    if flag_id < 100_000 || flag_id >= 1_000_000 { return None; }\n");
+    output.push_str("    \n");
+    output.push_str("    // Try exact block match first (1000-flag granularity)\n");
+    output.push_str("    let block_start = (flag_id / 1000) * 1000;\n");
+    output.push_str("    if let Some(base) = VERIFIED_MIDRANGE_BASES.get(&block_start) {\n");
+    output.push_str("        let relative = flag_id - block_start;\n");
+    output.push_str("        let byte_offset = base.base_offset + relative / 8;\n");
+    output.push_str("        let bit_position = 7 - ((flag_id % 8) as u8);\n");
+    output.push_str("        return Some((byte_offset, bit_position));\n");
+    output.push_str("    }\n");
+    output.push_str("    \n");
+    output.push_str("    // Try 10000-flag block granularity (e.g., 540000 for all 54xxxx flags)\n");
+    output.push_str("    let block_10k = (flag_id / 10000) * 10000;\n");
+    output.push_str("    if let Some(base) = VERIFIED_MIDRANGE_BASES.get(&block_10k) {\n");
+    output.push_str("        let relative = flag_id - block_10k;\n");
+    output.push_str("        let byte_offset = base.base_offset + relative / 8;\n");
+    output.push_str("        let bit_position = 7 - ((flag_id % 8) as u8);\n");
+    output.push_str("        return Some((byte_offset, bit_position));\n");
+    output.push_str("    }\n");
+    output.push_str("    \n");
+    output.push_str("    None\n");
     output.push_str("}\n\n");
 
     output.push_str("/// Calculate byte offset and bit position for a dungeon-based flag (8-digit)\n");

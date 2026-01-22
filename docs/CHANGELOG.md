@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.25 - Midrange Flag Formula Support (Sorceries/Incantations)
+
+### Features
+- **New midrange formula**: Support for 6-digit flags (100000-999999)
+  - Covers sorcery, incantation, and ash of war unlock flags
+  - Formula: `byte_offset = base + (flag_id - block_start) / 8`
+  - Block 540000 verified with 129/129 flags matching
+
+### Technical Details
+- Added `VERIFIED_MIDRANGE_BASES` to ground_truth_offsets.json
+- Added `calculate_midrange_flag_offset()` to pickup_flags.rs
+- Build system generates midrange bases from JSON at compile time
+- Supports both 1000-flag and 10000-flag block granularity
+
+### Verification
+- All 129 sorcery/incantation flags (540100-540652) verified against event_flags.rs hardcoded data
+
+### Files Modified
+- `build.rs`: Generate VERIFIED_MIDRANGE_BASES and MidrangeBase struct
+- `ground_truth_offsets.json`: Added midrange_formula section
+- `src/db/pickup_flags.rs`: Added midrange flag calculation
+- `docs/CHANGELOG.md`: Version 0.4.25
+- `Cargo.toml`: Bumped to 0.4.25
+
+---
+
 ## v0.4.24 - EventGraph Integration into Verification Chain
 
 ### Features

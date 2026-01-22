@@ -3338,6 +3338,15 @@
       "status": "verified",
       "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly."
     },
+    "midrange_formula": {
+      "540000": {
+        "block_start": 540000,
+        "base_offset": 67500,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "Sorcery/Incantation/Ash of War unlock flags - VERIFIED 2026-01-22: Formula byte_offset = 67500 + (flag_id - 540000) // 8 matches 129/129 flags in event_flags.rs hardcoded data. Range covers 540100-540652."
+      }
+    },
     "dungeon_formula": {
       "10": {
         "map_area": 10,

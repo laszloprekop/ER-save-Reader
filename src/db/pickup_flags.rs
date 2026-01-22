@@ -2,11 +2,13 @@
 ///
 /// The EventFlags array (0x1BF99F bytes) uses hierarchical allocation:
 /// - Small flags (0-59999): Direct mapping with base offset
+/// - Midrange flags (100000-999999): Sorcery/incantation unlock flags
 /// - Block flags (60000-99999): Block base + relative offset
 /// - Dungeon flags (10000000-43999999): Map base + local offset
 /// - Open world (1000000000+): Formula-based tile calculation
 ///
-/// V3: Uses verified ground truth offsets from ground_truth_offsets.json
+/// V4: Added midrange flag support (540xxx sorceries/incantations)
+/// Uses verified ground truth offsets from ground_truth_offsets.json
 /// Generated at build time via build.rs
 
 use std::collections::HashMap;
@@ -22,6 +24,7 @@ use crate::generated::ground_truth::{
     TILE_MAX_LOCAL_ID,
     VERIFIED_BLOCK_BASES,
     VERIFIED_DUNGEON_BASES,
+    VERIFIED_MIDRANGE_BASES,
 };
 
 // ============================================================================
@@ -217,6 +220,38 @@ fn calculate_simple_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     None
 }
 
+/// Calculate byte offset and bit position for a midrange flag (100000-999999)
+///
+/// Flag format: 6 digits for sorceries, incantations, ashes of war unlock
+/// Uses VERIFIED_MIDRANGE_BASES from ground_truth_offsets.json
+fn calculate_midrange_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
+    let bit = (7 - (flag_id % 8)) as u8;
+
+    // Try 10000-flag block granularity first (e.g., 540000 for all 54xxxx flags)
+    let block_10k = (flag_id / 10000) * 10000;
+    if let Some(midrange_base) = VERIFIED_MIDRANGE_BASES.get(&block_10k) {
+        if midrange_base.status == "verified" {
+            let relative = flag_id - block_10k;
+            let byte_offset = midrange_base.base_offset + relative / 8;
+            if byte_offset < EVENT_FLAGS_SIZE {
+                return Some((byte_offset, bit));
+            }
+        }
+    }
+
+    // Fall back to 1000-flag granularity
+    let block_1k = (flag_id / 1000) * 1000;
+    if let Some(midrange_base) = VERIFIED_MIDRANGE_BASES.get(&block_1k) {
+        let relative = flag_id - block_1k;
+        let byte_offset = midrange_base.base_offset + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE {
+            return Some((byte_offset, bit));
+        }
+    }
+
+    None
+}
+
 /// Calculate byte offset and bit position for an event flag
 ///
 /// Returns Some((byte_offset, bit_position)) if the flag can be calculated
@@ -232,12 +267,17 @@ pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
         return calculate_dungeon_flag_offset(flag_id);
     }
 
+    // 6-digit midrange flags (100000-999999) - sorceries, incantations, etc.
+    if flag_id >= 100_000 && flag_id < 1_000_000 {
+        return calculate_midrange_flag_offset(flag_id);
+    }
+
     // Simple flags (< 100000)
     if flag_id < 100_000 {
         return calculate_simple_flag_offset(flag_id);
     }
 
-    // Flags 100000-9999999 are not commonly used for pickups
+    // Flags 1000000-9999999 are not commonly used
     None
 }
 
@@ -302,6 +342,29 @@ pub fn get_flag_verification_status(flag_id: u32) -> VerificationStatus {
         let block_start = (flag_id / 1000) * 1000;
         if let Some(block_base) = VERIFIED_BLOCK_BASES.get(&block_start) {
             return match block_base.status {
+                "verified" => VerificationStatus::Verified,
+                "calculated" => VerificationStatus::Calculated,
+                _ => VerificationStatus::Unverified,
+            };
+        }
+        return VerificationStatus::Unknown;
+    }
+
+    // Midrange flags (100000-999999) - sorceries, incantations, etc.
+    if flag_id >= 100_000 && flag_id < 1_000_000 {
+        // Check 10000-flag granularity
+        let block_10k = (flag_id / 10000) * 10000;
+        if let Some(midrange_base) = VERIFIED_MIDRANGE_BASES.get(&block_10k) {
+            return match midrange_base.status {
+                "verified" => VerificationStatus::Verified,
+                "calculated" => VerificationStatus::Calculated,
+                _ => VerificationStatus::Unverified,
+            };
+        }
+        // Check 1000-flag granularity
+        let block_1k = (flag_id / 1000) * 1000;
+        if let Some(midrange_base) = VERIFIED_MIDRANGE_BASES.get(&block_1k) {
+            return match midrange_base.status {
                 "verified" => VerificationStatus::Verified,
                 "calculated" => VerificationStatus::Calculated,
                 _ => VerificationStatus::Unverified,
