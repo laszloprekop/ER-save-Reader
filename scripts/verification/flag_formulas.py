@@ -1,6 +1,24 @@
 """
 Event Flag Calculation Formulas
 
+==============================================================================
+DEPRECATED: This file contains OUTDATED values!
+==============================================================================
+
+Use ground_truth_loader.py instead, which reads from ground_truth_offsets.json
+(the single source of truth synced with src/generated/ground_truth.rs).
+
+Known desync issues between this file and ground_truth:
+  - Block 62000: 1500 here vs 9359 in ground_truth
+  - Block 65000: 1875 here vs 37412 in ground_truth
+  - Block 67000: 3546 here vs 37411 in ground_truth
+  - Block 71000: 2625 here vs 9315 in ground_truth
+
+This file is kept for reference only. DO NOT use BLOCK_BASES values from this
+file for new verification scripts.
+
+==============================================================================
+
 Contains all known formulas for calculating event flag byte offsets and bit positions.
 Each formula has known limitations - this module documents them and provides
 tools to test which formulas work for which flag categories.

@@ -3247,8 +3247,8 @@
         "block_start": 68000,
         "base_offset": 37536,
         "block_size": 1000,
-        "status": "calculated",
-        "notes": "Cookbooks continued - RECALCULATED 2026-01-21: 67000 base 37411 + 125 = 37536. Needs empirical verification."
+        "status": "verified",
+        "notes": "Cookbooks continued - VERIFIED 2026-01-22: Base 37536 (67000 base + 125) gives 10/10 match on base game 68xxx cookbooks (Ancient Dragon Apostle, Fevor, Frenzied) in S0 AND 0/10 in S1 early-game. Perfect differential pattern confirms calculation."
       },
       "71000": {
         "block_start": 71000,
@@ -3259,10 +3259,10 @@
       },
       "71100": {
         "block_start": 71100,
-        "base_offset": 2705,
+        "base_offset": 2593,
         "block_size": 100,
-        "status": "candidate",
-        "notes": "Leyndell graces (71100-71199) - CORRECTED 2026-01-22: Base 2705 is best candidate. Shows only Divine Bridge (71107) SET in S0, matching teleport trap access pattern. Previous base 2725 collided with block 71800 (Tutorial). Multiple candidates exist - needs user confirmation of Leyndell progression."
+        "status": "verified",
+        "notes": "Leyndell graces (71100-71199) - VERIFIED 2026-01-22: Base 2593 shows 9/10 pre-Ashen graces SET in S0, 0/10 in S1. Perfect differential. Flags SET: 71100 (Elden Throne), 71101 (Erdtree Sanctuary), 71102 (East Capital Rampart), 71104 (Avenue Balcony), 71105 (West Capital Rampart), 71107 (Queen's Bedchamber), 71108 (Fortified Manor), 71109 (Divine Bridge), 71110 (Morgott). Only 71103 (Lower Capital Church) NOT SET - player likely skipped. Ashen variants (71120-71125) correctly NOT SET. NOTE: 71190 (Roundtable Hold) NOT found at this base - likely in different block (map m11_10_00)."
       },
       "71600": {
         "block_start": 71600,
@@ -3303,8 +3303,8 @@
         "block_start": 75000,
         "base_offset": 3125,
         "block_size": 1000,
-        "status": "calculated",
-        "notes": "Extended graces - no known flags in this range, base derived from pattern (74000+125)"
+        "status": "disproven",
+        "notes": "Extended graces - DISPROVEN 2026-01-22: Base 3125 shows INVERTED pattern: S0=166 flags, S1=458 flags. Slot 1 has 0xFF bytes indicating uninitialized/different data. Block likely unused or base is completely wrong. Previous: derived from pattern (74000 base + 125)."
       },
       "76000": {
         "block_start": 76000,
@@ -3317,8 +3317,8 @@
         "block_start": 77000,
         "base_offset": 3373,
         "block_size": 1000,
-        "status": "calculated",
-        "notes": "Extended world graces (76000 + 125)"
+        "status": "disproven",
+        "notes": "Extended world graces - DISPROVEN 2026-01-22: Base 3373 shows INVERTED pattern: S0=183 flags, S1=352 flags. No clear differential. Block likely unused or base is completely wrong. Previous: derived from 76000 + 125."
       },
       "78000": {
         "block_start": 78000,
@@ -3357,8 +3357,8 @@
         "map_area": 12,
         "base_offset": 15362,
         "section_size": 1125,
-        "status": "calculated",
-        "notes": "Underground (Siofra, Ainsel, etc.) - calculated from legacymap slot 10: 4112 + 10*1125 = 15362. Sections 00-09 are consecutively allocated."
+        "status": "verified",
+        "notes": "Underground (Siofra, Ainsel, etc.) - VERIFIED 2026-01-22: Base 15362 shows 3 Ainsel River graces (12020900, 12020901, 12020902) SET in S0, UNSET in S1. Perfect differential. Sections: 10=Siofra, 20=Ainsel, 30=Deeproot, 40=Lake of Rot, 50=Nokron, 70=Nokstella. Original calculation: legacymap slot 10: 4112 + 10*1125 = 15362."
       },
       "13": {
         "map_area": 13,
@@ -3385,8 +3385,8 @@
         "map_area": 16,
         "base_offset": 40517,
         "section_size": 1125,
-        "status": "candidate",
-        "notes": "Volcano Manor - CANDIDATE 2026-01-22: Base 40517 discovered via inseparable evidence. User killed Abductor Virgin boss (teleport trap escape) but NOT Rykard. At base 40517: local 860 (Abductor) SET in slot 0 only, locals 500/800/801/850 all UNSET. Sparsity analysis shows only 1 set bit in 125 bytes. Alternative candidate: 42687. Original legacymap formula (slot 29 = 36737) DISPROVEN."
+        "status": "likely_correct",
+        "notes": "Volcano Manor - INVESTIGATED 2026-01-22: Base 40517 shows 16000904 (Subterranean Inquisition Chamber grace) SET in S0, UNSET in S1 - matches player progression via teleport trap. 18.2% density is reasonable. Boss flags 16000800/850/860 all UNSET - boss flag IDs may differ from assumed values. Original formula base 36737 shows 49.4% density (too high) with 0xFF bytes at boss positions - likely false positive. Alternative base 42687 shows similar issues. Base 40517 best matches known grace progression."
       },
       "18": {
         "map_area": 18,
