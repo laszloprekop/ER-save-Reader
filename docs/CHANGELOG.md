@@ -4,6 +4,64 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.22 - Documentation Restructuring & Verification Framework DRY Refactor
+
+### Documentation Restructuring
+- **CLAUDE.md reduced 86%**: From 299 to 41 lines by removing duplicated content
+  - Kept: Commit protocol, knowledge resources, third-party warnings, slot descriptions
+  - Added: Technical documentation reference table pointing to dedicated docs
+  - Removed: All technical details already documented in docs/*.md
+
+- **New `docs/ARCHITECTURE.md`**: Persistent architecture reference (237 lines)
+  - Single source of truth hierarchy diagram
+  - Module structure and import patterns
+  - Script migration checklist and examples
+  - Key principles for avoiding duplication
+
+- **Updated `docs/discovery-verification-cycle.md`**:
+  - Added Phase 6: Corroboration Validation (dual-formula + inseparable evidence)
+  - Added Industry Best Practices section
+  - Added cross-references to related documentation
+
+### Verification Framework DRY Refactor
+- **New `scripts/verification/constants.py`**: Save file structure constants only
+  - SLOT_0_OFFSET, SLOT_SIZE, EVENT_FLAGS_SIZE, etc.
+  - Clear docstring: validation flags and block bases come from ground_truth_loader
+
+- **New `scripts/verification/utils.py`**: Shared utility functions (449 lines)
+  - `read_slot_data()`, `detect_event_flags_start()`, `extract_event_flags()`
+  - `check_flag()` with automatic formula selection
+  - `is_0xff_padding()`, `multi_slot_differential()` for verification
+  - Uses ground_truth_loader for all offset calculations
+
+- **Updated `scripts/verification/__init__.py`**: Version 2.0.0
+  - Exports all new modules
+  - Documents architecture in module docstring
+  - Maintains backward compatibility with legacy modules
+
+- **New `scripts/verification/archive/`**: Directory for superseded scripts
+  - README explaining archival criteria
+
+- **Migrated `verify_tile_formula.py`**: Example migration to shared modules
+
+### Architecture Principles Established
+- `ground_truth_offsets.json` is the single source of truth for all offsets
+- `ground_truth_loader.py` provides Python API to access ground_truth
+- `constants.py` contains ONLY save file structure (not verification data)
+- `utils.py` combines both into unified API for verification scripts
+
+### Files Modified
+- `CLAUDE.md`: Reduced to 41 lines with docs reference table
+- `docs/ARCHITECTURE.md`: New - system architecture documentation
+- `docs/discovery-verification-cycle.md`: Added Phase 6 and best practices
+- `scripts/verification/constants.py`: New - save file structure constants
+- `scripts/verification/utils.py`: New - shared utility functions
+- `scripts/verification/__init__.py`: Version 2.0.0 with new exports
+- `scripts/verification/archive/README.md`: New - archive directory docs
+- `scripts/verification/verify_tile_formula.py`: Migrated to shared modules
+
+---
+
 ## v0.4.21 - Fix Block 71000 Stormveil Grace Offsets
 
 ### Database Fix
