@@ -438,24 +438,55 @@ fn extract_item_lot_flags(
             .and_then(|s| s.parse().ok())
             .unwrap_or(0);
 
-        // Extract getItemFlagId (main pickup flag)
-        if let Some(flag_str) = row.attribute("getItemFlagId") {
-            if let Ok(flag_id) = flag_str.parse::<u32>() {
-                if flag_id > 0 {
-                    add_flag_source(
-                        flags,
-                        flag_id,
-                        ParamSource::ItemLotMap {
-                            row_id,
-                            field: "getItemFlagId".to_string(),
-                        },
-                    );
-                    count += 1;
+        // CRITICAL DISCOVERY (2026-01-23): For tile-based world pickups, the game uses
+        // the ROW ID as the actual stored event flag, NOT getItemFlagId.
+        //
+        // ItemLotParam has getItemFlagId = row_id + 7000, which places the local_id
+        // in the 7000+ range. But tile slots only allocate 875 bytes (7000 flags),
+        // so local_id >= 7000 has NO storage.
+        //
+        // Save file diff analysis confirmed: when picking up item lot 1044360310,
+        // flag 1044360310 (row_id, local_id 310) is SET, not 1044367310 (getItemFlagId, local_id 7310).
+        //
+        // Therefore: for tile-based pickups (10-digit IDs starting with 1 or 2),
+        // we use row_id as the flag_id for tracking purposes.
+
+        let is_tile_based = row_id >= 1_000_000_000 && row_id < 3_000_000_000;
+
+        if is_tile_based {
+            // For tile-based world pickups, use row_id as the actual flag
+            if row_id > 0 {
+                add_flag_source(
+                    flags,
+                    row_id,
+                    ParamSource::ItemLotMap {
+                        row_id,
+                        field: "row_id".to_string(),
+                    },
+                );
+                count += 1;
+            }
+        } else {
+            // For non-tile pickups (dungeons, shops, etc.), use getItemFlagId as before
+            if let Some(flag_str) = row.attribute("getItemFlagId") {
+                if let Ok(flag_id) = flag_str.parse::<u32>() {
+                    if flag_id > 0 {
+                        add_flag_source(
+                            flags,
+                            flag_id,
+                            ParamSource::ItemLotMap {
+                                row_id,
+                                field: "getItemFlagId".to_string(),
+                            },
+                        );
+                        count += 1;
+                    }
                 }
             }
         }
 
-        // Extract getItemFlagId01-08 (per-slot flags)
+        // Extract getItemFlagId01-08 (per-slot flags) - these are used for multi-item lots
+        // and may follow different rules
         for i in 1..=8 {
             let field_name = format!("getItemFlagId{:02}", i);
             if let Some(flag_str) = row.attribute(field_name.as_str()) {

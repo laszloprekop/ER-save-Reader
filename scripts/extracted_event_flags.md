@@ -1,6 +1,6 @@
 # Extracted Event Flags
 
-Total unique flags: 7034
+Total unique flags: 7089
 
 | Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | T.Type | Rarity | Pos.Conf | UG | Source |
 |---------|------|----------|--------|----------|-------------------|-------------|--------|--------|----------|----|----- --|
@@ -92,59 +92,33 @@ Total unique flags: 7034
 | 9800 | Good_12302 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 9810 | Good_12307 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 60000 | Flask of Crimson Tears | Progression | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 60020 | Flask of Wondrous Physick | Progression | Various | m60_46_38 | -80.2, 4.5, 71.1 | 11695.8, 9799.1 | ground_pickup | 3 | high | N | ItemLotParam_map |
+| 60020 | [Twin Maiden Husks] Flask of Wondrous Physick - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60100 | Spectral Steed Whistle | Progression | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 60110 | Spirit Calling Bell | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60120 | [Merchant Kale] Crafting Kit - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 60130 | Whetstone Knife | Progression | Various | m60_42_37 | 73.6, 84.0, 50.6 | 10825.6, 9522.6 | chest | 2 | high | N | ItemLotParam_map |
+| 60130 | [Twin Maiden Husks] Whetstone Knife - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60140 | Tailoring Tools | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 60150 | Golden Tailoring Tools | Progression | Various | m60_37_46 | -62.1, 398.8, 16.4 | 9409.9, 11792.4 | chest | 2 | high | N | ItemLotParam_map |
+| 60150 | [Alteration] Elden Lord Armor (Altered) - Unlocked | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60210 | Tarnished's Wizened Finger | Progression | Various | m10_01_00 | -21.6, 39.3, -178.5 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 60220 | Tarnished's Furled Finger | Progression | Various | m18_00_00 | -129.0, 14.0, 9.7 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 60230 | Small Golden Effigy | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 60240 | Duelist's Furled Finger | Progression | Various | m60_42_40 | -50.8, 205.7, -131.5 | 10701.2, 10108.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 60250 | Small Red Effigy | Progression | Various | m60_42_40 | -50.8, 205.7, -133.5 | 10701.2, 10106.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 60260 | Recusant Finger | Progression | Various | m16_00_00 | 10.7, 4.8, -83.0 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 60270 | Bloody Finger | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60280 | White Cipher Ring | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60290 | [Twin Maiden Husks] Blue Cipher Ring - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60300 | Taunter's Tongue | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60310 | Finger Severer | Progression | Various | m18_00_00 | -129.0, 14.0, 7.7 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 60400 | Memory Stone | Progression | Various | m60_45_33 | -66.2, 117.2, -59.2 | 11453.8, 8388.8 | chest | 2 | high | N | ItemLotParam_map |
-| 60410 | Memory Stone | Progression | Various | m60_34_43 | -86.2, 291.2, -73.2 | 8617.8, 10934.8 | chest | 2 | high | N | ItemLotParam_map |
-| 60420 | Memory Stone | Progression | Various | m60_35_47 | -86.3, 282.0, 75.3 | 8873.7, 12107.3 | chest | 2 | high | N | ItemLotParam_map |
-| 60430 | Memory Stone | Progression | Various | m60_34_50 | 67.7, 438.9, -90.5 | 8771.7, 12709.5 | chest | 2 | high | N | ItemLotParam_map |
 | 60440 | Memory Stone | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60450 | Memory Stone | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 60460 | Memory Stone | Progression | Various | m60_52_41 | 49.5, 264.2, -15.5 | 13361.5, 10480.5 | chest | 2 | high | N | ItemLotParam_map |
 | 60470 | [Twin Maiden Husks] Memory Stone - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60500 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60510 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60520 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62010 | Map: Limgrave, West | Map Fragment | Various | m60_42_37 | 73.4, 98.6, 87.2 | 10825.4, 9559.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 62011 | Map: Weeping Peninsula | Map Fragment | Various | m60_44_32 | 18.1, 27.0, 22.4 | 11282.1, 8214.4 | chest | 2 | high | N | ItemLotParam_map |
-| 62012 | Map: Limgrave, East | Map Fragment | Various | m60_45_37 | 40.4, 20.0, 19.1 | 11560.4, 9491.1 | chest | 2 | high | N | ItemLotParam_map |
-| 62020 | Map: Liurnia, East | Map Fragment | Various | m60_38_41 | 36.1, 237.6, -24.2 | 9764.1, 10471.8 | chest | 2 | high | N | ItemLotParam_map |
-| 62021 | Map: Liurnia, North | Map Fragment | Various | m60_37_44 | -23.1, 237.6, -103.0 | 9448.9, 11161.0 | chest | 2 | high | N | ItemLotParam_map |
-| 62022 | Map: Liurnia, West | Map Fragment | Various | m60_34_48 | -20.0, 258.5, 48.1 | 8684.0, 12336.1 | chest | 2 | high | N | ItemLotParam_map |
-| 62030 | Map: Altus Plateau | Map Fragment | Various | m60_40_52 | -115.6, 794.6, -72.9 | 10124.4, 13239.1 | chest | 2 | high | N | ItemLotParam_map |
-| 62031 | Map: Leyndell, Royal Capital | Map Fragment | Various | m60_42_51 | -28.0, 850.4, -41.4 | 10724.0, 13014.6 | chest | 2 | high | N | ItemLotParam_map |
-| 62032 | Map: Mt. Gelmir | Map Fragment | Various | m60_36_54 | -68.2, 941.9, -99.3 | 9147.8, 13724.7 | chest | 2 | high | N | ItemLotParam_map |
-| 62040 | Map: Caelid | Map Fragment | Various | m60_49_37 | -102.3, 98.9, -16.7 | 12441.7, 9455.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 62041 | Map: Dragonbarrow | Map Fragment | Various | m60_49_40 | -25.2, 186.9, 57.5 | 12518.8, 10297.5 | chest | 2 | high | N | ItemLotParam_map |
-| 62050 | Map: Mountaintops of the Giants, West | Map Fragment | Various | m60_49_53 | 29.8, 1554.2, 67.9 | 12573.8, 13635.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 62051 | Map: Mountaintops of the Giants, East | Map Fragment | Various | m60_52_54 | -49.2, 1706.9, 70.4 | 13262.8, 13894.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 62052 | Map: Consecrated Snowfield | Map Fragment | Various | m60_48_56 | 100.0, 1266.8, 28.3 | 12388.0, 14364.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 62060 | Map: Ainsel River | Map Fragment | Various | m12_01_00 | -5.2, -203.9, -36.2 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 62061 | Map: Lake of Rot | Map Fragment | Various | m12_01_00 | -297.7, -316.5, -105.7 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 62062 | Map: Mohgwyn Palace | Map Fragment | Various | m12_05_00 | 1674.3, -616.7, 1318.2 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 62063 | Map: Siofra River | Map Fragment | Various | m12_02_00 | 1183.4, -822.9, 1232.6 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 62064 | Map: Deeproot Depths | Map Fragment | Various | m12_03_00 | -548.6, 92.2, -431.4 | - | corpse | 2 | high | Y | ItemLotParam_map |
-| 62080 | Map: Gravesite Plain | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62081 | Map: Scadu Altus | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62082 | Map: Southern Shore | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62083 | Map: Rauh Ruins | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 62084 | Map: Abyss | Map Fragment | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 62100 | Stormveil Castle | Landmark | Stormveil Castle | m10_00_00 | -119.4, 21.3, 29.4 | - | - | - | - | - | WorldMapPointParam |
 | 62101 | Stranded Graveyard | Landmark | Various | m18_00_00 | -91.0, 11.9, 24.6 | - | - | - | - | - | WorldMapPointParam |
 | 62102 | Fringefolk Hero's Grave | Landmark | Various | m18_00_00 | -106.8, 3.9, 83.8 | - | - | - | - | - | WorldMapPointParam |
@@ -436,9 +410,6 @@ Total unique flags: 7034
 | 62980 | Shadow Keep | Landmark | Shadow Keep | m21_00_00 | 161.4, 183.0, 203.4 | - | - | - | - | - | WorldMapPointParam |
 | 62981 | Miquella's Cross | Landmark | Shadow Keep | m21_01_00 | 173.6, 298.1, 277.5 | - | - | - | - | - | WorldMapPointParam |
 | 65000 | Crimsonspill Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65010 | Greenspill Crystal Tear | Crystal Tear | Various | m60_45_37 | 67.1, 35.1, -56.7 | 11587.1, 9415.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65020 | Crimson Crystal Tear | Crystal Tear | Various | m60_46_38 | -80.2, 4.5, 69.1 | 11695.8, 9797.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65030 | Crimson Crystal Tear | Crystal Tear | Various | m60_44_53 | 56.7, 1003.5, 54.3 | 11320.7, 13622.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 65040 | Cerulean Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65050 | Cerulean Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65060 | Speckled Hardtear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -447,19 +418,10 @@ Total unique flags: 7034
 | 65090 | Crimsonburst Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65100 | Greenburst Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65110 | Opaline Hardtear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65120 | Winged Crystal Tear | Crystal Tear | Various | m60_44_53 | -14.6, 1027.3, 95.5 | 11249.4, 13663.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 65130 | Thorny Cracked Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65140 | Spiked Cracked Tear | Crystal Tear | Various | m60_45_37 | 67.1, 35.1, -54.7 | 11587.1, 9417.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65150 | Windy Crystal Tear | Crystal Tear | Various | m60_49_37 | -2.9, 82.5, -52.7 | 12541.1, 9419.3 | chest | 2 | high | N | ItemLotParam_map |
 | 65160 | Ruptured Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65170 | Ruptured Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65180 | Leaden Hardtear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65190 | Twiggy Cracked Tear | Crystal Tear | Various | m60_44_53 | 56.7, 1003.5, 52.3 | 11320.7, 13620.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65200 | Crimsonwhorl Bubbletear | Crystal Tear | Various | m60_52_54 | -13.5, 1748.7, 45.1 | 13298.5, 13869.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65210 | Strength-knot Crystal Tear | Crystal Tear | Various | m60_42_39 | -84.8, 224.5, -90.9 | 10667.2, 9893.1 | chest | 2 | high | N | ItemLotParam_map |
-| 65220 | Dexterity-knot Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65230 | Intelligence-knot Crystal Tear | Crystal Tear | Various | m60_35_49 | -118.0, 253.5, 48.1 | 8842.0, 12592.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 65240 | Faith-knot Crystal Tear | Crystal Tear | Various | m60_43_34 | 4.3, 22.7, 76.6 | 11012.3, 8780.6 | chest | 2 | high | N | ItemLotParam_map |
 | 65250 | Cerulean Hidden Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65260 | Stonebarb Cracked Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65270 | Purifying Crystal Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -467,16 +429,7 @@ Total unique flags: 7034
 | 65290 | Magic-Shrouding Cracked Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65300 | Lightning-Shrouding Cracked Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65310 | Holy-Shrouding Cracked Tear | Crystal Tear | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65400 | Viridian Hidden Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65410 | Crimsonburst Dried Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65420 | Crimson-Sapping Cracked Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65430 | Cerulean-Sapping Cracked Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65440 | Oil-Soaked Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65450 | Bloodsucking Cracked Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65460 | Glovewort Crystal Tear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 65470 | Deflecting Hardtear | Crystal Tear (DLC) | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 65610 | Iron Whetblade | Whetblade | Various | m10_00_00 | -244.5, 65.8, 120.3 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 65640 | Red-Hot Whetblade | Whetblade | Various | m60_51_36 | 8.5, 90.8, -10.6 | 13064.5, 9205.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 65660 | Sanctified Whetblade | Whetblade | Various | m11_00_00 | -286.5, -22.7, -313.9 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 65680 | Glintstone Whetblade | Whetblade | Various | m14_00_00 | 120.0, 119.7, -139.6 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 65720 | Black Whetblade | Whetblade | Various | m12_02_00 | 1030.9, -647.3, 1350.7 | - | corpse | 2 | high | Y | ItemLotParam_map |
@@ -602,10 +555,6 @@ Total unique flags: 7034
 | 66030 | [Merchant Kale] Cracked Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 66060 | [Merchant - North Limgrave] Cracked Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 66070 | [Merchant - East Weeping Peninsula] Cracked Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 66080 | Cracked Pot | Pot Upgrade | Various | m60_39_44 | 51.7, 212.8, 26.4 | 10035.7, 11290.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 66090 | Cracked Pot | Pot Upgrade | Various | m60_39_44 | 64.2, 217.0, -36.3 | 10048.2, 11227.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 66100 | Cracked Pot | Pot Upgrade | Various | m60_39_44 | 27.2, 215.4, 12.0 | 10011.2, 11276.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 66110 | Cracked Pot | Pot Upgrade | Various | m60_35_50 | 6.0, 392.2, 24.8 | 8966.0, 12824.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 66120 | Cracked Pot | Pot Upgrade | Various | m14_00_00 | -39.3, 74.1, -112.5 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 66130 | Cracked Pot | Pot Upgrade | Various | m11_00_00 | -202.7, -68.0, -159.3 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 66140 | Cracked Pot | Pot Upgrade | Various | m30_13_00 | 24.3, 920.3, 64.2 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
@@ -613,12 +562,8 @@ Total unique flags: 7034
 | 66160 | Cracked Pot | Pot Upgrade | Various | m30_13_00 | 16.2, 935.4, 52.0 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 66170 | Cracked Pot | Pot Upgrade | Various | m30_13_00 | 34.2, 935.1, 45.5 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 66180 | [Merchant - South Caelid] Cracked Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 66190 | Cracked Pot | Pot Upgrade | Various | m60_47_40 | -92.2, 128.7, 180.7 | 11939.8, 10420.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 66400 | Ritual Pot | Pot Upgrade | Various | m30_18_00 | -51.9, 1477.7, 82.9 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 66410 | Ritual Pot | Pot Upgrade | Various | m14_00_00 | 94.4, 99.5, -239.7 | - | chest | 2 | high | - | ItemLotParam_map |
-| 66420 | Ritual Pot | Pot Upgrade | Various | m60_37_42 | 118.4, 239.4, -90.6 | 9590.4, 10661.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 66430 | Ritual Pot | Pot Upgrade | Various | m60_39_44 | 27.4, 221.8, 11.5 | 10011.4, 11275.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 66440 | Ritual Pot | Pot Upgrade | Various | m60_39_44 | 38.4, 215.5, -14.1 | 10022.4, 11249.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 66450 | [Pidia Carian Servant] Ritual Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 66460 | [Isolated Merchant - Dragonbarrow] Ritual Pot - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 66470 | Ritual Pot | Pot Upgrade | Various | m30_13_00 | 12.3, 934.5, 143.5 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
@@ -627,67 +572,37 @@ Total unique flags: 7034
 | 66700 | Perfume Bottle | Pot Upgrade | Various | m16_00_00 | 15.4, 4.1, -51.8 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 66710 | Perfume Bottle | Pot Upgrade | Various | m11_00_00 | -62.0, -29.0, -221.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 66720 | Perfume Bottle | Pot Upgrade | Various | m11_00_00 | 84.9, -46.1, -237.7 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 66730 | Perfume Bottle | Pot Upgrade | Various | m60_36_51 | -27.4, 671.5, 122.0 | 9188.6, 13178.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 66740 | Perfume Bottle | Pot Upgrade | Various | m60_36_52 | -39.4, 675.8, -120.9 | 9176.6, 13191.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 66750 | [Hermit Merchant - Leyndell] Perfume Bottle - Purchased | Pot Upgrade | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 66760 | Perfume Bottle | Pot Upgrade | Various | m60_39_51 | 67.9, 767.3, 109.6 | 10051.9, 13165.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 66770 | Perfume Bottle | Pot Upgrade | Various | m60_39_54 | -9.3, 738.7, -6.2 | 9974.7, 13817.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 66780 | Perfume Bottle | Pot Upgrade | Various | m31_18_00 | 3.5, 801.1, 133.4 | - | chest | 2 | high | - | ItemLotParam_map |
-| 66790 | Perfume Bottle | Pot Upgrade | Various | m60_48_38 | 36.8, 67.7, 90.4 | 12324.8, 9818.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 66900 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 66910 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 66920 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 66930 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 66940 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 66950 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 66960 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 66970 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 66980 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 66990 | Hefty Cracked Pot | Pot Upgrade | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 67000 | [Merchant Kale] Nomadic Warrior's Cookbook [1] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67010 | [Merchant - North Limgrave] Nomadic Warrior's Cookbook [3] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67020 | Nomadic Warrior's Cookbook [6] | Cookbook | Various | m60_46_36 | -6.6, 58.8, -7.7 | 11769.4, 9208.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 67030 | Nomadic Warrior's Cookbook [10] | Cookbook | Various | m10_00_00 | -199.3, 78.6, 198.5 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 67050 | Nomadic Warrior's Cookbook [7] | Cookbook | Various | m60_40_39 | 92.2, 253.5, 69.9 | 10332.2, 10053.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 67060 | Nomadic Warrior's Cookbook [12] | Cookbook | Various | m60_35_44 | -83.6, 241.4, -116.0 | 8876.4, 11148.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 67070 | Nomadic Warrior's Cookbook [19] | Cookbook | Various | m60_41_53 | -67.7, 788.9, 68.5 | 10428.3, 13636.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 67080 | [Merchant - North Liurnia] Nomadic Warrior's Cookbook [13] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67090 | Nomadic Warrior's Cookbook [23] | Cookbook | Various | m60_49_54 | -77.4, 1314.6, 60.6 | 12466.6, 13884.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 67100 | [Merchant - Siofra River] Nomadic Warrior's Cookbook [17] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67110 | [Merchant Kale] Nomadic Warrior's Cookbook [2] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67120 | Nomadic Warrior's Cookbook [21] | Cookbook | Various | m16_00_00 | 34.4, 4.1, -79.2 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 67130 | Missionary's Cookbook [6] | Cookbook | Various | m16_00_00 | 77.1, 8.9, -182.1 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 67200 | Armorer's Cookbook [1] | Cookbook | Various | m60_43_38 | 48.5, 97.8, -116.2 | 11056.5, 9611.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 67210 | [Merchant - Coastal Cave] Armorer's Cookbook [2] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67220 | Nomadic Warrior's Cookbook [11] | Cookbook | Various | m60_37_42 | -85.2, 239.2, -113.8 | 9386.8, 10638.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 67220 | [Merchant - Liurnia of the Lakes] Nomadic Warrior's Cookbook [11] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67230 | [Merchant - Mt. Gelmir] Nomadic Warrior's Cookbook [20] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67250 | Armorer's Cookbook [7] | Cookbook | Various | m60_35_54 | -16.8, 830.8, -184.4 | 8943.2, 13639.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 67260 | Armorer's Cookbook [4] | Cookbook | Various | m60_51_36 | -14.5, 87.5, -46.9 | 13041.5, 9169.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 67270 | [Merchant - Siofra River] Nomadic Warrior's Cookbook [18] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67280 | [Merchant - East Limgrave] Armorer's Cookbook [3] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67290 | [Merchant - Ainsel River] Nomadic Warrior's Cookbook [16] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67300 | Armorer's Cookbook [6] | Cookbook | Various | m12_02_00 | 1042.9, -819.0, 1266.0 | - | corpse | 2 | high | Y | ItemLotParam_map |
-| 67310 | Armorer's Cookbook [5] | Cookbook | Various | m60_51_36 | 18.3, 92.0, -128.7 | 13074.3, 9087.3 | corpse | 2 | high | N | ItemLotParam_map |
-| 67400 | Glintstone Craftsman's Cookbook [4] | Cookbook | Various | m60_36_44 | 124.1, 249.3, 33.2 | 9340.1, 11297.2 | chest | 2 | high | N | ItemLotParam_map |
-| 67410 | Glintstone Craftsman's Cookbook [1] | Cookbook | Various | m60_38_40 | 70.5, 259.7, 9.4 | 9798.5, 10249.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 67420 | Glintstone Craftsman's Cookbook [5] | Cookbook | Various | m14_00_00 | 158.0, 94.9, -209.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 67430 | Nomadic Warrior's Cookbook [9] | Cookbook | Various | m30_00_00 | -96.0, 56.0, 52.5 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 67440 | Glintstone Craftsman's Cookbook [8] | Cookbook | Various | m60_49_56 | 101.3, 1318.0, -116.2 | 12645.3, 14219.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 67450 | Glintstone Craftsman's Cookbook [2] | Cookbook | Various | m60_38_41 | -82.4, 238.5, 86.9 | 9645.6, 10582.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 67460 | Glintstone Craftsman's Cookbook [6] | Cookbook | Various | m60_35_50 | 68.5, 320.8, -146.4 | 9028.5, 12653.6 | corpse | 2 | high | N | ItemLotParam_map |
 | 67470 | [Pidia Carian Servant] Glintstone Craftsman's Cookbook [7] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67480 | Glintstone Craftsman's Cookbook [3] | Cookbook | Various | m60_38_42 | 122.6, 301.3, 124.1 | 9850.6, 10876.1 | chest | 2 | high | N | ItemLotParam_map |
 | 67600 | [Patches] Missionary's Cookbook [2] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67610 | [Merchant Kale] Missionary's Cookbook [1] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 67630 | Missionary's Cookbook [5] | Cookbook | Various | m12_02_00 | 1192.7, -631.2, 1732.4 | - | corpse | 2 | high | Y | ItemLotParam_map |
-| 67640 | Missionary's Cookbook [4] | Cookbook | Various | m60_43_50 | -117.9, 909.6, -24.0 | 10890.1, 12776.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 67650 | Missionary's Cookbook [3] | Cookbook | Various | m60_46_40 | -71.6, 151.8, 27.4 | 11704.4, 10267.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 67800 | Nomadic Warrior's Cookbook [4] | Cookbook | Various | m60_45_37 | 17.8, 19.9, 13.3 | 11537.8, 9485.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 67830 | [Merchant - East Limgrave] Nomadic Warrior's Cookbook [5] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 67840 | Perfumer's Cookbook [1] | Cookbook | Various | m60_36_51 | -32.3, 672.0, 120.3 | 9183.7, 13176.3 | chest | 2 | high | N | ItemLotParam_map |
-| 67850 | Perfumer's Cookbook [2] | Cookbook | Various | m60_39_54 | -49.4, 756.8, 88.4 | 9934.6, 13912.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 67860 | Perfumer's Cookbook [3] | Cookbook | Various | m30_13_00 | 25.3, 935.0, 48.4 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 67870 | Nomadic Warrior's Cookbook [14] | Cookbook | Various | m60_46_40 | -73.9, 152.0, 28.3 | 11702.1, 10268.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 67880 | Nomadic Warrior's Cookbook [8] | Cookbook | Various | m31_02_00 | -224.5, -26.4, 67.5 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 67890 | Nomadic Warrior's Cookbook [22] | Cookbook | Various | m12_01_00 | -523.0, -315.1, -385.6 | - | chest | 2 | high | Y | ItemLotParam_map |
 | 67900 | [Merchant - South Caelid] Nomadic Warrior's Cookbook [15] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -696,12 +611,9 @@ Total unique flags: 7034
 | 68000 | Ancient Dragon Apostle's Cookbook [1] | Cookbook | Various | m30_07_00 | -45.8, 765.9, 68.8 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 68010 | [Merchant - Altus Plateau] Ancient Dragon Apostle's Cookbook [2] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 68020 | Ancient Dragon Apostle's Cookbook [4] | Cookbook | Various | m13_00_00 | -128.3, 44.4, 305.7 | - | corpse | 2 | high | - | ItemLotParam_map |
-| 68030 | Ancient Dragon Apostle's Cookbook [3] | Cookbook | Various | m60_48_36 | 32.6, 127.3, 93.1 | 12320.6, 9309.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 68200 | Fevor's Cookbook [1] | Cookbook | Various | m60_45_38 | -70.8, 49.2, 75.4 | 11449.2, 9803.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 68210 | Fevor's Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68220 | [Merchant - Academy of Raya Lucaria] Fevor's Cookbook [2] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 68230 | [Merchant - Mountaintops of the Giants] Missionary's Cookbook [7] - Purchased | Cookbook | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 68400 | Frenzied's Cookbook [1] | Cookbook | Various | m60_38_48 | -44.0, 436.1, 11.9 | 9684.0, 12299.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 68410 | Frenzied's Cookbook [2] | Cookbook | Various | m35_00_00 | 117.1, -323.6, -70.7 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 68510 | Forager Brood Cookbook [6] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68520 | Forager Brood Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -709,44 +621,15 @@ Total unique flags: 7034
 | 68540 | Forager Brood Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68550 | Forager Brood Cookbook [4] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68560 | Forager Brood Cookbook [5] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68570 | Igon's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68580 | Finger-Weaver's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68590 | Greater Potentate's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68600 | Greater Potentate's Cookbook [4] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68610 | Greater Potentate's Cookbook [5] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68620 | Greater Potentate's Cookbook [12] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68630 | Greater Potentate's Cookbook [7] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68640 | Greater Potentate's Cookbook [9] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68650 | Greater Potentate's Cookbook [10] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68660 | Greater Potentate's Cookbook [11] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68670 | Mad Craftsman's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68680 | Greater Potentate's Cookbook [8] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68690 | Greater Potentate's Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68700 | Greater Potentate's Cookbook [13] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68710 | Greater Potentate's Cookbook [14] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68720 | Greater Potentate's Cookbook [6] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68730 | Greater Potentate's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68740 | Ancient Dragon Knight's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68750 | Mad Craftsman's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68760 | St. Trina Disciple's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68770 | Fire Knight's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68780 | Ancient Dragon Knight's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68790 | Loyal Knight's Cookbook | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68800 | Battlefield Priest's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68810 | Igon's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68820 | Battlefield Priest's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68830 | Forager Brood Cookbook [7] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68840 | St. Trina Disciple's Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68850 | Grave Keeper's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68860 | Antiquity Scholar's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68870 | Tibia's Cookbook | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68880 | Mad Craftsman's Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68890 | Battlefield Priest's Cookbook [3] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68900 | Fire Knight's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68920 | Finger-Weaver's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68930 | Battlefield Priest's Cookbook [4] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68940 | Grave Keeper's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 68950 | St. Trina Disciple's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 69600 | [Isolated Merchant - Dragonbarrow] Note: Hidden Cave - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69610 | [Merchant - Altus Plateau] Note: Imp Shades - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69620 | [Merchant Kale] Note: Flask of Wondrous Physick - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -762,7 +645,6 @@ Total unique flags: 7034
 | 69730 | [Isolated Merchant - Dragonbarrow] Note: Gateway - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69740 | Note: Miquella's Needle | Mausoleum Duplication | Various | m35_00_00 | 136.7, -368.6, -75.6 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 69750 | [Merchant - Academy of Raya Lucaria] Note: Frenzied Flame Village - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 69760 | Note: The Lord of Frenzied Flame | Mausoleum Duplication | Various | m60_38_48 | -18.4, 439.5, -7.7 | 9709.6, 12280.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 69770 | [Hermit Merchant - Leyndell] Note: Below the Capital - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69900 | [Pidia Carian Servant] Weathered Map - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69910 | [Merchant - Academy of Raya Lucaria] Note: The Preceptor's Secret - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -5004,90 +4886,103 @@ Total unique flags: 7034
 | 900000017 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | -9.3, 14.1, 131.8 | 10998.7, 8579.8 | - | - | - | - | MSB MountJump |
 | 900000018 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | 70.0, 13.3, 32.4 | 11078.0, 8480.4 | - | - | - | - | MSB MountJump |
 | 900000019 | Spirit Spring (m12_03_00) | Spirit Spring | Underground | m12_03_00 | -843.4, 75.8, -350.7 | - | - | - | - | - | MSB MountJump |
-| 1033407100 | Ranni's Dark Moon | World Pickup | Liurnia of the Lakes | m60_33_40 | -4.5, 279.6, 27.5 | 8443.5, 10267.5 | chest | 3 | high | N | ItemLotParam_map |
-| 1033417000 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | 36.6, 305.5, -16.8 | 8484.6, 10479.2 | chest | 1 | high | N | ItemLotParam_map |
-| 1033417010 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_33_41 | 17.5, 308.7, -30.4 | 8465.5, 10465.6 | chest | 1 | high | N | ItemLotParam_map |
-| 1033417020 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | -3.9, 305.5, -20.7 | 8444.1, 10475.3 | chest | 1 | high | N | ItemLotParam_map |
-| 1033417400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1033417410 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1033400100 | Ranni's Dark Moon | World Pickup | Liurnia of the Lakes | m60_33_40 | -4.5, 279.6, 27.5 | 8443.5, 10267.5 | chest | 3 | high | N | ItemLotParam_map |
+| 1033410000 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | 36.6, 305.5, -16.8 | 8484.6, 10479.2 | chest | 1 | high | N | ItemLotParam_map |
+| 1033410010 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_33_41 | 17.5, 308.7, -30.4 | 8465.5, 10465.6 | chest | 1 | high | N | ItemLotParam_map |
+| 1033410020 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | -3.9, 305.5, -20.7 | 8444.1, 10475.3 | chest | 1 | high | N | ItemLotParam_map |
+| 1033410400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1033410410 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1033420800 | Alecto Black Knife Ringleader | Boss Arena | Liurnia - Moonlight Altar | m60_33_42 | -40.6, 346.7, 86.2 | -40.6, 86.2 | - | - | - | - | GameAreaParam |
 | 1033422805 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -31.9, 345.3, 67.8 | 8416.1, 10819.8 | - | - | - | - | MSB SpawnPoint |
 | 1033422806 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -34.6, 345.2, 66.3 | 8413.4, 10818.3 | - | - | - | - | MSB SpawnPoint |
 | 1033422807 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | - | - | - | - | MSB SpawnPoint |
 | 1033422808 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | - | - | - | - | MSB SpawnPoint |
 | 1033430800 | Erdtree Avatar | Great Boss Defeat | Liurnia of the Lakes | m60_33_43 | 42.5, 291.7, 31.1 | 8490.5, 11039.1 | - | - | - | - | MSB Enemy |
-| 1033447000 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 16.8, 256.9, 26.3 | 8464.8, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033447010 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 30.8 | 8465.9, 11294.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033447020 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.0, 256.9, 28.6 | 8467.0, 11292.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033447030 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.3, 256.9, 26.3 | 8467.3, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033447040 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 15.2, 256.9, 29.7 | 8463.2, 11293.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033440000 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 16.8, 256.9, 26.3 | 8464.8, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033440010 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 30.8 | 8465.9, 11294.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033440020 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.0, 256.9, 28.6 | 8467.0, 11292.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033440030 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.3, 256.9, 26.3 | 8467.3, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033440040 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 15.2, 256.9, 29.7 | 8463.2, 11293.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033450100 | Dragonscale Blade | World Pickup | Liurnia of the Lakes | m60_33_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1033450800 | Bols Carian Knight | Boss Arena | Liurnia - Cuckoo's Evergaol | m60_33_45 | -52.3, 245.1, -29.6 | -52.3, -29.6 | - | - | - | - | GameAreaParam |
 | 1033452805 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -29.9, 243.2, -38.1 | 8418.1, 11481.9 | - | - | - | - | MSB SpawnPoint |
 | 1033452806 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -30.2, 243.2, -41.2 | 8417.8, 11478.8 | - | - | - | - | MSB SpawnPoint |
 | 1033452807 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -52.9, 245.1, -33.9 | 8395.1, 11486.1 | - | - | - | - | MSB SpawnPoint |
-| 1033457100 | Dragonscale Blade | World Pickup | Liurnia of the Lakes | m60_33_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1033467000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_33_46 | 86.8, 238.5, -61.7 | 8534.8, 11714.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033467030 | Blood Grease | World Pickup | Liurnia of the Lakes | m60_33_46 | -59.3, 269.9, 67.9 | 8388.7, 11843.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1033467040 | Jellyfish Shield | World Pickup | Liurnia of the Lakes | m60_33_46 | -63.1, 269.6, 70.2 | 8384.9, 11846.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1033477000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_33_47 | 135.2, 266.4, -44.4 | 8583.2, 11987.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1033477010 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_33_47 | 25.8, 299.0, -91.8 | 8473.8, 11940.2 | chest | 1 | high | N | ItemLotParam_map |
-| 1033477020 | Imbued Sword Key | World Pickup | Liurnia of the Lakes | m60_33_47 | 66.5, 379.2, -76.3 | 8514.5, 11955.7 | chest | 2 | high | N | ItemLotParam_map |
-| 1033477030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_33_47 | -42.8, 277.1, -67.8 | 8405.2, 11964.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1033477200 | Carian Knight's Sword | World Pickup | Liurnia of the Lakes | m60_33_47 | -126.5, 272.4, 357.5 | 8321.5, 12389.5 | cart | 2 | low | N | ItemLotParam_map |
-| 1033477900 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_33_47 | 21.9, 298.8, -96.6 | 8469.9, 11935.4 | chest | 1 | high | N | ItemLotParam_map |
-| 1033477910 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_33_47 | -17.1, 277.1, -64.1 | 8430.9, 11967.9 | chest | 0 | high | N | ItemLotParam_map |
-| 1034417000 | Gravel Stone | World Pickup | Liurnia of the Lakes | m60_34_41 | -113.6, 359.0, 115.4 | 8590.4, 10611.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1033460000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_33_46 | 86.8, 238.5, -61.7 | 8534.8, 11714.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033460030 | Blood Grease | World Pickup | Liurnia of the Lakes | m60_33_46 | -59.3, 269.9, 67.9 | 8388.7, 11843.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033460040 | Jellyfish Shield | World Pickup | Liurnia of the Lakes | m60_33_46 | -63.1, 269.6, 70.2 | 8384.9, 11846.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1033470000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_33_47 | 135.2, 266.4, -44.4 | 8583.2, 11987.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1033470010 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_33_47 | 25.8, 299.0, -91.8 | 8473.8, 11940.2 | chest | 1 | high | N | ItemLotParam_map |
+| 1033470020 | Imbued Sword Key | World Pickup | Liurnia of the Lakes | m60_33_47 | 66.5, 379.2, -76.3 | 8514.5, 11955.7 | chest | 2 | high | N | ItemLotParam_map |
+| 1033470030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_33_47 | -42.8, 277.1, -67.8 | 8405.2, 11964.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1033470200 | Carian Knight's Sword | World Pickup | Liurnia of the Lakes | m60_33_47 | -126.5, 272.4, 357.5 | 8321.5, 12389.5 | cart | 2 | low | N | ItemLotParam_map |
+| 1033470900 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_33_47 | 21.9, 298.8, -96.6 | 8469.9, 11935.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1033470910 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_33_47 | -17.1, 277.1, -64.1 | 8430.9, 11967.9 | chest | 0 | high | N | ItemLotParam_map |
+| 1034410000 | Gravel Stone | World Pickup | Liurnia of the Lakes | m60_34_41 | -113.6, 359.0, 115.4 | 8590.4, 10611.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034420000 | Golden Rune [9] | World Pickup | Liurnia of the Lakes | m60_34_42 | -5.3, 399.1, -47.2 | 8698.7, 10704.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1034420010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_42 | -12.9, 403.4, -7.3 | 8691.1, 10744.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034420020 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_34_42 | 44.2, 267.8, 3.1 | 8748.2, 10755.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1034420030 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_42 | 38.8, 237.9, -54.8 | 8742.8, 10697.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1034420040 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_34_42 | -11.6, 399.0, -42.8 | 8692.4, 10709.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034420050 | Crystal Sword | World Pickup | Liurnia of the Lakes | m60_34_42 | 73.9, 260.9, 28.8 | 8777.9, 10780.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034420060 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_34_42 | 88.6, 268.6, -74.0 | 8792.6, 10678.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034420100 | Somber Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_34_42 | 51.5, 391.6, 13.1 | 8755.5, 10765.1 | chest | 1 | high | N | ItemLotParam_map |
+| 1034420400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1034420700 | Nepheli Loux, Warrior | NPC | Liurnia of the Lakes | m60_34_42 | 118.8, 264.0, -87.5 | 8822.8, 10664.5 | - | - | - | - | MSB NPC |
 | 1034420710 | Commoner | NPC | Liurnia of the Lakes | m60_34_42 | 71.2, 269.9, -93.7 | 8775.2, 10658.3 | - | - | - | - | MSB NPC |
 | 1034420800 | Glintstone Dragon Smarag | Great Boss Defeat | Liurnia of the Lakes | m60_34_42 | 128.2, 401.8, -29.9 | 8832.2, 10722.1 | - | - | - | - | MSB Enemy |
-| 1034427000 | Golden Rune [9] | World Pickup | Liurnia of the Lakes | m60_34_42 | -5.3, 399.1, -47.2 | 8698.7, 10704.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1034427010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_42 | -12.9, 403.4, -7.3 | 8691.1, 10744.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034427020 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_34_42 | 44.2, 267.8, 3.1 | 8748.2, 10755.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1034427030 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_42 | 38.8, 237.9, -54.8 | 8742.8, 10697.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1034427040 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_34_42 | -11.6, 399.0, -42.8 | 8692.4, 10709.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1034427050 | Crystal Sword | World Pickup | Liurnia of the Lakes | m60_34_42 | 73.9, 260.9, 28.8 | 8777.9, 10780.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1034427060 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_34_42 | 88.6, 268.6, -74.0 | 8792.6, 10678.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1034427100 | Somber Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_34_42 | 51.5, 391.6, 13.1 | 8755.5, 10765.1 | chest | 1 | high | N | ItemLotParam_map |
-| 1034427400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1034437000 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_43 | -84.8, 267.6, -63.9 | 8619.2, 10944.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034437200 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1034437300 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_34_43 | -80.6, 269.7, -73.5 | 8623.4, 10934.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1034430000 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_43 | -84.8, 267.6, -63.9 | 8619.2, 10944.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034430100 | Memory Stone | World Pickup | Liurnia of the Lakes | m60_34_43 | -86.2, 291.2, -73.2 | 8617.8, 10934.8 | chest | 2 | high | N | ItemLotParam_map |
+| 1034430200 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1034430300 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_34_43 | -80.6, 269.7, -73.5 | 8623.4, 10934.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1034440000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_44 | 48.7, 237.6, 73.6 | 8752.7, 11337.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1034440010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_44 | -31.5, 239.8, -111.1 | 8672.5, 11152.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1034440700 | Commoner | NPC | Liurnia of the Lakes | m60_34_44 | -106.2, 237.6, -29.2 | 8597.8, 11234.8 | - | - | - | - | MSB NPC |
-| 1034447000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_44 | 48.7, 237.6, 73.6 | 8752.7, 11337.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1034447010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_44 | -31.5, 239.8, -111.1 | 8672.5, 11152.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1034447900 | Icerind Hatchet | World Pickup | Liurnia of the Lakes | m60_34_44 | 39.7, 238.8, 41.7 | 8743.7, 11305.7 | chest | 2 | high | N | ItemLotParam_map |
+| 1034440900 | Icerind Hatchet | World Pickup | Liurnia of the Lakes | m60_34_44 | 39.7, 238.8, 41.7 | 8743.7, 11305.7 | chest | 2 | high | N | ItemLotParam_map |
+| 1034450010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_34_45 | -56.2, 237.9, 57.8 | 8647.8, 11577.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1034450020 | Kukri | World Pickup | Liurnia of the Lakes | m60_34_45 | -50.0, 237.8, 57.8 | 8654.0, 11577.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034450100 | Academy Glintstone Key | World Pickup | Liurnia of the Lakes | m60_34_45 | -55.7, 238.4, 64.3 | 8648.3, 11584.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1034450800 | [Dragon Communion] Smarag's Glintstone Breath - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
-| 1034457010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_34_45 | -56.2, 237.9, 57.8 | 8647.8, 11577.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1034457020 | Kukri | World Pickup | Liurnia of the Lakes | m60_34_45 | -50.0, 237.8, 57.8 | 8654.0, 11577.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034457100 | Academy Glintstone Key | World Pickup | Liurnia of the Lakes | m60_34_45 | -55.7, 238.4, 64.3 | 8648.3, 11584.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1034467100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_34_46 | 0.7, 239.8, 9.3 | 8704.7, 11785.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1034477000 | Throwing Dagger | World Pickup | Liurnia of the Lakes | m60_34_47 | -117.0, 242.8, -2.1 | 8587.0, 12029.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477110 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -12.5, 237.4, -82.2 | 8691.5, 11949.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477120 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -15.4, 237.4, -86.6 | 8688.6, 11945.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477130 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -21.6, 237.6, -95.4 | 8682.4, 11936.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477140 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -28.4, 237.6, -90.5 | 8675.6, 11941.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477150 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_34_47 | -25.5, 237.5, -86.4 | 8678.5, 11945.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477160 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -22.3, 237.5, -81.9 | 8681.7, 11950.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477170 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -23.2, 237.3, -68.1 | 8680.8, 11963.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477180 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -26.2, 237.5, -72.6 | 8677.8, 11959.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477190 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -29.2, 237.5, -77.2 | 8674.8, 11954.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477200 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_47 | -32.4, 237.6, -81.8 | 8671.6, 11950.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477210 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -38.3, 237.4, -77.9 | 8665.7, 11954.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477220 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_47 | -35.3, 237.3, -73.5 | 8668.7, 11958.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034477300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1034477310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1034477500 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -5.5, 237.3, -85.7 | 8698.5, 11946.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034460100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_34_46 | 0.7, 239.8, 9.3 | 8704.7, 11785.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1034470000 | Throwing Dagger | World Pickup | Liurnia of the Lakes | m60_34_47 | -117.0, 242.8, -2.1 | 8587.0, 12029.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471010 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -12.5, 237.4, -82.2 | 8691.5, 11949.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471020 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -15.4, 237.4, -86.6 | 8688.6, 11945.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -21.6, 237.6, -95.4 | 8682.4, 11936.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471040 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -28.4, 237.6, -90.5 | 8675.6, 11941.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471050 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_34_47 | -25.5, 237.5, -86.4 | 8678.5, 11945.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -22.3, 237.5, -81.9 | 8681.7, 11950.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471070 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -23.2, 237.3, -68.1 | 8680.8, 11963.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -26.2, 237.5, -72.6 | 8677.8, 11959.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471090 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -29.2, 237.5, -77.2 | 8674.8, 11954.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471100 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_47 | -32.4, 237.6, -81.8 | 8671.6, 11950.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471110 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -38.3, 237.4, -77.9 | 8665.7, 11954.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471120 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_47 | -35.3, 237.3, -73.5 | 8668.7, 11958.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034471300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1034471310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1034471500 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_47 | -5.5, 237.3, -85.7 | 8698.5, 11946.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034480000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_48 | 15.2, 270.9, 151.1 | 8719.1, 12439.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034480010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_34_48 | 56.3, 265.6, 99.5 | 8760.3, 12387.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034480100 | Frozen Needle | World Pickup | Liurnia of the Lakes | m60_34_48 | 39.4, 252.2, 63.1 | 8743.4, 12351.1 | chest | 2 | high | Y | ItemLotParam_map |
+| 1034480200 | Map: Liurnia, West | World Pickup | Liurnia of the Lakes | m60_34_48 | -20.0, 258.5, 48.1 | 8684.0, 12336.1 | chest | 2 | high | N | ItemLotParam_map |
 | 1034480700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_34_48 | 40.3, 268.4, 114.5 | 8744.3, 12402.5 | - | - | - | - | MSB NPC |
 | 1034480800 | Royal Revenant | Great Boss Defeat | Liurnia of the Lakes | m60_34_48 | 47.0, 252.2, 78.7 | 8751.0, 12366.7 | - | - | - | - | MSB Enemy |
+| 1034481300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_48 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1034481310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_48 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1034482620 | Stake of Marika (m60_34_48) | Stake of Marika | Liurnia of the Lakes | m60_34_48 | -17.7, 257.2, 43.7 | 8686.3, 12331.7 | - | - | - | - | MSB SpawnPoint |
-| 1034487000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_48 | 15.2, 270.9, 151.1 | 8719.1, 12439.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034487010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_34_48 | 56.3, 265.6, 99.5 | 8760.3, 12387.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034487100 | Frozen Needle | World Pickup | Liurnia of the Lakes | m60_34_48 | 39.4, 252.2, 63.1 | 8743.4, 12351.1 | chest | 2 | high | Y | ItemLotParam_map |
-| 1034487300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_48 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1034487310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_48 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1034490700 | Smithing Master Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.7, -50.5 | 8744.7, 12493.5 | - | - | - | - | MSB NPC |
 | 1034490711 | War Counselor Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.9, -50.6 | 8744.7, 12493.4 | - | - | - | - | MSB NPC |
 | 1034497010 | Good_310 | World Pickup | Liurnia of the Lakes | m60_34_49 | 31.7, 265.6, -106.8 | 8735.7, 12437.2 | corpse | - | high | N | ItemLotParam_map |
+| 1034500010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -36.4, 328.3, -68.0 | 8667.6, 12732.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_50 | -44.5, 326.3, -81.4 | 8659.5, 12718.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500030 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_34_50 | -47.1, 325.7, -85.8 | 8656.9, 12714.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500040 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_50 | -35.8, 326.5, -81.3 | 8668.2, 12718.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500050 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -32.8, 327.2, -76.3 | 8671.2, 12723.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -24.4, 327.4, -74.5 | 8679.6, 12725.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500070 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_50 | -32.9, 325.3, -88.6 | 8671.1, 12711.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -35.6, 324.7, -93.1 | 8668.4, 12706.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1034500090 | Black Wolf Mask | World Pickup | Liurnia of the Lakes | m60_34_50 | 73.5, 425.9, -102.5 | 8777.5, 12697.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034500100 | Memory Stone | World Pickup | Liurnia of the Lakes | m60_34_50 | 67.7, 438.9, -90.5 | 8771.7, 12709.5 | chest | 2 | high | N | ItemLotParam_map |
+| 1034500200 | Good_8165 | World Pickup | Liurnia of the Lakes | m60_34_50 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1034500700 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | -55.2, 471.9, 29.4 | 8648.8, 12829.4 | - | - | - | - | MSB NPC |
 | 1034500701 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | 69.1, 417.1, -88.8 | 8773.1, 12711.2 | - | - | - | - | MSB NPC |
 | 1034500703 | Preceptor Seluvis | Invasion Defeat | Liurnia of the Lakes | m60_34_50 | 67.8, 417.1, -89.6 | 8771.8, 12710.4 | - | - | - | - | MSB Enemy |
@@ -5101,65 +4996,60 @@ Total unique flags: 7034
 | 1034500950 | Ranni the Witch | NPC | Liurnia of the Lakes | m60_34_50 | -85.3, 476.0, 13.8 | 8618.7, 12813.8 | - | - | - | - | MSB NPC |
 | 1034500951 | Ranni the Witch | NPC | Liurnia of the Lakes | m60_34_50 | -56.5, 511.6, 24.2 | 8647.5, 12824.2 | - | - | - | - | MSB NPC |
 | 1034502610 | Stake of Marika (m60_34_50) | Stake of Marika | Liurnia of the Lakes | m60_34_50 | -59.7, 511.7, 23.0 | 8644.3, 12823.0 | - | - | - | - | MSB SpawnPoint |
-| 1034507010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -36.4, 328.3, -68.0 | 8667.6, 12732.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_50 | -44.5, 326.3, -81.4 | 8659.5, 12718.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507030 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_34_50 | -47.1, 325.7, -85.8 | 8656.9, 12714.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507040 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_50 | -35.8, 326.5, -81.3 | 8668.2, 12718.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507050 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -32.8, 327.2, -76.3 | 8671.2, 12723.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -24.4, 327.4, -74.5 | 8679.6, 12725.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507070 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_34_50 | -32.9, 325.3, -88.6 | 8671.1, 12711.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -35.6, 324.7, -93.1 | 8668.4, 12706.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1034507090 | Black Wolf Mask | World Pickup | Liurnia of the Lakes | m60_34_50 | 73.5, 425.9, -102.5 | 8777.5, 12697.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1034507200 | Good_8165 | World Pickup | Liurnia of the Lakes | m60_34_50 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1034509360 | [Iji] Carian Filigreed Crest - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034509450 | [Preceptor Seluvis] Glintstone Cometshard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034509451 | [Preceptor Seluvis] Glintblade Phalanx - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034509455 | [Preceptor Seluvis] Great Glintstone Shard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
-| 1034517900 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -61.7 | 8799.3, 12994.3 | chest | 2 | high | N | ItemLotParam_map |
-| 1035417000 | Golden Rune [10] | World Pickup | Liurnia of the Lakes | m60_35_41 | -35.8, 348.0, 75.7 | 8924.2, 10571.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035417010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_41 | -69.4, 358.0, 109.4 | 8890.6, 10605.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035417100 | Cerulean Amber Medallion +2 | World Pickup | Liurnia of the Lakes | m60_35_41 | -56.1, 339.7, 119.5 | 8903.9, 10615.5 | chest | - | high | N | ItemLotParam_map |
-| 1035417110 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_35_41 | 136.9, 327.7, 110.8 | 9096.9, 10606.8 | chest | 1 | high | N | ItemLotParam_map |
-| 1035420100 | Nepheli Loux | NPC | Liurnia of the Lakes | m60_35_42 | -97.4, 282.5, -25.2 | 8862.6, 10726.8 | - | - | - | - | MSB NPC |
+| 1034510900 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -61.7 | 8799.3, 12994.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1034510901 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -63.7 | 8799.3, 12992.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1034510902 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -65.7 | 8799.3, 12990.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1035410000 | Golden Rune [10] | World Pickup | Liurnia of the Lakes | m60_35_41 | -35.8, 348.0, 75.7 | 8924.2, 10571.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035410010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_41 | -69.4, 358.0, 109.4 | 8890.6, 10605.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035410100 | Cerulean Amber Medallion +2 | World Pickup | Liurnia of the Lakes | m60_35_41 | -56.1, 339.7, 119.5 | 8903.9, 10615.5 | chest | - | high | N | ItemLotParam_map |
+| 1035410110 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_35_41 | 136.9, 327.7, 110.8 | 9096.9, 10606.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1035420010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_42 | 15.7, 237.6, 82.7 | 8975.7, 10834.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035420030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_42 | -87.3, 263.8, -49.2 | 8872.7, 10702.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035420040 | Ivory Sickle | World Pickup | Liurnia of the Lakes | m60_35_42 | -99.6, 285.7, -111.4 | 8860.4, 10640.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035420100 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -44.9, 408.0, -25.0 | 8915.1, 10727.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420110 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -54.2, 408.0, -20.7 | 8905.8, 10731.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420120 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -81.2, 408.0, -26.6 | 8878.8, 10725.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420130 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.0, 407.6, -30.4 | 8930.0, 10721.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420140 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -15.2, 408.2, -36.1 | 8944.8, 10715.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420150 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -1.7, 408.8, -30.6 | 8958.3, 10721.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420160 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -20.4, 408.0, 4.0 | 8939.6, 10756.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420170 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.0, 408.7, -48.8 | 8930.0, 10703.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420180 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -21.0, 407.8, -19.2 | 8939.0, 10732.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420190 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -28.6, 407.9, -16.2 | 8931.4, 10735.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035420200 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.2, 405.0, 31.3 | 8929.8, 10783.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035420700 | Old Albus | NPC | Liurnia of the Lakes | m60_35_42 | -102.3, 285.9, -117.4 | 8857.7, 10634.6 | - | - | - | - | MSB NPC |
 | 1035420706 | Ranni the Witch | Quest NPC | Liurnia of the Lakes | m60_35_42 | 32.7, 373.2, 5.2 | 8992.7, 10757.2 | - | - | - | - | MSB NPC |
 | 1035420800 | Omenkiller | Great Boss Defeat | Liurnia of the Lakes | m60_35_42 | -37.5, 269.2, -17.7 | 8922.5, 10734.3 | - | - | - | - | MSB Enemy |
-| 1035427010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_42 | 15.7, 237.6, 82.7 | 8975.7, 10834.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035427030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_42 | -87.3, 263.8, -49.2 | 8872.7, 10702.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035427040 | Ivory Sickle | World Pickup | Liurnia of the Lakes | m60_35_42 | -99.6, 285.7, -111.4 | 8860.4, 10640.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035427100 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -44.9, 408.0, -25.0 | 8915.1, 10727.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427110 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -54.2, 408.0, -20.7 | 8905.8, 10731.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427120 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -81.2, 408.0, -26.6 | 8878.8, 10725.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427130 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.0, 407.6, -30.4 | 8930.0, 10721.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427140 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -15.2, 408.2, -36.1 | 8944.8, 10715.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427150 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -1.7, 408.8, -30.6 | 8958.3, 10721.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427160 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -20.4, 408.0, 4.0 | 8939.6, 10756.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427170 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.0, 408.7, -48.8 | 8930.0, 10703.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427180 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -21.0, 407.8, -19.2 | 8939.0, 10732.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427190 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -28.6, 407.9, -16.2 | 8931.4, 10735.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035427200 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.2, 405.0, 31.3 | 8929.8, 10783.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035437010 | Somber Smithing Stone [1] | World Pickup | Liurnia of the Lakes | m60_35_43 | -87.5, 237.6, -19.2 | 8872.5, 10988.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035437100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1035430010 | Somber Smithing Stone [1] | World Pickup | Liurnia of the Lakes | m60_35_43 | -87.5, 237.6, -19.2 | 8872.5, 10988.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035430100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1035440000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 120.6, 258.0, 59.6 | 9080.6, 11323.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035440010 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.0, 237.3, 77.2 | 9001.0, 11341.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.3, 237.3, 83.1 | 9001.3, 11347.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.1, 237.3, 101.1 | 9001.1, 11365.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440040 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.4, 237.3, 101.1 | 9010.4, 11365.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440050 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.1, 237.3, 89.1 | 9010.1, 11353.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440060 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.3, 237.3, 77.3 | 9010.3, 11341.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440070 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.3, 237.3, 71.6 | 9010.3, 11335.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440080 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_35_44 | 59.3, 237.3, 71.2 | 9019.3, 11335.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440090 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 59.4, 237.3, 82.9 | 9019.4, 11346.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440100 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 60.3, 237.3, 106.9 | 9020.3, 11370.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035440110 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | -33.7, 239.8, 93.1 | 8926.3, 11357.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035440120 | Blue-White Wooden Shield | World Pickup | Liurnia of the Lakes | m60_35_44 | 75.6, 258.0, 99.0 | 9035.6, 11363.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035440200 | Nomadic Warrior's Cookbook [12] | World Pickup | Liurnia of the Lakes | m60_35_44 | -83.6, 241.4, -116.0 | 8876.4, 11148.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1035442950 | Stake of Marika (m60_35_44) | Stake of Marika | Liurnia of the Lakes | m60_35_44 | -91.4, 251.4, -88.5 | 8868.6, 11175.5 | - | - | - | - | MSB SpawnPoint |
-| 1035447000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 120.6, 258.0, 59.6 | 9080.6, 11323.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035447010 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.0, 237.3, 77.2 | 9001.0, 11341.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.3, 237.3, 83.1 | 9001.3, 11347.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.1, 237.3, 101.1 | 9001.1, 11365.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447040 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.4, 237.3, 101.1 | 9010.4, 11365.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447050 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.1, 237.3, 89.1 | 9010.1, 11353.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447060 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.3, 237.3, 77.3 | 9010.3, 11341.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447070 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_44 | 50.3, 237.3, 71.6 | 9010.3, 11335.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447080 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_35_44 | 59.3, 237.3, 71.2 | 9019.3, 11335.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447090 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | 59.4, 237.3, 82.9 | 9019.4, 11346.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447100 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 60.3, 237.3, 106.9 | 9020.3, 11370.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035447110 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_44 | -33.7, 239.8, 93.1 | 8926.3, 11357.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1035447120 | Blue-White Wooden Shield | World Pickup | Liurnia of the Lakes | m60_35_44 | 75.6, 258.0, 99.0 | 9035.6, 11363.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035450000 | Celestial Dew | World Pickup | Liurnia of the Lakes | m60_35_45 | 113.7, 271.6, -35.9 | 9073.7, 11484.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035450030 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_35_45 | 109.2, 276.7, -5.0 | 9069.2, 11515.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035450100 | Meeting Place Map | World Pickup | Liurnia of the Lakes | m60_35_45 | 106.7, 271.6, -42.2 | 9066.7, 11477.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1035450700 | Isolated Merchant | Merchant | Liurnia of the Lakes | m60_35_45 | 96.3, 284.6, 46.7 | 9056.3, 11566.7 | - | - | - | - | MSB NPC |
 | 1035452610 | Stake of Marika (m60_35_45) | Stake of Marika | Liurnia of the Lakes | m60_35_45 | 110.8, 271.6, -40.2 | 9070.8, 11479.8 | - | - | - | - | MSB SpawnPoint |
 | 1035452630 | Stake of Marika (m60_35_45) | Stake of Marika | Liurnia of the Lakes | m60_35_45 | 110.8, 261.4, -106.1 | 9070.8, 11413.9 | - | - | - | - | MSB SpawnPoint |
-| 1035457000 | Celestial Dew | World Pickup | Liurnia of the Lakes | m60_35_45 | 113.7, 271.6, -35.9 | 9073.7, 11484.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035457030 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_35_45 | 109.2, 276.7, -5.0 | 9069.2, 11515.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035457100 | Meeting Place Map | World Pickup | Liurnia of the Lakes | m60_35_45 | 106.7, 271.6, -42.2 | 9066.7, 11477.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035460020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_46 | 28.4, 260.6, -107.5 | 8988.4, 11668.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035460100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_46 | 11.6, 312.6, 121.0 | 8971.6, 11897.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035460700 | Ash of War: Raptor of the Mists | World Pickup | Liurnia of the Lakes | m60_35_46 | - | - | - | - | none | N | ItemLotParam_map |
 | 1035460710 | Yura, Hunter of Bloody Fingers | NPC | Liurnia of the Lakes | m60_35_46 | -59.2, 321.3, 32.0 | 8900.8, 11808.0 | - | - | - | - | MSB NPC |
 | 1035460711 | Yura, Hunter of Bloody Fingers | NPC | Liurnia of the Lakes | m60_35_46 | -81.7, 321.3, -18.1 | 8878.3, 11757.9 | - | - | - | - | MSB NPC |
 | 1035460950 | Sorceress Sellen | NPC | Liurnia of the Lakes | m60_35_46 | -93.0, 321.7, -33.0 | 8867.0, 11743.0 | - | - | - | - | MSB NPC |
@@ -5168,159 +5058,175 @@ Total unique flags: 7034
 | 1035462611 | Stake of Marika (m60_35_46) | Stake of Marika | Liurnia of the Lakes | m60_35_46 | -80.7, 321.3, -14.4 | 8879.3, 11761.6 | - | - | - | - | MSB SpawnPoint |
 | 1035462701 | Stake of Marika (m60_35_46) | Stake of Marika | Liurnia of the Lakes | m60_35_46 | -46.7, 321.2, 38.0 | 8913.3, 11814.0 | - | - | - | - | MSB SpawnPoint |
 | 1035462705 | Stake of Marika (m60_35_46) | Stake of Marika | Liurnia of the Lakes | m60_35_46 | -49.9, 321.3, 27.5 | 8910.1, 11803.5 | - | - | - | - | MSB SpawnPoint |
-| 1035467020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_46 | 28.4, 260.6, -107.5 | 8988.4, 11668.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035467100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_46 | 11.6, 312.6, 121.0 | 8971.6, 11897.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035467700 | Ash of War: Raptor of the Mists | World Pickup | Liurnia of the Lakes | m60_35_46 | - | - | - | - | none | N | ItemLotParam_map |
-| 1035477000 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 1035477010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_47 | -55.7, 239.8, -69.1 | 8904.3, 11962.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1035487010 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_48 | -66.4, 238.5, -2.9 | 8893.6, 12285.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035487020 | Soporific Grease | World Pickup | Liurnia of the Lakes | m60_35_48 | 22.3, 238.1, 116.7 | 8982.3, 12404.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035487030 | Lump of Flesh | World Pickup | Liurnia of the Lakes | m60_35_48 | 100.7, 238.2, 10.6 | 9060.7, 12298.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035487100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_35_48 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1035497020 | Somber Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_49 | 101.8, 240.4, -23.3 | 9061.8, 12520.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035470000 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1035470010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_47 | -55.7, 239.8, -69.1 | 8904.3, 11962.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035470100 | Memory Stone | World Pickup | Liurnia of the Lakes | m60_35_47 | -86.3, 282.0, 75.3 | 8873.7, 12107.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1035480010 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_48 | -66.4, 238.5, -2.9 | 8893.6, 12285.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035480020 | Soporific Grease | World Pickup | Liurnia of the Lakes | m60_35_48 | 22.3, 238.1, 116.7 | 8982.3, 12404.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035480030 | Lump of Flesh | World Pickup | Liurnia of the Lakes | m60_35_48 | 100.7, 238.2, 10.6 | 9060.7, 12298.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035480100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_35_48 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1035490000 | Intelligence-knot Crystal Tear | World Pickup | Liurnia of the Lakes | m60_35_49 | -118.0, 253.5, 48.1 | 8842.0, 12592.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035490020 | Somber Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_49 | 101.8, 240.4, -23.3 | 9061.8, 12520.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500000 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_50 | 48.8, 349.2, -69.7 | 9008.8, 12730.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035500010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.6, 316.2, -45.5 | 8970.6, 12754.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_50 | -35.4, 328.2, -120.7 | 8924.6, 12679.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035500030 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_35_50 | -73.4, 344.6, -72.0 | 8886.6, 12728.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500040 | Glintstone Craftsman's Cookbook [6] | World Pickup | Liurnia of the Lakes | m60_35_50 | 68.5, 320.8, -146.4 | 9028.5, 12653.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035500050 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 1.2, 328.3, -129.1 | 8961.2, 12670.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 88.4, 332.8, -104.0 | 9048.4, 12696.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500070 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_35_50 | -48.1, 390.3, 36.8 | 8911.9, 12836.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500080 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 105.2, 407.8, 55.5 | 9065.2, 12855.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500090 | Ash of War: Carian Grandeur | World Pickup | Liurnia of the Lakes | m60_35_50 | -24.5, 342.3, 0.3 | 8935.5, 12800.3 | corpse | - | high | N | ItemLotParam_map |
+| 1035500100 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 86.6, 322.5, -86.0 | 9046.6, 12714.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035500102 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -77.6, 340.7, -1.0 | 8882.4, 12799.0 | - | - | - | - | MSB NPC |
+| 1035500110 | Spellproof Dried Liver | World Pickup | Liurnia of the Lakes | m60_35_50 | -93.3, 357.5, -29.4 | 8866.7, 12770.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500120 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | -25.5, 318.8, -86.6 | 8934.5, 12713.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500130 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.3, 316.2, -79.1 | 8970.3, 12720.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500140 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | -97.1, 351.2, -19.5 | 8862.9, 12780.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500150 | Urumi | World Pickup | Liurnia of the Lakes | m60_35_50 | 88.2, 334.1, -153.6 | 9048.2, 12646.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035500160 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 34.3, 365.9, 15.6 | 8994.3, 12815.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500170 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 28.6, 430.0, 71.6 | 8988.6, 12871.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500180 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_50 | -69.1, 373.1, -31.9 | 8890.9, 12768.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500190 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_50 | -24.0, 323.4, -43.2 | 8936.0, 12756.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500200 | Ice Crest Shield | World Pickup | Liurnia of the Lakes | m60_35_50 | 62.0, 322.1, -36.2 | 9022.0, 12763.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035500220 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_35_50 | 77.8, 410.3, 30.5 | 9037.8, 12830.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500230 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 18.1, 424.1, 65.8 | 8978.1, 12865.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500240 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 134.8, 397.4, 22.6 | 9094.8, 12822.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500250 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 73.1, 336.8, -110.4 | 9033.1, 12689.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500260 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 26.2, 316.5, -122.4 | 8986.2, 12677.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500270 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | -21.9, 325.2, -25.0 | 8938.1, 12775.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500280 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 46.2, 316.7, -80.6 | 9006.2, 12719.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035500300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_50 | 63.9, 398.0, -18.7 | 9023.9, 12781.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035500400 | Cracked Pot | World Pickup | Liurnia of the Lakes | m60_35_50 | 6.0, 392.2, 24.8 | 8966.0, 12824.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035500700 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -107.7, 357.5, -21.7 | 8852.3, 12778.3 | - | - | - | - | MSB NPC |
 | 1035500701 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -101.1, 357.5, -18.9 | 8858.9, 12781.1 | - | - | - | - | MSB NPC |
 | 1035500800 | Loretta, Knight of the Haligtree | Boss Defeat | Liurnia of the Lakes | m60_35_50 | -31.9, 430.9, 100.6 | 8928.1, 12900.6 | - | - | - | - | MSB Enemy |
+| 1035500900 | Sword of Night and Flame | World Pickup | Liurnia of the Lakes | m60_35_50 | 38.1, 317.8, -43.4 | 8998.1, 12756.6 | chest | 3 | high | N | ItemLotParam_map |
 | 1035500951 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -76.3, 350.0, -36.5 | 8883.7, 12763.5 | - | - | - | - | MSB NPC |
-| 1035507000 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_50 | 48.8, 349.2, -69.7 | 9008.8, 12730.3 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035507010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.6, 316.2, -45.5 | 8970.6, 12754.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_50 | -35.4, 328.2, -120.7 | 8924.6, 12679.3 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035507030 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_35_50 | -73.4, 344.6, -72.0 | 8886.6, 12728.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507050 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 1.2, 328.3, -129.1 | 8961.2, 12670.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 88.4, 332.8, -104.0 | 9048.4, 12696.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507070 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_35_50 | -48.1, 390.3, 36.8 | 8911.9, 12836.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507080 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 105.2, 407.8, 55.5 | 9065.2, 12855.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507090 | Ash of War: Carian Grandeur | World Pickup | Liurnia of the Lakes | m60_35_50 | -24.5, 342.3, 0.3 | 8935.5, 12800.3 | corpse | - | high | N | ItemLotParam_map |
-| 1035507100 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 86.6, 322.5, -86.0 | 9046.6, 12714.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507110 | Spellproof Dried Liver | World Pickup | Liurnia of the Lakes | m60_35_50 | -93.3, 357.5, -29.4 | 8866.7, 12770.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507120 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | -25.5, 318.8, -86.6 | 8934.5, 12713.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507130 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.3, 316.2, -79.1 | 8970.3, 12720.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507140 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | -97.1, 351.2, -19.5 | 8862.9, 12780.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507150 | Urumi | World Pickup | Liurnia of the Lakes | m60_35_50 | 88.2, 334.1, -153.6 | 9048.2, 12646.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035507160 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_50 | 34.3, 365.9, 15.6 | 8994.3, 12815.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507170 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 28.6, 430.0, 71.6 | 8988.6, 12871.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507180 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_50 | -69.1, 373.1, -31.9 | 8890.9, 12768.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507190 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_50 | -24.0, 323.4, -43.2 | 8936.0, 12756.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507200 | Ice Crest Shield | World Pickup | Liurnia of the Lakes | m60_35_50 | 62.0, 322.1, -36.2 | 9022.0, 12763.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035507220 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_35_50 | 77.8, 410.3, 30.5 | 9037.8, 12830.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507230 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 18.1, 424.1, 65.8 | 8978.1, 12865.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507240 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 134.8, 397.4, 22.6 | 9094.8, 12822.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507250 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 73.1, 336.8, -110.4 | 9033.1, 12689.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507260 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 26.2, 316.5, -122.4 | 8986.2, 12677.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507270 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | -21.9, 325.2, -25.0 | 8938.1, 12775.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507280 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 46.2, 316.7, -80.6 | 9006.2, 12719.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035507300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_50 | 63.9, 398.0, -18.7 | 9023.9, 12781.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1035507900 | Sword of Night and Flame | World Pickup | Liurnia of the Lakes | m60_35_50 | 38.1, 317.8, -43.4 | 8998.1, 12756.6 | chest | 3 | high | N | ItemLotParam_map |
-| 1035527010 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 108.7, 833.6, 47.4 | 9068.7, 13359.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1035527020 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_35_52 | 98.0, 831.2, 44.5 | 9058.0, 13356.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1035527030 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 95.4, 831.0, 40.5 | 9055.4, 13352.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1035527040 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_35_52 | 95.1, 830.5, 34.5 | 9055.1, 13346.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035520010 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 108.7, 833.6, 47.4 | 9068.7, 13359.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1035520020 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_35_52 | 98.0, 831.2, 44.5 | 9058.0, 13356.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1035520030 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 95.4, 831.0, 40.5 | 9055.4, 13352.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1035520040 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_35_52 | 95.1, 830.5, 34.5 | 9055.1, 13346.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035530000 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 15.1, 816.7, 118.9 | 8975.1, 13686.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035530010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_53 | 24.9, 825.3, -85.2 | 8984.9, 13482.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035530020 | Mushroom | World Pickup | Mt. Gelmir | m60_35_53 | 464.9, 812.6, -49.5 | 9424.9, 13518.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035530030 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | -1.7, 823.6, -102.6 | 8958.3, 13465.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035530040 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 22.3, 824.8, -56.8 | 8982.3, 13511.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035530050 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_35_53 | 41.2, 831.5, -91.6 | 9001.2, 13476.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035530700 | Alexander, Warrior Jar | NPC | Mt. Gelmir | m60_35_53 | 55.5, 831.5, -91.6 | 9015.5, 13476.4 | - | - | - | - | MSB NPC |
 | 1035530800 | [Dragon Communion] Magma Breath - Unlocked | Shop Unlock | Mt. Gelmir | - | - | - | - | - | - | - | ShopLineupParam |
-| 1035537000 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 15.1, 816.7, 118.9 | 8975.1, 13686.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035537010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_53 | 24.9, 825.3, -85.2 | 8984.9, 13482.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035537020 | Mushroom | World Pickup | Mt. Gelmir | m60_35_53 | 464.9, 812.6, -49.5 | 9424.9, 13518.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035537030 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | -1.7, 823.6, -102.6 | 8958.3, 13465.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035537040 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 22.3, 824.8, -56.8 | 8982.3, 13511.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035537050 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_35_53 | 41.2, 831.5, -91.6 | 9001.2, 13476.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035540000 | Dragonwound Grease | World Pickup | Mt. Gelmir | m60_35_54 | 171.6, 962.3, -70.9 | 9131.6, 13753.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1035540010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_54 | 102.8, 974.9, -40.7 | 9062.8, 13783.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035540020 | Stonesword Key | World Pickup | Mt. Gelmir | m60_35_54 | 36.3, 823.9, -37.1 | 8996.3, 13786.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035540030 | Armorer's Cookbook [7] | World Pickup | Mt. Gelmir | m60_35_54 | -16.8, 830.8, -184.4 | 8943.2, 13639.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1035540050 | Fire Scorpion Charm | World Pickup | Mt. Gelmir | m60_35_54 | -28.3, 842.7, -169.7 | 8931.7, 13654.3 | ground_pickup | - | high | N | ItemLotParam_map |
+| 1035540060 | Golden Rune [8] | World Pickup | Mt. Gelmir | m60_35_54 | -8.0, 842.9, -179.9 | 8952.0, 13644.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035540070 | Slumbering Egg | World Pickup | Mt. Gelmir | m60_35_54 | -15.6, 842.8, -173.7 | 8944.4, 13650.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1035540700 | Wandering Noble | NPC | Mt. Gelmir | m60_35_54 | -30.0, 842.6, -169.2 | 8930.0, 13654.8 | - | - | - | - | MSB NPC |
-| 1035547000 | Dragonwound Grease | World Pickup | Mt. Gelmir | m60_35_54 | 171.6, 962.3, -70.9 | 9131.6, 13753.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035547010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_54 | 102.8, 974.9, -40.7 | 9062.8, 13783.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1035547020 | Stonesword Key | World Pickup | Mt. Gelmir | m60_35_54 | 36.3, 823.9, -37.1 | 8996.3, 13786.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1035547050 | Fire Scorpion Charm | World Pickup | Mt. Gelmir | m60_35_54 | -28.3, 842.7, -169.7 | 8931.7, 13654.3 | ground_pickup | - | high | N | ItemLotParam_map |
-| 1035547060 | Golden Rune [8] | World Pickup | Mt. Gelmir | m60_35_54 | -8.0, 842.9, -179.9 | 8952.0, 13644.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1035547070 | Slumbering Egg | World Pickup | Mt. Gelmir | m60_35_54 | -15.6, 842.8, -173.7 | 8944.4, 13650.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1036410000 | Fire Monks' Prayerbook | World Pickup | Liurnia of the Lakes | m60_36_41 | 60.1, 246.2, 53.5 | 9276.1, 10549.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1036410010 | Dappled Cured Meat | World Pickup | Liurnia of the Lakes | m60_36_41 | 76.0, 247.4, 47.0 | 9292.0, 10543.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036410020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_36_41 | 142.2, 153.0, -73.2 | 9358.2, 10422.8 | corpse | 2 | high | Y | ItemLotParam_map |
 | 1036410700 | Latenna the Albinauric | NPC | Liurnia of the Lakes | m60_36_41 | 131.3, 150.8, -60.3 | 9347.3, 10435.7 | - | - | - | - | MSB NPC |
 | 1036410950 | Latenna the Albinauric | NPC | Liurnia of the Lakes | m60_36_41 | 139.3, 151.1, -62.9 | 9355.3, 10433.1 | - | - | - | - | MSB NPC |
 | 1036412950 | Stake of Marika (m60_36_41) | Stake of Marika | Liurnia of the Lakes | m60_36_41 | 140.6, 151.1, -62.5 | 9356.6, 10433.5 | - | - | - | - | MSB SpawnPoint |
-| 1036417000 | Fire Monks' Prayerbook | World Pickup | Liurnia of the Lakes | m60_36_41 | 60.1, 246.2, 53.5 | 9276.1, 10549.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1036417010 | Dappled Cured Meat | World Pickup | Liurnia of the Lakes | m60_36_41 | 76.0, 247.4, 47.0 | 9292.0, 10543.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036417020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_36_41 | 142.2, 153.0, -73.2 | 9358.2, 10422.8 | corpse | 2 | high | Y | ItemLotParam_map |
+| 1036420000 | Dexterity-knot Crystal Tear | World Pickup | Liurnia of the Lakes | m60_36_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1036430000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, 11.3 | 9111.7, 11019.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1036430010 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, -8.7 | 9111.7, 10999.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1036430011 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1036430012 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1036430013 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1036430020 | Tarnished Golden Sunflower | World Pickup | Liurnia of the Lakes | m60_36_43 | -12.0, 253.0, 116.5 | 9204.0, 11124.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036430030 | Rainbow Stone | World Pickup | Liurnia of the Lakes | m60_36_43 | 106.0, 250.0, 105.8 | 9322.0, 11113.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036430700 | Blackguard | NPC | Liurnia of the Lakes | m60_36_43 | 85.7, 237.7, -57.0 | 9301.7, 10951.0 | - | - | - | - | MSB NPC |
-| 1036437000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, 11.3 | 9111.7, 11019.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1036437010 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, -8.7 | 9111.7, 10999.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1036437020 | Tarnished Golden Sunflower | World Pickup | Liurnia of the Lakes | m60_36_43 | -12.0, 253.0, 116.5 | 9204.0, 11124.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036437030 | Rainbow Stone | World Pickup | Liurnia of the Lakes | m60_36_43 | 106.0, 250.0, 105.8 | 9322.0, 11113.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036439209 | [Blackguard Big Boggart] Boiled Prawn - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1036440000 | Crystal Bud | World Pickup | Liurnia of the Lakes | m60_36_44 | 91.9, 238.4, 49.0 | 9307.9, 11313.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036440010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_36_44 | 121.8, 244.6, 12.1 | 9337.8, 11276.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1036440040 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_44 | -61.3, 237.4, 39.5 | 9154.7, 11303.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036440050 | Shattershard Arrow (Fletched) | World Pickup | Liurnia of the Lakes | m60_36_44 | -68.4, 251.1, 48.8 | 9147.6, 11312.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036440060 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_36_44 | -101.7, 258.2, 116.2 | 9114.3, 11380.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036440100 | Glintstone Craftsman's Cookbook [4] | World Pickup | Liurnia of the Lakes | m60_36_44 | 124.1, 249.3, 33.2 | 9340.1, 11297.2 | chest | 2 | high | N | ItemLotParam_map |
+| 1036440300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_36_44 | 17.2, 237.6, 14.0 | 9233.2, 11278.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1036440700 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_44 | -38.3, 257.8, -14.4 | 9177.7, 11249.6 | - | - | - | - | MSB NPC |
-| 1036447000 | Crystal Bud | World Pickup | Liurnia of the Lakes | m60_36_44 | 91.9, 238.4, 49.0 | 9307.9, 11313.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036447010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_36_44 | 121.8, 244.6, 12.1 | 9337.8, 11276.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1036447040 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_44 | -61.3, 237.4, 39.5 | 9154.7, 11303.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036447050 | Shattershard Arrow (Fletched) | World Pickup | Liurnia of the Lakes | m60_36_44 | -68.4, 251.1, 48.8 | 9147.6, 11312.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036447060 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_36_44 | -101.7, 258.2, 116.2 | 9114.3, 11380.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036447300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_36_44 | 17.2, 237.6, 14.0 | 9233.2, 11278.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036450020 | Crystal Cave Moss | World Pickup | Liurnia of the Lakes | m60_36_45 | -5.4, 237.5, -71.1 | 9210.6, 11448.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036450110 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_36_45 | -73.2, 243.7, -62.3 | 9142.8, 11457.7 | chest | 2 | high | N | ItemLotParam_map |
 | 1036450340 | Death Rite Bird | Boss Defeat | Liurnia of the Lakes | m60_36_45 | -70.1, 237.6, 39.7 | 9145.9, 11559.7 | - | - | - | - | MSB Enemy |
-| 1036457020 | Crystal Cave Moss | World Pickup | Liurnia of the Lakes | m60_36_45 | -5.4, 237.5, -71.1 | 9210.6, 11448.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036457110 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_36_45 | -73.2, 243.7, -62.3 | 9142.8, 11457.7 | chest | 2 | high | N | ItemLotParam_map |
-| 1036457400 | Ancient Death Rancor | World Pickup | Liurnia of the Lakes | m60_36_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1036450400 | Ancient Death Rancor | World Pickup | Liurnia of the Lakes | m60_36_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1036470000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_36_47 | -71.8, 238.4, 60.3 | 9144.2, 12092.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036470100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1036470400 | Walking Mausoleum | NPC | World (9,11) | m60_09_11 | -340.1, 237.7, 364.1 | 1963.9, 3180.1 | - | - | - | - | MSB NPC |
 | 1036472610 | Stake of Marika (m60_36_47) | Stake of Marika | Liurnia of the Lakes | m60_36_47 | -74.7, 321.4, 133.6 | 9141.3, 12165.6 | - | - | - | - | MSB SpawnPoint |
-| 1036477000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_36_47 | -71.8, 238.4, 60.3 | 9144.2, 12092.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036477100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1036480000 | Sanctuary Stone | World Pickup | Liurnia of the Lakes | m60_36_48 | 55.8, 321.5, 73.5 | 9271.8, 12361.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036480100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1036480340 | Night's Cavalry | Boss Arena | Bellum Highway - East Raya Lucaria Gate | m60_36_48 | 21.8, 321.6, 28.8 | 21.8, 28.8 | - | - | - | - | GameAreaParam |
+| 1036480400 | Ash of War: Giant Hunt | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | - | none | N | ItemLotParam_map |
+| 1036480401 | Nightrider Glaive | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1036480700 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_36_48 | -84.9, 321.1, -90.6 | 9131.1, 12197.4 | - | - | - | - | MSB NPC |
 | 1036480710 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_48 | -52.4, 321.5, -107.3 | 9163.6, 12180.7 | - | - | - | - | MSB NPC |
 | 1036480950 | Melina | NPC | Liurnia of the Lakes | m60_36_48 | -87.2, 321.0, -98.5 | 9128.8, 12189.5 | - | - | - | - | MSB NPC |
-| 1036487000 | Sanctuary Stone | World Pickup | Liurnia of the Lakes | m60_36_48 | 55.8, 321.5, 73.5 | 9271.8, 12361.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036487100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 1036487400 | Ash of War: Giant Hunt | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | - | none | N | ItemLotParam_map |
 | 1036489208 | [Alteration] Elden Lord Armor (Altered) - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1036490000 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_36_49 | 12.1, 322.0, -64.7 | 9228.1, 12479.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1036490700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 17.2, 322.3, -80.3 | 9233.2, 12463.7 | - | - | - | - | MSB NPC |
 | 1036490705 | Nomadic Merchant | Merchant | Liurnia of the Lakes | m60_36_49 | 17.5, 297.0, -10.7 | 9233.5, 12533.3 | - | - | - | - | MSB NPC |
 | 1036490950 | Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 8.3, 322.0, -92.0 | 9224.3, 12452.0 | - | - | - | - | MSB NPC |
-| 1036497000 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_36_49 | 12.1, 322.0, -64.7 | 9228.1, 12479.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036500010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_36_50 | 53.6, 356.1, -84.3 | 9269.6, 12715.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036500020 | Thawfrost Boluses | World Pickup | Liurnia of the Lakes | m60_36_50 | 22.2, 386.0, -11.3 | 9238.2, 12788.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036500030 | Albinauric Ashes | World Pickup | Liurnia of the Lakes | m60_36_50 | -51.2, 380.6, -76.7 | 9164.8, 12723.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1036500800 | Onyx Lord | Boss Arena | Liurnia - Royal Grave Evergaol | m60_36_50 | 121.1, 379.6, 10.9 | 121.1, 10.9 | - | - | - | - | GameAreaParam |
 | 1036502805 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 99.9, 378.2, 16.0 | 9315.9, 12816.0 | - | - | - | - | MSB SpawnPoint |
 | 1036502806 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 101.3, 378.1, 19.7 | 9317.3, 12819.7 | - | - | - | - | MSB SpawnPoint |
 | 1036502807 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 122.3, 379.9, 16.9 | 9338.3, 12816.9 | - | - | - | - | MSB SpawnPoint |
-| 1036507010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_36_50 | 53.6, 356.1, -84.3 | 9269.6, 12715.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036507020 | Thawfrost Boluses | World Pickup | Liurnia of the Lakes | m60_36_50 | 22.2, 386.0, -11.3 | 9238.2, 12788.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036507030 | Albinauric Ashes | World Pickup | Liurnia of the Lakes | m60_36_50 | -51.2, 380.6, -76.7 | 9164.8, 12723.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036517000 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_36_51 | -23.5, 672.0, 106.7 | 9192.5, 13162.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036527000 | Smithing Stone [6] | World Pickup | Mt. Gelmir | m60_36_52 | -114.6, 835.6, -8.2 | 9101.4, 13303.8 | chest | 1 | high | N | ItemLotParam_map |
-| 1036527010 | Perfumer's Talisman | World Pickup | Mt. Gelmir | m60_36_52 | -50.4, 663.5, -84.8 | 9165.6, 13227.2 | chest | - | high | N | ItemLotParam_map |
-| 1036527020 | Budding Cave Moss | World Pickup | Mt. Gelmir | m60_36_52 | -2.0, 673.6, -113.6 | 9214.0, 13198.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036527030 | Nascent Butterfly | World Pickup | Mt. Gelmir | m60_36_52 | -44.0, 676.1, -105.1 | 9172.0, 13206.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1036527040 | Gravel Stone | World Pickup | Mt. Gelmir | m60_36_52 | -43.7, 863.8, 16.2 | 9172.3, 13328.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1036527050 | Roiling Magma | World Pickup | Mt. Gelmir | m60_36_52 | -118.5, 846.2, 30.5 | 9097.5, 13342.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036527060 | Pulley Crossbow | World Pickup | Mt. Gelmir | m60_36_52 | 90.5, 881.0, -26.7 | 9306.5, 13285.3 | corpse | 2 | high | N | ItemLotParam_map |
-| 1036537000 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_36_53 | -78.5, 792.4, 120.0 | 9137.5, 13688.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036510000 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_36_51 | -23.5, 672.0, 106.7 | 9192.5, 13162.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036510010 | Perfumer's Cookbook [1] | World Pickup | Mt. Gelmir | m60_36_51 | -32.3, 672.0, 120.3 | 9183.7, 13176.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1036510020 | Perfume Bottle | World Pickup | Mt. Gelmir | m60_36_51 | -27.4, 671.5, 122.0 | 9188.6, 13178.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036520000 | Smithing Stone [6] | World Pickup | Mt. Gelmir | m60_36_52 | -114.6, 835.6, -8.2 | 9101.4, 13303.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1036520010 | Perfumer's Talisman | World Pickup | Mt. Gelmir | m60_36_52 | -50.4, 663.5, -84.8 | 9165.6, 13227.2 | chest | - | high | N | ItemLotParam_map |
+| 1036520020 | Budding Cave Moss | World Pickup | Mt. Gelmir | m60_36_52 | -2.0, 673.6, -113.6 | 9214.0, 13198.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036520030 | Nascent Butterfly | World Pickup | Mt. Gelmir | m60_36_52 | -44.0, 676.1, -105.1 | 9172.0, 13206.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1036520040 | Gravel Stone | World Pickup | Mt. Gelmir | m60_36_52 | -43.7, 863.8, 16.2 | 9172.3, 13328.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1036520050 | Roiling Magma | World Pickup | Mt. Gelmir | m60_36_52 | -118.5, 846.2, 30.5 | 9097.5, 13342.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036520060 | Pulley Crossbow | World Pickup | Mt. Gelmir | m60_36_52 | 90.5, 881.0, -26.7 | 9306.5, 13285.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1036520070 | Perfume Bottle | World Pickup | Mt. Gelmir | m60_36_52 | -39.4, 675.8, -120.9 | 9176.6, 13191.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036530000 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_36_53 | -78.5, 792.4, 120.0 | 9137.5, 13688.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036540000 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_36_54 | 7.0, 1029.3, -18.7 | 9223.0, 13805.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036540010 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -71.3, 1008.5, 16.4 | 9144.7, 13840.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036540020 | Golden Rune [7] | World Pickup | Mt. Gelmir | m60_36_54 | -17.0, 1010.9, -18.7 | 9199.0, 13805.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036540030 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -72.9, 994.3, -67.6 | 9143.1, 13756.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036540040 | Starlight Shards | World Pickup | Mt. Gelmir | m60_36_54 | 112.8, 1059.7, -74.4 | 9328.8, 13749.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036540050 | Fireproof Dried Liver | World Pickup | Mt. Gelmir | m60_36_54 | 17.3, 792.5, -120.6 | 9233.3, 13703.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036540100 | Larval Tear | World Pickup | Mt. Gelmir | m60_36_54 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1036540400 | Golden Seed | World Pickup | Mt. Gelmir | m60_36_54 | -117.0, 1009.4, 40.4 | 9099.0, 13864.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036540500 | Map: Mt. Gelmir | World Pickup | Mt. Gelmir | m60_36_54 | -68.2, 941.9, -99.3 | 9147.8, 13724.7 | chest | 2 | high | N | ItemLotParam_map |
 | 1036540701 | Wandering Noble | NPC | Mt. Gelmir | m60_36_54 | -42.8, 937.1, -91.0 | 9173.2, 13733.0 | - | - | - | - | MSB NPC |
 | 1036540800 | Fallingstar Beast | Great Boss Defeat | Mt. Gelmir | m60_36_54 | 94.8, 1047.5, -36.2 | 9310.8, 13787.8 | - | - | - | - | MSB Enemy |
 | 1036542950 | Stake of Marika (m60_36_54) | Stake of Marika | Mt. Gelmir | m60_36_54 | 112.4, 1062.5, -45.5 | 9328.4, 13778.5 | - | - | - | - | MSB SpawnPoint |
-| 1036547000 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_36_54 | 7.0, 1029.3, -18.7 | 9223.0, 13805.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036547010 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -71.3, 1008.5, 16.4 | 9144.7, 13840.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036547020 | Golden Rune [7] | World Pickup | Mt. Gelmir | m60_36_54 | -17.0, 1010.9, -18.7 | 9199.0, 13805.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1036547030 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -72.9, 994.3, -67.6 | 9143.1, 13756.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036547040 | Starlight Shards | World Pickup | Mt. Gelmir | m60_36_54 | 112.8, 1059.7, -74.4 | 9328.8, 13749.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1036547050 | Fireproof Dried Liver | World Pickup | Mt. Gelmir | m60_36_54 | 17.3, 792.5, -120.6 | 9233.3, 13703.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1036547100 | Larval Tear | World Pickup | Mt. Gelmir | m60_36_54 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1036547400 | Golden Seed | World Pickup | Mt. Gelmir | m60_36_54 | -117.0, 1009.4, 40.4 | 9099.0, 13864.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1037417010 | Ballista Bolt | World Pickup | Liurnia of the Lakes | m60_37_41 | -60.1, 265.3, 6.2 | 9411.9, 10502.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037410010 | Ballista Bolt | World Pickup | Liurnia of the Lakes | m60_37_41 | -60.1, 265.3, 6.2 | 9411.9, 10502.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037420000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 123.5, 238.1, -85.3 | 9595.5, 10666.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037420010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 97.9, 237.6, -114.2 | 9569.9, 10637.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037420030 | Glass Shard | World Pickup | Liurnia of the Lakes | m60_37_42 | -85.2, 239.2, -93.8 | 9386.8, 10658.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037420040 | Nomadic Warrior's Cookbook [11] | World Pickup | Liurnia of the Lakes | m60_37_42 | -85.2, 239.2, -113.8 | 9386.8, 10638.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037420100 | Ritual Pot | World Pickup | Liurnia of the Lakes | m60_37_42 | 118.4, 239.4, -90.6 | 9590.4, 10661.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 1037420340 | Death Rite Bird | Boss Defeat | Liurnia of the Lakes | m60_37_42 | -58.2, 237.6, 98.4 | 9413.8, 10850.4 | - | - | - | - | MSB Enemy |
+| 1037420400 | Red-Feathered Branchsword | World Pickup | Liurnia of the Lakes | m60_37_42 | - | - | - | - | none | N | ItemLotParam_map |
 | 1037420700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_37_42 | 49.4, 239.8, 43.8 | 9521.4, 10795.8 | - | - | - | - | MSB NPC |
 | 1037420720 | Patches | NPC | Liurnia of the Lakes | m60_37_42 | -91.8, 248.4, 32.0 | 9380.2, 10784.0 | - | - | - | - | MSB NPC |
+| 1037420900 | Wraith Calling Bell | World Pickup | Liurnia of the Lakes | m60_37_42 | 62.0, 225.7, -128.3 | 9534.0, 10623.7 | chest | 2 | high | Y | ItemLotParam_map |
 | 1037420950 | Patches | NPC | Liurnia of the Lakes | m60_37_42 | -98.2, 249.6, 25.0 | 9373.8, 10777.0 | - | - | - | - | MSB NPC |
-| 1037427000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 123.5, 238.1, -85.3 | 9595.5, 10666.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037427010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 97.9, 237.6, -114.2 | 9569.9, 10637.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037427030 | Glass Shard | World Pickup | Liurnia of the Lakes | m60_37_42 | -85.2, 239.2, -93.8 | 9386.8, 10658.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037427400 | Red-Feathered Branchsword | World Pickup | Liurnia of the Lakes | m60_37_42 | - | - | - | - | none | N | ItemLotParam_map |
-| 1037427900 | Wraith Calling Bell | World Pickup | Liurnia of the Lakes | m60_37_42 | 62.0, 225.7, -128.3 | 9534.0, 10623.7 | chest | 2 | high | Y | ItemLotParam_map |
-| 1037437000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 95.6, 241.0, 104.1 | 9567.6, 11112.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037437010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 71.0, 239.8, 40.4 | 9543.0, 11048.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037430000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 95.6, 241.0, 104.1 | 9567.6, 11112.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037430010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 71.0, 239.8, 40.4 | 9543.0, 11048.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037440000 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_44 | 82.1, 238.5, -82.2 | 9554.1, 11181.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037440010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_37_44 | -6.4, 242.4, 41.7 | 9465.6, 11305.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037440210 | Map: Liurnia, North | World Pickup | Liurnia of the Lakes | m60_37_44 | -23.1, 237.6, -103.0 | 9448.9, 11161.0 | chest | 2 | high | N | ItemLotParam_map |
 | 1037440700 | Knight Diallos | NPC | Liurnia of the Lakes | m60_37_44 | -61.3, 239.3, 56.7 | 9410.7, 11320.7 | - | - | - | - | MSB NPC |
-| 1037447000 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_44 | 82.1, 238.5, -82.2 | 9554.1, 11181.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037447010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_37_44 | -6.4, 242.4, 41.7 | 9465.6, 11305.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037457100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_45 | 55.6, 239.8, 21.0 | 9527.6, 11541.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037450100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_45 | 55.6, 239.8, 21.0 | 9527.6, 11541.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037460000 | Gold Sewing Needle | World Pickup | Liurnia of the Lakes | m60_37_46 | -62.1, 398.8, 18.4 | 9409.9, 11794.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1037460001 | Golden Tailoring Tools | World Pickup | Liurnia of the Lakes | m60_37_46 | -62.1, 398.8, 16.4 | 9409.9, 11792.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1037460010 | Stormhawk Feather | World Pickup | Liurnia of the Lakes | m60_37_46 | -110.9, 401.6, -5.1 | 9361.1, 11770.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037460400 | Meat Peddler's Bell Bearing | World Pickup | Liurnia of the Lakes | m60_37_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1037460710 | Miriel, Pastor of Vows | NPC | Liurnia of the Lakes | m60_37_46 | -44.2, 398.1, -0.0 | 9427.8, 11776.0 | - | - | - | - | MSB NPC |
 | 1037460715 | Basin of Atonement | NPC | Liurnia of the Lakes | m60_37_46 | -61.6, 399.5, 7.2 | 9410.4, 11783.2 | - | - | - | - | MSB NPC |
 | 1037460800 | Elemer of the Briar | Boss Defeat | Liurnia of the Lakes | m60_37_46 | -48.5, 398.3, 9.8 | 9423.5, 11785.8 | - | - | - | - | MSB Enemy |
 | 1037460950 | Miriel, Pastor of Vows | NPC | Liurnia of the Lakes | m60_37_46 | -9.9, 396.4, 23.0 | 9462.1, 11799.0 | - | - | - | - | MSB NPC |
 | 1037462650 | Stake of Marika (m60_37_46) | Stake of Marika | Liurnia of the Lakes | m60_37_46 | -22.8, 397.7, 15.3 | 9449.2, 11791.4 | - | - | - | - | MSB SpawnPoint |
-| 1037467000 | Gold Sewing Needle | World Pickup | Liurnia of the Lakes | m60_37_46 | -62.1, 398.8, 18.4 | 9409.9, 11794.4 | chest | 2 | high | N | ItemLotParam_map |
-| 1037467010 | Stormhawk Feather | World Pickup | Liurnia of the Lakes | m60_37_46 | -110.9, 401.6, -5.1 | 9361.1, 11770.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037467400 | Meat Peddler's Bell Bearing | World Pickup | Liurnia of the Lakes | m60_37_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1037469300 | [Miriel - Conspectus Scroll] Glintstone Cometshard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469301 | [Miriel] Glintblade Phalanx - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469305 | [Miriel - Fire Monks' Prayerbook] O Flame! - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
@@ -5332,77 +5238,90 @@ Total unique flags: 7034
 | 1037469314 | [Miriel - Dragon Cult Prayerbook] Lightning Spear - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469315 | [Miriel - Ancient Dragon Prayerbook] Ancient Dragons' Lightning Spear - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469316 | [Miriel - Academy Scroll] Great Glintstone Shard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
-| 1037477000 | Grave Violet | World Pickup | Liurnia of the Lakes | m60_37_47 | 31.6, 422.1, -64.3 | 9503.6, 11967.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037477010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_37_47 | -55.2, 362.4, 2.9 | 9416.8, 12034.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037477020 | Stalwart Horn Charm | World Pickup | Liurnia of the Lakes | m60_37_47 | -13.9, 388.8, 70.8 | 9458.1, 12102.8 | corpse | - | high | N | ItemLotParam_map |
-| 1037477030 | Spiralhorn Shield | World Pickup | Liurnia of the Lakes | m60_37_47 | 86.1, 384.4, 19.8 | 9558.1, 12051.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037470000 | Grave Violet | World Pickup | Liurnia of the Lakes | m60_37_47 | 31.6, 422.1, -64.3 | 9503.6, 11967.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037470010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_37_47 | -55.2, 362.4, 2.9 | 9416.8, 12034.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037470020 | Stalwart Horn Charm | World Pickup | Liurnia of the Lakes | m60_37_47 | -13.9, 388.8, 70.8 | 9458.1, 12102.8 | corpse | - | high | N | ItemLotParam_map |
+| 1037470030 | Spiralhorn Shield | World Pickup | Liurnia of the Lakes | m60_37_47 | 86.1, 384.4, 19.8 | 9558.1, 12051.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037480000 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_37_48 | -80.9, 359.6, 88.3 | 9391.1, 12376.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -11.6, 433.0, 18.9 | 9460.4, 12306.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480020 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -8.3, 434.2, 24.9 | 9463.7, 12312.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480030 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_37_48 | -6.0, 435.4, 30.9 | 9466.0, 12318.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480040 | Golden Rune [7] | World Pickup | Liurnia of the Lakes | m60_37_48 | -12.9, 435.9, 34.3 | 9459.1, 12322.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037480050 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -15.5, 434.6, 28.4 | 9456.5, 12316.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480060 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_37_48 | -26.2, 434.4, 25.8 | 9445.8, 12313.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480070 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_48 | -20.6, 436.5, 37.8 | 9451.4, 12325.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -17.5, 437.5, 44.3 | 9454.5, 12332.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037480100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_37_48 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1037480400 | Walking Mausoleum | NPC | World (9,12) | m60_09_12 | -44.6, 414.5, -390.6 | 2259.4, 2681.4 | - | - | - | - | MSB NPC |
-| 1037487000 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_37_48 | -80.9, 359.6, 88.3 | 9391.1, 12376.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -11.6, 433.0, 18.9 | 9460.4, 12306.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487020 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -8.3, 434.2, 24.9 | 9463.7, 12312.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487030 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_37_48 | -6.0, 435.4, 30.9 | 9466.0, 12318.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487040 | Golden Rune [7] | World Pickup | Liurnia of the Lakes | m60_37_48 | -12.9, 435.9, 34.3 | 9459.1, 12322.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037487050 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -15.5, 434.6, 28.4 | 9456.5, 12316.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487060 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_37_48 | -26.2, 434.4, 25.8 | 9445.8, 12313.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487070 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_48 | -20.6, 436.5, 37.8 | 9451.4, 12325.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -17.5, 437.5, 44.3 | 9454.5, 12332.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037487100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_37_48 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 1037497000 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_37_49 | -20.2, 342.6, 106.4 | 9451.8, 12650.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037497010 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -105.5, 327.9, 75.0 | 9366.5, 12619.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037497020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -32.2, 328.1, -29.1 | 9439.8, 12514.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037497030 | Traveling Maiden Hood | World Pickup | Liurnia of the Lakes | m60_37_49 | 73.0, 494.7, -24.5 | 9545.0, 12519.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1037497100 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_37_49 | 76.7, 494.0, -26.0 | 9548.7, 12518.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1037497200 | Great Mace | World Pickup | Liurnia of the Lakes | m60_37_49 | 29.6, 343.1, 42.8 | 9501.6, 12586.8 | chest | 1 | high | N | ItemLotParam_map |
-| 1037497300 | Fingerprint Grape | World Pickup | Liurnia of the Lakes | m60_37_49 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 1037507000 | Neutralizing Boluses | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 102.8 | 9575.3, 12902.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037507100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_37_50 | 56.3, 237.9, 52.7 | 9528.3, 12852.7 | ground_pickup | 2 | high | Y | ItemLotParam_map |
+| 1037490000 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_37_49 | -20.2, 342.6, 106.4 | 9451.8, 12650.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037490010 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -105.5, 327.9, 75.0 | 9366.5, 12619.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037490020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_37_49 | -32.2, 328.1, -29.1 | 9439.8, 12514.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037490030 | Traveling Maiden Hood | World Pickup | Liurnia of the Lakes | m60_37_49 | 73.0, 494.7, -24.5 | 9545.0, 12519.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037490031 | Traveling Maiden Hood | World Pickup | Liurnia of the Lakes | m60_37_49 | 73.0, 494.7, -26.5 | 9545.0, 12517.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037490032 | Traveling Maiden Hood | World Pickup | Liurnia of the Lakes | m60_37_49 | 73.0, 494.7, -28.5 | 9545.0, 12515.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037490100 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_37_49 | 76.7, 494.0, -26.0 | 9548.7, 12518.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1037490200 | Great Mace | World Pickup | Liurnia of the Lakes | m60_37_49 | 29.6, 343.1, 42.8 | 9501.6, 12586.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1037490300 | Fingerprint Grape | World Pickup | Liurnia of the Lakes | m60_37_49 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1037490301 | Vyke's War Spear | World Pickup | Liurnia of the Lakes | m60_37_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1037500000 | Neutralizing Boluses | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 102.8 | 9575.3, 12902.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037500001 | Stanching Boluses | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 100.8 | 9575.3, 12900.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037500002 | Noble Sorcerer Ashes | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 98.8 | 9575.3, 12898.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037500100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_37_50 | 56.3, 237.9, 52.7 | 9528.3, 12852.7 | ground_pickup | 2 | high | Y | ItemLotParam_map |
+| 1037510000 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_51 | -26.1, 658.6, -47.5 | 9445.9, 13008.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037510010 | Fulgurbloom | World Pickup | Mt. Gelmir | m60_37_51 | 20.2, 674.4, -46.5 | 9492.2, 13009.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037510020 | Consort's Mask | World Pickup | Mt. Gelmir | m60_37_51 | 46.8, 683.8, -11.7 | 9518.8, 13044.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037510021 | Consort's Mask | World Pickup | Mt. Gelmir | m60_37_51 | 46.8, 683.8, -13.7 | 9518.8, 13042.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037510800 | Lichdragon Fortissax | Great Boss Defeat | Mt. Gelmir | m60_37_51 | 110.8, 712.6, 49.4 | 9582.8, 13105.4 | - | - | - | - | MSB Enemy |
-| 1037517000 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_51 | -26.1, 658.6, -47.5 | 9445.9, 13008.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037517010 | Fulgurbloom | World Pickup | Mt. Gelmir | m60_37_51 | 20.2, 674.4, -46.5 | 9492.2, 13009.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037517020 | Consort's Mask | World Pickup | Mt. Gelmir | m60_37_51 | 46.8, 683.8, -11.7 | 9518.8, 13044.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037520020 | Arrow | World Pickup | Mt. Gelmir | m60_37_52 | 87.8, 797.6, 86.9 | 9559.8, 13398.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037520030 | Sacramental Bud | World Pickup | Mt. Gelmir | m60_37_52 | -65.1, 896.6, 49.8 | 9406.9, 13361.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037520040 | String | World Pickup | Mt. Gelmir | m60_37_52 | -30.3, 907.6, 83.6 | 9441.7, 13395.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037520050 | Gold-Tinged Excrement | World Pickup | Mt. Gelmir | m60_37_52 | 6.6, 905.3, 109.1 | 9478.6, 13421.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037520060 | Gold Firefly | World Pickup | Mt. Gelmir | m60_37_52 | 9.2, 656.1, -39.4 | 9481.2, 13272.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037520070 | Prattling Pate "You're beautiful" | World Pickup | Mt. Gelmir | m60_37_52 | 4.9, 907.3, 86.1 | 9476.9, 13398.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037520080 | Starlight Shards | World Pickup | Mt. Gelmir | m60_37_52 | 44.0, 908.5, 84.3 | 9516.0, 13396.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1037520090 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -1.5, 905.7, 72.4 | 9470.5, 13384.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037520100 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 105.4 | 9460.8, 13417.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037520101 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 103.4 | 9460.8, 13415.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037520102 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 101.4 | 9460.8, 13413.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037522690 | Stake of Marika (m60_37_52) | Stake of Marika | Mt. Gelmir | m60_37_52 | 92.4, 656.9, -59.7 | 9564.4, 13252.3 | - | - | - | - | MSB SpawnPoint |
-| 1037527020 | Arrow | World Pickup | Mt. Gelmir | m60_37_52 | 87.8, 797.6, 86.9 | 9559.8, 13398.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037527030 | Sacramental Bud | World Pickup | Mt. Gelmir | m60_37_52 | -65.1, 896.6, 49.8 | 9406.9, 13361.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037527040 | String | World Pickup | Mt. Gelmir | m60_37_52 | -30.3, 907.6, 83.6 | 9441.7, 13395.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037527050 | Gold-Tinged Excrement | World Pickup | Mt. Gelmir | m60_37_52 | 6.6, 905.3, 109.1 | 9478.6, 13421.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037527060 | Gold Firefly | World Pickup | Mt. Gelmir | m60_37_52 | 9.2, 656.1, -39.4 | 9481.2, 13272.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037527070 | Prattling Pate "You're beautiful" | World Pickup | Mt. Gelmir | m60_37_52 | 4.9, 907.3, 86.1 | 9476.9, 13398.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037527080 | Starlight Shards | World Pickup | Mt. Gelmir | m60_37_52 | 44.0, 908.5, 84.3 | 9516.0, 13396.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1037527090 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -1.5, 905.7, 72.4 | 9470.5, 13384.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037527100 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 105.4 | 9460.8, 13417.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037530000 | Mushroom | World Pickup | Mt. Gelmir | m60_37_53 | 95.0, 897.7, 57.4 | 9567.0, 13625.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037530010 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_53 | 59.8, 914.4, 10.6 | 9531.8, 13578.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037530020 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_53 | 26.0, 792.5, 67.6 | 9498.0, 13635.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037530400 | Golden Seed | World Pickup | Mt. Gelmir | m60_37_53 | 28.2, 792.8, -10.4 | 9500.2, 13557.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1037530700 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.0, 903.3, -69.5 | 9477.0, 13498.5 | - | - | - | - | MSB NPC |
 | 1037530800 | Demi-Human Queen Maggie | Great Boss Defeat | Mt. Gelmir | m60_37_53 | 11.7, 901.4, -90.8 | 9483.7, 13477.2 | - | - | - | - | MSB Enemy |
 | 1037530950 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.2, 904.2, -54.8 | 9477.2, 13513.2 | - | - | - | - | MSB NPC |
-| 1037537000 | Mushroom | World Pickup | Mt. Gelmir | m60_37_53 | 95.0, 897.7, 57.4 | 9567.0, 13625.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037537010 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_53 | 59.8, 914.4, 10.6 | 9531.8, 13578.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037537020 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_53 | 26.0, 792.5, 67.6 | 9498.0, 13635.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037537400 | Golden Seed | World Pickup | Mt. Gelmir | m60_37_53 | 28.2, 792.8, -10.4 | 9500.2, 13557.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1037540000 | Beast Blood | World Pickup | Mt. Gelmir | m60_37_54 | 62.3, 833.8, -23.5 | 9534.3, 13800.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037540010 | Stonesword Key | World Pickup | Mt. Gelmir | m60_37_54 | 90.1, 817.0, -10.0 | 9562.1, 13814.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037540020 | Soporific Grease | World Pickup | Mt. Gelmir | m60_37_54 | 76.1, 904.2, 53.5 | 9548.1, 13877.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037540030 | Herba | World Pickup | Mt. Gelmir | m60_37_54 | -90.5, 793.8, -103.7 | 9381.5, 13720.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037540040 | Eye of Yelough | World Pickup | Mt. Gelmir | m60_37_54 | -34.9, 1007.7, 71.9 | 9437.1, 13895.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037540050 | Golden Arrow | World Pickup | Mt. Gelmir | m60_37_54 | 9.1, 847.2, -88.0 | 9481.1, 13736.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037540060 | Glass Shard | World Pickup | Mt. Gelmir | m60_37_54 | 29.7, 804.9, -107.6 | 9501.7, 13716.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037540070 | Nascent Butterfly | World Pickup | Mt. Gelmir | m60_37_54 | 20.7, 807.9, -85.3 | 9492.7, 13738.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037540080 | Rejuvenating Boluses | World Pickup | Mt. Gelmir | m60_37_54 | 33.3, 803.6, -114.7 | 9505.3, 13709.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037540090 | Hefty Beast Bone | World Pickup | Mt. Gelmir | m60_37_54 | 27.3, 803.9, -112.0 | 9499.3, 13712.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037540100 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_54 | 118.7, 884.5, -60.0 | 9590.7, 13764.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037540110 | Great Arrow | World Pickup | Mt. Gelmir | m60_37_54 | 38.4, 951.2, 57.9 | 9510.4, 13881.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1037540120 | Fan Daggers | World Pickup | Mt. Gelmir | m60_37_54 | -125.1, 892.0, -57.9 | 9346.9, 13766.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1037540130 | Drawstring Fire Grease | World Pickup | Mt. Gelmir | m60_37_54 | -3.5, 853.3, -0.5 | 9468.5, 13823.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1037540140 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_37_54 | -55.4, 864.2, -59.8 | 9416.6, 13764.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1037540150 | Scavenger's Curved Sword | World Pickup | Mt. Gelmir | m60_37_54 | 73.5, 904.5, 61.3 | 9545.5, 13885.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037540700 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | - | - | - | - | MSB NPC |
 | 1037540701 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | - | - | - | - | MSB NPC |
 | 1037540705 | Nomadic Merchant | Merchant | Mt. Gelmir | m60_37_54 | 18.6, 965.0, 55.7 | 9490.6, 13879.7 | - | - | - | - | MSB NPC |
 | 1037540810 | Ulcerated Tree Spirit | Boss Defeat | Mt. Gelmir | m60_37_54 | -33.4, 856.7, -73.1 | 9438.6, 13750.9 | - | - | - | - | MSB Enemy |
 | 1037542690 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | -3.9, 801.7, -120.3 | 9468.1, 13703.7 | - | - | - | - | MSB SpawnPoint |
-| 1037547000 | Beast Blood | World Pickup | Mt. Gelmir | m60_37_54 | 62.3, 833.8, -23.5 | 9534.3, 13800.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037547010 | Stonesword Key | World Pickup | Mt. Gelmir | m60_37_54 | 90.1, 817.0, -10.0 | 9562.1, 13814.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037547020 | Soporific Grease | World Pickup | Mt. Gelmir | m60_37_54 | 76.1, 904.2, 53.5 | 9548.1, 13877.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037547030 | Herba | World Pickup | Mt. Gelmir | m60_37_54 | -90.5, 793.8, -103.7 | 9381.5, 13720.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037547040 | Eye of Yelough | World Pickup | Mt. Gelmir | m60_37_54 | -34.9, 1007.7, 71.9 | 9437.1, 13895.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037547050 | Golden Arrow | World Pickup | Mt. Gelmir | m60_37_54 | 9.1, 847.2, -88.0 | 9481.1, 13736.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1037547060 | Glass Shard | World Pickup | Mt. Gelmir | m60_37_54 | 29.7, 804.9, -107.6 | 9501.7, 13716.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037547070 | Nascent Butterfly | World Pickup | Mt. Gelmir | m60_37_54 | 20.7, 807.9, -85.3 | 9492.7, 13738.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1037547080 | Rejuvenating Boluses | World Pickup | Mt. Gelmir | m60_37_54 | 33.3, 803.6, -114.7 | 9505.3, 13709.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037547090 | Hefty Beast Bone | World Pickup | Mt. Gelmir | m60_37_54 | 27.3, 803.9, -112.0 | 9499.3, 13712.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037547100 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_54 | 118.7, 884.5, -60.0 | 9590.7, 13764.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1037547110 | Great Arrow | World Pickup | Mt. Gelmir | m60_37_54 | 38.4, 951.2, 57.9 | 9510.4, 13881.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1037547120 | Fan Daggers | World Pickup | Mt. Gelmir | m60_37_54 | -125.1, 892.0, -57.9 | 9346.9, 13766.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1037547130 | Drawstring Fire Grease | World Pickup | Mt. Gelmir | m60_37_54 | -3.5, 853.3, -0.5 | 9468.5, 13823.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1037547140 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_37_54 | -55.4, 864.2, -59.8 | 9416.6, 13764.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1037547150 | Scavenger's Curved Sword | World Pickup | Mt. Gelmir | m60_37_54 | 73.5, 904.5, 61.3 | 9545.5, 13885.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037550000 | Poison Grease | World Pickup | Mt. Gelmir | m60_37_55 | -24.6, 1029.0, -85.5 | 9447.4, 13994.5 | corpse | 0 | high | Y | ItemLotParam_map |
 | 1037552690 | Stake of Marika (m60_37_55) | Stake of Marika | Mt. Gelmir | m60_37_55 | -60.2, 1035.2, -57.9 | 9411.8, 14022.1 | - | - | - | - | MSB SpawnPoint |
-| 1037557000 | Poison Grease | World Pickup | Mt. Gelmir | m60_37_55 | -24.6, 1029.0, -85.5 | 9447.4, 13994.5 | corpse | 0 | high | Y | ItemLotParam_map |
-| 1038397000 | Warming Stone | World Pickup | World (38,39) | m60_38_39 | 95.7, 328.4, 118.5 | 9823.7, 10102.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038390000 | Warming Stone | World Pickup | World (38,39) | m60_38_39 | 95.7, 328.4, 118.5 | 9823.7, 10102.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038400000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_40 | 50.8, 260.3, -3.0 | 9778.8, 10237.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038400010 | Glintstone Craftsman's Cookbook [1] | World Pickup | Liurnia of the Lakes | m60_38_40 | 70.5, 259.7, 9.4 | 9798.5, 10249.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 1038400950 | Nomadic Merchant | NPC | Liurnia of the Lakes | m60_38_40 | 44.1, 238.2, 115.2 | 9772.1, 10355.2 | - | - | - | - | MSB NPC |
-| 1038407000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_40 | 50.8, 260.3, -3.0 | 9778.8, 10237.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038410000 | Glintstone Craftsman's Cookbook [2] | World Pickup | Liurnia of the Lakes | m60_38_41 | -82.4, 238.5, 86.9 | 9645.6, 10582.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038410010 | Sacrificial Twig | World Pickup | Liurnia of the Lakes | m60_38_41 | 28.1, 246.4, -124.4 | 9756.1, 10371.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038410100 | AshOfWar_1007 | World Pickup | Liurnia of the Lakes | m60_38_41 | - | - | - | - | none | N | ItemLotParam_map |
+| 1038410200 | Map: Liurnia, East | World Pickup | Liurnia of the Lakes | m60_38_41 | 36.1, 237.6, -24.2 | 9764.1, 10471.8 | chest | 2 | high | N | ItemLotParam_map |
 | 1038410710 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_38_41 | 80.9, 239.8, 95.8 | 9808.9, 10591.8 | - | - | - | - | MSB NPC |
 | 1038410730 | Nomadic Merchant | Merchant | Liurnia of the Lakes | m60_38_41 | 35.6, 238.0, -125.5 | 9763.6, 10370.5 | - | - | - | - | MSB NPC |
 | 1038410800 | Adan, Thief of Fire | Boss Arena | Liurnia - Malefactor's Evergaol | m60_38_41 | 3.9, 257.4, -124.9 | 3.9, -124.9 | - | - | - | - | GameAreaParam |
@@ -5410,130 +5329,143 @@ Total unique flags: 7034
 | 1038412805 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -3.9, 256.2, -104.0 | 9724.1, 10392.0 | - | - | - | - | MSB SpawnPoint |
 | 1038412806 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -2.6, 256.2, -100.6 | 9725.4, 10395.4 | - | - | - | - | MSB SpawnPoint |
 | 1038412807 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -0.2, 257.5, -125.0 | 9727.8, 10371.0 | - | - | - | - | MSB SpawnPoint |
-| 1038417010 | Sacrificial Twig | World Pickup | Liurnia of the Lakes | m60_38_41 | 28.1, 246.4, -124.4 | 9756.1, 10371.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038417100 | AshOfWar_1007 | World Pickup | Liurnia of the Lakes | m60_38_41 | - | - | - | - | none | N | ItemLotParam_map |
 | 1038419270 | [Patches] Fan Daggers - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1038419271 | [Patches] Festering Bloody Finger - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1038420000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_42 | 24.8, 239.8, 80.8 | 9752.8, 10832.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1038420010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_38_42 | 105.9, 293.7, 111.5 | 9833.9, 10863.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038420020 | Carian Glintblade Staff | World Pickup | Liurnia of the Lakes | m60_38_42 | 125.3, 313.2, 120.1 | 9853.3, 10872.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038420100 | Glintstone Craftsman's Cookbook [3] | World Pickup | Liurnia of the Lakes | m60_38_42 | 122.6, 301.3, 124.1 | 9850.6, 10876.1 | chest | 2 | high | N | ItemLotParam_map |
 | 1038422260 | Spirit Spring (m60_38_42) | Spirit Spring | Liurnia of the Lakes | m60_38_42 | 51.5, 238.0, 39.4 | 9779.5, 10791.4 | - | - | - | - | MSB MountJump |
-| 1038427000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_42 | 24.8, 239.8, 80.8 | 9752.8, 10832.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1038427010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_38_42 | 105.9, 293.7, 111.5 | 9833.9, 10863.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038427020 | Carian Glintblade Staff | World Pickup | Liurnia of the Lakes | m60_38_42 | 125.3, 313.2, 120.1 | 9853.3, 10872.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038430000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_38_43 | 48.8, 237.6, 31.4 | 9776.8, 11039.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038430010 | Sliver of Meat | World Pickup | Liurnia of the Lakes | m60_38_43 | 27.8, 255.5, -91.8 | 9755.8, 10916.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038430020 | Silver-Pickled Fowl Foot | World Pickup | Liurnia of the Lakes | m60_38_43 | -16.3, 237.9, 106.7 | 9711.7, 11114.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038430100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_38_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1038430700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_38_43 | 67.2, 257.7, 57.1 | 9795.2, 11065.1 | - | - | - | - | MSB NPC |
-| 1038437000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_38_43 | 48.8, 237.6, 31.4 | 9776.8, 11039.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038437010 | Sliver of Meat | World Pickup | Liurnia of the Lakes | m60_38_43 | 27.8, 255.5, -91.8 | 9755.8, 10916.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038437020 | Silver-Pickled Fowl Foot | World Pickup | Liurnia of the Lakes | m60_38_43 | -16.3, 237.9, 106.7 | 9711.7, 11114.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038437100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_38_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1038447030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_38_44 | -104.5, 237.4, 127.3 | 9623.5, 11391.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038447040 | Land Squirt Ashes | World Pickup | Liurnia of the Lakes | m60_38_44 | -4.4, 237.6, 20.1 | 9723.6, 11284.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038447100 | Dragon Cult Prayerbook | World Pickup | Liurnia of the Lakes | m60_38_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1038457000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_45 | -12.6, 305.1, 127.4 | 9715.4, 11647.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038457010 | Flame, Cleanse Me | World Pickup | Liurnia of the Lakes | m60_38_45 | -16.6, 306.7, 108.5 | 9711.4, 11628.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038457020 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_38_45 | 128.6, 314.7, -84.5 | 9856.6, 11435.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038467000 | Immunizing White Cured Meat | World Pickup | Liurnia of the Lakes | m60_38_46 | -13.2, 315.1, 28.8 | 9714.8, 11804.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038467400 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1038440030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_38_44 | -104.5, 237.4, 127.3 | 9623.5, 11391.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038440040 | Land Squirt Ashes | World Pickup | Liurnia of the Lakes | m60_38_44 | -4.4, 237.6, 20.1 | 9723.6, 11284.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038440100 | Dragon Cult Prayerbook | World Pickup | Liurnia of the Lakes | m60_38_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1038450000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_45 | -12.6, 305.1, 127.4 | 9715.4, 11647.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038450010 | Flame, Cleanse Me | World Pickup | Liurnia of the Lakes | m60_38_45 | -16.6, 306.7, 108.5 | 9711.4, 11628.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038450020 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_38_45 | 128.6, 314.7, -84.5 | 9856.6, 11435.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038460000 | Immunizing White Cured Meat | World Pickup | Liurnia of the Lakes | m60_38_46 | -13.2, 315.1, 28.8 | 9714.8, 11804.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038460400 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1038470010 | Frenzyflame Stone | World Pickup | Liurnia of the Lakes | m60_38_47 | -57.1, 362.1, -35.0 | 9670.9, 11997.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038470030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_47 | 94.1, 260.7, 21.1 | 9822.1, 12053.1 | corpse | 2 | high | Y | ItemLotParam_map |
+| 1038470100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1038470400 | Walking Mausoleum | NPC | World (9,11) | m60_09_11 | -12.6, 374.8, 474.2 | 2291.4, 3290.2 | - | - | - | - | MSB NPC |
-| 1038477010 | Frenzyflame Stone | World Pickup | Liurnia of the Lakes | m60_38_47 | -57.1, 362.1, -35.0 | 9670.9, 11997.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038477030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_47 | 94.1, 260.7, 21.1 | 9822.1, 12053.1 | corpse | 2 | high | Y | ItemLotParam_map |
-| 1038477100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1038480000 | Frenzied's Cookbook [1] | World Pickup | Liurnia of the Lakes | m60_38_48 | -44.0, 436.1, 11.9 | 9684.0, 12299.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038480020 | Eye of Yelough | World Pickup | Liurnia of the Lakes | m60_38_48 | -116.9, 441.6, 52.9 | 9611.1, 12340.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038480030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_48 | -112.5, 453.2, 23.8 | 9615.5, 12311.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038480040 | Note: The Lord of Frenzied Flame | World Pickup | Liurnia of the Lakes | m60_38_48 | -18.4, 439.5, -7.7 | 9709.6, 12280.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1038480100 | Shabriri's Woe | World Pickup | Liurnia of the Lakes | m60_38_48 | -82.4, 436.9, 16.9 | 9645.6, 12304.9 | corpse | - | high | N | ItemLotParam_map |
+| 1038480120 | Eye of Yelough | World Pickup | Liurnia of the Lakes | m60_38_48 | 87.8, 429.6, -48.9 | 9815.8, 12239.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038480130 | Frenzyflame Stone | World Pickup | Liurnia of the Lakes | m60_38_48 | 96.5, 429.8, -52.5 | 9824.5, 12235.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038480700 | Festering Fingerprint Vyke | NPC | Liurnia of the Lakes | m60_37_49 | 73.3, 484.8, -83.1 | 9545.3, 12460.9 | - | - | - | - | MSB NPC |
 | 1038480800 | Erdtree Avatar | Great Boss Defeat | Liurnia of the Lakes | m60_38_48 | -30.2, 404.1, -102.9 | 9697.8, 12185.1 | - | - | - | - | MSB Enemy |
-| 1038487020 | Eye of Yelough | World Pickup | Liurnia of the Lakes | m60_38_48 | -116.9, 441.6, 52.9 | 9611.1, 12340.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038487030 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_38_48 | -112.5, 453.2, 23.8 | 9615.5, 12311.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038487100 | Shabriri's Woe | World Pickup | Liurnia of the Lakes | m60_38_48 | -82.4, 436.9, 16.9 | 9645.6, 12304.9 | corpse | - | high | N | ItemLotParam_map |
-| 1038487120 | Eye of Yelough | World Pickup | Liurnia of the Lakes | m60_38_48 | 87.8, 429.6, -48.9 | 9815.8, 12239.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038487130 | Frenzyflame Stone | World Pickup | Liurnia of the Lakes | m60_38_48 | 96.5, 429.8, -52.5 | 9824.5, 12235.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038490000 | Yellow Ember | World Pickup | Liurnia of the Lakes | m60_38_49 | -59.8, 413.3, -46.1 | 9668.2, 12497.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038490010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_49 | -54.0, 408.9, -36.9 | 9674.0, 12507.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038490030 | Burred Bolt | World Pickup | Liurnia of the Lakes | m60_38_49 | -19.1, 440.9, -117.5 | 9708.9, 12426.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038490040 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_38_49 | -35.3, 417.2, -50.8 | 9692.7, 12493.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038490201 | Commoner | Elite Enemy Defeat | Liurnia of the Lakes | m60_38_49 | -11.4, 466.0, -86.6 | 9716.6, 12457.4 | - | - | - | - | MSB Enemy |
 | 1038490700 | Commoner | NPC | Liurnia of the Lakes | m60_38_49 | -114.7, 470.5, -113.1 | 9613.3, 12430.9 | - | - | - | - | MSB NPC |
+| 1038490900 | Howl of Shabriri | World Pickup | Liurnia of the Lakes | m60_38_49 | -7.3, 460.1, -85.0 | 9720.7, 12459.0 | chest | 2 | high | N | ItemLotParam_map |
 | 1038491201 | Spirit Spring (m60_38_49) | Spirit Spring | Liurnia of the Lakes | m60_38_49 | 27.5, 422.2, -72.7 | 9755.5, 12471.3 | - | - | - | - | MSB MountJump |
-| 1038497000 | Yellow Ember | World Pickup | Liurnia of the Lakes | m60_38_49 | -59.8, 413.3, -46.1 | 9668.2, 12497.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038497010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_49 | -54.0, 408.9, -36.9 | 9674.0, 12507.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038497030 | Burred Bolt | World Pickup | Liurnia of the Lakes | m60_38_49 | -19.1, 440.9, -117.5 | 9708.9, 12426.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038497040 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_38_49 | -35.3, 417.2, -50.8 | 9692.7, 12493.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038497900 | Howl of Shabriri | World Pickup | Liurnia of the Lakes | m60_38_49 | -7.3, 460.1, -85.0 | 9720.7, 12459.0 | chest | 2 | high | N | ItemLotParam_map |
+| 1038500000 | Smithing Stone [5] | World Pickup | Liurnia of the Lakes | m60_38_50 | -138.6, 238.1, 81.1 | 9589.4, 12881.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038500010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_38_50 | -100.1, 356.4, -62.4 | 9627.9, 12737.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038500700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_38_50 | 66.4, 759.1, -4.7 | 9794.4, 12795.3 | - | - | - | - | MSB NPC |
 | 1038500710 | Wandering Noble | NPC | Liurnia of the Lakes | m60_38_50 | -28.9, 367.2, -38.2 | 9699.1, 12761.8 | - | - | - | - | MSB NPC |
 | 1038502500 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 34.2, 759.5, -28.3 | 9762.2, 12771.7 | - | - | - | - | MSB SpawnPoint |
 | 1038502502 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 55.5, 374.7, -20.6 | 9783.5, 12779.4 | - | - | - | - | MSB SpawnPoint |
-| 1038507000 | Smithing Stone [5] | World Pickup | Liurnia of the Lakes | m60_38_50 | -138.6, 238.1, 81.1 | 9589.4, 12881.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038507010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_38_50 | -100.1, 356.4, -62.4 | 9627.9, 12737.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038510000 | Nascent Butterfly | World Pickup | Altus Plateau | m60_38_51 | -102.0, 710.4, -54.0 | 9626.0, 13002.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1038510010 | String | World Pickup | Altus Plateau | m60_38_51 | 78.9, 753.4, -101.9 | 9806.9, 12954.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038510020 | Lightningproof Dried Liver | World Pickup | Altus Plateau | m60_38_51 | 13.2, 763.7, -114.0 | 9741.2, 12942.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038510030 | Greatshield Talisman | World Pickup | Altus Plateau | m60_38_51 | 225.1, 732.1, 366.1 | 9953.1, 13422.1 | cart | - | low | N | ItemLotParam_map |
+| 1038510040 | Lightningproof Dried Liver | World Pickup | Altus Plateau | m60_38_51 | -80.6, 767.3, 46.6 | 9647.4, 13102.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038510050 | Ritual Sword Talisman | World Pickup | Altus Plateau | m60_38_51 | -23.1, 770.8, -9.1 | 9704.9, 13046.9 | chest | - | high | Y | ItemLotParam_map |
+| 1038510060 | Lightning Grease | World Pickup | Altus Plateau | m60_38_51 | 116.2, 730.0, 1.6 | 9844.2, 13057.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038510070 | String | World Pickup | Altus Plateau | m60_38_51 | -36.3, 789.0, 9.4 | 9691.7, 13065.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038510080 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_51 | -34.8, 789.2, 22.1 | 9693.2, 13078.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038510090 | Troll's Golden Sword | World Pickup | Altus Plateau | m60_38_51 | 268.0, 732.8, 384.8 | 9996.0, 13440.8 | cart | 1 | low | N | ItemLotParam_map |
+| 1038510400 | Golden Seed | World Pickup | Altus Plateau | m60_38_51 | 7.4, 756.0, 76.2 | 9735.4, 13132.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1038510700 | Rya the Scout | NPC | Altus Plateau | m60_38_51 | -17.2, 766.3, 34.0 | 9710.8, 13090.0 | - | - | - | - | MSB NPC |
 | 1038510705 | Millicent | NPC | Altus Plateau | m60_38_51 | 3.8, 767.5, 114.2 | 9731.8, 13170.2 | - | - | - | - | MSB NPC |
 | 1038510800 | Demi-Human Queen Maggie | Great Boss Defeat | Altus Plateau | m60_38_51 | -32.5, 770.8, 0.5 | 9695.5, 13056.5 | - | - | - | - | MSB Enemy |
 | 1038510950 | Rya | NPC | Altus Plateau | m60_38_51 | -17.4, 759.3, 66.9 | 9710.6, 13122.9 | - | - | - | - | MSB NPC |
-| 1038517000 | Nascent Butterfly | World Pickup | Altus Plateau | m60_38_51 | -102.0, 710.4, -54.0 | 9626.0, 13002.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1038517010 | String | World Pickup | Altus Plateau | m60_38_51 | 78.9, 753.4, -101.9 | 9806.9, 12954.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038517020 | Lightningproof Dried Liver | World Pickup | Altus Plateau | m60_38_51 | 13.2, 763.7, -114.0 | 9741.2, 12942.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038517030 | Greatshield Talisman | World Pickup | Altus Plateau | m60_38_51 | 225.1, 732.1, 366.1 | 9953.1, 13422.1 | cart | - | low | N | ItemLotParam_map |
-| 1038517040 | Lightningproof Dried Liver | World Pickup | Altus Plateau | m60_38_51 | -80.6, 767.3, 46.6 | 9647.4, 13102.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038517050 | Ritual Sword Talisman | World Pickup | Altus Plateau | m60_38_51 | -23.1, 770.8, -9.1 | 9704.9, 13046.9 | chest | - | high | Y | ItemLotParam_map |
-| 1038517060 | Lightning Grease | World Pickup | Altus Plateau | m60_38_51 | 116.2, 730.0, 1.6 | 9844.2, 13057.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038517070 | String | World Pickup | Altus Plateau | m60_38_51 | -36.3, 789.0, 9.4 | 9691.7, 13065.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038517080 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_51 | -34.8, 789.2, 22.1 | 9693.2, 13078.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038517090 | Troll's Golden Sword | World Pickup | Altus Plateau | m60_38_51 | 268.0, 732.8, 384.8 | 9996.0, 13440.8 | cart | 1 | low | N | ItemLotParam_map |
-| 1038517400 | Golden Seed | World Pickup | Altus Plateau | m60_38_51 | 7.4, 756.0, 76.2 | 9735.4, 13132.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1038519257 | [Gowry] Pest Threads - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1038520000 | Pearldrake Talisman +1 | World Pickup | Altus Plateau | m60_38_52 | -90.4, 806.1, 46.5 | 9637.6, 13358.5 | chest | - | high | Y | ItemLotParam_map |
+| 1038520010 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_38_52 | -123.2, 793.0, -72.9 | 9604.8, 13239.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038520020 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_52 | -52.9, 795.4, -37.1 | 9675.1, 13274.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038520030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_52 | -22.4, 800.8, 32.7 | 9705.6, 13344.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038520040 | Dappled White Cured Meat | World Pickup | Altus Plateau | m60_38_52 | -98.4, 828.4, 74.6 | 9629.6, 13386.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038520050 | Stormhawk Feather | World Pickup | Altus Plateau | m60_38_52 | -16.2, 801.2, 30.2 | 9711.8, 13342.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038520060 | Golden Rune [4] | World Pickup | Altus Plateau | m60_38_52 | -55.4, 811.0, 38.7 | 9672.6, 13350.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038520070 | Human Bone Shard | World Pickup | Altus Plateau | m60_38_52 | -80.1, 795.9, -29.3 | 9647.9, 13282.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038520340 | Tibia Mariner | Boss Defeat | Altus Plateau | m60_38_52 | -40.2, 792.9, -24.9 | 9687.8, 13287.1 | - | - | - | - | MSB Enemy |
 | 1038520800 | Tibia Mariner | Boss Arena | Altus Plateau - Wyndham Ruins | m60_38_52 | -127.2, 823.4, 71.6 | -127.2, 71.6 | - | - | - | - | GameAreaParam |
-| 1038527000 | Pearldrake Talisman +1 | World Pickup | Altus Plateau | m60_38_52 | -90.4, 806.1, 46.5 | 9637.6, 13358.5 | chest | - | high | Y | ItemLotParam_map |
-| 1038527010 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_38_52 | -123.2, 793.0, -72.9 | 9604.8, 13239.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038527020 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_52 | -52.9, 795.4, -37.1 | 9675.1, 13274.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038527030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_52 | -22.4, 800.8, 32.7 | 9705.6, 13344.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038527040 | Dappled White Cured Meat | World Pickup | Altus Plateau | m60_38_52 | -98.4, 828.4, 74.6 | 9629.6, 13386.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038527050 | Stormhawk Feather | World Pickup | Altus Plateau | m60_38_52 | -16.2, 801.2, 30.2 | 9711.8, 13342.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038527060 | Golden Rune [4] | World Pickup | Altus Plateau | m60_38_52 | -55.4, 811.0, 38.7 | 9672.6, 13350.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038527070 | Human Bone Shard | World Pickup | Altus Plateau | m60_38_52 | -80.1, 795.9, -29.3 | 9647.9, 13282.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038537000 | Golden Rune [2] | World Pickup | Altus Plateau | m60_38_53 | 32.3, 863.4, 114.6 | 9760.3, 13682.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038537010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 39.6, 864.7, 114.7 | 9767.6, 13682.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038537020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_38_53 | 56.9, 866.0, 113.9 | 9784.9, 13681.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038537030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_53 | 52.8, 867.2, 109.3 | 9780.8, 13677.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1038537040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 46.4, 865.3, 117.0 | 9774.4, 13685.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038537050 | Somber Smithing Stone [6] | World Pickup | Altus Plateau | m60_38_53 | 75.0, 877.0, 82.5 | 9803.0, 13650.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547000 | Bloodrose | World Pickup | Altus Plateau | m60_38_54 | 71.4, 811.5, -108.6 | 9799.4, 13715.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547010 | Explosive Greatbolt | World Pickup | Altus Plateau | m60_38_54 | 33.0, 808.0, -63.3 | 9761.0, 13760.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547020 | Golden Rune [8] | World Pickup | Altus Plateau | m60_38_54 | 32.6, 808.2, -71.4 | 9760.6, 13752.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547030 | Fire Arrow | World Pickup | Altus Plateau | m60_38_54 | -113.5, 902.1, -85.2 | 9614.5, 13738.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038547050 | Golden Vow | World Pickup | Altus Plateau | m60_38_54 | -99.8, 809.4, -1.5 | 9628.2, 13822.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547060 | Arteria Leaf | World Pickup | Altus Plateau | m60_38_54 | 103.3, 809.0, -105.5 | 9831.3, 13718.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038547070 | Throwing Dagger | World Pickup | Altus Plateau | m60_38_54 | 61.8, 808.5, -75.3 | 9789.8, 13748.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1038547080 | Beast Blood | World Pickup | Altus Plateau | m60_38_54 | -99.1, 875.3, -85.9 | 9628.9, 13738.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1038547090 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_38_54 | -5.8, 740.6, 66.8 | 9722.2, 13890.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1038547100 | Antspur Rapier | World Pickup | Altus Plateau | m60_38_54 | -5.8, 740.6, 46.8 | 9722.2, 13870.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038547110 | Pulley Bow | World Pickup | Altus Plateau | m60_38_54 | -97.6, 907.3, -82.3 | 9630.4, 13741.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1038547700 | Butchering Knife | World Pickup | Altus Plateau | m60_38_54 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1038530000 | Golden Rune [2] | World Pickup | Altus Plateau | m60_38_53 | 32.3, 863.4, 114.6 | 9760.3, 13682.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038530010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 39.6, 864.7, 114.7 | 9767.6, 13682.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038530020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_38_53 | 56.9, 866.0, 113.9 | 9784.9, 13681.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038530030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_53 | 52.8, 867.2, 109.3 | 9780.8, 13677.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1038530040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 46.4, 865.3, 117.0 | 9774.4, 13685.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038530050 | Somber Smithing Stone [6] | World Pickup | Altus Plateau | m60_38_53 | 75.0, 877.0, 82.5 | 9803.0, 13650.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540000 | Bloodrose | World Pickup | Altus Plateau | m60_38_54 | 71.4, 811.5, -108.6 | 9799.4, 13715.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540010 | Explosive Greatbolt | World Pickup | Altus Plateau | m60_38_54 | 33.0, 808.0, -63.3 | 9761.0, 13760.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540020 | Golden Rune [8] | World Pickup | Altus Plateau | m60_38_54 | 32.6, 808.2, -71.4 | 9760.6, 13752.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540030 | Fire Arrow | World Pickup | Altus Plateau | m60_38_54 | -113.5, 902.1, -85.2 | 9614.5, 13738.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038540050 | Golden Vow | World Pickup | Altus Plateau | m60_38_54 | -99.8, 809.4, -1.5 | 9628.2, 13822.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540060 | Arteria Leaf | World Pickup | Altus Plateau | m60_38_54 | 103.3, 809.0, -105.5 | 9831.3, 13718.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038540070 | Throwing Dagger | World Pickup | Altus Plateau | m60_38_54 | 61.8, 808.5, -75.3 | 9789.8, 13748.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1038540080 | Beast Blood | World Pickup | Altus Plateau | m60_38_54 | -99.1, 875.3, -85.9 | 9628.9, 13738.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1038540090 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_38_54 | -5.8, 740.6, 66.8 | 9722.2, 13890.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540100 | Antspur Rapier | World Pickup | Altus Plateau | m60_38_54 | -5.8, 740.6, 46.8 | 9722.2, 13870.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038540101 | Consort's Mask | World Pickup | Altus Plateau | m60_38_54 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1038540102 | Consort's Mask | World Pickup | Altus Plateau | m60_38_54 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1038540110 | Pulley Bow | World Pickup | Altus Plateau | m60_38_54 | -97.6, 907.3, -82.3 | 9630.4, 13741.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1038540700 | Butchering Knife | World Pickup | Altus Plateau | m60_38_54 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1039390000 | Sacred Tear | World Pickup | World (39,39) | m60_39_39 | -27.4, 320.1, 95.3 | 9956.6, 10079.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039390700 | Sorcerer Thops | NPC | World (39,39) | m60_39_39 | -34.0, 320.0, 96.4 | 9950.0, 10080.4 | - | - | - | - | MSB NPC |
-| 1039397000 | Sacred Tear | World Pickup | World (39,39) | m60_39_39 | -27.4, 320.1, 95.3 | 9956.6, 10079.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039400000 | Academy Scroll | World Pickup | Liurnia of the Lakes | m60_39_40 | -105.9, 315.9, -79.5 | 9878.1, 10160.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1039400701 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_39_40 | 9.3, 336.9, -61.4 | 9993.3, 10178.6 | - | - | - | - | MSB NPC |
 | 1039400710 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_39_40 | 12.2, 337.1, -74.0 | 9996.2, 10166.0 | - | - | - | - | MSB NPC |
 | 1039400950 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_39_40 | 16.2, 337.5, -70.9 | 10000.2, 10169.1 | - | - | - | - | MSB NPC |
 | 1039402690 | Stake of Marika (m60_39_40) | Stake of Marika | Liurnia of the Lakes | m60_39_40 | 7.9, 239.3, -33.1 | 9991.9, 10206.9 | - | - | - | - | MSB SpawnPoint |
-| 1039407000 | Academy Scroll | World Pickup | Liurnia of the Lakes | m60_39_40 | -105.9, 315.9, -79.5 | 9878.1, 10160.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039410000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_41 | -117.6, 249.2, 80.1 | 9866.4, 10576.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039410010 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_39_41 | -83.2, 255.5, 98.5 | 9900.8, 10594.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039410020 | Somber Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_39_41 | 112.8, 222.7, -38.9 | 10096.8, 10457.1 | corpse | 1 | high | Y | ItemLotParam_map |
+| 1039410030 | Stormhawk Feather | World Pickup | Liurnia of the Lakes | m60_39_41 | 6.1, 286.0, 32.3 | 9990.1, 10528.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039410100 | Two Fingers Heirloom | World Pickup | Liurnia of the Lakes | m60_39_41 | -63.5, 243.4, 82.7 | 9920.5, 10578.7 | chest | - | high | N | ItemLotParam_map |
+| 1039410200 | Shabriri Grape | World Pickup | Liurnia of the Lakes | m60_39_41 | -68.2, 243.4, 82.8 | 9915.8, 10578.8 | ground_pickup | 2 | high | Y | ItemLotParam_map |
+| 1039410300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1039410310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1039410710 | Commoner | NPC | Liurnia of the Lakes | m60_39_41 | -112.8, 248.5, 107.6 | 9871.2, 10603.6 | - | - | - | - | MSB NPC |
-| 1039417000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_41 | -117.6, 249.2, 80.1 | 9866.4, 10576.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039417010 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_39_41 | -83.2, 255.5, 98.5 | 9900.8, 10594.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039417020 | Somber Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_39_41 | 112.8, 222.7, -38.9 | 10096.8, 10457.1 | corpse | 1 | high | Y | ItemLotParam_map |
-| 1039417030 | Stormhawk Feather | World Pickup | Liurnia of the Lakes | m60_39_41 | 6.1, 286.0, 32.3 | 9990.1, 10528.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039417100 | Two Fingers Heirloom | World Pickup | Liurnia of the Lakes | m60_39_41 | -63.5, 243.4, 82.7 | 9920.5, 10578.7 | chest | - | high | N | ItemLotParam_map |
-| 1039417200 | Shabriri Grape | World Pickup | Liurnia of the Lakes | m60_39_41 | -68.2, 243.4, 82.8 | 9915.8, 10578.8 | ground_pickup | 2 | high | Y | ItemLotParam_map |
-| 1039417300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1039417310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1039420000 | Mushroom | World Pickup | Liurnia of the Lakes | m60_39_42 | -145.2, 249.0, -79.5 | 9838.8, 10672.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039420010 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_42 | -65.4, 253.0, 102.7 | 9918.6, 10854.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039420020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_42 | -55.8, 255.4, 90.5 | 9928.2, 10842.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039420030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_42 | -54.1, 257.5, 77.2 | 9929.9, 10829.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039420040 | Beast Blood | World Pickup | Liurnia of the Lakes | m60_39_42 | 46.6, 288.6, 88.0 | 10030.6, 10840.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039420050 | Lucerne | World Pickup | Liurnia of the Lakes | m60_39_42 | -38.4, 259.8, 74.3 | 9945.6, 10826.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1039420700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_39_42 | -9.0, 271.4, -11.3 | 9975.0, 10740.7 | - | - | - | - | MSB NPC |
-| 1039427000 | Mushroom | World Pickup | Liurnia of the Lakes | m60_39_42 | -145.2, 249.0, -79.5 | 9838.8, 10672.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039427010 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_42 | -65.4, 253.0, 102.7 | 9918.6, 10854.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039427020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_42 | -55.8, 255.4, 90.5 | 9928.2, 10842.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039427030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_42 | -54.1, 257.5, 77.2 | 9929.9, 10829.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039427040 | Beast Blood | World Pickup | Liurnia of the Lakes | m60_39_42 | 46.6, 288.6, 88.0 | 10030.6, 10840.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039427050 | Lucerne | World Pickup | Liurnia of the Lakes | m60_39_42 | -38.4, 259.8, 74.3 | 9945.6, 10826.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039430010 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_39_43 | 52.4, 217.1, 126.0 | 10036.4, 11134.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039430020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_43 | 58.4, 217.2, 118.9 | 10042.4, 11126.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039430030 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_39_43 | 57.5, 218.3, 114.0 | 10041.5, 11122.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039430040 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_43 | 49.5, 219.9, 110.5 | 10033.5, 11118.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039430050 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_39_43 | 55.6, 219.6, 104.0 | 10039.6, 11112.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039430060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_43 | 47.7, 221.7, 100.5 | 10031.7, 11108.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039430100 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_39_43 | -84.0, 307.9, 61.0 | 9900.0, 11069.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039430340 | Night's Cavalry | Boss Arena | Liurnia - Liurnia Highway Far North | m60_39_43 | -125.3, 253.1, -8.1 | -125.3, -8.1 | - | - | - | - | GameAreaParam |
+| 1039430400 | Ash of War: Ice Spear | World Pickup | Liurnia of the Lakes | m60_39_43 | - | - | - | - | none | N | ItemLotParam_map |
 | 1039430700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_39_43 | -104.1, 250.3, -22.9 | 9879.9, 10985.1 | - | - | - | - | MSB NPC |
 | 1039432210 | Spirit Spring (m60_39_43) | Spirit Spring | Liurnia of the Lakes | m60_39_43 | -76.9, 253.0, 30.3 | 9907.1, 11038.3 | - | - | - | - | MSB MountJump |
-| 1039437010 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_39_43 | 52.4, 217.1, 126.0 | 10036.4, 11134.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039437020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_43 | 58.4, 217.2, 118.9 | 10042.4, 11126.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039437030 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_39_43 | 57.5, 218.3, 114.0 | 10041.5, 11122.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039437040 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_43 | 49.5, 219.9, 110.5 | 10033.5, 11118.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039437050 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_39_43 | 55.6, 219.6, 104.0 | 10039.6, 11112.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039437060 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_43 | 47.7, 221.7, 100.5 | 10031.7, 11108.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039437100 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_39_43 | -84.0, 307.9, 61.0 | 9900.0, 11069.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1039437400 | Ash of War: Ice Spear | World Pickup | Liurnia of the Lakes | m60_39_43 | - | - | - | - | none | N | ItemLotParam_map |
+| 1039440000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | -62.3, 294.8, -55.0 | 9921.7, 11209.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039440010 | Great Dragonfly Head | World Pickup | Liurnia of the Lakes | m60_39_44 | -104.2, 302.5, 68.3 | 9879.8, 11332.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039440020 | Trina's Lily | World Pickup | Liurnia of the Lakes | m60_39_44 | -76.5, 294.8, -67.6 | 9907.5, 11196.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039440030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | 21.9, 231.0, -27.1 | 10005.9, 11236.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039440040 | Living Jar Shard | World Pickup | Liurnia of the Lakes | m60_39_44 | 55.1, 212.8, 23.8 | 10039.1, 11287.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039440100 | Cracked Pot | World Pickup | Liurnia of the Lakes | m60_39_44 | 51.7, 212.8, 26.4 | 10035.7, 11290.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039440110 | Cracked Pot | World Pickup | Liurnia of the Lakes | m60_39_44 | 64.2, 217.0, -36.3 | 10048.2, 11227.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039440120 | Cracked Pot | World Pickup | Liurnia of the Lakes | m60_39_44 | 27.2, 215.4, 12.0 | 10011.2, 11276.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039440130 | Ritual Pot | World Pickup | Liurnia of the Lakes | m60_39_44 | 27.4, 221.8, 11.5 | 10011.4, 11275.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039440140 | Ritual Pot | World Pickup | Liurnia of the Lakes | m60_39_44 | 38.4, 215.5, -14.1 | 10022.4, 11249.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039440700 | Alexander, Warrior Jar | NPC | Liurnia of the Lakes | m60_39_44 | -6.5, 292.9, -99.4 | 9977.5, 11164.6 | - | - | - | - | MSB NPC |
 | 1039440705 | Jar-Bairn | NPC | Liurnia of the Lakes | m60_39_44 | 22.1, 224.8, -26.9 | 10006.1, 11237.1 | - | - | - | - | MSB NPC |
 | 1039440706 | Jar-Bairn | NPC | Liurnia of the Lakes | m60_39_44 | 47.6, 213.2, -18.1 | 10031.6, 11245.9 | - | - | - | - | MSB NPC |
@@ -5542,208 +5474,220 @@ Total unique flags: 7034
 | 1039440710 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 52.4, 212.8, 24.1 | 10036.4, 11288.1 | - | - | - | - | MSB NPC |
 | 1039440711 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 43.3, 212.2, 4.8 | 10027.3, 11268.8 | - | - | - | - | MSB NPC |
 | 1039440800 | Tibia Mariner | Great Boss Defeat | Liurnia of the Lakes | m60_39_44 | -81.6, 294.8, -41.4 | 9902.4, 11222.6 | - | - | - | - | MSB Enemy |
-| 1039447000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | -62.3, 294.8, -55.0 | 9921.7, 11209.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039447010 | Great Dragonfly Head | World Pickup | Liurnia of the Lakes | m60_39_44 | -104.2, 302.5, 68.3 | 9879.8, 11332.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039447020 | Trina's Lily | World Pickup | Liurnia of the Lakes | m60_39_44 | -76.5, 294.8, -67.6 | 9907.5, 11196.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1039447030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | 21.9, 231.0, -27.1 | 10005.9, 11236.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039447040 | Living Jar Shard | World Pickup | Liurnia of the Lakes | m60_39_44 | 55.1, 212.8, 23.8 | 10039.1, 11287.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039487000 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_48 | -37.4, 457.1, 33.9 | 9946.6, 12321.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039487100 | Cannon of Haima | World Pickup | Liurnia of the Lakes | m60_39_48 | -24.8, 506.1, 51.6 | 9959.2, 12339.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1039480000 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_48 | -37.4, 457.1, 33.9 | 9946.6, 12321.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039480100 | Cannon of Haima | World Pickup | Liurnia of the Lakes | m60_39_48 | -24.8, 506.1, 51.6 | 9959.2, 12339.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1039480101 | Gavel of Haima | World Pickup | Liurnia of the Lakes | m60_39_48 | -24.8, 506.1, 49.6 | 9959.2, 12337.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1039500000 | Hefty Beast Bone | World Pickup | Liurnia of the Lakes | m60_39_50 | -90.7, 724.8, 53.2 | 9893.3, 12853.2 | corpse | 0 | high | Y | ItemLotParam_map |
+| 1039500010 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_39_50 | -4.7, 755.2, 41.8 | 9979.3, 12841.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039500020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_39_50 | 41.0, 763.2, 76.8 | 10025.0, 12876.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039500100 | Godfrey Icon | World Pickup | Liurnia of the Lakes | m60_39_50 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 1039500800 | Godrick the Reskinned | Boss Arena | Altus Plateau - Golden Lineage Evergaol | m60_39_50 | -45.6, 709.6, -86.1 | -45.6, -86.1 | - | - | - | - | GameAreaParam |
 | 1039502805 | Stake of Marika (m60_39_50) | Stake of Marika | Liurnia of the Lakes | m60_39_50 | -64.7, 708.4, -80.0 | 9919.3, 12720.0 | - | - | - | - | MSB SpawnPoint |
 | 1039502806 | Stake of Marika (m60_39_50) | Stake of Marika | Liurnia of the Lakes | m60_39_50 | -64.4, 708.6, -76.8 | 9919.6, 12723.2 | - | - | - | - | MSB SpawnPoint |
 | 1039502807 | Stake of Marika (m60_39_50) | Stake of Marika | Liurnia of the Lakes | m60_39_50 | -44.3, 709.8, -82.5 | 9939.7, 12717.5 | - | - | - | - | MSB SpawnPoint |
-| 1039507000 | Hefty Beast Bone | World Pickup | Liurnia of the Lakes | m60_39_50 | -90.7, 724.8, 53.2 | 9893.3, 12853.2 | corpse | 0 | high | Y | ItemLotParam_map |
-| 1039507010 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_39_50 | -4.7, 755.2, 41.8 | 9979.3, 12841.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1039507020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_39_50 | 41.0, 763.2, 76.8 | 10025.0, 12876.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039507100 | Godfrey Icon | World Pickup | Liurnia of the Lakes | m60_39_50 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1039510000 | Perfume Bottle | World Pickup | Altus Plateau | m60_39_51 | 67.9, 767.3, 109.6 | 10051.9, 13165.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039510010 | Fan Daggers | World Pickup | Altus Plateau | m60_39_51 | -50.4, 748.2, -46.0 | 9933.6, 13010.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039510020 | Sacrificial Twig | World Pickup | Altus Plateau | m60_39_51 | -31.3, 748.2, 52.9 | 9952.7, 13108.9 | chest | 1 | high | N | ItemLotParam_map |
+| 1039510030 | Warming Stone | World Pickup | Altus Plateau | m60_39_51 | -67.9, 742.2, -11.0 | 9916.1, 13045.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039510040 | Turtle Neck Meat | World Pickup | Altus Plateau | m60_39_51 | 9.2, 762.0, 116.8 | 9993.2, 13172.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039510200 | Ash of War: Shared Order | World Pickup | Altus Plateau | m60_39_51 | - | - | - | - | none | N | ItemLotParam_map |
+| 1039510400 | Golden Seed | World Pickup | Altus Plateau | m60_39_51 | 90.6, 770.1, 82.9 | 10074.6, 13138.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039510700 | Boc the Seamster | NPC | Altus Plateau | m60_39_51 | 95.4, 760.8, 5.2 | 10079.4, 13061.2 | - | - | - | - | MSB NPC |
 | 1039510800 | Night's Cavalry | Boss Defeat | Altus Plateau | m60_39_51 | -16.9, 757.0, -110.7 | 9967.1, 12945.3 | - | - | - | - | MSB Enemy |
 | 1039510950 | Boc the Seamster | NPC | Altus Plateau | m60_39_51 | 92.6, 760.5, -0.2 | 10076.6, 13055.8 | - | - | - | - | MSB NPC |
-| 1039517010 | Fan Daggers | World Pickup | Altus Plateau | m60_39_51 | -50.4, 748.2, -46.0 | 9933.6, 13010.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039517020 | Sacrificial Twig | World Pickup | Altus Plateau | m60_39_51 | -31.3, 748.2, 52.9 | 9952.7, 13108.9 | chest | 1 | high | N | ItemLotParam_map |
-| 1039517030 | Warming Stone | World Pickup | Altus Plateau | m60_39_51 | -67.9, 742.2, -11.0 | 9916.1, 13045.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039517040 | Turtle Neck Meat | World Pickup | Altus Plateau | m60_39_51 | 9.2, 762.0, 116.8 | 9993.2, 13172.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039517200 | Ash of War: Shared Order | World Pickup | Altus Plateau | m60_39_51 | - | - | - | - | none | N | ItemLotParam_map |
-| 1039517400 | Golden Seed | World Pickup | Altus Plateau | m60_39_51 | 90.6, 770.1, 82.9 | 10074.6, 13138.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039520000 | Human Bone Shard | World Pickup | Altus Plateau | m60_39_52 | 7.6, 771.7, 69.6 | 9991.6, 13381.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039520020 | Magic Grease | World Pickup | Altus Plateau | m60_39_52 | -2.5, 767.0, 120.4 | 9981.5, 13432.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039520400 | Sacred Tear | World Pickup | Altus Plateau | m60_39_52 | 22.4, 771.8, 58.6 | 10006.4, 13370.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039520700 | Eleonora's Poleblade | World Pickup | Altus Plateau | m60_39_52 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1039520701 | Yura, Hunter of Bloody Fingers | NPC | Altus Plateau | m60_39_52 | 28.3, 771.8, 54.4 | 10012.3, 13366.4 | - | - | - | - | MSB NPC |
-| 1039527000 | Human Bone Shard | World Pickup | Altus Plateau | m60_39_52 | 7.6, 771.7, 69.6 | 9991.6, 13381.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039527020 | Magic Grease | World Pickup | Altus Plateau | m60_39_52 | -2.5, 767.0, 120.4 | 9981.5, 13432.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039527400 | Sacred Tear | World Pickup | Altus Plateau | m60_39_52 | 22.4, 771.8, 58.6 | 10006.4, 13370.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1039527700 | Eleonora's Poleblade | World Pickup | Altus Plateau | m60_39_52 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1039530000 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_53 | 20.5, 827.6, 96.5 | 10004.5, 13664.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039530010 | Blood Grease | World Pickup | Altus Plateau | m60_39_53 | 26.6, 811.5, 27.4 | 10010.6, 13595.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1039530020 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | -88.4, 746.1, -95.9 | 9895.6, 13472.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039530030 | Miquella's Lily | World Pickup | Altus Plateau | m60_39_53 | 49.6, 754.2, -94.8 | 10033.6, 13473.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039530040 | Nascent Butterfly | World Pickup | Altus Plateau | m60_39_53 | -81.5, 778.4, 25.4 | 9902.5, 13593.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039530050 | Unseen Blade | World Pickup | Altus Plateau | m60_39_53 | 92.7, 780.6, -76.1 | 10076.7, 13491.9 | chest | 1 | high | N | ItemLotParam_map |
+| 1039530051 | Unseen Form | World Pickup | Altus Plateau | m60_39_53 | 92.7, 780.6, -78.1 | 10076.7, 13489.9 | chest | 1 | high | N | ItemLotParam_map |
+| 1039530060 | Slumbering Egg | World Pickup | Altus Plateau | m60_39_53 | 89.2, 780.7, -75.2 | 10073.2, 13492.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039530070 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -112.1 | 10113.8, 13455.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039530080 | Mirage Riddle | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -132.1 | 10113.8, 13435.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039530700 | Crepus's Vial | World Pickup | Altus Plateau | m60_39_53 | - | - | - | - | none | N | ItemLotParam_map |
+| 1039530701 | Black-Key Bolt | World Pickup | Altus Plateau | m60_39_53 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1039532141 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | - | - | - | MSB SpawnPoint |
 | 1039532705 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | - | - | - | MSB SpawnPoint |
-| 1039537000 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_53 | 20.5, 827.6, 96.5 | 10004.5, 13664.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039537010 | Blood Grease | World Pickup | Altus Plateau | m60_39_53 | 26.6, 811.5, 27.4 | 10010.6, 13595.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1039537020 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | -88.4, 746.1, -95.9 | 9895.6, 13472.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039537030 | Miquella's Lily | World Pickup | Altus Plateau | m60_39_53 | 49.6, 754.2, -94.8 | 10033.6, 13473.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1039537040 | Nascent Butterfly | World Pickup | Altus Plateau | m60_39_53 | -81.5, 778.4, 25.4 | 9902.5, 13593.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1039537050 | Unseen Blade | World Pickup | Altus Plateau | m60_39_53 | 92.7, 780.6, -76.1 | 10076.7, 13491.9 | chest | 1 | high | N | ItemLotParam_map |
-| 1039537060 | Slumbering Egg | World Pickup | Altus Plateau | m60_39_53 | 89.2, 780.7, -75.2 | 10073.2, 13492.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039537070 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -112.1 | 10113.8, 13455.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039537080 | Mirage Riddle | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -132.1 | 10113.8, 13435.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1039537700 | Crepus's Vial | World Pickup | Altus Plateau | m60_39_53 | - | - | - | - | none | N | ItemLotParam_map |
+| 1039540000 | Rot Grease | World Pickup | Altus Plateau | m60_39_54 | -16.1, 731.4, 77.1 | 9967.9, 13901.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_54 | -37.3, 717.3, -78.7 | 9946.7, 13745.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540020 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -19.5, 723.6, -86.9 | 9964.5, 13737.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540030 | Poisonbloom | World Pickup | Altus Plateau | m60_39_54 | 0.2, 722.3, -76.9 | 9984.2, 13747.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540040 | Perfume Bottle | World Pickup | Altus Plateau | m60_39_54 | -9.3, 738.7, -6.2 | 9974.7, 13817.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039540050 | Poisonbone Dart | World Pickup | Altus Plateau | m60_39_54 | 30.6, 714.1, -8.5 | 10014.6, 13815.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540060 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | 56.4, 725.3, 4.9 | 10040.4, 13828.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540070 | Smithing Stone [4] | World Pickup | Altus Plateau | m60_39_54 | -35.6, 723.8, -15.6 | 9948.4, 13808.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540080 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -93.7, 717.6, 28.6 | 9890.3, 13852.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540090 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -77.9, 714.6, 37.4 | 9906.1, 13861.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540100 | Drawstring Fire Grease | World Pickup | Altus Plateau | m60_39_54 | -34.4, 714.2, -33.0 | 9949.6, 13791.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540110 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | -33.1, 717.3, -66.2 | 9950.9, 13757.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540120 | Beast Blood | World Pickup | Altus Plateau | m60_39_54 | -85.3, 717.1, -13.0 | 9898.7, 13811.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540130 | Neutralizing Boluses | World Pickup | Altus Plateau | m60_39_54 | -102.3, 722.3, -26.3 | 9881.7, 13797.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540140 | Glass Shard | World Pickup | Altus Plateau | m60_39_54 | -75.1, 732.4, 51.7 | 9908.9, 13875.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540150 | Stonesword Key | World Pickup | Altus Plateau | m60_39_54 | 29.1, 722.5, -22.2 | 10013.1, 13801.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039540160 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | -41.6, 724.5, 17.4 | 9942.4, 13841.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540170 | Poison Grease | World Pickup | Altus Plateau | m60_39_54 | 12.7, 717.1, -92.1 | 9996.7, 13731.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540180 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_39_54 | -27.6, 742.8, 81.1 | 9956.4, 13905.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540190 | Perfumer's Cookbook [2] | World Pickup | Altus Plateau | m60_39_54 | -49.4, 756.8, 88.4 | 9934.6, 13912.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039540200 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | 4.3, 746.8, 75.1 | 9988.3, 13899.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540210 | Gold Firefly | World Pickup | Altus Plateau | m60_39_54 | 27.1, 744.3, 86.7 | 10011.1, 13910.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540220 | Glass Shard | World Pickup | Altus Plateau | m60_39_54 | 24.3, 714.5, -6.4 | 10008.3, 13817.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540230 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | 28.5, 735.8, 36.0 | 10012.5, 13860.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540240 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -10.7, 714.2, -62.5 | 9973.3, 13761.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540250 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_54 | -38.9, 734.7, 39.3 | 9945.1, 13863.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1039540260 | Smithing Stone [4] | World Pickup | Altus Plateau | m60_39_54 | 10.1, 724.3, 24.5 | 9994.1, 13848.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039540300 | Valkyrie's Prosthesis | World Pickup | Altus Plateau | m60_39_54 | -98.9, 733.5, 66.5 | 9885.1, 13890.5 | chest | 2 | high | N | ItemLotParam_map |
+| 1039540350 | Starlight Shards | World Pickup | Altus Plateau | m60_39_54 | -62.6, 723.8, 123.8 | 9921.4, 13947.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039540700 | Patches | NPC | Altus Plateau | m60_39_54 | -13.4, 768.3, 53.5 | 9970.6, 13877.5 | - | - | - | - | MSB NPC |
 | 1039540701 | Wandering Noble | NPC | Altus Plateau | m60_39_54 | -34.3, 734.7, 73.9 | 9949.7, 13897.9 | - | - | - | - | MSB NPC |
 | 1039540800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_39_54 | -53.7, 768.3, 56.5 | 9930.3, 13880.5 | - | - | - | - | MSB Enemy |
-| 1039547010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_54 | -37.3, 717.3, -78.7 | 9946.7, 13745.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547020 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -19.5, 723.6, -86.9 | 9964.5, 13737.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547030 | Poisonbloom | World Pickup | Altus Plateau | m60_39_54 | 0.2, 722.3, -76.9 | 9984.2, 13747.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547050 | Poisonbone Dart | World Pickup | Altus Plateau | m60_39_54 | 30.6, 714.1, -8.5 | 10014.6, 13815.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547060 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | 56.4, 725.3, 4.9 | 10040.4, 13828.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547070 | Smithing Stone [4] | World Pickup | Altus Plateau | m60_39_54 | -35.6, 723.8, -15.6 | 9948.4, 13808.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547080 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -93.7, 717.6, 28.6 | 9890.3, 13852.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547090 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -77.9, 714.6, 37.4 | 9906.1, 13861.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547100 | Drawstring Fire Grease | World Pickup | Altus Plateau | m60_39_54 | -34.4, 714.2, -33.0 | 9949.6, 13791.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547110 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | -33.1, 717.3, -66.2 | 9950.9, 13757.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547120 | Beast Blood | World Pickup | Altus Plateau | m60_39_54 | -85.3, 717.1, -13.0 | 9898.7, 13811.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547130 | Neutralizing Boluses | World Pickup | Altus Plateau | m60_39_54 | -102.3, 722.3, -26.3 | 9881.7, 13797.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547140 | Glass Shard | World Pickup | Altus Plateau | m60_39_54 | -75.1, 732.4, 51.7 | 9908.9, 13875.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547150 | Stonesword Key | World Pickup | Altus Plateau | m60_39_54 | 29.1, 722.5, -22.2 | 10013.1, 13801.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1039547160 | Golden Rune [6] | World Pickup | Altus Plateau | m60_39_54 | -41.6, 724.5, 17.4 | 9942.4, 13841.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547170 | Poison Grease | World Pickup | Altus Plateau | m60_39_54 | 12.7, 717.1, -92.1 | 9996.7, 13731.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547180 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_39_54 | -27.6, 742.8, 81.1 | 9956.4, 13905.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547200 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | 4.3, 746.8, 75.1 | 9988.3, 13899.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547210 | Gold Firefly | World Pickup | Altus Plateau | m60_39_54 | 27.1, 744.3, 86.7 | 10011.1, 13910.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547220 | Glass Shard | World Pickup | Altus Plateau | m60_39_54 | 24.3, 714.5, -6.4 | 10008.3, 13817.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547230 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | 28.5, 735.8, 36.0 | 10012.5, 13860.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547240 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -10.7, 714.2, -62.5 | 9973.3, 13761.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547250 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_54 | -38.9, 734.7, 39.3 | 9945.1, 13863.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1039547260 | Smithing Stone [4] | World Pickup | Altus Plateau | m60_39_54 | 10.1, 724.3, 24.5 | 9994.1, 13848.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1039547300 | Valkyrie's Prosthesis | World Pickup | Altus Plateau | m60_39_54 | -98.9, 733.5, 66.5 | 9885.1, 13890.5 | chest | 2 | high | N | ItemLotParam_map |
-| 1039547350 | Starlight Shards | World Pickup | Altus Plateau | m60_39_54 | -62.6, 723.8, 123.8 | 9921.4, 13947.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1039570000 | Rot Grease | World Pickup | World (39,57) | m60_39_57 | -16.1, 731.4, 77.1 | 9967.9, 14669.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040387000 | Smithing Stone [1] | World Pickup | World (40,38) | m60_40_38 | 43.0, 194.5, -54.9 | 10283.0, 9673.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040407000 | Treespear | World Pickup | Liurnia of the Lakes | m60_40_40 | -413.6, 255.6, -462.8 | 9826.4, 9777.2 | cart | 2 | low | N | ItemLotParam_map |
-| 1040507000 | Gravity Stone Fan | World Pickup | Liurnia of the Lakes | m60_40_50 | 83.5, 783.5, 108.9 | 10323.5, 12908.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040380000 | Smithing Stone [1] | World Pickup | World (40,38) | m60_40_38 | 43.0, 194.5, -54.9 | 10283.0, 9673.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040390000 | Nomadic Warrior's Cookbook [7] | World Pickup | World (40,39) | m60_40_39 | 92.2, 253.5, 69.9 | 10332.2, 10053.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1040400000 | Treespear | World Pickup | Liurnia of the Lakes | m60_40_40 | -413.6, 255.6, -462.8 | 9826.4, 9777.2 | cart | 2 | low | N | ItemLotParam_map |
+| 1040500000 | Gravity Stone Fan | World Pickup | Liurnia of the Lakes | m60_40_50 | 83.5, 783.5, 108.9 | 10323.5, 12908.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040510000 | Celestial Dew | World Pickup | Altus Plateau | m60_40_51 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1040510010 | Old Fang | World Pickup | Altus Plateau | m60_40_51 | -114.5, 768.6, 17.9 | 10125.5, 13073.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040510020 | Dragonbolt Blessing | World Pickup | Altus Plateau | m60_40_51 | 37.3, 845.1, 109.4 | 10277.3, 13165.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1040510030 | Beast Blood | World Pickup | Altus Plateau | m60_40_51 | -96.8, 757.4, -122.5 | 10143.2, 12933.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040510040 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_40_51 | 15.3, 845.0, 107.3 | 10255.3, 13163.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040510400 | Sacred Tear | World Pickup | Altus Plateau | m60_40_51 | 7.6, 845.0, 111.8 | 10247.6, 13167.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1040510700 | Commoner | NPC | Altus Plateau | m60_40_51 | -102.4, 781.5, 55.2 | 10137.6, 13111.2 | - | - | - | - | MSB NPC |
-| 1040517000 | Celestial Dew | World Pickup | Altus Plateau | m60_40_51 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1040517010 | Old Fang | World Pickup | Altus Plateau | m60_40_51 | -114.5, 768.6, 17.9 | 10125.5, 13073.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040517020 | Dragonbolt Blessing | World Pickup | Altus Plateau | m60_40_51 | 37.3, 845.1, 109.4 | 10277.3, 13165.4 | chest | 1 | high | N | ItemLotParam_map |
-| 1040517030 | Beast Blood | World Pickup | Altus Plateau | m60_40_51 | -96.8, 757.4, -122.5 | 10143.2, 12933.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1040517040 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_40_51 | 15.3, 845.0, 107.3 | 10255.3, 13163.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040517400 | Sacred Tear | World Pickup | Altus Plateau | m60_40_51 | 7.6, 845.0, 111.8 | 10247.6, 13167.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1040520000 | Amber Starlight | World Pickup | Altus Plateau | m60_40_52 | -0.8, 807.2, -56.8 | 10239.2, 13255.2 | ground_pickup | 3 | high | N | ItemLotParam_map |
+| 1040520010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_40_52 | 63.8, 866.6, -82.8 | 10303.8, 13229.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1040520020 | Golden Rune [6] | World Pickup | Altus Plateau | m60_40_52 | 76.1, 867.3, -94.4 | 10316.1, 13217.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1040520030 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 55.4, 868.2, -63.0 | 10295.4, 13249.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040520040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_40_52 | 68.4, 868.6, -70.1 | 10308.4, 13241.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040520050 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 66.4, 866.1, -85.9 | 10306.4, 13226.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040520500 | Map: Altus Plateau | World Pickup | Altus Plateau | m60_40_52 | -115.6, 794.6, -72.9 | 10124.4, 13239.1 | chest | 2 | high | N | ItemLotParam_map |
 | 1040520705 | Brother Corhyn | NPC | Altus Plateau | m60_40_52 | -118.0, 793.3, -78.8 | 10122.0, 13233.2 | - | - | - | - | MSB NPC |
 | 1040520715 | Nomadic Merchant | Merchant | Altus Plateau | m60_40_52 | 103.0, 828.6, 124.6 | 10343.0, 13436.6 | - | - | - | - | MSB NPC |
 | 1040520720 | Finger Reader Crone | Finger Reader | Altus Plateau | m60_40_52 | 104.0, 828.5, 97.9 | 10344.0, 13409.9 | - | - | - | - | MSB NPC |
 | 1040520800 | Black Knife Assassin | Great Boss Defeat | Altus Plateau | m60_40_52 | 51.6, 884.0, 7.3 | 10291.6, 13319.3 | - | - | - | - | MSB Enemy |
 | 1040520950 | Nomadic Merchant | NPC | Altus Plateau | m60_40_52 | 109.3, 828.3, 138.9 | 10349.3, 13450.9 | - | - | - | - | MSB NPC |
-| 1040527000 | Amber Starlight | World Pickup | Altus Plateau | m60_40_52 | -0.8, 807.2, -56.8 | 10239.2, 13255.2 | ground_pickup | 3 | high | N | ItemLotParam_map |
-| 1040527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_40_52 | 63.8, 866.6, -82.8 | 10303.8, 13229.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1040527020 | Golden Rune [6] | World Pickup | Altus Plateau | m60_40_52 | 76.1, 867.3, -94.4 | 10316.1, 13217.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1040527030 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 55.4, 868.2, -63.0 | 10295.4, 13249.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1040527040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_40_52 | 68.4, 868.6, -70.1 | 10308.4, 13241.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1040527050 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 66.4, 866.1, -85.9 | 10306.4, 13226.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1040529255 | [Brother Corhyn - Altus Plateau] Great Heal - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1040530000 | Golden Rune [5] | World Pickup | Altus Plateau | m60_40_53 | -108.1, 816.6, 35.5 | 10131.9, 13603.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040530010 | Bloody Helice | World Pickup | Altus Plateau | m60_40_53 | -102.7, 802.2, 81.5 | 10137.3, 13649.5 | chest | 2 | high | Y | ItemLotParam_map |
+| 1040530020 | Nascent Butterfly | World Pickup | Altus Plateau | m60_40_53 | -34.6, 769.8, 19.0 | 10205.4, 13587.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1040530030 | Fulgurbloom | World Pickup | Altus Plateau | m60_40_53 | 104.1, 768.8, -81.6 | 10344.1, 13486.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040530040 | Golden Arrow | World Pickup | Altus Plateau | m60_40_53 | 109.1, 814.8, -87.5 | 10349.1, 13480.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040530050 | Lump of Flesh | World Pickup | Altus Plateau | m60_40_53 | 87.0, 783.2, 78.5 | 10327.0, 13646.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040530060 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_40_53 | 101.2, 768.6, -32.9 | 10341.2, 13535.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1040530800 | Sanguine Noble | Boss Defeat | Altus Plateau | m60_40_53 | -92.9, 802.3, 71.0 | 10147.1, 13639.0 | - | - | - | - | MSB Enemy |
 | 1040532700 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | - | - | - | - | MSB SpawnPoint |
 | 1040532701 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | - | - | - | - | MSB SpawnPoint |
-| 1040537000 | Golden Rune [5] | World Pickup | Altus Plateau | m60_40_53 | -108.1, 816.6, 35.5 | 10131.9, 13603.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1040537010 | Bloody Helice | World Pickup | Altus Plateau | m60_40_53 | -102.7, 802.2, 81.5 | 10137.3, 13649.5 | chest | 2 | high | Y | ItemLotParam_map |
-| 1040537020 | Nascent Butterfly | World Pickup | Altus Plateau | m60_40_53 | -34.6, 769.8, 19.0 | 10205.4, 13587.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1040537030 | Fulgurbloom | World Pickup | Altus Plateau | m60_40_53 | 104.1, 768.8, -81.6 | 10344.1, 13486.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1040537040 | Golden Arrow | World Pickup | Altus Plateau | m60_40_53 | 109.1, 814.8, -87.5 | 10349.1, 13480.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040537050 | Lump of Flesh | World Pickup | Altus Plateau | m60_40_53 | 87.0, 783.2, 78.5 | 10327.0, 13646.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1040537060 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_40_53 | 101.2, 768.6, -32.9 | 10341.2, 13535.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040540000 | Great Stars | World Pickup | Altus Plateau | m60_40_54 | -343.1, 817.4, 193.0 | 9896.9, 14017.0 | cart | 2 | low | N | ItemLotParam_map |
+| 1040540010 | Gravel Stone | World Pickup | Altus Plateau | m60_40_54 | -124.6, 799.5, 18.2 | 10115.4, 13842.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1040540030 | Stimulating Boluses | World Pickup | Altus Plateau | m60_40_54 | 55.9, 821.5, -43.3 | 10295.9, 13780.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040540050 | Dragonwound Grease | World Pickup | Altus Plateau | m60_40_54 | -309.0, 843.8, 150.4 | 9931.0, 13974.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040540090 | Radiant Gold Mask | World Pickup | Altus Plateau | m60_40_54 | 57.2, 800.5, -86.7 | 10297.2, 13737.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 1040540700 | The Noble Goldmask | NPC | Altus Plateau | m60_40_54 | 73.2, 844.2, 28.7 | 10313.2, 13852.7 | - | - | - | - | MSB NPC |
 | 1040540705 | Scribe Corhyn | NPC | Altus Plateau | m60_40_54 | 73.9, 844.2, 31.5 | 10313.9, 13855.5 | - | - | - | - | MSB NPC |
-| 1040547000 | Great Stars | World Pickup | Altus Plateau | m60_40_54 | -343.1, 817.4, 193.0 | 9896.9, 14017.0 | cart | 2 | low | N | ItemLotParam_map |
-| 1040547010 | Gravel Stone | World Pickup | Altus Plateau | m60_40_54 | -124.6, 799.5, 18.2 | 10115.4, 13842.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1040547030 | Stimulating Boluses | World Pickup | Altus Plateau | m60_40_54 | 55.9, 821.5, -43.3 | 10295.9, 13780.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1040547050 | Dragonwound Grease | World Pickup | Altus Plateau | m60_40_54 | -309.0, 843.8, 150.4 | 9931.0, 13974.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1040547090 | Radiant Gold Mask | World Pickup | Altus Plateau | m60_40_54 | 57.2, 800.5, -86.7 | 10297.2, 13737.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 1040549205 | [Brother Corhyn - Goldmask] Discus of Light - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1040550000 | Giant Rat Ashes | World Pickup | Altus Plateau | m60_40_55 | -78.5, 854.4, -104.2 | 10161.5, 13975.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1040552650 | Stake of Marika (m60_40_55) | Stake of Marika | Altus Plateau | m60_40_55 | 63.7, 844.4, -111.5 | 10303.7, 13968.5 | - | - | - | - | MSB SpawnPoint |
-| 1040557000 | Giant Rat Ashes | World Pickup | Altus Plateau | m60_40_55 | -78.5, 854.4, -104.2 | 10161.5, 13975.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041320000 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 131.7, 27.5, -38.3 | 10627.7, 8153.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041320010 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 117.2, 26.7, -40.1 | 10613.2, 8151.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041320020 | Golden Rune [2] | World Pickup | World (41,32) | m60_41_32 | 125.1, 26.7, -40.5 | 10621.1, 8151.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041320030 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 135.2, 27.1, -43.4 | 10631.2, 8148.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041320040 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 129.5, 25.8, -56.8 | 10625.5, 8135.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041320050 | Golden Rune [3] | World Pickup | World (41,32) | m60_41_32 | 125.4, 26.0, -51.0 | 10621.4, 8141.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041320700 | Isolated Merchant | Merchant | World (41,32) | m60_41_32 | 6.9, 0.6, 100.1 | 10502.9, 8292.1 | - | - | - | - | MSB NPC |
 | 1041320950 | Isolated Merchant | NPC | World (41,32) | m60_41_32 | 2.6, 0.7, 109.9 | 10498.6, 8301.9 | - | - | - | - | MSB NPC |
-| 1041327000 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 131.7, 27.5, -38.3 | 10627.7, 8153.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041327010 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 117.2, 26.7, -40.1 | 10613.2, 8151.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041327020 | Golden Rune [2] | World Pickup | World (41,32) | m60_41_32 | 125.1, 26.7, -40.5 | 10621.1, 8151.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041327030 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 135.2, 27.1, -43.4 | 10631.2, 8148.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041327040 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 129.5, 25.8, -56.8 | 10625.5, 8135.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041327050 | Golden Rune [3] | World Pickup | World (41,32) | m60_41_32 | 125.4, 26.0, -51.0 | 10621.4, 8141.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041330000 | Golden Rune [1] | World Pickup | World (41,33) | m60_41_33 | -84.4, 0.5, 14.4 | 10411.6, 8462.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041330010 | Golden Rune [5] | World Pickup | World (41,33) | m60_41_33 | -123.3, 0.6, -3.0 | 10372.7, 8445.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041330030 | Great Dragonfly Head | World Pickup | World (41,33) | m60_41_33 | 54.5, 11.2, -9.1 | 10550.5, 8438.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041330100 | Ambush Shard | World Pickup | World (41,33) | m60_41_33 | 52.5, -0.8, -2.9 | 10548.5, 8445.1 | corpse | 1 | high | Y | ItemLotParam_map |
+| 1041330200 | Sacred Tear | World Pickup | World (41,33) | m60_41_33 | 45.5, 32.5, 60.2 | 10541.5, 8508.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1041330700 | Sorceress Sellen | NPC | World (41,33) | m60_41_33 | 47.6, -0.8, -7.6 | 10543.6, 8440.4 | - | - | - | - | MSB NPC |
 | 1041330701 | Sorceress Sellen | NPC | World (41,33) | m60_41_33 | 47.6, -0.8, -7.6 | 10543.6, 8440.4 | - | - | - | - | MSB NPC |
 | 1041330710 | Castellan Jerren | NPC | World (41,33) | m60_41_33 | 49.4, -0.8, -5.3 | 10545.4, 8442.7 | - | - | - | - | MSB NPC |
 | 1041330720 | Wandering Noble | NPC | World (41,33) | m60_41_33 | 95.8, 27.2, 5.7 | 10591.8, 8453.7 | - | - | - | - | MSB NPC |
 | 1041330950 | Witch-Hunter Jerren | NPC | World (41,33) | m60_41_33 | 53.7, 32.2, 65.6 | 10549.7, 8513.6 | - | - | - | - | MSB NPC |
 | 1041332950 | Stake of Marika (m60_41_33) | Stake of Marika | World (41,33) | m60_41_33 | 55.1, 32.5, 66.6 | 10551.1, 8514.6 | - | - | - | - | MSB SpawnPoint |
-| 1041337000 | Golden Rune [1] | World Pickup | World (41,33) | m60_41_33 | -84.4, 0.5, 14.4 | 10411.6, 8462.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041337010 | Golden Rune [5] | World Pickup | World (41,33) | m60_41_33 | -123.3, 0.6, -3.0 | 10372.7, 8445.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041337030 | Great Dragonfly Head | World Pickup | World (41,33) | m60_41_33 | 54.5, 11.2, -9.1 | 10550.5, 8438.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041337100 | Ambush Shard | World Pickup | World (41,33) | m60_41_33 | 52.5, -0.8, -2.9 | 10548.5, 8445.1 | corpse | 1 | high | Y | ItemLotParam_map |
-| 1041337200 | Sacred Tear | World Pickup | World (41,33) | m60_41_33 | 45.5, 32.5, 60.2 | 10541.5, 8508.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1041350000 | Great Dragonfly Head | World Pickup | World (41,35) | m60_41_35 | -130.4, 33.4, -43.4 | 10365.6, 8916.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041350010 | Smithing Stone [2] | World Pickup | World (41,35) | m60_41_35 | -29.1, 5.8, -124.2 | 10466.9, 8835.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041350020 | Exalted Flesh | World Pickup | World (41,35) | m60_41_35 | -73.2, 44.6, -94.6 | 10422.8, 8865.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041350700 | Church of Dragon Communion | NPC | World (41,35) | m60_41_35 | -75.8, 27.6, -44.8 | 10420.1, 8915.2 | - | - | - | - | MSB NPC |
-| 1041357000 | Great Dragonfly Head | World Pickup | World (41,35) | m60_41_35 | -130.4, 33.4, -43.4 | 10365.6, 8916.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041357010 | Smithing Stone [2] | World Pickup | World (41,35) | m60_41_35 | -29.1, 5.8, -124.2 | 10466.9, 8835.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041357020 | Exalted Flesh | World Pickup | World (41,35) | m60_41_35 | -73.2, 44.6, -94.6 | 10422.8, 8865.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041360000 | Land Octopus Ovary | World Pickup | Limgrave | m60_41_36 | -58.7, 0.0, 69.4 | 10437.3, 9285.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041360700 | Nomadic Merchant | Merchant | Limgrave | m60_41_36 | 109.2, 3.0, -99.5 | 10605.2, 9116.5 | - | - | - | - | MSB NPC |
-| 1041367000 | Land Octopus Ovary | World Pickup | Limgrave | m60_41_36 | -58.7, 0.0, 69.4 | 10437.3, 9285.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041377000 | Strip of White Flesh | World Pickup | Limgrave | m60_41_37 | -87.0, 0.7, 51.6 | 10409.0, 9523.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041377020 | Starlight Shards | World Pickup | Limgrave | m60_41_37 | -21.8, 144.5, -41.8 | 10474.2, 9430.2 | chest | 2 | high | N | ItemLotParam_map |
+| 1041370000 | Strip of White Flesh | World Pickup | Limgrave | m60_41_37 | -87.0, 0.7, 51.6 | 10409.0, 9523.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041370020 | Starlight Shards | World Pickup | Limgrave | m60_41_37 | -21.8, 144.5, -41.8 | 10474.2, 9430.2 | chest | 2 | high | N | ItemLotParam_map |
+| 1041380010 | Magic Grease | World Pickup | Limgrave | m60_41_38 | -53.1, 188.5, -107.8 | 10442.9, 9620.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041380030 | Smithing Stone [1] | World Pickup | Limgrave | m60_41_38 | 106.8, 181.4, -49.2 | 10602.8, 9678.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041380040 | Stonesword Key | World Pickup | Limgrave | m60_41_38 | 24.6, 206.6, 5.8 | 10520.6, 9733.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1041380050 | Godrick Soldier Ashes | World Pickup | Limgrave | m60_41_38 | -53.6, 186.3, -117.4 | 10442.4, 9610.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041380100 | Golden Seed | World Pickup | Limgrave | m60_41_38 | 44.8, 179.2, -78.9 | 10540.8, 9649.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1041380720 | Heartbroken Maiden | NPC | Limgrave | m60_41_38 | 36.1, 204.6, 9.8 | 10532.1, 9737.8 | - | - | - | - | MSB NPC |
 | 1041380950 | Roderika | NPC | Limgrave | m60_41_38 | 16.9, 204.1, 17.0 | 10512.9, 9745.0 | - | - | - | - | MSB NPC |
-| 1041387010 | Magic Grease | World Pickup | Limgrave | m60_41_38 | -53.1, 188.5, -107.8 | 10442.9, 9620.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041387030 | Smithing Stone [1] | World Pickup | Limgrave | m60_41_38 | 106.8, 181.4, -49.2 | 10602.8, 9678.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041387040 | Stonesword Key | World Pickup | Limgrave | m60_41_38 | 24.6, 206.6, 5.8 | 10520.6, 9733.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1041387050 | Godrick Soldier Ashes | World Pickup | Limgrave | m60_41_38 | -53.6, 186.3, -117.4 | 10442.4, 9610.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041387100 | Golden Seed | World Pickup | Limgrave | m60_41_38 | 44.8, 179.2, -78.9 | 10540.8, 9649.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1041387200 | Bloodrose | World Pickup | Limgrave | m60_41_38 | -52.1, 185.0, -127.0 | 10443.9, 9601.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1041382000 | Bloodrose | World Pickup | Limgrave | m60_41_38 | -52.1, 185.0, -127.0 | 10443.9, 9601.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1041390000 | Lump of Flesh | World Pickup | Limgrave | m60_41_39 | -78.6, 261.0, -86.6 | 10417.4, 9897.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041390700 | Finger Reader Crone | Finger Reader | Limgrave | m60_41_39 | -104.4, 253.5, 21.2 | 10391.6, 10005.2 | - | - | - | - | MSB NPC |
-| 1041397000 | Lump of Flesh | World Pickup | Limgrave | m60_41_39 | -78.6, 261.0, -86.6 | 10417.4, 9897.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041500800 | Fallingstar Beast | Great Boss Defeat | Altus Plateau | m60_41_50 | 42.8, 834.1, 109.2 | 10538.8, 12909.2 | - | - | - | - | MSB Enemy |
+| 1041510000 | Golden Rune [3] | World Pickup | Altus Plateau | m60_41_51 | 20.4, 892.7, 54.4 | 10516.4, 13110.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041510010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_51 | 60.7, 896.6, 51.2 | 10556.7, 13107.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041510020 | Silver-Pickled Fowl Foot | World Pickup | Altus Plateau | m60_41_51 | 6.7, 884.6, 35.6 | 10502.7, 13091.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041510030 | Gravity Stone Chunk | World Pickup | Altus Plateau | m60_41_51 | -125.1, 794.7, -104.9 | 10370.9, 12951.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1041510800 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 91.1, 851.3, -31.3 | 10587.1, 13024.7 | - | - | - | - | MSB Enemy |
 | 1041510801 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 93.7, 851.4, -52.4 | 10589.7, 13003.6 | - | - | - | - | MSB Enemy |
 | 1041512690 | Stake of Marika (m60_41_51) | Stake of Marika | Altus Plateau | m60_41_51 | 50.7, 840.6, 12.6 | 10546.7, 13068.6 | - | - | - | - | MSB SpawnPoint |
-| 1041517000 | Golden Rune [3] | World Pickup | Altus Plateau | m60_41_51 | 20.4, 892.7, 54.4 | 10516.4, 13110.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041517010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_51 | 60.7, 896.6, 51.2 | 10556.7, 13107.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041517020 | Silver-Pickled Fowl Foot | World Pickup | Altus Plateau | m60_41_51 | 6.7, 884.6, 35.6 | 10502.7, 13091.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041517030 | Gravity Stone Chunk | World Pickup | Altus Plateau | m60_41_51 | -125.1, 794.7, -104.9 | 10370.9, 12951.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1041520000 | Golden Rune [8] | World Pickup | Altus Plateau | m60_41_52 | 102.8, 876.6, 109.6 | 10598.8, 13421.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1041520010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_52 | 83.8, 872.9, 108.5 | 10579.8, 13420.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1041520020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_41_52 | 102.9, 876.3, 113.8 | 10598.9, 13425.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1041520030 | Golden Rune [3] | World Pickup | Altus Plateau | m60_41_52 | 93.6, 872.4, 127.3 | 10589.6, 13439.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1041520040 | Golden Rune [1] | World Pickup | Altus Plateau | m60_41_52 | 90.3, 874.8, 102.7 | 10586.3, 13414.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1041520070 | Lump of Flesh | World Pickup | Altus Plateau | m60_41_52 | -113.0, 831.9, 87.9 | 10383.0, 13399.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041520080 | Land Octopus Ovary | World Pickup | Altus Plateau | m60_41_52 | 123.7, 905.7, -118.5 | 10619.7, 13193.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041520090 | Stonesword Key | World Pickup | Altus Plateau | m60_41_52 | -28.4, 905.0, -95.0 | 10467.6, 13217.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1041520800 | Lichdragon Fortissax | Great Boss Defeat | Altus Plateau | m60_41_52 | 46.6, 924.1, -88.4 | 10542.6, 13223.6 | - | - | - | - | MSB Enemy |
-| 1041527000 | Golden Rune [8] | World Pickup | Altus Plateau | m60_41_52 | 102.8, 876.6, 109.6 | 10598.8, 13421.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1041527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_52 | 83.8, 872.9, 108.5 | 10579.8, 13420.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1041527020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_41_52 | 102.9, 876.3, 113.8 | 10598.9, 13425.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1041527030 | Golden Rune [3] | World Pickup | Altus Plateau | m60_41_52 | 93.6, 872.4, 127.3 | 10589.6, 13439.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1041527040 | Golden Rune [1] | World Pickup | Altus Plateau | m60_41_52 | 90.3, 874.8, 102.7 | 10586.3, 13414.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1041527070 | Lump of Flesh | World Pickup | Altus Plateau | m60_41_52 | -113.0, 831.9, 87.9 | 10383.0, 13399.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041527080 | Land Octopus Ovary | World Pickup | Altus Plateau | m60_41_52 | 123.7, 905.7, -118.5 | 10619.7, 13193.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041527090 | Stonesword Key | World Pickup | Altus Plateau | m60_41_52 | -28.4, 905.0, -95.0 | 10467.6, 13217.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1041530010 | Poisonbone Dart | World Pickup | Altus Plateau | m60_41_53 | 32.1, 791.3, -63.8 | 10528.1, 13504.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041530020 | Wrath of Gold | World Pickup | Altus Plateau | m60_41_53 | 16.2, 783.7, -145.4 | 10512.2, 13422.6 | chest | 2 | high | Y | ItemLotParam_map |
+| 1041530030 | Invigorating White Cured Meat | World Pickup | Altus Plateau | m60_41_53 | 30.3, 789.9, 10.3 | 10526.3, 13578.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041530040 | Beast Blood | World Pickup | Altus Plateau | m60_41_53 | -46.1, 789.0, 47.5 | 10449.9, 13615.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041530050 | Nomadic Warrior's Cookbook [19] | World Pickup | Altus Plateau | m60_41_53 | -67.7, 788.9, 68.5 | 10428.3, 13636.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1041530060 | Gravel Stone | World Pickup | Altus Plateau | m60_41_53 | 29.5, 796.2, 115.0 | 10525.5, 13683.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1041530070 | Soft Cotton | World Pickup | Altus Plateau | m60_41_53 | 11.6, 791.2, -6.6 | 10507.6, 13561.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1041530080 | Icon Shield | World Pickup | Altus Plateau | m60_41_53 | 20.0, 796.2, 107.2 | 10516.0, 13675.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1041530800 | Wormface | Great Boss Defeat | Altus Plateau | m60_41_53 | -77.5, 785.2, 29.2 | 10418.5, 13597.2 | - | - | - | - | MSB Enemy |
-| 1041537010 | Poisonbone Dart | World Pickup | Altus Plateau | m60_41_53 | 32.1, 791.3, -63.8 | 10528.1, 13504.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041537020 | Wrath of Gold | World Pickup | Altus Plateau | m60_41_53 | 16.2, 783.7, -145.4 | 10512.2, 13422.6 | chest | 2 | high | Y | ItemLotParam_map |
-| 1041537030 | Invigorating White Cured Meat | World Pickup | Altus Plateau | m60_41_53 | 30.3, 789.9, 10.3 | 10526.3, 13578.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041537040 | Beast Blood | World Pickup | Altus Plateau | m60_41_53 | -46.1, 789.0, 47.5 | 10449.9, 13615.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041537060 | Gravel Stone | World Pickup | Altus Plateau | m60_41_53 | 29.5, 796.2, 115.0 | 10525.5, 13683.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1041537070 | Soft Cotton | World Pickup | Altus Plateau | m60_41_53 | 11.6, 791.2, -6.6 | 10507.6, 13561.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1041537080 | Icon Shield | World Pickup | Altus Plateau | m60_41_53 | 20.0, 796.2, 107.2 | 10516.0, 13675.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1041540000 | Poison Grease | World Pickup | Altus Plateau | m60_41_54 | -33.0, 843.2, 9.3 | 10463.0, 13833.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041540400 | Golden Seed | World Pickup | Altus Plateau | m60_41_54 | -127.2, 792.1, -110.4 | 10368.8, 13713.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1041540700 | Wandering Noble | NPC | Altus Plateau | m60_41_54 | 86.5, 888.7, 61.4 | 10582.5, 13885.4 | - | - | - | - | MSB NPC |
 | 1041542650 | Stake of Marika (m60_41_54) | Stake of Marika | Altus Plateau | m60_41_54 | 20.6, 863.4, 32.6 | 10516.6, 13856.6 | - | - | - | - | MSB SpawnPoint |
-| 1041547000 | Poison Grease | World Pickup | Altus Plateau | m60_41_54 | -33.0, 843.2, 9.3 | 10463.0, 13833.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041547400 | Golden Seed | World Pickup | Altus Plateau | m60_41_54 | -127.2, 792.1, -110.4 | 10368.8, 13713.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1041557000 | Twinned Knight Swords | World Pickup | Altus Plateau | m60_41_55 | -119.2, 849.9, 19.9 | 10376.8, 14099.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1041557010 | Raw Meat Dumpling | World Pickup | Altus Plateau | m60_41_55 | 38.4, 877.0, -84.1 | 10534.4, 13995.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1041557020 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 18.5 | 10377.0, 14098.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1042327000 | Great Dragonfly Head | World Pickup | World (42,32) | m60_42_32 | -4.4, 65.0, -6.4 | 10747.6, 8185.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1042327020 | Mushroom | World Pickup | World (42,32) | m60_42_32 | 27.9, 62.1, -36.3 | 10779.9, 8155.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042327100 | Composite Bow | World Pickup | World (42,32) | m60_42_32 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1041550000 | Twinned Knight Swords | World Pickup | Altus Plateau | m60_41_55 | -119.2, 849.9, 19.9 | 10376.8, 14099.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041550010 | Raw Meat Dumpling | World Pickup | Altus Plateau | m60_41_55 | 38.4, 877.0, -84.1 | 10534.4, 13995.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041550020 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 18.5 | 10377.0, 14098.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1041550021 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 16.5 | 10377.0, 14096.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041550022 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 14.5 | 10377.0, 14094.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041550023 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 12.5 | 10377.0, 14092.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042320000 | Great Dragonfly Head | World Pickup | World (42,32) | m60_42_32 | -4.4, 65.0, -6.4 | 10747.6, 8185.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1042320020 | Mushroom | World Pickup | World (42,32) | m60_42_32 | 27.9, 62.1, -36.3 | 10779.9, 8155.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042320100 | Composite Bow | World Pickup | World (42,32) | m60_42_32 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1042330000 | Eclipse Crest Heater Shield | World Pickup | World (42,33) | m60_42_33 | 109.3, 59.4, 52.6 | 10861.3, 8500.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042330100 | Radagon's Scarseal | World Pickup | World (42,33) | m60_42_33 | - | - | - | - | none | N | ItemLotParam_map |
 | 1042330400 | Walking Mausoleum | NPC | World (10,8) | m60_10_08 | 34.9, 9.2, -200.1 | 2594.9, 1847.9 | - | - | - | - | MSB NPC |
 | 1042330800 | Ancient Hero of Zamor | Boss Arena | Weeping Peninsula - Weeping Evergaol | m60_42_33 | -126.4, 19.9, 108.8 | -126.4, 108.8 | - | - | - | - | GameAreaParam |
+| 1042331200 | Golden Rune [1] | World Pickup | World (42,33) | m60_42_33 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1042332805 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -109.7, 18.7, 105.9 | 10642.3, 8553.9 | - | - | - | - | MSB SpawnPoint |
 | 1042332806 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -112.0, 18.6, 103.2 | 10640.0, 8551.2 | - | - | - | - | MSB SpawnPoint |
 | 1042332807 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -126.2, 19.2, 116.7 | 10625.8, 8564.7 | - | - | - | - | MSB SpawnPoint |
-| 1042337000 | Eclipse Crest Heater Shield | World Pickup | World (42,33) | m60_42_33 | 109.3, 59.4, 52.6 | 10861.3, 8500.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042337100 | Radagon's Scarseal | World Pickup | World (42,33) | m60_42_33 | - | - | - | - | none | N | ItemLotParam_map |
-| 1042337200 | Golden Rune [1] | World Pickup | World (42,33) | m60_42_33 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 1042347000 | Blood Grease | World Pickup | World (42,34) | m60_42_34 | 118.3, 88.8, 99.2 | 10870.3, 8803.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1042347010 | Beast Liver | World Pickup | World (42,34) | m60_42_34 | -10.3, 24.9, -109.9 | 10741.7, 8594.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042347020 | Golden Rune [2] | World Pickup | World (42,34) | m60_42_34 | -96.9, -0.1, -76.5 | 10655.1, 8627.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042347030 | Gilded Iron Shield | World Pickup | World (42,34) | m60_42_34 | 112.0, 89.0, 123.2 | 10864.0, 8827.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042347100 | Winged Scythe | World Pickup | World (42,34) | m60_42_34 | 31.4, 12.7, -103.5 | 10783.4, 8600.5 | chest | 2 | high | Y | ItemLotParam_map |
-| 1042357000 | Lump of Flesh | World Pickup | World (42,35) | m60_42_35 | 116.5, 0.5, 45.9 | 10868.5, 9005.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042357010 | Gold-Pickled Fowl Foot | World Pickup | World (42,35) | m60_42_35 | 6.2, -0.1, 94.4 | 10758.2, 9054.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042357020 | Sliver of Meat | World Pickup | World (42,35) | m60_42_35 | 90.6, 55.7, -86.4 | 10842.6, 8873.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042357030 | Bewitching Branch | World Pickup | World (42,35) | m60_42_35 | 92.7, 55.5, -82.8 | 10844.7, 8877.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042340000 | Blood Grease | World Pickup | World (42,34) | m60_42_34 | 118.3, 88.8, 99.2 | 10870.3, 8803.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1042340010 | Beast Liver | World Pickup | World (42,34) | m60_42_34 | -10.3, 24.9, -109.9 | 10741.7, 8594.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042340020 | Golden Rune [2] | World Pickup | World (42,34) | m60_42_34 | -96.9, -0.1, -76.5 | 10655.1, 8627.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042340030 | Gilded Iron Shield | World Pickup | World (42,34) | m60_42_34 | 112.0, 89.0, 123.2 | 10864.0, 8827.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042340100 | Winged Scythe | World Pickup | World (42,34) | m60_42_34 | 31.4, 12.7, -103.5 | 10783.4, 8600.5 | chest | 2 | high | Y | ItemLotParam_map |
+| 1042350000 | Lump of Flesh | World Pickup | World (42,35) | m60_42_35 | 116.5, 0.5, 45.9 | 10868.5, 9005.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042350010 | Gold-Pickled Fowl Foot | World Pickup | World (42,35) | m60_42_35 | 6.2, -0.1, 94.4 | 10758.2, 9054.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042350020 | Sliver of Meat | World Pickup | World (42,35) | m60_42_35 | 90.6, 55.7, -86.4 | 10842.6, 8873.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042350030 | Bewitching Branch | World Pickup | World (42,35) | m60_42_35 | 92.7, 55.5, -82.8 | 10844.7, 8877.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042360010 | Silver-Pickled Fowl Foot | World Pickup | Limgrave | m60_42_36 | 35.1, 79.7, -126.4 | 10787.1, 9089.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042360030 | Golden Rune [2] | World Pickup | Limgrave | m60_42_36 | -20.0, 91.4, 71.3 | 10732.0, 9287.3 | chest | 0 | high | N | ItemLotParam_map |
+| 1042360040 | Golden Rune [1] | World Pickup | Limgrave | m60_42_36 | 68.5, 96.8, 82.6 | 10820.5, 9298.6 | chest | 0 | high | N | ItemLotParam_map |
+| 1042360050 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | 99.3, 64.5, -85.7 | 10851.3, 9130.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042360060 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | -62.0, 92.9, 87.4 | 10690.0, 9303.4 | chest | 1 | high | N | ItemLotParam_map |
 | 1042360100 | White Mask Varré | NPC | Limgrave | m60_42_36 | 3.6, 81.5, 9.9 | 10755.6, 9225.9 | - | - | - | - | MSB NPC |
 | 1042360700 | White Mask Varré | NPC | Limgrave | m60_42_36 | -17.0, 91.2, -47.9 | 10735.0, 9168.1 | - | - | - | - | MSB NPC |
 | 1042360710 | Merchant Kalé | Merchant | Limgrave | m60_42_36 | -57.0, 92.3, 91.6 | 10695.0, 9307.6 | - | - | - | - | MSB NPC |
@@ -5752,760 +5696,826 @@ Total unique flags: 7034
 | 1042360800 | Tree Sentinel | Boss Defeat | Limgrave | m60_42_36 | -12.1, 89.0, 46.8 | 10739.9, 9262.8 | - | - | - | - | MSB Enemy |
 | 1042360950 | Merchant Kalé | NPC | Limgrave | m60_42_36 | -45.4, 91.7, 81.0 | 10706.6, 9297.0 | - | - | - | - | MSB NPC |
 | 1042362020 | Stake of Marika (m60_42_36) | Stake of Marika | Limgrave | m60_42_36 | -5.4, 93.9, -82.6 | 10746.6, 9133.4 | - | - | - | - | MSB SpawnPoint |
-| 1042367010 | Silver-Pickled Fowl Foot | World Pickup | Limgrave | m60_42_36 | 35.1, 79.7, -126.4 | 10787.1, 9089.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042367030 | Golden Rune [2] | World Pickup | Limgrave | m60_42_36 | -20.0, 91.4, 71.3 | 10732.0, 9287.3 | chest | 0 | high | N | ItemLotParam_map |
-| 1042367040 | Golden Rune [1] | World Pickup | Limgrave | m60_42_36 | 68.5, 96.8, 82.6 | 10820.5, 9298.6 | chest | 0 | high | N | ItemLotParam_map |
-| 1042367050 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | 99.3, 64.5, -85.7 | 10851.3, 9130.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042367060 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | -62.0, 92.9, 87.4 | 10690.0, 9303.4 | chest | 1 | high | N | ItemLotParam_map |
 | 1042369416 | [Twin Maiden Husks] Spirit Calling Bell - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
+| 1042370000 | Ruin Fragment | World Pickup | Limgrave | m60_42_37 | 34.7, 103.1, 65.0 | 10786.7, 9537.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042370010 | Kukri | World Pickup | Limgrave | m60_42_37 | 14.5, 105.2, -45.7 | 10766.5, 9426.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042370100 | Assassin's Crimson Dagger | World Pickup | Limgrave | m60_42_37 | - | - | - | - | none | N | ItemLotParam_map |
+| 1042370200 | Map: Limgrave, West | World Pickup | Limgrave | m60_42_37 | 73.4, 98.6, 87.2 | 10825.4, 9559.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1042370700 | Reduvia | World Pickup | Limgrave | m60_42_37 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1042370800 | Crucible Knight | Boss Arena | Limgrave - Stormhill Evergaol | m60_42_37 | -83.6, 160.6, 65.0 | -83.6, 65.0 | - | - | - | - | GameAreaParam |
+| 1042371010 | Whetstone Knife | World Pickup | Limgrave | m60_42_37 | 73.6, 84.0, 50.6 | 10825.6, 9522.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1042371011 | Ash of War: Storm Stomp | World Pickup | Limgrave | m60_42_37 | 73.6, 84.0, 48.6 | 10825.6, 9520.6 | chest | - | high | N | ItemLotParam_map |
+| 1042371300 | Arrow's Reach Talisman | World Pickup | Limgrave | m60_42_37 | -4.8, 144.5, 116.3 | 10747.2, 9588.3 | chest | - | high | N | ItemLotParam_map |
 | 1042372805 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -66.1, 158.4, 44.2 | 10685.9, 9516.2 | - | - | - | - | MSB SpawnPoint |
 | 1042372806 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -68.6, 158.4, 40.9 | 10683.4, 9512.9 | - | - | - | - | MSB SpawnPoint |
 | 1042372807 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -86.6, 160.3, 62.0 | 10665.4, 9534.0 | - | - | - | - | MSB SpawnPoint |
-| 1042377000 | Ruin Fragment | World Pickup | Limgrave | m60_42_37 | 34.7, 103.1, 65.0 | 10786.7, 9537.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042377010 | Kukri | World Pickup | Limgrave | m60_42_37 | 14.5, 105.2, -45.7 | 10766.5, 9426.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042377020 | Good_401 | World Pickup | Limgrave | m60_42_37 | - | - | - | - | none | N | ItemLotParam_map |
 | 1042377060 | Flail | World Pickup | Limgrave | m60_42_37 | 250.1, 99.5, -25.9 | 11002.1, 9446.1 | cart | 1 | low | N | ItemLotParam_map |
 | 1042377070 | Lordsworn's Greatsword | World Pickup | Limgrave | m60_42_37 | 171.2, 105.8, -24.4 | 10923.2, 9447.6 | cart | 1 | low | N | ItemLotParam_map |
-| 1042377100 | Assassin's Crimson Dagger | World Pickup | Limgrave | m60_42_37 | - | - | - | - | none | N | ItemLotParam_map |
-| 1042377110 | Ash of War: Storm Stomp | World Pickup | Limgrave | m60_42_37 | 73.6, 84.0, 48.6 | 10825.6, 9520.6 | chest | - | high | N | ItemLotParam_map |
-| 1042377300 | Arrow's Reach Talisman | World Pickup | Limgrave | m60_42_37 | -4.8, 144.5, 116.3 | 10747.2, 9588.3 | chest | - | high | N | ItemLotParam_map |
-| 1042377700 | Reduvia | World Pickup | Limgrave | m60_42_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042380000 | Beast Liver | World Pickup | Limgrave | m60_42_38 | 104.0, 175.0, 35.8 | 10856.0, 9763.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380010 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -50.2, 126.0, -109.9 | 10701.8, 9618.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380020 | Fire Arrow | World Pickup | Limgrave | m60_42_38 | -86.6, 194.3, 86.8 | 10665.4, 9814.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380030 | Golden Rune [5] | World Pickup | Limgrave | m60_42_38 | -32.3, 190.0, 11.1 | 10719.7, 9739.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380040 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -51.5, 189.8, 9.3 | 10700.5, 9737.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380050 | Golden Rune [3] | World Pickup | Limgrave | m60_42_38 | -51.4, 191.9, 20.1 | 10700.6, 9748.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380070 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -36.9, 192.7, 25.0 | 10715.1, 9753.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380080 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -22.5, 191.8, 18.3 | 10729.5, 9746.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380090 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -37.4, 190.8, 13.5 | 10714.6, 9741.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380100 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -41.9, 189.1, 4.9 | 10710.1, 9732.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380110 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -32.1, 188.1, 0.3 | 10719.9, 9728.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380120 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -72.4, 157.6, -122.1 | 10679.6, 9605.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380140 | Lump of Flesh | World Pickup | Limgrave | m60_42_38 | -44.2, 122.8, -123.5 | 10707.8, 9604.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042380400 | Blue-Feathered Branchsword | World Pickup | Limgrave | m60_42_38 | - | - | - | - | none | N | ItemLotParam_map |
+| 1042380410 | Bone Peddler's Bell Bearing | World Pickup | Limgrave | m60_42_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042380600 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_38 | 87.2, 166.1, -7.5 | 10839.2, 9720.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1042380601 | Smithing Stone [2] | World Pickup | Limgrave | m60_42_38 | 87.2, 166.1, -9.5 | 10839.2, 9718.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1042380710 | Knight Bernahl | NPC | Limgrave | m60_42_38 | 12.3, 188.0, 89.6 | 10764.3, 9817.6 | - | - | - | - | MSB NPC |
 | 1042380800 | Death Rite Bird | Great Boss Defeat | Limgrave | m60_42_38 | 126.6, 183.1, 54.6 | 10878.6, 9782.6 | - | - | - | - | MSB Enemy |
 | 1042380850 | Elemer of the Briar | Field Boss Defeat | Limgrave | m60_42_38 | 11.6, 188.0, 90.5 | 10763.6, 9818.5 | - | - | - | - | MSB Enemy |
 | 1042380950 | Knight Bernahl | NPC | Limgrave | m60_42_38 | 8.3, 187.6, 99.3 | 10760.3, 9827.3 | - | - | - | - | MSB NPC |
-| 1042387000 | Beast Liver | World Pickup | Limgrave | m60_42_38 | 104.0, 175.0, 35.8 | 10856.0, 9763.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387010 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -50.2, 126.0, -109.9 | 10701.8, 9618.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387020 | Fire Arrow | World Pickup | Limgrave | m60_42_38 | -86.6, 194.3, 86.8 | 10665.4, 9814.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387030 | Golden Rune [5] | World Pickup | Limgrave | m60_42_38 | -32.3, 190.0, 11.1 | 10719.7, 9739.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387040 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -51.5, 189.8, 9.3 | 10700.5, 9737.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387050 | Golden Rune [3] | World Pickup | Limgrave | m60_42_38 | -51.4, 191.9, 20.1 | 10700.6, 9748.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387070 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -36.9, 192.7, 25.0 | 10715.1, 9753.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387080 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -22.5, 191.8, 18.3 | 10729.5, 9746.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387090 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -37.4, 190.8, 13.5 | 10714.6, 9741.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387100 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -41.9, 189.1, 4.9 | 10710.1, 9732.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387110 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -32.1, 188.1, 0.3 | 10719.9, 9728.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387120 | Golden Rune [2] | World Pickup | Limgrave | m60_42_38 | -72.4, 157.6, -122.1 | 10679.6, 9605.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387140 | Lump of Flesh | World Pickup | Limgrave | m60_42_38 | -44.2, 122.8, -123.5 | 10707.8, 9604.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042387200 | Smoldering Butterfly | World Pickup | Limgrave | m60_42_38 | -53.4, 170.4, -94.4 | 10698.6, 9633.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1042387400 | Blue-Feathered Branchsword | World Pickup | Limgrave | m60_42_38 | - | - | - | - | none | N | ItemLotParam_map |
-| 1042387410 | Bone Peddler's Bell Bearing | World Pickup | Limgrave | m60_42_38 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1042387600 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_38 | 87.2, 166.1, -7.5 | 10839.2, 9720.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1042382000 | Smoldering Butterfly | World Pickup | Limgrave | m60_42_38 | -53.4, 170.4, -94.4 | 10698.6, 9633.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1042390000 | Strength-knot Crystal Tear | World Pickup | Limgrave | m60_42_39 | -84.8, 224.5, -90.9 | 10667.2, 9893.1 | chest | 2 | high | N | ItemLotParam_map |
+| 1042390010 | Lance | World Pickup | Limgrave | m60_42_39 | 110.1, 205.1, -74.5 | 10862.1, 9909.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042390500 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042390501 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042390502 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042390503 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042390700 | Hammer Talisman | World Pickup | Limgrave | m60_42_39 | - | - | - | - | none | N | ItemLotParam_map |
+| 1042390900 | Beast Crest Heater Shield | World Pickup | Limgrave | m60_42_39 | 116.9, 190.1, -65.6 | 10868.9, 9918.4 | chest | 1 | high | N | ItemLotParam_map |
 | 1042392141 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
 | 1042392720 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
 | 1042392721 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
-| 1042397010 | Lance | World Pickup | Limgrave | m60_42_39 | 110.1, 205.1, -74.5 | 10862.1, 9909.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042397500 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1042397700 | Hammer Talisman | World Pickup | Limgrave | m60_42_39 | - | - | - | - | none | N | ItemLotParam_map |
-| 1042397900 | Beast Crest Heater Shield | World Pickup | Limgrave | m60_42_39 | 116.9, 190.1, -65.6 | 10868.9, 9918.4 | chest | 1 | high | N | ItemLotParam_map |
-| 1042507000 | Giant-Crusher | World Pickup | Altus Plateau | m60_42_50 | 84.3, 867.9, 179.7 | 10836.3, 12979.7 | cart | 1 | low | N | ItemLotParam_map |
-| 1042507020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1042517000 | Holy Grease | World Pickup | Altus Plateau | m60_42_51 | 36.4, 859.3, -98.5 | 10788.4, 12957.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042517400 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -48.9, 850.2, -41.7 | 10703.1, 13014.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1042517410 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -47.6, 850.2, -40.7 | 10704.4, 13015.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1042517900 | Gargoyle's Great Axe | World Pickup | Altus Plateau | m60_42_51 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1042527000 | Old Fang | World Pickup | Altus Plateau | m60_42_52 | -3.0, 942.0, -1.6 | 10749.0, 13310.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042527010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_42_52 | -44.3, 931.8, -6.4 | 10707.7, 13305.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042527020 | Rainbow Stone | World Pickup | Altus Plateau | m60_42_52 | -21.9, 931.4, -6.1 | 10730.1, 13305.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042527030 | Golden Rune [10] | World Pickup | Altus Plateau | m60_42_52 | 24.7, 938.4, 42.1 | 10776.7, 13354.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042527040 | Arteria Leaf | World Pickup | Altus Plateau | m60_42_52 | 115.1, 932.4, 120.4 | 10867.1, 13432.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1042537000 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_42_53 | -48.6, 906.7, -78.7 | 10703.4, 13489.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1042537010 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_42_53 | -133.3, 881.4, -0.7 | 10618.7, 13567.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042547000 | Four-Toed Fowl Foot | World Pickup | Altus Plateau | m60_42_54 | -119.5, 888.9, -105.8 | 10632.5, 13718.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1042547010 | Golden Rune [5] | World Pickup | Altus Plateau | m60_42_54 | -129.6, 908.9, 105.2 | 10622.4, 13929.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042547020 | Holyproof Dried Liver | World Pickup | Altus Plateau | m60_42_54 | -32.5, 925.9, 82.0 | 10719.5, 13906.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042547030 | Stormhawk Feather | World Pickup | Altus Plateau | m60_42_54 | -72.3, 931.8, 91.9 | 10679.7, 13915.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042547040 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_42_54 | 15.0, 954.4, -30.6 | 10767.0, 13793.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042547050 | Golden Arrow | World Pickup | Altus Plateau | m60_42_54 | 9.0, 947.7, -28.2 | 10761.0, 13795.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042547060 | Greatbow | World Pickup | Altus Plateau | m60_42_54 | 19.7, 966.5, -33.7 | 10771.7, 13790.3 | chest | 1 | high | N | ItemLotParam_map |
-| 1042547070 | Gold Firefly | World Pickup | Altus Plateau | m60_42_54 | -0.1, 954.3, 90.7 | 10751.9, 13914.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042547080 | Lightning Grease | World Pickup | Altus Plateau | m60_42_54 | -42.9, 941.3, 105.1 | 10709.1, 13929.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1042547090 | Exalted Flesh | World Pickup | Altus Plateau | m60_42_54 | -89.5, 944.4, 130.5 | 10662.5, 13954.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042547100 | Rune Arc | World Pickup | Altus Plateau | m60_42_54 | -100.5, 908.1, 62.4 | 10651.5, 13886.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1042547400 | Golden Seed | World Pickup | Altus Plateau | m60_42_54 | -38.4, 916.7, -113.2 | 10713.6, 13710.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1042400000 | Duelist's Furled Finger | World Pickup | World (42,40) | m60_42_40 | -50.8, 205.7, -131.5 | 10701.2, 10108.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042400001 | Small Red Effigy | World Pickup | World (42,40) | m60_42_40 | -50.8, 205.7, -133.5 | 10701.2, 10106.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042500000 | Giant-Crusher | World Pickup | Altus Plateau | m60_42_50 | 84.3, 867.9, 179.7 | 10836.3, 12979.7 | cart | 1 | low | N | ItemLotParam_map |
+| 1042500020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042510000 | Holy Grease | World Pickup | Altus Plateau | m60_42_51 | 36.4, 859.3, -98.5 | 10788.4, 12957.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042510400 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -48.9, 850.2, -41.7 | 10703.1, 13014.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1042510410 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -47.6, 850.2, -40.7 | 10704.4, 13015.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1042510500 | Map: Leyndell, Royal Capital | World Pickup | Altus Plateau | m60_42_51 | -28.0, 850.4, -41.4 | 10724.0, 13014.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1042510900 | Gargoyle's Great Axe | World Pickup | Altus Plateau | m60_42_51 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1042520000 | Old Fang | World Pickup | Altus Plateau | m60_42_52 | -3.0, 942.0, -1.6 | 10749.0, 13310.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042520010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_42_52 | -44.3, 931.8, -6.4 | 10707.7, 13305.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042520020 | Rainbow Stone | World Pickup | Altus Plateau | m60_42_52 | -21.9, 931.4, -6.1 | 10730.1, 13305.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042520030 | Golden Rune [10] | World Pickup | Altus Plateau | m60_42_52 | 24.7, 938.4, 42.1 | 10776.7, 13354.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042520040 | Arteria Leaf | World Pickup | Altus Plateau | m60_42_52 | 115.1, 932.4, 120.4 | 10867.1, 13432.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042530000 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_42_53 | -48.6, 906.7, -78.7 | 10703.4, 13489.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1042530010 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_42_53 | -133.3, 881.4, -0.7 | 10618.7, 13567.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042540000 | Four-Toed Fowl Foot | World Pickup | Altus Plateau | m60_42_54 | -119.5, 888.9, -105.8 | 10632.5, 13718.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1042540010 | Golden Rune [5] | World Pickup | Altus Plateau | m60_42_54 | -129.6, 908.9, 105.2 | 10622.4, 13929.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042540020 | Holyproof Dried Liver | World Pickup | Altus Plateau | m60_42_54 | -32.5, 925.9, 82.0 | 10719.5, 13906.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042540030 | Stormhawk Feather | World Pickup | Altus Plateau | m60_42_54 | -72.3, 931.8, 91.9 | 10679.7, 13915.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042540040 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_42_54 | 15.0, 954.4, -30.6 | 10767.0, 13793.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042540050 | Golden Arrow | World Pickup | Altus Plateau | m60_42_54 | 9.0, 947.7, -28.2 | 10761.0, 13795.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042540060 | Greatbow | World Pickup | Altus Plateau | m60_42_54 | 19.7, 966.5, -33.7 | 10771.7, 13790.3 | chest | 1 | high | N | ItemLotParam_map |
+| 1042540061 | Great Arrow | World Pickup | Altus Plateau | m60_42_54 | 19.7, 966.5, -35.7 | 10771.7, 13788.3 | chest | 0 | high | N | ItemLotParam_map |
+| 1042540070 | Gold Firefly | World Pickup | Altus Plateau | m60_42_54 | -0.1, 954.3, 90.7 | 10751.9, 13914.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042540080 | Lightning Grease | World Pickup | Altus Plateau | m60_42_54 | -42.9, 941.3, 105.1 | 10709.1, 13929.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1042540090 | Exalted Flesh | World Pickup | Altus Plateau | m60_42_54 | -89.5, 944.4, 130.5 | 10662.5, 13954.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1042540100 | Rune Arc | World Pickup | Altus Plateau | m60_42_54 | -100.5, 908.1, 62.4 | 10651.5, 13886.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042540400 | Golden Seed | World Pickup | Altus Plateau | m60_42_54 | -38.4, 916.7, -113.2 | 10713.6, 13710.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1042550000 | Celebrant's Skull | World Pickup | Altus Plateau | m60_42_55 | -94.2, 898.8, -105.9 | 10657.8, 13974.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1042550100 | Millicent | NPC | Altus Plateau | m60_42_55 | -45.0, 968.9, -49.3 | 10707.0, 14030.7 | - | - | - | - | MSB NPC |
 | 1042550700 | Millicent | NPC | Altus Plateau | m60_42_55 | -38.3, 966.5, -49.8 | 10713.7, 14030.2 | - | - | - | - | MSB NPC |
 | 1042550705 | Millicent | NPC | Altus Plateau | m60_42_55 | -55.9, 954.2, -87.0 | 10696.1, 13993.0 | - | - | - | - | MSB NPC |
 | 1042550800 | Godskin Apostle | Boss Defeat | Altus Plateau | m60_42_55 | -35.5, 968.2, -38.9 | 10716.5, 14041.1 | - | - | - | - | MSB Enemy |
 | 1042550950 | Millicent | NPC | Altus Plateau | m60_42_55 | -38.2, 968.4, -36.0 | 10713.8, 14044.0 | - | - | - | - | MSB NPC |
-| 1042557000 | Celebrant's Skull | World Pickup | Altus Plateau | m60_42_55 | -94.2, 898.8, -105.9 | 10657.8, 13974.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043300000 | Somber Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_30 | -41.3, -0.2, 65.2 | 10966.7, 7745.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043300010 | Fire Arrow | World Pickup | Weeping Peninsula | m60_43_30 | -17.7, -0.3, 149.2 | 10990.3, 7829.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043300800 | Misbegotten Warrior | Boss Defeat | Weeping Peninsula | m60_43_30 | -30.5, 0.5, -7.4 | 10977.5, 7672.6 | - | - | - | - | MSB Enemy |
-| 1043307000 | Somber Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_30 | -41.3, -0.2, 65.2 | 10966.7, 7745.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043307010 | Fire Arrow | World Pickup | Weeping Peninsula | m60_43_30 | -17.7, -0.3, 149.2 | 10990.3, 7829.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310000 | Fire Grease | World Pickup | Weeping Peninsula | m60_43_31 | 28.8, 102.6, -50.8 | 11036.8, 7885.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310020 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 94.5, 98.3, -40.3 | 11102.5, 7895.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310080 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 15.6, 116.0, -80.4 | 11023.6, 7855.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310090 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | -29.1, 109.5, -61.4 | 10978.9, 7874.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310110 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 75.5, 111.0, -75.4 | 11083.5, 7860.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310140 | Pickled Turtle Neck | World Pickup | Weeping Peninsula | m60_43_31 | 9.2, 78.5, -102.4 | 11017.2, 7833.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310170 | Stonesword Key | World Pickup | Weeping Peninsula | m60_43_31 | 8.6, 87.8, -122.4 | 11016.6, 7813.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043310220 | Tarnished Golden Sunflower | World Pickup | Weeping Peninsula | m60_43_31 | -43.8, 51.9, -106.3 | 10964.2, 7829.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310240 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 8.4, 30.8, -136.7 | 11016.4, 7799.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310280 | Throwing Dagger | World Pickup | Weeping Peninsula | m60_43_31 | -38.8, 11.3, -189.2 | 10969.2, 7746.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310320 | Furlcalling Finger Remedy | World Pickup | Weeping Peninsula | m60_43_31 | 22.1, 117.0, -39.5 | 11030.1, 7896.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310330 | Steel-Wire Torch | World Pickup | Weeping Peninsula | m60_43_31 | 49.8, 117.0, -5.9 | 11057.8, 7930.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043310350 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_31 | 21.8, 95.2, -98.3 | 11029.8, 7837.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310360 | Ballista Bolt | World Pickup | Weeping Peninsula | m60_43_31 | 21.8, 95.2, -118.3 | 11029.8, 7817.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310370 | Whip | World Pickup | Weeping Peninsula | m60_43_31 | 11.2, 12.3, -131.6 | 11019.2, 7804.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043310400 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_31 | 18.1, 0.4, 99.8 | 11026.1, 8035.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043310500 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_31 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1043310700 | Wandering Noble | NPC | Weeping Peninsula | m60_43_31 | 4.5, 78.5, -100.9 | 11012.5, 7835.1 | - | - | - | - | MSB NPC |
 | 1043310705 | Castellan Edgar | NPC | Weeping Peninsula | m60_43_31 | 98.7, 119.0, -44.2 | 11106.7, 7891.8 | - | - | - | - | MSB NPC |
+| 1043310900 | Twinblade Talisman | World Pickup | Weeping Peninsula | m60_43_31 | -55.3, 95.7, -64.7 | 10952.7, 7871.3 | chest | - | high | N | ItemLotParam_map |
+| 1043310910 | Claymore | World Pickup | Weeping Peninsula | m60_43_31 | 6.3, 104.0, -27.7 | 11014.3, 7908.3 | chest | 1 | high | N | ItemLotParam_map |
 | 1043310950 | Edgar | NPC | Weeping Peninsula | m60_43_31 | 104.4, 13.8, -2.9 | 11112.4, 7933.1 | - | - | - | - | MSB NPC |
-| 1043317000 | Fire Grease | World Pickup | Weeping Peninsula | m60_43_31 | 28.8, 102.6, -50.8 | 11036.8, 7885.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317020 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 94.5, 98.3, -40.3 | 11102.5, 7895.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317080 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 15.6, 116.0, -80.4 | 11023.6, 7855.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317090 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | -29.1, 109.5, -61.4 | 10978.9, 7874.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317110 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 75.5, 111.0, -75.4 | 11083.5, 7860.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317140 | Pickled Turtle Neck | World Pickup | Weeping Peninsula | m60_43_31 | 9.2, 78.5, -102.4 | 11017.2, 7833.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317170 | Stonesword Key | World Pickup | Weeping Peninsula | m60_43_31 | 8.6, 87.8, -122.4 | 11016.6, 7813.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043317220 | Tarnished Golden Sunflower | World Pickup | Weeping Peninsula | m60_43_31 | -43.8, 51.9, -106.3 | 10964.2, 7829.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317240 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 8.4, 30.8, -136.7 | 11016.4, 7799.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317280 | Throwing Dagger | World Pickup | Weeping Peninsula | m60_43_31 | -38.8, 11.3, -189.2 | 10969.2, 7746.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317320 | Furlcalling Finger Remedy | World Pickup | Weeping Peninsula | m60_43_31 | 22.1, 117.0, -39.5 | 11030.1, 7896.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317330 | Steel-Wire Torch | World Pickup | Weeping Peninsula | m60_43_31 | 49.8, 117.0, -5.9 | 11057.8, 7930.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043317350 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_31 | 21.8, 95.2, -98.3 | 11029.8, 7837.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317360 | Ballista Bolt | World Pickup | Weeping Peninsula | m60_43_31 | 21.8, 95.2, -118.3 | 11029.8, 7817.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043317370 | Whip | World Pickup | Weeping Peninsula | m60_43_31 | 11.2, 12.3, -131.6 | 11019.2, 7804.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043317400 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_31 | 18.1, 0.4, 99.8 | 11026.1, 8035.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1043317500 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_31 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1043317900 | Twinblade Talisman | World Pickup | Weeping Peninsula | m60_43_31 | -55.3, 95.7, -64.7 | 10952.7, 7871.3 | chest | - | high | N | ItemLotParam_map |
-| 1043317910 | Claymore | World Pickup | Weeping Peninsula | m60_43_31 | 6.3, 104.0, -27.7 | 11014.3, 7908.3 | chest | 1 | high | N | ItemLotParam_map |
-| 1043327000 | Yellow Ember | World Pickup | Weeping Peninsula | m60_43_32 | 108.9, 72.5, 110.6 | 11116.9, 8302.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043327010 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_43_32 | -62.9, 70.4, 117.1 | 10945.1, 8309.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043320000 | Yellow Ember | World Pickup | Weeping Peninsula | m60_43_32 | 108.9, 72.5, 110.6 | 11116.9, 8302.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043320010 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_43_32 | -62.9, 70.4, 117.1 | 10945.1, 8309.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043330000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 101.4, 82.7, -12.8 | 11109.4, 8435.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043330010 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 78.3, 13.0, 58.5 | 11086.3, 8506.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043330800 | Erdtree Avatar | Great Boss Defeat | Weeping Peninsula | m60_43_33 | -55.8, 83.1, 18.9 | 10952.2, 8466.9 | - | - | - | - | MSB Enemy |
-| 1043337000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 101.4, 82.7, -12.8 | 11109.4, 8435.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043337010 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 78.3, 13.0, 58.5 | 11086.3, 8506.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043340000 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_43_34 | 21.6, 12.8, 2.2 | 11029.6, 8706.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043340020 | Faith-knot Crystal Tear | World Pickup | Weeping Peninsula | m60_43_34 | 4.3, 22.7, 76.6 | 11012.3, 8780.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1043340040 | Gold-Tinged Excrement | World Pickup | Weeping Peninsula | m60_43_34 | 84.8, 7.4, -115.7 | 11092.8, 8588.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043340050 | String | World Pickup | Weeping Peninsula | m60_43_34 | 87.1, 6.2, -123.0 | 11095.1, 8581.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043340100 | Shield of the Guilty | World Pickup | Weeping Peninsula | m60_43_34 | 14.5, -4.0, -56.2 | 11022.5, 8647.8 | chest | 2 | high | Y | ItemLotParam_map |
+| 1043340400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1043340401 | Crystal Burst | World Pickup | Weeping Peninsula | m60_43_34 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1043340700 | Commoner | NPC | Weeping Peninsula | m60_43_34 | -114.7, 88.8, 96.5 | 10893.3, 8800.5 | - | - | - | - | MSB NPC |
-| 1043347000 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_43_34 | 21.6, 12.8, 2.2 | 11029.6, 8706.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043347040 | Gold-Tinged Excrement | World Pickup | Weeping Peninsula | m60_43_34 | 84.8, 7.4, -115.7 | 11092.8, 8588.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043347050 | String | World Pickup | Weeping Peninsula | m60_43_34 | 87.1, 6.2, -123.0 | 11095.1, 8581.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043347100 | Shield of the Guilty | World Pickup | Weeping Peninsula | m60_43_34 | 14.5, -4.0, -56.2 | 11022.5, 8647.8 | chest | 2 | high | Y | ItemLotParam_map |
-| 1043347400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1043350000 | Crab Eggs | World Pickup | Weeping Peninsula | m60_43_35 | 16.6, 39.0, -82.7 | 11024.6, 8877.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043350010 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_35 | -38.6, 76.2, 111.1 | 10969.4, 9071.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043350030 | Slumbering Egg | World Pickup | Weeping Peninsula | m60_43_35 | 50.9, 91.3, 81.1 | 11058.9, 9041.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043350100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_43_35 | -110.8, 88.9, -123.9 | 10897.2, 8836.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1043350710 | Yura, Hunter of Bloody Fingers | NPC | Weeping Peninsula | m60_43_35 | 37.6, 72.0, 69.6 | 11045.6, 9029.6 | - | - | - | - | MSB NPC |
-| 1043357000 | Crab Eggs | World Pickup | Weeping Peninsula | m60_43_35 | 16.6, 39.0, -82.7 | 11024.6, 8877.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043357010 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_35 | -38.6, 76.2, 111.1 | 10969.4, 9071.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043357030 | Slumbering Egg | World Pickup | Weeping Peninsula | m60_43_35 | 50.9, 91.3, 81.1 | 11058.9, 9041.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043357100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_43_35 | -110.8, 88.9, -123.9 | 10897.2, 8836.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1043360010 | Stonesword Key | World Pickup | Limgrave | m60_43_36 | -27.9, 65.3, -54.9 | 10980.1, 9161.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043360020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_36 | -29.1, 65.4, -49.4 | 10978.9, 9166.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043360040 | Crab Eggs | World Pickup | Limgrave | m60_43_36 | -1.5, 64.6, -69.7 | 11006.5, 9146.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043360070 | Arteria Leaf | World Pickup | Limgrave | m60_43_36 | 29.8, 65.6, 9.1 | 11037.8, 9225.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1043360800 | [Dragon Communion] Agheel's Flame - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
-| 1043367010 | Stonesword Key | World Pickup | Limgrave | m60_43_36 | -27.9, 65.3, -54.9 | 10980.1, 9161.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043367020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_36 | -29.1, 65.4, -49.4 | 10978.9, 9166.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043367040 | Crab Eggs | World Pickup | Limgrave | m60_43_36 | -1.5, 64.6, -69.7 | 11006.5, 9146.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043367070 | Arteria Leaf | World Pickup | Limgrave | m60_43_36 | 29.8, 65.6, 9.1 | 11037.8, 9225.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043367110 | Twinblade | World Pickup | Limgrave | m60_43_36 | 5.5, 52.5, -75.9 | 11013.5, 9140.1 | chest | 1 | high | Y | ItemLotParam_map |
+| 1043361010 | Twinblade | World Pickup | Limgrave | m60_43_36 | 5.5, 52.5, -75.9 | 11013.5, 9140.1 | chest | 1 | high | Y | ItemLotParam_map |
+| 1043370000 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_37 | 82.7, 91.8, -108.4 | 11090.7, 9363.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043370010 | Fire Grease | World Pickup | Limgrave | m60_43_37 | 95.8, 64.7, -91.3 | 11103.8, 9380.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043370020 | Arteria Leaf | World Pickup | Limgrave | m60_43_37 | -0.4, 86.0, -22.2 | 11007.6, 9449.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1043370400 | Ash of War: Repeating Thrust | World Pickup | Limgrave | m60_43_37 | - | - | - | - | none | N | ItemLotParam_map |
 | 1043370720 | Wandering Noble | NPC | Limgrave | m60_43_39 | -83.7, 192.7, 32.7 | 10924.3, 10016.7 | - | - | - | - | MSB NPC |
 | 1043370750 | Demi-Human Boc | NPC | Limgrave | m60_43_37 | 15.0, 86.8, -5.6 | 11023.0, 9466.4 | - | - | - | - | MSB NPC |
 | 1043370800 | Night's Cavalry | Boss Arena | Limgrave - Agheel Lake North | m60_43_37 | 72.5, 91.0, -94.7 | 72.5, -94.7 | - | - | - | - | GameAreaParam |
-| 1043377000 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_37 | 82.7, 91.8, -108.4 | 11090.7, 9363.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043377010 | Fire Grease | World Pickup | Limgrave | m60_43_37 | 95.8, 64.7, -91.3 | 11103.8, 9380.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043377020 | Arteria Leaf | World Pickup | Limgrave | m60_43_37 | -0.4, 86.0, -22.2 | 11007.6, 9449.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1043377400 | Ash of War: Repeating Thrust | World Pickup | Limgrave | m60_43_37 | - | - | - | - | none | N | ItemLotParam_map |
+| 1043380000 | Armorer's Cookbook [1] | World Pickup | Limgrave | m60_43_38 | 48.5, 97.8, -116.2 | 11056.5, 9611.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043380010 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_38 | -23.2, 146.6, 62.2 | 10984.8, 9790.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043380020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_38 | 45.2, 105.5, -22.7 | 11053.2, 9705.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043380700 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_43_38 | 117.4, 64.7, -66.9 | 11125.4, 9661.1 | - | - | - | - | MSB NPC |
 | 1043382190 | Stake of Marika (m60_43_38) | Stake of Marika | Limgrave | m60_43_38 | 91.7, 66.2, 66.5 | 11099.7, 9794.5 | - | - | - | - | MSB SpawnPoint |
-| 1043387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_38 | -23.2, 146.6, 62.2 | 10984.8, 9790.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043387020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_38 | 45.2, 105.5, -22.7 | 11053.2, 9705.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043390010 | Exalted Flesh | World Pickup | Limgrave | m60_43_39 | -116.9, 190.2, -85.5 | 10891.1, 9898.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043390020 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_39 | 107.7, 158.5, 2.6 | 11115.7, 9986.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043390030 | Turtle Neck Meat | World Pickup | Limgrave | m60_43_39 | 81.9, 116.7, 132.0 | 11089.9, 10116.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043390710 | Alexander, Warrior Jar | NPC | Limgrave | m60_43_39 | -17.6, 182.4, -15.5 | 10990.4, 9968.5 | - | - | - | - | MSB NPC |
 | 1043390950 | Iron Fist Alexander | NPC | Limgrave | m60_43_39 | 20.9, 156.6, 0.7 | 11028.9, 9984.7 | - | - | - | - | MSB NPC |
-| 1043397010 | Exalted Flesh | World Pickup | Limgrave | m60_43_39 | -116.9, 190.2, -85.5 | 10891.1, 9898.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043397020 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_39 | 107.7, 158.5, 2.6 | 11115.7, 9986.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043397030 | Turtle Neck Meat | World Pickup | Limgrave | m60_43_39 | 81.9, 116.7, 132.0 | 11089.9, 10116.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043397200 | Golden Rune [3] | World Pickup | Limgrave | m60_43_39 | 36.8, 202.6, 46.6 | 11044.8, 10030.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1043407000 | Soporific Grease | World Pickup | World (43,40) | m60_43_40 | -72.0, 227.1, -110.9 | 10936.0, 10129.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043407010 | Lance Talisman | World Pickup | World (43,40) | m60_43_40 | 15.2, 201.3, -17.8 | 11023.2, 10222.2 | corpse | - | high | N | ItemLotParam_map |
-| 1043507000 | Golden Order Seal | World Pickup | Altus Plateau | m60_43_50 | -113.3, 911.1, -68.0 | 10894.7, 12732.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1043507010 | Smoldering Butterfly | World Pickup | Altus Plateau | m60_43_50 | -2.0, 884.2, 26.6 | 11006.0, 12826.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043392000 | Golden Rune [3] | World Pickup | Limgrave | m60_43_39 | 36.8, 202.6, 46.6 | 11044.8, 10030.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043400000 | Soporific Grease | World Pickup | World (43,40) | m60_43_40 | -72.0, 227.1, -110.9 | 10936.0, 10129.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043400010 | Lance Talisman | World Pickup | World (43,40) | m60_43_40 | 15.2, 201.3, -17.8 | 11023.2, 10222.2 | corpse | - | high | N | ItemLotParam_map |
+| 1043500000 | Golden Order Seal | World Pickup | Altus Plateau | m60_43_50 | -113.3, 911.1, -68.0 | 10894.7, 12732.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043500010 | Smoldering Butterfly | World Pickup | Altus Plateau | m60_43_50 | -2.0, 884.2, 26.6 | 11006.0, 12826.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043500030 | Missionary's Cookbook [4] | World Pickup | Altus Plateau | m60_43_50 | -117.9, 909.6, -24.0 | 10890.1, 12776.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1043520000 | Lost Ashes of War | World Pickup | Altus Plateau | m60_43_52 | 22.2, 938.6, -133.3 | 11030.2, 13178.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043520030 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_52 | 5.4, 954.8, 64.0 | 11013.4, 13376.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043520400 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.8, 907.5, -33.9 | 10881.2, 13278.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1043520410 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.2, 907.5, -33.0 | 10881.8, 13279.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1043520500 | Viridian Amber Medallion +1 | World Pickup | Altus Plateau | m60_43_52 | - | - | - | - | none | N | ItemLotParam_map |
 | 1043520700 | Commoner | NPC | Altus Plateau | m60_43_52 | -97.3, 922.8, 89.3 | 10910.7, 13401.3 | - | - | - | - | MSB NPC |
 | 1043520701 | Margit, the Fell Omen | NPC | Altus Plateau | m60_43_52 | -97.4, 922.8, 89.3 | 10910.6, 13401.3 | - | - | - | - | MSB NPC |
 | 1043520710 | Finger Reader Crone | Finger Reader | Altus Plateau | m60_43_52 | -120.4, 907.6, -57.8 | 10887.6, 13254.2 | - | - | - | - | MSB NPC |
-| 1043527000 | Lost Ashes of War | World Pickup | Altus Plateau | m60_43_52 | 22.2, 938.6, -133.3 | 11030.2, 13178.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043527030 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_52 | 5.4, 954.8, 64.0 | 11013.4, 13376.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1043527400 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.8, 907.5, -33.9 | 10881.2, 13278.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1043527410 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.2, 907.5, -33.0 | 10881.8, 13279.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1043527500 | Viridian Amber Medallion +1 | World Pickup | Altus Plateau | m60_43_52 | - | - | - | - | none | N | ItemLotParam_map |
+| 1043530000 | Golden Rune [9] | World Pickup | Altus Plateau | m60_43_53 | -111.1, 965.1, 38.7 | 10896.9, 13606.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043530010 | Golden Rune [10] | World Pickup | Altus Plateau | m60_43_53 | 124.1, 1022.0, -18.1 | 11132.1, 13549.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043530020 | Grace Mimic | World Pickup | Altus Plateau | m60_43_53 | 123.9, 991.9, -71.4 | 11131.9, 13496.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043530030 | Drawstring Holy Grease | World Pickup | Altus Plateau | m60_43_53 | 88.8, 992.3, -61.3 | 11096.8, 13506.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043530040 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_43_53 | 84.1, 992.8, -24.8 | 11092.1, 13543.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043530050 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_53 | 112.5, 1013.8, 69.0 | 11120.5, 13637.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043530060 | Golden Rune [7] | World Pickup | Altus Plateau | m60_43_53 | -14.9, 951.0, -67.3 | 10993.1, 13500.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1043530070 | Mushroom | World Pickup | Altus Plateau | m60_43_53 | 48.2, 955.3, -70.4 | 11056.2, 13497.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043530100 | Larval Tear | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1043530400 | Medicine Peddler's Bell Bearing | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1043530700 | Hermit Merchant | Merchant | Altus Plateau | m60_43_53 | -21.2, 993.3, 1.3 | 10986.8, 13569.3 | - | - | - | - | MSB NPC |
 | 1043530800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_43_53 | -22.3, 993.3, 0.5 | 10985.7, 13568.5 | - | - | - | - | MSB Enemy |
 | 1043530950 | Hermit Merchant | NPC | Altus Plateau | m60_43_53 | -3.2, 992.5, 10.6 | 11004.8, 13578.6 | - | - | - | - | MSB NPC |
-| 1043537000 | Golden Rune [9] | World Pickup | Altus Plateau | m60_43_53 | -111.1, 965.1, 38.7 | 10896.9, 13606.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043537010 | Golden Rune [10] | World Pickup | Altus Plateau | m60_43_53 | 124.1, 1022.0, -18.1 | 11132.1, 13549.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043537020 | Grace Mimic | World Pickup | Altus Plateau | m60_43_53 | 123.9, 991.9, -71.4 | 11131.9, 13496.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043537030 | Drawstring Holy Grease | World Pickup | Altus Plateau | m60_43_53 | 88.8, 992.3, -61.3 | 11096.8, 13506.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043537040 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_43_53 | 84.1, 992.8, -24.8 | 11092.1, 13543.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043537050 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_53 | 112.5, 1013.8, 69.0 | 11120.5, 13637.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043537060 | Golden Rune [7] | World Pickup | Altus Plateau | m60_43_53 | -14.9, 951.0, -67.3 | 10993.1, 13500.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1043537070 | Mushroom | World Pickup | Altus Plateau | m60_43_53 | 48.2, 955.3, -70.4 | 11056.2, 13497.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043537100 | Larval Tear | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1043537400 | Medicine Peddler's Bell Bearing | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1044317010 | Golden Rune [4] | World Pickup | Weeping Peninsula | m60_44_31 | 70.5, 25.5, 105.4 | 11334.5, 8041.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1044317020 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_44_31 | 40.2, -0.6, -25.1 | 11304.2, 7910.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1044317030 | Somber Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_31 | 38.6, -0.3, -23.6 | 11302.6, 7912.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044310010 | Golden Rune [4] | World Pickup | Weeping Peninsula | m60_44_31 | 70.5, 25.5, 105.4 | 11334.5, 8041.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1044310020 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_44_31 | 40.2, -0.6, -25.1 | 11304.2, 7910.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1044310030 | Somber Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_31 | 38.6, -0.3, -23.6 | 11302.6, 7912.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044320000 | Map: Weeping Peninsula | World Pickup | Weeping Peninsula | m60_44_32 | 18.1, 27.0, 22.4 | 11282.1, 8214.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1044320010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_32 | 94.0, 57.8, 123.9 | 11358.0, 8315.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044320020 | Golden Seed | World Pickup | Weeping Peninsula | m60_44_32 | -53.8, 31.9, -27.0 | 11210.2, 8165.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1044320030 | Warming Stone | World Pickup | Weeping Peninsula | m60_44_32 | 115.9, 106.1, 141.6 | 11379.9, 8333.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044320040 | Great Turtle Shell | World Pickup | Weeping Peninsula | m60_44_32 | 104.6, 106.0, 131.9 | 11368.6, 8323.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1044320340 | Death Rite Bird | Boss Defeat | Weeping Peninsula | m60_44_32 | -110.1, 43.0, 12.0 | 11153.9, 8204.0 | - | - | - | - | MSB Enemy |
+| 1044320400 | Sacrificial Axe | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1044320410 | Ash of War: Barricade Shield | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | - | none | N | ItemLotParam_map |
+| 1044320411 | Nightrider Flail | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1044320800 | Death Rite Bird | Boss Arena | Weeping Peninsula - Castle Morne Approach North | m60_44_32 | -103.4, 41.2, 7.6 | -103.4, 7.6 | - | - | - | - | GameAreaParam |
 | 1044320850 | Night's Cavalry | Boss Arena | Weeping Peninsula - Castle Morne Approach North | m60_44_32 | 36.6, 42.8, 102.5 | 36.6, 102.5 | - | - | - | - | GameAreaParam |
-| 1044327010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_32 | 94.0, 57.8, 123.9 | 11358.0, 8315.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044327020 | Golden Seed | World Pickup | Weeping Peninsula | m60_44_32 | -53.8, 31.9, -27.0 | 11210.2, 8165.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1044327030 | Warming Stone | World Pickup | Weeping Peninsula | m60_44_32 | 115.9, 106.1, 141.6 | 11379.9, 8333.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044327040 | Great Turtle Shell | World Pickup | Weeping Peninsula | m60_44_32 | 104.6, 106.0, 131.9 | 11368.6, 8323.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1044327400 | Sacrificial Axe | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1044327410 | Ash of War: Barricade Shield | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | - | none | N | ItemLotParam_map |
+| 1044330000 | Flame Crest Wooden Shield | World Pickup | Weeping Peninsula | m60_44_33 | -99.4, 84.6, 19.4 | 11164.6, 8467.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044330020 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_33 | 68.0, 45.3, 33.6 | 11332.0, 8481.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1044330030 | Strip of White Flesh | World Pickup | Weeping Peninsula | m60_44_33 | 69.6, 17.5, 106.7 | 11333.6, 8554.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044330050 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_33 | 73.0, 17.3, 80.0 | 11337.0, 8528.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044330070 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_33 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1044330080 | The Flame of Frenzy | World Pickup | Weeping Peninsula | m60_44_33 | -82.1, 90.7, -58.8 | 11181.9, 8389.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044330100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_44_33 | -77.9, 90.7, -72.1 | 11186.1, 8375.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1044330200 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_33 | 78.9, 17.5, 63.6 | 11342.9, 8511.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044330210 | Morning Star | World Pickup | Weeping Peninsula | m60_44_33 | -296.5, 18.5, -40.5 | 10967.5, 8407.5 | cart | 1 | low | N | ItemLotParam_map |
 | 1044330705 | Nomadic Merchant | Merchant | Weeping Peninsula | m60_44_33 | 74.5, 42.6, -110.6 | 11338.5, 8337.4 | - | - | - | - | MSB NPC |
 | 1044330950 | Nomadic Merchant | NPC | Weeping Peninsula | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | - | - | - | - | MSB NPC |
-| 1044337000 | Flame Crest Wooden Shield | World Pickup | Weeping Peninsula | m60_44_33 | -99.4, 84.6, 19.4 | 11164.6, 8467.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044337020 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_33 | 68.0, 45.3, 33.6 | 11332.0, 8481.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1044337030 | Strip of White Flesh | World Pickup | Weeping Peninsula | m60_44_33 | 69.6, 17.5, 106.7 | 11333.6, 8554.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044337050 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_33 | 73.0, 17.3, 80.0 | 11337.0, 8528.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044337070 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_33 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 1044337080 | The Flame of Frenzy | World Pickup | Weeping Peninsula | m60_44_33 | -82.1, 90.7, -58.8 | 11181.9, 8389.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044337100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_44_33 | -77.9, 90.7, -72.1 | 11186.1, 8375.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1044337200 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_33 | 78.9, 17.5, 63.6 | 11342.9, 8511.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044337210 | Morning Star | World Pickup | Weeping Peninsula | m60_44_33 | -296.5, 18.5, -40.5 | 10967.5, 8407.5 | cart | 1 | low | N | ItemLotParam_map |
+| 1044340000 | Stonesword Key | World Pickup | Weeping Peninsula | m60_44_34 | 125.1, 44.7, 45.6 | 11389.1, 8749.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1044340010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_34 | 125.0, 45.1, 66.9 | 11389.0, 8770.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044340040 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_34 | -46.0, 20.0, -76.4 | 11218.0, 8627.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044340050 | Ruin Fragment | World Pickup | Weeping Peninsula | m60_44_34 | -85.1, 43.0, 33.1 | 11178.9, 8737.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044340060 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 53.4, 53.9, -86.6 | 11317.4, 8617.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044340070 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 33.4, 58.2, -73.9 | 11297.4, 8630.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044340080 | Large Club | World Pickup | Weeping Peninsula | m60_44_34 | -38.1, 68.2, 46.4 | 11225.9, 8750.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044340100 | Hand Ballista | World Pickup | Weeping Peninsula | m60_44_34 | 2.2, 83.1, -64.2 | 11266.2, 8639.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1044340101 | Ballista Bolt | World Pickup | Weeping Peninsula | m60_44_34 | 2.2, 83.1, -66.2 | 11266.2, 8637.8 | chest | 0 | high | N | ItemLotParam_map |
 | 1044340710 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_34 | -26.6, 105.5, 125.7 | 11237.4, 8829.7 | - | - | - | - | MSB NPC |
-| 1044347000 | Stonesword Key | World Pickup | Weeping Peninsula | m60_44_34 | 125.1, 44.7, 45.6 | 11389.1, 8749.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 1044347010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_34 | 125.0, 45.1, 66.9 | 11389.0, 8770.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044347040 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_34 | -46.0, 20.0, -76.4 | 11218.0, 8627.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044347050 | Ruin Fragment | World Pickup | Weeping Peninsula | m60_44_34 | -85.1, 43.0, 33.1 | 11178.9, 8737.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044347060 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 53.4, 53.9, -86.6 | 11317.4, 8617.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044347070 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 33.4, 58.2, -73.9 | 11297.4, 8630.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044347080 | Large Club | World Pickup | Weeping Peninsula | m60_44_34 | -38.1, 68.2, 46.4 | 11225.9, 8750.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044347100 | Hand Ballista | World Pickup | Weeping Peninsula | m60_44_34 | 2.2, 83.1, -64.2 | 11266.2, 8639.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1044350000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_35 | -40.0, 86.6, -8.3 | 11224.0, 8951.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1044350010 | Royal House Scroll | World Pickup | Weeping Peninsula | m60_44_35 | 90.6, 117.5, 32.0 | 11354.6, 8992.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1044350020 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_35 | 67.6, 100.0, -64.6 | 11331.6, 8895.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1044350030 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_44_35 | -112.3, 68.7, 58.0 | 11151.7, 9018.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044350040 | Crab Eggs | World Pickup | Weeping Peninsula | m60_44_35 | -79.0, 64.8, 111.9 | 11185.0, 9071.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044350060 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_35 | 81.7, 104.5, 21.9 | 11345.7, 8981.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044350070 | Starlight Shards | World Pickup | Weeping Peninsula | m60_44_35 | 119.2, 117.4, -37.6 | 11383.2, 8922.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1044350100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1044350700 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_35 | -16.5, 104.5, -120.2 | 11247.5, 8839.8 | - | - | - | - | MSB NPC |
 | 1044350800 | Bloodhound Knight Darriwil | Boss Arena | Limgrave - Forlorn Hound Evergaol | m60_44_34 | -17.4, 105.7, 119.8 | -17.4, 119.8 | - | - | - | - | GameAreaParam |
+| 1044350900 | Great Épée | World Pickup | Weeping Peninsula | m60_44_35 | 82.1, 101.3, 43.5 | 11346.1, 9003.5 | chest | 1 | high | N | ItemLotParam_map |
 | 1044352805 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -17.4, 104.5, -115.1 | 11246.6, 8844.9 | - | - | - | - | MSB SpawnPoint |
 | 1044352806 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -14.0, 104.5, -115.2 | 11250.0, 8844.8 | - | - | - | - | MSB SpawnPoint |
 | 1044352807 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -13.0, 105.6, -137.9 | 11251.0, 8822.1 | - | - | - | - | MSB SpawnPoint |
-| 1044357000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_44_35 | -40.0, 86.6, -8.3 | 11224.0, 8951.7 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1044357010 | Royal House Scroll | World Pickup | Weeping Peninsula | m60_44_35 | 90.6, 117.5, 32.0 | 11354.6, 8992.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1044357020 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_35 | 67.6, 100.0, -64.6 | 11331.6, 8895.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1044357030 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_44_35 | -112.3, 68.7, 58.0 | 11151.7, 9018.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044357040 | Crab Eggs | World Pickup | Weeping Peninsula | m60_44_35 | -79.0, 64.8, 111.9 | 11185.0, 9071.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044357050 | Flame Sling | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1044357060 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_35 | 81.7, 104.5, 21.9 | 11345.7, 8981.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044357070 | Starlight Shards | World Pickup | Weeping Peninsula | m60_44_35 | 119.2, 117.4, -37.6 | 11383.2, 8922.4 | chest | 2 | high | N | ItemLotParam_map |
-| 1044357100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1044357900 | Great Épée | World Pickup | Weeping Peninsula | m60_44_35 | 82.1, 101.3, 43.5 | 11346.1, 9003.5 | chest | 1 | high | N | ItemLotParam_map |
+| 1044360000 | Glowstone | World Pickup | Limgrave | m60_44_36 | 21.5, 92.7, 57.8 | 11285.5, 9273.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 22.2, 93.5, 83.6 | 11286.2, 9299.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360020 | Immunizing Cured Meat | World Pickup | Limgrave | m60_44_36 | 26.8, 94.0, 88.7 | 11290.8, 9304.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360030 | Smoldering Butterfly | World Pickup | Limgrave | m60_44_36 | -11.7, 84.3, -2.1 | 11252.3, 9213.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360040 | Somber Smithing Stone [1] | World Pickup | Limgrave | m60_44_36 | -114.1, 90.6, 103.2 | 11149.9, 9319.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044360100 | Trina's Lily | World Pickup | Limgrave | m60_44_36 | 26.7, 101.6, 80.2 | 11290.7, 9296.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1044360300 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 48.5, 93.1, -41.4 | 11312.5, 9174.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360310 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 56.4, 92.2, -47.6 | 11320.4, 9168.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360320 | Golden Rune [2] | World Pickup | Limgrave | m60_44_36 | 48.6, 93.1, -35.4 | 11312.6, 9180.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360330 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 57.0, 91.8, -28.5 | 11321.0, 9187.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044360340 | Golden Rune [3] | World Pickup | Limgrave | m60_44_36 | 56.6, 92.1, -41.5 | 11320.6, 9174.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044360700 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 18.0, 80.8, 19.1 | 11282.0, 9235.1 | - | - | - | - | MSB NPC |
 | 1044360710 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 60.4, 85.7, 123.2 | 11324.4, 9339.2 | - | - | - | - | MSB NPC |
 | 1044360800 | Mad Pumpkin Head | Great Boss Defeat | Limgrave | m60_44_36 | 17.9, 80.8, 31.1 | 11281.9, 9247.1 | - | - | - | - | MSB Enemy |
-| 1044367000 | Glowstone | World Pickup | Limgrave | m60_44_36 | 21.5, 92.7, 57.8 | 11285.5, 9273.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 22.2, 93.5, 83.6 | 11286.2, 9299.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367020 | Immunizing Cured Meat | World Pickup | Limgrave | m60_44_36 | 26.8, 94.0, 88.7 | 11290.8, 9304.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367030 | Smoldering Butterfly | World Pickup | Limgrave | m60_44_36 | -11.7, 84.3, -2.1 | 11252.3, 9213.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367040 | Somber Smithing Stone [1] | World Pickup | Limgrave | m60_44_36 | -114.1, 90.6, 103.2 | 11149.9, 9319.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044367100 | Trina's Lily | World Pickup | Limgrave | m60_44_36 | 26.7, 101.6, 80.2 | 11290.7, 9296.2 | corpse | 2 | high | N | ItemLotParam_map |
 | 1044367200 | Greataxe | World Pickup | Limgrave | m60_44_36 | -410.5, 84.9, -365.5 | 10853.5, 8850.5 | cart | 1 | low | N | ItemLotParam_map |
-| 1044367300 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 48.5, 93.1, -41.4 | 11312.5, 9174.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367310 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 56.4, 92.2, -47.6 | 11320.4, 9168.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367320 | Golden Rune [2] | World Pickup | Limgrave | m60_44_36 | 48.6, 93.1, -35.4 | 11312.6, 9180.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367330 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 57.0, 91.8, -28.5 | 11321.0, 9187.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044367340 | Golden Rune [3] | World Pickup | Limgrave | m60_44_36 | 56.6, 92.1, -41.5 | 11320.6, 9174.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044369244 | [Sorceress Sellen - Conspectus Scroll] Glintstone Cometshard - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
 | 1044369245 | [Sorceress Sellen] Glintblade Phalanx - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
 | 1044369250 | [Sorceress Sellen - Academy Scroll] Great Glintstone Shard - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
+| 1044370010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_37 | -7.2, 67.0, 12.8 | 11256.8, 9484.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044370020 | Sacrificial Twig | World Pickup | Limgrave | m60_44_37 | 128.8, 33.4, -125.7 | 11392.8, 9346.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044370700 | Wandering Noble | NPC | Limgrave | m60_44_37 | 28.3, 90.0, -84.0 | 11292.3, 9388.0 | - | - | - | - | MSB NPC |
-| 1044377010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_37 | -7.2, 67.0, 12.8 | 11256.8, 9484.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044377020 | Sacrificial Twig | World Pickup | Limgrave | m60_44_37 | 128.8, 33.4, -125.7 | 11392.8, 9346.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044377200 | Gold-Pickled Fowl Foot | World Pickup | Limgrave | m60_44_37 | -32.0, 100.3, -124.9 | 11232.0, 9347.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1044372000 | Gold-Pickled Fowl Foot | World Pickup | Limgrave | m60_44_37 | -32.0, 100.3, -124.9 | 11232.0, 9347.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1044380010 | Smithing Stone [1] | World Pickup | Limgrave | m60_44_38 | -16.2, 93.5, -9.0 | 11247.8, 9719.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044380040 | Poisonbloom | World Pickup | Limgrave | m60_44_38 | -92.7, 66.4, 1.9 | 11171.3, 9729.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044380100 | Golden Rune [1] | World Pickup | Limgrave | m60_44_38 | -116.4, 138.3, 101.8 | 11147.6, 9829.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1044380710 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_44_38 | -121.4, 64.7, -46.5 | 11142.6, 9681.5 | - | - | - | - | MSB NPC |
-| 1044387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_44_38 | -16.2, 93.5, -9.0 | 11247.8, 9719.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044387040 | Poisonbloom | World Pickup | Limgrave | m60_44_38 | -92.7, 66.4, 1.9 | 11171.3, 9729.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044387100 | Golden Rune [1] | World Pickup | Limgrave | m60_44_38 | -116.4, 138.3, 101.8 | 11147.6, 9829.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1044390700 | D, Hunter of the Dead | NPC | Limgrave | m60_44_39 | 5.2, 131.6, 17.9 | 11269.2, 10002.0 | - | - | - | - | MSB NPC |
 | 1044390710 | Nomadic Merchant | Merchant | Limgrave | m60_44_39 | -92.0, 152.2, -27.1 | 11172.0, 9956.9 | - | - | - | - | MSB NPC |
 | 1044397010 | Good_310 | World Pickup | Limgrave | m60_44_39 | - | - | - | - | none | N | ItemLotParam_map |
+| 1044520000 | Great Arrow | World Pickup | Altus Plateau | m60_44_52 | 103.8, 973.0, 123.1 | 11367.8, 13435.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044520010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_44_52 | 49.4, 922.0, 39.2 | 11313.4, 13351.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044520020 | Golden Rune [2] | World Pickup | Altus Plateau | m60_44_52 | -53.5, 1001.1, 88.6 | 11210.5, 13400.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044520700 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | - | - | - | - | MSB NPC |
 | 1044520701 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | - | - | - | - | MSB NPC |
-| 1044527000 | Great Arrow | World Pickup | Altus Plateau | m60_44_52 | 103.8, 973.0, 123.1 | 11367.8, 13435.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_44_52 | 49.4, 922.0, 39.2 | 11313.4, 13351.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1044527020 | Golden Rune [2] | World Pickup | Altus Plateau | m60_44_52 | -53.5, 1001.1, 88.6 | 11210.5, 13400.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044529255 | [Blackguard Big Boggart] Boiled Crab - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1044530010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_44_53 | -51.4, 1015.9, -15.3 | 11212.6, 13552.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044530200 | Crimson Crystal Tear | World Pickup | Altus Plateau | m60_44_53 | 56.7, 1003.5, 54.3 | 11320.7, 13622.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1044530201 | Twiggy Cracked Tear | World Pickup | Altus Plateau | m60_44_53 | 56.7, 1003.5, 52.3 | 11320.7, 13620.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1044530210 | Winged Crystal Tear | World Pickup | Altus Plateau | m60_44_53 | -14.6, 1027.3, 95.5 | 11249.4, 13663.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1044530300 | Twinbird Kite Shield | World Pickup | Altus Plateau | m60_44_53 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1044530800 | Death Rite Bird | Great Boss Defeat | Altus Plateau | m60_44_53 | -25.3, 1026.1, 83.6 | 11238.7, 13651.6 | - | - | - | - | MSB Enemy |
-| 1044537010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_44_53 | -51.4, 1015.9, -15.3 | 11212.6, 13552.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1044537300 | Twinbird Kite Shield | World Pickup | Altus Plateau | m60_44_53 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1045337000 | Starlight Shards | World Pickup | World (45,33) | m60_45_33 | 7.4, 109.9, -86.6 | 11527.4, 8361.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1045330000 | Starlight Shards | World Pickup | World (45,33) | m60_45_33 | 7.4, 109.9, -86.6 | 11527.4, 8361.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1045330100 | Memory Stone | World Pickup | World (45,33) | m60_45_33 | -66.2, 117.2, -59.2 | 11453.8, 8388.8 | chest | 2 | high | N | ItemLotParam_map |
+| 1045340000 | Stonesword Key | World Pickup | World (45,34) | m60_45_34 | -46.0, 89.4, -19.9 | 11474.0, 8684.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1045340700 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -104.0, 36.4, -39.1 | 11416.0, 8664.9 | - | - | - | - | MSB NPC |
 | 1045340701 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -105.1, 36.2, -39.5 | 11414.9, 8664.5 | - | - | - | - | MSB NPC |
 | 1045340705 | Castellan Edgar | NPC | World (45,34) | m60_45_34 | -104.2, 36.4, -38.4 | 11415.8, 8665.6 | - | - | - | - | MSB NPC |
-| 1045347000 | Stonesword Key | World Pickup | World (45,34) | m60_45_34 | -46.0, 89.4, -19.9 | 11474.0, 8684.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1045357000 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | 28.5, 0.1, 118.2 | 11548.5, 9078.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357020 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -52.5, 20.3, 105.1 | 11467.5, 9065.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357030 | Golden Rune [4] | World Pickup | World (45,35) | m60_45_35 | -40.8, 18.6, 105.0 | 11479.2, 9065.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357040 | Golden Rune [3] | World Pickup | World (45,35) | m60_45_35 | -33.8, 14.7, 119.1 | 11486.2, 9079.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357050 | Golden Rune [2] | World Pickup | World (45,35) | m60_45_35 | -43.3, 15.7, 123.5 | 11476.7, 9083.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357060 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -36.5, 16.1, 114.1 | 11483.5, 9074.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357070 | Golden Rune [2] | World Pickup | World (45,35) | m60_45_35 | -50.3, 19.1, 109.4 | 11469.7, 9069.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357080 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -31.5, 13.5, 124.1 | 11488.5, 9084.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045357090 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -40.9, 14.2, 128.5 | 11479.1, 9088.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350000 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | 28.5, 0.1, 118.2 | 11548.5, 9078.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350020 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -52.5, 20.3, 105.1 | 11467.5, 9065.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350030 | Golden Rune [4] | World Pickup | World (45,35) | m60_45_35 | -40.8, 18.6, 105.0 | 11479.2, 9065.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350040 | Golden Rune [3] | World Pickup | World (45,35) | m60_45_35 | -33.8, 14.7, 119.1 | 11486.2, 9079.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350050 | Golden Rune [2] | World Pickup | World (45,35) | m60_45_35 | -43.3, 15.7, 123.5 | 11476.7, 9083.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350060 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -36.5, 16.1, 114.1 | 11483.5, 9074.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350070 | Golden Rune [2] | World Pickup | World (45,35) | m60_45_35 | -50.3, 19.1, 109.4 | 11469.7, 9069.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350080 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -31.5, 13.5, 124.1 | 11488.5, 9084.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045350090 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -40.9, 14.2, 128.5 | 11479.1, 9088.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045360700 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.8, 112.6 | 11598.2, 9328.6 | - | - | - | - | MSB NPC |
 | 1045360702 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.9, 112.6 | 11598.2, 9328.6 | - | - | - | - | MSB NPC |
 | 1045360710 | Wandering Noble | NPC | Caelid | m60_45_36 | 68.8, 13.8, 26.4 | 11588.8, 9242.4 | - | - | - | - | MSB NPC |
+| 1045370000 | Golden Rune [2] | World Pickup | Caelid | m60_45_37 | -82.1, 23.3, -120.0 | 11437.9, 9352.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045370010 | Smithing Stone [2] | World Pickup | Caelid | m60_45_37 | -69.2, 23.5, -102.2 | 11450.8, 9369.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1045370020 | Map: Limgrave, East | World Pickup | Caelid | m60_45_37 | 40.4, 20.0, 19.1 | 11560.4, 9491.1 | chest | 2 | high | N | ItemLotParam_map |
+| 1045370030 | Nomadic Warrior's Cookbook [4] | World Pickup | Caelid | m60_45_37 | 17.8, 19.9, 13.3 | 11537.8, 9485.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1045370050 | Golden Rune [1] | World Pickup | Caelid | m60_45_37 | -69.9, 19.3, -18.7 | 11450.1, 9453.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1045370060 | Thin Beast Bones | World Pickup | Caelid | m60_45_37 | -0.7, 22.2, -27.3 | 11519.3, 9444.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045370070 | Gold-Tinged Excrement | World Pickup | Caelid | m60_45_37 | -25.1, 11.9, 48.5 | 11494.9, 9520.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045370080 | Throwing Dagger | World Pickup | Caelid | m60_45_37 | -36.6, 11.9, 63.5 | 11483.4, 9535.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045370090 | Golden Rune [5] | World Pickup | Caelid | m60_45_37 | -28.8, 11.6, 56.7 | 11491.2, 9528.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045370300 | Spiked Cracked Tear | World Pickup | Caelid | m60_45_37 | 67.1, 35.1, -54.7 | 11587.1, 9417.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1045370301 | Greenspill Crystal Tear | World Pickup | Caelid | m60_45_37 | 67.1, 35.1, -56.7 | 11587.1, 9415.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1045370700 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_45_37 | -64.5, 23.9, -98.5 | 11455.5, 9373.5 | - | - | - | - | MSB NPC |
+| 1045371000 | Axe Talisman | World Pickup | Caelid | m60_45_37 | -87.4, 11.1, -117.9 | 11432.6, 9354.1 | chest | - | high | Y | ItemLotParam_map |
 | 1045372710 | Stake of Marika (m60_45_37) | Stake of Marika | Caelid | m60_45_37 | 4.9, 16.3, 28.7 | 11524.9, 9500.7 | - | - | - | - | MSB SpawnPoint |
-| 1045377000 | Golden Rune [2] | World Pickup | Caelid | m60_45_37 | -82.1, 23.3, -120.0 | 11437.9, 9352.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045377010 | Smithing Stone [2] | World Pickup | Caelid | m60_45_37 | -69.2, 23.5, -102.2 | 11450.8, 9369.8 | chest | 1 | high | N | ItemLotParam_map |
 | 1045377040 | Good_401 | World Pickup | Caelid | m60_45_37 | - | - | - | - | none | N | ItemLotParam_map |
-| 1045377050 | Golden Rune [1] | World Pickup | Caelid | m60_45_37 | -69.9, 19.3, -18.7 | 11450.1, 9453.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1045377060 | Thin Beast Bones | World Pickup | Caelid | m60_45_37 | -0.7, 22.2, -27.3 | 11519.3, 9444.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045377070 | Gold-Tinged Excrement | World Pickup | Caelid | m60_45_37 | -25.1, 11.9, 48.5 | 11494.9, 9520.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045377080 | Throwing Dagger | World Pickup | Caelid | m60_45_37 | -36.6, 11.9, 63.5 | 11483.4, 9535.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045377090 | Golden Rune [5] | World Pickup | Caelid | m60_45_37 | -28.8, 11.6, 56.7 | 11491.2, 9528.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045377100 | Axe Talisman | World Pickup | Caelid | m60_45_37 | -87.4, 11.1, -117.9 | 11432.6, 9354.1 | chest | - | high | Y | ItemLotParam_map |
+| 1045380000 | Magic Grease | World Pickup | Caelid | m60_45_38 | -90.4, 18.7, -42.5 | 11429.6, 9685.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380010 | Fevor's Cookbook [1] | World Pickup | Caelid | m60_45_38 | -70.8, 49.2, 75.4 | 11449.2, 9803.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1045380020 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -74.0, 48.9, 80.0 | 11446.0, 9808.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380030 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -71.8, 46.5, 66.7 | 11448.2, 9794.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380040 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -56.2, 46.9, 90.6 | 11463.8, 9818.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380050 | Golden Rune [2] | World Pickup | Caelid | m60_45_38 | -68.3, 48.0, 85.5 | 11451.7, 9813.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380060 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -51.9, 46.1, 87.4 | 11468.1, 9815.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380070 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -66.7, 46.8, 72.6 | 11453.3, 9800.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045380080 | Golden Rune [6] | World Pickup | Caelid | m60_45_38 | -76.0, 48.1, 70.6 | 11444.0, 9798.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045380700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_45_38 | -88.6, 41.7, -29.2 | 11431.4, 9698.8 | - | - | - | - | MSB NPC |
 | 1045382950 | Stake of Marika (m60_45_38) | Stake of Marika | Caelid | m60_45_38 | 53.7, 18.5, -58.3 | 11573.7, 9669.7 | - | - | - | - | MSB SpawnPoint |
-| 1045387000 | Magic Grease | World Pickup | Caelid | m60_45_38 | -90.4, 18.7, -42.5 | 11429.6, 9685.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387020 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -74.0, 48.9, 80.0 | 11446.0, 9808.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387030 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -71.8, 46.5, 66.7 | 11448.2, 9794.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387040 | Golden Rune [1] | World Pickup | Caelid | m60_45_38 | -56.2, 46.9, 90.6 | 11463.8, 9818.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387050 | Golden Rune [2] | World Pickup | Caelid | m60_45_38 | -68.3, 48.0, 85.5 | 11451.7, 9813.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387060 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -51.9, 46.1, 87.4 | 11468.1, 9815.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387070 | Golden Rune [4] | World Pickup | Caelid | m60_45_38 | -66.7, 46.8, 72.6 | 11453.3, 9800.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045387080 | Golden Rune [6] | World Pickup | Caelid | m60_45_38 | -76.0, 48.1, 70.6 | 11444.0, 9798.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1045390000 | Golden Rune [4] | World Pickup | Caelid | m60_45_39 | -5.7, 111.4, 118.6 | 11514.3, 10102.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390020 | Mushroom | World Pickup | Caelid | m60_45_39 | -50.6, 95.6, 38.0 | 11469.4, 10022.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390040 | Smithing Stone [2] | World Pickup | Caelid | m60_45_39 | -10.5, 3.3, -77.2 | 11509.5, 9906.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1045390050 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 41.1, 67.3, -65.9 | 11561.1, 9918.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390060 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 43.5, 64.1, -74.1 | 11563.5, 9909.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390070 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 35.0, 65.7, -72.1 | 11555.0, 9911.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390080 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 46.7, 68.6, -58.8 | 11566.7, 9925.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390090 | Golden Rune [5] | World Pickup | Caelid | m60_45_39 | 57.7, 64.7, -68.9 | 11577.7, 9915.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390100 | Golden Rune [2] | World Pickup | Caelid | m60_45_39 | 33.9, 67.7, -67.6 | 11553.9, 9916.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390110 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 55.4, 66.4, -62.4 | 11575.4, 9921.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045390120 | Green Turtle Talisman | World Pickup | Caelid | m60_45_39 | 10.8, 83.5, 64.7 | 11530.8, 10048.7 | chest | - | high | Y | ItemLotParam_map |
+| 1045390140 | Smithing Stone [1] | World Pickup | Caelid | m60_45_39 | -57.7, 92.2, 81.4 | 11462.3, 10065.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045390700 | D, Hunter of the Dead | NPC | Caelid | m60_45_39 | -77.7, 92.2, -13.1 | 11442.3, 9970.9 | - | - | - | - | MSB NPC |
 | 1045390800 | Tibia Mariner | Great Boss Defeat | Caelid | m60_45_39 | -35.0, 92.2, 1.3 | 11485.0, 9985.3 | - | - | - | - | MSB Enemy |
-| 1045397000 | Golden Rune [4] | World Pickup | Caelid | m60_45_39 | -5.7, 111.4, 118.6 | 11514.3, 10102.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397020 | Mushroom | World Pickup | Caelid | m60_45_39 | -50.6, 95.6, 38.0 | 11469.4, 10022.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397040 | Smithing Stone [2] | World Pickup | Caelid | m60_45_39 | -10.5, 3.3, -77.2 | 11509.5, 9906.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1045397050 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 41.1, 67.3, -65.9 | 11561.1, 9918.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397060 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 43.5, 64.1, -74.1 | 11563.5, 9909.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397070 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 35.0, 65.7, -72.1 | 11555.0, 9911.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397080 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 46.7, 68.6, -58.8 | 11566.7, 9925.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397090 | Golden Rune [5] | World Pickup | Caelid | m60_45_39 | 57.7, 64.7, -68.9 | 11577.7, 9915.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397100 | Golden Rune [2] | World Pickup | Caelid | m60_45_39 | 33.9, 67.7, -67.6 | 11553.9, 9916.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397110 | Golden Rune [1] | World Pickup | Caelid | m60_45_39 | 55.4, 66.4, -62.4 | 11575.4, 9921.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045397120 | Green Turtle Talisman | World Pickup | Caelid | m60_45_39 | 10.8, 83.5, 64.7 | 11530.8, 10048.7 | chest | - | high | Y | ItemLotParam_map |
-| 1045397140 | Smithing Stone [1] | World Pickup | Caelid | m60_45_39 | -57.7, 92.2, 81.4 | 11462.3, 10065.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045399206 | Limgrave: Rear Gael Tunnel Entrance - Sending Gate | Landmark | Caelid | m60_46_39 | -59.2, 2.2, -124.5 | 11716.8, 9859.5 | - | - | - | - | WorldMapPointParam |
+| 1045520000 | Gravity Stone Fan | World Pickup | World (45,52) | m60_45_52 | -184.5, 966.7, -412.7 | 11335.5, 12899.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045520010 | Gravel Stone | World Pickup | World (45,52) | m60_45_52 | -7.2, 1024.5, 43.9 | 11512.8, 13355.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1045520020 | Smithing Stone [6] | World Pickup | World (45,52) | m60_45_52 | 41.2, 947.2, -75.0 | 11561.2, 13237.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1045520030 | Smithing Stone [5] | World Pickup | World (45,52) | m60_45_52 | -100.3, 984.4, 140.9 | 11419.7, 13452.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045520705 | Dung Eater | NPC | World (45,52) | m60_45_52 | -112.7, 924.7, 46.4 | 11407.3, 13358.4 | - | - | - | - | MSB NPC |
 | 1045520800 | Draconic Tree Sentinel | Boss Defeat | World (45,52) | m60_45_52 | 27.7, 1023.8, 43.9 | 11547.7, 13355.9 | - | - | - | - | MSB Enemy |
 | 1045522712 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | 27.3, 809.7, -86.4 | 9499.3, 13737.6 | - | - | - | - | MSB SpawnPoint |
-| 1045527000 | Gravity Stone Fan | World Pickup | World (45,52) | m60_45_52 | -184.5, 966.7, -412.7 | 11335.5, 12899.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1045527010 | Gravel Stone | World Pickup | World (45,52) | m60_45_52 | -7.2, 1024.5, 43.9 | 11512.8, 13355.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1045527020 | Smithing Stone [6] | World Pickup | World (45,52) | m60_45_52 | 41.2, 947.2, -75.0 | 11561.2, 13237.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1045527030 | Smithing Stone [5] | World Pickup | World (45,52) | m60_45_52 | -100.3, 984.4, 140.9 | 11419.7, 13452.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1046360700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_46_36 | -9.7, 70.8, -2.1 | 11766.3, 9213.9 | - | - | - | - | MSB NPC |
-| 1046367000 | Smithing Stone [1] | World Pickup | Caelid | m60_46_36 | -16.7, 67.8, -39.4 | 11759.3, 9176.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1046367010 | Bloodrose | World Pickup | Caelid | m60_46_36 | 4.6, 70.8, 2.9 | 11780.6, 9218.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1046367030 | Bloodrose | World Pickup | Caelid | m60_46_36 | -18.1, 54.2, -24.0 | 11757.9, 9192.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1046367100 | Golden Seed | World Pickup | Caelid | m60_46_36 | -63.0, 45.7, -49.9 | 11713.0, 9166.1 | chest | 2 | high | N | ItemLotParam_map |
-| 1046367500 | Dectus Medallion (Left) | World Pickup | Caelid | m60_46_36 | -4.7, 91.0, -37.1 | 11771.3, 9178.9 | chest | 2 | high | N | ItemLotParam_map |
-| 1046367700 | Ash of War: Bloody Slash | World Pickup | Caelid | m60_46_36 | - | - | - | - | none | N | ItemLotParam_map |
-| 1046377000 | Strip of White Flesh | World Pickup | Caelid | m60_46_37 | -79.3, 0.7, 32.4 | 11696.7, 9504.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1046387010 | Neutralizing Boluses | World Pickup | Caelid | m60_46_38 | 25.2, 45.5, 121.6 | 11801.2, 9849.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1046387100 | Sacred Tear | World Pickup | Caelid | m60_46_38 | -91.4, 3.3, 90.0 | 11684.6, 9818.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1046360000 | Smithing Stone [1] | World Pickup | Caelid | m60_46_36 | -16.7, 67.8, -39.4 | 11759.3, 9176.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1046360010 | Bloodrose | World Pickup | Caelid | m60_46_36 | 4.6, 70.8, 2.9 | 11780.6, 9218.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1046360020 | Nomadic Warrior's Cookbook [6] | World Pickup | Caelid | m60_46_36 | -6.6, 58.8, -7.7 | 11769.4, 9208.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1046360030 | Bloodrose | World Pickup | Caelid | m60_46_36 | -18.1, 54.2, -24.0 | 11757.9, 9192.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1046360100 | Golden Seed | World Pickup | Caelid | m60_46_36 | -63.0, 45.7, -49.9 | 11713.0, 9166.1 | chest | 2 | high | N | ItemLotParam_map |
+| 1046360500 | Dectus Medallion (Left) | World Pickup | Caelid | m60_46_36 | -4.7, 91.0, -37.1 | 11771.3, 9178.9 | chest | 2 | high | N | ItemLotParam_map |
+| 1046360700 | Ash of War: Bloody Slash | World Pickup | Caelid | m60_46_36 | - | - | - | - | none | N | ItemLotParam_map |
+| 1046370000 | Strip of White Flesh | World Pickup | Caelid | m60_46_37 | -79.3, 0.7, 32.4 | 11696.7, 9504.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1046380010 | Neutralizing Boluses | World Pickup | Caelid | m60_46_38 | 25.2, 45.5, 121.6 | 11801.2, 9849.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1046380100 | Sacred Tear | World Pickup | Caelid | m60_46_38 | -91.4, 3.3, 90.0 | 11684.6, 9818.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1046380300 | Flask of Wondrous Physick | World Pickup | Caelid | m60_46_38 | -80.2, 4.5, 71.1 | 11695.8, 9799.1 | ground_pickup | 3 | high | N | ItemLotParam_map |
+| 1046380301 | Crimson Crystal Tear | World Pickup | Caelid | m60_46_38 | -80.2, 4.5, 69.1 | 11695.8, 9797.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1046390000 | Golden Rune [1] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 85.4 | 11825.7, 10069.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1046390010 | Golden Rune [2] | World Pickup | Caelid | m60_46_39 | 57.4, 170.3, 92.2 | 11833.4, 10076.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1046390020 | Golden Rune [3] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 99.1 | 11825.7, 10083.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1046392600 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -94.8, 21.8, -64.3 | 11681.2, 9919.7 | - | - | - | - | MSB MountJump |
 | 1046392610 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -93.7, 66.6, 19.2 | 11682.3, 10003.2 | - | - | - | - | MSB MountJump |
 | 1046392620 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -104.2, 88.1, 39.8 | 11671.8, 10023.8 | - | - | - | - | MSB MountJump |
-| 1046397000 | Golden Rune [1] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 85.4 | 11825.7, 10069.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1046397010 | Golden Rune [2] | World Pickup | Caelid | m60_46_39 | 57.4, 170.3, 92.2 | 11833.4, 10076.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1046397020 | Golden Rune [3] | World Pickup | Caelid | m60_46_39 | 49.7, 170.5, 99.1 | 11825.7, 10083.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1046400000 | Nascent Butterfly | World Pickup | Caelid | m60_46_40 | 114.9, 170.7, -68.3 | 11890.9, 10171.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1046400010 | Rune Arc | World Pickup | Caelid | m60_46_40 | 105.9, 145.3, 99.9 | 11881.9, 10339.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1046400020 | Golden Rune [3] | World Pickup | Caelid | m60_46_40 | 109.4, 171.1, -46.2 | 11885.4, 10193.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1046400030 | Missionary's Cookbook [3] | World Pickup | Caelid | m60_46_40 | -71.6, 151.8, 27.4 | 11704.4, 10267.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1046400040 | Preserving Boluses | World Pickup | Caelid | m60_46_40 | 80.8, 171.4, -93.5 | 11856.9, 10146.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1046400050 | Nomadic Warrior's Cookbook [14] | World Pickup | Caelid | m60_46_40 | -73.9, 152.0, 28.3 | 11702.1, 10268.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1046400060 | Drawstring Lightning Grease | World Pickup | Caelid | m60_46_40 | 7.8, 161.0, -43.8 | 11783.8, 10196.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1046400700 | Sacred Scorpion Charm | World Pickup | Caelid | m60_46_40 | - | - | - | - | none | N | ItemLotParam_map |
 | 1046400710 | Wandering Noble | NPC | Caelid | m60_46_40 | 111.2, 171.2, -74.6 | 11887.2, 10165.4 | - | - | - | - | MSB NPC |
-| 1046407000 | Nascent Butterfly | World Pickup | Caelid | m60_46_40 | 114.9, 170.7, -68.3 | 11890.9, 10171.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1046407010 | Rune Arc | World Pickup | Caelid | m60_46_40 | 105.9, 145.3, 99.9 | 11881.9, 10339.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1046407020 | Golden Rune [3] | World Pickup | Caelid | m60_46_40 | 109.4, 171.1, -46.2 | 11885.4, 10193.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1046407040 | Preserving Boluses | World Pickup | Caelid | m60_46_40 | 80.8, 171.4, -93.5 | 11856.9, 10146.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1046407060 | Drawstring Lightning Grease | World Pickup | Caelid | m60_46_40 | 7.8, 161.0, -43.8 | 11783.8, 10196.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1046407700 | Sacred Scorpion Charm | World Pickup | Caelid | m60_46_40 | - | - | - | - | none | N | ItemLotParam_map |
-| 1046577300 | Golden Rune [1] | World Pickup | World (46,57) | m60_46_57 | 92.2, 1295.2, -83.6 | 11868.2, 14508.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1046577800 | Smithing Stone [7] | World Pickup | World (46,57) | m60_46_57 | 76.6, 1272.1, -65.1 | 11852.6, 14526.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1047377000 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 123.9, 128.4, -92.2 | 12155.9, 9379.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1047377010 | Golden Rune [5] | World Pickup | Caelid | m60_47_37 | 110.1, 129.8, -97.1 | 12142.1, 9374.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1047377020 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 122.2, 129.1, -103.1 | 12154.2, 9368.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1047377030 | Golden Rune [2] | World Pickup | Caelid | m60_47_37 | 108.9, 131.1, -107.9 | 12140.9, 9364.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1047377040 | Poisonbloom | World Pickup | Caelid | m60_47_37 | 47.3, 103.5, 95.8 | 12079.3, 9567.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047377050 | Starlight Shards | World Pickup | Caelid | m60_47_37 | 66.4, 121.9, 14.6 | 12098.4, 9486.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1047377100 | Larval Tear | World Pickup | Caelid | m60_47_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1046570300 | Golden Rune [1] | World Pickup | World (46,57) | m60_46_57 | 92.2, 1295.2, -83.6 | 11868.2, 14508.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1046570800 | Smithing Stone [7] | World Pickup | World (46,57) | m60_46_57 | 76.6, 1272.1, -65.1 | 11852.6, 14526.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1046570801 | Smithing Stone [8] | World Pickup | World (46,57) | m60_46_57 | 76.6, 1272.1, -67.1 | 11852.6, 14524.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1047370000 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 123.9, 128.4, -92.2 | 12155.9, 9379.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1047370010 | Golden Rune [5] | World Pickup | Caelid | m60_47_37 | 110.1, 129.8, -97.1 | 12142.1, 9374.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1047370020 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 122.2, 129.1, -103.1 | 12154.2, 9368.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1047370030 | Golden Rune [2] | World Pickup | Caelid | m60_47_37 | 108.9, 131.1, -107.9 | 12140.9, 9364.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1047370040 | Poisonbloom | World Pickup | Caelid | m60_47_37 | 47.3, 103.5, 95.8 | 12079.3, 9567.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047370050 | Starlight Shards | World Pickup | Caelid | m60_47_37 | 66.4, 121.9, 14.6 | 12098.4, 9486.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1047370100 | Larval Tear | World Pickup | Caelid | m60_47_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1047380020 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_38 | 25.1, 111.0, 113.8 | 12057.1, 9841.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047380030 | Great Dragonfly Head | World Pickup | Caelid | m60_47_38 | 51.0, 98.5, -78.1 | 12083.0, 9649.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047380040 | Rot Grease | World Pickup | Caelid | m60_47_38 | 53.3, 98.4, -92.9 | 12085.3, 9635.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047380070 | Rune Arc | World Pickup | Caelid | m60_47_38 | -134.4, 162.2, -23.7 | 11897.6, 9704.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1047380080 | Warming Stone | World Pickup | Caelid | m60_47_38 | -115.5, 174.5, -20.8 | 11916.5, 9707.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047380100 | Smoldering Butterfly | World Pickup | Caelid | m60_47_38 | -91.5, 155.0, -39.8 | 11940.5, 9688.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047380110 | Mushroom | World Pickup | Caelid | m60_47_38 | -116.4, 170.4, 7.1 | 11915.6, 9735.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047380120 | Flame, Grant Me Strength | World Pickup | Caelid | m60_47_38 | -110.3, 154.4, -33.8 | 11921.7, 9694.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047380130 | Explosive Greatbolt | World Pickup | Caelid | m60_47_38 | -125.1, 136.9, 84.0 | 11906.9, 9812.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047380700 | Ash of War: Lion's Claw | World Pickup | Caelid | m60_47_38 | - | - | - | - | none | N | ItemLotParam_map |
 | 1047380701 | Commoner | NPC | Caelid | m60_47_38 | -93.3, 179.1, -5.5 | 11938.7, 9722.5 | - | - | - | - | MSB NPC |
-| 1047387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_38 | 25.1, 111.0, 113.8 | 12057.1, 9841.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387030 | Great Dragonfly Head | World Pickup | Caelid | m60_47_38 | 51.0, 98.5, -78.1 | 12083.0, 9649.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047387040 | Rot Grease | World Pickup | Caelid | m60_47_38 | 53.3, 98.4, -92.9 | 12085.3, 9635.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387070 | Rune Arc | World Pickup | Caelid | m60_47_38 | -134.4, 162.2, -23.7 | 11897.6, 9704.3 | corpse | 2 | high | N | ItemLotParam_map |
-| 1047387080 | Warming Stone | World Pickup | Caelid | m60_47_38 | -115.5, 174.5, -20.8 | 11916.5, 9707.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387100 | Smoldering Butterfly | World Pickup | Caelid | m60_47_38 | -91.5, 155.0, -39.8 | 11940.5, 9688.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047387110 | Mushroom | World Pickup | Caelid | m60_47_38 | -116.4, 170.4, 7.1 | 11915.6, 9735.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047387120 | Flame, Grant Me Strength | World Pickup | Caelid | m60_47_38 | -110.3, 154.4, -33.8 | 11921.7, 9694.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387130 | Explosive Greatbolt | World Pickup | Caelid | m60_47_38 | -125.1, 136.9, 84.0 | 11906.9, 9812.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387700 | Ash of War: Lion's Claw | World Pickup | Caelid | m60_47_38 | - | - | - | - | none | N | ItemLotParam_map |
-| 1047387900 | Starscourge Heirloom | World Pickup | Caelid | m60_47_38 | -89.3, 179.1, 2.2 | 11942.7, 9730.2 | chest | - | high | N | ItemLotParam_map |
-| 1047387910 | Meteoric Ore Blade | World Pickup | Caelid | m60_47_38 | -5.8, 78.7, -27.6 | 12026.2, 9700.4 | chest | 2 | high | N | ItemLotParam_map |
-| 1047387920 | Katar | World Pickup | Caelid | m60_47_38 | -104.5, 167.1, -1.6 | 11927.5, 9726.4 | chest | 1 | high | N | ItemLotParam_map |
-| 1047397000 | Smithing Stone [5] | World Pickup | Caelid | m60_47_39 | -27.8, 155.4, 45.2 | 12004.2, 10029.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047397040 | Golden Rune [9] | World Pickup | Caelid | m60_47_39 | 92.0, 151.6, 46.9 | 12124.0, 10030.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047397080 | Slumbering Egg | World Pickup | Caelid | m60_47_39 | 78.1, 125.2, -81.4 | 12110.1, 9902.6 | chest | 0 | high | N | ItemLotParam_map |
+| 1047380900 | Starscourge Heirloom | World Pickup | Caelid | m60_47_38 | -89.3, 179.1, 2.2 | 11942.7, 9730.2 | chest | - | high | N | ItemLotParam_map |
+| 1047380910 | Meteoric Ore Blade | World Pickup | Caelid | m60_47_38 | -5.8, 78.7, -27.6 | 12026.2, 9700.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1047380920 | Katar | World Pickup | Caelid | m60_47_38 | -104.5, 167.1, -1.6 | 11927.5, 9726.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1047390000 | Smithing Stone [5] | World Pickup | Caelid | m60_47_39 | -27.8, 155.4, 45.2 | 12004.2, 10029.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047390040 | Golden Rune [9] | World Pickup | Caelid | m60_47_39 | 92.0, 151.6, 46.9 | 12124.0, 10030.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047390080 | Slumbering Egg | World Pickup | Caelid | m60_47_39 | 78.1, 125.2, -81.4 | 12110.1, 9902.6 | chest | 0 | high | N | ItemLotParam_map |
+| 1047400000 | Golden Rune [5] | World Pickup | Caelid | m60_47_40 | -84.6, 149.3, -90.7 | 11947.4, 10149.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047400010 | Cracked Pot | World Pickup | Caelid | m60_47_40 | -92.2, 128.7, 180.7 | 11939.8, 10420.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1047400020 | Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -103.0, 146.5, -102.0 | 11929.0, 10138.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047400030 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -7.5, 178.2, 145.0 | 12024.5, 10385.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047400040 | Explosive Bolt | World Pickup | Caelid | m60_47_40 | 58.9, 169.5, 64.1 | 12090.9, 10304.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047400070 | Drawstring Fire Grease | World Pickup | Caelid | m60_47_40 | 90.5, 157.3, -73.1 | 12122.5, 10166.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047400080 | Smoldering Butterfly | World Pickup | Caelid | m60_47_40 | 124.6, 156.5, -85.3 | 12156.6, 10154.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1047400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_47_40 | -102.3, 126.1, 102.5 | 11929.7, 10342.5 | - | - | - | - | MSB Enemy |
-| 1047407000 | Golden Rune [5] | World Pickup | Caelid | m60_47_40 | -84.6, 149.3, -90.7 | 11947.4, 10149.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047407020 | Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -103.0, 146.5, -102.0 | 11929.0, 10138.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047407030 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -7.5, 178.2, 145.0 | 12024.5, 10385.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047407040 | Explosive Bolt | World Pickup | Caelid | m60_47_40 | 58.9, 169.5, 64.1 | 12090.9, 10304.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047407070 | Drawstring Fire Grease | World Pickup | Caelid | m60_47_40 | 90.5, 157.3, -73.1 | 12122.5, 10166.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047407080 | Smoldering Butterfly | World Pickup | Caelid | m60_47_40 | 124.6, 156.5, -85.3 | 12156.6, 10154.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047407900 | Rune Arc | World Pickup | Caelid | m60_47_40 | 51.7, 169.5, 78.6 | 12083.7, 10318.6 | chest | 2 | high | N | ItemLotParam_map |
-| 1047407910 | Sword of St. Trina | World Pickup | Caelid | m60_47_40 | -85.0, 134.3, -96.1 | 11947.0, 10143.9 | chest | 2 | high | N | ItemLotParam_map |
-| 1047407920 | Greatsword | World Pickup | Caelid | m60_47_40 | 417.7, 169.1, -345.7 | 12449.7, 9894.3 | cart | 1 | low | N | ItemLotParam_map |
+| 1047400900 | Rune Arc | World Pickup | Caelid | m60_47_40 | 51.7, 169.5, 78.6 | 12083.7, 10318.6 | chest | 2 | high | N | ItemLotParam_map |
+| 1047400910 | Sword of St. Trina | World Pickup | Caelid | m60_47_40 | -85.0, 134.3, -96.1 | 11947.0, 10143.9 | chest | 2 | high | N | ItemLotParam_map |
+| 1047400920 | Greatsword | World Pickup | Caelid | m60_47_40 | 417.7, 169.1, -345.7 | 12449.7, 9894.3 | cart | 1 | low | N | ItemLotParam_map |
 | 1047410700 | Greatjar | NPC | World (23,20) | m60_23_20 | 118.6, 145.1, 249.1 | 6006.6, 5369.1 | - | - | - | - | MSB NPC |
 | 1047420700 | Great-Jar | NPC | Caelid | m60_47_42 | -4.6, 148.1, -85.6 | 12027.4, 10666.4 | - | - | - | - | MSB NPC |
-| 1047517000 | Drawstring Fire Grease | World Pickup | World (47,51) | m60_47_51 | -36.7, 1002.3, -29.1 | 11995.3, 13026.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047517010 | Golden Rune [7] | World Pickup | World (47,51) | m60_47_51 | 94.2, 993.8, -13.4 | 12126.2, 13042.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047517300 | Dragonwound Grease | World Pickup | World (47,51) | m60_47_51 | 97.4, 1000.4, 33.5 | 12129.4, 13089.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047557000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_47_55 | 114.9, 1274.8, -75.8 | 12146.9, 14004.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047557010 | Rimed Rowa | World Pickup | Mountaintops of the Giants | m60_47_55 | 56.3, 1275.3, 20.7 | 12088.3, 14100.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047557020 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_47_55 | 76.4, 1278.0, 11.4 | 12108.4, 14091.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047557030 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_47_55 | 21.1, 1271.1, 91.5 | 12053.1, 14171.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1047557040 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_47_55 | 21.1, 1271.1, 71.5 | 12053.1, 14151.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047557900 | Unendurable Frenzy | World Pickup | Mountaintops of the Giants | m60_47_55 | 77.9, 1263.3, 6.6 | 12109.9, 14086.6 | chest | 2 | high | Y | ItemLotParam_map |
-| 1047567300 | Hero's Rune [2] | World Pickup | Mountaintops of the Giants | m60_47_56 | -104.9, 1286.2, -13.8 | 11927.1, 14322.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1047567310 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_47_56 | -0.4, 1275.8, -67.0 | 12031.6, 14269.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047567320 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_47_56 | 363.6, 1280.2, -344.6 | 12395.6, 13991.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047567330 | Crystal Dart | World Pickup | Mountaintops of the Giants | m60_47_56 | 45.4, 1268.9, -12.9 | 12077.4, 14323.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1047567700 | Sanguine Noble Hood | World Pickup | Mountaintops of the Giants | m60_47_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1047510000 | Drawstring Fire Grease | World Pickup | World (47,51) | m60_47_51 | -36.7, 1002.3, -29.1 | 11995.3, 13026.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047510010 | Golden Rune [7] | World Pickup | World (47,51) | m60_47_51 | 94.2, 993.8, -13.4 | 12126.2, 13042.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047510300 | Dragonwound Grease | World Pickup | World (47,51) | m60_47_51 | 97.4, 1000.4, 33.5 | 12129.4, 13089.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047550000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_47_55 | 114.9, 1274.8, -75.8 | 12146.9, 14004.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047550010 | Rimed Rowa | World Pickup | Mountaintops of the Giants | m60_47_55 | 56.3, 1275.3, 20.7 | 12088.3, 14100.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047550020 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_47_55 | 76.4, 1278.0, 11.4 | 12108.4, 14091.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047550030 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_47_55 | 21.1, 1271.1, 91.5 | 12053.1, 14171.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1047550040 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_47_55 | 21.1, 1271.1, 71.5 | 12053.1, 14151.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047550900 | Unendurable Frenzy | World Pickup | Mountaintops of the Giants | m60_47_55 | 77.9, 1263.3, 6.6 | 12109.9, 14086.6 | chest | 2 | high | Y | ItemLotParam_map |
+| 1047560300 | Hero's Rune [2] | World Pickup | Mountaintops of the Giants | m60_47_56 | -104.9, 1286.2, -13.8 | 11927.1, 14322.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1047560310 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_47_56 | -0.4, 1275.8, -67.0 | 12031.6, 14269.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047560320 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_47_56 | 363.6, 1280.2, -344.6 | 12395.6, 13991.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047560330 | Crystal Dart | World Pickup | Mountaintops of the Giants | m60_47_56 | 45.4, 1268.9, -12.9 | 12077.4, 14323.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1047560700 | Sanguine Noble Hood | World Pickup | Mountaintops of the Giants | m60_47_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1047560701 | Sanguine Noble Hood | World Pickup | Mountaintops of the Giants | m60_47_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1047560702 | Sanguine Noble Hood | World Pickup | Mountaintops of the Giants | m60_47_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1047570300 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_47_57 | 105.3, 1266.7, 88.9 | 12137.3, 14680.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047570310 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_47_57 | 121.1, 1267.1, 105.0 | 12153.1, 14697.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047570701 | Wandering Noble | NPC | Mountaintops of the Giants | m60_47_57 | 93.3, 1258.5, -128.7 | 12125.3, 14463.3 | - | - | - | - | MSB NPC |
-| 1047577300 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_47_57 | 105.3, 1266.7, 88.9 | 12137.3, 14680.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047577310 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_47_57 | 121.1, 1267.1, 105.0 | 12153.1, 14697.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1047580000 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_47_58 | 161.7, 1293.2, -5.0 | 12193.7, 14843.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047580705 | Latenna the Albinauric | NPC | Mountaintops of the Giants | m60_47_58 | 34.7, 1291.6, -9.7 | 12066.7, 14838.3 | - | - | - | - | MSB NPC |
+| 1047580800 | Silver Mirrorshield | World Pickup | Mountaintops of the Giants | m60_47_58 | 36.3, 1291.6, -14.1 | 12068.3, 14833.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1047580950 | Latenna the Albinauric | NPC | Mountaintops of the Giants | m60_47_58 | 50.9, 1290.1, -32.3 | 12082.9, 14815.7 | - | - | - | - | MSB NPC |
-| 1047587000 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_47_58 | 161.7, 1293.2, -5.0 | 12193.7, 14843.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047587800 | Silver Mirrorshield | World Pickup | Mountaintops of the Giants | m60_47_58 | 36.3, 1291.6, -14.1 | 12068.3, 14833.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048360000 | Ancient Dragon Apostle's Cookbook [3] | World Pickup | Caelid | m60_48_36 | 32.6, 127.3, 93.1 | 12320.6, 9309.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1048360700 | Cathedral of Dragon Communion | NPC | Caelid | m60_48_36 | 26.5, 127.4, 92.1 | 12314.5, 9308.1 | - | - | - | - | MSB NPC |
+| 1048370000 | Crab Eggs | World Pickup | Caelid | m60_48_37 | 105.6, 84.5, 59.6 | 12393.6, 9531.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048370020 | Golden Rune [3] | World Pickup | Caelid | m60_48_37 | -7.1, 94.2, 60.9 | 12280.9, 9532.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048370030 | Golden Rune [4] | World Pickup | Caelid | m60_48_37 | 21.1, 114.0, 96.6 | 12309.1, 9568.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1048370800 | [Dragon Communion] Ekzykes's Decay - Unlocked | Shop Unlock | Caelid | - | - | - | - | - | - | - | ShopLineupParam |
-| 1048377000 | Crab Eggs | World Pickup | Caelid | m60_48_37 | 105.6, 84.5, 59.6 | 12393.6, 9531.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048377020 | Golden Rune [3] | World Pickup | Caelid | m60_48_37 | -7.1, 94.2, 60.9 | 12280.9, 9532.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048377030 | Golden Rune [4] | World Pickup | Caelid | m60_48_37 | 21.1, 114.0, 96.6 | 12309.1, 9568.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048380000 | Golden Rune [4] | World Pickup | Caelid | m60_48_38 | -13.8, 67.1, 58.4 | 12274.2, 9786.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048380010 | Perfume Bottle | World Pickup | Caelid | m60_48_38 | 36.8, 67.7, 90.4 | 12324.8, 9818.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1048380011 | Traveler's Hat | World Pickup | Caelid | m60_48_38 | 36.8, 67.7, 88.4 | 12324.8, 9816.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048380012 | Traveler's Hat | World Pickup | Caelid | m60_48_38 | 36.8, 67.7, 86.4 | 12324.8, 9814.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048380013 | Traveler's Hat | World Pickup | Caelid | m60_48_38 | 36.8, 67.7, 84.4 | 12324.8, 9812.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048380014 | Traveler's Hat | World Pickup | Caelid | m60_48_38 | 36.8, 67.7, 82.4 | 12324.8, 9810.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048380020 | Meteorite Staff | World Pickup | Caelid | m60_48_38 | -19.5, 69.2, 60.1 | 12268.5, 9788.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048380500 | Sacramental Bud | World Pickup | Caelid | m60_48_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1048380501 | Golden Rune [3] | World Pickup | Caelid | m60_48_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1048380502 | Golden Rune [5] | World Pickup | Caelid | m60_48_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1048380503 | Golden Rune [10] | World Pickup | Caelid | m60_48_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1048380701 | Wandering Noble | NPC | Caelid | m60_48_38 | 42.5, 64.4, -15.0 | 12330.5, 9713.0 | - | - | - | - | MSB NPC |
 | 1048380705 | Nomadic Merchant | Merchant | Caelid | m60_48_38 | -28.6, 84.4, 19.3 | 12259.4, 9747.3 | - | - | - | - | MSB NPC |
-| 1048387000 | Golden Rune [4] | World Pickup | Caelid | m60_48_38 | -13.8, 67.1, 58.4 | 12274.2, 9786.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1048387010 | Good_401 | World Pickup | Caelid | m60_48_38 | -41.7, 70.7, -55.9 | 12246.3, 9672.1 | corpse | - | high | N | ItemLotParam_map |
 | 1048387020 | Good_401 | World Pickup | Caelid | m60_48_38 | -35.7, 69.1, -56.5 | 12252.3, 9671.5 | corpse | - | high | N | ItemLotParam_map |
 | 1048387030 | Good_401 | World Pickup | Caelid | m60_48_38 | -39.5, 70.1, -54.5 | 12248.5, 9673.5 | corpse | - | high | N | ItemLotParam_map |
-| 1048387500 | Sacramental Bud | World Pickup | Caelid | m60_48_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1048390000 | Sacramental Bud | World Pickup | Caelid | m60_48_39 | -4.8, 70.6, -30.4 | 12283.2, 9953.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1048390010 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_48_39 | 109.8, 91.8, 93.4 | 12397.8, 10077.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048390040 | Great Dragonfly Head | World Pickup | Caelid | m60_48_39 | -106.7, 150.7, 113.5 | 12181.3, 10097.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048390050 | Stonesword Key | World Pickup | Caelid | m60_48_39 | 105.9, 113.1, 105.5 | 12393.9, 10089.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1048390701 | Putrid Corpse | NPC | Caelid | m60_48_39 | 77.7, 125.7, -44.6 | 12365.7, 9939.4 | - | - | - | - | MSB NPC |
 | 1048390705 | Finger Reader Crone | Finger Reader | Caelid | m60_48_39 | -112.0, 130.6, 4.0 | 12176.0, 9988.0 | - | - | - | - | MSB NPC |
-| 1048397000 | Sacramental Bud | World Pickup | Caelid | m60_48_39 | -4.8, 70.6, -30.4 | 12283.2, 9953.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 1048397010 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_48_39 | 109.8, 91.8, 93.4 | 12397.8, 10077.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048397040 | Great Dragonfly Head | World Pickup | Caelid | m60_48_39 | -106.7, 150.7, 113.5 | 12181.3, 10097.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048397050 | Stonesword Key | World Pickup | Caelid | m60_48_39 | 105.9, 113.1, 105.5 | 12393.9, 10089.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1048397900 | Rock Sling | World Pickup | Caelid | m60_48_39 | -5.3, 51.8, -114.7 | 12282.7, 9869.3 | chest | 1 | high | N | ItemLotParam_map |
+| 1048390900 | Rock Sling | World Pickup | Caelid | m60_48_39 | -5.3, 51.8, -114.7 | 12282.7, 9869.3 | chest | 1 | high | N | ItemLotParam_map |
+| 1048400010 | Golden Rune [1] | World Pickup | Caelid | m60_48_40 | 85.6, 173.0, -34.9 | 12373.6, 10205.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1048400020 | Golden Rune [6] | World Pickup | Caelid | m60_48_40 | 73.8, 170.5, -40.6 | 12361.8, 10199.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1048400030 | Golden Rune [2] | World Pickup | Caelid | m60_48_40 | 80.0, 173.6, -28.5 | 12368.0, 10211.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1048400040 | Sacramental Bud | World Pickup | Caelid | m60_48_40 | 8.5, 176.3, -149.9 | 12296.5, 10090.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1048400050 | Hefty Beast Bone | World Pickup | Caelid | m60_48_40 | -37.0, 151.2, -94.3 | 12251.0, 10145.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048400060 | Spiked Palisade Shield | World Pickup | Caelid | m60_48_40 | -107.8, 121.4, 78.4 | 12180.2, 10318.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1048400800 | Mad Pumpkin Head | Great Boss Defeat | Caelid | m60_48_40 | -119.2, 138.4, -95.8 | 12168.8, 10144.2 | - | - | - | - | MSB Enemy |
-| 1048407010 | Golden Rune [1] | World Pickup | Caelid | m60_48_40 | 85.6, 173.0, -34.9 | 12373.6, 10205.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1048407020 | Golden Rune [6] | World Pickup | Caelid | m60_48_40 | 73.8, 170.5, -40.6 | 12361.8, 10199.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1048407030 | Golden Rune [2] | World Pickup | Caelid | m60_48_40 | 80.0, 173.6, -28.5 | 12368.0, 10211.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1048407040 | Sacramental Bud | World Pickup | Caelid | m60_48_40 | 8.5, 176.3, -149.9 | 12296.5, 10090.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1048407050 | Hefty Beast Bone | World Pickup | Caelid | m60_48_40 | -37.0, 151.2, -94.3 | 12251.0, 10145.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048407060 | Spiked Palisade Shield | World Pickup | Caelid | m60_48_40 | -107.8, 121.4, 78.4 | 12180.2, 10318.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048407900 | Visage Shield | World Pickup | Caelid | m60_48_40 | -113.3, 138.4, -75.9 | 12174.7, 10164.1 | chest | 2 | high | Y | ItemLotParam_map |
+| 1048400900 | Visage Shield | World Pickup | Caelid | m60_48_40 | -113.3, 138.4, -75.9 | 12174.7, 10164.1 | chest | 2 | high | Y | ItemLotParam_map |
 | 1048410700 | Isolated Merchant | Merchant | Caelid | m60_48_41 | -88.7, 226.2, -78.5 | 12199.3, 10417.5 | - | - | - | - | MSB NPC |
-| 1048410800 | Elemer of the Briar | Boss Defeat | Caelid | m60_48_41 | -86.8, 225.6, -69.8 | 12201.2, 10426.2 | - | - | - | - | MSB Enemy |
+| 1048410800 | Gravity Stone Peddler's Bell Bearing | World Pickup | Caelid | m60_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1048410950 | Isolated Merchant | NPC | Caelid | m60_48_41 | -86.0, 225.8, -87.1 | 12202.0, 10408.9 | - | - | - | - | MSB NPC |
-| 1048417800 | Gravity Stone Peddler's Bell Bearing | World Pickup | Caelid | m60_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1048510000 | Somber Smithing Stone [7] | World Pickup | World (48,51) | m60_48_51 | 156.8, 1010.9, 111.3 | 12444.8, 13167.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048510700 | Ash of War: Phantom Slash | World Pickup | World (48,51) | m60_48_51 | - | - | - | - | none | N | ItemLotParam_map |
 | 1048510800 | Night's Cavalry | Boss Arena | Mountaintops of the Giants - Forbidden Lands Midway | m60_48_51 | -93.2, 971.5, 47.7 | -93.2, 47.7 | - | - | - | - | GameAreaParam |
-| 1048517000 | Somber Smithing Stone [7] | World Pickup | World (48,51) | m60_48_51 | 156.8, 1010.9, 111.3 | 12444.8, 13167.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048517700 | Ash of War: Phantom Slash | World Pickup | World (48,51) | m60_48_51 | - | - | - | - | none | N | ItemLotParam_map |
-| 1048547800 | Golden Rune [1] | World Pickup | Mountaintops of the Giants | m60_48_54 | 82.9, 1312.5, 36.5 | 12370.9, 13860.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1048547810 | Golden Rune [3] | World Pickup | Mountaintops of the Giants | m60_48_54 | 72.5, 1312.7, 33.6 | 12360.5, 13857.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1048547820 | Golden Rune [6] | World Pickup | Mountaintops of the Giants | m60_48_54 | 61.8, 1311.8, 6.2 | 12349.8, 13830.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1048547830 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_48_54 | 76.2, 1311.7, 14.1 | 12364.2, 13838.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1048547840 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_48_54 | 80.5, 1312.8, 44.9 | 12368.5, 13868.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1048557300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_55 | -49.6, 1267.9, -33.5 | 12238.4, 14046.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048557600 | Stalwart Horn Charm +1 | World Pickup | Mountaintops of the Giants | m60_48_55 | -55.3, 1258.9, -81.7 | 12232.7, 13998.3 | corpse | - | high | N | ItemLotParam_map |
-| 1048557700 | Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 1048557710 | Night's Cavalry Helm | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048557900 | Flowing Curved Sword | World Pickup | Mountaintops of the Giants | m60_48_55 | -257.7, 1285.9, 354.6 | 12030.3, 14434.6 | cart | 2 | low | N | ItemLotParam_map |
-| 1048567300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_48_56 | -53.3, 1271.8, -68.9 | 12234.7, 14267.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1048567800 | Somber Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_56 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 1048570310 | Enemy (c0100) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 41.2, 1295.5, 32.2 | 12329.2, 14624.2 | - | - | - | - | MSB Enemy |
-| 1048570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_48_57 | -110.8, 1255.1, 109.7 | 12177.2, 14701.7 | - | - | - | - | MSB Enemy |
+| 1048540800 | Golden Rune [1] | World Pickup | Mountaintops of the Giants | m60_48_54 | 82.9, 1312.5, 36.5 | 12370.9, 13860.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1048540810 | Golden Rune [3] | World Pickup | Mountaintops of the Giants | m60_48_54 | 72.5, 1312.7, 33.6 | 12360.5, 13857.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1048540820 | Golden Rune [6] | World Pickup | Mountaintops of the Giants | m60_48_54 | 61.8, 1311.8, 6.2 | 12349.8, 13830.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1048540830 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_48_54 | 76.2, 1311.7, 14.1 | 12364.2, 13838.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1048540840 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_48_54 | 80.5, 1312.8, 44.9 | 12368.5, 13868.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1048550300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_55 | -49.6, 1267.9, -33.5 | 12238.4, 14046.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048550600 | Stalwart Horn Charm +1 | World Pickup | Mountaintops of the Giants | m60_48_55 | -55.3, 1258.9, -81.7 | 12232.7, 13998.3 | corpse | - | high | N | ItemLotParam_map |
+| 1048550700 | Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1048550710 | Night's Cavalry Helm | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048550711 | Night's Cavalry Helm | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048550712 | Night's Cavalry Helm | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048550713 | Night's Cavalry Helm | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048550900 | Flowing Curved Sword | World Pickup | Mountaintops of the Giants | m60_48_55 | -257.7, 1285.9, 354.6 | 12030.3, 14434.6 | cart | 2 | low | N | ItemLotParam_map |
+| 1048560300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_48_56 | -53.3, 1271.8, -68.9 | 12234.7, 14267.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1048560700 | Map: Consecrated Snowfield | World Pickup | Mountaintops of the Giants | m60_48_56 | 100.0, 1266.8, 28.3 | 12388.0, 14364.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048560800 | Somber Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_56 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1048570000 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_48_57 | 88.9, 1296.6, -44.2 | 12376.9, 14547.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1048570010 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 23.3, 1296.4, 17.7 | 12311.3, 14609.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048570020 | Hefty Beast Bone | World Pickup | Mountaintops of the Giants | m60_48_57 | 89.3, 1290.8, -38.2 | 12377.3, 14553.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570030 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 27.3, 1292.4, 13.0 | 12315.3, 14605.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048570040 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_48_57 | 4.9, 1285.6, 10.4 | 12292.9, 14602.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570050 | Cuckoo Glintstone | World Pickup | Mountaintops of the Giants | m60_48_57 | 48.9, 1293.4, -39.0 | 12336.9, 14553.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570060 | Crystal Dart | World Pickup | Mountaintops of the Giants | m60_48_57 | -6.4, 1290.8, -6.7 | 12281.6, 14585.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570070 | Old Fang | World Pickup | Mountaintops of the Giants | m60_48_57 | 24.4, 1290.8, 19.2 | 12312.4, 14611.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048570080 | Slumbering Egg | World Pickup | Mountaintops of the Giants | m60_48_57 | 50.2, 1299.5, -8.2 | 12338.2, 14583.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570090 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_48_57 | -9.6, 1299.6, 17.7 | 12278.4, 14609.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048570300 | Invigorating Cured Meat | World Pickup | Mountaintops of the Giants | m60_48_57 | 83.2, 1304.8, 47.8 | 12371.2, 14639.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048570310 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_48_57 | 66.0, 1291.3, -15.9 | 12354.0, 14576.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1048570700 | Explosive Ghostflame | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1048570800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_48_57 | -88.9, 1264.0, -61.7 | 12199.1, 14530.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048570810 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 34.0 | 12368.6, 14626.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048570811 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 32.0 | 12368.6, 14624.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048570812 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 30.0 | 12368.6, 14622.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048570813 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 28.0 | 12368.6, 14620.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1048570900 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048570910 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048570920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048570930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1048572301 | Stake of Marika (m60_48_57) | Stake of Marika | Mountaintops of the Giants | m60_48_57 | 47.3, 1295.6, 30.1 | 12335.3, 14622.1 | - | - | - | - | MSB SpawnPoint |
-| 1048577000 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_48_57 | 88.9, 1296.6, -44.2 | 12376.9, 14547.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1048577010 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 23.3, 1296.4, 17.7 | 12311.3, 14609.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048577020 | Hefty Beast Bone | World Pickup | Mountaintops of the Giants | m60_48_57 | 89.3, 1290.8, -38.2 | 12377.3, 14553.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577030 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 27.3, 1292.4, 13.0 | 12315.3, 14605.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048577040 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_48_57 | 4.9, 1285.6, 10.4 | 12292.9, 14602.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577050 | Cuckoo Glintstone | World Pickup | Mountaintops of the Giants | m60_48_57 | 48.9, 1293.4, -39.0 | 12336.9, 14553.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577060 | Crystal Dart | World Pickup | Mountaintops of the Giants | m60_48_57 | -6.4, 1290.8, -6.7 | 12281.6, 14585.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577070 | Old Fang | World Pickup | Mountaintops of the Giants | m60_48_57 | 24.4, 1290.8, 19.2 | 12312.4, 14611.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048577080 | Slumbering Egg | World Pickup | Mountaintops of the Giants | m60_48_57 | 50.2, 1299.5, -8.2 | 12338.2, 14583.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577090 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_48_57 | -9.6, 1299.6, 17.7 | 12278.4, 14609.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048577300 | Invigorating Cured Meat | World Pickup | Mountaintops of the Giants | m60_48_57 | 83.2, 1304.8, 47.8 | 12371.2, 14639.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1048577310 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_48_57 | 66.0, 1291.3, -15.9 | 12354.0, 14576.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1048577700 | Explosive Ghostflame | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1048577800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_48_57 | -88.9, 1264.0, -61.7 | 12199.1, 14530.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1048577810 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 34.0 | 12368.6, 14626.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1048577900 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577910 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048587300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_58 | -100.6, 1274.5, -26.8 | 12187.4, 14821.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049367000 | Smoldering Butterfly | World Pickup | Caelid | m60_49_36 | 117.5, 42.2, -27.1 | 12661.5, 9188.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049367010 | Fan Daggers | World Pickup | Caelid | m60_49_36 | -9.1, 70.5, 103.7 | 12534.9, 9319.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049370700 | Nomadic Merchant | Merchant | Caelid | m60_49_37 | -77.3, 97.7, -15.4 | 12466.7, 9456.6 | - | - | - | - | MSB NPC |
+| 1048580300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_58 | -100.6, 1274.5, -26.8 | 12187.4, 14821.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049360000 | Smoldering Butterfly | World Pickup | Caelid | m60_49_36 | 117.5, 42.2, -27.1 | 12661.5, 9188.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049360010 | Fan Daggers | World Pickup | Caelid | m60_49_36 | -9.1, 70.5, 103.7 | 12534.9, 9319.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049370000 | Windy Crystal Tear | World Pickup | Caelid | m60_49_37 | -2.9, 82.5, -52.7 | 12541.1, 9419.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1049370010 | Beast Blood | World Pickup | Caelid | m60_49_37 | 76.6, 73.1, -94.2 | 12620.6, 9377.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049370020 | Golden Seed | World Pickup | Caelid | m60_49_37 | -33.3, 82.8, -108.8 | 12510.7, 9363.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1049370050 | Beast Blood | World Pickup | Caelid | m60_49_37 | 87.9, 79.3, -70.6 | 12631.9, 9401.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049370070 | Golden Rune [2] | World Pickup | Caelid | m60_49_37 | 84.0, 93.9, 108.6 | 12628.0, 9580.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049370100 | Ash of War: Poison Moth Flight | World Pickup | Caelid | m60_49_37 | - | - | - | - | none | N | ItemLotParam_map |
+| 1049370110 | Death's Poker | World Pickup | Caelid | m60_49_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1049370500 | Map: Caelid | World Pickup | Caelid | m60_49_37 | -102.3, 98.9, -16.7 | 12441.7, 9455.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1049370700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049370701 | Beast Blood | World Pickup | Caelid | m60_49_37 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1049370702 | Old Fang | World Pickup | Caelid | m60_49_37 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1049370800 | Night's Cavalry | Boss Defeat | Caelid | m60_49_37 | -122.3, 102.5, -8.5 | 12421.7, 9463.5 | - | - | - | - | MSB Enemy |
 | 1049370850 | Death Rite Bird | Field Boss Defeat | Caelid | m60_49_37 | 112.2, 102.1, 15.5 | 12656.2, 9487.5 | - | - | - | - | MSB Enemy |
-| 1049377010 | Beast Blood | World Pickup | Caelid | m60_49_37 | 76.6, 73.1, -94.2 | 12620.6, 9377.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049377020 | Golden Seed | World Pickup | Caelid | m60_49_37 | -33.3, 82.8, -108.8 | 12510.7, 9363.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1049377050 | Beast Blood | World Pickup | Caelid | m60_49_37 | 87.9, 79.3, -70.6 | 12631.9, 9401.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049377070 | Golden Rune [2] | World Pickup | Caelid | m60_49_37 | 84.0, 93.9, 108.6 | 12628.0, 9580.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049377100 | Ash of War: Poison Moth Flight | World Pickup | Caelid | m60_49_37 | - | - | - | - | none | N | ItemLotParam_map |
-| 1049377110 | Death's Poker | World Pickup | Caelid | m60_49_37 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049377700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049380000 | Eternal Darkness | World Pickup | Caelid | m60_49_38 | 53.0, 146.2, 55.7 | 12597.0, 9783.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049380010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | 10.8, 64.0, -23.0 | 12554.8, 9705.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049380020 | Aeonian Butterfly | World Pickup | Caelid | m60_49_38 | 6.5, 64.0, -33.4 | 12550.5, 9694.6 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049380030 | Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | -44.4, 69.6, -127.0 | 12499.6, 9601.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049380040 | Black-Key Bolt | World Pickup | Caelid | m60_49_38 | 124.5, 126.9, -59.6 | 12668.5, 9668.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049380060 | Sacramental Bud | World Pickup | Caelid | m60_49_38 | -42.8, 69.1, -122.9 | 12501.2, 9605.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049380070 | Rune Arc | World Pickup | Caelid | m60_49_38 | -39.7, 68.8, -122.6 | 12504.3, 9605.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049380080 | Golden Rune [4] | World Pickup | Caelid | m60_49_38 | 114.8, 126.8, -50.4 | 12658.8, 9677.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049380110 | Golden Rune [5] | World Pickup | Caelid | m60_49_38 | 84.2, 93.8, -124.7 | 12628.2, 9603.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049380120 | Glass Shard | World Pickup | Caelid | m60_49_38 | 125.4, 96.4, -85.7 | 12669.4, 9642.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049380800 | Commander Niall | Boss Defeat | Caelid | m60_49_38 | -25.2, 65.9, 50.6 | 12518.8, 9778.6 | - | - | - | - | MSB Enemy |
-| 1049387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | 10.8, 64.0, -23.0 | 12554.8, 9705.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049387020 | Aeonian Butterfly | World Pickup | Caelid | m60_49_38 | 6.5, 64.0, -33.4 | 12550.5, 9694.6 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049387030 | Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | -44.4, 69.6, -127.0 | 12499.6, 9601.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049387040 | Black-Key Bolt | World Pickup | Caelid | m60_49_38 | 124.5, 126.9, -59.6 | 12668.5, 9668.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049387060 | Sacramental Bud | World Pickup | Caelid | m60_49_38 | -42.8, 69.1, -122.9 | 12501.2, 9605.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049387070 | Rune Arc | World Pickup | Caelid | m60_49_38 | -39.7, 68.8, -122.6 | 12504.3, 9605.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049387080 | Golden Rune [4] | World Pickup | Caelid | m60_49_38 | 114.8, 126.8, -50.4 | 12658.8, 9677.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049387110 | Golden Rune [5] | World Pickup | Caelid | m60_49_38 | 84.2, 93.8, -124.7 | 12628.2, 9603.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049387120 | Glass Shard | World Pickup | Caelid | m60_49_38 | 125.4, 96.4, -85.7 | 12669.4, 9642.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049387800 | Eternal Darkness | World Pickup | Caelid | m60_49_38 | 53.0, 146.2, 55.7 | 12597.0, 9783.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049390800 | Nox Swordstress/Monk/Nightmaiden | Boss Defeat | Caelid | m60_49_39 | 94.0, 83.5, 86.5 | 12638.0, 10070.5 | - | - | - | - | MSB Enemy |
-| 1049390850 | Battlenage | Boss Arena | Caelid - West Sellia | m60_49_39 | -89.5, 164.0, -1.1 | -89.5, -1.1 | - | - | - | - | GameAreaParam |
+| 1049390000 | Stonesword Key | World Pickup | Caelid | m60_49_39 | 123.4, 87.1, -90.0 | 12667.4, 9894.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049390010 | Poisonbloom | World Pickup | Caelid | m60_49_39 | 92.3, 74.2, -69.2 | 12636.3, 9914.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049390020 | Rune Arc | World Pickup | Caelid | m60_49_39 | 36.4, 65.4, -36.8 | 12580.4, 9947.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049390030 | Staff of Loss | World Pickup | Caelid | m60_49_39 | 115.8, 84.5, -22.0 | 12659.8, 9962.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049390040 | Rotten Stray Ashes | World Pickup | Caelid | m60_49_39 | 83.6, 66.1, 7.0 | 12627.6, 9991.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049390800 | Nox Flowing Sword | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1049390850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1049390900 | Lusat's Glintstone Staff | World Pickup | Caelid | m60_49_39 | 96.6, 86.4, 104.0 | 12640.6, 10088.0 | chest | 2 | high | N | ItemLotParam_map |
+| 1049390910 | Spelldrake Talisman +1 | World Pickup | Caelid | m60_49_39 | 118.0, 78.8, -22.8 | 12662.0, 9961.2 | chest | - | high | N | ItemLotParam_map |
 | 1049392855 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.0, 162.9, 12.0 | 12454.0, 9996.0 | - | - | - | - | MSB SpawnPoint |
 | 1049392856 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.3, 162.8, 15.2 | 12453.7, 9999.2 | - | - | - | - | MSB SpawnPoint |
 | 1049392857 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -88.0, 164.0, -8.4 | 12456.0, 9975.6 | - | - | - | - | MSB SpawnPoint |
 | 1049392859 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.0, 162.9, 12.0 | 12454.0, 9996.0 | - | - | - | - | MSB SpawnPoint |
-| 1049397000 | Stonesword Key | World Pickup | Caelid | m60_49_39 | 123.4, 87.1, -90.0 | 12667.4, 9894.0 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049397010 | Poisonbloom | World Pickup | Caelid | m60_49_39 | 92.3, 74.2, -69.2 | 12636.3, 9914.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049397020 | Rune Arc | World Pickup | Caelid | m60_49_39 | 36.4, 65.4, -36.8 | 12580.4, 9947.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049397030 | Staff of Loss | World Pickup | Caelid | m60_49_39 | 115.8, 84.5, -22.0 | 12659.8, 9962.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049397040 | Rotten Stray Ashes | World Pickup | Caelid | m60_49_39 | 83.6, 66.1, 7.0 | 12627.6, 9991.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049397800 | Nox Flowing Sword | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049397850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049397900 | Lusat's Glintstone Staff | World Pickup | Caelid | m60_49_39 | 96.6, 86.4, 104.0 | 12640.6, 10088.0 | chest | 2 | high | N | ItemLotParam_map |
-| 1049397910 | Spelldrake Talisman +1 | World Pickup | Caelid | m60_49_39 | 118.0, 78.8, -22.8 | 12662.0, 9961.2 | chest | - | high | N | ItemLotParam_map |
-| 1049407000 | Golden Rune [5] | World Pickup | Caelid | m60_49_40 | 57.0, 180.7, 12.1 | 12601.0, 10252.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049407010 | Gravel Stone | World Pickup | Caelid | m60_49_40 | 36.1, 180.7, 10.2 | 12580.1, 10250.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049407020 | Sliver of Meat | World Pickup | Caelid | m60_49_40 | 39.7, 180.7, 36.6 | 12583.7, 10276.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049407040 | Smithing Stone [5] | World Pickup | Caelid | m60_49_40 | -62.7, 178.4, -80.6 | 12481.3, 10159.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1049417040 | Arteria Leaf | World Pickup | Caelid | m60_49_41 | 40.5, 155.0, -71.2 | 12584.5, 10424.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049417070 | Dragonwound Grease | World Pickup | Caelid | m60_49_41 | 37.5, 155.0, -75.6 | 12581.5, 10420.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049417080 | Rune Arc | World Pickup | Caelid | m60_49_41 | 41.1, 155.0, -75.9 | 12585.1, 10420.1 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049417090 | Somber Smithing Stone [9] | World Pickup | Caelid | m60_49_41 | 39.6, 155.2, -73.7 | 12583.6, 10422.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049417100 | Numen's Rune | World Pickup | Caelid | m60_49_41 | 94.8, 231.3, 1.4 | 12638.8, 10497.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049400000 | Golden Rune [5] | World Pickup | Caelid | m60_49_40 | 57.0, 180.7, 12.1 | 12601.0, 10252.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049400010 | Gravel Stone | World Pickup | Caelid | m60_49_40 | 36.1, 180.7, 10.2 | 12580.1, 10250.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049400020 | Sliver of Meat | World Pickup | Caelid | m60_49_40 | 39.7, 180.7, 36.6 | 12583.7, 10276.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049400040 | Smithing Stone [5] | World Pickup | Caelid | m60_49_40 | -62.7, 178.4, -80.6 | 12481.3, 10159.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1049400500 | Map: Dragonbarrow | World Pickup | Caelid | m60_49_40 | -25.2, 186.9, 57.5 | 12518.8, 10297.5 | chest | 2 | high | N | ItemLotParam_map |
+| 1049410040 | Arteria Leaf | World Pickup | Caelid | m60_49_41 | 40.5, 155.0, -71.2 | 12584.5, 10424.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049410070 | Dragonwound Grease | World Pickup | Caelid | m60_49_41 | 37.5, 155.0, -75.6 | 12581.5, 10420.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049410080 | Rune Arc | World Pickup | Caelid | m60_49_41 | 41.1, 155.0, -75.9 | 12585.1, 10420.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049410090 | Somber Smithing Stone [9] | World Pickup | Caelid | m60_49_41 | 39.6, 155.2, -73.7 | 12583.6, 10422.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049410100 | Numen's Rune | World Pickup | Caelid | m60_49_41 | 94.8, 231.3, 1.4 | 12638.8, 10497.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049520000 | Freezing Grease | World Pickup | World (49,52) | m60_49_52 | -77.4, 1048.1, 74.1 | 12466.6, 13386.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049520700 | Millicent | NPC | World (49,52) | m60_49_52 | -21.9, 1042.8, -4.7 | 12522.1, 13307.3 | - | - | - | - | MSB NPC |
-| 1049520800 | Valiant Gargoyle | Great Boss Defeat | World (49,52) | m60_49_52 | -20.2, 1048.5, 58.4 | 12523.8, 13370.4 | - | - | - | - | MSB Enemy |
-| 1049527000 | Freezing Grease | World Pickup | World (49,52) | m60_49_52 | -77.4, 1048.1, 74.1 | 12466.6, 13386.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049527800 | Golden Seed | World Pickup | World (49,52) | m60_49_52 | -81.2, 1010.0, -103.3 | 12462.8, 13208.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1049530700 | Shabriri | NPC | World (49,53) | m60_49_53 | 90.1, 1560.9, 101.1 | 12634.1, 13669.1 | - | - | - | - | MSB NPC |
+| 1049520800 | Golden Seed | World Pickup | World (49,52) | m60_49_52 | -81.2, 1010.0, -103.3 | 12462.8, 13208.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1049530000 | Sliver of Meat | World Pickup | World (49,53) | m60_49_53 | 64.8, 1576.6, 6.3 | 12608.8, 13574.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049530010 | Invigorating Cured Meat | World Pickup | World (49,53) | m60_49_53 | 168.6, 1565.6, -20.7 | 12712.6, 13547.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049530020 | Golden Rune [10] | World Pickup | World (49,53) | m60_49_53 | 11.6, 1576.5, 39.5 | 12555.6, 13607.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049530030 | Zamor Ice Storm | World Pickup | World (49,53) | m60_49_53 | 95.4, 1578.5, -71.1 | 12639.4, 13496.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049530300 | Beast Blood | World Pickup | World (49,53) | m60_49_53 | -20.8, 1567.3, -58.4 | 12523.2, 13509.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049530700 | Map: Mountaintops of the Giants, West | World Pickup | World (49,53) | m60_49_53 | 29.8, 1554.2, 67.9 | 12573.8, 13635.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1049530710 | Keeper of Forbidden Lands | Finger Reader | World (49,53) | m60_49_53 | -28.8, 1063.4, -95.0 | 12515.2, 13473.0 | - | - | - | - | MSB NPC |
+| 1049530900 | Smithing-Stone Miner's Bell Bearing [3] | World Pickup | World (49,53) | m60_49_53 | 85.4, 1564.1, -79.4 | 12629.4, 13488.6 | chest | 2 | high | Y | ItemLotParam_map |
 | 1049530950 | Yura, Hunter of Bloody Fingers | NPC | World (49,53) | m60_49_53 | 78.9, 1558.8, 101.0 | 12622.9, 13669.0 | - | - | - | - | MSB NPC |
 | 1049530951 | Finger Reader | NPC | World (49,53) | m60_49_53 | -8.0, 1062.5, -100.1 | 12536.0, 13467.9 | - | - | - | - | MSB NPC |
-| 1049537000 | Sliver of Meat | World Pickup | World (49,53) | m60_49_53 | 64.8, 1576.6, 6.3 | 12608.8, 13574.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049537010 | Invigorating Cured Meat | World Pickup | World (49,53) | m60_49_53 | 168.6, 1565.6, -20.7 | 12712.6, 13547.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049537020 | Golden Rune [10] | World Pickup | World (49,53) | m60_49_53 | 11.6, 1576.5, 39.5 | 12555.6, 13607.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049537030 | Zamor Ice Storm | World Pickup | World (49,53) | m60_49_53 | 95.4, 1578.5, -71.1 | 12639.4, 13496.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049537300 | Beast Blood | World Pickup | World (49,53) | m60_49_53 | -20.8, 1567.3, -58.4 | 12523.2, 13509.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049537900 | Smithing-Stone Miner's Bell Bearing [3] | World Pickup | World (49,53) | m60_49_53 | 85.4, 1564.1, -79.4 | 12629.4, 13488.6 | chest | 2 | high | Y | ItemLotParam_map |
+| 1049540300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_49_54 | -57.0, 1344.0, -72.8 | 12487.0, 13751.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049540310 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_54 | -44.8, 1355.1, -81.1 | 12499.2, 13742.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049540700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1049540710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_54 | -106.1, 1332.3, -88.3 | 12437.9, 13735.7 | - | - | - | - | MSB NPC |
-| 1049547300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_49_54 | -57.0, 1344.0, -72.8 | 12487.0, 13751.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049547310 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_54 | -44.8, 1355.1, -81.1 | 12499.2, 13742.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049547700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1049547900 | St. Trina's Torch | World Pickup | Mountaintops of the Giants | m60_49_54 | -206.3, 1316.6, 168.2 | 12337.7, 13992.2 | cart | 2 | low | N | ItemLotParam_map |
+| 1049540800 | Nomadic Warrior's Cookbook [23] | World Pickup | Mountaintops of the Giants | m60_49_54 | -77.4, 1314.6, 60.6 | 12466.6, 13884.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1049540900 | St. Trina's Torch | World Pickup | Mountaintops of the Giants | m60_49_54 | -206.3, 1316.6, 168.2 | 12337.7, 13992.2 | cart | 2 | low | N | ItemLotParam_map |
+| 1049550300 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_55 | -62.3, 1308.3, -45.0 | 12481.7, 14035.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049550310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_55 | 95.8, 1332.7, -101.0 | 12639.8, 13979.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049550320 | Fire Blossom | World Pickup | Mountaintops of the Giants | m60_49_55 | 115.9, 1328.9, 24.4 | 12659.9, 14104.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049550330 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_49_55 | 82.1, 1316.5, 81.5 | 12626.1, 14161.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049550700 | Larval Tear | World Pickup | Mountaintops of the Giants | m60_49_55 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1049550710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_55 | 29.3, 1313.6, -40.5 | 12573.3, 14039.5 | - | - | - | - | MSB NPC |
-| 1049557300 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_55 | -62.3, 1308.3, -45.0 | 12481.7, 14035.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049557310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_55 | 95.8, 1332.7, -101.0 | 12639.8, 13979.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049557320 | Fire Blossom | World Pickup | Mountaintops of the Giants | m60_49_55 | 115.9, 1328.9, 24.4 | 12659.9, 14104.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049557330 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_49_55 | 82.1, 1316.5, 81.5 | 12626.1, 14161.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049557700 | Larval Tear | World Pickup | Mountaintops of the Giants | m60_49_55 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049557800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_49_55 | -6.8, 1317.4, -87.9 | 12537.2, 13992.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1049557810 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_55 | 8.4, 1314.5, -86.0 | 12552.4, 13994.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1049567300 | Albinauric Bloodclot | World Pickup | Mountaintops of the Giants | m60_49_56 | 111.1, 1289.8, 20.7 | 12655.1, 14356.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049567310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_56 | 104.6, 1278.7, -73.2 | 12648.6, 14262.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049567320 | Strip of White Flesh | World Pickup | Mountaintops of the Giants | m60_49_56 | 86.7, 1255.0, -27.7 | 12630.7, 14308.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1049567330 | Dragonwound Grease | World Pickup | Mountaintops of the Giants | m60_49_56 | 62.3, 1344.3, 142.4 | 12606.3, 14478.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049567340 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_49_56 | 57.9, 1316.1, 52.5 | 12601.9, 14388.5 | corpse | 2 | high | N | ItemLotParam_map |
-| 1049567350 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_56 | -127.2, 1277.0, 64.3 | 12416.8, 14400.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049577700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1049577710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1049577720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049550800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_49_55 | -6.8, 1317.4, -87.9 | 12537.2, 13992.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1049550810 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_55 | 8.4, 1314.5, -86.0 | 12552.4, 13994.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1049560300 | Albinauric Bloodclot | World Pickup | Mountaintops of the Giants | m60_49_56 | 111.1, 1289.8, 20.7 | 12655.1, 14356.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049560310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_56 | 104.6, 1278.7, -73.2 | 12648.6, 14262.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049560320 | Strip of White Flesh | World Pickup | Mountaintops of the Giants | m60_49_56 | 86.7, 1255.0, -27.7 | 12630.7, 14308.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049560330 | Dragonwound Grease | World Pickup | Mountaintops of the Giants | m60_49_56 | 62.3, 1344.3, 142.4 | 12606.3, 14478.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049560340 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_49_56 | 57.9, 1316.1, 52.5 | 12601.9, 14388.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049560350 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_56 | -127.2, 1277.0, 64.3 | 12416.8, 14400.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049560360 | Glintstone Craftsman's Cookbook [8] | World Pickup | Mountaintops of the Giants | m60_49_56 | 101.3, 1318.0, -116.2 | 12645.3, 14219.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049570700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049570710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049570720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1050360000 | Mushroom | World Pickup | Caelid | m60_50_36 | -65.1, 38.5, -59.2 | 12734.9, 9156.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050360900 | Arrow's Sting Talisman | World Pickup | Caelid | m60_50_36 | -76.6, 65.9, -94.5 | 12723.4, 9121.5 | chest | - | high | N | ItemLotParam_map |
 | 1050362690 | Stake of Marika (m60_50_36) | Stake of Marika | Caelid | m60_50_36 | -46.8, 38.0, -76.3 | 12753.2, 9139.7 | - | - | - | - | MSB SpawnPoint |
-| 1050367000 | Mushroom | World Pickup | Caelid | m60_50_36 | -65.1, 38.5, -59.2 | 12734.9, 9156.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050367900 | Arrow's Sting Talisman | World Pickup | Caelid | m60_50_36 | -76.6, 65.9, -94.5 | 12723.4, 9121.5 | chest | - | high | N | ItemLotParam_map |
+| 1050380000 | Golden Rune [5] | World Pickup | Caelid | m60_50_38 | -27.8, 144.2, -16.5 | 12772.2, 9711.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050380010 | Drawstring Poison Grease | World Pickup | Caelid | m60_50_38 | 2.7, 134.0, 86.2 | 12802.7, 9814.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050380020 | Sacred Tear | World Pickup | Caelid | m60_50_38 | 24.5, 160.9, 121.0 | 12824.5, 9849.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1050380700 | Sage Gowry | NPC | Caelid | m60_50_38 | -85.1, 94.9, 46.2 | 12714.9, 9774.2 | - | - | - | - | MSB NPC |
 | 1050380702 | Sage Gowry | NPC | Caelid | m60_50_38 | -85.1, 94.9, 46.2 | 12714.9, 9774.2 | - | - | - | - | MSB NPC |
 | 1050380705 | Millicent | NPC | Caelid | m60_50_38 | 17.5, 160.9, 118.5 | 12817.5, 9846.5 | - | - | - | - | MSB NPC |
 | 1050380706 | Millicent | NPC | Caelid | m60_50_38 | -86.9, 94.9, 47.0 | 12713.1, 9775.0 | - | - | - | - | MSB NPC |
 | 1050380710 | Millicent | NPC | Caelid | m60_50_38 | 17.7, 160.8, 118.7 | 12817.7, 9846.7 | - | - | - | - | MSB NPC |
 | 1050380950 | Millicent | NPC | Caelid | m60_50_38 | 19.9, 160.8, 127.0 | 12819.9, 9855.0 | - | - | - | - | MSB NPC |
-| 1050387000 | Golden Rune [5] | World Pickup | Caelid | m60_50_38 | -27.8, 144.2, -16.5 | 12772.2, 9711.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050387010 | Drawstring Poison Grease | World Pickup | Caelid | m60_50_38 | 2.7, 134.0, 86.2 | 12802.7, 9814.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050387020 | Sacred Tear | World Pickup | Caelid | m60_50_38 | 24.5, 160.9, 121.0 | 12824.5, 9849.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050390000 | Poison Grease | World Pickup | Caelid | m60_50_39 | -96.7, 83.2, -61.1 | 12703.3, 9922.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050390010 | Toxic Mushroom | World Pickup | Caelid | m60_50_39 | -99.5, 88.1, -51.8 | 12700.5, 9932.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050390020 | Smithing Stone [7] | World Pickup | Caelid | m60_50_39 | -15.5, 247.0, 77.4 | 12784.5, 10061.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050390030 | Smithing Stone [7] | World Pickup | Caelid | m60_50_39 | -9.3, 247.5, 77.1 | 12790.7, 10061.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050390040 | Stonesword Key | World Pickup | Caelid | m60_50_39 | -15.2, 246.7, 72.9 | 12784.8, 10056.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1050390050 | Smithing Stone [8] | World Pickup | Caelid | m60_50_39 | -19.9, 245.9, 68.9 | 12780.1, 10052.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050390060 | Starlight Shards | World Pickup | Caelid | m60_50_39 | 89.5, 170.1, -105.5 | 12889.5, 9878.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050390070 | Cerulean Tear Scarab | World Pickup | Caelid | m60_50_39 | -91.4, 93.9, -23.3 | 12708.6, 9960.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1050390090 | Beast Blood | World Pickup | Caelid | m60_50_39 | 110.7, 204.3, 38.8 | 12910.7, 10022.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050390100 | Golden Seed | World Pickup | Caelid | m60_50_39 | -115.5, 92.8, 12.5 | 12684.5, 9996.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050390900 | Night Comet | World Pickup | Caelid | m60_50_39 | -120.6, 78.9, -51.2 | 12679.4, 9932.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1050390910 | Imbued Sword Key | World Pickup | Caelid | m60_50_39 | -78.5, 83.3, -34.2 | 12721.5, 9949.8 | chest | 2 | high | N | ItemLotParam_map |
 | 1050392499 | Spirit Spring (m60_50_39) | Spirit Spring | Caelid | m60_50_39 | 23.1, 209.9, 79.9 | 12823.1, 10063.9 | - | - | - | - | MSB MountJump |
-| 1050397000 | Poison Grease | World Pickup | Caelid | m60_50_39 | -96.7, 83.2, -61.1 | 12703.3, 9922.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050397010 | Toxic Mushroom | World Pickup | Caelid | m60_50_39 | -99.5, 88.1, -51.8 | 12700.5, 9932.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050397020 | Smithing Stone [7] | World Pickup | Caelid | m60_50_39 | -15.5, 247.0, 77.4 | 12784.5, 10061.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050397030 | Smithing Stone [7] | World Pickup | Caelid | m60_50_39 | -9.3, 247.5, 77.1 | 12790.7, 10061.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050397040 | Stonesword Key | World Pickup | Caelid | m60_50_39 | -15.2, 246.7, 72.9 | 12784.8, 10056.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1050397050 | Smithing Stone [8] | World Pickup | Caelid | m60_50_39 | -19.9, 245.9, 68.9 | 12780.1, 10052.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050397060 | Starlight Shards | World Pickup | Caelid | m60_50_39 | 89.5, 170.1, -105.5 | 12889.5, 9878.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1050397070 | Cerulean Tear Scarab | World Pickup | Caelid | m60_50_39 | -91.4, 93.9, -23.3 | 12708.6, 9960.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1050397090 | Beast Blood | World Pickup | Caelid | m60_50_39 | 110.7, 204.3, 38.8 | 12910.7, 10022.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050397100 | Golden Seed | World Pickup | Caelid | m60_50_39 | -115.5, 92.8, 12.5 | 12684.5, 9996.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1050397900 | Night Comet | World Pickup | Caelid | m60_50_39 | -120.6, 78.9, -51.2 | 12679.4, 9932.8 | chest | 1 | high | N | ItemLotParam_map |
-| 1050397910 | Imbued Sword Key | World Pickup | Caelid | m60_50_39 | -78.5, 83.3, -34.2 | 12721.5, 9949.8 | chest | 2 | high | N | ItemLotParam_map |
-| 1050400800 | [Dragon Communion] Greyoll's Roar - Unlocked | Shop Unlock | Caelid | - | - | - | - | - | - | - | ShopLineupParam |
-| 1050407800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1050537000 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | 70.2, 1651.8, 62.6 | 12870.2, 13630.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050537300 | Smoldering Butterfly | World Pickup | World (50,53) | m60_50_53 | 8.3, 1598.8, 73.7 | 12808.3, 13641.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050537700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1050547000 | Lost Ashes of War | World Pickup | Mountaintops of the Giants | m60_50_54 | 37.0, 1543.0, 87.1 | 12837.0, 13911.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050547800 | Arteria Leaf | World Pickup | Mountaintops of the Giants | m60_50_54 | 2.8, 1577.7, -86.2 | 12802.8, 13737.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1050547810 | Briars of Punishment | World Pickup | Mountaintops of the Giants | m60_50_54 | -14.6, 1579.8, -72.3 | 12785.4, 13751.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1050557300 | Hefty Beast Bone | World Pickup | Mountaintops of the Giants | m60_50_55 | -77.7, 1351.3, 38.9 | 12722.3, 14118.9 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050557310 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_50_55 | -77.4, 1353.6, 55.7 | 12722.6, 14135.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050557320 | Lump of Flesh | World Pickup | Mountaintops of the Giants | m60_50_55 | -97.5, 1353.1, -65.0 | 12702.5, 14015.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050557800 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_55 | -119.6, 1390.6, 86.3 | 12680.4, 14166.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1050557900 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_50_55 | -99.4, 1344.7, 150.1 | 12700.6, 14230.1 | chest | 2 | high | N | ItemLotParam_map |
-| 1050560800 | [Dragon Communion] Theodorix's Magma - Unlocked | Shop Unlock | Mountaintops of the Giants | - | - | - | - | - | - | - | ShopLineupParam |
+| 1050400800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050530000 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | 70.2, 1651.8, 62.6 | 12870.2, 13630.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050530300 | Smoldering Butterfly | World Pickup | World (50,53) | m60_50_53 | 8.3, 1598.8, 73.7 | 12808.3, 13641.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050530700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1050540000 | Lost Ashes of War | World Pickup | Mountaintops of the Giants | m60_50_54 | 37.0, 1543.0, 87.1 | 12837.0, 13911.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050540800 | Arteria Leaf | World Pickup | Mountaintops of the Giants | m60_50_54 | 2.8, 1577.7, -86.2 | 12802.8, 13737.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050540810 | Briars of Punishment | World Pickup | Mountaintops of the Giants | m60_50_54 | -14.6, 1579.8, -72.3 | 12785.4, 13751.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050550300 | Hefty Beast Bone | World Pickup | Mountaintops of the Giants | m60_50_55 | -77.7, 1351.3, 38.9 | 12722.3, 14118.9 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050550310 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_50_55 | -77.4, 1353.6, 55.7 | 12722.6, 14135.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050550320 | Lump of Flesh | World Pickup | Mountaintops of the Giants | m60_50_55 | -97.5, 1353.1, -65.0 | 12702.5, 14015.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050550800 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_55 | -119.6, 1390.6, 86.3 | 12680.4, 14166.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1050550900 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_50_55 | -99.4, 1344.7, 150.1 | 12700.6, 14230.1 | chest | 2 | high | N | ItemLotParam_map |
+| 1050560300 | Tarnished Golden Sunflower | World Pickup | Mountaintops of the Giants | m60_50_56 | -125.8, 1377.6, 95.3 | 12674.2, 14431.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050560500 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_56 | 61.3, 1606.2, 50.9 | 12861.3, 14386.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560510 | Invigorating White Cured Meat | World Pickup | Mountaintops of the Giants | m60_50_56 | 63.2, 1607.1, 43.5 | 12863.2, 14379.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1050560520 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_50_56 | 72.1, 1602.3, 51.4 | 12872.1, 14387.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560600 | Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_50_56 | 12.2, 1265.3, 30.7 | 12812.2, 14366.7 | corpse | 3 | high | N | ItemLotParam_map |
+| 1050560620 | Traveling Maiden Hood | World Pickup | Mountaintops of the Giants | m60_50_56 | 34.9, 1603.9, 81.3 | 12834.9, 14417.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560621 | Traveling Maiden Hood | World Pickup | Mountaintops of the Giants | m60_50_56 | 34.9, 1603.9, 79.3 | 12834.9, 14415.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560622 | Traveling Maiden Hood | World Pickup | Mountaintops of the Giants | m60_50_56 | 34.9, 1603.9, 77.3 | 12834.9, 14413.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560623 | Traveling Maiden Hood | World Pickup | Mountaintops of the Giants | m60_50_56 | 34.9, 1603.9, 75.3 | 12834.9, 14411.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050560700 | Hoslow's Petal Whip | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050560701 | Hoslow's Helm | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050560702 | Hoslow's Helm | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050560703 | Hoslow's Helm | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050560704 | Hoslow's Helm | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050560800 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_56 | -111.3, 1253.0, 4.2 | 12688.7, 14340.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1050560820 | Graven-Mass Talisman | World Pickup | Mountaintops of the Giants | m60_50_56 | -107.1, 1349.6, -84.1 | 12692.9, 14251.9 | ground_pickup | - | high | N | ItemLotParam_map |
 | 1050562141 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | - | - | - | - | MSB SpawnPoint |
 | 1050562500 | Spirit Spring (m60_50_56) | Spirit Spring | Mountaintops of the Giants | m60_50_56 | 70.7, 1609.7, -10.3 | 12870.7, 14325.7 | - | - | - | - | MSB MountJump |
 | 1050562510 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | -42.7, 1392.5, 64.0 | 12757.3, 14400.0 | - | - | - | - | MSB SpawnPoint |
 | 1050562690 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | -57.8, 1256.8, 36.1 | 12742.2, 14372.1 | - | - | - | - | MSB SpawnPoint |
 | 1050562705 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | - | - | - | - | MSB SpawnPoint |
 | 1050562706 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | 85.7, 1603.4, 93.5 | 12885.7, 14429.5 | - | - | - | - | MSB SpawnPoint |
-| 1050567300 | Tarnished Golden Sunflower | World Pickup | Mountaintops of the Giants | m60_50_56 | -125.8, 1377.6, 95.3 | 12674.2, 14431.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050567500 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_56 | 61.3, 1606.2, 50.9 | 12861.3, 14386.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050567510 | Invigorating White Cured Meat | World Pickup | Mountaintops of the Giants | m60_50_56 | 63.2, 1607.1, 43.5 | 12863.2, 14379.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050567520 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_50_56 | 72.1, 1602.3, 51.4 | 12872.1, 14387.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050567600 | Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_50_56 | 12.2, 1265.3, 30.7 | 12812.2, 14366.7 | corpse | 3 | high | N | ItemLotParam_map |
-| 1050567620 | Traveling Maiden Hood | World Pickup | Mountaintops of the Giants | m60_50_56 | 34.9, 1603.9, 81.3 | 12834.9, 14417.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050567700 | Hoslow's Petal Whip | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1050567800 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_56 | -111.3, 1253.0, 4.2 | 12688.7, 14340.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1050567820 | Graven-Mass Talisman | World Pickup | Mountaintops of the Giants | m60_50_56 | -107.1, 1349.6, -84.1 | 12692.9, 14251.9 | ground_pickup | - | high | N | ItemLotParam_map |
-| 1050570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_50_57 | 51.2, 1630.4, -92.2 | 12851.2, 14499.8 | - | - | - | - | MSB Enemy |
+| 1050570300 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_57 | -144.2, 1374.2, -116.9 | 12655.8, 14475.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1050570800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_50_57 | 16.6, 1634.6, -47.7 | 12816.6, 14544.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1050570850 | Putrid Avatar | Field Boss Defeat | Mountaintops of the Giants | m60_50_57 | -85.4, 1390.1, -56.4 | 12714.6, 14535.6 | - | - | - | - | MSB Enemy |
-| 1050577300 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_57 | -144.2, 1374.2, -116.9 | 12655.8, 14475.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1050577800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_50_57 | 16.6, 1634.6, -47.7 | 12816.6, 14544.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1051357000 | Smoldering Butterfly | World Pickup | World (51,35) | m60_51_35 | 59.7, 81.2, 99.2 | 13115.7, 9059.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051360100 | Iron Fist Alexander | NPC | Caelid | m60_51_36 | 62.7, 91.7, 56.6 | 13118.7, 9272.6 | - | - | - | - | MSB NPC |
-| 1051360700 | Castellan Jerren | NPC | Caelid | m60_51_36 | 53.6, 100.5, 103.5 | 13109.6, 9319.5 | - | - | - | - | MSB NPC |
-| 1051360701 | Castellan Jerren | NPC | Caelid | m60_51_36 | 75.9, 99.4, 50.4 | 13131.9, 9266.4 | - | - | - | - | MSB NPC |
+| 1051350000 | Smoldering Butterfly | World Pickup | World (51,35) | m60_51_35 | 59.7, 81.2, 99.2 | 13115.7, 9059.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051360000 | Golden Rune [6] | World Pickup | Caelid | m60_51_36 | 13.6, 88.5, -108.9 | 13069.6, 9107.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360010 | Armorer's Cookbook [4] | World Pickup | Caelid | m60_51_36 | -14.5, 87.5, -46.9 | 13041.5, 9169.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051360020 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | -68.8, 56.4, -60.2 | 12987.2, 9155.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360030 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | -53.4, 41.8, -58.5 | 13002.6, 9157.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360040 | Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 26.3, 83.9, -43.0 | 13082.3, 9173.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360050 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | 76.4, 106.0, -120.6 | 13132.4, 9095.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360060 | Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 114.7, 116.9, -123.1 | 13170.7, 9092.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360070 | Red-Hot Whetblade | World Pickup | Caelid | m60_51_36 | 8.5, 90.8, -10.6 | 13064.5, 9205.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051360080 | Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 18.5, 92.1, -138.4 | 13074.5, 9077.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360090 | Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 53.3, 93.5, -88.2 | 13109.3, 9127.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360100 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 44.4, 101.2, 125.2 | 13100.4, 9341.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360110 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 89.7, 94.8, 98.7 | 13145.7, 9314.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360120 | Armorer's Cookbook [5] | World Pickup | Caelid | m60_51_36 | 18.3, 92.0, -128.7 | 13074.3, 9087.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051360130 | Flamberge | World Pickup | Caelid | m60_51_36 | 90.2, 106.0, -108.4 | 13146.2, 9107.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051360700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051360701 | Beast Blood | World Pickup | Caelid | m60_51_36 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1051360702 | Old Fang | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1051360705 | Alexander, Warrior Jar | NPC | Caelid | m60_51_36 | 73.1, 91.8, 34.8 | 13129.1, 9250.8 | - | - | - | - | MSB NPC |
 | 1051360720 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_51_36 | 87.2, 91.8, 23.6 | 13143.2, 9239.6 | - | - | - | - | MSB NPC |
 | 1051360735 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 74.2, 91.8, 21.7 | 13130.2, 9237.7 | - | - | - | - | MSB NPC |
-| 1051360800 | Crucible Knight Ordovis | Great Boss Defeat | Caelid | m60_51_36 | 97.3, 105.5, 36.3 | 13153.4, 9252.3 | - | - | - | - | MSB Enemy |
+| 1051360800 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051360801 | Beast Blood | World Pickup | Caelid | m60_51_36 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1051360802 | Old Fang | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051360910 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 97.6, 105.8, -51.0 | 13153.6, 9165.0 | chest | 1 | high | N | ItemLotParam_map |
 | 1051360950 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 81.6, 91.3, 18.9 | 13137.6, 9234.9 | - | - | - | - | MSB NPC |
-| 1051367000 | Golden Rune [6] | World Pickup | Caelid | m60_51_36 | 13.6, 88.5, -108.9 | 13069.6, 9107.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367020 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | -68.8, 56.4, -60.2 | 12987.2, 9155.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367030 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | -53.4, 41.8, -58.5 | 13002.6, 9157.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367040 | Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 26.3, 83.9, -43.0 | 13082.3, 9173.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367050 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | 76.4, 106.0, -120.6 | 13132.4, 9095.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367060 | Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 114.7, 116.9, -123.1 | 13170.7, 9092.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367080 | Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 18.5, 92.1, -138.4 | 13074.5, 9077.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367090 | Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 53.3, 93.5, -88.2 | 13109.3, 9127.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367100 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 44.4, 101.2, 125.2 | 13100.4, 9341.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367110 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 89.7, 94.8, 98.7 | 13145.7, 9314.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367130 | Flamberge | World Pickup | Caelid | m60_51_36 | 90.2, 106.0, -108.4 | 13146.2, 9107.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051367800 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051367910 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 97.6, 105.8, -51.0 | 13153.6, 9165.0 | chest | 1 | high | N | ItemLotParam_map |
+| 1051380000 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 75.4, 16.9, -85.6 | 13131.4, 9642.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051380010 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 98.3, 14.4, -53.0 | 13154.3, 9675.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051380020 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 83.4, 15.0, 4.3 | 13139.4, 9732.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051382020 | Stake of Marika (m60_51_38) | Stake of Marika | Caelid | m60_51_38 | 20.6, 13.2, -110.2 | 13076.6, 9617.8 | - | - | - | - | MSB SpawnPoint |
-| 1051387000 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 75.4, 16.9, -85.6 | 13131.4, 9642.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051387010 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 98.3, 14.4, -53.0 | 13154.3, 9675.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051387020 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 83.4, 15.0, 4.3 | 13139.4, 9732.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051397040 | Golden Rune [12] | World Pickup | Caelid | m60_51_39 | -51.4, 271.3, 117.8 | 13004.6, 10101.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051397050 | Neutralizing Boluses | World Pickup | Caelid | m60_51_39 | -38.3, 277.1, 134.4 | 13017.7, 10118.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051397060 | Radagon's Soreseal | World Pickup | Caelid | m60_51_39 | -56.8, 265.0, 97.1 | 12999.2, 10081.1 | corpse | 3 | high | N | ItemLotParam_map |
-| 1051397900 | Dectus Medallion (Right) | World Pickup | Caelid | m60_51_39 | -25.4, 285.6, 135.4 | 13030.6, 10119.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1051390040 | Golden Rune [12] | World Pickup | Caelid | m60_51_39 | -51.4, 271.3, 117.8 | 13004.6, 10101.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051390050 | Neutralizing Boluses | World Pickup | Caelid | m60_51_39 | -38.3, 277.1, 134.4 | 13017.7, 10118.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051390060 | Radagon's Soreseal | World Pickup | Caelid | m60_51_39 | -56.8, 265.0, 97.1 | 12999.2, 10081.1 | corpse | 3 | high | N | ItemLotParam_map |
+| 1051390900 | Dectus Medallion (Right) | World Pickup | Caelid | m60_51_39 | -25.4, 285.6, 135.4 | 13030.6, 10119.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1051400040 | Rune Arc | World Pickup | Caelid | m60_51_40 | 9.6, 113.6, -55.1 | 13065.6, 10184.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1051400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_51_40 | 37.4, 209.4, 70.2 | 13093.4, 10310.2 | - | - | - | - | MSB Enemy |
-| 1051407040 | Rune Arc | World Pickup | Caelid | m60_51_40 | 9.6, 113.6, -55.1 | 13065.6, 10184.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1051417000 | Soft Cotton | World Pickup | Caelid | m60_51_41 | -129.8, 234.1, 73.2 | 12926.2, 10569.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051417010 | Cinquedea | World Pickup | Caelid | m60_51_41 | -146.8, 191.9, 80.1 | 12909.2, 10576.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1051417030 | Dragoncrest Shield Talisman | World Pickup | Caelid | m60_51_41 | -84.3, 195.2, 100.1 | 12971.7, 10596.1 | corpse | - | high | N | ItemLotParam_map |
+| 1051430000 | Soft Cotton | World Pickup | Caelid | m60_51_43 | -129.8, 234.1, 73.2 | 12926.2, 11081.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051430010 | Cinquedea | World Pickup | Caelid | m60_51_43 | -146.8, 191.9, 80.1 | 12909.2, 11088.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051430020 | Golden Seed | World Pickup | Caelid | m60_51_43 | 74.8, 296.1, -91.1 | 13130.8, 10916.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051430030 | Dragoncrest Shield Talisman | World Pickup | Caelid | m60_51_43 | -84.3, 195.2, 100.1 | 12971.7, 11108.1 | corpse | - | high | N | ItemLotParam_map |
 | 1051430700 | Gurranq, Beast Clergyman | NPC | Caelid | m60_51_43 | -72.5, 345.3, 30.4 | 12983.5, 11038.4 | - | - | - | - | MSB NPC |
 | 1051430800 | Valiant Gargoyle | Great Boss Defeat | Caelid | m60_51_43 | -12.9, 336.9, -19.2 | 13043.1, 10988.8 | - | - | - | - | MSB Enemy |
-| 1051437020 | Golden Seed | World Pickup | Caelid | m60_51_43 | 74.8, 296.1, -91.1 | 13130.8, 10916.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1051522500 | Spirit Spring (m60_51_52) | Spirit Spring | World (51,52) | m60_51_52 | -25.5, 1813.6, 107.8 | 13030.5, 13419.8 | - | - | - | - | MSB MountJump |
-| 1051537000 | Ancient Dragon Smithing Stone | World Pickup | World (51,53) | m60_51_53 | -7.8, 1824.9, -97.3 | 13048.2, 13470.7 | corpse | 3 | high | N | ItemLotParam_map |
-| 1051537010 | Smithing Stone [7] | World Pickup | World (51,53) | m60_51_53 | 153.1, 1795.9, -6.4 | 13209.1, 13561.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051537300 | Drawstring Holy Grease | World Pickup | World (51,53) | m60_51_53 | -101.5, 1673.2, 106.1 | 12954.5, 13674.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051537500 | Rivers of Blood | World Pickup | World (51,53) | m60_51_53 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1051537600 | Ash of War: Troll's Roar | World Pickup | World (51,53) | m60_51_53 | 0.5, 1865.0, -125.4 | 13056.5, 13442.6 | corpse | - | high | N | ItemLotParam_map |
-| 1051537700 | Somber Smithing Stone [8] | World Pickup | World (51,53) | m60_51_53 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051537800 | Sacred Tear | World Pickup | World (51,53) | m60_51_53 | -61.2, 1803.0, -71.0 | 12994.8, 13497.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1051537810 | Warming Stone | World Pickup | World (51,53) | m60_51_53 | 69.0, 1752.4, 123.8 | 13125.0, 13691.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1051547000 | Invigorating White Cured Meat | World Pickup | Mountaintops of the Giants | m60_51_54 | -21.5, 1693.2, -79.2 | 13034.5, 13744.8 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051547800 | Fan Daggers | World Pickup | Mountaintops of the Giants | m60_51_54 | 69.6, 1746.4, -114.4 | 13125.6, 13709.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1051557300 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_51_55 | -120.0, 1545.3, -46.7 | 12936.0, 14033.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051557310 | Drawstring Holy Grease | World Pickup | Mountaintops of the Giants | m60_51_55 | -117.4, 1542.4, -22.7 | 12938.6, 14057.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051557320 | Rainbow Stone | World Pickup | Mountaintops of the Giants | m60_51_55 | -115.9, 1541.9, -26.6 | 12940.1, 14053.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051557330 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_51_55 | -97.7, 1570.1, 84.9 | 12958.3, 14164.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051560700 | Spirit Jellyfish | NPC | Mountaintops of the Giants | m60_51_56 | -10.1, 1660.0, 47.7 | 13045.9, 14383.7 | - | - | - | - | MSB NPC |
+| 1051530000 | Ancient Dragon Smithing Stone | World Pickup | World (51,53) | m60_51_53 | -7.8, 1824.9, -97.3 | 13048.2, 13470.7 | corpse | 3 | high | N | ItemLotParam_map |
+| 1051530010 | Smithing Stone [7] | World Pickup | World (51,53) | m60_51_53 | 153.1, 1795.9, -6.4 | 13209.1, 13561.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051530300 | Drawstring Holy Grease | World Pickup | World (51,53) | m60_51_53 | -101.5, 1673.2, 106.1 | 12954.5, 13674.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051530500 | Rivers of Blood | World Pickup | World (51,53) | m60_51_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051530501 | Land of Reeds Helm | World Pickup | World (51,53) | m60_51_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051530600 | Ash of War: Troll's Roar | World Pickup | World (51,53) | m60_51_53 | 0.5, 1865.0, -125.4 | 13056.5, 13442.6 | corpse | - | high | N | ItemLotParam_map |
+| 1051530700 | Somber Smithing Stone [8] | World Pickup | World (51,53) | m60_51_53 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051530800 | Sacred Tear | World Pickup | World (51,53) | m60_51_53 | -61.2, 1803.0, -71.0 | 12994.8, 13497.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051530810 | Warming Stone | World Pickup | World (51,53) | m60_51_53 | 69.0, 1752.4, 123.8 | 13125.0, 13691.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1051540000 | Invigorating White Cured Meat | World Pickup | Mountaintops of the Giants | m60_51_54 | -21.5, 1693.2, -79.2 | 13034.5, 13744.8 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051540800 | Fan Daggers | World Pickup | Mountaintops of the Giants | m60_51_54 | 69.6, 1746.4, -114.4 | 13125.6, 13709.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1051550300 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_51_55 | -120.0, 1545.3, -46.7 | 12936.0, 14033.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051550310 | Drawstring Holy Grease | World Pickup | Mountaintops of the Giants | m60_51_55 | -117.4, 1542.4, -22.7 | 12938.6, 14057.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051550320 | Rainbow Stone | World Pickup | Mountaintops of the Giants | m60_51_55 | -115.9, 1541.9, -26.6 | 12940.1, 14053.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051550330 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_51_55 | -97.7, 1570.1, 84.9 | 12958.3, 14164.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051560020 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_51_56 | 17.1, 1674.4, -46.5 | 13073.1, 14289.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051560030 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_56 | 29.1, 1664.7, 45.3 | 13085.1, 14381.3 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051560300 | Formic Rock | World Pickup | Mountaintops of the Giants | m60_51_56 | 70.2, 1609.1, -109.8 | 13126.2, 14226.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051560310 | Soft Cotton | World Pickup | Mountaintops of the Giants | m60_51_56 | 21.9, 1574.8, -119.9 | 13077.9, 14216.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051560320 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_56 | 84.9, 1667.1, -97.4 | 13140.9, 14238.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051560700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1051560705 | Millicent | NPC | Mountaintops of the Giants | m60_51_56 | -4.3, 1612.5, -39.3 | 13051.7, 14296.7 | - | - | - | - | MSB NPC |
 | 1051560710 | The Noble Goldmask | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.5, -43.7 | 13064.6, 14292.3 | - | - | - | - | MSB NPC |
 | 1051560720 | Scribe Corhyn | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.7, -40.7 | 13064.6, 14295.3 | - | - | - | - | MSB NPC |
 | 1051560725 | Hermit Merchant | Merchant | Mountaintops of the Giants | m60_51_56 | -38.9, 1625.5, -61.4 | 13017.1, 14274.6 | - | - | - | - | MSB NPC |
-| 1051567020 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_51_56 | 17.1, 1674.4, -46.5 | 13073.1, 14289.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051567030 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_56 | 29.1, 1664.7, 45.3 | 13085.1, 14381.3 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051567300 | Formic Rock | World Pickup | Mountaintops of the Giants | m60_51_56 | 70.2, 1609.1, -109.8 | 13126.2, 14226.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051567310 | Soft Cotton | World Pickup | Mountaintops of the Giants | m60_51_56 | 21.9, 1574.8, -119.9 | 13077.9, 14216.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051567320 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_56 | 84.9, 1667.1, -97.4 | 13140.9, 14238.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051567700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051567800 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1051567810 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1051567900 | Primal Glintstone Blade | World Pickup | Mountaintops of the Giants | m60_51_56 | 22.0, 1648.1, 62.8 | 13078.0, 14398.8 | chest | - | high | Y | ItemLotParam_map |
+| 1051560800 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051560810 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051560900 | Primal Glintstone Blade | World Pickup | Mountaintops of the Giants | m60_51_56 | 22.0, 1648.1, 62.8 | 13078.0, 14398.8 | chest | - | high | Y | ItemLotParam_map |
+| 1051570000 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_57 | 12.9, 1606.7, 111.4 | 13068.9, 14703.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051570010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 28.2, 1600.9, 53.1 | 13084.2, 14645.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570020 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1599.0, 88.1 | 13111.3, 14680.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570030 | Fan Daggers | World Pickup | Mountaintops of the Giants | m60_51_57 | 21.0, 1615.7, 138.5 | 13077.0, 14730.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051570040 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | -18.2, 1615.6, 121.5 | 13037.8, 14713.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570050 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1614.8, 183.2 | 13111.3, 14775.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570060 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_51_57 | 17.8, 1603.9, 149.8 | 13073.8, 14741.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051570070 | Cerulean Amber Medallion +1 | World Pickup | Mountaintops of the Giants | m60_51_57 | 14.0, 1615.5, 62.5 | 13070.0, 14654.5 | corpse | - | high | N | ItemLotParam_map |
+| 1051570080 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | 47.2, 1609.4, 61.7 | 13103.2, 14653.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570090 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 79.9, 1620.5, 109.8 | 13135.9, 14701.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570100 | Smithing Stone [6] | World Pickup | Mountaintops of the Giants | m60_51_57 | 106.9, 1622.5, 109.7 | 13162.9, 14701.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570110 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_57 | 26.8, 1609.2, 25.7 | 13082.8, 14617.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570120 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | -43.9, 1659.3, -43.3 | 13012.1, 14548.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570130 | Human Bone Shard | World Pickup | Mountaintops of the Giants | m60_51_57 | -86.4, 1652.2, -54.3 | 12969.6, 14537.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051570140 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_51_57 | -78.5, 1650.8, -74.3 | 12977.5, 14517.7 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570150 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_51_57 | 46.9, 1606.7, 123.5 | 13102.9, 14715.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051570160 | Furlcalling Finger Remedy | World Pickup | Mountaintops of the Giants | m60_51_57 | 51.5, 1602.3, 142.3 | 13107.5, 14734.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570170 | Smithing Stone [6] | World Pickup | Mountaintops of the Giants | m60_51_57 | 35.3, 1620.2, 114.2 | 13091.3, 14706.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570180 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_51_57 | 63.1, 1617.8, 140.4 | 13119.1, 14732.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1051570190 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_57 | 54.5, 1616.3, 110.1 | 13110.5, 14702.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570200 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_51_57 | 72.8, 1620.5, 166.1 | 13128.8, 14758.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570210 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_51_57 | 64.1, 1608.0, 67.2 | 13120.1, 14659.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051570220 | Stormhawk Axe | World Pickup | Mountaintops of the Giants | m60_51_57 | 41.3, 1617.7, 119.2 | 13097.3, 14711.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051570230 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 24.2, 1673.7, -49.7 | 13080.2, 14542.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051570300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_51_57 | 19.7, 1626.7, 190.7 | 13075.7, 14782.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051570600 | Eclipse Shotel | World Pickup | Mountaintops of the Giants | m60_51_57 | 73.1, 1616.9, 84.9 | 13129.1, 14676.9 | corpse | 3 | high | N | ItemLotParam_map |
 | 1051570710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_57 | 71.3, 1616.4, 89.7 | 13127.3, 14681.7 | - | - | - | - | MSB NPC |
-| 1051570800 | Commander Niall | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 78.0, 1632.0, 210.2 | 13134.0, 14802.2 | - | - | - | - | MSB Enemy |
-| 1051570801 | Banished Knight | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 74.6, 1632.0, 205.7 | 13130.6, 14797.7 | - | - | - | - | MSB Enemy |
-| 1051577000 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_57 | 12.9, 1606.7, 111.4 | 13068.9, 14703.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051577010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 28.2, 1600.9, 53.1 | 13084.2, 14645.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577020 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1599.0, 88.1 | 13111.3, 14680.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577030 | Fan Daggers | World Pickup | Mountaintops of the Giants | m60_51_57 | 21.0, 1615.7, 138.5 | 13077.0, 14730.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051577040 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | -18.2, 1615.6, 121.5 | 13037.8, 14713.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577050 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1614.8, 183.2 | 13111.3, 14775.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577060 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_51_57 | 17.8, 1603.9, 149.8 | 13073.8, 14741.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1051577070 | Cerulean Amber Medallion +1 | World Pickup | Mountaintops of the Giants | m60_51_57 | 14.0, 1615.5, 62.5 | 13070.0, 14654.5 | corpse | - | high | N | ItemLotParam_map |
-| 1051577080 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | 47.2, 1609.4, 61.7 | 13103.2, 14653.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577090 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 79.9, 1620.5, 109.8 | 13135.9, 14701.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577100 | Smithing Stone [6] | World Pickup | Mountaintops of the Giants | m60_51_57 | 106.9, 1622.5, 109.7 | 13162.9, 14701.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577110 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_57 | 26.8, 1609.2, 25.7 | 13082.8, 14617.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577120 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | -43.9, 1659.3, -43.3 | 13012.1, 14548.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577130 | Human Bone Shard | World Pickup | Mountaintops of the Giants | m60_51_57 | -86.4, 1652.2, -54.3 | 12969.6, 14537.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051577140 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_51_57 | -78.5, 1650.8, -74.3 | 12977.5, 14517.7 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577150 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_51_57 | 46.9, 1606.7, 123.5 | 13102.9, 14715.5 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051577160 | Furlcalling Finger Remedy | World Pickup | Mountaintops of the Giants | m60_51_57 | 51.5, 1602.3, 142.3 | 13107.5, 14734.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577170 | Smithing Stone [6] | World Pickup | Mountaintops of the Giants | m60_51_57 | 35.3, 1620.2, 114.2 | 13091.3, 14706.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577180 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_51_57 | 63.1, 1617.8, 140.4 | 13119.1, 14732.4 | corpse | 0 | high | N | ItemLotParam_map |
-| 1051577190 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_57 | 54.5, 1616.3, 110.1 | 13110.5, 14702.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577200 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_51_57 | 72.8, 1620.5, 166.1 | 13128.8, 14758.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577210 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_51_57 | 64.1, 1608.0, 67.2 | 13120.1, 14659.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1051577220 | Stormhawk Axe | World Pickup | Mountaintops of the Giants | m60_51_57 | 41.3, 1617.7, 119.2 | 13097.3, 14711.2 | corpse | 2 | high | N | ItemLotParam_map |
-| 1051577230 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 24.2, 1673.7, -49.7 | 13080.2, 14542.3 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051577300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_51_57 | 19.7, 1626.7, 190.7 | 13075.7, 14782.7 | corpse | 2 | high | N | ItemLotParam_map |
-| 1051577600 | Eclipse Shotel | World Pickup | Mountaintops of the Giants | m60_51_57 | 73.1, 1616.9, 84.9 | 13129.1, 14676.9 | corpse | 3 | high | N | ItemLotParam_map |
-| 1051577720 | Helphen's Steeple | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1051577800 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051577810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051570720 | Helphen's Steeple | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051570721 | Deathroot | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1051570800 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051570801 | Beast Blood | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1051570802 | Old Fang | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051570810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051570811 | Beast Blood | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 1051570812 | Old Fang | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1051580700 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_58 | 86.1, 1664.2, 22.3 | 13142.1, 14870.3 | - | - | - | - | MSB NPC |
-| 1051587800 | Haligtree Secret Medallion (Left) | World Pickup | Mountaintops of the Giants | m60_51_58 | 87.6, 1664.3, 21.2 | 13143.6, 14869.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051580800 | Haligtree Secret Medallion (Left) | World Pickup | Mountaintops of the Giants | m60_51_58 | 87.6, 1664.3, 21.2 | 13143.6, 14869.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1052380706 | Alexander, Warrior Jar | NPC | Caelid | m60_52_38 | -39.1, 27.5, -68.0 | 13272.9, 9660.0 | - | - | - | - | MSB NPC |
 | 1052380726 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_52_38 | -49.8, 35.1, -38.8 | 13262.2, 9689.2 | - | - | - | - | MSB NPC |
 | 1052380800 | Starscourge Radahn | Great Boss Defeat | World (13,9) | m60_13_09 | -433.7, 34.6, 106.3 | 2894.3, 2410.3 | - | - | - | - | MSB Enemy |
 | 1052380950 | Iron Fist Alexander | NPC | Caelid | m60_52_38 | -43.5, 34.3, -41.9 | 13268.5, 9686.1 | - | - | - | - | MSB NPC |
 | 1052382020 | Stake of Marika (m60_52_38) | Stake of Marika | Caelid | m60_52_38 | -44.2, 33.6, -44.1 | 13267.8, 9683.9 | - | - | - | - | MSB SpawnPoint |
+| 1052410000 | Golden Rune [8] | World Pickup | Caelid | m60_52_41 | 13.9, 246.1, -48.2 | 13325.9, 10447.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1052410010 | Golden Rune [6] | World Pickup | Caelid | m60_52_41 | 3.9, 244.9, -46.4 | 13315.9, 10449.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1052410020 | Golden Rune [3] | World Pickup | Caelid | m60_52_41 | 3.4, 244.9, -56.8 | 13315.4, 10439.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1052410030 | Golden Rune [1] | World Pickup | Caelid | m60_52_41 | 23.8, 246.8, -49.7 | 13335.8, 10446.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1052410100 | Ash of War: Bloodhound's Step | World Pickup | Caelid | m60_52_41 | - | - | - | - | none | N | ItemLotParam_map |
 | 1052410800 | Flying Dragon Agheel | Great Boss Defeat | Caelid | m60_52_41 | -113.6, 248.5, 137.5 | 13198.4, 10633.5 | - | - | - | - | MSB Enemy |
 | 1052410850 | Night's Cavalry | Field Boss Defeat | Caelid | m60_52_41 | 8.3, 221.4, 115.7 | 13320.3, 10611.7 | - | - | - | - | MSB Enemy |
+| 1052410900 | Memory Stone | World Pickup | Caelid | m60_52_41 | 49.5, 264.2, -15.5 | 13361.5, 10480.5 | chest | 2 | high | N | ItemLotParam_map |
 | 1052412499 | Spirit Spring (m60_52_41) | Spirit Spring | Caelid | m60_52_41 | 47.3, 221.0, -42.1 | 13359.3, 10453.9 | - | - | - | - | MSB MountJump |
-| 1052417000 | Golden Rune [8] | World Pickup | Caelid | m60_52_41 | 13.9, 246.1, -48.2 | 13325.9, 10447.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1052417010 | Golden Rune [6] | World Pickup | Caelid | m60_52_41 | 3.9, 244.9, -46.4 | 13315.9, 10449.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1052417020 | Golden Rune [3] | World Pickup | Caelid | m60_52_41 | 3.4, 244.9, -56.8 | 13315.4, 10439.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1052417030 | Golden Rune [1] | World Pickup | Caelid | m60_52_41 | 23.8, 246.8, -49.7 | 13335.8, 10446.3 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1052417100 | Ash of War: Bloodhound's Step | World Pickup | Caelid | m60_52_41 | - | - | - | - | none | N | ItemLotParam_map |
-| 1052437000 | Starlight Shards | World Pickup | Caelid | m60_52_43 | -2.9, 293.2, -121.2 | 13309.1, 10886.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052430000 | Starlight Shards | World Pickup | Caelid | m60_52_43 | -2.9, 293.2, -121.2 | 13309.1, 10886.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1052520800 | Fire Giant | Great Boss Defeat | World (13,13) | m60_13_13 | -268.7, 1775.5, -293.7 | 3059.3, 3034.3 | - | - | - | - | MSB Enemy |
 | 1052522810 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.4, 1849.5, -312.8 | 3022.6, 3015.2 | - | - | - | - | MSB SpawnPoint |
 | 1052522811 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.8, 1846.7, -303.2 | 3022.2, 3024.8 | - | - | - | - | MSB SpawnPoint |
-| 1052537000 | Golden Rune [10] | World Pickup | World (52,53) | m60_52_53 | -72.5, 1800.7, 36.6 | 13239.5, 13604.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052537800 | Golden Seed | World Pickup | World (52,53) | m60_52_53 | 61.7, 1828.2, 118.5 | 13373.7, 13686.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1052547000 | Grace Mimic | World Pickup | Mountaintops of the Giants | m60_52_54 | 26.9, 1805.8, -85.4 | 13338.9, 13738.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1052547010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | -11.7, 1817.2, -88.4 | 13300.3, 13735.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052547020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | 56.9, 1797.8, -42.4 | 13368.9, 13781.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052547800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_52_54 | 131.0, 1828.3, -71.5 | 13443.0, 13752.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1052557000 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -41.2, 1706.7, 47.0 | 13270.8, 14127.0 | corpse | 0 | high | N | ItemLotParam_map |
-| 1052557010 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -45.3, 1705.8, 91.1 | 13266.7, 14171.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052557020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.6, 1693.7, 83.5 | 13252.4, 14163.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052557030 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -49.8, 1699.1, 57.1 | 13262.2, 14137.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1052557040 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -49.8, 1699.1, 37.1 | 13262.2, 14117.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052557300 | Golden Rune [8] | World Pickup | Mountaintops of the Giants | m60_52_55 | -21.7, 1688.6, 30.5 | 13290.3, 14110.5 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052557310 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_52_55 | 3.5, 1686.4, 39.8 | 13315.5, 14119.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1052557700 | One-Eyed Shield | World Pickup | Mountaintops of the Giants | m60_52_55 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1052557800 | Gravel Stone | World Pickup | Mountaintops of the Giants | m60_52_55 | -39.0, 1706.9, 95.3 | 13273.0, 14175.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1052557900 | Giant's Prayerbook | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.3, 1731.2, 4.4 | 13252.7, 14084.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1052530000 | Golden Rune [10] | World Pickup | World (52,53) | m60_52_53 | -72.5, 1800.7, 36.6 | 13239.5, 13604.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052530800 | Golden Seed | World Pickup | World (52,53) | m60_52_53 | 61.7, 1828.2, 118.5 | 13373.7, 13686.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052540000 | Grace Mimic | World Pickup | Mountaintops of the Giants | m60_52_54 | 26.9, 1805.8, -85.4 | 13338.9, 13738.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1052540010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | -11.7, 1817.2, -88.4 | 13300.3, 13735.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052540020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | 56.9, 1797.8, -42.4 | 13368.9, 13781.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052540700 | Map: Mountaintops of the Giants, East | World Pickup | Mountaintops of the Giants | m60_52_54 | -49.2, 1706.9, 70.4 | 13262.8, 13894.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052540790 | Crimsonwhorl Bubbletear | World Pickup | Mountaintops of the Giants | m60_52_54 | -13.5, 1748.7, 45.1 | 13298.5, 13869.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052540800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_52_54 | 131.0, 1828.3, -71.5 | 13443.0, 13752.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052550000 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -41.2, 1706.7, 47.0 | 13270.8, 14127.0 | corpse | 0 | high | N | ItemLotParam_map |
+| 1052550010 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -45.3, 1705.8, 91.1 | 13266.7, 14171.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052550020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.6, 1693.7, 83.5 | 13252.4, 14163.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052550030 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -49.8, 1699.1, 57.1 | 13262.2, 14137.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1052550040 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -49.8, 1699.1, 37.1 | 13262.2, 14117.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052550300 | Golden Rune [8] | World Pickup | Mountaintops of the Giants | m60_52_55 | -21.7, 1688.6, 30.5 | 13290.3, 14110.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052550310 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_52_55 | 3.5, 1686.4, 39.8 | 13315.5, 14119.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1052550700 | One-Eyed Shield | World Pickup | Mountaintops of the Giants | m60_52_55 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1052550800 | Gravel Stone | World Pickup | Mountaintops of the Giants | m60_52_55 | -39.0, 1706.9, 95.3 | 13273.0, 14175.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052550900 | Giant's Prayerbook | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.3, 1731.2, 4.4 | 13252.7, 14084.4 | chest | 2 | high | N | ItemLotParam_map |
+| 1052560300 | Explosive Greatbolt | World Pickup | Mountaintops of the Giants | m60_52_56 | 103.3, 1661.4, -22.0 | 13415.3, 14314.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052560310 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_52_56 | -127.5, 1667.7, 63.4 | 13184.5, 14399.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 1052560800 | Erdtree Avatar | Great Boss Defeat | Mountaintops of the Giants | m60_52_56 | -44.0, 1674.3, 69.7 | 13268.0, 14405.7 | - | - | - | - | MSB Enemy |
-| 1052567300 | Explosive Greatbolt | World Pickup | Mountaintops of the Giants | m60_52_56 | 103.3, 1661.4, -22.0 | 13415.3, 14314.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052567310 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_52_56 | -127.5, 1667.7, 63.4 | 13184.5, 14399.4 | corpse | 2 | high | N | ItemLotParam_map |
-| 1052577000 | Stimulating Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | -16.7, 1676.9, 40.1 | 13295.3, 14632.1 | corpse | 0 | high | N | ItemLotParam_map |
-| 1052577300 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | 57.0, 1665.4, -67.8 | 13369.0, 14524.2 | corpse | 0 | high | N | ItemLotParam_map |
-| 1052577310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_52_57 | 82.6, 1679.5, -69.6 | 13394.6, 14522.4 | corpse | 1 | high | N | ItemLotParam_map |
-| 1052577800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_52_57 | 37.6, 1615.4, -121.7 | 13349.6, 14470.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1052577810 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_57 | 105.8, 1599.8, -10.0 | 13417.8, 14582.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1052577900 | Founding Rain of Stars | World Pickup | Mountaintops of the Giants | m60_52_57 | 101.9, 1720.7, -61.8 | 13413.9, 14530.2 | chest | 3 | high | N | ItemLotParam_map |
-| 1052587800 | Golden Rune [4] | World Pickup | Mountaintops of the Giants | m60_52_58 | -93.4, 1603.6, -56.6 | 13218.6, 14791.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1052587810 | Golden Rune [5] | World Pickup | Mountaintops of the Giants | m60_52_58 | -91.4, 1603.9, -63.4 | 13220.6, 14784.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
-| 1052587820 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_58 | -97.6, 1604.1, -71.6 | 13214.4, 14776.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1052570000 | Stimulating Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | -16.7, 1676.9, 40.1 | 13295.3, 14632.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1052570300 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | 57.0, 1665.4, -67.8 | 13369.0, 14524.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1052570310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_52_57 | 82.6, 1679.5, -69.6 | 13394.6, 14522.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1052570800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_52_57 | 37.6, 1615.4, -121.7 | 13349.6, 14470.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052570810 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_57 | 105.8, 1599.8, -10.0 | 13417.8, 14582.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1052570900 | Founding Rain of Stars | World Pickup | Mountaintops of the Giants | m60_52_57 | 101.9, 1720.7, -61.8 | 13413.9, 14530.2 | chest | 3 | high | N | ItemLotParam_map |
+| 1052580800 | Golden Rune [4] | World Pickup | Mountaintops of the Giants | m60_52_58 | -93.4, 1603.6, -56.6 | 13218.6, 14791.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1052580810 | Golden Rune [5] | World Pickup | Mountaintops of the Giants | m60_52_58 | -91.4, 1603.9, -63.4 | 13220.6, 14784.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1052580820 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_58 | -97.6, 1604.1, -71.6 | 13214.4, 14776.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1053440700 | White Mask Varré | NPC | Liurnia of the Lakes | m60_35_44 | -71.1, 241.7, -96.7 | 8888.9, 11167.3 | - | - | - | - | MSB NPC |
 | 1053532950 | Stake of Marika (m60_53_53) | Stake of Marika | World (53,53) | m60_53_53 | 73.9, 1946.9, -1.5 | 13641.9, 13566.5 | - | - | - | - | MSB SpawnPoint |
-| 1053560800 | Roundtable Knight Vyke | Boss Arena | Mountaintops of the Giants - Lord Contender's Evergaol | m60_53_56 | -52.5, 1668.5, -116.3 | -52.5, -116.3 | - | - | - | - | GameAreaParam |
+| 1053560300 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_53_56 | 54.2, 1620.2, -61.2 | 13622.2, 14274.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1053560310 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_53_56 | 35.8, 1641.4, -108.8 | 13603.8, 14227.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1053560700 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1053560710 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1053560720 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1053560800 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 19.5, 1643.2, -116.3 | 13587.5, 14219.7 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1053560810 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 33.8, 1641.4, -109.2 | 13601.8, 14226.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1053562500 | Spirit Spring (m60_53_56) | Spirit Spring | Mountaintops of the Giants | m60_53_56 | 8.8, 1643.9, -93.9 | 13576.8, 14242.1 | - | - | - | - | MSB MountJump |
 | 1053562690 | Stake of Marika (m60_53_56) | Stake of Marika | Mountaintops of the Giants | m60_53_56 | -39.3, 1626.9, 118.6 | 13528.7, 14454.6 | - | - | - | - | MSB SpawnPoint |
 | 1053562805 | Stake of Marika (m60_53_56) | Stake of Marika | Mountaintops of the Giants | m60_53_56 | -44.0, 1667.2, -92.0 | 13524.0, 14244.0 | - | - | - | - | MSB SpawnPoint |
@@ -6513,528 +6523,573 @@ Total unique flags: 7034
 | 1053562807 | Stake of Marika (m60_53_56) | Stake of Marika | Mountaintops of the Giants | m60_53_56 | -56.3, 1668.5, -114.9 | 13511.7, 14221.1 | - | - | - | - | MSB SpawnPoint |
 | 1053562808 | Stake of Marika (m60_53_56) | Stake of Marika | Mountaintops of the Giants | m60_53_56 | -56.3, 1668.5, -114.8 | 13511.7, 14221.2 | - | - | - | - | MSB SpawnPoint |
 | 1053562809 | Stake of Marika (m60_53_56) | Stake of Marika | Mountaintops of the Giants | m60_53_56 | -44.0, 1667.2, -92.0 | 13524.0, 14244.0 | - | - | - | - | MSB SpawnPoint |
-| 1053567300 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_53_56 | 54.2, 1620.2, -61.2 | 13622.2, 14274.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1053567310 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_53_56 | 35.8, 1641.4, -108.8 | 13603.8, 14227.2 | corpse | 1 | high | N | ItemLotParam_map |
-| 1053567700 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1053567710 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1053567720 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1053567800 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 19.5, 1643.2, -116.3 | 13587.5, 14219.7 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1053567810 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 33.8, 1641.4, -109.2 | 13601.8, 14226.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 1053577300 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_53_57 | 108.1, 1638.4, 86.6 | 13676.1, 14678.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1054557000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_54_55 | 9.5, 1641.5, 75.1 | 13833.5, 14155.1 | corpse | 1 | high | N | ItemLotParam_map |
-| 1054557310 | Somberstone Miner's Bell Bearing [3] | World Pickup | Mountaintops of the Giants | m60_54_55 | -37.2, 1621.7, 109.9 | 13786.8, 14189.9 | corpse | 2 | high | N | ItemLotParam_map |
-| 1054557800 | Sacred Tear | World Pickup | Mountaintops of the Giants | m60_54_55 | -30.6, 1625.5, 62.6 | 13793.4, 14142.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1053570300 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_53_57 | 108.1, 1638.4, 86.6 | 13676.1, 14678.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1054550000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_54_55 | 9.5, 1641.5, 75.1 | 13833.5, 14155.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1054550310 | Somberstone Miner's Bell Bearing [3] | World Pickup | Mountaintops of the Giants | m60_54_55 | -37.2, 1621.7, 109.9 | 13786.8, 14189.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1054550800 | Sacred Tear | World Pickup | Mountaintops of the Giants | m60_54_55 | -30.6, 1625.5, 62.6 | 13793.4, 14142.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1054560800 | Borealis the Freezing Fog | Great Boss Defeat | World (13,14) | m60_13_14 | 1.7, 1620.4, -230.3 | 3329.7, 3353.7 | - | - | - | - | MSB Enemy |
 | 1247580400 | Walking Mausoleum | NPC | World (11,14) | m60_11_14 | 448.7, 1283.2, 24.8 | 3264.7, 3608.8 | - | - | - | - | MSB NPC |
 | 1248550800 | Night's Cavalry | Boss Arena | Southwest Mountaintops | m60_48_55 | 108.2, 1281.6, -33.1 | 108.2, -33.1 | - | - | - | - | GameAreaParam |
 | 1251570400 | Walking Mausoleum | NPC | World (12,14) | m60_12_14 | 335.8, 1596.9, -30.3 | 3407.8, 3553.7 | - | - | - | - | MSB NPC |
 | 1252380800 | Starscourge Radahn | Boss Arena | Southeast Caelid | m60_52_38 | -47.0, 35.1, -39.7 | -47.0, -39.7 | - | - | - | - | GameAreaParam |
 | 1254560800 | [Dragon Communion] Borealis's Mist - Unlocked | Shop Unlock | World (254,56) | - | - | - | - | - | - | - | ShopLineupParam |
-| 2044417000 | Ghost Glovewort [4] | DLC Pickup | Shadow of the Erdtree | m61_44_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044410000 | Ghost Glovewort [4] | DLC Pickup | Shadow of the Erdtree | m61_44_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044450000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044450010 | Four-Toed Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044450020 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2044450800 | Romina, Saint of the Bud | Boss Arena | Ancient Ruins of Rauh | m61_44_45 | -61.2, 625.3, 110.6 | -61.2, 110.6 | - | - | - | - | GameAreaParam |
-| 2044457000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2044457010 | Four-Toed Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044457020 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044457900 | Talisman of All Crucibles | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | - | none | N | ItemLotParam_map |
-| 2044467000 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2044467010 | Dappled White Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044467020 | Immunizing Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044467030 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2044467040 | Pest-Thread Spears | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2044467050 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044467060 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044467070 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044467080 | Scarlet Bud | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044467110 | Divine Bird Feathers | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044450900 | Talisman of All Crucibles | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | - | none | N | ItemLotParam_map |
+| 2044460000 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044460010 | Dappled White Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044460020 | Immunizing Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044460030 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044460040 | Pest-Thread Spears | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044460050 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044460060 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044460070 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044460080 | Scarlet Bud | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044460100 | Greater Potentate's Cookbook [9] | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044460110 | Divine Bird Feathers | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044470000 | Ghost Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044470010 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044470011 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044470012 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044470013 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044470020 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044470030 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044470040 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2044470050 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044470800 | Rugalea the Great Red Bear | Boss Arena | Ancient Ruins of Rauh | m61_44_47 | -52.1, 321.7, 112.3 | -52.1, 112.3 | - | - | - | - | GameAreaParam |
-| 2044477000 | Ghost Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044477010 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044477020 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044477030 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044477040 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2044477050 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2044477900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045417000 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045417010 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045417020 | Sanguine Amaryllis | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045417030 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045417040 | Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045417050 | Great Arrow | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045417700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045417710 | String-Seller's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045417800 | Outer God Heirloom | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045417900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045427000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045427700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044470900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045410000 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045410010 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045410020 | Sanguine Amaryllis | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045410030 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045410040 | Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045410050 | Great Arrow | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045410700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045410710 | String-Seller's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045410800 | Outer God Heirloom | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045410900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045420000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045420700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2045429330 | Deadly Poison Perfume Bottle - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
 | 2045429331 | Thiollier's Concoction - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
-| 2045437000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_45_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045437700 | Ash of War: Savage Lion's Claw | DLC Pickup | Shadow of the Erdtree | m61_45_43 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045430000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_45_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045430700 | Ash of War: Savage Lion's Claw | DLC Pickup | Shadow of the Erdtree | m61_45_43 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045440000 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045440010 | Item_4411061 | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045440020 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2045440800 | Ghostflame Dragon | Boss Arena | Gravesite Plain | m61_45_44 | 59.1, 256.4, -73.9 | 59.1, -73.9 | - | - | - | - | GameAreaParam |
-| 2045447000 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045447010 | Item_4411061 | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045447020 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_45_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045457000 | Kukri | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045457010 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045457020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045467000 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045467020 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045467040 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045467050 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045467060 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045467070 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045467080 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045467090 | Preserving Boluses | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045467500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045467900 | Mottled Necklace +2 | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045467910 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045477010 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045477020 | Flight Pinion | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045477040 | Aspects of the Crucible: Bloom | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045477050 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045477060 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045477070 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2045477400 | Devonia's Hammer | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2045477500 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2045477510 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477520 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477530 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477540 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477550 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477560 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477570 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477580 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477590 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477600 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477700 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2045477710 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477720 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477730 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477740 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477750 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477760 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477770 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477780 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477790 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477800 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2045477900 | Stone-Sheathed Sword | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2045487000 | Fine Crucible Feather Talisman | DLC Pickup | Shadow of the Erdtree | m61_45_48 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045450000 | Kukri | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045450010 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045450020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460000 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045460020 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045460040 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045460050 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460060 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045460070 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460080 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045460090 | Preserving Boluses | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045460500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460501 | Crimson-Sapping Cracked Tear | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460900 | Mottled Necklace +2 | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045460910 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045470010 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045470020 | Flight Pinion | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045470040 | Aspects of the Crucible: Bloom | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045470050 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045470060 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045470070 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2045470400 | Devonia's Hammer | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045470401 | Crucible Hammer-Helm | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045470500 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2045470510 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470520 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470530 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470540 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470550 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470560 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470570 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470580 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470590 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470600 | Sword of Light | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470700 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2045470710 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470720 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470730 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470740 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470750 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470760 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470770 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470780 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470790 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470800 | Sword of Darkness | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045470900 | Stone-Sheathed Sword | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045480000 | Fine Crucible Feather Talisman | DLC Pickup | Shadow of the Erdtree | m61_45_48 | - | - | - | - | none | N | ItemLotParam_map |
+| 2045480700 | Greater Potentate's Cookbook [8] | DLC Pickup | Shadow of the Erdtree | m61_45_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046380000 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046380010 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046380020 | String | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046380030 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046380040 | Crab Eggs | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046380050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046380060 | Grave Keeper's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046380070 | Perfumed Oil of Ranah | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046380800 | Dancer of Ranah | Boss Arena | Cerulean Coast | m61_46_38 | -24.9, 9.2, -96.8 | -24.9, -96.8 | - | - | - | - | GameAreaParam |
-| 2046387000 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046387010 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046387020 | String | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046387030 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046387040 | Crab Eggs | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046387050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046387070 | Perfumed Oil of Ranah | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046397000 | Grave Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046397020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2046397030 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046397040 | Gravebird Ashes | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046397050 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046397060 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046390000 | Grave Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046390020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2046390030 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046390040 | Gravebird Ashes | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046390050 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046390060 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046390061 | Glovewort Crystal Tear | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400000 | Pata | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046400001 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400002 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400003 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400004 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400010 | Greater Potentate's Cookbook [5] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400040 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2046400050 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046400060 | Ghost Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046400700 | Blessed Blue Dew Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | - | none | N | ItemLotParam_map |
 | 2046400800 | Demi-Human Queen Marigga | Boss Arena | Cerulean Coast | m61_46_40 | -71.8, 2.2, -12.5 | -71.8, -12.5 | - | - | - | - | GameAreaParam |
-| 2046407000 | Pata | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046407001 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046407002 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046407003 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046407004 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046407040 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2046407050 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046407060 | Ghost Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046407700 | Blessed Blue Dew Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | - | none | N | ItemLotParam_map |
 | 2046410800 | Knight of the Solitary Gaol | Boss Arena | Gravesite Plain | m61_46_41 | -177.9, 317.7, 54.8 | -177.9, 54.8 | - | - | - | - | GameAreaParam |
-| 2046427700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046427980 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046437000 | Ballista Bolt | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046437010 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046437020 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046437040 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046437700 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046437710 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046447000 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447010 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447020 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447030 | Ailment Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2046447050 | Silver Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447060 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447070 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046447700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046447710 | Mushroom-Seller's Bell Bearing [1] | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046447900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046420700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046420980 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046420981 | Deflecting Hardtear | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046430000 | Ballista Bolt | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046430010 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046430020 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046430030 | Greater Potentate's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046430040 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046430700 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046430710 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046440000 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440010 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440020 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440030 | Ailment Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2046440040 | Greater Potentate's Cookbook [10] | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046440050 | Silver Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440060 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440070 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046440700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046440710 | Mushroom-Seller's Bell Bearing [1] | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046440900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_46_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046450000 | Two-Headed Turtle Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | - | none | N | ItemLotParam_map |
+| 2046450020 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046450030 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046450040 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046450050 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046450060 | Somber Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046450070 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046450710 | Map: Rauh Ruins | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046450720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046450800 | Red Bear | Boss Arena | Gravesite Plain | m61_46_45 | 109.2, 395.9, -80.8 | 109.2, -80.8 | - | - | - | - | GameAreaParam |
-| 2046457000 | Two-Headed Turtle Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | - | none | N | ItemLotParam_map |
-| 2046457020 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046457030 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046457040 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046457050 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046457060 | Somber Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046457070 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046457720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046457910 | Two-Handed Sword Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | - | none | N | ItemLotParam_map |
-| 2046457920 | Divine Bird Warrior Ornis | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2046460800 | Divine Beast Dancing Lion | Boss Arena | Gravesite Plain | m61_46_46 | -62.7, 536.0, -40.7 | -62.7, -40.7 | - | - | - | - | GameAreaParam |
-| 2046467000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046467010 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046467020 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046467800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046477000 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477010 | Shadow Realm Rune [6] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046477020 | Spider Scorpion Ashes | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046477030 | Somber Smithing Stone [9] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046477060 | Fire Spritestone | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477070 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046477090 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477100 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477120 | Sliver of Meat | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477130 | Scorpion Liver | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477140 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2046477150 | Ash of War: Dryleaf Whirlwind | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2046477160 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046477700 | Somber Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2046477720 | Verdigris Discus | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2046477750 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046487000 | Shadow Realm Rune [5] | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2046487010 | Bondstone | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047357000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_47_35 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047367000 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047367010 | Deep-Purple Lily | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047377000 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_37 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047387000 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047387010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046450910 | Two-Handed Sword Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | - | none | N | ItemLotParam_map |
+| 2046450920 | Divine Bird Warrior Ornis | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2046460000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046460010 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046460020 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046460800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046470000 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470010 | Shadow Realm Rune [6] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046470020 | Spider Scorpion Ashes | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046470030 | Somber Smithing Stone [9] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046470060 | Fire Spritestone | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470070 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046470090 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470100 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470120 | Sliver of Meat | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470130 | Scorpion Liver | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470140 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2046470150 | Ash of War: Dryleaf Whirlwind | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2046470160 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2046470700 | Ancient Ruins Cross Message | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046470720 | Verdigris Discus | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2046470750 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046480000 | Shadow Realm Rune [5] | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046480010 | Bondstone | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046480011 | Antiquity Scholar's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047350000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_47_35 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047350010 | St. Trina Disciple's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_47_35 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047360000 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047360010 | Deep-Purple Lily | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047370000 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_37 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047370010 | Hefty Cracked Pot | DLC Pickup | Shadow of the Erdtree | m61_47_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047380000 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047380010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047390000 | Spirit Sword | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047390030 | Greater Potentate's Cookbook [14] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047390040 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047390050 | Ghostflame Bloom | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047390070 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047390080 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047390090 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047390800 | Death Rite Bird | Boss Arena | Cerulean Coast | m61_47_39 | 93.0, 85.0, 55.8 | 93.0, 55.8 | - | - | - | - | GameAreaParam |
-| 2047397000 | Spirit Sword | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047397040 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047397050 | Ghostflame Bloom | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047397070 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047397080 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047397090 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047407000 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047407010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047407020 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047407030 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047407100 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047407710 | Herbalist's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047407900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047407980 | Item_4407062 | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047417000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047417010 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047417020 | Furlcalling Finger Remedy | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047417030 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047417060 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047417100 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047417110 | Mushroom-Seller's Bell Bearing [2] | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047417700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047417800 | Blade of Mercy | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047427000 | Grave Glovewort [3] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047427030 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047427040 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047427700 | Item_4409058 | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047437000 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047437010 | Spread Crossbow | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047437020 | Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047437030 | Swift Spear | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047437040 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047437050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047437700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047437980 | Horned Bairn | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447020 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447030 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447040 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447050 | Flight Pinion | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447060 | Silver-Pickled Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447070 | Somber Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447080 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447090 | Glintblade Trio | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447100 | Somber Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447110 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447120 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447130 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447140 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447150 | Bolt | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447160 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447170 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447190 | Spelldrake Talisman +3 | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047447200 | Drawstring Royal Magic Grease | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447210 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047447600 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447610 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447620 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447700 | Rellana's Cameo | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047447710 | Castle Cross Message | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447720 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447730 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447750 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447800 | Milady | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447820 | Carian Sorcery Sword | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047447830 | Wolf Crest Shield | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447840 | Firespark Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447900 | Somber Smithing Stone [9] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047447901 | Royal Magic Grease | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047450800 | Black Knight Garrew | Boss Arena | Scadu Altus | m61_47_44 | -27.7, 346.0, 117.3 | -27.7, 117.3 | - | - | - | - | GameAreaParam |
-| 2047457000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047457010 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047457020 | Somber Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047457040 | Messmerfire Grease | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047457070 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047457080 | Fire Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047457180 | Grave Glovewort [4] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047457700 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047457800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047457900 | Serpent Flail | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047457910 | Arrow's Soaring Sting Talisman | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | - | none | N | ItemLotParam_map |
-| 2047457920 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047467000 | Rune Arc | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047467010 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047467030 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047467500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047477000 | Ancient Ruins Cross Message | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047477010 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2047477020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047477030 | Sacred Bloody Flesh | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047477040 | Sanguine Amaryllis | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047477050 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2047477070 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2047477900 | Pearl Shield Talisman | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | - | none | N | ItemLotParam_map |
-| 2048377010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048377020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2048377030 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048377050 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047400000 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047400010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047400020 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047400030 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047400100 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047400900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047400980 | Item_4407062 | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047410000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047410010 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047410020 | Furlcalling Finger Remedy | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047410030 | Hefty Cracked Pot | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047410040 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047410050 | Greater Potentate's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047410060 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047410100 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047410110 | Mushroom-Seller's Bell Bearing [2] | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047410700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047410710 | Herbalist's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047410800 | Blade of Mercy | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047410900 | Map: Gravesite Plain | DLC Pickup | Shadow of the Erdtree | m61_47_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047420000 | Grave Glovewort [3] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047420020 | Greater Potentate's Cookbook [12] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047420030 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047420040 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047420700 | Item_4409058 | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047430000 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047430010 | Spread Crossbow | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047430020 | Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047430030 | Swift Spear | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047430040 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047430050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047430700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047430980 | Horned Bairn | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440000 | Fire Knight's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440020 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440030 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440040 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440050 | Flight Pinion | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440060 | Silver-Pickled Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440070 | Somber Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440080 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440090 | Glintblade Trio | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440100 | Somber Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440110 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440120 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440130 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440140 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440150 | Bolt | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440160 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440170 | Glintslab Firefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440180 | Grave Glovewort [4] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440190 | Spelldrake Talisman +3 | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047440200 | Drawstring Royal Magic Grease | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440210 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047440600 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440610 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440620 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440700 | Rellana's Cameo | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047440710 | Castle Cross Message | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440720 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440730 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440750 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440800 | Milady | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440810 | Loyal Knight's Cookbook | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440820 | Carian Sorcery Sword | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440830 | Wolf Crest Shield | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440840 | Firespark Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440900 | Somber Smithing Stone [9] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047440901 | Royal Magic Grease | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450010 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047450020 | Somber Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047450030 | Greater Potentate's Cookbook [3] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047450040 | Messmerfire Grease | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450070 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450080 | Fire Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450700 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047450800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047450900 | Serpent Flail | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047450910 | Arrow's Soaring Sting Talisman | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047450920 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047460000 | Rune Arc | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047460010 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047460030 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047460500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047470000 | Somber Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047470010 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047470020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047470030 | Sacred Bloody Flesh | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047470040 | Sanguine Amaryllis | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047470050 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047470070 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047470900 | Pearl Shield Talisman | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2048370010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048370020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2048370030 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048370040 | Map: Southern Shore | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048370050 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048370060 | St. Trina Disciple's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048380000 | Grave Cricket | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048380010 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2048380020 | Tibia's Cookbook | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048380030 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2048380850 | Ghostflame Dragon | Boss Arena | Cerulean Coast | m61_48_39 | -90.0, 32.3, -91.6 | -90.0, -91.6 | - | - | - | - | GameAreaParam |
-| 2048387000 | Grave Cricket | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048387010 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2048387030 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2048397000 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048397010 | Grave Cricket | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048397020 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048397030 | Call of Tibia | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048397040 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048397050 | Rings of Spectral Light | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048407000 | Lightning Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048407010 | Spirit Glaive | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048407020 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048417000 | Fire Coil | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048417010 | Blessing of Marika | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2048417030 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048417700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048417800 | Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2048417980 | Black Steel Greathammer | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048427000 | Festive Grease | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048427020 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048427900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048437000 | Deep-Purple Lily | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048437010 | Toxic Mossling | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048437020 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048437030 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048437700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048440800 | Rellana, Twin Moon Knight | Boss Arena | Gravesite Plain | m61_48_44 | -55.5, 427.0, 50.6 | -55.5, 50.6 | - | - | - | - | GameAreaParam |
-| 2048447000 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048447010 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048447020 | Hefty Beast Bone | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048447030 | String | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048447040 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048447050 | Somber Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048447060 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048447070 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048447080 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048447500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048447800 | Imbued Sword Key | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048447810 | Ash of War: Wing Stance | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2048457000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048457510 | Monk's Missive | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048457520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048467010 | Golden Vow | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048467030 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048467040 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048467050 | Drawstring Messmerfire Grease | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048467060 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2048467090 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2048467500 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048467510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048467701 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2048467710 | Black Steel Twinblade | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049377000 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_49_37 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049387000 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049387010 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049387020 | Dragon Communion Grease | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049387030 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049387060 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049397000 | Red Fulgurbloom | DLC Pickup | Shadow of the Erdtree | m61_49_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048390000 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048390010 | Grave Cricket | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048390020 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048390030 | Call of Tibia | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048390040 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048390050 | Rings of Spectral Light | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048400000 | Lightning Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048400010 | Spirit Glaive | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048400020 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048400021 | Viridian Hidden Tear | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048410000 | Fire Coil | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048410010 | Blessing of Marika | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2048410030 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048410700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048410800 | Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2048410980 | Black Steel Greathammer | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048420000 | Festive Grease | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048420010 | Mad Craftsman's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048420020 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048420900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_48_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048430000 | Deep-Purple Lily | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048430010 | Toxic Mossling | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048430020 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048430030 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048430700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048440000 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048440010 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048440020 | Hefty Beast Bone | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048440030 | String | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048440040 | Lump of Flesh | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048440050 | Somber Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048440060 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048440070 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048440080 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048440500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048440800 | Imbued Sword Key | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048440810 | Ash of War: Wing Stance | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2048450000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048450500 | Map: Scadu Altus | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048450510 | Monk's Missive | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048450520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460010 | Golden Vow | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048460020 | Battlefield Priest's Cookbook [3] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460030 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048460040 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048460050 | Drawstring Messmerfire Grease | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048460060 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048460090 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2048460500 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460700 | Crimsonburst Dried Tear | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460701 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048460710 | Black Steel Twinblade | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049370000 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_49_37 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049380000 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049380010 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049380020 | Dragon Communion Grease | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049380030 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049380040 | Grave Keeper's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049380050 | Finger-Weaver's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049380060 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049390000 | Red Fulgurbloom | DLC Pickup | Shadow of the Erdtree | m61_49_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049390010 | Igon's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049410800 | Jagged Peak Drake (Solo) | Boss Arena | Jagged Peak | m61_49_41 | 80.6, 65.8, -106.3 | 80.6, -106.3 | - | - | - | - | GameAreaParam |
-| 2049427000 | Talisman of the Dread | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | - | none | N | ItemLotParam_map |
-| 2049427010 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049427700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049427720 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049420000 | Talisman of the Dread | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | - | none | N | ItemLotParam_map |
+| 2049420010 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049420700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049420720 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430000 | Repeating Crossbow | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430200 | Rune Arc | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430210 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430220 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430230 | Messmer Soldier Ashes | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430240 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430250 | Marika's Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2049430260 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430270 | Flamedrake Talisman +3 | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | - | none | N | ItemLotParam_map |
+| 2049430280 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430290 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430300 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430310 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430320 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430330 | Ghost Glovewort [1] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430340 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430350 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430360 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430370 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430380 | Festive Grease | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430400 | Greater Potentate's Cookbook [7] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430500 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430510 | Battlefield Priest's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430520 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430600 | Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430610 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430620 | Blessing of Marika | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2049430800 | Ghostflame Dragon | Boss Arena | Moorth Highway | m61_49_43 | -8.8, 379.0, 116.9 | -8.8, 116.9 | - | - | - | - | GameAreaParam |
 | 2049430850 | Black Knight Edredd | Boss Arena | Scadu Altus | m61_49_43 | 68.9, 396.5, -95.7 | 68.9, -95.7 | - | - | - | - | GameAreaParam |
-| 2049437000 | Repeating Crossbow | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437200 | Rune Arc | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437210 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437220 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437230 | Messmer Soldier Ashes | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437240 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437250 | Marika's Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2049437260 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437270 | Flamedrake Talisman +3 | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | - | none | N | ItemLotParam_map |
-| 2049437280 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437290 | Dewgem | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437300 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437310 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437320 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437330 | Ghost Glovewort [1] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437340 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437350 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437360 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437370 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437380 | Festive Grease | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437500 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437520 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437600 | Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437610 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437620 | Blessing of Marika | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2049437900 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437901 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437902 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437910 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049437911 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049437912 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437920 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437930 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049437940 | Iris of Occultation | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049447020 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049447030 | String | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049447040 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049447050 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049447060 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049447070 | Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049447090 | Shattered Stone Talisman | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | - | none | N | ItemLotParam_map |
-| 2049447500 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049447530 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049447900 | Golden Arcs | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430900 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430901 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430902 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430910 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049430911 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049430912 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430920 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430930 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049430940 | Iris of Occultation | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440000 | Fire Knight's Cookbook [1] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440020 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049440030 | String | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049440040 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440050 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049440060 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049440070 | Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049440090 | Shattered Stone Talisman | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | - | none | N | ItemLotParam_map |
+| 2049440500 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440530 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440900 | Golden Arcs | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450000 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049450010 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049450050 | Four-Toed Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2049450200 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450201 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450202 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450203 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450500 | Heal from Afar | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049450510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049450800 | Ralva the Great Red Bear | Boss Arena | Scadu Altus | m61_49_45 | 62.9, 396.0, 123.8 | 62.9, 123.8 | - | - | - | - | GameAreaParam |
-| 2049457000 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049457010 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049457050 | Four-Toed Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2049457200 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049457500 | Heal from Afar | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049457510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467010 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2049467510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467520 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467530 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467540 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467550 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467560 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467570 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467580 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467590 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467600 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049467900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049477000 | Furnace Keeper's Note | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049477500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049477510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460010 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2049460510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460520 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460530 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460540 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460550 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460560 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460570 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460580 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460590 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460600 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049460900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049470000 | Furnace Keeper's Note | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049470500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049470510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049480000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_48 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049480800 | Commander Gaius | Boss Arena | Scadu Altus | m61_49_48 | 80.9, 580.0, 6.9 | 80.9, 6.9 | - | - | - | - | GameAreaParam |
-| 2049487000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_48 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049497500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049497510 | Sharpshot Talisman | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | - | none | N | ItemLotParam_map |
-| 2049497520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049497530 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049497540 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2049497550 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050387000 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050387010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050407000 | Crimson Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_50_40 | - | - | - | - | none | N | ItemLotParam_map |
-| 2050417010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050417700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050427700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_42 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050437000 | Silver Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050437010 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050437040 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050437220 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050437500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050437720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050447010 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447020 | Living Jar Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050447030 | Living Jar Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050447040 | Raw Meat Dumpling | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447050 | Bonny Butchering Knife | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447060 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447070 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447090 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447100 | Kukri | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447120 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447140 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050447500 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447710 | Man-Fly Ashes | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050447720 | Dane's Hat | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447730 | Moldmonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050447740 | Somber Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050457000 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050457020 | Dryleaf Seal | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050457060 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050457080 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050457510 | O Mother | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050457730 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467000 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050467020 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050467030 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050467040 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2050467500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467710 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467720 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467730 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2050467900 | Stone-Sheathed Sword | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050467910 | Giant Golden Arc | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049490500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049490510 | Sharpshot Talisman | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | - | none | N | ItemLotParam_map |
+| 2049490520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049490530 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049490540 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049490550 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050380000 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050380010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050400000 | Crimson Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_50_40 | - | - | - | - | none | N | ItemLotParam_map |
+| 2050410000 | Mad Craftsman's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050410010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050410700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050420700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050430000 | Silver Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050430010 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050430040 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050430220 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050430500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050430720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050440010 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440020 | Living Jar Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050440030 | Living Jar Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050440040 | Raw Meat Dumpling | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440050 | Bonny Butchering Knife | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440060 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440070 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440090 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440100 | Kukri | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440110 | Hefty Cracked Pot | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440120 | Human Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440130 | Hefty Cracked Pot | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440140 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050440500 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440710 | Man-Fly Ashes | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050440720 | Dane's Hat | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440721 | Dane's Hat | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440722 | Dane's Hat | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440730 | Moldmonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440740 | Somber Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050450000 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050450060 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050450080 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050450510 | O Mother | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050450720 | Dryleaf Seal | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050450730 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460000 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050460020 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050460030 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050460040 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2050460500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460501 | Bloodsucking Cracked Tear | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460511 | Oil-Soaked Tear | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460710 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460720 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460730 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460900 | Stone-Sheathed Sword | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050460910 | Giant Golden Arc | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050470010 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050470020 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050470800 | Tree Sentinel - Torch | Boss Arena | Hinterland | m61_50_47 | 14.9, 559.4, 106.5 | 14.9, 106.5 | - | - | - | - | GameAreaParam |
-| 2050477010 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2050477020 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050480800 | Scadutree Avatar | Boss Arena | Scaduview | m61_50_48 | -50.7, 190.0, 86.7 | -50.7, 86.7 | - | - | - | - | GameAreaParam |
 | 2050480860 | Tree Sentinel | Boss Arena | Hinterland | m61_50_48 | 47.6, 541.5, -63.3 | 47.6, -63.3 | - | - | - | - | GameAreaParam |
-| 2051417000 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2051417700 | Aged One's Exultation | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | - | none | N | ItemLotParam_map |
-| 2051417710 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051427000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_51_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051410000 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2051410010 | Greater Potentate's Cookbook [6] | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051410700 | Aged One's Exultation | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | - | none | N | ItemLotParam_map |
+| 2051410710 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051420000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_51_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051440000 | Tooth Whip | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051440010 | Nascent Butterfly | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051440020 | Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2051440030 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2051440040 | Scorpion Liver | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2051440500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051440510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051440800 | Rakshasa | Boss Arena | Scadu Altus | m61_51_44 | 5.1, 162.6, 94.2 | 5.1, 94.2 | - | - | - | - | GameAreaParam |
-| 2051447000 | Tooth Whip | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051447010 | Nascent Butterfly | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051447020 | Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2051447030 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2051447040 | Scorpion Liver | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2051447500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051447510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051457000 | Glinting Nail | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2051457530 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051457700 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051450000 | Glinting Nail | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2051450010 | Greater Potentate's Cookbook [4] | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051450530 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051450700 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051450701 | Cerulean-Sapping Cracked Tear | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051459206 | [Sorcery] Glintstone Nail - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
-| 2051467020 | Spellmachinist's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051467500 | Greasemonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051467900 | Rabbath's Cannon | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2051477010 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 0 | none | N | ItemLotParam_map |
-| 2051477020 | Pearlescent Scale | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2051477030 | Fingerprint Nostrum | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2051477500 | Minor Erdtree | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2051477510 | Golden Braid | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2051460010 | Finger-Weaver's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051460020 | Spellmachinist's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051460500 | Greasemonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051460900 | Rabbath's Cannon | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051470010 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2051470020 | Pearlescent Scale | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2051470030 | Fingerprint Nostrum | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2051470500 | Minor Erdtree | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2051470510 | Golden Braid | DLC Pickup | Shadow of the Erdtree | m61_51_47 | - | - | - | - | none | N | ItemLotParam_map |
+| 2052400010 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_52_40 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2052400800 | Jagged Peak Drake (Duo) | Boss Arena | Jagged Peak | m61_52_40 | -69.8, 287.4, -77.8 | -69.8, -77.8 | - | - | - | - | GameAreaParam |
-| 2052407010 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_52_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2052417000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2052417010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2052427500 | Madding Hand | DLC Pickup | Shadow of the Erdtree | m61_52_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2052410000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2052410010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2052410600 | Map: Abyss | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2052420500 | Madding Hand | DLC Pickup | Shadow of the Erdtree | m61_52_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2052430800 | Jori, the Elder Inquisitor | Boss Arena | Abyssal Woods | m61_52_43 | -68.1, -512.2, 67.9 | -68.1, 67.9 | - | - | - | - | GameAreaParam |
 | 2052480800 | Fallingstar Beast | Boss Arena | Finger Ruins | m61_52_48 | 39.2, 478.3, 117.0 | 39.2, 117.0 | - | - | - | - | GameAreaParam |
-| 2053397000 | Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2053397010 | Somber Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 3 | none | N | ItemLotParam_map |
-| 2053397020 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2053407000 | Red Fulgurbloom | DLC Pickup | Shadow of the Erdtree | m61_53_40 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2053417000 | Frenzyflame Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2053417020 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2053417500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 2053467600 | Cerulean Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_53_46 | - | - | - | - | none | N | ItemLotParam_map |
-| 2053487000 | Fingercreeper Ashes | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 2053487010 | Shadow Realm Rune [6] | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2053390010 | Somber Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2053390020 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2053400000 | Red Fulgurbloom | DLC Pickup | Shadow of the Erdtree | m61_53_40 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2053410000 | Frenzyflame Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2053410020 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2053410500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2053460600 | Cerulean Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_53_46 | - | - | - | - | none | N | ItemLotParam_map |
+| 2053480000 | Fingercreeper Ashes | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2053480010 | Shadow Realm Rune [6] | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2054390000 | Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_54_39 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2054390800 | Bayle the Dread | Boss Arena | Jagged Peak | m61_54_39 | 112.0, 953.9, 26.0 | 112.0, 26.0 | - | - | - | - | GameAreaParam |
 | 2054390850 | Ancient Dragon Senessax | Boss Arena | Jagged Peak | m61_54_39 | -72.9, 512.0, 19.4 | -72.9, 19.4 | - | - | - | - | GameAreaParam |
+| 2054400000 | Igon's Cookbook [2] | DLC Pickup | Shadow of the Erdtree | m61_54_40 | - | - | - | 2 | none | N | ItemLotParam_map |

@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.29 - World Pickup False Positive Fix
+
+### Bug Fixes
+- **Fixed false positives in World Pickups view**: Items no longer incorrectly show as collected
+  - Root cause: Using `getItemFlagId` instead of lot_id (ROW ID) for tile-based world pickups
+  - Game stores lot_id directly (local_id 0-999) not getItemFlagId (lot_id + 7000)
+  - Updated `extract_pickup_data.py` to use correct flag IDs
+  - Regenerated `pickup_data.rs` with corrected event flags
+
+- **Formula-based offset calculation**: Migrated from stale EVENT_FLAGS lookup table to dynamic formulas
+  - `events.rs`, `vm.rs`, `world_pickups_view.rs` now use `get_flag_offset()` from `pickup_flags.rs`
+  - Added 100-flag granularity for block flags (e.g., 71600, 71800)
+  - Returns None for dungeon pickups without verified base offsets (prevents false positives)
+
+### Features
+- **Unverified filter**: Added "Unverified" option to Status filters in World Pickups view
+  - Shows only items where verification status is uncertain
+  - Helps identify potentially inaccurate flag mappings
+
+### Key Findings
+- Tile-based pickups (10-digit flags ≥1B) use ROW ID as flag, not getItemFlagId
+- getItemFlagId formula adds 7000 to lot_id, but local_id ≥7000 has no storage allocation
+
+### Files Modified
+- `src/db/pickup_flags.rs`: Added 100-flag block granularity, None for unverified dungeons
+- `src/db/pickup_data.rs`: Regenerated with correct flag IDs
+- `src/ui/events.rs`: Added Unverified filter, use `get_flag_offset()`
+- `src/ui/world_pickups_view.rs`: Added Unverified filter
+- `src/vm/events.rs`: Use `get_flag_offset()` for all flag lookups
+- `src/vm/vm.rs`: Use `get_flag_offset()` for writing event flags
+- `scripts/extract_pickup_data.py`: Use lot_id for tile-based pickups
+- `docs/CHANGELOG.md`: Version 0.4.29
+- `Cargo.toml`: Bumped to 0.4.29
+
+---
+
 ## v0.4.28 - Flag Formula Discovery
 
 ### New Formulas

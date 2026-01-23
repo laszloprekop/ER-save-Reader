@@ -424,6 +424,7 @@ pub mod events {
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::All, "All");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Collected, "Collected");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
+            ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
         });
         ui.separator();
 
@@ -454,7 +455,7 @@ pub mod events {
             total += 1;
 
             // Check if passes filters
-            if passes_pickup_filters(pickup, is_collected, type_filter, collected_filter, &region_filter, &search_lower) {
+            if passes_pickup_filters(pickup, is_collected, status, type_filter, collected_filter, &region_filter, &search_lower) {
                 filtered_total += 1;
                 if is_collected {
                     filtered_collected += 1;
@@ -496,11 +497,11 @@ pub mod events {
             let mut region_filtered = 0;
 
             for pickup in &pickups {
-                let (is_collected, _) = is_flag_set_with_status(ef, pickup.event_flag);
+                let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
                 if is_collected {
                     region_collected += 1;
                 }
-                if passes_pickup_filters(pickup, is_collected, type_filter, collected_filter, &region_filter, &search_lower) {
+                if passes_pickup_filters(pickup, is_collected, status, type_filter, collected_filter, &region_filter, &search_lower) {
                     region_filtered += 1;
                 }
             }
@@ -521,7 +522,7 @@ pub mod events {
                 let (is_collected, verification_status) = is_flag_set_with_status(ef, pickup.event_flag);
 
                 // Apply filters
-                if !passes_pickup_filters(pickup, is_collected, type_filter, collected_filter, &region_filter, &search_lower) {
+                if !passes_pickup_filters(pickup, is_collected, verification_status, type_filter, collected_filter, &region_filter, &search_lower) {
                     continue;
                 }
 
@@ -575,6 +576,7 @@ pub mod events {
     fn passes_pickup_filters(
         pickup: &crate::db::pickup_data::WorldPickup,
         is_collected: bool,
+        verification_status: crate::db::pickup_flags::VerificationStatus,
         type_filter: PickupTypeFilter,
         collected_filter: CollectedFilter,
         region_filter: &str,
@@ -590,6 +592,12 @@ pub mod events {
             },
             CollectedFilter::NotCollected => {
                 if is_collected {
+                    return false;
+                }
+            },
+            CollectedFilter::Unverified => {
+                // Show only items with uncertain verification status
+                if !verification_status.is_uncertain() {
                     return false;
                 }
             },

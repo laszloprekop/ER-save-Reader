@@ -90,6 +90,25 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
     ])
 });
 
+/// Dungeon PICKUP base offsets (for local_id >= 7000)
+///
+/// DISCOVERY (2026-01-23): Item pickup flags (local_id 7000+) are stored at DIFFERENT
+/// bases than general dungeon events (local_id 0-999). The general dungeon bases in
+/// DUNGEON_BASE_OFFSETS and VERIFIED_DUNGEON_BASES work for events like graces, boss
+/// defeats, etc. But item pickups use these separate bases.
+///
+/// Formula: offset = base + section*1125 + local_id/8, bit = 7 - (local_id % 8)
+///
+/// VERIFIED areas:
+/// - Area 10 (Stormveil): base 6459 - 11/11 flags match (Godskin Prayerbook, Claw Talisman, etc.)
+/// - Area 11 (Leyndell): base 33725 - 5/5 flags match (Assassin's Prayerbook, Golden Order Seal, etc.)
+pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
+    HashMap::from([
+        (10, 6459),   // Stormveil Castle item pickups - VERIFIED
+        (11, 33725),  // Leyndell Royal Capital item pickups - VERIFIED
+    ])
+});
+
 /// Block bases for flags 60000-99999 (special system flags)
 /// Now uses VERIFIED_BLOCK_BASES from ground_truth_offsets.json
 /// The old hardcoded values were incorrect (e.g., 67000 was 2125, verified is 3546)
@@ -155,7 +174,22 @@ fn calculate_dungeon_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let section = (flag_id / 10_000) % 100;
     let local_id = flag_id % 10_000;
 
-    // First, check verified dungeon bases (only use if status is "verified")
+    // For item pickup flags (local_id >= 7000), use the DUNGEON_PICKUP_BASES
+    // These are at completely different offsets than general dungeon events
+    // IMPORTANT: If area not in DUNGEON_PICKUP_BASES, return None to avoid false positives
+    if local_id >= 7000 {
+        if let Some(&pickup_base) = DUNGEON_PICKUP_BASES.get(&area) {
+            let byte_offset = pickup_base + section * DUNGEON_SECTION_SIZE + local_id / 8;
+            if byte_offset < EVENT_FLAGS_SIZE {
+                return Some((byte_offset, bit));
+            }
+        }
+        // Pickup base not available for this area - return None to avoid false positives
+        // Using general dungeon bases for pickup flags gives wrong offsets
+        return None;
+    }
+
+    // For general dungeon events (local_id < 7000), check verified dungeon bases
     // Areas 30, 31, 32 (catacombs, caves, tunnels) are verified
     if let Some(dungeon_base) = VERIFIED_DUNGEON_BASES.get(&area) {
         if dungeon_base.status == "verified" && dungeon_base.base_offset > 0 {
@@ -208,6 +242,17 @@ fn calculate_simple_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     }
 
     // Block flags (60000-99999) - use verified block bases
+    // First try sub-block at 100-flag granularity (e.g., 71600, 71800)
+    let sub_block_start = (flag_id / 100) * 100;
+    if let Some(block_base) = VERIFIED_BLOCK_BASES.get(&sub_block_start) {
+        let relative = flag_id - sub_block_start;
+        let byte_offset = block_base.base_offset + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE {
+            return Some((byte_offset, bit));
+        }
+    }
+
+    // Fall back to main block at 1000-flag granularity (e.g., 71000)
     let block_start = (flag_id / 1000) * 1000;
     if let Some(block_base) = VERIFIED_BLOCK_BASES.get(&block_start) {
         let relative = flag_id - block_start;

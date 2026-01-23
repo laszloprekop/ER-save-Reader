@@ -1292,7 +1292,29 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
 
     for row in root.findall(".//row"):
         row_id = int(row.get("id", 0))
-        flag_id = int(row.get("getItemFlagId", 0))
+        get_item_flag_id = int(row.get("getItemFlagId", 0))
+
+        # CRITICAL DISCOVERY (2026-01-23): For tile-based world pickups, the game stores
+        # the ROW ID as the actual event flag, NOT getItemFlagId.
+        #
+        # ItemLotParam has getItemFlagId = row_id + 7000, which places the local_id
+        # in the 7000+ range. But tile slots only allocate 875 bytes (7000 flags),
+        # so local_id >= 7000 has NO storage.
+        #
+        # Save file diff analysis confirmed: when picking up item lot 1044360310,
+        # flag 1044360310 (row_id, local_id 310) is SET, not 1044367310 (getItemFlagId).
+        #
+        # Therefore: for tile-based pickups (10-digit IDs starting with 1 or 2),
+        # we use row_id as the flag_id for tracking purposes.
+        is_tile_based = 1_000_000_000 <= row_id < 3_000_000_000
+
+        if is_tile_based:
+            # For tile-based world pickups, use row_id as the actual stored flag
+            flag_id = row_id
+        else:
+            # For non-tile pickups (dungeons, etc.), use getItemFlagId
+            flag_id = get_item_flag_id
+
         if flag_id == 0:
             continue
 

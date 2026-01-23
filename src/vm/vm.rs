@@ -6,13 +6,13 @@ pub mod vm {
             bosses::bosses::BOSSES,
             colosseums::colosseums::COLOSSEUMS,
             cookbooks::books::COOKBOKS,
-            event_flags::event_flags::EVENT_FLAGS,
             graces::maps::GRACES,
             maps::maps::MAPS,
             regions::regions::REGIONS,
             stats::stats::{FP, HP, SP},
             summoning_pools::summoning_pools::SUMMONING_POOLS,
             whetblades::whetblades::WHETBLADES,
+            pickup_flags::get_flag_offset,
         },
         save::{
             common::save_slot::{EquipInventoryData, EquipInventoryItem},
@@ -407,52 +407,60 @@ pub mod vm {
         }
 
         fn update_events(&self, save_type: &mut SaveType, index: usize) {
+            // Graces - use formula-based offset calculation
             for (grace, on) in self.slots[index].events_vm.graces.iter() {
                 let grace_info = GRACES.lock().unwrap()[&grace];
-                let offset = EVENT_FLAGS.lock().unwrap()[&grace_info.1];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(grace_info.1) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Whetblades
             for (whetblade, on) in self.slots[index].events_vm.whetblades.iter() {
                 let whetblade_info = WHETBLADES.lock().unwrap()[&whetblade];
-                let offset = EVENT_FLAGS.lock().unwrap()[&whetblade_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(whetblade_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Cookbooks
             for (cookbook, on) in self.slots[index].events_vm.cookbooks.iter() {
                 let cookbook_info = COOKBOKS.lock().unwrap()[&cookbook];
-                let offset = EVENT_FLAGS.lock().unwrap()[&cookbook_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(cookbook_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Maps
             for (map, on) in self.slots[index].events_vm.maps.iter() {
                 let map_info = MAPS.lock().unwrap()[&map];
-                let offset = EVENT_FLAGS.lock().unwrap()[&map_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(map_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Bosses
             for (boss, on) in self.slots[index].events_vm.bosses.iter() {
                 let boss_info = BOSSES.lock().unwrap()[&boss];
-                let offset = EVENT_FLAGS.lock().unwrap()[&boss_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(boss_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Summoning Pools
             for (summoning_pool, on) in self.slots[index].events_vm.summoning_pools.iter() {
                 let summoning_pool_info = SUMMONING_POOLS.lock().unwrap()[&summoning_pool];
-                let offset = EVENT_FLAGS.lock().unwrap()[&summoning_pool_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(summoning_pool_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
 
             // Colosseums
             for (colusseum, on) in self.slots[index].events_vm.colosseums.iter() {
                 let colusseum_info = COLOSSEUMS.lock().unwrap()[&colusseum];
-                let offset = EVENT_FLAGS.lock().unwrap()[&colusseum_info.0];
-                save_type.set_character_event_flag(index, offset.0 as usize, offset.1, *on);
+                if let Some((byte_offset, bit_position)) = get_flag_offset(colusseum_info.0) {
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                }
             }
         }
 

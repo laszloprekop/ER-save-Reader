@@ -541,7 +541,14 @@ def main():
 
     for row in root.findall('.//row'):
         raw_lot_id = int(row.get('id', 0))
-        flag_id = int(row.get('getItemFlagId', 0))
+        get_item_flag_id = int(row.get('getItemFlagId', 0))
+
+        # CRITICAL FIX (2026-01-23): For tile-based world pickups, the game stores
+        # the ROW ID (lot_id) as the actual event flag, NOT getItemFlagId.
+        # getItemFlagId = lot_id + 7000, placing local_id in 7000+ range (unstorable).
+        # The tile slot only has 875 bytes = 7000 flags, so local_id >= 7000 has NO storage.
+        is_tile_based = 1_000_000_000 <= raw_lot_id < 3_000_000_000
+        flag_id = raw_lot_id if is_tile_based else get_item_flag_id
 
         # Process primary item in the lot (slot 01)
         item_id = int(row.get('lotItemId01', 0))

@@ -1,7 +1,7 @@
 pub mod events_view_model {
     use std::collections::BTreeMap;
 
-    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, event_flags::event_flags::EVENT_FLAGS, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
+    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::get_flag_offset}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
 
     #[derive(Clone)]
     pub enum EventsRoute {
@@ -40,6 +40,7 @@ pub mod events_view_model {
         All,
         Collected,
         NotCollected,
+        Unverified,
     }
 
     #[derive(Clone)]
@@ -101,67 +102,97 @@ pub mod events_view_model {
         pub fn from_save(slot:& SaveSlot) -> Self {
             let mut events_vm = EventsViewModel::default();
 
-            let id_to_offset_lookup = EVENT_FLAGS.lock().unwrap();
-
-            // Graces
+            // Graces - use formula-based offset calculation
             for (key, value) in GRACES.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.1];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.graces.insert(*key, on);
-                events_vm.grace_groups.get_mut(&value.0).expect("").push(*key);
-                events_vm.grace_groups.get_mut(&value.0).expect("").sort();
+                let flag_id = value.1;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.graces.insert(*key, on);
+                        events_vm.grace_groups.get_mut(&value.0).expect("").push(*key);
+                        events_vm.grace_groups.get_mut(&value.0).expect("").sort();
+                    }
+                }
             }
 
             // Whetblades
             for (key, value) in WHETBLADES.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.whetblades.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.whetblades.insert(*key, on);
+                    }
+                }
             }
 
             // Cookbooks
             for (key, value) in COOKBOKS.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.cookbooks.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.cookbooks.insert(*key, on);
+                    }
+                }
             }
 
             // Maps
             for (key, value) in MAPS.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.maps.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.maps.insert(*key, on);
+                    }
+                }
             }
 
             // Bosses
             for (key, value) in BOSSES.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.bosses.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.bosses.insert(*key, on);
+                    }
+                }
             }
 
             // Summoning Pools
             for (key, value) in SUMMONING_POOLS.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.summoning_pools.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.summoning_pools.insert(*key, on);
+                    }
+                }
             }
 
             // Colosseums
             for (key, value) in COLOSSEUMS.lock().unwrap().iter() {
-                let event_flag_info = id_to_offset_lookup[&value.0];
-                let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                events_vm.colosseums.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.colosseums.insert(*key, on);
+                    }
+                }
             }
 
             // Landmarks
             for (key, value) in LANDMARKS.lock().unwrap().iter() {
-                // value.0 is the flag_id
-                if let Some(event_flag_info) = id_to_offset_lookup.get(&value.0) {
-                    let on = get_bit(slot.event_flags.flags[event_flag_info.0 as usize], event_flag_info.1);
-                    events_vm.landmarks.insert(*key, on);
+                let flag_id = value.0;
+                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+                    if (byte_offset as usize) < slot.event_flags.flags.len() {
+                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                        events_vm.landmarks.insert(*key, on);
+                    } else {
+                        events_vm.landmarks.insert(*key, false);
+                    }
                 } else {
-                    // Flag not in lookup, default to false (not discovered)
+                    // Flag not in formula ranges, default to false (not discovered)
                     events_vm.landmarks.insert(*key, false);
                 }
             }

@@ -1,7 +1,7 @@
 pub mod world_pickups_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
-    use crate::db::event_flags::event_flags::EVENT_FLAGS;
+    use crate::db::pickup_flags::get_flag_offset;
     use crate::util::bit::bit::get_bit;
     use crate::ui::style::TABLE_MONO_SIZE;
 
@@ -20,6 +20,7 @@ pub mod world_pickups_view {
         All,
         Collected,
         NotCollected,
+        Unverified,
     }
 
     pub struct WorldPickupsViewState {
@@ -43,16 +44,17 @@ pub mod world_pickups_view {
     }
 
     /// Check if a pickup's event flag is set (collected)
+    /// Uses formula-based offset calculation from pickup_flags.rs
     fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>) -> Option<bool> {
         let event_flags = event_flags?;
-        let flags_lookup = EVENT_FLAGS.lock().ok()?;
-        let (byte_offset, bit_position) = flags_lookup.get(&flag_id)?;
 
-        if (*byte_offset as usize) < event_flags.len() {
-            Some(get_bit(event_flags[*byte_offset as usize], *bit_position))
-        } else {
-            None
+        if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+            if (byte_offset as usize) < event_flags.len() {
+                return Some(get_bit(event_flags[byte_offset as usize], bit_position));
+            }
         }
+
+        None
     }
 
     pub fn world_pickups_view(ui: &mut Ui, state: &mut WorldPickupsViewState, event_flags: Option<&[u8]>) {
@@ -99,6 +101,7 @@ pub mod world_pickups_view {
                 ui.selectable_value(&mut state.collected_filter, CollectedFilter::All, "All");
                 ui.selectable_value(&mut state.collected_filter, CollectedFilter::Collected, "Collected");
                 ui.selectable_value(&mut state.collected_filter, CollectedFilter::NotCollected, "Not Collected");
+                ui.selectable_value(&mut state.collected_filter, CollectedFilter::Unverified, "Unverified");
             });
         }
         ui.separator();
@@ -137,6 +140,12 @@ pub mod world_pickups_view {
                         },
                         CollectedFilter::NotCollected => {
                             if is_collected == Some(true) {
+                                continue;
+                            }
+                        },
+                        CollectedFilter::Unverified => {
+                            // Show only items where verification status is unknown
+                            if is_collected.is_some() {
                                 continue;
                             }
                         },

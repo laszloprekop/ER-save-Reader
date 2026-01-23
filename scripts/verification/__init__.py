@@ -91,8 +91,8 @@ from .verification_data import (
 from .save_parser import SaveParser, SlotData
 from .diff_analyzer import DiffAnalyzer
 
-# DEPRECATED: flag_formulas - use ground_truth_loader instead
-# from .flag_formulas import FlagFormulas  # Not imported by default
+# Legacy: flag_formulas (still needed by run_verification.py)
+from .flag_formulas import FlagFormulas
 
 __all__ = [
     # Constants
@@ -135,4 +135,5 @@ __all__ = [
     "SaveParser",
     "SlotData",
     "DiffAnalyzer",
+    "FlagFormulas",
 ]

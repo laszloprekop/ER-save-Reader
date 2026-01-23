@@ -122,13 +122,16 @@ Dungeons and special areas use an 8-digit format:
 
 #### Legacy Dungeons (Major Story Areas)
 
-| Area | Name | Base Offset | Status |
-|------|------|-------------|--------|
-| 10 | Stormveil Castle | 4112 | Verified |
-| 11 | Academy of Raya Lucaria | 4112 | Needs Review (92% match) |
-| 13 | Leyndell, Royal Capital | - | Unverified |
-| 15 | Miquella's Haligtree | - | Unverified |
-| 16 | Crumbling Farum Azula | - | Unverified |
+| Area | Name | Event Base | Pickup Base* | Status |
+|------|------|------------|--------------|--------|
+| 10 | Stormveil Castle | 4112 | 6459 | Pickup base verified |
+| 11 | Leyndell, Royal Capital | 8612 | 33725 | Pickup base verified |
+| 13 | Crumbling Farum Azula | 26612 | - | Unverified |
+| 14 | Academy of Raya Lucaria | 29987 | - | Event base verified |
+| 15 | Miquella's Haligtree | 33362 | - | Unverified |
+| 16 | Volcano Manor | 40517 | - | Event base verified |
+
+*Pickup bases are for item pickups (local_id >= 7000). See "Dungeon Pickup Bases" section below.
 
 #### Minor Dungeons
 
@@ -164,6 +167,107 @@ bit_position = 7 - (flag_id % 8)
 ```
 
 **Source File**: `legacymap.eventflagalloclist`
+
+#### Dungeon Pickup Bases (IMPORTANT DISCOVERY 2026-01-23)
+
+**Item pickup flags (local_id >= 7000) use DIFFERENT bases than general dungeon events.**
+
+The general dungeon event bases work for graces, boss defeats, etc. (local_id 0-999).
+But item pickups use separate "pickup bases" that must be empirically discovered:
+
+| Area | General Event Base | Item Pickup Base | Verification |
+|------|-------------------|------------------|--------------|
+| 10 (Stormveil) | 4112 | **6459** | 11/11 flags verified |
+| 11 (Leyndell) | 8612 | **33725** | 5/5 flags verified |
+
+**Formula for item pickups (local_id >= 7000)**:
+```
+byte_offset = pickup_base + section * 1125 + local_id / 8
+bit_position = 7 - (flag_id % 8)
+```
+
+**Note**: No consistent offset pattern found between general and pickup bases. Each area requires empirical verification using known inventory items.
+
+---
+
+## World Pickup Event Flags (CRITICAL DISCOVERY 2026-01-23)
+
+### The Row ID Discovery
+
+**Key Finding**: For tile-based world pickups, the game stores the **row_id** as the event flag, NOT the `getItemFlagId` field.
+
+ItemLotParam_map has two related values:
+
+| Field | Example | Local ID | Stored? |
+|-------|---------|----------|---------|
+| Row ID (item lot) | `1044360310` | 0310 | ✅ **YES** |
+| getItemFlagId | `1044367310` | 7310 | ❌ No |
+
+**Evidence**: Save file diff analysis showed that when picking up treasure at row_id `1044360310`:
+- Flag `1044360310` (local_id 310) was SET in the save file
+- Flag `1044367310` (getItemFlagId, local_id 7310) was NOT used
+
+### The +7000 Offset Red Herring
+
+The `getItemFlagId` field is always `row_id + 7000`, placing the local_id in the 7000+ range. This initially seemed problematic because:
+
+- Tile slots allocate only **875 bytes** (7000 flags, local_id 0-6999)
+- Flags with local_id >= 7000 would have **NO STORAGE**
+
+However, the game bypasses this by using the row_id directly for storage, which has local_id in the 0-999 range (storable).
+
+### What getItemFlagId Is Actually For
+
+The `getItemFlagId` field appears to be used for:
+1. **Runtime checks** - In-game scripts checking if an item was picked up
+2. **Shop unlock conditions** - `eventFlag_forRelease` in ShopLineupParam references these
+3. **NPC dialogue triggers** - Quest progression checks
+
+But for **persistent save file storage**, the game uses the row_id.
+
+### Implications for Flag Database
+
+Our flag extraction now correctly uses:
+- **Row ID** for tile-based pickups (10-digit flags starting with 1 or 2)
+- **getItemFlagId** for non-tile pickups (dungeons, etc.) which may follow different rules
+
+### Code Changes
+
+The `extract_item_lot_flags` function in `src/discovery/param_flags.rs` was updated to:
+
+```rust
+// For tile-based world pickups (1B-3B range), use row_id as the flag
+let is_tile_based = row_id >= 1_000_000_000 && row_id < 3_000_000_000;
+
+if is_tile_based {
+    // Use row_id as the actual stored flag
+    add_flag_source(flags, row_id, ParamSource::ItemLotMap { row_id, field: "row_id" });
+} else {
+    // Use getItemFlagId for non-tile pickups
+    add_flag_source(flags, flag_id, ParamSource::ItemLotMap { row_id, field: "getItemFlagId" });
+}
+```
+
+This ensures the flag database contains the **actually storable** flag IDs that can be verified in save files.
+
+### Block Flags for World Pickups
+
+These 76 special items use block flags that ARE stored:
+
+| Range | Items | Purpose |
+|-------|-------|---------|
+| 60xxx | 10 | Keys, medallions (Haligtree, Rold) |
+| 62xxx | 14 | Map fragments |
+| 65xxx | 13 | Whetblades |
+| 66xxx | 13 | Pot/Perfume upgrades |
+| 67xxx-68xxx | 25 | Cookbooks |
+| 69xxx | 1 | Notes |
+
+### Implications for Save Editing
+
+1. **Don't track most world pickups via event flags** - use inventory checks instead
+2. **Block flags work** - cookbooks, whetblades, etc. can be read/written
+3. **Tile flags with local_id 7000+** - these are effectively phantom flags
 
 ---
 

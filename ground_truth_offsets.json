@@ -3343,7 +3343,14 @@
       "col_base": 30,
       "max_local_id": 6999,
       "status": "verified",
-      "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly."
+      "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly.",
+      "world_pickup_limitation": {
+        "discovery_date": "2026-01-23",
+        "unstorable_count": 1189,
+        "storable_tile_count": 1,
+        "block_flag_count": 76,
+        "explanation": "ItemLotParam_map assigns event flags with +7000 offset (row_id + 7000 = getItemFlagId). This places 99.9% of world pickup flags in local_id 7000+ range, which has NO STORAGE (tile slots only allocate 875 bytes = 7000 flags). World pickups are tracked by inventory presence, not event flags. Only 76 special items (cookbooks, whetblades, medallions) use block flags (5-6 digits) that ARE storable."
+      }
     },
     "midrange_formula": {
       "510000": {
@@ -3351,7 +3358,7 @@
         "base_offset": 63750,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010→(63751,5), 510020→(63752,3), 510030→(63753,1), 510040→(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
+        "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010\u2192(63751,5), 510020\u2192(63752,3), 510030\u2192(63753,1), 510040\u2192(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
       },
       "540000": {
         "block_start": 540000,
@@ -3365,7 +3372,7 @@
         "base_offset": 13875,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Roundtable Hold NPC progression flags - VERIFIED 2026-01-23: Base 13875 derived from event_flags.rs hardcoded 710620→(0x3680,3). Formula: byte = 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8). 41 EMEVD flags primarily from m18 (Roundtable Hold). Most track NPC state changes during game progression."
+        "notes": "Roundtable Hold NPC progression flags - VERIFIED 2026-01-23: Base 13875 derived from event_flags.rs hardcoded 710620\u2192(0x3680,3). Formula: byte = 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8). 41 EMEVD flags primarily from m18 (Roundtable Hold). Most track NPC state changes during game progression."
       }
     },
     "dungeon_formula": {
@@ -3374,14 +3381,14 @@
         "base_offset": 4112,
         "section_size": 1125,
         "status": "calculated",
-        "notes": "Stormveil Castle - calculated from legacymap slot 0: 4112 + 0*1125 = 4112. Formula verified theoretically. Cannot empirically verify - test character bypassed Stormveil."
+        "notes": "Stormveil Castle GENERAL EVENTS (local_id 0-999). Item pickup flags (local_id 7000+) use base 6459 - see dungeon_pickup_bases."
       },
       "11": {
         "map_area": 11,
         "base_offset": 8612,
         "section_size": 1125,
         "status": "verified",
-        "notes": "Leyndell, Royal Capital - calculated from legacymap slot 4: 4112 + 4*1125 = 8612. EMPIRICALLY VERIFIED 2026-01-21: 50+ non-zero bytes at base, flags 11000001-11000950 match formula exactly."
+        "notes": "Leyndell Royal Capital GENERAL EVENTS (local_id 0-999) - verified for flags 11000001-11000950. Item pickup flags (local_id 7000+) use base 33725 - see dungeon_pickup_bases."
       },
       "12": {
         "map_area": 12,
@@ -3510,6 +3517,24 @@
         "section_size": 1125,
         "status": "verified",
         "notes": "Tutorial areas (Chapel of Anticipation, Cave of Knowledge, Stranded Graveyard) - verified: 6722 unique flags from Slot 6 (Chapel) and Slot 1 (Cave) empirical data. NOT Shunning-Grounds as previously documented."
+      }
+    },
+    "dungeon_pickup_bases": {
+      "description": "Bases for dungeon item pickup flags (local_id 7000+). These are SEPARATE from the general dungeon event bases in dungeon_formula.",
+      "formula": "offset = base + section*1125 + local_id/8, bit = 7 - (local_id % 8)",
+      "10": {
+        "map_area": 10,
+        "base_offset": 6459,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Stormveil Castle item pickups - VERIFIED 2026-01-23: 11/11 flags match. Godskin Prayerbook (10007990), Claw Talisman (10007230), etc. all SET. Offset from general event base (4112): +2347."
+      },
+      "11": {
+        "map_area": 11,
+        "base_offset": 33725,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Leyndell Royal Capital item pickups - VERIFIED 2026-01-23: 5/5 flags match. Assassin's Prayerbook (11107700), Golden Order Seal (11007200), Perfume Bottle (11007130) all SET. Offset from general event base (8612): +25113."
       }
     }
   },
