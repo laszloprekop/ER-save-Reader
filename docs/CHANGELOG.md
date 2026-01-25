@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.30 - Snapshot Capture Automation
+
+### Features
+- **Automated snapshot capture workflow**: New system for capturing save file snapshots with POI metadata
+  - `scripts/capture_agent.py`: Standalone HTTP server (port 8765) for save file capture
+  - Supports before/after pairing with auto-chaining for sequential captures
+  - Generates indexed filenames with flag_id, map_tile, and phase
+  - Updates `capture_catalog.json` with full metadata
+  - CLI commands: `serve`, `capture`, `migrate`, `status`
+
+- **Dynamic verification test runner**: New calibration-aware test selection
+  - `scripts/verification/snapshot_test_runner.py`: Selects appropriate snapshot pairs for testing
+  - Calibrates formula bases per-save (addresses save-dependent offset issue)
+  - Filters tests by flag format, verification status, and confidence level
+
+### Documentation
+- **EVENT-FLAG-GEOGRAPHY.md**: Added "Save-Dependent Base Offsets" warning section
+  - Documents that tile/dungeon formula bases vary per save file
+  - Explains GaItems section size variability affecting EF section offset
+  - Provides calibration anchors for each formula type
+
+- **discovery-verification-cycle.md**: Added "Automated Snapshot Capture Workflow"
+  - Documents complete user workflow from in-game to capture
+  - Explains auto-chaining logic for sequential snapshots
+  - Describes capture_catalog.json schema and usage
+
+### Files Added
+- `scripts/capture_agent.py`: HTTP capture agent with catalog management
+- `scripts/verification/snapshot_test_runner.py`: Dynamic test selection and calibration
+
+### Files Modified
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Save-dependent base offset documentation
+- `docs/discovery-verification-cycle.md`: Automated capture workflow documentation
+
+---
+
 ## v0.4.29 - World Pickup False Positive Fix
 
 ### Bug Fixes

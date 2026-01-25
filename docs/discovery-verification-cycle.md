@@ -426,6 +426,102 @@ Current approach (manual struct unpacking) works well for our focused use case b
 
 ---
 
+## Automated Snapshot Capture Workflow
+
+### Overview
+
+Manual snapshot naming is error-prone and doesn't scale. The automated capture system provides:
+
+1. **Proper flag ID tracking** - Uses storable flag_id (row_id for tiles), NOT getItemFlagId
+2. **Before/after pairing** - Automatic linkage with support for auto-chaining
+3. **Slot context extraction** - Captures EF offset and calibrated bases at capture time
+4. **Structured catalog** - Machine-readable JSON catalog for test selection
+
+### Capture Workflow
+
+```
+1. Player approaches POI in-game
+2. Player quits to main menu (forces save)
+3. Player opens elden-map /character-game-data
+4. Player clicks on POI marker, clicks [Capture Before]
+5. System copies save with indexed naming, records in catalog
+6. Player performs action in-game (pickup, grace touch, boss kill)
+7. Player quits to main menu
+8. Player clicks [Capture After] on same POI
+9. System pairs captures, triggers diff analysis
+```
+
+### Capture Catalog
+
+The capture catalog (`capture_catalog.json`) stores:
+
+```json
+{
+  "captures": [
+    {
+      "id": "cap_001",
+      "filename": "ER0000.sl2_capture_001_before_1044360040_m60_44_36",
+      "phase": "before",
+      "poi": {
+        "flag_id": 1044360040,
+        "flag_format": "tile",
+        "map_tile": "m60_44_36"
+      },
+      "slot_context": {
+        "slot_index": 0,
+        "ef_offset": 79540,
+        "calibrated_tile_base": 489981
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "pair_001",
+      "before_capture": "cap_001",
+      "after_capture": "cap_002",
+      "flag_id": 1044360040,
+      "verification_result": { "status": "verified" }
+    }
+  ]
+}
+```
+
+### Using the Capture Agent
+
+```bash
+# Capture a before snapshot
+python scripts/capture_agent.py capture --phase before --flag-id 1044360040 --poi-name "Somber Stone" --slot 0
+
+# Capture an after snapshot (auto-pairs with most recent before)
+python scripts/capture_agent.py capture --phase after --flag-id 1044360040 --poi-name "Somber Stone" --slot 0
+
+# Run HTTP server for webapp integration
+python scripts/capture_agent.py serve --port 8765
+
+# Migrate existing snapshots to catalog
+python scripts/capture_agent.py migrate
+
+# Show catalog status
+python scripts/capture_agent.py status
+```
+
+### Test Selection with Snapshot Test Runner
+
+```python
+from scripts.verification.snapshot_test_runner import SnapshotTestRunner
+
+runner = SnapshotTestRunner()
+
+# Get tests for tile formula
+tests = runner.get_tests_for_formula("tile", max_count=5)
+
+# Verify a specific flag
+result = runner.verify_flag(1044360040)
+print(f"Confidence: {result.aggregate_confidence:.2%}")
+```
+
+---
+
 ## References
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) - System structure and module organization

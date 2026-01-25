@@ -494,9 +494,62 @@ Event flags are stored in contiguous bit arrays within each character slot:
 
 ---
 
+## IMPORTANT: Save-Dependent Base Offsets
+
+### The Problem
+
+**Tile and dungeon formula bases are SAVE-DEPENDENT, not universal.**
+
+Analysis of 55+ b-series and 10+ Confessor-series snapshots revealed:
+
+1. **EF offset varies with GaItems count** - Inventory changes during gameplay affect GaItems section size
+2. **Different save series have different calibrated bases** - We found a ~4571 byte difference between save series
+3. **Hardcoded base offsets may not work** for all saves
+
+### Evidence
+
+| Save Series | Tile Base (Smoldering Butterfly) | Notes |
+|-------------|-----------------------------------|-------|
+| b-series (Slot 0) | 485951 | Early captures |
+| Confessor series | 490522 | Later captures, +4571 difference |
+| Ground truth | 489981 | Calibrated 2026-01-20 |
+
+### Solution: Dynamic Calibration
+
+Before running verification, calibrate for the specific save:
+
+```python
+from scripts.verification.snapshot_test_runner import SnapshotTestRunner
+
+runner = SnapshotTestRunner()
+cal = runner.calibrate_for_save("/path/to/save", slot=0)
+
+print(f"EF offset: {cal.ef_offset}")
+print(f"Tile base: {cal.tile_base}")
+print(f"Confidence: {cal.tile_base_confidence:.2f}")
+```
+
+### Calibration Anchors
+
+| Formula | Anchor Flag | Anchor Name | Usage |
+|---------|-------------|-------------|-------|
+| Tile | 1043500010 | Smoldering Butterfly | Frequently SET, used for base calibration |
+| Block | 76100 | The First Step | Always SET after tutorial |
+| Dungeon | 16000002 | Volcano Manor grace | Area 16 base calibration |
+
+### Best Practices
+
+1. **Always calibrate** before running verification on a new save file
+2. **Store calibration results** in the capture catalog with each snapshot
+3. **Use validation flags** to detect EF section offset
+4. **Cross-validate** using multiple anchor flags when possible
+
+---
+
 ## Related Documentation
 
 - `CLAUDE.md` - Complete flag range reference tables
 - `Flag-islands.md` - Block offset propagation
 - `DATABASE_COVERAGE_ANALYSIS.md` - Current implementation coverage
 - `SAVE_FILE_GROUND_TRUTH.md` - Verified flag positions
+- `discovery-verification-cycle.md` - Automated capture workflow
