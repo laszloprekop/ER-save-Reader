@@ -132,8 +132,8 @@ row = int(flag_str[2:4])      # XX (tile row, e.g., 43)
 col = int(flag_str[4:6])      # YY (tile column, e.g., 50)
 local_id = int(flag_str[6:])  # ZZZZ (local flag ID, e.g., 0010)
 
-# Calculate offset (CORRECTED 2026-01-20)
-base_offset = 489981          # CORRECTED: was 485330 (+4651), verified via temporal diff
+# Calculate offset (REVERTED 2026-01-25)
+base_offset = 485330          # REVERTED: 489981 was WRONG, original 485330 correct
 bytes_per_slot = 875
 slots_per_row = 40
 row_base = 33
@@ -147,10 +147,10 @@ bit_position = 7 - (local_id % 8)  # Uses local_id, not flag_id
 **Verified Example**: Flag 1043500010 (Smoldering Butterfly at m60_43_50)
 - row=43, col=50, local=10
 - tile_offset = ((43-33)*40 + (50-30)) * 875 = 420 * 875 = 367500
-- byte_offset = 489981 + 367500 + 1 = **857482**
+- byte_offset = 485330 + 367500 + 1 = **852831**
 - bit_position = 7 - (10 % 8) = 5
 - Extraction: (byte >> 5) & 1
-- **Empirically verified via before/after pickup temporal diff (2026-01-20)**
+- **Re-verified 2026-01-25**: Observed 0x00→0x20 at offset 852831 (not 857482)**
 
 **LIMITATIONS**:
 
@@ -354,10 +354,15 @@ To improve the ground truth:
 
 ## Changelog
 
+### 2026-01-25
+- **REVERT** tile formula base_offset: 489981 → **485330** (reverted to original)
+- The 2026-01-20 "correction" was WRONG - offset 857482 showed no change during pickup
+- Re-verified: Smoldering Butterfly (1043500010) at byte **852831** bit 5 (0x00→0x20)
+- Added calibration_anchors section to ground_truth_offsets.json for runtime validation
+
 ### 2026-01-20
-- **CRITICAL CORRECTION** tile formula base_offset: 485330 → **489981** (+4651 bytes)
-- Previous value was wrong due to incorrect derivation from discoveries.json empirical data
-- Verified via Smoldering Butterfly temporal diff: flag 1043500010 confirmed at byte **857482**
+- **INCORRECT** tile formula base_offset: 485330 → 489981 (+4651 bytes) - REVERTED 2026-01-25
+- This correction was wrong due to misread temporal diff data
 
 ### 2026-01-12 (Tile Fix) - SUPERSEDED by 2026-01-20
 - **CORRECTED** Tile formula base: 349750 → 495830 → 485330 → **489981** (final)

@@ -152,13 +152,13 @@ class FlagFormulas:
     # Previous base_offset=485330 was wrong by 4651 bytes. Corrected via temporal diff.
 
     TILE_CONFIG = TileConfig(
-        base_offset=489981,     # CORRECTED 2026-01-20: was 485330, verified via Smoldering Butterfly
+        base_offset=485330,     # REVERTED 2026-01-25: 489981 was WRONG. Re-verified via Smoldering Butterfly at offset 852831
         bytes_per_slot=875,     # 875 bytes = 7000 flags per slot
         slots_per_row=40,       # 40 columns per row
         row_base=33,            # First tile row
         col_base=30,            # First tile column
         max_local_id=6999,      # LocalId >= 7000 has no storage!
-        status="verified"       # Verified from Smoldering Butterfly temporal diff
+        status="verified"       # Re-verified 2026-01-25: 1043500010 at offset 852831 bit 5
     )
 
     # =========================================================================

@@ -90,7 +90,7 @@ def get_tile_config() -> Dict[str, Any]:
 
     Returns:
         Dict with:
-        - base_offset: int (489981 as of 2026-01-20)
+        - base_offset: int (485330 as of 2026-01-25)
         - bytes_per_slot: int (875)
         - slots_per_row: int (40)
         - row_base: int (33)

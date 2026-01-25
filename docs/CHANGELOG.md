@@ -4,6 +4,31 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.4.31 - Tile Formula Base Offset Reversion
+
+### Bug Fixes
+- **Reverted tile formula base_offset from 489981 back to 485330**: The v0.4.28 "correction" was wrong
+  - Re-verification showed offset 857482 had NO change during Smoldering Butterfly pickup
+  - Actual observed change: offset **852831** bit 5 SET (0x00 → 0x20)
+  - Calculation confirms: 485330 + 420*875 + 1 = 852831
+
+### Enhancements
+- **Added calibration_anchors section** to `ground_truth_offsets.json`
+  - Tile anchor: Smoldering Butterfly (1043500010) at offset 852831, bit 5
+  - Block anchors: The First Step (76100), Church of Elleh (76101), Cave of Knowledge (71800)
+  - Enables runtime validation of formula correctness
+
+### Files Modified
+- `ground_truth_offsets.json`: Reverted tile base, added calibration_anchors
+- `elden-map/server/src/eventFlagService.ts`: TILE_BASE_OFFSET=485330, TILE_COL_BASE=30
+- `scripts/verification/flag_formulas.py`: TILE_CONFIG.base_offset=485330
+- `src/db/pickup_flags.rs`: Updated comments and test assertions
+- `scripts/capture_agent.py`: Updated TILE_BASE_OFFSET constant
+- `scripts/verification/*.py`: Updated default fallback values
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: Corrected tile formula documentation
+
+---
+
 ## v0.4.30 - Snapshot Capture Automation
 
 ### Features

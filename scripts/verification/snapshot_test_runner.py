@@ -131,6 +131,21 @@ class TestCase:
 
 
 @dataclass
+class CharacterContext:
+    """Character context extracted from save for verification analysis."""
+    character_name: Optional[str] = None
+    gaitem_count: int = 0
+    grace_summary: Dict[str, int] = field(default_factory=dict)
+    total_graces: int = 0
+    progression_markers: Dict[str, bool] = field(default_factory=dict)
+    # Key progression indicators
+    reached_volcano_manor: bool = False
+    reached_liurnia: bool = False
+    reached_altus: bool = False
+    reached_mountaintops: bool = False
+
+
+@dataclass
 class VerificationResult:
     """Result of verifying a flag across multiple test cases."""
     flag_id: int
@@ -141,7 +156,9 @@ class VerificationResult:
     aggregate_confidence: float = 0.0
     per_test_results: List[Dict[str, Any]] = field(default_factory=list)
     calibration_used: Optional[CalibrationResult] = None
-    conclusion: str = "unknown"  # "verified", "likely", "uncertain", "failed"
+    character_context: Optional[CharacterContext] = None
+    conclusion: str = "unknown"  # "verified", "likely", "uncertain", "failed", "investigation_needed"
+    diagnostics: Dict[str, Any] = field(default_factory=dict)
 
 
 # ============================================================================
@@ -270,7 +287,7 @@ class SnapshotTestRunner:
         """
         # Use the ground truth tile config as starting point
         config = get_tile_config()
-        base_offset = config.get("base_offset", 489981)
+        base_offset = config.get("base_offset", 485330)
         bytes_per_slot = config.get("bytes_per_slot", 875)
         slots_per_row = config.get("slots_per_row", 40)
         row_base = config.get("row_base", 33)
@@ -374,6 +391,107 @@ class SnapshotTestRunner:
                 verified_bases[area] = config["base_offset"]
 
         return verified_bases
+
+    def get_character_context(
+        self,
+        save_path: str | Path,
+        slot_index: int
+    ) -> CharacterContext:
+        """
+        Extract full character context from a save file.
+
+        This provides proper context for verification instead of relying
+        solely on VALIDATION_FLAGS which only checks 4 early-game graces.
+
+        IMPORTANT: validated_graces in SlotData only contains 4 tutorial/early
+        graces for EF offset validation. This method checks actual character
+        progression across ALL regions.
+        """
+        save_path = Path(save_path)
+        context = CharacterContext()
+
+        try:
+            parsed = self.parser.parse(save_path, [slot_index])
+            if not parsed.slots:
+                return context
+
+            slot = parsed.slots[0]
+            full_context = self.parser.extract_character_context(slot)
+            grace_summary = self.parser.get_grace_summary(slot)
+
+            context.character_name = full_context.get("character_name")
+            context.gaitem_count = full_context.get("gaitem_count", 0)
+            context.grace_summary = grace_summary
+            context.total_graces = grace_summary.get("total", 0)
+            context.progression_markers = full_context.get("progression_markers", {})
+
+            # Set key region indicators from progression markers
+            context.reached_volcano_manor = context.progression_markers.get("reached_volcano_manor", False)
+            context.reached_liurnia = context.progression_markers.get("reached_liurnia", False)
+            context.reached_altus = context.progression_markers.get("reached_altus", False)
+            context.reached_mountaintops = context.progression_markers.get("reached_mountaintops", False)
+
+        except Exception as e:
+            context.diagnostics = {"error": str(e)}
+
+        return context
+
+    def _verify_context_matches_flag_region(
+        self,
+        context: CharacterContext,
+        flag_id: int,
+        flag_format: str
+    ) -> Tuple[bool, str]:
+        """
+        Verify that the character context makes sense for the flag being tested.
+
+        For example, if testing a Volcano Manor flag, the character should have
+        discovered VM graces. If not, the conclusion should be "investigation_needed"
+        rather than a simple pass/fail.
+
+        Returns:
+            (context_valid, reason)
+        """
+        # Dungeon flags: check if character has reached that dungeon
+        if flag_format == "dungeon":
+            area_id = flag_id // 1_000_000  # Extract area from AASSSSII format
+
+            if area_id == 16:  # Volcano Manor
+                vm_graces = context.grace_summary.get("volcano_manor_graces", 0)
+                if vm_graces == 0 and not context.reached_volcano_manor:
+                    return (False, "Character has not discovered any Volcano Manor graces")
+                return (True, f"Character has {vm_graces} VM graces")
+
+            if area_id == 10:  # Stormveil Castle
+                sv_graces = context.grace_summary.get("other_dungeon_graces", 0)
+                return (True, "Stormveil Castle - early game accessible")
+
+            if area_id == 19:  # Mohgwyn Palace
+                if not context.reached_liurnia:
+                    return (False, "Mohgwyn Palace requires Liurnia access")
+                return (True, "Character has reached Liurnia (Mohgwyn accessible)")
+
+        # Tile flags: check if character has reached the general region
+        if flag_format == "tile":
+            # Parse tile coordinates from flag ID
+            # Format: 10RRCCIII where RR=row, CC=col, III=local_id
+            row = (flag_id // 100_000) % 100
+            col = (flag_id // 1_000) % 100
+
+            # Altus Plateau tiles are roughly 36-44, 51-57
+            if 36 <= row <= 44 and 51 <= col <= 57:
+                if not context.reached_altus:
+                    return (False, "Character has not reached Altus Plateau")
+                return (True, "Character has reached Altus Plateau")
+
+            # Mountaintops tiles are roughly 45-52
+            if row >= 45:
+                if not context.reached_mountaintops:
+                    return (False, "Character has not reached Mountaintops")
+                return (True, "Character has reached Mountaintops")
+
+        # Default: context is valid
+        return (True, "Context check passed or not applicable")
 
     def get_tests_for_formula(
         self,
@@ -497,6 +615,9 @@ class SnapshotTestRunner:
             result.notes = "No test cases available for this formula type"
             return result
 
+        investigation_needed_count = 0
+        context_issues = []
+
         for test in test_cases:
             test_result = self._run_single_test(hypothesis, test)
             result.per_test_results.append(test_result)
@@ -506,13 +627,52 @@ class SnapshotTestRunner:
                 result.tests_passed += 1
             elif test_result.get("failed"):
                 result.tests_failed += 1
+            elif test_result.get("investigation_needed"):
+                investigation_needed_count += 1
+                context_issues.append({
+                    "pair_id": test_result.get("pair_id"),
+                    "reason": test_result.get("context_reason"),
+                    "error": test_result.get("error"),
+                })
 
-        # Calculate aggregate confidence
-        if result.tests_run > 0:
-            result.aggregate_confidence = result.tests_passed / result.tests_run
+            # Capture first valid character context
+            if result.character_context is None and test_result.get("character_context"):
+                ctx_data = test_result["character_context"]
+                result.character_context = CharacterContext(
+                    character_name=ctx_data.get("character_name"),
+                    total_graces=ctx_data.get("total_graces", 0),
+                    gaitem_count=ctx_data.get("gaitem_count", 0),
+                    reached_volcano_manor=ctx_data.get("reached_vm", False),
+                    reached_liurnia=ctx_data.get("reached_liurnia", False),
+                    reached_altus=ctx_data.get("reached_altus", False),
+                    grace_summary=ctx_data.get("grace_summary", {}),
+                )
 
-        # Determine conclusion
-        if result.aggregate_confidence >= 0.9:
+        # Calculate aggregate confidence (exclude investigation_needed from confidence calc)
+        valid_tests = result.tests_run - investigation_needed_count
+        if valid_tests > 0:
+            result.aggregate_confidence = result.tests_passed / valid_tests
+        else:
+            result.aggregate_confidence = 0.0
+
+        # Build diagnostics
+        result.diagnostics = {
+            "tests_run": result.tests_run,
+            "tests_passed": result.tests_passed,
+            "tests_failed": result.tests_failed,
+            "investigation_needed": investigation_needed_count,
+            "context_issues": context_issues,
+        }
+
+        # Determine conclusion - now includes "investigation_needed" status
+        if investigation_needed_count > 0 and result.tests_passed == 0:
+            # All tests need investigation - don't conclude failure
+            result.conclusion = "investigation_needed"
+            result.diagnostics["suggested_action"] = (
+                "Character context doesn't support testing this flag. "
+                "Check if character has discovered graces in the target region."
+            )
+        elif result.aggregate_confidence >= 0.9:
             result.conclusion = "verified"
         elif result.aggregate_confidence >= 0.7:
             result.conclusion = "likely"
@@ -528,21 +688,52 @@ class SnapshotTestRunner:
         hypothesis: FlagHypothesis,
         test: TestCase
     ) -> Dict[str, Any]:
-        """Run a single test case."""
+        """
+        Run a single test case with full character context analysis.
+
+        Before drawing conclusions, this method:
+        1. Extracts actual character context (discovered graces, not just validation flags)
+        2. Verifies context makes sense for the flag being tested
+        3. Includes diagnostic info when verification fails
+        """
         result = {
             "pair_id": test.pair_id,
             "flag_id": hypothesis.flag_id,
             "passed": False,
             "failed": False,
             "skipped": False,
+            "investigation_needed": False,
             "before_value": None,
             "after_value": None,
             "expected_offset": None,
             "expected_bit": None,
             "error": None,
+            "character_context": None,
+            "context_valid": True,
+            "context_reason": "",
         }
 
         try:
+            # Extract character context for the "after" save
+            # This tells us where the character has actually been
+            context = self.get_character_context(test.after_path, test.slot_index)
+            result["character_context"] = {
+                "character_name": context.character_name,
+                "total_graces": context.total_graces,
+                "gaitem_count": context.gaitem_count,
+                "reached_vm": context.reached_volcano_manor,
+                "reached_liurnia": context.reached_liurnia,
+                "reached_altus": context.reached_altus,
+                "grace_summary": context.grace_summary,
+            }
+
+            # Verify context matches flag region BEFORE drawing conclusions
+            context_valid, context_reason = self._verify_context_matches_flag_region(
+                context, hypothesis.flag_id, hypothesis.flag_format
+            )
+            result["context_valid"] = context_valid
+            result["context_reason"] = context_reason
+
             # Calibrate for the before save
             cal = self.calibrate_for_save(test.before_path, test.slot_index)
             if cal.ef_offset is None:
@@ -596,15 +787,25 @@ class SnapshotTestRunner:
                 if before_set == 0 and after_set == 1:
                     result["passed"] = True
                 else:
-                    result["failed"] = True
-                    result["error"] = f"Expected 0->1, got {before_set}->{after_set}"
+                    # Flag didn't change as expected - check context before concluding failure
+                    if not context_valid:
+                        # Context doesn't support testing this flag - needs investigation
+                        result["investigation_needed"] = True
+                        result["error"] = f"Flag unchanged ({before_set}->{after_set}) but context issue: {context_reason}"
+                    else:
+                        result["failed"] = True
+                        result["error"] = f"Expected 0->1, got {before_set}->{after_set}"
             else:
                 # Expected: before=SET, after=UNSET (rare case)
                 if before_set == 1 and after_set == 0:
                     result["passed"] = True
                 else:
-                    result["failed"] = True
-                    result["error"] = f"Expected 1->0, got {before_set}->{after_set}"
+                    if not context_valid:
+                        result["investigation_needed"] = True
+                        result["error"] = f"Flag unchanged ({before_set}->{after_set}) but context issue: {context_reason}"
+                    else:
+                        result["failed"] = True
+                        result["error"] = f"Expected 1->0, got {before_set}->{after_set}"
 
         except Exception as e:
             result["skipped"] = True

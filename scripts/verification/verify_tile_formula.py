@@ -34,7 +34,7 @@ def main():
     # Get tile formula config from ground truth
     tile_config = get_tile_config()
 
-    TILE_BASE = tile_config.get("base_offset", 489981)
+    TILE_BASE = tile_config.get("base_offset", 485330)
     BYTES_PER_SLOT = tile_config.get("bytes_per_slot", 875)
     SLOTS_PER_ROW = tile_config.get("slots_per_row", 40)
     ROW_BASE = tile_config.get("row_base", 33)

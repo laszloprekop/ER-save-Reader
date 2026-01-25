@@ -67,8 +67,8 @@ SLOT_CHARACTERS = {
     6: "Sam",
 }
 
-# Known tile base offset (from ground_truth)
-TILE_BASE_OFFSET = 489981
+# Known tile base offset (from ground_truth) - REVERTED 2026-01-25: 489981 was wrong
+TILE_BASE_OFFSET = 485330
 
 
 # ============================================================================

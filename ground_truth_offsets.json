@@ -7,7 +7,7 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-20 - CORRECTED tile formula base_offset from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff (flag 1043500010 at byte 857482)."
+    "last_probe_run": "2026-01-25 - REVERTED tile formula base_offset from 489981 back to 485330. Re-verification showed 489981 was WRONG (offset 857482 not changed). Correct offset 852831 at bit 5 confirms 485330."
   },
   "summary": {
     "by_category": {
@@ -3210,7 +3210,7 @@
       "category": "World Pickup",
       "status": "proven",
       "confidence": 1.0,
-      "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=489981 (corrected 2026-01-20)"
+      "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=485330 (reverted 2026-01-25)"
     }
   },
   "formulas": {
@@ -3336,21 +3336,14 @@
       }
     },
     "tile_formula": {
-      "base_offset": 489981,
+      "base_offset": 485330,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
       "status": "verified",
-      "notes": "CORRECTED 2026-01-20: base_offset changed from 485330 to 489981 (+4651). Verified via Smoldering Butterfly temporal diff: flag 1043500010 at byte 857482 matches formula exactly.",
-      "world_pickup_limitation": {
-        "discovery_date": "2026-01-23",
-        "unstorable_count": 1189,
-        "storable_tile_count": 1,
-        "block_flag_count": 76,
-        "explanation": "ItemLotParam_map assigns event flags with +7000 offset (row_id + 7000 = getItemFlagId). This places 99.9% of world pickup flags in local_id 7000+ range, which has NO STORAGE (tile slots only allocate 875 bytes = 7000 flags). World pickups are tracked by inventory presence, not event flags. Only 76 special items (cookbooks, whetblades, medallions) use block flags (5-6 digits) that ARE storable."
-      }
+      "notes": "REVERTED 2026-01-25: base_offset restored to 485330. Previous correction to 489981 was WRONG. Re-verified via Smoldering Butterfly: flag 1043500010 changes offset 852831 (not 857482). Calculation: 485330 + (43-33)*40*875 + (50-30)*875 + 10//8 = 485330 + 350000 + 17500 + 1 = 852831."
     },
     "midrange_formula": {
       "510000": {
@@ -3535,6 +3528,56 @@
         "section_size": 1125,
         "status": "verified",
         "notes": "Leyndell Royal Capital item pickups - VERIFIED 2026-01-23: 5/5 flags match. Assassin's Prayerbook (11107700), Golden Order Seal (11007200), Perfume Bottle (11007130) all SET. Offset from general event base (8612): +25113."
+      }
+    }
+  },
+  "calibration_anchors": {
+    "description": "Verified anchor flags for runtime calibration. Use these to validate formula correctness and detect save-dependent offset variations.",
+    "tile": {
+      "1043500010": {
+        "name": "Smoldering Butterfly",
+        "row": 43,
+        "col": 50,
+        "local_id": 10,
+        "verified_offset": 852831,
+        "verified_bit": 5,
+        "verification_date": "2026-01-25",
+        "notes": "Primary calibration anchor. Temporal diff confirmed: 0x00 → 0x20 (bit 5 SET)"
+      }
+    },
+    "block": {
+      "76100": {
+        "name": "The First Step",
+        "block": 76000,
+        "verified_offset": 3262,
+        "verified_bit": 3,
+        "verification_date": "2026-01-11",
+        "notes": "Tutorial grace - always SET after character creation"
+      },
+      "76101": {
+        "name": "Church of Elleh",
+        "block": 76000,
+        "verified_offset": 3262,
+        "verified_bit": 2,
+        "verification_date": "2026-01-11",
+        "notes": "Second discoverable grace"
+      },
+      "71800": {
+        "name": "Cave of Knowledge",
+        "block": 71800,
+        "verified_offset": 2725,
+        "verified_bit": 7,
+        "verification_date": "2026-01-22",
+        "notes": "Tutorial grace - always SET"
+      }
+    },
+    "dungeon": {
+      "30000800": {
+        "name": "Cemetery Shade",
+        "map_area": 30,
+        "section": 0,
+        "local_id": 800,
+        "notes": "Tombsward Catacombs boss defeat flag"
       }
     }
   },

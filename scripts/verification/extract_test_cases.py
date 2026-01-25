@@ -14,8 +14,8 @@ from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 
-# CORRECTED formula constants
-TILE_BASE_OFFSET = 489981  # CORRECTED 2026-01-20 (was 485330)
+# CORRECTED formula constants - REVERTED 2026-01-25: 489981 was wrong
+TILE_BASE_OFFSET = 485330  # REVERTED 2026-01-25 (489981 was incorrect)
 TILE_BYTES_PER_SLOT = 875
 TILE_SLOTS_PER_ROW = 40
 TILE_ROW_BASE = 33
