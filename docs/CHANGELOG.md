@@ -4,6 +4,31 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.5.1 - Schema Pre-filtering & Block Investigation
+
+### Features
+- **Schema-based pre-filtering in batch verification** (`scripts/verification/case_cli.py`)
+  - Added `--schema-filter` flag to automatically skip untrackable flags
+  - Probes save file before verification loop to identify sparse allocation gaps
+  - Reports skipped flags in "EVIDENCE GAPS" section
+  - Prevents wasted effort investigating flags known to be in padding regions
+
+### Bug Fixes / Data Corrections
+- **Flagged incorrect block bases in ground_truth_offsets.json**
+  - Block 62000: Marked `needs_investigation` - flag IDs in BLOCK_ITEMS (62010-62080) don't exist in game data; offset 9359 contains 8-byte record structure, not bit-packed flags
+  - Block 67000: Marked `needs_investigation` - base offset 37411 incorrect; flags show unset even when items present in inventory
+  - Block 68000: Marked `needs_investigation` - derived from incorrect 67000 base
+
+### Key Findings
+- **Block 62000**: BLOCK_ITEMS used assumed flag IDs that don't exist. Actual map fragment pickup flags are 10-digit tile-based (e.g., 1042370200). Block 62000 contains WorldMapPointParam flags for location discovery.
+- **Block 67000/68000**: Flag IDs are valid but base offsets need re-discovery. Original verification likely used different save file.
+
+### Files Modified
+- `ground_truth_offsets.json`: Updated status for blocks 62000, 67000, 68000
+- `scripts/verification/case_cli.py`: Added schema-filter integration, documented block issues
+
+---
+
 ## v0.5.0 - Schema-Based Allocation Detection & Case Verification System
 
 ### Features

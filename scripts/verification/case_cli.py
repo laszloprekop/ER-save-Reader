@@ -30,6 +30,7 @@ from scripts.verification.ground_truth_loader import (
     load_block_bases,
     get_block_base,
 )
+from scripts.verification.flag_schema import BlockSchema, AllocationBitmap
 
 
 # Default save path
@@ -56,24 +57,20 @@ BLOCK_ITEMS = {
         (520450, 1110, "Gold Scarab", "talisman"),
         (520480, 5040, "Godskin Swaddling Cloth", "talisman"),
     ],
-    62000: [
-        # Map Fragments
-        (62010, 8600, "Map: Limgrave, West", "landmark"),
-        (62011, 8601, "Map: Weeping Peninsula", "landmark"),
-        (62020, 8602, "Map: Liurnia, East", "landmark"),
-        (62021, 8603, "Map: Liurnia, North", "landmark"),
-        (62022, 8604, "Map: Liurnia, West", "landmark"),
-        (62030, 8605, "Map: Caelid", "landmark"),
-        (62031, 8606, "Map: Dragonbarrow", "landmark"),
-        (62040, 8607, "Map: Altus Plateau", "landmark"),
-        (62050, 8609, "Map: Mt. Gelmir", "landmark"),
-        (62060, 8613, "Map: Ainsel River", "landmark"),
-        (62061, 8614, "Map: Lake of Rot", "landmark"),
-        (62070, 8610, "Map: Consecrated Snowfield", "landmark"),
-        (62080, 8611, "Map: Siofra River", "landmark"),
-    ],
+    # NOTE: Block 62000 DISABLED - flag IDs 62010-62080 don't exist in game data.
+    # Actual map fragment pickup flags are 10-digit tile-based (e.g., 1042370200).
+    # Block 62000 contains WorldMapPointParam flags for location discovery.
+    # See ground_truth_offsets.json notes for details.
+    # 62000: [
+    #     # INVALID - these flag IDs don't exist
+    #     (62010, 8600, "Map: Limgrave, West", "landmark"),
+    #     ...
+    # ],
+    # NOTE: Blocks 67000/68000 need re-verification - base offsets may be incorrect.
+    # Flag IDs exist but verification shows flags unset even when items present.
+    # See ground_truth_offsets.json notes for details.
     67000: [
-        # Cookbooks
+        # Cookbooks - NEEDS RE-VERIFICATION
         (67000, 9300, "Nomadic Warrior's Cookbook [1]", "cookbook"),
         (67010, 9301, "Nomadic Warrior's Cookbook [3]", "cookbook"),
         (67030, 9303, "Nomadic Warrior's Cookbook [10]", "cookbook"),
@@ -89,7 +86,7 @@ BLOCK_ITEMS = {
         (67280, 9316, "Missionary's Cookbook [7]", "cookbook"),
     ],
     68000: [
-        # Cookbooks continued
+        # Cookbooks continued - NEEDS RE-VERIFICATION
         (68000, 9350, "Ancient Dragon Apostle's Cookbook [1]", "cookbook"),
         (68010, 9351, "Ancient Dragon Apostle's Cookbook [2]", "cookbook"),
         (68020, 9352, "Ancient Dragon Apostle's Cookbook [3]", "cookbook"),
@@ -290,11 +287,42 @@ def cmd_batch(args):
         "no_inventory": [],    # Flags without item_id for inventory check
         "padding_detected": [],  # Flags landing in padding region
         "formula_update_proposals": [],  # Rejected cases with better alternatives
+        "schema_filtered": [],  # Flags skipped due to schema-based allocation detection
     }
+
+    # Schema-based pre-filtering
+    use_schema_filter = getattr(args, 'schema_filter', False)
+    untrackable_flags: set = set()
+
+    if use_schema_filter:
+        print(f"\nSchema filtering: enabled")
+        schema = BlockSchema(block, base)
+        extracted_path = PROJECT_ROOT / "scripts" / "extracted_event_flags.json"
+        count = schema.load_flags_from_extracted(extracted_path)
+        print(f"  Loaded {count} flags into schema")
+
+        if count > 0:
+            bitmap = schema.probe_allocation(save_path)
+            untrackable_flags = set(bitmap.get_untrackable_flags())
+            trackable_count = len(bitmap.get_trackable_flags())
+            print(f"  Trackable: {trackable_count}, Untrackable (sparse gaps): {len(untrackable_flags)}")
+
+            if untrackable_flags:
+                # Pre-populate gaps with schema-detected untrackable flags
+                for entry in bitmap.unallocated:
+                    if entry.flag_id in [flag_id for flag_id, _, _, _ in items]:
+                        gaps["schema_filtered"].append((entry.flag_id, entry.item_name))
 
     for flag_id, item_id, name, category in items:
         print(f"\n{'─' * 50}")
         print(f"Processing: {name} (flag {flag_id})")
+
+        # Skip untrackable flags if schema filtering is enabled
+        if use_schema_filter and flag_id in untrackable_flags:
+            print(f"  SKIPPED: Flag is in sparse allocation gap (untrackable)")
+            gaps["padding_detected"].append((flag_id, name))
+            results["rejected"].append((flag_id, name, 0.0))
+            continue
 
         # Create hypothesis
         byte_offset = base + (flag_id - block) // 8
@@ -437,6 +465,13 @@ def cmd_batch(args):
                 print(f"  - {flag_id}: {name}")
             if len(gaps["padding_detected"]) > 5:
                 print(f"  ... and {len(gaps['padding_detected']) - 5} more")
+
+        if gaps["schema_filtered"]:
+            print(f"\nSchema-filtered (sparse gaps) ({len(gaps['schema_filtered'])} items):")
+            for flag_id, name in gaps["schema_filtered"][:5]:
+                print(f"  - {flag_id}: {name}")
+            if len(gaps["schema_filtered"]) > 5:
+                print(f"  ... and {len(gaps['schema_filtered']) - 5} more")
 
         if gaps["formula_update_proposals"]:
             print(f"\nFormula update proposals ({len(gaps['formula_update_proposals'])} items):")
@@ -669,6 +704,7 @@ Examples:
     batch_parser.add_argument("--use-anchors", action="store_true", help="Use anchor database for chain anchor defense")
     batch_parser.add_argument("--all-saves", action="store_true", help="Run verification across all configured saves")
     batch_parser.add_argument("--differential-set", help="Differential set name from save_config.json")
+    batch_parser.add_argument("--schema-filter", action="store_true", help="Pre-filter untrackable flags using schema-based allocation detection")
 
     # Discover command
     discover_parser = subparsers.add_parser("discover", help="Discover base offset for unknown block")

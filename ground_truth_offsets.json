@@ -3341,8 +3341,8 @@
         "block_start": 62000,
         "base_offset": 9359,
         "block_size": 1000,
-        "status": "verified",
-        "notes": "Map fragments - CORRECTED 2026-01-21: Base 9359 gives 12/12 match (100%) on Slot 0 confirmed flags. NOTE: Temporal diff on separate Wretch save suggests base 28407 for that context - base may vary between save states. Using 9359 as primary (more evidence: 12 maps vs 1 map temporal)."
+        "status": "needs_investigation",
+        "notes": "FLAGGED 2026-02-01: Investigation shows offset 9359 region contains 8-byte record structure, NOT bit-packed event flags. BLOCK_ITEMS uses flag IDs (62010-62080) that don't exist in game data. Actual 62000 block contains WorldMapPointParam flags (62060+, 62100+) for location discovery. Original verification likely used incorrect flag IDs. Base offset and flag IDs need complete re-verification."
       },
       "65000": {
         "block_start": 65000,
@@ -3355,15 +3355,15 @@
         "block_start": 67000,
         "base_offset": 37411,
         "block_size": 1000,
-        "status": "verified",
-        "notes": "Cookbooks - CORRECTED 2026-01-21: Base 37411 gives 34/34 match (100%) on Slot 0 confirmed flags AND 34/34 UNSET on Slot 1 early-game character. Old base 2280 gave 0% match."
+        "status": "needs_investigation",
+        "notes": "FLAGGED 2026-02-01: Investigation shows offset 37411 region contains all 0x00 bytes. Cookbook flags (67000, 67010, 67120, etc.) show UNSET even when items are present in inventory (e.g., Missionary's Cookbook [1] at item 9310 is in Slot 0 inventory but flag 67120 reads as unset). Original verification may have used different save file or flag IDs. Base offset needs re-verification."
       },
       "68000": {
         "block_start": 68000,
         "base_offset": 37536,
         "block_size": 1000,
-        "status": "verified",
-        "notes": "Cookbooks continued - VERIFIED 2026-01-22: Base 37536 (67000 base + 125) gives 10/10 match on base game 68xxx cookbooks (Ancient Dragon Apostle, Fevor, Frenzied) in S0 AND 0/10 in S1 early-game. Perfect differential pattern confirms calculation."
+        "status": "needs_investigation",
+        "notes": "FLAGGED 2026-02-01: Related to 67000 issue. Base 37536 derived from 67000 base + 125, but if 67000 base is incorrect, this is also incorrect. Needs re-verification after 67000 is resolved."
       },
       "71000": {
         "block_start": 71000,
