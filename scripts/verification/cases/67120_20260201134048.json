@@ -1,0 +1,211 @@
+{
+  "case_id": "67120_20260201134048",
+  "flag_id": 67120,
+  "item_name": "Missionary's Cookbook [1]",
+  "category": "cookbook",
+  "item_id": 9310,
+  "hypothesis": {
+    "byte_offset": 37426,
+    "bit_position": 7,
+    "implied_base": 37411,
+    "block_start": 67000
+  },
+  "block_start": 67000,
+  "formula_type": "block",
+  "status": "challenging",
+  "confidence": 0.7344531249999999,
+  "iterations": 1,
+  "surviving_challenges": 5,
+  "created_at": "2026-02-01T13:40:48.096053",
+  "last_updated": "2026-02-01T13:41:29.604441",
+  "notes": [],
+  "evidence": [
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.25,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Item present, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot1:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot2:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot3:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot4:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S1=0x00(bit7=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S2=0x00(bit7=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S3=0x00(bit7=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S4=0x00(bit7=0)"
+    },
+    {
+      "evidence_type": "temporal",
+      "source": "ER0000.sl2_capture_112_after_67120:slot0:temporal_snapshot",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.15,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "Temporal: 0\u21920 (before=ER0000.sl2_capture_111_before_67120, after=ER0000.sl2_capture_112_after_67120)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-01.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S1=0x00(bit7=0) [backup_2026_01_01]"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S1=0x00(bit7=0) [backup_2026_01_11]"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S2=0x00(bit7=0) [backup_2026_01_11]"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S3=0x00(bit7=0) [backup_2026_01_11]"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": false,
+      "confidence_contribution": -0.2,
+      "byte_offset": 37426,
+      "bit_position": 7,
+      "observed_value": 0,
+      "notes": "S0=0x00(bit7=0), S4=0x00(bit7=0) [backup_2026_01_11]"
+    }
+  ],
+  "challenges": [
+    {
+      "challenge_type": "padding_check",
+      "description": "Check if offset 37426 is 0xFF padding",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "Offset 37426 contains data (not all 0xFF)"
+    },
+    {
+      "challenge_type": "false_positive",
+      "description": "Check false positive rate across 6 slots",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "False positive rate 16.7% acceptable"
+    },
+    {
+      "challenge_type": "alternative_base",
+      "description": "Search for better base in range 37311 to 37511",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "No significantly better base found (best alternative: None with 10 matches)"
+    },
+    {
+      "challenge_type": "bit_collision",
+      "description": "Check for flag collisions at offset 37426 bit 7",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "No collisions detected among 13 known flags"
+    },
+    {
+      "challenge_type": "block_boundary",
+      "description": "Check if offset 37426 is within block range",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "Offset 37426 is within block range [37411, 37536]"
+    }
+  ]
+}

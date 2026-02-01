@@ -12,7 +12,7 @@ import struct
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Tuple, BinaryIO, Union
-from .flag_formulas import FlagFormulas
+from .archive.flag_formulas import FlagFormulas
 
 
 # ============================================================================
@@ -46,18 +46,30 @@ CHARACTER_NAME_OFFSET_CANDIDATES = [0xA27C, 0xAE96, 0xA463, 0xA462]
 CHARACTER_NAME_MAX_LEN = 16         # Max 16 UTF-16 characters
 
 # EventFlags offset VARIES per slot due to variable-size GaItems section
-# The Rust code's fixed offset (0x1a104) is incorrect for our saves
-# Empirically, the offset is around 0x12B00-0x13800 depending on GaItems count
+# Analysis of 66 save snapshots showed:
+# - EF offsets range from 0x13xxx to 0x1Bxxx (not fixed!)
+# - Multiple false positives exist at lower offsets with perfect validation scores
+# - The REAL EF section is consistently at higher offsets
 EVENT_FLAGS_SEARCH_MIN = 0x10000  # Minimum search offset
-EVENT_FLAGS_SEARCH_MAX = 0x20000  # Maximum search offset
+EVENT_FLAGS_SEARCH_MAX = 0x30000  # Maximum search offset (increased from 0x20000)
 
 # Validation flags for verifying event flags offset is correct
+# Format: (flag_id, byte_offset, bit_position, name, tier)
+# Tier 1 = critical flags that MUST be set for any playable character
+# Tier 2 = early game flags likely set for most characters
 VALIDATION_FLAGS = [
-    (71800, 2725, 7, "Cave of Knowledge"),
-    (71801, 2725, 6, "Stranded Graveyard"),
-    (76100, 3262, 3, "The First Step"),
-    (76101, 3262, 2, "Church of Elleh"),
+    # Tier 1: Tutorial and first graces (MUST be set)
+    (71800, 2725, 7, "Cave of Knowledge", 1),
+    (71801, 2725, 6, "Stranded Graveyard", 1),
+    (76100, 3262, 3, "The First Step", 1),
+    (76101, 3262, 2, "Church of Elleh", 1),
+    # Tier 2: Early game graces (likely set for progressed characters)
+    (76102, 3262, 1, "Gatefront Ruins", 2),
+    (76104, 3263, 7, "Agheel Lake South", 2),
+    (76106, 3263, 5, "Church of Dragon Communion", 2),
 ]
+
+MIN_TIER1_VALIDATION_SCORE = 3  # Minimum Tier 1 flags required for valid detection
 
 
 @dataclass
@@ -252,27 +264,50 @@ class SaveParser:
 
         The offset varies due to variable-size GaItems section (depends on inventory).
         Empirically, the offset is around 0x12B00-0x13800 for our test saves.
-        We search for the offset where at least 2 validation flags match (First Step + Church of Elleh).
+
+        Algorithm (2026-01-25 update):
+        1. Search all candidate offsets and score each one
+        2. Prioritize Tier 1 flags (tutorial graces that MUST be set)
+        3. Among candidates with equal Tier 1 scores, use total score as tiebreaker
+        4. Only break early on a PERFECT match (all flags)
+
+        This prevents false positives where random data matches 2-4 bit patterns.
         """
         best_offset = 0x12B00  # Default fallback based on empirical testing
-        best_score = 0
+        best_tier1_score = 0
+        best_total_score = 0
+
+        tier1_flag_count = sum(1 for f in VALIDATION_FLAGS if f[4] == 1)
 
         # Search in 4-byte increments for speed
         for test_offset in range(EVENT_FLAGS_SEARCH_MIN, min(EVENT_FLAGS_SEARCH_MAX, len(slot_data) - EVENT_FLAGS_SIZE), 4):
-            score = 0
-            for flag_id, byte_off, bit_pos, name in VALIDATION_FLAGS:
+            tier1_score = 0
+            total_score = 0
+
+            for flag_id, byte_off, bit_pos, name, tier in VALIDATION_FLAGS:
                 abs_pos = test_offset + byte_off
                 if abs_pos < len(slot_data):
                     if (slot_data[abs_pos] & (1 << bit_pos)) != 0:
-                        score += 1
+                        total_score += 1
+                        if tier == 1:
+                            tier1_score += 1
 
-            if score > best_score:
-                best_score = score
+            # Update best based on: tier1 score first, then total score
+            # CRITICAL: Prefer HIGHER offsets on tie because the real EF section
+            # is at higher offsets - lower offsets are often false positives from
+            # random data that happens to match the validation bit patterns.
+            is_better = (
+                tier1_score > best_tier1_score or
+                (tier1_score == best_tier1_score and total_score > best_total_score) or
+                (tier1_score == best_tier1_score and total_score == best_total_score)  # Prefer higher offset
+            )
+
+            if is_better:
+                best_tier1_score = tier1_score
+                best_total_score = total_score
                 best_offset = test_offset
 
-                if best_score == len(VALIDATION_FLAGS):
-                    # Perfect match - stop searching
-                    break
+            # Do NOT break early - search entire range to find correct EF section
 
         return best_offset
 
@@ -281,7 +316,7 @@ class SaveParser:
         score = 0
         matched = []
 
-        for flag_id, byte_off, bit_pos, name in VALIDATION_FLAGS:
+        for flag_id, byte_off, bit_pos, name, tier in VALIDATION_FLAGS:
             if byte_off < len(event_flags):
                 if (event_flags[byte_off] & (1 << bit_pos)) != 0:
                     score += 1
@@ -366,6 +401,239 @@ class SaveParser:
         if byte_offset < len(event_flags):
             return (event_flags[byte_offset] & (1 << bit_position)) != 0
         return False
+
+    def extract_character_context(self, slot_data: SlotData) -> Dict:
+        """
+        Extract full character context for verification.
+
+        Returns comprehensive context including:
+        - All discovered graces (not just validation flags)
+        - Inventory counts (from GaItems)
+        - Progression markers
+        - Character metadata
+
+        This provides proper context for verification instead of relying
+        solely on VALIDATION_FLAGS which only checks 4 early-game graces.
+
+        IMPORTANT: validated_graces in SlotData only contains 4 tutorial/early
+        graces used for EF offset validation. This method checks actual
+        character progression across all regions.
+        """
+        return {
+            "slot_index": slot_data.slot_index,
+            "character_name": slot_data.character_name,
+            "gaitem_count": slot_data.gaitem_count,
+            "discovered_graces": self._get_all_discovered_graces(slot_data),
+            "progression_markers": self._check_progression_flags(slot_data),
+            "validation_graces": slot_data.validated_graces,  # Original 4 validation flags
+            "validation_score": slot_data.validation_score,
+        }
+
+    def _get_all_discovered_graces(self, slot_data: SlotData) -> Dict[str, List[Dict]]:
+        """
+        Check ALL grace flags, not just VALIDATION_FLAGS.
+
+        Returns graces categorized by region/dungeon with their flag status.
+
+        Grace flag ranges:
+        - Block format (71xxx-76xxx): Tutorial, Limgrave, etc.
+        - Dungeon format (16000xxx): Volcano Manor (area 16), etc.
+        - Dungeon format (19000xxx): Mohgwyn Palace (area 19), etc.
+
+        NOTE: VALIDATION_FLAGS are for offset validation only.
+        This method provides actual progression tracking.
+        """
+        event_flags = slot_data.event_flags
+        discovered = {
+            "tutorial_graces": [],
+            "limgrave_graces": [],
+            "weeping_peninsula_graces": [],
+            "liurnia_graces": [],
+            "altus_graces": [],
+            "caelid_graces": [],
+            "mountaintops_graces": [],
+            "volcano_manor_graces": [],
+            "other_dungeon_graces": [],
+            "underground_graces": [],
+            "other_graces": [],
+        }
+
+        # Known grace flags by region (block format)
+        # These are verified from BonfireWarpParam.param.xml
+        grace_checks = [
+            # Tutorial (71800-71802)
+            {"flag_id": 71800, "name": "Cave of Knowledge", "region": "tutorial_graces"},
+            {"flag_id": 71801, "name": "Stranded Graveyard", "region": "tutorial_graces"},
+
+            # Limgrave (76100-76149)
+            {"flag_id": 76100, "name": "The First Step", "region": "limgrave_graces"},
+            {"flag_id": 76101, "name": "Church of Elleh", "region": "limgrave_graces"},
+            {"flag_id": 76102, "name": "Gatefront Ruins", "region": "limgrave_graces"},
+            {"flag_id": 76103, "name": "Stormfoot Catacombs", "region": "limgrave_graces"},
+            {"flag_id": 76104, "name": "Agheel Lake South", "region": "limgrave_graces"},
+            {"flag_id": 76105, "name": "Agheel Lake North", "region": "limgrave_graces"},
+            {"flag_id": 76106, "name": "Church of Dragon Communion", "region": "limgrave_graces"},
+            {"flag_id": 76107, "name": "Fort Haight West", "region": "limgrave_graces"},
+            {"flag_id": 76108, "name": "Third Church of Marika", "region": "limgrave_graces"},
+            {"flag_id": 76109, "name": "Artist's Shack", "region": "limgrave_graces"},
+            {"flag_id": 76110, "name": "Summonwater Village Outskirts", "region": "limgrave_graces"},
+            {"flag_id": 76111, "name": "Waypoint Ruins Cellar", "region": "limgrave_graces"},
+            {"flag_id": 76112, "name": "Seaside Ruins", "region": "limgrave_graces"},
+            {"flag_id": 76113, "name": "Mistwood Outskirts", "region": "limgrave_graces"},
+            {"flag_id": 76114, "name": "Murkwater Coast", "region": "limgrave_graces"},
+
+            # Weeping Peninsula (76150-76170)
+            {"flag_id": 76150, "name": "Castle Morne Rampart", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76151, "name": "Tombsward", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76152, "name": "Church of Pilgrimage", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76153, "name": "Fourth Church of Marika", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76154, "name": "Ailing Village Outskirts", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76155, "name": "Beside the Crater-Pocked Glade", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76156, "name": "Isolated Merchant's Shack", "region": "weeping_peninsula_graces"},
+            {"flag_id": 76157, "name": "Bridge of Sacrifice", "region": "weeping_peninsula_graces"},
+
+            # Liurnia (76200-76299)
+            {"flag_id": 76200, "name": "Lake-Facing Cliffs", "region": "liurnia_graces"},
+            {"flag_id": 76201, "name": "Liurnia Lake Shore", "region": "liurnia_graces"},
+            {"flag_id": 76202, "name": "Laskyar Ruins", "region": "liurnia_graces"},
+            {"flag_id": 76203, "name": "Scenic Isle", "region": "liurnia_graces"},
+            {"flag_id": 76204, "name": "Academy Gate Town", "region": "liurnia_graces"},
+            {"flag_id": 76205, "name": "South Raya Lucaria Gate", "region": "liurnia_graces"},
+            {"flag_id": 76206, "name": "Main Academy Gate", "region": "liurnia_graces"},
+            {"flag_id": 76207, "name": "Crystalline Woods", "region": "liurnia_graces"},
+            {"flag_id": 76208, "name": "East Gate Bridge Trestle", "region": "liurnia_graces"},
+            {"flag_id": 76209, "name": "Raya Lucaria Academy Gate", "region": "liurnia_graces"},
+
+            # Altus Plateau (76300-76399)
+            {"flag_id": 76300, "name": "Altus Plateau", "region": "altus_graces"},
+            {"flag_id": 76301, "name": "Erdtree-Gazing Hill", "region": "altus_graces"},
+            {"flag_id": 76302, "name": "Altus Highway Junction", "region": "altus_graces"},
+            {"flag_id": 76303, "name": "Forest-Spanning Greatbridge", "region": "altus_graces"},
+            {"flag_id": 76304, "name": "Rampartside Path", "region": "altus_graces"},
+            {"flag_id": 76305, "name": "Bower of Bounty", "region": "altus_graces"},
+            {"flag_id": 76306, "name": "Road of Iniquity Side Path", "region": "altus_graces"},
+
+            # Mt. Gelmir (76350-76380)
+            {"flag_id": 76350, "name": "Bridge of Iniquity", "region": "altus_graces"},
+            {"flag_id": 76351, "name": "First Mt. Gelmir Campsite", "region": "altus_graces"},
+            {"flag_id": 76352, "name": "Ninth Mt. Gelmir Campsite", "region": "altus_graces"},
+            {"flag_id": 76353, "name": "Road of Iniquity", "region": "altus_graces"},
+
+            # Caelid (76400-76499)
+            {"flag_id": 76400, "name": "Smoldering Church", "region": "caelid_graces"},
+            {"flag_id": 76401, "name": "Rotview Balcony", "region": "caelid_graces"},
+            {"flag_id": 76402, "name": "Fort Gael North", "region": "caelid_graces"},
+            {"flag_id": 76403, "name": "Caelem Ruins", "region": "caelid_graces"},
+            {"flag_id": 76404, "name": "Cathedral of Dragon Communion", "region": "caelid_graces"},
+            {"flag_id": 76405, "name": "Caelid Highway South", "region": "caelid_graces"},
+            {"flag_id": 76406, "name": "Smoldering Wall", "region": "caelid_graces"},
+            {"flag_id": 76407, "name": "Deep Siofra Well", "region": "caelid_graces"},
+
+            # Mountaintops (76500-76599)
+            {"flag_id": 76500, "name": "Zamor Ruins", "region": "mountaintops_graces"},
+            {"flag_id": 76501, "name": "Ancient Snow Valley Ruins", "region": "mountaintops_graces"},
+            {"flag_id": 76502, "name": "Freezing Lake", "region": "mountaintops_graces"},
+            {"flag_id": 76503, "name": "First Church of Marika", "region": "mountaintops_graces"},
+
+            # Volcano Manor dungeon graces (area 16 - dungeon format)
+            {"flag_id": 16000002, "name": "Temple of Eiglay (VM)", "region": "volcano_manor_graces"},
+            {"flag_id": 16000003, "name": "Prison Town Church (VM)", "region": "volcano_manor_graces"},
+            {"flag_id": 16000004, "name": "Guest Hall (VM)", "region": "volcano_manor_graces"},
+            {"flag_id": 16000005, "name": "Audience Pathway (VM)", "region": "volcano_manor_graces"},
+            {"flag_id": 16000006, "name": "Abductor Virgin (VM)", "region": "volcano_manor_graces"},
+            {"flag_id": 16000007, "name": "Subterranean Inquisition Chamber (VM)", "region": "volcano_manor_graces"},
+
+            # Stormveil Castle (area 10 - dungeon format)
+            {"flag_id": 10000002, "name": "Stormveil Cliffside (SV)", "region": "other_dungeon_graces"},
+            {"flag_id": 10000003, "name": "Rampart Tower (SV)", "region": "other_dungeon_graces"},
+            {"flag_id": 10000004, "name": "Liftside Chamber (SV)", "region": "other_dungeon_graces"},
+            {"flag_id": 10000005, "name": "Secluded Cell (SV)", "region": "other_dungeon_graces"},
+
+            # Siofra River (area 12 - underground)
+            {"flag_id": 12000002, "name": "Siofra River Bank", "region": "underground_graces"},
+            {"flag_id": 12000003, "name": "Worshippers' Woods", "region": "underground_graces"},
+            {"flag_id": 12000004, "name": "Below the Well", "region": "underground_graces"},
+
+            # Mohgwyn Palace (area 19 - dungeon format)
+            {"flag_id": 19000002, "name": "Palace Approach Ledge-Road", "region": "other_dungeon_graces"},
+            {"flag_id": 19000003, "name": "Dynasty Mausoleum Entrance", "region": "other_dungeon_graces"},
+            {"flag_id": 19000004, "name": "Dynasty Mausoleum Midpoint", "region": "other_dungeon_graces"},
+            {"flag_id": 19000005, "name": "Cocoon of the Empyrean", "region": "other_dungeon_graces"},
+        ]
+
+        for grace in grace_checks:
+            is_set, error = self.check_flag(event_flags, grace["flag_id"])
+            if is_set:
+                discovered[grace["region"]].append({
+                    "flag_id": grace["flag_id"],
+                    "name": grace["name"],
+                })
+
+        return discovered
+
+    def _check_progression_flags(self, slot_data: SlotData) -> Dict[str, bool]:
+        """
+        Check key progression flags to determine character progress.
+
+        Returns dict of progression markers and their status.
+        """
+        event_flags = slot_data.event_flags
+        progression = {}
+
+        # Key progression flags (from EMEVD and game analysis)
+        progression_checks = [
+            # Great Runes possessed (160-167)
+            {"flag_id": 160, "name": "godrick_great_rune"},
+            {"flag_id": 161, "name": "radahn_great_rune"},
+            {"flag_id": 162, "name": "morgott_great_rune"},
+            {"flag_id": 163, "name": "rykard_great_rune"},
+            {"flag_id": 164, "name": "mohg_great_rune"},
+            {"flag_id": 165, "name": "malenia_great_rune"},
+
+            # Boss defeats (from GameAreaParam defeat flags)
+            {"flag_id": 10000800, "name": "godrick_defeated"},
+            {"flag_id": 14000800, "name": "rennala_defeated"},
+            {"flag_id": 16000800, "name": "rykard_defeated"},
+            {"flag_id": 35000800, "name": "radahn_defeated"},
+            {"flag_id": 11000800, "name": "morgott_defeated"},
+
+            # Divine Tower activations (180-187)
+            {"flag_id": 180, "name": "godrick_rune_activated"},
+            {"flag_id": 181, "name": "radahn_rune_activated"},
+            {"flag_id": 183, "name": "rykard_rune_activated"},
+
+            # Area access flags (using grace discovery as proxy)
+            {"flag_id": 76200, "name": "reached_liurnia"},  # Lake-Facing Cliffs grace
+            {"flag_id": 76300, "name": "reached_altus"},    # Altus Plateau grace
+            {"flag_id": 76350, "name": "reached_mt_gelmir"},  # Bridge of Iniquity
+            {"flag_id": 76400, "name": "reached_caelid"},   # Smoldering Church grace
+            {"flag_id": 76500, "name": "reached_mountaintops"},  # Zamor Ruins grace
+            {"flag_id": 16000002, "name": "reached_volcano_manor"},  # Temple of Eiglay
+        ]
+
+        for check in progression_checks:
+            is_set, _ = self.check_flag(event_flags, check["flag_id"])
+            progression[check["name"]] = is_set
+
+        return progression
+
+    def get_grace_summary(self, slot_data: SlotData) -> Dict:
+        """
+        Get a summary of discovered graces for quick context assessment.
+
+        Returns counts by region for determining character progression level.
+        """
+        discovered = self._get_all_discovered_graces(slot_data)
+        summary = {}
+        total = 0
+
+        for region, graces in discovered.items():
+            count = len(graces)
+            summary[region] = count
+            total += count
+
+        summary["total"] = total
+        return summary
 
     def scan_flag_changes(
         self,

@@ -1,0 +1,383 @@
+{
+  "version": "1.0",
+  "description": "Merged chain anchor relationships for corroboration-based verification",
+  "sources": [
+    "scripts/event_graph.json",
+    "ground_truth_offsets.json",
+    "src/discovery/chain_data.rs",
+    "scripts/flag_relationships.json"
+  ],
+  "category_anchors": {
+    "spirit_ash": {
+      "description": "Spirit Ashes obtained from catacomb/dungeon bosses",
+      "related_types": ["catacomb_boss", "dungeon_grace", "boss_defeat"],
+      "verification_pattern": "Spirit ash pickup correlates with dungeon boss defeat",
+      "examples": [
+        {"flag": 30000800, "name": "Cemetery Shade", "relationship": "catacomb_boss", "dungeon": "Tombsward Catacombs"},
+        {"flag": 30010800, "name": "Erdtree Burial Watchdog", "relationship": "catacomb_boss", "dungeon": "Stormfoot Catacombs"},
+        {"flag": 30020800, "name": "Black Knife Assassin", "relationship": "catacomb_boss", "dungeon": "Deathtouched Catacombs"}
+      ]
+    },
+    "remembrance": {
+      "description": "Boss remembrance possession flags",
+      "related_types": ["boss_defeat", "great_rune", "rune_activation"],
+      "verification_pattern": "Remembrance possession requires boss defeat",
+      "examples": [
+        {"flag": 171, "name": "Godrick Defeat", "grants": [9101, 160, 180], "remembrance": 9101},
+        {"flag": 172, "name": "Rennala Defeat", "grants": [9102, 161], "remembrance": 9102},
+        {"flag": 173, "name": "Radahn Defeat", "grants": [9103, 162, 182], "remembrance": 9103},
+        {"flag": 174, "name": "Rykard Defeat", "grants": [9104, 163, 183], "remembrance": 9104},
+        {"flag": 175, "name": "Morgott Defeat", "grants": [9105, 164, 184], "remembrance": 9105},
+        {"flag": 176, "name": "Mohg Defeat", "grants": [9106, 165, 185], "remembrance": 9106},
+        {"flag": 177, "name": "Malenia Defeat", "grants": [9107, 166, 186], "remembrance": 9107},
+        {"flag": 178, "name": "Maliketh Defeat", "grants": [9108], "remembrance": 9108},
+        {"flag": 179, "name": "Hoarah Loux Defeat", "grants": [9109], "remembrance": 9109},
+        {"flag": 180, "name": "Elden Beast Defeat", "grants": [9110], "remembrance": 9110}
+      ]
+    },
+    "grace": {
+      "description": "Site of Grace discovery flags",
+      "related_types": ["map_fragment", "landmark", "geographic_region"],
+      "verification_pattern": "Grace discovery correlates with nearby landmarks and map fragments",
+      "examples": [
+        {"flag": 76100, "name": "The First Step", "region": "Limgrave", "map_fragment": 62010},
+        {"flag": 76101, "name": "Church of Elleh", "region": "Limgrave", "map_fragment": 62010},
+        {"flag": 71000, "name": "Godrick the Grafted", "region": "Stormveil Castle"}
+      ]
+    },
+    "cookbook": {
+      "description": "Crafting cookbook collection flags",
+      "related_types": ["world_pickup", "merchant_purchase"],
+      "verification_pattern": "Cookbook flag SET when item in inventory",
+      "examples": [
+        {"flag": 67000, "name": "Armorer's Cookbook [1]", "item_id": 9300},
+        {"flag": 67010, "name": "Armorer's Cookbook [2]", "item_id": 9301}
+      ]
+    },
+    "landmark": {
+      "description": "Map landmark discovery flags",
+      "related_types": ["grace_discovery", "map_fragment"],
+      "verification_pattern": "Landmarks correlate with nearby graces",
+      "examples": [
+        {"flag": 62100, "name": "Third Church of Marika", "region": "Limgrave"},
+        {"flag": 62010, "name": "Limgrave West Map Fragment", "region": "Limgrave"}
+      ]
+    },
+    "talisman": {
+      "description": "Talisman collection flags from dungeon rewards",
+      "related_types": ["catacomb_boss", "evergaol_boss"],
+      "verification_pattern": "Talisman pickup correlates with boss defeat",
+      "examples": [
+        {"flag": 520030, "name": "Assassin's Crimson Dagger", "relationship": "evergaol_boss"},
+        {"flag": 520300, "name": "Viridian Amber Medallion", "relationship": "catacomb_boss"}
+      ]
+    }
+  },
+  "boss_defeat_chains": {
+    "description": "Complete boss defeat chains from chain_data.rs",
+    "chains": {
+      "171": {
+        "name": "Godrick the Grafted",
+        "defeat_flag": 171,
+        "remembrance_flag": 9101,
+        "great_rune_flag": 160,
+        "activation_flag": 180,
+        "remembrance_item": 69010
+      },
+      "172": {
+        "name": "Rennala, Queen of the Full Moon",
+        "defeat_flag": 172,
+        "remembrance_flag": 9102,
+        "great_rune_flag": 161,
+        "activation_flag": null,
+        "remembrance_item": 69020
+      },
+      "173": {
+        "name": "Starscourge Radahn",
+        "defeat_flag": 173,
+        "remembrance_flag": 9103,
+        "great_rune_flag": 162,
+        "activation_flag": 182,
+        "remembrance_item": 69030
+      },
+      "174": {
+        "name": "Rykard, Lord of Blasphemy",
+        "defeat_flag": 174,
+        "remembrance_flag": 9104,
+        "great_rune_flag": 163,
+        "activation_flag": 183,
+        "remembrance_item": 69040
+      },
+      "175": {
+        "name": "Morgott, the Omen King",
+        "defeat_flag": 175,
+        "remembrance_flag": 9105,
+        "great_rune_flag": 164,
+        "activation_flag": 184,
+        "remembrance_item": 69050
+      },
+      "176": {
+        "name": "Mohg, Lord of Blood",
+        "defeat_flag": 176,
+        "remembrance_flag": 9106,
+        "great_rune_flag": 165,
+        "activation_flag": 185,
+        "remembrance_item": 69060
+      },
+      "177": {
+        "name": "Malenia, Blade of Miquella",
+        "defeat_flag": 177,
+        "remembrance_flag": 9107,
+        "great_rune_flag": 166,
+        "activation_flag": 186,
+        "remembrance_item": 69070
+      },
+      "178": {
+        "name": "Maliketh, the Black Blade",
+        "defeat_flag": 178,
+        "remembrance_flag": 9108,
+        "great_rune_flag": null,
+        "activation_flag": null,
+        "remembrance_item": 69080
+      },
+      "179": {
+        "name": "Hoarah Loux, Warrior",
+        "defeat_flag": 179,
+        "remembrance_flag": 9109,
+        "great_rune_flag": null,
+        "activation_flag": null,
+        "remembrance_item": 69090
+      },
+      "180": {
+        "name": "Radagon / Elden Beast",
+        "defeat_flag": 180,
+        "remembrance_flag": 9110,
+        "great_rune_flag": null,
+        "activation_flag": null,
+        "remembrance_item": 69100
+      }
+    }
+  },
+  "area_prerequisites": {
+    "description": "Area prerequisites from chain_data.rs",
+    "areas": {
+      "Consecrated Snowfield": {
+        "required_flags": [60430, 60431],
+        "required_any": [],
+        "landmark_range": [62550, 62574]
+      },
+      "Miquella's Haligtree": {
+        "required_flags": [60430, 60431],
+        "required_any": [],
+        "landmark_range": null
+      },
+      "Leyndell, Royal Capital": {
+        "required_flags": [],
+        "required_any": [171, 172, 173, 174],
+        "landmark_range": [62900, 62943]
+      },
+      "Mohgwyn Palace": {
+        "required_flags": [],
+        "required_any": [60430],
+        "landmark_range": [62800, 62831]
+      },
+      "Crumbling Farum Azula": {
+        "required_flags": [175],
+        "required_any": [],
+        "landmark_range": [62950, 62981]
+      },
+      "Mountaintops of the Giants": {
+        "required_flags": [60420],
+        "required_any": [],
+        "landmark_range": [62510, 62531]
+      }
+    }
+  },
+  "geographic_regions": {
+    "description": "Geographic regions with flag ranges for proximity validation",
+    "regions": {
+      "Limgrave": {
+        "landmark_range": [62100, 62138],
+        "grace_range": [76100, 76199],
+        "map_fragment": 62010
+      },
+      "Weeping Peninsula": {
+        "landmark_range": [62150, 62184],
+        "grace_range": [76200, 76299],
+        "map_fragment": 62011
+      },
+      "Liurnia of the Lakes": {
+        "landmark_range": [62200, 62284],
+        "grace_range": [76300, 76499],
+        "map_fragment": 62020
+      },
+      "Altus Plateau": {
+        "landmark_range": [62300, 62348],
+        "grace_range": [76500, 76599],
+        "map_fragment": 62040
+      },
+      "Mt. Gelmir": {
+        "landmark_range": [62350, 62389],
+        "grace_range": [76600, 76699],
+        "map_fragment": 62050
+      },
+      "Caelid": {
+        "landmark_range": [62400, 62438],
+        "grace_range": [76700, 76799],
+        "map_fragment": 62030
+      },
+      "Greyoll's Dragonbarrow": {
+        "landmark_range": [62460, 62475],
+        "grace_range": [76800, 76899],
+        "map_fragment": 62031
+      },
+      "Mountaintops of the Giants": {
+        "landmark_range": [62510, 62531],
+        "grace_range": [77000, 77099],
+        "map_fragment": 62060
+      },
+      "Consecrated Snowfield": {
+        "landmark_range": [62550, 62574],
+        "grace_range": [77100, 77199],
+        "map_fragment": 62070
+      },
+      "Siofra River": {
+        "landmark_range": [62610, 62634],
+        "grace_range": [77200, 77299],
+        "map_fragment": 62080
+      },
+      "Ainsel River": {
+        "landmark_range": [62640, 62640],
+        "grace_range": [77300, 77399],
+        "map_fragment": 62081
+      },
+      "Deeproot Depths": {
+        "landmark_range": [62700, 62740],
+        "grace_range": [77400, 77499],
+        "map_fragment": 62082
+      },
+      "Mohgwyn Palace": {
+        "landmark_range": [62800, 62831],
+        "grace_range": [77500, 77599],
+        "map_fragment": null
+      },
+      "Lake of Rot": {
+        "landmark_range": [62840, 62844],
+        "grace_range": [77600, 77699],
+        "map_fragment": 62083
+      },
+      "Nokron / Nokstella": {
+        "landmark_range": [62850, 62891],
+        "grace_range": [77700, 77799],
+        "map_fragment": 62084
+      },
+      "Leyndell": {
+        "landmark_range": [62900, 62943],
+        "grace_range": [77800, 77899],
+        "map_fragment": null
+      },
+      "Crumbling Farum Azula": {
+        "landmark_range": [62950, 62981],
+        "grace_range": [77900, 77999],
+        "map_fragment": null
+      }
+    }
+  },
+  "calibration_anchors": {
+    "description": "Verified anchor flags from ground_truth_offsets.json for runtime calibration",
+    "tile": {
+      "1043500010": {
+        "name": "Smoldering Butterfly",
+        "verified_offset": 852831,
+        "verified_bit": 5,
+        "verification_date": "2026-01-25"
+      }
+    },
+    "block": {
+      "76100": {
+        "name": "The First Step",
+        "block": 76000,
+        "verified_offset": 3262,
+        "verified_bit": 3,
+        "verification_date": "2026-01-11"
+      },
+      "76101": {
+        "name": "Church of Elleh",
+        "block": 76000,
+        "verified_offset": 3262,
+        "verified_bit": 2,
+        "verification_date": "2026-01-11"
+      },
+      "71800": {
+        "name": "Cave of Knowledge",
+        "block": 71800,
+        "verified_offset": 2725,
+        "verified_bit": 7,
+        "verification_date": "2026-01-22"
+      },
+      "71602": {
+        "name": "Volcano Manor",
+        "block": 71600,
+        "verified_offset": 3198,
+        "verified_bit": 5,
+        "verification_date": "2026-01-25"
+      }
+    },
+    "dungeon": {
+      "30000800": {
+        "name": "Cemetery Shade",
+        "map_area": 30,
+        "notes": "Tombsward Catacombs boss defeat flag"
+      }
+    }
+  },
+  "event_graph_index": {
+    "description": "Index of flags by trigger context from event_graph.json",
+    "by_context": {
+      "boss_defeat": {
+        "description": "Flags triggered by boss defeat events",
+        "sample_flags": [171, 172, 173, 174, 175, 176, 177, 178, 179, 180]
+      },
+      "grace_discovery": {
+        "description": "Flags for grace site discoveries",
+        "ranges": [[71000, 71999], [76000, 79999]]
+      },
+      "remembrance": {
+        "description": "Remembrance possession flags",
+        "flags": [9100, 9101, 9102, 9103, 9104, 9105, 9106, 9107, 9108, 9109, 9110]
+      },
+      "map_fragment": {
+        "description": "Map fragment discovery flags",
+        "range": [62010, 62084]
+      }
+    }
+  },
+  "flag_relationships": {
+    "description": "Direct flag relationship mappings for quick lookup",
+    "520000": {
+      "category": "spirit_ash",
+      "item_name": "Lhutel the Headless",
+      "anchors": [30000800],
+      "anchor_relationships": ["catacomb_boss"]
+    },
+    "9101": {
+      "category": "remembrance",
+      "item_name": "Remembrance of the Grafted",
+      "anchors": [171],
+      "anchor_relationships": ["boss_defeat"],
+      "source": "event_graph.progression_chains.remembrance_9101"
+    },
+    "9102": {
+      "category": "remembrance",
+      "item_name": "Remembrance of the Full Moon Queen",
+      "anchors": [172],
+      "anchor_relationships": ["boss_defeat"]
+    },
+    "9103": {
+      "category": "remembrance",
+      "item_name": "Remembrance of the Starscourge",
+      "anchors": [173],
+      "anchor_relationships": ["boss_defeat"]
+    }
+  }
+}

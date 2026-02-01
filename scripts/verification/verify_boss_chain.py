@@ -28,6 +28,16 @@ import sys
 from pathlib import Path
 from typing import Optional, Tuple, List, Dict, NamedTuple
 
+# Add project root to path for imports
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.verification.ground_truth_loader import (
+    load_block_bases,
+    get_block_base,
+    get_validation_flags,
+)
+
 # ============================================================================
 # CONSTANTS
 # ============================================================================
@@ -35,20 +45,12 @@ from typing import Optional, Tuple, List, Dict, NamedTuple
 SLOT_SIZE = 0x280020  # Size of each character slot
 HEADER_SIZE = 0x310   # Save file header size
 
-# Validation flags to detect event_flags section
+# Validation flags loaded from ground_truth
+_GT_VALIDATION_FLAGS = get_validation_flags()
 VALIDATION_FLAGS = [
-    (71800, 2725, 7, "Cave of Knowledge grace"),
-    (71801, 2725, 6, "Stranded Graveyard"),
-    (76100, 3262, 3, "The First Step"),
-    (76101, 3262, 2, "Church of Elleh"),
+    (flag_id, offset, bit, name)
+    for flag_id, (offset, bit, name) in _GT_VALIDATION_FLAGS.items()
 ]
-
-# Block formula bases (verified)
-BLOCK_BASES = {
-    9000: 1125,   # Boss remembrance flags (91xx)
-    60000: 2548,  # Progression flags
-    510000: 63750,  # Item pickup flags (estimated - need verification)
-}
 
 # ============================================================================
 # BOSS CHAIN DATA
@@ -104,23 +106,16 @@ def detect_event_flags_offset(slot_data: bytes, search_start: int = 0x12000) -> 
 
 
 def check_block_flag(event_flags: bytes, flag_id: int) -> Optional[bool]:
-    """Check a block flag (5-6 digit flags)."""
-    # Verified block bases from ground_truth.rs
-    BLOCK_BASES = {
-        60000: 2548,   # Progression flags
-        62000: 1500,   # Map fragments
-        65000: 1875,   # Whetblades
-        67000: 2280,   # Cookbooks
-        71000: 2625,   # Tutorial graces
-        76000: 3250,   # World graces
-    }
+    """Check a block flag (5-6 digit flags).
 
-    # For 510xxx flags - need special handling
-    # These are in a separate range, likely starting around 63750 based on ground_truth
+    Uses ground_truth_loader for base offsets instead of hardcoded values.
+    """
+    # For 510xxx flags - use ground_truth_loader
     if 510000 <= flag_id <= 510999:
-        # Estimated base: 510000 range might be at byte ~63750
-        # Formula: base = 63750, relative = flag_id - 510000
-        base = 63750
+        base = get_block_base(510000)
+        if base is None:
+            # Fallback for 510000 range if not in ground_truth
+            base = 63750  # Legacy estimate
         relative = flag_id - 510000
         byte_offset = base + relative // 8
         bit_pos = 7 - (flag_id % 8)
@@ -144,10 +139,10 @@ def check_block_flag(event_flags: bytes, flag_id: int) -> Optional[bool]:
         byte_val = event_flags[byte_offset]
         return (byte_val >> bit_pos) & 1 == 1
 
-    # For standard 5-digit block flags
-    block_start = (flag_id // 1000) * 1000
-    if block_start in BLOCK_BASES:
-        base = BLOCK_BASES[block_start]
+    # For standard 5-6 digit block flags, use ground_truth_loader
+    base = get_block_base(flag_id)
+    if base is not None:
+        block_start = (flag_id // 1000) * 1000
         relative = flag_id - block_start
         byte_offset = base + relative // 8
         bit_pos = 7 - (flag_id % 8)

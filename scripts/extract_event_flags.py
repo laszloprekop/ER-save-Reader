@@ -142,6 +142,9 @@ class EventFlag:
     item_rarity: Optional[int] = None    # 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
     position_confidence: Optional[str] = None  # high (chest/corpse), low (cart), none (no position)
     is_underground: Optional[bool] = None  # True/False when confident, None when uncertain
+    # Verification status for capture workflow
+    verification_status: str = "unknown"  # capture-ready, needs-emevd, needs-calibration, not-a-pickup, unknown
+    backed_by: List[str] = field(default_factory=list)  # Data sources: ItemLotParam, MSB, EMEVD, BonfireWarpParam, etc.
     raw_data: Dict[str, Any] = field(default_factory=dict)
 
 def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
@@ -1276,6 +1279,129 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
 
     return "Unknown"
 
+
+def categorize_verification_status(
+    category: str,
+    source_file: str,
+    item_id: Optional[int],
+    pos_x: Optional[float],
+    flag_id: int
+) -> tuple[str, List[str]]:
+    """
+    Determine verification status and backing data sources for a flag.
+
+    Returns:
+        (verification_status, backed_by) tuple where:
+        - verification_status: "capture-ready", "needs-emevd", "needs-calibration", "not-a-pickup", "unknown"
+        - backed_by: List of data source names
+
+    Classification Logic:
+    - CAPTURE-READY: Has position + item_id + ItemLotParam/BonfireWarpParam source
+    - NEEDS-CALIBRATION: Dungeon pickups need area-specific base calibration
+    - NEEDS-EMEVD: NPC drops, boss drops - uses defeat flag via EMEVD, not ItemLotParam
+    - NOT-A-PICKUP: Boss defeats, NPC events, dungeon cleared flags - no collectible
+    - UNKNOWN: Unaudited or insufficient data
+    """
+    backed_by = []
+
+    # Track data sources
+    if source_file == "ItemLotParam_map.param.xml":
+        backed_by.append("ItemLotParam")
+    elif source_file == "BonfireWarpParam.param.xml":
+        backed_by.append("BonfireWarpParam")
+    elif source_file == "ShopLineupParam.param.xml":
+        backed_by.append("ShopLineupParam")
+    elif source_file == "WorldMapPointParam.param.xml":
+        backed_by.append("WorldMapPointParam")
+    elif source_file == "common.emevd.js":
+        backed_by.append("EMEVD")
+    elif source_file.startswith("MSB:"):
+        backed_by.append("MSB")
+
+    # NOT-A-PICKUP: Defeat flags, events, non-collectibles
+    not_pickup_categories = {
+        "Boss Defeat", "Field Boss Defeat", "Great Boss Defeat",
+        "Boss Discovery", "Boss Arena", "Dungeon Cleared",
+        "NPC Event", "Character Event",
+        "Invasion Defeat", "Elite Enemy Defeat", "Enemy Defeat",
+        "Stake of Marika", "Spirit Spring",
+    }
+    if category in not_pickup_categories:
+        return ("not-a-pickup", backed_by)
+
+    # NEEDS-EMEVD: NPC drops use a different flag system (defeat flag, not item flag)
+    # These categories have items but the flag is the NPC/boss defeat, not the pickup
+    emevd_categories = {
+        "Boss World Drop",  # Boss drops use defeat event flag
+    }
+    if category in emevd_categories:
+        backed_by.append("EMEVD")
+        return ("needs-emevd", backed_by)
+
+    # Grace flags from BonfireWarpParam are capture-ready
+    if category == "Grace" and source_file == "BonfireWarpParam.param.xml":
+        if pos_x is not None:
+            return ("capture-ready", backed_by)
+        return ("needs-calibration", backed_by)
+
+    # World Pickup: Has tile-format flag, position, and ItemLotParam - capture ready
+    if category == "World Pickup" and source_file == "ItemLotParam_map.param.xml":
+        if item_id is not None and pos_x is not None:
+            return ("capture-ready", backed_by)
+        elif pos_x is not None:
+            # Has position but no item - likely a special pickup
+            return ("capture-ready", backed_by)
+        return ("unknown", backed_by)
+
+    # DLC Pickup: Same as World Pickup but in DLC area
+    if category == "DLC Pickup" and source_file == "ItemLotParam_map.param.xml":
+        if item_id is not None and pos_x is not None:
+            return ("capture-ready", backed_by)
+        return ("unknown", backed_by)
+
+    # Dungeon Pickup: Has dungeon-format flag - needs area base calibration
+    if category == "Dungeon Pickup":
+        if item_id is not None and pos_x is not None:
+            return ("needs-calibration", backed_by)
+        return ("needs-calibration", backed_by)
+
+    # Shop flags are not location-based pickups
+    if category in {"Shop Stock", "Shop Unlock"}:
+        return ("not-a-pickup", backed_by)
+
+    # Special collectibles from EMEVD (Great Runes, Remembrances, etc.)
+    if source_file == "common.emevd.js":
+        special_collectible_categories = {
+            "Great Rune Possession", "Great Rune Activation",
+            "Remembrance", "Talisman Pouch", "Mending Rune",
+        }
+        if category in special_collectible_categories:
+            return ("needs-emevd", backed_by)
+
+    # Landmark/POI discovery flags
+    if category in {"Landmark", "Map Fragment"}:
+        if pos_x is not None:
+            return ("capture-ready", backed_by)
+        return ("unknown", backed_by)
+
+    # Crystal Tears, Cookbooks, etc. from ItemLotParam
+    collectible_categories = {
+        "Crystal Tear", "Crystal Tear (DLC)",
+        "Cookbook", "Whetblade", "Pot Upgrade",
+        "Ash of War Unlock", "Progression",
+        "Mausoleum Duplication",
+    }
+    if category in collectible_categories:
+        if pos_x is not None and item_id is not None:
+            return ("capture-ready", backed_by)
+        elif pos_x is not None:
+            return ("capture-ready", backed_by)
+        return ("unknown", backed_by)
+
+    # Default: Unknown status
+    return ("unknown", backed_by)
+
+
 def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict], item_rarities: Dict[tuple, int]) -> List[EventFlag]:
     """Extract event flags from ItemLotParam_map with spatial data from multiple sources."""
     flags = []
@@ -1449,6 +1575,14 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
         # Look up item rarity
         item_rarity = item_rarities.get((item_category, item_id))
 
+        # Determine verification status
+        verification_status, backed_by = categorize_verification_status(
+            category, "ItemLotParam_map.param.xml", item_id, pos_x, flag_id
+        )
+        # Add MSB to backed_by if position came from MSB
+        if position_source == "MSB" and "MSB" not in backed_by:
+            backed_by.append("MSB")
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -1474,6 +1608,8 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
             item_rarity=item_rarity,
             position_confidence=position_confidence,
             is_underground=is_underground,
+            verification_status=verification_status,
+            backed_by=backed_by,
             raw_data=raw_data
         ))
 
@@ -1534,6 +1670,11 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
         area_type = get_area_type(area_no)
         is_dlc = not is_base_game_area(area_no)
 
+        # Determine verification status
+        verification_status, backed_by = categorize_verification_status(
+            "Grace", "BonfireWarpParam.param.xml", None, pos_x, flag_id
+        )
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -1554,6 +1695,8 @@ def extract_bonfire_warp_param(lookups: Dict) -> List[EventFlag]:
             world_z=world_z,
             area_type=area_type,
             is_dlc=is_dlc,
+            verification_status=verification_status,
+            backed_by=backed_by,
             raw_data=raw_data
         ))
 
@@ -1601,28 +1744,40 @@ def extract_shop_lineup_param(lookups: Dict) -> List[EventFlag]:
         }
 
         if stock_flag != 0:
+            stock_category = categorize_flag(stock_flag, "ShopLineupParam.stock", name)
+            stock_vs, stock_backed = categorize_verification_status(
+                stock_category, "ShopLineupParam.param.xml", equip_id, None, stock_flag
+            )
             flags.append(EventFlag(
                 flag_id=stock_flag,
                 name=f"{name} - Purchased",
-                category=categorize_flag(stock_flag, "ShopLineupParam.stock", name),
+                category=stock_category,
                 region="Various",
                 source_file="ShopLineupParam.param.xml",
                 source_row_id=row_id,
                 item_id=equip_id,
                 item_category=type_map.get(equip_type, 1),
+                verification_status=stock_vs,
+                backed_by=stock_backed,
                 raw_data=raw_data
             ))
 
         if release_flag != 0:
+            release_category = categorize_flag(release_flag, "ShopLineupParam.release", name)
+            release_vs, release_backed = categorize_verification_status(
+                release_category, "ShopLineupParam.param.xml", equip_id, None, release_flag
+            )
             flags.append(EventFlag(
                 flag_id=release_flag,
                 name=f"{name} - Unlocked",
-                category=categorize_flag(release_flag, "ShopLineupParam.release", name),
+                category=release_category,
                 region=get_region_from_flag(release_flag),
                 source_file="ShopLineupParam.param.xml",
                 source_row_id=row_id,
                 item_id=equip_id,
                 item_category=type_map.get(equip_type, 1),
+                verification_status=release_vs,
+                backed_by=release_backed,
                 raw_data=raw_data
             ))
 
@@ -1653,12 +1808,17 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
         (167, "Placidusax's Old Lord Talisman"),  # DLC related
     ]
     for flag_id, name in great_runes:
+        vs, backed = categorize_verification_status(
+            "Great Rune Possession", "common.emevd.js", None, None, flag_id
+        )
         flags.append(EventFlag(
             flag_id=flag_id,
             name=f"{name} - Possessed",
             category="Great Rune Possession",
             region="Various",
             source_file="common.emevd.js",
+            verification_status=vs,
+            backed_by=backed,
             raw_data={"event_id": 720, "description": "Set when Great Rune is obtained"}
         ))
 
@@ -1674,12 +1834,17 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
         (187, "Unknown Great Rune"),
     ]
     for flag_id, name in great_rune_activation:
+        vs, backed = categorize_verification_status(
+            "Great Rune Activation", "common.emevd.js", None, None, flag_id
+        )
         flags.append(EventFlag(
             flag_id=flag_id,
             name=f"{name} - Activated",
             category="Great Rune Activation",
             region="Divine Tower",
             source_file="common.emevd.js",
+            verification_status=vs,
+            backed_by=backed,
             raw_data={"event_id": 730, "description": "Set when Great Rune is activated at Divine Tower"}
         ))
 
@@ -1703,12 +1868,17 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
         (9114, "Remembrance of the Black Blade"),
     ]
     for flag_id, name in remembrances:
+        vs, backed = categorize_verification_status(
+            "Remembrance", "common.emevd.js", None, None, flag_id
+        )
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
             category="Remembrance",
             region="Various",
             source_file="common.emevd.js",
+            verification_status=vs,
+            backed_by=backed,
             raw_data={"event_id": 1100, "description": "Set when boss remembrance is obtained"}
         ))
 
@@ -1719,12 +1889,17 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
         (9202, "Third Talisman Pouch"),
     ]
     for flag_id, name in talisman_upgrades:
+        vs, backed = categorize_verification_status(
+            "Talisman Pouch", "common.emevd.js", None, None, flag_id
+        )
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
             category="Talisman Pouch",
             region="Various",
             source_file="common.emevd.js",
+            verification_status=vs,
+            backed_by=backed,
             raw_data={"event_id": 1200, "description": "Set when talisman pouch obtained"}
         ))
 
@@ -1735,12 +1910,17 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
         (9502, "Mending Rune of the Death-Prince"),
     ]
     for flag_id, name in mending_runes:
+        vs, backed = categorize_verification_status(
+            "Mending Rune", "common.emevd.js", None, None, flag_id
+        )
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
             category="Mending Rune",
             region="Various",
             source_file="common.emevd.js",
+            verification_status=vs,
+            backed_by=backed,
             raw_data={"description": "Quest item for alternate ending"}
         ))
 
@@ -1873,6 +2053,11 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
         area_type = get_area_type(area_no)
         is_dlc = not is_base_game_area(area_no)
 
+        # Determine verification status
+        vs, backed = categorize_verification_status(
+            category, "WorldMapPointParam.param.xml", None, poi["pos_x"], flag_id
+        )
+
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
@@ -1892,6 +2077,8 @@ def extract_world_map_points(lookups: Dict, world_map_points: Dict[int, Dict]) -
             world_z=world_z,
             area_type=area_type,
             is_dlc=is_dlc,
+            verification_status=vs,
+            backed_by=backed,
             raw_data=raw_data
         ))
 
@@ -1950,6 +2137,12 @@ def extract_msb_enemies(msb_enemies: Dict[int, Dict]) -> List[EventFlag]:
             "position_source": "MSB",
         }
 
+        # Determine verification status - defeat flags are not pickups
+        vs, backed = categorize_verification_status(
+            category, "MSB:" + enemy.get("msb_dir", ""), None, pos_x, entity_id
+        )
+        backed.append("MSB")
+
         flags.append(EventFlag(
             flag_id=entity_id,
             name=enemy.get("name", f"Enemy_{entity_id}"),
@@ -1968,6 +2161,8 @@ def extract_msb_enemies(msb_enemies: Dict[int, Dict]) -> List[EventFlag]:
             world_z=world_z,
             area_type=area_type,
             is_dlc=is_dlc,
+            verification_status=vs,
+            backed_by=backed,
             raw_data=raw_data
         ))
 
@@ -2257,6 +2452,12 @@ def extract_msb_npcs(msb_npcs: Dict[int, Dict], filter_generic: bool = True) -> 
             "position_source": "MSB",
         }
 
+        # Determine verification status - NPC events are not pickups
+        vs, backed = categorize_verification_status(
+            category, "MSB:" + npc.get("msb_dir", ""), None, pos_x, entity_id
+        )
+        backed.append("MSB")
+
         flags.append(EventFlag(
             flag_id=entity_id,
             name=npc_name,
@@ -2275,6 +2476,8 @@ def extract_msb_npcs(msb_npcs: Dict[int, Dict], filter_generic: bool = True) -> 
             world_z=world_z,
             area_type=area_type,
             is_dlc=is_dlc,
+            verification_status=vs,
+            backed_by=backed,
             raw_data=raw_data
         ))
 
@@ -2402,6 +2605,9 @@ def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
             }
 
             # Create flag for boss defeat
+            defeat_vs, defeat_backed = categorize_verification_status(
+                "Boss Arena", "GameAreaParam.param.xml", None, pos_x, defeat_flag
+            )
             flags.append(EventFlag(
                 flag_id=defeat_flag,
                 name=boss_name,
@@ -2421,11 +2627,16 @@ def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
                 world_z=world_z,
                 area_type=area_type,
                 is_dlc=is_dlc,
+                verification_status=defeat_vs,
+                backed_by=defeat_backed,
                 raw_data=raw_data
             ))
 
             # Also create flag for boss discovery if different from defeat
             if found_flag > 0 and found_flag != defeat_flag:
+                discovery_vs, discovery_backed = categorize_verification_status(
+                    "Boss Discovery", "GameAreaParam.param.xml", None, pos_x, found_flag
+                )
                 flags.append(EventFlag(
                     flag_id=found_flag,
                     name=f"{boss_name} (discovered)",
@@ -2445,6 +2656,8 @@ def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
                     world_z=world_z,
                     area_type=area_type,
                     is_dlc=is_dlc,
+                    verification_status=discovery_vs,
+                    backed_by=discovery_backed,
                     raw_data=raw_data
                 ))
 
@@ -2507,6 +2720,11 @@ def extract_map_default_info(region_names: Dict[int, str]) -> List[EventFlag]:
                 "block_no": block_no,
             }
 
+            # Determine verification status - dungeon cleared is not a pickup
+            vs, backed = categorize_verification_status(
+                "Dungeon Cleared", "MapDefaultInfoParam.param.xml", None, None, fast_travel_flag
+            )
+
             flags.append(EventFlag(
                 flag_id=fast_travel_flag,
                 name=f"{dungeon_name} (fast travel unlocked)",
@@ -2520,6 +2738,8 @@ def extract_map_default_info(region_names: Dict[int, str]) -> List[EventFlag]:
                 map_tile=map_tile,
                 area_type=area_type,
                 is_dlc=is_dlc,
+                verification_status=vs,
+                backed_by=backed,
                 raw_data=raw_data
             ))
 
@@ -2604,6 +2824,12 @@ def extract_msb_spawn_points() -> List[EventFlag]:
                     "position_source": "MSB SpawnPoint",
                 }
 
+                # Determine verification status - stakes are not pickups
+                vs, backed = categorize_verification_status(
+                    "Stake of Marika", "MSB:SpawnPoint", None, pos_x, entity_id
+                )
+                backed.append("MSB")
+
                 flags.append(EventFlag(
                     flag_id=entity_id,
                     name=f"Stake of Marika ({map_tile})",
@@ -2622,6 +2848,8 @@ def extract_msb_spawn_points() -> List[EventFlag]:
                     world_z=world_z,
                     area_type=area_type,
                     is_dlc=is_dlc,
+                    verification_status=vs,
+                    backed_by=backed,
                     raw_data=raw_data
                 ))
                 spawn_count += 1
@@ -2717,6 +2945,12 @@ def extract_msb_spirit_springs() -> List[EventFlag]:
                     "position_source": "MSB MountJump",
                 }
 
+                # Determine verification status - spirit springs are not pickups
+                vs, backed = categorize_verification_status(
+                    "Spirit Spring", "MSB:MountJump", None, pos_x, entity_id
+                )
+                backed.append("MSB")
+
                 flags.append(EventFlag(
                     flag_id=entity_id,
                     name=f"Spirit Spring ({map_tile})",
@@ -2735,6 +2969,8 @@ def extract_msb_spirit_springs() -> List[EventFlag]:
                     world_z=world_z,
                     area_type=area_type,
                     is_dlc=is_dlc,
+                    verification_status=vs,
+                    backed_by=backed,
                     raw_data=raw_data
                 ))
                 spring_count += 1
@@ -3016,6 +3252,17 @@ def main():
     print(f"  surface (confident): {underground_false}")
     print(f"  uncertain: {underground_none}")
 
+    # Verification Status Breakdown (new for capture workflow)
+    print(f"\n{'=' * 40}")
+    print("Verification Status Breakdown:")
+    print("-" * 40)
+    verification_status_counts = {}
+    for f in unique_flags:
+        vs = f.verification_status
+        verification_status_counts[vs] = verification_status_counts.get(vs, 0) + 1
+    for vs, count in sorted(verification_status_counts.items(), key=lambda x: -x[1]):
+        print(f"  {vs}: {count}")
+
     # Output directory
     output_dir = Path(__file__).parent
 
@@ -3041,7 +3288,8 @@ def main():
                 "MSB files (map/mapstudio/m*-msb-dcx/Event/Treasure/)",
                 "MSB files (map/mapstudio/m*-msb-dcx/Part/Enemy/)"
             ],
-            "category_counts": category_counts
+            "category_counts": category_counts,
+            "verification_status_counts": verification_status_counts
         },
         "flags": [asdict(f) for f in sorted(unique_flags, key=lambda x: x.flag_id)]
     }

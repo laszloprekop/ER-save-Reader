@@ -10,7 +10,14 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Tuple, Any
 from .save_parser import SaveParser, SlotData
-from .flag_formulas import FlagFormulas
+from .ground_truth_loader import (
+    get_tile_config,
+    load_block_bases,
+    load_dungeon_bases,
+    calculate_block_offset,
+    calculate_tile_offset,
+    calculate_dungeon_offset,
+)
 
 
 @dataclass
@@ -26,6 +33,19 @@ class FlagChange:
     # Metadata
     before_byte: str = ""
     after_byte: str = ""
+
+
+@dataclass
+class VerificationDiagnostics:
+    """Diagnostic information when verification fails or needs investigation."""
+    status: str = "unknown"  # "verified", "investigation_needed", "failed"
+    expected_flag_found: bool = False
+    inventory_changed: bool = False
+    bytes_changed_in_region: int = 0
+    possible_causes: List[str] = field(default_factory=list)
+    suggested_flags_to_check: List[int] = field(default_factory=list)
+    character_context: Dict[str, Any] = field(default_factory=dict)
+    notes: str = ""
 
 
 @dataclass
@@ -49,6 +69,13 @@ class DiffResult:
     # New graces discovered
     new_graces: List[str] = field(default_factory=list)
 
+    # Character context (discovered graces across all regions)
+    before_context: Dict[str, Any] = field(default_factory=dict)
+    after_context: Dict[str, Any] = field(default_factory=dict)
+
+    # Verification diagnostics (populated when analyzing expected flags)
+    diagnostics: Optional[VerificationDiagnostics] = None
+
 
 class DiffAnalyzer:
     """
@@ -66,7 +93,10 @@ class DiffAnalyzer:
 
     def __init__(self):
         self.parser = SaveParser()
-        self.formulas = FlagFormulas()
+        # Load ground truth data for reverse calculations
+        self._block_bases = load_block_bases()
+        self._tile_config = get_tile_config()
+        self._dungeon_bases = load_dungeon_bases()
 
     def compare(
         self,
@@ -117,6 +147,10 @@ class DiffAnalyzer:
         # Find new graces
         new_graces = [g for g in after_slot.validated_graces if g not in before_slot.validated_graces]
 
+        # Extract full character context (discovered graces across ALL regions)
+        before_context = self.parser.extract_character_context(before_slot)
+        after_context = self.parser.extract_character_context(after_slot)
+
         return DiffResult(
             before_file=before_path,
             after_file=after_path,
@@ -128,7 +162,9 @@ class DiffAnalyzer:
             after_validation_score=after_slot.validation_score,
             before_graces=before_slot.validated_graces,
             after_graces=after_slot.validated_graces,
-            new_graces=new_graces
+            new_graces=new_graces,
+            before_context=before_context,
+            after_context=after_context,
         )
 
     def _find_flag_changes(
@@ -188,38 +224,47 @@ class DiffAnalyzer:
         # Reverse block-based calculation
         # Formula: bit_position = 7 - (flag_id % 8)
         # So: flag_id % 8 = 7 - bit_position
-        for block_start, config in self.formulas.BLOCK_BASES.items():
-            relative_offset = byte_offset - config.base_offset
-            if 0 <= relative_offset < config.block_size // 8:
+        for block_start, config in self._block_bases.items():
+            base_offset = config["base_offset"]
+            block_size = config.get("block_size", 1000)
+            relative_offset = byte_offset - base_offset
+            if 0 <= relative_offset < block_size // 8:
                 base_flag = block_start + relative_offset * 8
                 # bit_position = 7 - (flag_id % 8), so flag_id % 8 = 7 - bit_position
                 flag_id = base_flag + (7 - bit_position)
-                if block_start <= flag_id < block_start + config.block_size:
+                if block_start <= flag_id < block_start + block_size:
                     candidates.append(flag_id)
 
         # Reverse tile-based calculation
         # Format: 10XXYYZZZZ where XX=row, YY=col, ZZZZ=local_id
-        # Bit formula: bit_position = local_id % 8
-        tc = self.formulas.TILE_CONFIG
-        if byte_offset >= tc.base_offset:
-            relative = byte_offset - tc.base_offset
+        # Bit formula: bit_position = 7 - (local_id % 8)
+        tc = self._tile_config
+        base_offset = tc.get("base_offset", 485330)
+        bytes_per_slot = tc.get("bytes_per_slot", 875)
+        slots_per_row = tc.get("slots_per_row", 40)
+        row_base = tc.get("row_base", 33)
+        col_base = tc.get("col_base", 30)
+        max_local_id = tc.get("max_local_id", 6999)
 
-            tile_slot = relative // tc.bytes_per_slot
-            local_byte = relative % tc.bytes_per_slot
+        if byte_offset >= base_offset:
+            relative = byte_offset - base_offset
+
+            tile_slot = relative // bytes_per_slot
+            local_byte = relative % bytes_per_slot
 
             # Calculate row and col from tile_slot
-            row_offset = tile_slot // tc.slots_per_row
-            col_offset = tile_slot % tc.slots_per_row
+            row_offset = tile_slot // slots_per_row
+            col_offset = tile_slot % slots_per_row
 
-            row = tc.row_base + row_offset
-            col = tc.col_base + col_offset
+            row = row_base + row_offset
+            col = col_base + col_offset
 
-            # For tile formula, bit_position = local_id % 8 directly
-            # (not 7 - local_id % 8 like block formula)
+            # Bit formula: bit_position = 7 - (local_id % 8)
+            # So: local_id % 8 = 7 - bit_position
             local_id_base = local_byte * 8
-            local_id = local_id_base + bit_position
+            local_id = local_id_base + (7 - bit_position)
 
-            if 0 <= local_id < tc.max_local_id:
+            if 0 <= local_id < max_local_id:
                 # Construct 10-digit flag ID: 10XXYYZZZZ
                 # 10 (prefix) + XX (row) + YY (col) + ZZZZ (local)
                 flag_id = int(f"10{row:02d}{col:02d}{local_id:04d}")
@@ -245,19 +290,30 @@ class DiffAnalyzer:
 
         analysis = {}
         for flag_id in expected_flags:
-            # Calculate expected offset
-            formulas = self.formulas.calculate_offset(flag_id)
-
+            # Calculate expected offset using ground_truth_loader functions
             best_formula = None
             expected_offset = None
             expected_bit = None
 
-            for name in ["block", "tile", "dungeon"]:
-                if name in formulas and formulas[name].is_valid:
-                    best_formula = name
-                    expected_offset = formulas[name].byte_offset
-                    expected_bit = formulas[name].bit_position
-                    break
+            # Try block formula (5-6 digit flags)
+            block_result = calculate_block_offset(flag_id)
+            if block_result:
+                best_formula = "block"
+                expected_offset, expected_bit = block_result
+
+            # Try tile formula (10-digit base game flags)
+            if best_formula is None:
+                tile_result = calculate_tile_offset(flag_id)
+                if tile_result:
+                    best_formula = "tile"
+                    expected_offset, expected_bit = tile_result
+
+            # Try dungeon formula (8-digit flags)
+            if best_formula is None:
+                dungeon_result = calculate_dungeon_offset(flag_id)
+                if dungeon_result:
+                    best_formula = "dungeon"
+                    expected_offset, expected_bit = dungeon_result
 
             # Check if this offset was in the changes
             found_change = None
@@ -275,6 +331,20 @@ class DiffAnalyzer:
                     actual_change = change
                     break
 
+            # Build diagnostic info for failed verifications
+            diagnostics = None
+            matches = (found_change is not None) or (
+                found_in_reverse and actual_change and
+                actual_change.byte_offset == expected_offset and
+                actual_change.bit_position == expected_bit
+            )
+
+            if not matches:
+                diagnostics = self._build_verification_diagnostics(
+                    flag_id, expected_offset, expected_bit, best_formula,
+                    result, found_change, actual_change
+                )
+
             analysis[flag_id] = {
                 "expected_offset": expected_offset,
                 "expected_bit": expected_bit,
@@ -284,17 +354,97 @@ class DiffAnalyzer:
                 "found_in_reverse": found_in_reverse,
                 "actual_offset": actual_change.byte_offset if actual_change else None,
                 "actual_bit": actual_change.bit_position if actual_change else None,
-                "matches": (found_change is not None) or (
-                    found_in_reverse and actual_change and
-                    actual_change.byte_offset == expected_offset and
-                    actual_change.bit_position == expected_bit
-                )
+                "matches": matches,
+                "diagnostics": diagnostics,
             }
 
         return analysis
 
+    def _build_verification_diagnostics(
+        self,
+        flag_id: int,
+        expected_offset: Optional[int],
+        expected_bit: Optional[int],
+        formula_used: Optional[str],
+        diff_result: DiffResult,
+        found_change: Optional[FlagChange],
+        actual_change: Optional[FlagChange],
+    ) -> VerificationDiagnostics:
+        """
+        Build diagnostic information when verification fails.
+
+        This helps identify WHY a flag wasn't found at the expected location
+        and suggests investigation paths.
+        """
+        diag = VerificationDiagnostics(status="investigation_needed")
+        possible_causes = []
+        suggested_flags = []
+
+        # Check if inventory changed (GaItem count difference)
+        before_gaitem = diff_result.before_context.get("gaitem_count", 0)
+        after_gaitem = diff_result.after_context.get("gaitem_count", 0)
+        diag.inventory_changed = after_gaitem != before_gaitem
+
+        # Check bytes changed in the expected region (+-100 bytes)
+        if expected_offset is not None:
+            region_changes = [
+                c for c in diff_result.flag_changes
+                if abs(c.byte_offset - expected_offset) <= 100
+            ]
+            diag.bytes_changed_in_region = len(region_changes)
+
+            # Suggest nearby flag IDs
+            for change in region_changes[:5]:
+                suggested_flags.extend(change.possible_flag_ids[:2])
+
+        # Analyze possible causes
+        if expected_offset is None:
+            possible_causes.append("No valid formula for this flag ID")
+
+        if diff_result.total_flags_changed == 0:
+            possible_causes.append("No flags changed between saves - capture may have failed")
+        elif diag.bytes_changed_in_region == 0 and expected_offset:
+            possible_causes.append(f"Expected region (byte {expected_offset}) had no changes")
+
+        # Check character context for NPC/boss drop issues
+        if formula_used == "dungeon":
+            area_id = flag_id // 1_000_000
+            area_graces = diff_result.after_context.get("discovered_graces", {})
+
+            # Check if character has been to this dungeon
+            if area_id == 16:  # Volcano Manor
+                vm_graces = area_graces.get("volcano_manor_graces", [])
+                if not vm_graces:
+                    possible_causes.append(
+                        "Character hasn't discovered Volcano Manor graces - "
+                        "may not have reached this area"
+                    )
+                else:
+                    diag.character_context["volcano_manor_graces"] = len(vm_graces)
+
+        # Check if this might be an NPC drop (uses defeat flag instead of item flag)
+        # NPC drops typically use EMEVD event flags, not ItemLotParam flags
+        if 16000000 <= flag_id < 17000000:  # Volcano Manor range
+            possible_causes.append(
+                "This may be an NPC/boss drop that uses EMEVD defeat flag "
+                "instead of ItemLotParam flag. Check common.emevd.js for event 90005792"
+            )
+            # Suggest the potential defeat flag (usually XX000180 pattern)
+            defeat_flag = (flag_id // 1000) * 1000 + 180
+            suggested_flags.append(defeat_flag)
+
+        diag.possible_causes = possible_causes
+        diag.suggested_flags_to_check = list(set(suggested_flags))[:10]
+
+        if possible_causes:
+            diag.status = "investigation_needed"
+        else:
+            diag.status = "failed"
+
+        return diag
+
     def print_diff_report(self, result: DiffResult, max_changes: int = 50):
-        """Print a formatted diff report."""
+        """Print a formatted diff report with character context."""
         print("=" * 70)
         print("SAVE FILE DIFF REPORT")
         print("=" * 70)
@@ -302,12 +452,35 @@ class DiffAnalyzer:
         print(f"After:  {result.after_file.name}")
         print(f"Slot:   {result.slot_index}")
 
-        print(f"\nValidation scores: {result.before_validation_score} -> {result.after_validation_score}")
-        print(f"Graces before: {', '.join(result.before_graces) or 'None'}")
-        print(f"Graces after:  {', '.join(result.after_graces) or 'None'}")
+        # Character context (full progression info)
+        print(f"\n--- CHARACTER CONTEXT ---")
+        print(f"Character: {result.after_context.get('character_name', 'Unknown')}")
+        print(f"GaItem count: {result.before_context.get('gaitem_count', 0)} -> {result.after_context.get('gaitem_count', 0)}")
+
+        # Show discovered graces by region
+        after_graces = result.after_context.get("discovered_graces", {})
+        total_graces = sum(len(g) for g in after_graces.values())
+        print(f"Total discovered graces: {total_graces}")
+
+        if after_graces:
+            for region, graces in after_graces.items():
+                if graces:
+                    print(f"  {region}: {len(graces)}")
+
+        # Show progression markers
+        progression = result.after_context.get("progression_markers", {})
+        if progression:
+            active_markers = [k for k, v in progression.items() if v]
+            if active_markers:
+                print(f"Progression: {', '.join(active_markers)}")
+
+        print(f"\n--- VALIDATION FLAGS (EF offset check only) ---")
+        print(f"Validation scores: {result.before_validation_score} -> {result.after_validation_score}")
+        print(f"Validation graces before: {', '.join(result.before_graces) or 'None'}")
+        print(f"Validation graces after:  {', '.join(result.after_graces) or 'None'}")
 
         if result.new_graces:
-            print(f"\nNEW GRACES DISCOVERED: {', '.join(result.new_graces)}")
+            print(f"\nNEW VALIDATION GRACES: {', '.join(result.new_graces)}")
 
         print(f"\n{'=' * 70}")
         print(f"Total flags changed: {result.total_flags_changed}")

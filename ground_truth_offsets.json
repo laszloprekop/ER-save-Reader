@@ -7,7 +7,7 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-01-25 - REVERTED tile formula base_offset from 489981 back to 485330. Re-verification showed 489981 was WRONG (offset 857482 not changed). Correct offset 852831 at bit 5 confirms 485330."
+    "last_probe_run": "2026-02-01 - Added block 520000 with 12 verified flags from case-based verification system."
   },
   "summary": {
     "by_category": {
@@ -3211,6 +3211,114 @@
       "status": "proven",
       "confidence": 1.0,
       "notes": "First confirmed tile flag from discoveries.json - validates tile formula with base_offset=485330 (reverted 2026-01-25)"
+    },
+    "520310": {
+      "offset": 1379,
+      "bit": 1,
+      "name": "Spelldrake Talisman",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520370": {
+      "offset": 1387,
+      "bit": 5,
+      "name": "Cerulean Amber Medallion",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520350": {
+      "offset": 1384,
+      "bit": 1,
+      "name": "Blue Dancer Charm",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520110": {
+      "offset": 1354,
+      "bit": 1,
+      "name": "Perfumer Tricia",
+      "category": "spirit_ash",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520300": {
+      "offset": 1378,
+      "bit": 3,
+      "name": "Viridian Amber Medallion",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520480": {
+      "offset": 1401,
+      "bit": 7,
+      "name": "Godskin Swaddling Cloth",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520390": {
+      "offset": 1389,
+      "bit": 1,
+      "name": "Kindred of Rot's Exultation",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520000": {
+      "offset": 1341,
+      "bit": 7,
+      "name": "Lhutel the Headless",
+      "category": "spirit_ash",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520090": {
+      "offset": 1352,
+      "bit": 5,
+      "name": "Bloodhound Knight Floh",
+      "category": "spirit_ash",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520030": {
+      "offset": 1344,
+      "bit": 1,
+      "name": "Assassin's Crimson Dagger",
+      "category": "talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520040": {
+      "offset": 1346,
+      "bit": 7,
+      "name": "Banished Knight Engvall",
+      "category": "spirit_ash",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520050": {
+      "offset": 1347,
+      "bit": 5,
+      "name": "Twinsage Sorcerer Ashes",
+      "category": "spirit_ash",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential"
     }
   },
   "formulas": {
@@ -3261,22 +3369,22 @@
         "block_start": 71000,
         "base_offset": 9315,
         "block_size": 100,
-        "status": "verified",
-        "notes": "Stormveil graces (71000-71099) - RE-CORRECTED 2026-01-22: Base 9315 for EF start 0x125A5. Full search across all bases 0-15000 found 8/9 graces SET [71001-71008] at base 9315 (Jan 11 backup) and base 9439 (Dec 25 snapshot). 71008 (Main Gate) IS SET. Previous base 2673 was wrong - only showed 3/9 graces. Absolute offset ~0x14A08 in slot data. NOTE: Base varies with EF start offset due to variable-size EF header data."
+        "status": "unreliable",
+        "notes": "Stormveil graces - MARKED UNRELIABLE 2026-01-25: Base 9315 was verified on specific saves but causes false matches in saves with different EF layouts. In some saves, offset 9315+ region contains 0xFF bytes or other data that triggers false positives. NO validation anchor exists for this block. DO NOT use for auto-complete."
       },
       "71100": {
         "block_start": 71100,
         "base_offset": 2593,
         "block_size": 100,
-        "status": "verified",
-        "notes": "Leyndell graces (71100-71199) - VERIFIED 2026-01-22: Base 2593 shows 9/10 pre-Ashen graces SET in S0, 0/10 in S1. Perfect differential. Flags SET: 71100 (Elden Throne), 71101 (Erdtree Sanctuary), 71102 (East Capital Rampart), 71104 (Avenue Balcony), 71105 (West Capital Rampart), 71107 (Queen's Bedchamber), 71108 (Fortified Manor), 71109 (Divine Bridge), 71110 (Morgott). Only 71103 (Lower Capital Church) NOT SET - player likely skipped. Ashen variants (71120-71125) correctly NOT SET. NOTE: 71190 (Roundtable Hold) NOT found at this base - likely in different block (map m11_10_00)."
+        "status": "unreliable",
+        "notes": "Leyndell graces - MARKED UNRELIABLE 2026-01-25: Base 2593 was verified on saves WITH Leyndell progression, but may cause false positives on saves without Leyndell access. NO validation anchor exists for this block. DO NOT use for auto-complete."
       },
       "71600": {
         "block_start": 71600,
-        "base_offset": 2825,
+        "base_offset": 3198,
         "block_size": 100,
-        "status": "verified",
-        "notes": "Volcano Manor graces (71600-71699) - VERIFIED 2026-01-21: Base 2825 confirmed via inseparable evidence. Byte 0x01 shows only 71607 SET while 71600/71606 (Rykard graces) are NOT SET. User confirmed Rykard not defeated."
+        "status": "unreliable",
+        "notes": "Volcano Manor graces - MARKED UNRELIABLE 2026-01-25: Base 3198 was verified via temporal diff (b38/b39) for saves WITH Volcano Manor discovered. However, for saves WITHOUT VM discovered, offset 3198 contains DIFFERENT data that causes false positives (e.g., flag 71600 Rykard showing as SET when it shouldn't be). The EF layout differs between save states. DO NOT use for auto-complete until dynamic calibration is implemented."
       },
       "71800": {
         "block_start": 71800,
@@ -3333,6 +3441,13 @@
         "block_size": 1000,
         "status": "verified",
         "notes": "Grace guidance flags - verified: 8+ proven flags match (78210=3526, 78304=3538, 78352=3544, etc.)"
+      },
+      "520000": {
+        "block_start": 520000,
+        "base_offset": 1341,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "Spirit Ashes/Talismans - VERIFIED 2026-02-01: 12/15 cases verified via case-based system. SPARSE ALLOCATION: Block has padding gaps - flags 520210, 520330, 520450 fall into unallocated regions (0xFF in all slots). These items may use different flag ranges or be deprecated entries. Working ranges confirmed: ~520000-520189, ~520220-520319, ~520345-520449, ~520465+."
       }
     },
     "tile_formula": {
@@ -3352,6 +3467,32 @@
         "block_size": 1000,
         "status": "verified",
         "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010\u2192(63751,5), 510020\u2192(63752,3), 510030\u2192(63753,1), 510040\u2192(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
+      },
+      "520000": {
+        "block_start": 520000,
+        "base_offset": 1341,
+        "block_size": 500,
+        "status": "partial",
+        "verified_flags": [
+          520000,
+          520030,
+          520040,
+          520050,
+          520090,
+          520110,
+          520300,
+          520310,
+          520350,
+          520370,
+          520390,
+          520480
+        ],
+        "padding_gaps": [
+          520210,
+          520330,
+          520450
+        ],
+        "notes": "Spirit Ash/Talisman catacomb rewards - VERIFIED 2026-01-31: Base 1341 discovered via inventory-driven differential. 12/15 key flags verified (S0=set, S1=unset). Flags 520210, 520330, 520450 land in 0xFF padding gaps within block. Block has discontinuous data with internal padding at offsets +7-10, +23-26, +40-41, +56-57."
       },
       "540000": {
         "block_start": 540000,
@@ -3542,7 +3683,7 @@
         "verified_offset": 852831,
         "verified_bit": 5,
         "verification_date": "2026-01-25",
-        "notes": "Primary calibration anchor. Temporal diff confirmed: 0x00 → 0x20 (bit 5 SET)"
+        "notes": "Primary calibration anchor. Temporal diff confirmed: 0x00 \u2192 0x20 (bit 5 SET)"
       }
     },
     "block": {
@@ -3569,6 +3710,14 @@
         "verified_bit": 7,
         "verification_date": "2026-01-22",
         "notes": "Tutorial grace - always SET"
+      },
+      "71602": {
+        "name": "Volcano Manor",
+        "block": 71600,
+        "verified_offset": 3198,
+        "verified_bit": 5,
+        "verification_date": "2026-01-25",
+        "notes": "Volcano Manor grace - VERIFIED via temporal diff b38/b39. Corrected previous wrong base (155226 \u2192 3198)."
       }
     },
     "dungeon": {
@@ -6017,29 +6166,30 @@
       "name": "Volcano Manor",
       "category": "Grace",
       "region": "Volcano Manor",
-      "status": "unverified",
-      "offset": 2700,
+      "status": "proven",
+      "offset": 3198,
       "bit": 5,
-      "confidence": 0.5,
+      "confidence": 0.95,
       "manual_completion": null,
       "auto_completion": null,
       "matches": null,
       "formula_results": {
         "block": {
-          "offset": 2700,
+          "offset": 3198,
           "bit": 5,
           "valid": true,
           "error": null
         }
       },
-      "evidence_count": 0,
+      "evidence_count": 1,
       "source_file": "BonfireWarpParam.param.xml",
       "source_row_id": 160002,
       "coordinates": {
         "x": 40.88,
         "y": 4.95,
         "z": -60.27
-      }
+      },
+      "notes": "VERIFIED 2026-01-25: Temporal diff b38/b39 confirms offset 3198, bit 5"
     },
     {
       "flag_id": 71603,
@@ -22600,5 +22750,22 @@
         "z": -230.27
       }
     }
-  ]
+  ],
+  "untrackable_flags": {
+    "520210": {
+      "reason": "sparse_allocation_gap",
+      "notes": "Falls into padding gap in block 520000. Offset shows 0xFF across all slots.",
+      "discovered": "2026-02-01"
+    },
+    "520330": {
+      "reason": "sparse_allocation_gap",
+      "notes": "Falls into padding gap in block 520000. Offset shows 0xFF across all slots.",
+      "discovered": "2026-02-01"
+    },
+    "520450": {
+      "reason": "sparse_allocation_gap",
+      "notes": "Falls into padding gap in block 520000. Offset shows 0xFF across all slots.",
+      "discovered": "2026-02-01"
+    }
+  }
 }

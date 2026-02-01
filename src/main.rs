@@ -8,6 +8,7 @@ mod ui;
 mod db;
 mod generated;
 mod discovery;
+mod calibration;
 
 use std::{env, fs::File, io::Write, path::PathBuf};
 
@@ -417,7 +418,8 @@ impl eframe::App for App {
                             self.load_verification_records_for_slot();
                         }
                         let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                        events(ui, &mut self.vm, event_flags);
+                        let inventory = self.save.save_type.get_inventory(self.vm.index);
+                        events(ui, &mut self.vm, event_flags, inventory);
                     },
                     Route::Regions => regions(ui, &mut self.vm),
                     Route::Spells => spells_view(ui, &mut self.spells_view_state),
@@ -425,7 +427,8 @@ impl eframe::App for App {
                     Route::ShopItems => shop_items_view(ui, &mut self.shop_items_view_state),
                     Route::WorldPickups => {
                         let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                        world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags);
+                        let inventory = self.save.save_type.get_inventory(self.vm.index);
+                        world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags, inventory);
                     },
                     Route::EventFlagsDb => event_flags_db_view(ui, &mut self.event_flags_db_view_state),
                 }

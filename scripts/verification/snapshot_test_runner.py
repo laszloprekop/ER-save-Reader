@@ -52,6 +52,7 @@ from verification.ground_truth_loader import (
     calculate_block_offset,
     calculate_dungeon_offset,
 )
+from verification.calibration import CalibrationService, CalibrationResult
 
 
 # ============================================================================
@@ -62,48 +63,15 @@ SAVE_DIR = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files"
 SNAPSHOT_DIR = SAVE_DIR / "Granular snapshots for debugging"
 CATALOG_PATH = SNAPSHOT_DIR / "capture_catalog.json"
 
-# Calibration anchor flags (known to be SET in progressed saves)
-CALIBRATION_ANCHORS = {
-    "tile": {
-        "flag_id": 1043500010,
-        "name": "Smoldering Butterfly",
-        "expected_local_id": 10,
-        "expected_row": 43,
-        "expected_col": 50,
-    },
-    "block": {
-        "flag_id": 76100,
-        "name": "The First Step",
-        "expected_block_start": 76000,
-        "expected_relative": 100,
-    },
-    "dungeon_16": {
-        "flag_id": 16000002,
-        "name": "Volcano Manor grace",
-        "expected_area": 16,
-        "expected_section": 0,
-        "expected_local_id": 2,
-    },
-}
+# Calibration anchors are now defined in calibration.py
+# Import CALIBRATION_ANCHORS if needed for backward compatibility
+from verification.calibration import CALIBRATION_ANCHORS
 
 
 # ============================================================================
 # DATA CLASSES
 # ============================================================================
-
-@dataclass
-class CalibrationResult:
-    """Result of calibrating formula bases for a specific save state."""
-    save_path: str
-    slot_index: int
-    ef_offset: Optional[int] = None
-    tile_base: Optional[int] = None
-    tile_base_confidence: float = 0.0
-    block_bases: Dict[int, int] = field(default_factory=dict)
-    dungeon_bases: Dict[int, int] = field(default_factory=dict)
-    calibration_flags_used: List[int] = field(default_factory=list)
-    notes: str = ""
-
+# CalibrationResult is now imported from calibration.py
 
 @dataclass
 class FlagHypothesis:
@@ -207,7 +175,7 @@ class SnapshotTestRunner:
         self.catalog_path = catalog_path or CATALOG_PATH
         self.catalog = load_catalog() if self.catalog_path.exists() else {"captures": [], "pairs": []}
         self.parser = SaveParser()
-        self._calibration_cache: Dict[str, CalibrationResult] = {}
+        # Calibration is now managed by CalibrationService
 
     def reload_catalog(self) -> None:
         """Reload the capture catalog from disk."""
@@ -222,8 +190,7 @@ class SnapshotTestRunner:
         """
         Calibrate formula bases for a specific save file and slot.
 
-        This determines the actual tile/dungeon bases for this save state,
-        which may differ from other saves due to variable GaItems size.
+        Delegates to CalibrationService for the actual calibration.
 
         Args:
             save_path: Path to the save file
@@ -233,164 +200,7 @@ class SnapshotTestRunner:
         Returns:
             CalibrationResult with detected bases
         """
-        save_path = Path(save_path)
-        cache_key = f"{save_path}:{slot_index}"
-
-        if not force_recalibrate and cache_key in self._calibration_cache:
-            return self._calibration_cache[cache_key]
-
-        result = CalibrationResult(
-            save_path=str(save_path),
-            slot_index=slot_index,
-        )
-
-        try:
-            # Parse save and detect EF offset
-            slot_data = read_slot_data(save_path, slot_index)
-            ef_start = detect_event_flags_start(slot_data)
-
-            if ef_start is None:
-                result.notes = "Could not detect event flags offset"
-                return result
-
-            result.ef_offset = ef_start
-            event_flags = extract_event_flags(slot_data, ef_start)
-
-            # Calibrate tile base using anchor flag
-            tile_result = self._calibrate_tile_base(event_flags)
-            if tile_result:
-                result.tile_base = tile_result[0]
-                result.tile_base_confidence = tile_result[1]
-                result.calibration_flags_used.append(CALIBRATION_ANCHORS["tile"]["flag_id"])
-
-            # Calibrate block bases (verify known bases work)
-            block_result = self._calibrate_block_bases(event_flags)
-            result.block_bases = block_result
-
-            # Calibrate dungeon bases
-            dungeon_result = self._calibrate_dungeon_bases(event_flags)
-            result.dungeon_bases = dungeon_result
-
-            result.notes = f"Calibrated successfully. EF offset: {ef_start}"
-
-        except Exception as e:
-            result.notes = f"Calibration error: {e}"
-
-        self._calibration_cache[cache_key] = result
-        return result
-
-    def _calibrate_tile_base(self, event_flags: bytes) -> Optional[Tuple[int, float]]:
-        """
-        Calibrate the tile formula base using known anchor flags.
-
-        Returns (base_offset, confidence) or None.
-        """
-        # Use the ground truth tile config as starting point
-        config = get_tile_config()
-        base_offset = config.get("base_offset", 485330)
-        bytes_per_slot = config.get("bytes_per_slot", 875)
-        slots_per_row = config.get("slots_per_row", 40)
-        row_base = config.get("row_base", 33)
-        col_base = config.get("col_base", 30)
-
-        anchor = CALIBRATION_ANCHORS["tile"]
-        flag_id = anchor["flag_id"]
-        local_id = anchor["expected_local_id"]
-        row = anchor["expected_row"]
-        col = anchor["expected_col"]
-
-        # Calculate expected offset
-        tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
-        byte_offset = base_offset + tile_offset + local_id // 8
-        bit_pos = 7 - (local_id % 8)
-
-        # Check if the flag is SET
-        if byte_offset < len(event_flags):
-            byte_val = event_flags[byte_offset]
-            is_set = (byte_val >> bit_pos) & 1
-
-            if is_set:
-                # Ground truth base works
-                return (base_offset, 0.9)
-            else:
-                # Try to find the correct base by searching
-                # This is a fallback for saves with different bases
-                return self._search_for_tile_base(event_flags, anchor)
-
-        return None
-
-    def _search_for_tile_base(
-        self,
-        event_flags: bytes,
-        anchor: Dict[str, Any]
-    ) -> Optional[Tuple[int, float]]:
-        """
-        Search for the correct tile base by looking for the anchor flag.
-
-        This handles cases where the save has a different base than ground truth.
-        """
-        config = get_tile_config()
-        bytes_per_slot = config.get("bytes_per_slot", 875)
-        slots_per_row = config.get("slots_per_row", 40)
-        row_base = config.get("row_base", 33)
-        col_base = config.get("col_base", 30)
-
-        local_id = anchor["expected_local_id"]
-        row = anchor["expected_row"]
-        col = anchor["expected_col"]
-        expected_bit = 7 - (local_id % 8)
-
-        # Calculate tile offset (constant regardless of base)
-        tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
-        local_byte_offset = local_id // 8
-
-        # Search for the base that makes this flag SET
-        # The tile region is typically around 489000-500000
-        search_start = 480000
-        search_end = min(510000, len(event_flags) - tile_offset - local_byte_offset)
-
-        for base in range(search_start, search_end):
-            byte_offset = base + tile_offset + local_byte_offset
-            if byte_offset < len(event_flags):
-                byte_val = event_flags[byte_offset]
-                if (byte_val >> expected_bit) & 1:
-                    # Found it! But verify it's not 0xFF padding
-                    if byte_val != 0xFF:
-                        return (base, 0.7)  # Lower confidence for searched base
-
-        return None
-
-    def _calibrate_block_bases(self, event_flags: bytes) -> Dict[int, int]:
-        """Verify known block bases work for this save."""
-        bases = load_block_bases()
-        verified_bases = {}
-
-        # Check anchor flag (The First Step grace)
-        anchor = CALIBRATION_ANCHORS["block"]
-        flag_id = anchor["flag_id"]
-        result = calculate_block_offset(flag_id)
-
-        if result:
-            byte_offset, bit_pos = result
-            if byte_offset < len(event_flags):
-                byte_val = event_flags[byte_offset]
-                is_set = (byte_val >> bit_pos) & 1
-                if is_set:
-                    # Ground truth bases work
-                    verified_bases = {int(k): v["base_offset"] for k, v in bases.items()}
-
-        return verified_bases
-
-    def _calibrate_dungeon_bases(self, event_flags: bytes) -> Dict[int, int]:
-        """Verify known dungeon bases work for this save."""
-        bases = load_dungeon_bases()
-        verified_bases = {}
-
-        for area, config in bases.items():
-            if config["base_offset"] > 0:
-                verified_bases[area] = config["base_offset"]
-
-        return verified_bases
+        return CalibrationService.calibrate(save_path, slot_index, force=force_recalibrate)
 
     def get_character_context(
         self,

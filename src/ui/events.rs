@@ -1,9 +1,10 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::{verification_view::verification_view::verification_view, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::save::common::save_slot::EquipInventoryData;
 
-    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
+    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
             .id_salt("left")
@@ -67,6 +68,15 @@ pub mod events {
                     EventsRoute::Landmarks => {landmarks_view(ui, vm);},
                     EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags);},
                     EventsRoute::Verification => {
+                        // Inventory Verification Triangle section first
+                        if inventory.is_some() || event_flags.is_some() {
+                            let set_flags = collect_set_flags(event_flags);
+                            inventory_verification_summary(ui, &set_flags, inventory);
+                            ui.separator();
+                            ui.add_space(10.0);
+                        }
+
+                        // Existing flag verification view
                         verification_view(ui, &mut vm.slots[vm.index].events_vm.verification_vm);
                     },
                 }
@@ -639,5 +649,24 @@ pub mod events {
         }
 
         true
+    }
+
+    /// Collect all set flags from the unique items database for verification
+    fn collect_set_flags(event_flags: Option<&[u8]>) -> std::collections::HashSet<u32> {
+        use crate::discovery::inventory_verification::UNIQUE_ITEMS;
+        use crate::db::pickup_flags::is_flag_set_with_status;
+
+        let mut set_flags = std::collections::HashSet::new();
+
+        if let Some(ef) = event_flags {
+            for item in UNIQUE_ITEMS.iter() {
+                let (is_set, _status) = is_flag_set_with_status(ef, item.event_flag);
+                if is_set {
+                    set_flags.insert(item.event_flag);
+                }
+            }
+        }
+
+        set_flags
     }
 }

@@ -73,7 +73,9 @@ scripts/verification/
 ├── utils.py                 # Shared utility functions
 ├── ground_truth_loader.py   # Loads from ground_truth_offsets.json
 ├── save_parser.py           # Full save file parsing
-├── flag_formulas.py         # DEPRECATED - use ground_truth_loader
+├── flag_schema.py           # Schema definition and allocation bitmap
+├── case_manager.py          # Case-based verification system
+├── case_cli.py              # CLI for case operations
 ├── verification_data.py     # Data structures
 ├── diff_analyzer.py         # Save comparison
 │
@@ -81,6 +83,7 @@ scripts/verification/
 ├── probe_*.py               # Probing/discovery scripts
 ├── check_*.py               # Quick check scripts
 └── archive/                 # Superseded/historical scripts
+    └── flag_formulas.py     # DEPRECATED - use ground_truth_loader
 ```
 
 ### Import Pattern
@@ -146,6 +149,54 @@ from scripts.verification.ground_truth_loader import (
 | `check_flag(event_flags, flag_id)` | `Tuple[bool, int, int]` | (is_set, offset, bit) |
 | `is_0xff_padding(event_flags, offset)` | `bool` | True if region is 0xFF padding |
 | `multi_slot_differential(...)` | `List[Dict]` | Compare flags between slots |
+
+### flag_schema.py
+
+Schema-based allocation detection for handling sparse flag allocation.
+
+| Class/Function | Description |
+|----------------|-------------|
+| `BlockSchema` | Defines known flag positions for a block |
+| `AllocationBitmap` | Result showing which flags are trackable |
+| `FlagDefinition` | A flag's position as defined in the schema |
+| `AllocationEntry` | Probe result for a single flag |
+| `probe_block()` | Convenience function to probe a block |
+
+**Key Concepts:**
+
+- **Schema**: Predefined structure mapping flag IDs to expected byte offsets
+- **Allocation Bitmap**: Result showing which positions have real data vs padding
+- **Sparse Allocation**: When the game only allocates memory for flags actually used
+
+**Usage:**
+
+```python
+from scripts.verification.flag_schema import BlockSchema, AllocationBitmap
+
+# Create schema for block 520000
+schema = BlockSchema(block_start=520000, base_offset=1341)
+schema.load_flags_from_extracted('scripts/extracted_event_flags.json')
+
+# Probe save to generate allocation bitmap
+bitmap: AllocationBitmap = schema.probe_allocation(save_path, slots=[0,1,2,3,4])
+
+# Query the bitmap
+trackable = bitmap.get_trackable_flags()      # Flags that CAN be verified
+untrackable = bitmap.get_untrackable_flags()  # Flags in sparse gaps
+is_ok = bitmap.is_trackable(520000)           # True
+is_ok = bitmap.is_trackable(520210)           # False (sparse gap)
+
+# Get allocation boundaries
+boundaries = schema.get_allocation_boundaries(save_path)
+# Returns: [(520000, 520059, 'ALLOCATED'), (520060, 520089, 'UNALLOCATED'), ...]
+```
+
+**CLI:**
+
+```bash
+python scripts/verification/flag_schema.py --block 520000 --base 1341 \
+    --save "/path/to/save.sl2" --boundaries --json
+```
 
 ---
 

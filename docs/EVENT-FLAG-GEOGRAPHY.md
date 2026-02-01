@@ -475,6 +475,76 @@ All source files are in:
 
 ---
 
+## Sparse Flag Allocation (Important Discovery 2026-02-01)
+
+### The Problem
+
+Not all flag IDs in a block have memory allocated in the save file. The game uses **sparse allocation**, only reserving bytes for flags that are actually used.
+
+### How to Detect Sparse Allocation
+
+Use the **schema-based allocation probing** system:
+
+```bash
+python scripts/verification/flag_schema.py --block 520000 --base 1341 \
+    --save "/path/to/save.sl2" --boundaries
+```
+
+### Terminology
+
+| Term | Definition |
+|------|------------|
+| **Schema** | Predefined structure mapping known flag IDs to expected byte offsets |
+| **Allocation Bitmap** | Result showing which positions have real data vs padding (0xFF) |
+| **Sparse Gap** | Flag ID range where all bytes are 0xFF across all save slots |
+| **Trackable Flag** | Flag ID with allocated memory (can be verified) |
+| **Untrackable Flag** | Flag ID in a sparse gap (cannot be verified with block formula) |
+
+### Example: Block 520000 Sparse Allocation
+
+Block 520000 (Spirit Ashes, Talismans) has multiple sparse gaps:
+
+```
+520000-520059: ALLOCATED ████████████
+520060-520089: SPARSE GAP ░░░░░░░░░░
+520090-520189: ALLOCATED ████████████████████████
+520190-520219: SPARSE GAP ░░░░░░░░░░░░
+520220-520329: ALLOCATED ████████████████████████████
+520330-520349: SPARSE GAP ░░░░░░░░
+520350-520449: ALLOCATED ████████████████████████████
+520450-520469: SPARSE GAP ░░░░░░░░
+520470-520699: ALLOCATED ████████████████████████████████████████████
+520700-520749: SPARSE GAP ░░░░░░░░░░░░░░░
+520750-520810: ALLOCATED ████████████████
+```
+
+### Implications
+
+1. **Pre-filter before verification**: Use `BlockSchema.probe_allocation()` to identify trackable flags
+2. **Untrackable items**: Items with flag IDs in sparse gaps may use alternative tracking mechanisms
+3. **Not all ItemLotParam flags are stored**: The game may not persist all defined flag IDs
+
+### API for Sparse Detection
+
+```python
+from scripts.verification.flag_schema import BlockSchema
+
+schema = BlockSchema(520000, base_offset=1341)
+schema.load_flags_from_extracted('scripts/extracted_event_flags.json')
+
+bitmap = schema.probe_allocation(save_path)
+
+if bitmap.is_trackable(520000):  # True
+    # Safe to verify this flag
+    pass
+
+if not bitmap.is_trackable(520210):  # False - sparse gap
+    # Cannot verify this flag with block formula
+    pass
+```
+
+---
+
 ## Flag Storage in Save File
 
 See also: `docs/Flag-islands.md`

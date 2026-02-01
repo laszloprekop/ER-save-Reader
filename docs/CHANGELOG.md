@@ -4,6 +4,65 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.5.0 - Schema-Based Allocation Detection & Case Verification System
+
+### Features
+- **Schema-based flag allocation detection** (`scripts/verification/flag_schema.py`)
+  - `BlockSchema`: Define known flag IDs and their expected byte offsets
+  - `AllocationBitmap`: Probe save data to identify trackable vs untrackable flags
+  - Detects **sparse allocation gaps** where the game doesn't allocate memory
+  - CLI: `python flag_schema.py --block 520000 --base 1341 --save /path/to/save.sl2 --boundaries`
+
+- **Case-based verification system** (`scripts/verification/case_manager.py`, `case_cli.py`)
+  - Defense/Challenge methodology for rigorous flag verification
+  - Evidence aggregation from inventory, differential, temporal sources
+  - Formula update proposals when verification fails
+  - Gap reporting for untrackable flags
+
+- **Verified block 520000** (Spirit Ashes, Talismans)
+  - Base offset: 1341
+  - 46 flags trackable, 13 in sparse gaps
+  - 12 flags exported to ground_truth with confidence 1.0
+
+### Bug Fixes
+- **Fixed anchor database access** in `case_manager.py`
+  - `boss_defeat_chains`: Now correctly accesses nested `.get('chains', {})` structure
+  - `geographic_regions`: Now correctly accesses nested `.get('regions', {})` structure
+
+### Refactoring (DRY)
+- **Centralized all formula constants** in `ground_truth_loader.py`
+  - Removed hardcoded BLOCK_BASES from `extract_test_cases.py`, `case_cli.py`, `verify_boss_chain.py`
+  - All verification scripts now use `get_block_base()`, `get_tile_config()`, etc.
+  - Archived deprecated `flag_formulas.py` to `archive/` directory
+
+### Documentation
+- **docs/ARCHITECTURE.md**: Added flag_schema.py API reference
+- **docs/EVENT-FLAG-GEOGRAPHY.md**: Added "Sparse Flag Allocation" section with terminology
+- **docs/EVIDENCE-BASED-DISCOVERY.md**: Updated block 520000 findings with verified results
+- **docs/CASE-BASED-VERIFICATION.md**: Added schema pre-filtering section
+
+### Key Discovery: Sparse Flag Allocation
+Block 520000 uses sparse memory allocation - not all flag IDs have storage:
+```
+520000-520059: ALLOCATED
+520060-520089: SPARSE GAP (0xFF in all slots)
+520090-520189: ALLOCATED
+520190-520219: SPARSE GAP
+...
+```
+Flags in sparse gaps (e.g., 520210, 520330, 520450) cannot be verified with the block formula.
+
+### Files Modified
+- `scripts/verification/flag_schema.py`: New schema/allocation bitmap system
+- `scripts/verification/case_manager.py`: Bug fixes for anchor database
+- `scripts/verification/case_cli.py`: DRY refactoring, gap reporting
+- `scripts/verification/extract_test_cases.py`: DRY refactoring
+- `scripts/verification/verify_boss_chain.py`: DRY refactoring
+- `ground_truth_offsets.json`: Added block 520000, 12 verified flags, untrackable_flags
+- `docs/*.md`: Documentation updates
+
+---
+
 ## v0.4.31 - Tile Formula Base Offset Reversion
 
 ### Bug Fixes

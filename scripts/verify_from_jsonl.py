@@ -15,7 +15,7 @@ from collections import defaultdict
 sys.path.insert(0, str(Path(__file__).parent))
 
 from verification.save_parser import SaveParser
-from verification.flag_formulas import FlagFormulas
+from verification.archive.flag_formulas import FlagFormulas
 
 
 def load_verification_records(jsonl_path: Path) -> list:

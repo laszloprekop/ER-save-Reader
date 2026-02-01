@@ -1,0 +1,151 @@
+{
+  "case_id": "520050_20260201084558",
+  "flag_id": 520050,
+  "item_name": "Twinsage Sorcerer Ashes",
+  "category": "spirit_ash",
+  "item_id": 219000,
+  "hypothesis": {
+    "byte_offset": 1347,
+    "bit_position": 5,
+    "implied_base": 1341,
+    "block_start": 520000
+  },
+  "block_start": 520000,
+  "formula_type": "block",
+  "status": "verified",
+  "confidence": 1.0,
+  "iterations": 1,
+  "surviving_challenges": 5,
+  "created_at": "2026-02-01T08:45:58.726830",
+  "last_updated": "2026-02-01T08:46:14.697098",
+  "notes": [],
+  "evidence": [
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 255,
+      "notes": "Item present, flag set"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot1:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot2:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot3:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "inventory_presence",
+      "source": "ER0000-backup-2026-01-11.sl2:slot4:inventory",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.3,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 0,
+      "notes": "Item absent, flag unset"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.15,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 255,
+      "notes": "S0=0xFF(bit5=1), S1=0x00(bit5=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.15,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 255,
+      "notes": "S0=0xFF(bit5=1), S2=0x00(bit5=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.15,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 255,
+      "notes": "S0=0xFF(bit5=1), S3=0x00(bit5=0)"
+    },
+    {
+      "evidence_type": "differential",
+      "source": "ER0000-backup-2026-01-11.sl2:slot0:inventory_differential",
+      "supports_hypothesis": true,
+      "confidence_contribution": 0.15,
+      "byte_offset": 1347,
+      "bit_position": 5,
+      "observed_value": 255,
+      "notes": "S0=0xFF(bit5=1), S4=0x00(bit5=0)"
+    }
+  ],
+  "challenges": [
+    {
+      "challenge_type": "padding_check",
+      "description": "Check if offset 1347 is 0xFF padding",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "Offset 1347 contains data (not all 0xFF)"
+    },
+    {
+      "challenge_type": "false_positive",
+      "description": "Check false positive rate across 6 slots",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "False positive rate 0.0% acceptable"
+    },
+    {
+      "challenge_type": "alternative_base",
+      "description": "Search for better base in range 1241 to 1441",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "No significantly better base found (best alternative: None with 15 matches)"
+    },
+    {
+      "challenge_type": "bit_collision",
+      "description": "Check for flag collisions at offset 1347 bit 5",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "No collisions detected among 15 known flags"
+    },
+    {
+      "challenge_type": "block_boundary",
+      "description": "Check if offset 1347 is within block range",
+      "result": "survived",
+      "disproves_hypothesis": false,
+      "notes": "Offset 1347 is within block range [1341, 1466]"
+    }
+  ]
+}

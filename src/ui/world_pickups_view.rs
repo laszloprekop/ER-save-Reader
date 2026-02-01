@@ -1,9 +1,14 @@
 pub mod world_pickups_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
-    use crate::db::pickup_flags::get_flag_offset;
+    use crate::db::pickup_flags::get_flag_offset_calibrated;
+    use crate::calibration::CalibrationService;
     use crate::util::bit::bit::get_bit;
     use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::save::common::save_slot::EquipInventoryData;
+    use crate::discovery::inventory_verification::{
+        InventoryVerificationService, UNIQUE_ITEMS_BY_FLAG, VerificationConfidence,
+    };
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum PickupFilter {
@@ -44,11 +49,16 @@ pub mod world_pickups_view {
     }
 
     /// Check if a pickup's event flag is set (collected)
-    /// Uses formula-based offset calculation from pickup_flags.rs
-    fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>) -> Option<bool> {
+    /// Uses calibrated formula-based offset calculation from pickup_flags.rs
+    ///
+    /// # Arguments
+    /// * `flag_id` - The event flag ID to check
+    /// * `event_flags` - The event flags byte slice from the save
+    /// * `calibrated_tile_base` - The calibrated tile base for this save
+    fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>, calibrated_tile_base: u32) -> Option<bool> {
         let event_flags = event_flags?;
 
-        if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
+        if let Some((byte_offset, bit_position)) = get_flag_offset_calibrated(flag_id, calibrated_tile_base) {
             if (byte_offset as usize) < event_flags.len() {
                 return Some(get_bit(event_flags[byte_offset as usize], bit_position));
             }
@@ -57,7 +67,59 @@ pub mod world_pickups_view {
         None
     }
 
-    pub fn world_pickups_view(ui: &mut Ui, state: &mut WorldPickupsViewState, event_flags: Option<&[u8]>) {
+    /// Check if an item is in the character's inventory based on flag ID
+    /// Returns (has_item, confidence) or None if no mapping exists
+    fn is_item_in_inventory(flag_id: u32, inventory: Option<&EquipInventoryData>) -> Option<(bool, VerificationConfidence)> {
+        let inventory = inventory?;
+
+        // Check if this flag has associated unique items
+        if let Some(mappings) = UNIQUE_ITEMS_BY_FLAG.get(&flag_id) {
+            // Extract item IDs from inventory
+            let inventory_items: std::collections::HashSet<u32> = inventory
+                .common_items
+                .iter()
+                .chain(inventory.key_items.iter())
+                .filter(|item| item.ga_item_handle != 0)
+                .map(|item| item.ga_item_handle & 0x0FFFFFFF)
+                .collect();
+
+            // Check if any expected item is present
+            for mapping in mappings {
+                if inventory_items.contains(&mapping.item_id) {
+                    return Some((true, mapping.confidence));
+                }
+            }
+
+            // Item not found, return best confidence from mappings
+            let best_confidence = mappings
+                .iter()
+                .map(|m| m.confidence)
+                .min_by_key(|c| match c {
+                    VerificationConfidence::VeryHigh => 0,
+                    VerificationConfidence::High => 1,
+                    VerificationConfidence::Medium => 2,
+                    VerificationConfidence::Low => 3,
+                    VerificationConfidence::Unknown => 4,
+                })
+                .unwrap_or(VerificationConfidence::Unknown);
+
+            return Some((false, best_confidence));
+        }
+
+        None // No unique item mapping for this flag
+    }
+
+    pub fn world_pickups_view(
+        ui: &mut Ui,
+        state: &mut WorldPickupsViewState,
+        event_flags: Option<&[u8]>,
+        inventory: Option<&EquipInventoryData>,
+    ) {
+        // Calibrate tile base once per frame (if event flags available)
+        let calibrated_tile_base = event_flags
+            .map(|ef| CalibrationService::calibrate(ef).tile_base)
+            .unwrap_or(crate::generated::ground_truth::VERIFIED_TILE_BASE_OFFSET);
+
         // Header with filters
         ui.horizontal(|ui| {
             ui.label(RichText::new("Type:").color(Color32::LIGHT_GRAY));
@@ -107,10 +169,11 @@ pub mod world_pickups_view {
         ui.separator();
 
         // Column headers
-        let header = if event_flags.is_some() {
-            "Status | Lot ID | Flag ID | Item | Type | Qty | Region | Tile"
-        } else {
-            "Lot ID | Flag ID | Item | Type | Qty | Region | Tile"
+        let header = match (event_flags.is_some(), inventory.is_some()) {
+            (true, true) => "Flag | Inv | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
+            (true, false) => "Flag | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
+            (false, true) => "Inv | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
+            (false, false) => "Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
         };
         ui.horizontal(|ui| {
             ui.label(RichText::new(header).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
@@ -127,8 +190,8 @@ pub mod world_pickups_view {
                 pickups.sort_by_key(|(id, _)| *id);
 
                 for (id, pickup) in pickups {
-                    // Check collected status
-                    let is_collected = is_pickup_collected(pickup.flag_id, event_flags);
+                    // Check collected status using calibrated tile base
+                    let is_collected = is_pickup_collected(pickup.flag_id, event_flags, calibrated_tile_base);
 
                     // Apply collected filter
                     match state.collected_filter {
@@ -190,35 +253,62 @@ pub mod world_pickups_view {
 
                     let tile_str = format!("({}, {})", pickup.tile_x, pickup.tile_y);
 
-                    // Build row text with or without status
-                    let (row_text, status_str) = if event_flags.is_some() {
-                        let status = match is_collected {
-                            Some(true) => "[X]",
-                            Some(false) => "[ ]",
-                            None => "[?]",
-                        };
-                        (
-                            format!(
-                                "{} | {} | {} | {} | {} | {} | {} | {}",
-                                status, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                            ),
-                            status.to_string()
-                        )
-                    } else {
-                        (
-                            format!(
-                                "{} | {} | {} | {} | {} | {} | {}",
-                                id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                            ),
-                            String::new()
-                        )
+                    // Check inventory status
+                    let inv_status = is_item_in_inventory(pickup.flag_id, inventory);
+
+                    // Build flag status string
+                    let flag_str = match is_collected {
+                        Some(true) => "[X]",
+                        Some(false) => "[ ]",
+                        None => "[?]",
                     };
+
+                    // Build inventory status string with confidence indicator
+                    let inv_str = match inv_status {
+                        Some((true, VerificationConfidence::VeryHigh)) => "[X]",  // Has item, very high confidence
+                        Some((true, VerificationConfidence::High)) => "[x]",     // Has item, high confidence
+                        Some((true, _)) => "[~]",                                 // Has item, lower confidence
+                        Some((false, VerificationConfidence::VeryHigh)) => "[ ]", // No item, very high confidence
+                        Some((false, VerificationConfidence::High)) => "[-]",    // No item, high confidence
+                        Some((false, _)) => "[.]",                                // No item, lower confidence
+                        None => "   ",                                            // No mapping
+                    };
+
+                    // Build row text based on available data
+                    let row_text = match (event_flags.is_some(), inventory.is_some()) {
+                        (true, true) => format!(
+                            "{} | {} | {} | {} | {} | {} | {} | {} | {}",
+                            flag_str, inv_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
+                        ),
+                        (true, false) => format!(
+                            "{} | {} | {} | {} | {} | {} | {} | {}",
+                            flag_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
+                        ),
+                        (false, true) => format!(
+                            "{} | {} | {} | {} | {} | {} | {} | {}",
+                            inv_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
+                        ),
+                        (false, false) => format!(
+                            "{} | {} | {} | {} | {} | {} | {}",
+                            id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
+                        ),
+                    };
+
+                    let status_str = flag_str.to_string();
 
                     let is_selected = state.selected_id == Some(*id);
 
-                    // Color based on collected status
+                    // Determine if there's a mismatch between flag and inventory
+                    let has_mismatch = match (is_collected, inv_status) {
+                        (Some(flag_set), Some((has_item, _))) if flag_set != has_item => true,
+                        _ => false,
+                    };
+
+                    // Color based on collected status and mismatches
                     let text_color = if is_selected {
                         Color32::YELLOW
+                    } else if has_mismatch {
+                        Color32::from_rgb(255, 165, 0) // Orange for mismatch
                     } else {
                         match is_collected {
                             Some(true) => Color32::from_rgb(100, 200, 100), // Green for collected

@@ -6,9 +6,11 @@ Uses shared modules from the verification framework:
 - constants.py for save file structure
 - utils.py for slot data reading and EF detection
 - ground_truth_loader.py for tile formula configuration
+- calibration.py for dynamic base calibration
 """
 
 from pathlib import Path
+import argparse
 import sys
 
 # Add parent to path for imports when run directly
@@ -24,45 +26,87 @@ from scripts.verification.utils import (
     extract_event_flags,
 )
 from scripts.verification.ground_truth_loader import get_tile_config
+from scripts.verification.calibration import CalibrationService
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Verify tile formula by scanning for set flags")
+    parser.add_argument("--save", type=str, help="Path to save file (default: auto-detect)")
+    parser.add_argument("--slot", type=int, default=0, help="Slot index (default: 0)")
+    parser.add_argument("--calibrate", action="store_true",
+                        help="Calibrate tile base for the specific save")
+    args = parser.parse_args()
+
     print("=" * 80)
     print("VERIFY TILE FORMULA - SCAN FOR SET TILE FLAGS")
     print("=" * 80)
 
-    # Get tile formula config from ground truth
-    tile_config = get_tile_config()
+    # Determine save file
+    if args.save:
+        save_file = Path(args.save)
+        if not save_file.exists():
+            save_file = DEFAULT_SAVE_DIR / args.save
+    else:
+        save_file = DEFAULT_SAVE_DIR / "ER0000-backup-2026-01-11.sl2"
+        if not save_file.exists():
+            save_file = DEFAULT_SAVE_DIR / "ER0000.sl2"
 
-    TILE_BASE = tile_config.get("base_offset", 485330)
-    BYTES_PER_SLOT = tile_config.get("bytes_per_slot", 875)
-    SLOTS_PER_ROW = tile_config.get("slots_per_row", 40)
-    ROW_BASE = tile_config.get("row_base", 33)
-    COL_BASE = tile_config.get("col_base", 30)
-
-    print(f"\nTile formula config (from ground_truth):")
-    print(f"  base_offset: {TILE_BASE}")
-    print(f"  bytes_per_slot: {BYTES_PER_SLOT}")
-    print(f"  slots_per_row: {SLOTS_PER_ROW}")
-    print(f"  row_base: {ROW_BASE}")
-    print(f"  col_base: {COL_BASE}")
-    print(f"  status: {tile_config.get('status', 'unknown')}")
-
-    # Load save file
-    save_file = DEFAULT_SAVE_DIR / "ER0000-backup-2026-01-11.sl2"
     if not save_file.exists():
-        save_file = DEFAULT_SAVE_DIR / "ER0000.sl2"
+        print(f"Error: Save file not found: {save_file}")
+        sys.exit(1)
 
     print(f"\nLoading: {save_file}")
+    print(f"Slot: {args.slot}")
 
-    slot0_data = read_slot_data(save_file, 0)
-    ef_start = detect_event_flags_start(slot0_data)
+    # Calibrate if requested
+    if args.calibrate:
+        print("\n" + "-" * 40)
+        print("CALIBRATION MODE")
+        print("-" * 40)
+        cal_result = CalibrationService.calibrate(save_file, args.slot)
+        print(f"EF Offset:            {cal_result.ef_offset}")
+        print(f"Tile Base:            {cal_result.tile_base}")
+        print(f"Tile Base Confidence: {cal_result.tile_base_confidence:.2f}")
+        print(f"Tile Base Source:     {cal_result.tile_base_source}")
+        print(f"Anchors Used:         {cal_result.calibration_flags_used}")
+        print(f"Notes:                {cal_result.notes}")
+
+        # Use calibrated base
+        TILE_BASE = cal_result.tile_base if cal_result.tile_base else 485330
+        tile_config = get_tile_config()
+        BYTES_PER_SLOT = tile_config.get("bytes_per_slot", 875)
+        SLOTS_PER_ROW = tile_config.get("slots_per_row", 40)
+        ROW_BASE = tile_config.get("row_base", 33)
+        COL_BASE = tile_config.get("col_base", 30)
+
+        print(f"\nUsing calibrated tile base: {TILE_BASE}")
+        print("-" * 40)
+    else:
+        # Get tile formula config from ground truth
+        tile_config = get_tile_config()
+
+        TILE_BASE = tile_config.get("base_offset", 485330)
+        BYTES_PER_SLOT = tile_config.get("bytes_per_slot", 875)
+        SLOTS_PER_ROW = tile_config.get("slots_per_row", 40)
+        ROW_BASE = tile_config.get("row_base", 33)
+        COL_BASE = tile_config.get("col_base", 30)
+
+        print(f"\nTile formula config (from ground_truth):")
+        print(f"  base_offset: {TILE_BASE}")
+        print(f"  bytes_per_slot: {BYTES_PER_SLOT}")
+        print(f"  slots_per_row: {SLOTS_PER_ROW}")
+        print(f"  row_base: {ROW_BASE}")
+        print(f"  col_base: {COL_BASE}")
+        print(f"  status: {tile_config.get('status', 'unknown')}")
+
+    slot_data = read_slot_data(save_file, args.slot)
+    ef_start = detect_event_flags_start(slot_data)
 
     if ef_start is None:
         print("ERROR: Could not detect event flags offset!")
         return
 
-    ef_data = extract_event_flags(slot0_data, ef_start)
+    ef_data = extract_event_flags(slot_data, ef_start)
 
     print(f"\nEventFlags start: 0x{ef_start:X}")
     print(f"EventFlags size: {len(ef_data):,} bytes")

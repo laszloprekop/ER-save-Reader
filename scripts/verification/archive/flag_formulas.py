@@ -35,7 +35,7 @@ Known Issues (as of 2026-01):
 
 from dataclasses import dataclass
 from typing import Optional, Dict, Tuple, Any
-from .verification_data import FormulaResult
+from scripts.verification.verification_data import FormulaResult
 
 
 @dataclass

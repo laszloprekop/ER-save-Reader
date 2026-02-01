@@ -91,8 +91,8 @@ from .verification_data import (
 from .save_parser import SaveParser, SlotData
 from .diff_analyzer import DiffAnalyzer
 
-# Legacy: flag_formulas (still needed by run_verification.py)
-from .flag_formulas import FlagFormulas
+# Legacy: flag_formulas (moved to archive/ - still importable for backward compatibility)
+from .archive.flag_formulas import FlagFormulas
 
 __all__ = [
     # Constants

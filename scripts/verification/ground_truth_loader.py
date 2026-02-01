@@ -38,17 +38,20 @@ def load_block_bases() -> Dict[int, Dict[str, Any]]:
     """
     Load block base offsets from ground truth.
 
+    Includes both standard block_bases and midrange_formula blocks.
+
     Returns:
         Dict mapping block_start (int) to config dict with:
         - base_offset: int
         - block_size: int
-        - status: str ("verified", "candidate", "calculated", "disproven", "unverified")
+        - status: str ("verified", "candidate", "calculated", "disproven", "unverified", "partial")
         - notes: str
     """
     data = _load_json()
-    block_bases = data.get("formulas", {}).get("block_bases", {})
 
-    return {
+    # Load standard block bases
+    block_bases = data.get("formulas", {}).get("block_bases", {})
+    result = {
         int(k): {
             "base_offset": v["base_offset"],
             "block_size": v.get("block_size", 1000),
@@ -57,6 +60,19 @@ def load_block_bases() -> Dict[int, Dict[str, Any]]:
         }
         for k, v in block_bases.items()
     }
+
+    # Also load midrange formula blocks (510000, 520000, 540000, etc.)
+    midrange = data.get("formulas", {}).get("midrange_formula", {})
+    for k, v in midrange.items():
+        block_start = int(k)
+        result[block_start] = {
+            "base_offset": v["base_offset"],
+            "block_size": v.get("block_size", 1000),
+            "status": v.get("status", "unverified"),
+            "notes": v.get("notes", ""),
+        }
+
+    return result
 
 
 def load_dungeon_bases() -> Dict[int, Dict[str, Any]]:
@@ -272,6 +288,104 @@ def get_validation_flags() -> Dict[int, Tuple[int, int, str]]:
         76100: (3262, 3, "The First Step"),
         76101: (3262, 2, "Church of Elleh"),
     }
+
+
+# ============================================================================
+# CALIBRATION-AWARE FUNCTIONS
+# ============================================================================
+# These functions accept optional save context for dynamic base calibration.
+# Import CalibrationService lazily to avoid circular imports.
+
+def calculate_tile_offset_calibrated(
+    flag_id: int,
+    save_path: Optional[str] = None,
+    slot_index: int = 0
+) -> Optional[Tuple[int, int, float]]:
+    """
+    Calculate byte offset and bit position for a tile-based flag with calibration.
+
+    If save_path is provided, uses CalibrationService to determine the correct
+    base_offset for that specific save file. Otherwise, uses ground truth.
+
+    Args:
+        flag_id: The 10-digit event flag ID (e.g., 1043500010)
+        save_path: Optional path to save file for calibration
+        slot_index: Character slot index (default: 0)
+
+    Returns:
+        Tuple of (byte_offset, bit_position, confidence) or None if invalid
+    """
+    # Validate format
+    if not (1_000_000_000 <= flag_id < 2_000_000_000):
+        return None
+
+    flag_str = str(flag_id)
+    if len(flag_str) != 10:
+        return None
+
+    config = get_tile_config()
+    if not config or config.get("base_offset", 0) == 0:
+        return None
+
+    # Parse components
+    row = int(flag_str[2:4])
+    col = int(flag_str[4:6])
+    local_id = int(flag_str[6:])
+
+    # Check localId limit
+    max_local = config.get("max_local_id", 6999)
+    if local_id > max_local:
+        return None  # Untrackable
+
+    # Get base offset - calibrated if save_path provided
+    confidence = 1.0
+    if save_path:
+        # Lazy import to avoid circular dependency
+        from .calibration import CalibrationService
+        base_offset, confidence = CalibrationService.get_tile_base(save_path, slot_index)
+    else:
+        base_offset = config.get("base_offset", 485330)
+
+    # Calculate tile slot offset
+    row_base = config.get("row_base", 33)
+    col_base = config.get("col_base", 30)
+    bytes_per_slot = config.get("bytes_per_slot", 875)
+    slots_per_row = config.get("slots_per_row", 40)
+
+    tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
+    byte_offset = base_offset + tile_offset + local_id // 8
+    bit_position = 7 - (local_id % 8)
+
+    return (byte_offset, bit_position, confidence)
+
+
+def get_tile_config_for_save(
+    save_path: str,
+    slot_index: int = 0
+) -> Dict[str, Any]:
+    """
+    Get tile config with calibrated base_offset for a specific save.
+
+    This returns the same config as get_tile_config() but with the base_offset
+    calibrated for the given save file.
+
+    Args:
+        save_path: Path to save file
+        slot_index: Character slot index (default: 0)
+
+    Returns:
+        Dict with tile config including calibrated base_offset and confidence
+    """
+    # Lazy import to avoid circular dependency
+    from .calibration import CalibrationService
+
+    config = get_tile_config().copy()
+    tile_base, confidence = CalibrationService.get_tile_base(save_path, slot_index)
+
+    config["base_offset"] = tile_base
+    config["calibration_confidence"] = confidence
+
+    return config
 
 
 # Quick test when run directly

@@ -6,6 +6,9 @@ This script:
 1. Loads verification records from the JSONL file
 2. Recalculates offsets with the CORRECTED formulas
 3. Outputs test case definitions for different flag types
+
+IMPORTANT: All formula constants are loaded from ground_truth_loader.py
+which reads from ground_truth_offsets.json (the single source of truth).
 """
 
 import json
@@ -14,98 +17,49 @@ from pathlib import Path
 from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 
-# CORRECTED formula constants - REVERTED 2026-01-25: 489981 was wrong
-TILE_BASE_OFFSET = 485330  # REVERTED 2026-01-25 (489981 was incorrect)
-TILE_BYTES_PER_SLOT = 875
-TILE_SLOTS_PER_ROW = 40
-TILE_ROW_BASE = 33
-TILE_COL_BASE = 30
-TILE_MAX_LOCAL_ID = 6999
+# Add project root to path
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
-# Block bases (from ground_truth_offsets.json)
-BLOCK_BASES = {
-    60000: 2548,  # Progression flags
-    62000: 1500,  # Map fragments
-    65000: 1875,  # Whetblades (unverified)
-    67000: 3546,  # Cookbooks
-    68000: 3671,  # Cookbooks continued
-    71000: 2625,  # Tutorial graces
-    72000: 2750,  # Dungeon graces (unverified)
-    73000: 2664,  # Dungeon graces (verified)
-    74000: 3000,  # Extended dungeon graces (unverified)
-    75000: 3125,  # Extended graces (unverified)
-    76000: 3250,  # World graces
-    77000: 3375,  # Extended world graces
-    78000: 3500,  # POI flags (unverified)
-}
-
-# Dungeon bases (from ground_truth_offsets.json)
-DUNGEON_BASES = {
-    10: 4112,   # Stormveil Castle
-    11: 4112,   # Leyndell (unverified)
-    12: 0,      # Underground (unknown)
-    14: 0,      # Academy (unknown)
-    18: 0,      # Roundtable Hold (unknown)
-    30: 27411,  # Catacombs
-    31: 28634,  # Caves
-    32: 31577,  # Tunnels
-    34: 0,      # Divine Towers (unknown)
-}
+from scripts.verification.ground_truth_loader import (
+    load_block_bases,
+    load_dungeon_bases,
+    get_tile_config,
+    calculate_block_offset as gt_calculate_block_offset,
+    calculate_tile_offset as gt_calculate_tile_offset,
+    calculate_dungeon_offset as gt_calculate_dungeon_offset,
+)
 
 
 def calculate_block_offset(flag_id: int) -> Optional[Tuple[int, int]]:
-    """Calculate offset for block-based (5-6 digit) flags."""
-    block_start = (flag_id // 1000) * 1000
-    if block_start not in BLOCK_BASES:
-        return None
+    """Calculate offset for block-based (5-6 digit) flags.
 
-    base = BLOCK_BASES[block_start]
-    relative = flag_id - block_start
-    byte_offset = base + relative // 8
-    bit_position = 7 - (flag_id % 8)
-    return (byte_offset, bit_position)
+    Delegates to ground_truth_loader.calculate_block_offset for centralized formula.
+    """
+    return gt_calculate_block_offset(flag_id)
 
 
 def calculate_tile_offset(flag_id: int) -> Optional[Tuple[int, int]]:
-    """Calculate offset for tile-based (10-digit) flags."""
-    flag_str = str(flag_id)
-    if len(flag_str) != 10:
-        return None
+    """Calculate offset for tile-based (10-digit) flags.
 
-    row = int(flag_str[2:4])
-    col = int(flag_str[4:6])
-    local_id = int(flag_str[6:])
-
-    if local_id > TILE_MAX_LOCAL_ID:
-        return None  # Untrackable
-
-    slot = (row - TILE_ROW_BASE) * TILE_SLOTS_PER_ROW + (col - TILE_COL_BASE)
-    if slot < 0:
-        return None
-
-    byte_offset = TILE_BASE_OFFSET + slot * TILE_BYTES_PER_SLOT + (local_id // 8)
-    bit_position = 7 - (local_id % 8)
-    return (byte_offset, bit_position)
+    Delegates to ground_truth_loader.calculate_tile_offset for centralized formula.
+    """
+    return gt_calculate_tile_offset(flag_id)
 
 
 def calculate_dungeon_offset(flag_id: int) -> Optional[Tuple[int, int]]:
-    """Calculate offset for dungeon (8-digit) flags."""
-    flag_str = f"{flag_id:08d}"
-    area = int(flag_str[0:2])
-    section = int(flag_str[2:4])
-    local_id = int(flag_str[4:8])
+    """Calculate offset for dungeon (8-digit) flags.
 
-    if area not in DUNGEON_BASES or DUNGEON_BASES[area] == 0:
-        return None
-
-    base = DUNGEON_BASES[area]
-    byte_offset = base + section * 1125 + (local_id // 8)
-    bit_position = 7 - (flag_id % 8)
-    return (byte_offset, bit_position)
+    Delegates to ground_truth_loader.calculate_dungeon_offset for centralized formula.
+    """
+    return gt_calculate_dungeon_offset(flag_id)
 
 
 def get_flag_offset(flag_id: int) -> Optional[Tuple[int, int]]:
-    """Calculate offset using appropriate formula."""
+    """Calculate offset using appropriate formula.
+
+    Uses ground_truth_loader functions which read from ground_truth_offsets.json.
+    """
     if flag_id >= 1_000_000_000:
         return calculate_tile_offset(flag_id)
     elif flag_id >= 10_000_000:

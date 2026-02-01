@@ -44,6 +44,8 @@ pub mod test_cases;
 pub mod event_graph;
 pub mod param_flags;
 pub mod unified_db;
+pub mod inventory_verification;
+pub mod item_chain_resolver;
 
 pub use byte_diff::ByteDiffScanner;
 pub use segment_analysis::SegmentAnalyzer;
@@ -109,4 +111,12 @@ pub use unified_db::{
     UnifiedFlagDb, UnifiedFlag, UnifiedStats, UnifiedMetadata,
     SourceConfidence, Position, ItemInfo, ParamSourceInfo, TriggerInfo,
     UnifiedDbError,
+};
+pub use inventory_verification::{
+    InventoryVerificationService, InventoryVerificationResult, InventoryMismatchReport,
+    VerificationStats, VerificationConfidence, UniqueItemMapping, UniqueItemCategory,
+    UNIQUE_ITEMS, UNIQUE_ITEMS_BY_FLAG, FLAGS_BY_ITEM,
+};
+pub use item_chain_resolver::{
+    ItemChainResolver, ItemFlagChain, ChainFlag, FlagRole, FlagSource, ChainType,
 };

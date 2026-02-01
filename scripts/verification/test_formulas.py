@@ -21,7 +21,7 @@ from typing import List, Tuple, Optional, Dict
 script_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(script_dir))
 
-from verification.flag_formulas import FlagFormulas
+from verification.archive.flag_formulas import FlagFormulas
 from verification.save_parser import SaveParser, SlotData
 
 

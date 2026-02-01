@@ -301,6 +301,10 @@ fn calculate_midrange_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
 ///
 /// Returns Some((byte_offset, bit_position)) if the flag can be calculated
 /// Returns None if the flag type is unknown
+///
+/// NOTE: For tile flags, this uses the static TILE_BASE_OFFSET which may not be
+/// accurate for all saves. Use `get_flag_offset_calibrated` with a calibrated
+/// tile base for more accurate results.
 pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     // 10-digit open world tile flags (1000000000+)
     if flag_id >= 1_000_000_000 {
@@ -324,6 +328,64 @@ pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
 
     // Flags 1000000-9999999 are not commonly used
     None
+}
+
+/// Calculate byte offset and bit position for an event flag using a calibrated tile base.
+///
+/// This is the preferred method for tile flags when you have calibrated the tile base
+/// for the specific save file. The tile base varies per-save due to variable GaItems
+/// (inventory) section sizes.
+///
+/// # Arguments
+///
+/// * `flag_id` - The event flag ID
+/// * `calibrated_tile_base` - The calibrated tile base offset from CalibrationService
+///
+/// Returns Some((byte_offset, bit_position)) if the flag can be calculated
+/// Returns None if the flag type is unknown
+pub fn get_flag_offset_calibrated(flag_id: u32, calibrated_tile_base: u32) -> Option<(u32, u8)> {
+    // 10-digit open world tile flags (1000000000+) - use calibrated base
+    if flag_id >= 1_000_000_000 {
+        return calculate_tile_flag_offset_with_base(flag_id, calibrated_tile_base);
+    }
+
+    // Other flag types don't need calibration - delegate to standard function
+    get_flag_offset(flag_id)
+}
+
+/// Calculate tile flag offset using a specific base offset.
+///
+/// This allows using a calibrated base instead of the static TILE_BASE_OFFSET.
+fn calculate_tile_flag_offset_with_base(flag_id: u32, base_offset: u32) -> Option<(u32, u8)> {
+    let bit = (7 - (flag_id % 8)) as u8;
+
+    let tile_index = (flag_id - 1_000_000_000) / 10000;
+    let local_id = flag_id % 10000;
+
+    // LocalId > 6999 has no storage (consumables, etc.)
+    if local_id > MAX_TILE_LOCAL_ID {
+        return None;
+    }
+
+    let row = tile_index / 100;
+    let col = tile_index % 100;
+
+    // Calculate slot position in the tile array
+    let slot = (row as i32 - TILE_ROW_BASE as i32) * TILE_SLOTS_PER_ROW as i32
+             + (col as i32 - TILE_COL_BASE as i32);
+
+    if slot < 0 {
+        return None;
+    }
+
+    let slot_offset = base_offset + (slot as u32) * TILE_BYTES_PER_SLOT;
+    let byte_offset = slot_offset + local_id / 8;
+
+    if byte_offset >= EVENT_FLAGS_SIZE {
+        return None;
+    }
+
+    Some((byte_offset, bit))
 }
 
 /// Verification status for flag offset calculations
