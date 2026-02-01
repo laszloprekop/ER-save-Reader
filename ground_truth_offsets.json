@@ -3,11 +3,11 @@
     "generated_date": "2026-01-20T12:00:00.000000",
     "verification_method": "empirical_multi_save_with_probe",
     "total_flags_tested": 656,
-    "proven_count": 392,
+    "proven_count": 398,
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-02-01 - Added block 520000 with 12 verified flags from case-based verification system."
+    "last_probe_run": "2026-02-01 - Added 6 more verified flags in block 520000."
   },
   "summary": {
     "by_category": {
@@ -3319,6 +3319,60 @@
       "status": "proven",
       "confidence": 1.0,
       "notes": "Case verified 2026-02-01 via inventory differential"
+    },
+    "520600": {
+      "offset": 1416,
+      "bit": 7,
+      "name": "Rusted Anchor",
+      "category": "Weapon",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
+    },
+    "520610": {
+      "offset": 1417,
+      "bit": 5,
+      "name": "Roar Medallion",
+      "category": "Talisman",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
+    },
+    "520620": {
+      "offset": 1418,
+      "bit": 3,
+      "name": "Smithing-Stone Miner's Bell Bearing [1]",
+      "category": "Key Item",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
+    },
+    "520650": {
+      "offset": 1422,
+      "bit": 5,
+      "name": "Somberstone Miner's Bell Bearing [2]",
+      "category": "Key Item",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
+    },
+    "520660": {
+      "offset": 1423,
+      "bit": 3,
+      "name": "Dragon Heart",
+      "category": "Key Item",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
+    },
+    "520670": {
+      "offset": 1424,
+      "bit": 1,
+      "name": "Somber Smithing Stone [6]",
+      "category": "Material",
+      "status": "proven",
+      "confidence": 1.0,
+      "notes": "Case verified 2026-02-01 via inventory differential (5/5 slot match)"
     }
   },
   "formulas": {
@@ -3353,10 +3407,10 @@
       },
       "67000": {
         "block_start": 67000,
-        "base_offset": 37411,
+        "base_offset": null,
         "block_size": 1000,
-        "status": "needs_investigation",
-        "notes": "FLAGGED 2026-02-01: Investigation shows offset 37411 region contains all 0x00 bytes. Cookbook flags (67000, 67010, 67120, etc.) show UNSET even when items are present in inventory (e.g., Missionary's Cookbook [1] at item 9310 is in Slot 0 inventory but flag 67120 reads as unset). Original verification may have used different save file or flag IDs. Base offset needs re-verification."
+        "status": "blocked",
+        "notes": "BLOCKED 2026-02-01: BLOCK_ITEMS has completely incorrect flag-item mappings. E.g., BLOCK_ITEMS says 67120='Missionary's Cookbook [1]' but extracted_event_flags.json says 67120='Nomadic Warrior's Cookbook [21]'. Actual world pickup flags are: 67030, 67120, 67130, 67300, 67420, 67430, 67630, 67860, 67880, 67890, 67910. Need to rebuild BLOCK_ITEMS from game params before base can be verified."
       },
       "68000": {
         "block_start": 68000,

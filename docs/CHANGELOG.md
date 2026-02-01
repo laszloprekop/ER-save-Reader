@@ -4,6 +4,29 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.5.2 - Block 520000 Expansion & 67000 Investigation
+
+### Database Expansion
+- **Block 520000**: Added 6 new verified flags (5/5 inventory-differential match)
+  - 520600: Rusted Anchor
+  - 520610: Roar Medallion
+  - 520620: Smithing-Stone Miner's Bell Bearing [1]
+  - 520650: Somberstone Miner's Bell Bearing [2]
+  - 520660: Dragon Heart
+  - 520670: Somber Smithing Stone [6]
+- Block 520000 now has **18 verified flags** (was 12)
+
+### Data Corrections
+- **Block 67000**: Marked `blocked` status (was `needs_investigation`)
+  - BLOCK_ITEMS mappings are completely incorrect (e.g., says 67120="Missionary's Cookbook [1]" but game data says 67120="Nomadic Warrior's Cookbook [21]")
+  - Actual world pickup flags: 67030, 67120, 67130, 67300, 67420, 67430, 67630, 67860, 67880, 67890, 67910
+  - Need to rebuild flag-item mappings from game params before verification can proceed
+
+### Files Modified
+- `ground_truth_offsets.json`: Added 6 flags, updated block 67000 status
+
+---
+
 ## v0.5.1 - Schema Pre-filtering & Block Investigation
 
 ### Features
