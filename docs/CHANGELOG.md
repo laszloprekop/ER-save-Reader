@@ -4,6 +4,44 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.7.1 - Per-Section Pickup Base Discovery
+
+### Bug Fix
+- **Fixed dungeon pickup detection for Catacombs, Caves, Tunnels**
+  - Discovery: The linear formula `base + section * 1125` was WRONG
+  - Each (area, section) combination has its own empirically-discovered base offset
+  - Detection improved from ~25% to **100%** for all verified sections
+
+### Key Finding
+The linear section formula assumed contiguous memory allocation, but in reality:
+- Catacombs sections use bases ranging from 1785 to 3827 (non-linear)
+- Caves sections use bases ranging from 1786 to 31903 (wildly varying)
+- Tunnels sections use bases ranging from 1788 to 28979 (scattered)
+
+### Technical Changes
+- Added `DUNGEON_PICKUP_SECTION_BASES` HashMap with 89 verified entries
+- Each entry maps `(area, section)` → `base_offset`
+- Formula: `offset = section_base + local_id/8` (no section multiplication)
+- All 89 entries verified with 100% match rates across save files
+
+### Verification Results
+| Area | Before | After |
+|------|--------|-------|
+| Catacombs (30) | 27/106 (25%) | 106/106 (100%) |
+| Caves (31) | 34/140 (24%) | 140/140 (100%) |
+| Tunnels (32) | 23/56 (41%) | 56/56 (100%) |
+
+### Scripts Added
+- `scripts/verify_specific_pickups.py`: Check pickups against save data
+- `scripts/discover_per_section_bases.py`: Brute-force base discovery
+- `scripts/build_pickup_section_map.py`: Generate Rust HashMap code
+
+### Files Modified
+- `src/db/pickup_flags.rs`: Added DUNGEON_PICKUP_SECTION_BASES, updated calculation
+- `Cargo.toml`: bumped to 0.7.1
+
+---
+
 ## v0.7.0 - Complete Dungeon Pickup Database
 
 ### Features
