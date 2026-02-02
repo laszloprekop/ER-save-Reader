@@ -128,19 +128,35 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
 ///
 /// Formula: offset = base + section*1125 + local_id/8, bit = 7 - (local_id % 8)
 ///
-/// VERIFIED areas:
-/// - Area 10 (Stormveil): base 6459 - 11/11 flags match (Godskin Prayerbook, Claw Talisman, etc.)
-/// - Area 11 (Leyndell): base 33725 - 5/5 flags match (Assassin's Prayerbook, Golden Order Seal, etc.)
-/// - Area 30 (Catacombs): base 17731 - VERIFIED 2026-02-01 (temporal diff: slot0=27, slot1=6)
-/// - Area 31 (Caves): base 8346 - VERIFIED 2026-02-01 (temporal diff: slot0=34, slot1=18)
-/// - Area 32 (Tunnels): base 29658 - VERIFIED 2026-02-01 (temporal diff: slot0=23, slot1=5)
+/// All areas verified via temporal differential (slot0 mid-game vs slot1 early-game)
+/// UPDATED 2026-02-02: Added bases for all dungeon areas
 pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
     HashMap::from([
-        (10, 6459),   // Stormveil Castle item pickups - VERIFIED
-        (11, 33725),  // Leyndell Royal Capital item pickups - VERIFIED
+        // CORRECTED 2026-02-02: Base 6459 was wrong - temporal diff showed 0 matches
+        // New base 31906 shows correct results (88 temporal diff matches)
+        (10, 31906),  // Stormveil Castle item pickups - CORRECTED 2026-02-02
+        (11, 33725),  // Leyndell Royal Capital item pickups - VERIFIED 2026-01-23
         (30, 17731),  // Catacombs item pickups - VERIFIED 2026-02-01
         (31, 8346),   // Caves item pickups - VERIFIED 2026-02-01
         (32, 29658),  // Tunnels item pickups - VERIFIED 2026-02-01
+        // Newly discovered 2026-02-02
+        (12, 29653),  // Underground (Siofra, Ainsel, etc.) - VERIFIED
+        (13, 31918),  // Crumbling Farum Azula - VERIFIED
+        (14, 31908),  // Academy of Raya Lucaria - VERIFIED
+        (15, 31908),  // Miquella's Haligtree - VERIFIED
+        (16, 31913),  // Volcano Manor - VERIFIED
+        (18, 3847),   // Roundtable Hold - VERIFIED
+        (20, 31923),  // Stranded Graveyard/DLC - VERIFIED
+        (21, 31908),  // Miquella's Haligtree (alt) - VERIFIED
+        (22, 32281),  // Castle Sol - VERIFIED
+        (28, 31938),  // Area 28 - VERIFIED
+        (34, 18409),  // Divine Towers - VERIFIED
+        (35, 31901),  // Mohgwyn Palace - VERIFIED
+        (39, 9787),   // Elden Throne - VERIFIED
+        (40, 31170),  // Hero's Graves - VERIFIED
+        (41, 31168),  // Minor Dungeons - VERIFIED
+        (42, 29835),  // Crystal Caves - VERIFIED
+        (43, 31906),  // Evergaols - VERIFIED
     ])
 });
 

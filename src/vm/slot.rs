@@ -16,7 +16,7 @@ pub mod slot_view_model {
         save::common::save_slot::SaveSlot,
         vm::{
             equipment::equipment_view_model::EquipmentViewModel,
-            events::events_view_model::EventsViewModel,
+            events::events_view_model::{EventsViewModel, GraceStatus},
             export::{
                 ExportData, ExportEquipment, ExportEquipmentItem, ExportEventItem,
                 ExportEvents, ExportGeneral, ExportInventory, ExportInventoryItem,
@@ -478,10 +478,12 @@ pub mod slot_view_model {
             let graces: Vec<ExportEventItem> = ev
                 .graces
                 .iter()
-                .map(|(grace, discovered)| {
+                .map(|(grace, status)| {
                     let grace_info = graces_lookup.get(grace);
                     let name = grace_info.map(|g| g.2).unwrap_or("Unknown");
-                    ExportEventItem::new(name, *discovered)
+                    // For export, only report Discovered as true; Unreliable exports as false
+                    let discovered = *status == GraceStatus::Discovered;
+                    ExportEventItem::new(name, discovered)
                 })
                 .collect();
             drop(graces_lookup);

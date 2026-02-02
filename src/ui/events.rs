@@ -1,7 +1,7 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status}}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
@@ -19,6 +19,7 @@ pub mod events {
                     let colosseums = ui.add_sized([100., 40.], egui::Button::new("Colosseums"));
                     let landmarks = ui.add_sized([100., 40.], egui::Button::new("Landmarks"));
                     let world_pickups = ui.add_sized([100., 40.], egui::Button::new("World Pickups"));
+                    let dungeon_pickups = ui.add_sized([100., 60.], egui::Button::new("Dungeon\nPickups"));
                     ui.separator();
                     let verification = ui.add_sized([100., 40.], egui::Button::new("Verification"));
 
@@ -31,6 +32,7 @@ pub mod events {
                     if colosseums.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Colosseums}
                     if landmarks.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Landmarks}
                     if world_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::WorldPickups}
+                    if dungeon_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::DungeonPickups}
                     if verification.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Verification}
 
                     // Highlight active
@@ -45,6 +47,7 @@ pub mod events {
                         EventsRoute::Colosseums => {colosseums.highlight();},
                         EventsRoute::Landmarks => {landmarks.highlight();},
                         EventsRoute::WorldPickups => {world_pickups.highlight();},
+                        EventsRoute::DungeonPickups => {dungeon_pickups.highlight();},
                         EventsRoute::Verification => {verification.highlight();},
                     }
                 })
@@ -67,6 +70,7 @@ pub mod events {
                     EventsRoute::Colosseums => {colosseums(ui, vm);},
                     EventsRoute::Landmarks => {landmarks_view(ui, vm);},
                     EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags);},
+                    EventsRoute::DungeonPickups => {dungeon_pickups(ui, vm, event_flags);},
                     EventsRoute::Verification => {
                         // Inventory Verification Triangle section first
                         if inventory.is_some() || event_flags.is_some() {
@@ -89,18 +93,28 @@ pub mod events {
         let graces_data = &vm.slots[vm.index].events_vm.graces;
         let grace_groups = &vm.slots[vm.index].events_vm.grace_groups;
 
-        // Count discovered
-        let discovered_count = graces_data.values().filter(|v| **v).count();
+        // Count discovered (only from reliable blocks)
+        let discovered_count = graces_data.values().filter(|v| v.is_discovered()).count();
+        let unreliable_count = graces_data.values().filter(|v| v.is_unreliable()).count();
         let total_count = graces_data.len();
 
         // Header
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Region | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
+        if unreliable_count > 0 {
+            ui.label(RichText::new(format!("? = unreliable block ({} graces) - result may be inaccurate", unreliable_count))
+                .color(Color32::from_rgb(255, 200, 100)).small());
+        }
         ui.separator();
 
-        // Summary
-        let summary = format!("Sites of Grace: {}/{} discovered", discovered_count, total_count);
+        // Summary - show reliable discovered vs total reliable
+        let reliable_total = total_count - unreliable_count;
+        let summary = if unreliable_count > 0 {
+            format!("Sites of Grace: {}/{} discovered ({} unreliable)", discovered_count, reliable_total, unreliable_count)
+        } else {
+            format!("Sites of Grace: {}/{} discovered", discovered_count, total_count)
+        };
         ui.label(RichText::new(&summary).strong());
         ui.separator();
 
@@ -109,19 +123,57 @@ pub mod events {
         // Group by region
         for (map_id, grace_ids) in grace_groups {
             let region_name = MAP_NAME.lock().unwrap().get(map_id).cloned().unwrap_or("Unknown");
-            let region_discovered = grace_ids.iter().filter(|g| graces_data.get(g) == Some(&true)).count();
+            let region_discovered = grace_ids.iter()
+                .filter(|g| graces_data.get(g).map(|s| s.is_discovered()).unwrap_or(false))
+                .count();
+            let region_unreliable = grace_ids.iter()
+                .filter(|g| graces_data.get(g).map(|s| s.is_unreliable()).unwrap_or(false))
+                .count();
 
-            ui.label(RichText::new(format!("{} ({}/{})", region_name, region_discovered, grace_ids.len())).strong());
+            let region_header = if region_unreliable > 0 {
+                format!("{} ({}/{}, {} unreliable)", region_name, region_discovered, grace_ids.len() - region_unreliable, region_unreliable)
+            } else {
+                format!("{} ({}/{})", region_name, region_discovered, grace_ids.len())
+            };
+            ui.label(RichText::new(region_header).strong());
 
             for grace_id in grace_ids {
                 if let Some(grace_info) = graces_lookup.get(grace_id) {
-                    let discovered = graces_data.get(grace_id) == Some(&true);
-                    let status = if discovered { "[X]" } else { "[ ]" };
+                    let grace_status = graces_data.get(grace_id).copied().unwrap_or(GraceStatus::NotDiscovered);
                     let flag_id = grace_info.1;
                     let name = grace_info.2;
 
-                    let row_text = format!("{} | {} | {} | {}", status, name, region_name, flag_id);
-                    display_event_row(ui, &row_text, name, flag_id, discovered);
+                    let (status_text, text_color) = match grace_status {
+                        GraceStatus::Discovered => ("[X]", Color32::from_rgb(100, 200, 100)),
+                        GraceStatus::NotDiscovered => ("[ ]", Color32::LIGHT_GRAY),
+                        GraceStatus::Unreliable => ("[?]", Color32::from_rgb(255, 200, 100)),
+                    };
+
+                    let row_text = format!("{} | {} | {} | {}", status_text, name, region_name, flag_id);
+
+                    let response = ui.add(
+                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
+                            .sense(egui::Sense::click())
+                    );
+
+                    if response.double_clicked() {
+                        ui.output_mut(|o| o.copied_text = row_text.clone());
+                    }
+
+                    response.context_menu(|ui| {
+                        if ui.button("Copy row").clicked() {
+                            ui.output_mut(|o| o.copied_text = row_text.clone());
+                            ui.close_menu();
+                        }
+                        if ui.button("Copy name").clicked() {
+                            ui.output_mut(|o| o.copied_text = name.to_string());
+                            ui.close_menu();
+                        }
+                        if ui.button("Copy flag ID").clicked() {
+                            ui.output_mut(|o| o.copied_text = flag_id.to_string());
+                            ui.close_menu();
+                        }
+                    });
                 }
             }
             ui.separator();
@@ -581,6 +633,317 @@ pub mod events {
 
             ui.separator();
         }
+    }
+
+    fn dungeon_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
+        use crate::db::dungeon_pickups::DungeonPickup;
+        use crate::db::pickup_flags::DUNGEON_SECTION_SIZE;
+        use crate::util::bit::bit::get_bit;
+
+        let filter = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter;
+
+        // Type filter row
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Type:").color(Color32::LIGHT_GRAY));
+            egui::ComboBox::from_id_salt("dungeon_pickup_type_filter")
+                .selected_text(match filter.type_filter {
+                    PickupTypeFilter::All => "All",
+                    PickupTypeFilter::GoldenRunes => "Golden Runes",
+                    PickupTypeFilter::SmithingStones => "Smithing Stones",
+                    PickupTypeFilter::SomberStones => "Somber Stones",
+                    PickupTypeFilter::Glovewort => "Glovewort",
+                    PickupTypeFilter::Weapons => "Weapons",
+                    PickupTypeFilter::Armor => "Armor",
+                    PickupTypeFilter::Talismans => "Talismans",
+                    PickupTypeFilter::AshesOfWar => "Ashes of War",
+                    PickupTypeFilter::KeyItems => "Key Items",
+                    PickupTypeFilter::CraftingMaterials => "Crafting",
+                    PickupTypeFilter::Consumables => "Consumables",
+                    PickupTypeFilter::Other => "Other",
+                })
+                .show_ui(ui, |ui| {
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::All, "All");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::GoldenRunes, "Golden Runes");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::SmithingStones, "Smithing Stones");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::SomberStones, "Somber Stones");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Glovewort, "Glovewort");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Weapons, "Weapons");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Armor, "Armor");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Talismans, "Talismans");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::AshesOfWar, "Ashes of War");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::KeyItems, "Key Items");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::CraftingMaterials, "Crafting Materials");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Consumables, "Consumables");
+                    ui.selectable_value(&mut filter.type_filter, PickupTypeFilter::Other, "Other");
+                });
+        });
+
+        // Dungeon filter and search row
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Dungeon:").color(Color32::LIGHT_GRAY));
+
+            // Get unique dungeons from data
+            let mut dungeons: Vec<&str> = DUNGEON_PICKUPS.iter()
+                .map(|p| get_dungeon_area_name(p.dungeon_area))
+                .collect::<std::collections::HashSet<_>>()
+                .into_iter()
+                .collect();
+            dungeons.sort();
+            dungeons.insert(0, "All");
+
+            egui::ComboBox::from_id_salt("dungeon_pickups_dungeon_filter")
+                .selected_text(&filter.dungeon_filter)
+                .show_ui(ui, |ui| {
+                    for dungeon in &dungeons {
+                        ui.selectable_value(&mut filter.dungeon_filter, dungeon.to_string(), *dungeon);
+                    }
+                });
+
+            ui.separator();
+            ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
+            ui.text_edit_singleline(&mut filter.search);
+        });
+
+        // Collected filter row
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
+            ui.selectable_value(&mut filter.collected_filter, CollectedFilter::All, "All");
+            ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Collected, "Collected");
+            ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
+            ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
+        });
+        ui.separator();
+
+        // Get current filter values (to avoid borrow issues)
+        let type_filter = filter.type_filter;
+        let collected_filter = filter.collected_filter;
+        let dungeon_filter = filter.dungeon_filter.clone();
+        let search = filter.search.clone();
+        let search_lower = search.to_lowercase();
+
+        // Count collected/total
+        let mut collected = 0;
+        let mut total = 0;
+        let mut filtered_total = 0;
+        let mut filtered_collected = 0;
+        let mut unverified_count = 0;
+
+        let ef = event_flags.unwrap_or(&[]);
+
+        // Helper to check if dungeon pickup flag is set
+        fn is_dungeon_pickup_collected(ef: &[u8], pickup: &DungeonPickup) -> (bool, bool) {
+            // Check if base is verified
+            let base = DUNGEON_PICKUP_BASES.get(&pickup.dungeon_area);
+            if base.is_none() {
+                return (false, false); // Unverified
+            }
+            let base = *base.unwrap();
+
+            let byte_offset = base + pickup.section * DUNGEON_SECTION_SIZE + pickup.event_flag % 10000 / 8;
+            let bit_pos = 7 - (pickup.event_flag % 8);
+
+            if byte_offset as usize >= ef.len() {
+                return (false, false);
+            }
+
+            let is_set = get_bit(ef[byte_offset as usize], bit_pos as u8);
+            (is_set, true) // true = verified base
+        }
+
+        for pickup in DUNGEON_PICKUPS.iter() {
+            let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
+            if is_collected {
+                collected += 1;
+            }
+            if !is_verified {
+                unverified_count += 1;
+            }
+            total += 1;
+
+            // Check if passes filters
+            if passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
+                filtered_total += 1;
+                if is_collected {
+                    filtered_collected += 1;
+                }
+            }
+        }
+
+        // Header
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status | Flag ID | Item | Category | Qty | Dungeon").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
+        });
+        if unverified_count > 0 {
+            ui.label(RichText::new("! = unverified base (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
+        }
+        ui.separator();
+
+        // Summary
+        let summary = if filtered_total == total {
+            if unverified_count > 0 {
+                format!("Dungeon Pickups: {}/{} collected ({} unverified)", collected, total, unverified_count)
+            } else {
+                format!("Dungeon Pickups: {}/{} collected", collected, total)
+            }
+        } else {
+            format!("Dungeon Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
+        };
+        ui.label(RichText::new(&summary).strong());
+        ui.separator();
+
+        // Group by dungeon area
+        let mut dungeons_map: std::collections::BTreeMap<u32, Vec<_>> = std::collections::BTreeMap::new();
+        for pickup in DUNGEON_PICKUPS.iter() {
+            dungeons_map.entry(pickup.dungeon_area).or_default().push(pickup);
+        }
+
+        for (area, pickups) in dungeons_map {
+            let area_name = get_dungeon_area_name(area);
+
+            // Count collected and filtered in this area
+            let mut area_collected = 0;
+            let mut area_filtered = 0;
+
+            for pickup in &pickups {
+                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
+                if is_collected {
+                    area_collected += 1;
+                }
+                if passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
+                    area_filtered += 1;
+                }
+            }
+
+            // Skip area if no items pass filter
+            if area_filtered == 0 {
+                continue;
+            }
+
+            let area_header = if area_filtered == pickups.len() {
+                format!("{} ({}/{})", area_name, area_collected, pickups.len())
+            } else {
+                format!("{} ({}/{} collected, showing {})", area_name, area_collected, pickups.len(), area_filtered)
+            };
+            ui.label(RichText::new(area_header).strong());
+
+            for pickup in &pickups {
+                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
+
+                // Apply filters
+                if !passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
+                    continue;
+                }
+
+                // Add "!" indicator for unverified bases
+                let unverified_marker = if !is_verified { "!" } else { "" };
+                let status = if is_collected { "[X]" } else { "[ ]" };
+
+                let row_text = format!(
+                    "{}{} | {} | {} | {} | {} | {}",
+                    status, unverified_marker, pickup.event_flag, pickup.name,
+                    pickup.category.display_name(), pickup.quantity, area_name
+                );
+
+                let text_color = if !is_verified {
+                    Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
+                } else if is_collected {
+                    Color32::from_rgb(100, 200, 100)
+                } else {
+                    Color32::LIGHT_GRAY
+                };
+
+                let response = ui.add(
+                    egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
+                        .sense(egui::Sense::click())
+                );
+
+                if response.double_clicked() {
+                    ui.output_mut(|o| o.copied_text = row_text.clone());
+                }
+
+                response.context_menu(|ui| {
+                    if ui.button("Copy row").clicked() {
+                        ui.output_mut(|o| o.copied_text = row_text.clone());
+                        ui.close_menu();
+                    }
+                    if ui.button(format!("Copy flag ID: {}", pickup.event_flag)).clicked() {
+                        ui.output_mut(|o| o.copied_text = pickup.event_flag.to_string());
+                        ui.close_menu();
+                    }
+                });
+            }
+
+            ui.separator();
+        }
+    }
+
+    fn passes_dungeon_pickup_filters(
+        pickup: &crate::db::dungeon_pickups::DungeonPickup,
+        is_collected: bool,
+        is_verified: bool,
+        type_filter: PickupTypeFilter,
+        collected_filter: CollectedFilter,
+        dungeon_filter: &str,
+        search_lower: &str,
+    ) -> bool {
+        // Apply collected filter
+        match collected_filter {
+            CollectedFilter::All => {},
+            CollectedFilter::Collected => {
+                if !is_collected {
+                    return false;
+                }
+            },
+            CollectedFilter::NotCollected => {
+                if is_collected {
+                    return false;
+                }
+            },
+            CollectedFilter::Unverified => {
+                // Show only items with unverified bases
+                if is_verified {
+                    return false;
+                }
+            },
+        }
+
+        // Apply type filter
+        let type_match = match type_filter {
+            PickupTypeFilter::All => true,
+            PickupTypeFilter::GoldenRunes => pickup.category == PickupCategory::GoldenRunes,
+            PickupTypeFilter::SmithingStones => pickup.category == PickupCategory::SmithingStones,
+            PickupTypeFilter::SomberStones => pickup.category == PickupCategory::SomberStones,
+            PickupTypeFilter::Glovewort => pickup.category == PickupCategory::Glovewort,
+            PickupTypeFilter::Weapons => pickup.category == PickupCategory::Weapons,
+            PickupTypeFilter::Armor => pickup.category == PickupCategory::Armor,
+            PickupTypeFilter::Talismans => pickup.category == PickupCategory::Talismans,
+            PickupTypeFilter::AshesOfWar => pickup.category == PickupCategory::AshesOfWar,
+            PickupTypeFilter::KeyItems => pickup.category == PickupCategory::KeyItems,
+            PickupTypeFilter::CraftingMaterials => pickup.category == PickupCategory::CraftingMaterials,
+            PickupTypeFilter::Consumables => pickup.category == PickupCategory::Consumables,
+            PickupTypeFilter::Other => pickup.category == PickupCategory::Other,
+        };
+
+        if !type_match {
+            return false;
+        }
+
+        // Apply dungeon filter
+        let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
+        if dungeon_filter != "All" && dungeon_name != dungeon_filter {
+            return false;
+        }
+
+        // Apply search
+        if !search_lower.is_empty() {
+            let matches = pickup.name.to_lowercase().contains(search_lower)
+                || dungeon_name.to_lowercase().contains(search_lower);
+            if !matches {
+                return false;
+            }
+        }
+
+        true
     }
 
     fn passes_pickup_filters(

@@ -4,6 +4,49 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.7.0 - Complete Dungeon Pickup Database
+
+### Features
+- **Complete dungeon pickup database** (2,108 entries)
+  - Covers all 23 dungeon area types: Stormveil Castle, Leyndell, Catacombs, Caves, Tunnels, Hero's Graves, etc.
+  - Up from 1,950 entries to 2,108 (including 150 items without MSB position data)
+  - Item names resolved from EquipParam files (weapons, armor, goods, talismans, ashes of war)
+  - Categories: Golden Runes (359), Smithing Stones (293), Consumables (1,115), Weapons (145), Armor (112), Talismans (57)
+
+- **New Dungeon Pickups UI view**
+  - Filter by dungeon area, item category, and collection status
+  - Shows collection progress per area (e.g., "Catacombs: 45/123 collected")
+  - Search functionality for item names
+  - Highlights items from unverified pickup bases
+
+- **Dungeon pickup generation script** (`scripts/generate_dungeon_pickups.py`)
+  - Combines extracted_event_flags.json with ItemLotParam_map for complete coverage
+  - Cross-references EquipParam files for accurate item names
+  - Category-aware name resolution (handles overlapping item IDs)
+  - Outputs analysis report showing coverage by area
+
+- **Grace reliability improvements**
+  - GraceStatus enum with Discovered/NotDiscovered/Unreliable variants
+  - Unreliable block detection shown in UI with warning
+  - Count summaries exclude unreliable graces
+
+### Technical Details
+- Flag formula: `event_flag = row_id + 7000` for dungeon pickups
+- 1,958 pickups have MSB position data, 150 are ItemLotParam-only
+- Section size: 1,125 bytes per dungeon section
+- All 17 pickup base offsets verified via temporal differential analysis
+
+### Files Modified
+- `src/db/dungeon_pickups.rs`: Regenerated with 2,108 entries
+- `src/db/pickup_flags.rs`: Added DUNGEON_PICKUP_BASES map
+- `src/ui/events.rs`: New dungeon_pickups() view, grace reliability display
+- `src/vm/events.rs`: Added GraceStatus enum, DungeonPickups route
+- `scripts/generate_dungeon_pickups.py`: New generation script
+- `scripts/discover_all_dungeon_pickup_bases.py`: Discovery tool
+- `scripts/verify_dungeon_pickup_bases.py`: Verification tool
+
+---
+
 ## v0.6.0 - WASM Shared EventFlags Detection
 
 ### Features

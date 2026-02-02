@@ -25,6 +25,7 @@ pub mod events_view_model {
         Colosseums,
         Landmarks,
         WorldPickups,
+        DungeonPickups,
         Verification,
     }
 
@@ -97,6 +98,25 @@ pub mod events_view_model {
     }
 
     #[derive(Clone)]
+    pub struct DungeonPickupsFilter {
+        pub type_filter: PickupTypeFilter,
+        pub collected_filter: CollectedFilter,
+        pub dungeon_filter: String,  // "All" or specific dungeon area name
+        pub search: String,
+    }
+
+    impl Default for DungeonPickupsFilter {
+        fn default() -> Self {
+            Self {
+                type_filter: PickupTypeFilter::All,
+                collected_filter: CollectedFilter::All,
+                dungeon_filter: "All".to_string(),
+                search: String::new(),
+            }
+        }
+    }
+
+    #[derive(Clone)]
     pub struct EventsViewModel  {
         pub current_route: EventsRoute,
         pub grace_groups: BTreeMap<MapName, Vec<Grace>>,
@@ -109,6 +129,7 @@ pub mod events_view_model {
         pub colosseums: BTreeMap<Colosseum, bool>,
         pub landmarks: BTreeMap<Landmark, bool>,
         pub world_pickups_filter: WorldPickupsFilter,
+        pub dungeon_pickups_filter: DungeonPickupsFilter,
         /// Verification comparison view model (per-slot)
         pub verification_vm: VerificationViewModel,
     }
@@ -127,6 +148,7 @@ pub mod events_view_model {
                 colosseums: Default::default(),
                 landmarks: Default::default(),
                 world_pickups_filter: Default::default(),
+                dungeon_pickups_filter: Default::default(),
                 verification_vm: Default::default(),
              }
         }

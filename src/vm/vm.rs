@@ -20,6 +20,7 @@ pub mod vm {
         },
         util::{regulation::Regulation, validator::validator::Validator},
         vm::{
+            events::events_view_model::GraceStatus,
             inventory::{InventoryGaitemType, InventoryItemType},
             profile_summary::slot_view_model::ProfileSummaryViewModel,
             regulation::regulation_view_model::RegulationViewModel,
@@ -408,10 +409,16 @@ pub mod vm {
 
         fn update_events(&self, save_type: &mut SaveType, index: usize) {
             // Graces - use formula-based offset calculation
-            for (grace, on) in self.slots[index].events_vm.graces.iter() {
+            // Skip unreliable graces to avoid writing potentially incorrect values
+            for (grace, status) in self.slots[index].events_vm.graces.iter() {
+                // Only write graces from reliable blocks
+                if *status == GraceStatus::Unreliable {
+                    continue;
+                }
                 let grace_info = GRACES.lock().unwrap()[&grace];
                 if let Some((byte_offset, bit_position)) = get_flag_offset(grace_info.1) {
-                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, *on);
+                    let on = *status == GraceStatus::Discovered;
+                    save_type.set_character_event_flag(index, byte_offset as usize, bit_position, on);
                 }
             }
 
