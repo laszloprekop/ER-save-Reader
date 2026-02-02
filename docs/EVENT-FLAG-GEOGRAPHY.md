@@ -122,16 +122,17 @@ Dungeons and special areas use an 8-digit format:
 
 #### Legacy Dungeons (Major Story Areas)
 
-| Area | Name | Event Base | Pickup Base* | Status |
-|------|------|------------|--------------|--------|
-| 10 | Stormveil Castle | 4112 | 6459 | Pickup base verified |
-| 11 | Leyndell, Royal Capital | 8612 | 33725 | Pickup base verified |
-| 13 | Crumbling Farum Azula | 26612 | - | Unverified |
-| 14 | Academy of Raya Lucaria | 29987 | - | Event base verified |
-| 15 | Miquella's Haligtree | 33362 | - | Unverified |
-| 16 | Volcano Manor | 40517 | - | Event base verified |
+| Area | Name | Event Base | Pickup Status |
+|------|------|------------|---------------|
+| 10 | Stormveil Castle | 4112 | Per-section bases verified (2 sections) |
+| 11 | Leyndell, Royal Capital | 8612 | Per-section bases verified (3 sections) |
+| 12 | Underground (Siofra, Ainsel) | 15362 | Per-section bases verified (5 sections) |
+| 13 | Crumbling Farum Azula | 26612 | Per-section bases verified (1 section) |
+| 14 | Academy of Raya Lucaria | 29987 | Per-section bases verified (1 section) |
+| 15 | Miquella's Haligtree | 33362 | Per-section bases verified (1 section) |
+| 16 | Volcano Manor | 40517 | Per-section bases verified (1 section) |
 
-*Pickup bases are for item pickups (local_id >= 7000). See "Dungeon Pickup Bases" section below.
+*Item pickups use per-section lookup, NOT the linear formula. See "Dungeon Pickup Bases" section below.
 
 #### Minor Dungeons
 
@@ -168,25 +169,48 @@ bit_position = 7 - (flag_id % 8)
 
 **Source File**: `legacymap.eventflagalloclist`
 
-#### Dungeon Pickup Bases (IMPORTANT DISCOVERY 2026-01-23)
+#### Dungeon Pickup Bases (CRITICAL DISCOVERY 2026-02-02)
 
-**Item pickup flags (local_id >= 7000) use DIFFERENT bases than general dungeon events.**
+**Item pickup flags (local_id >= 7000) use COMPLETELY DIFFERENT allocation than general dungeon events.**
 
 The general dungeon event bases work for graces, boss defeats, etc. (local_id 0-999).
-But item pickups use separate "pickup bases" that must be empirically discovered:
+But item pickups do NOT follow the linear section formula. Each (area, section) has its own empirically-discovered base.
 
-| Area | General Event Base | Item Pickup Base | Verification |
-|------|-------------------|------------------|--------------|
-| 10 (Stormveil) | 4112 | **6459** | 11/11 flags verified |
-| 11 (Leyndell) | 8612 | **33725** | 5/5 flags verified |
+##### The Linear Formula is WRONG
 
-**Formula for item pickups (local_id >= 7000)**:
+The old formula `pickup_base + section * 1125 + local_id / 8` assumed sections were allocated contiguously in memory. **This is incorrect.**
+
+Empirical testing showed:
+- Catacombs sections use bases ranging from 1785 to 3827 (non-linear)
+- Caves sections use bases ranging from 1786 to 31903 (wildly varying)
+- Tunnels sections use bases ranging from 1788 to 28979 (scattered)
+
+##### Correct Formula (Per-Section Lookup)
+
 ```
-byte_offset = pickup_base + section * 1125 + local_id / 8
+section_base = DUNGEON_PICKUP_SECTION_BASES[(area, section)]
+byte_offset = section_base + local_id / 8
 bit_position = 7 - (flag_id % 8)
 ```
 
-**Note**: No consistent offset pattern found between general and pickup bases. Each area requires empirical verification using known inventory items.
+##### Verified Section Bases (89 total)
+
+| Area | Sections | Base Range | Example |
+|------|----------|------------|---------|
+| 10 (Stormveil) | 0-1 | 1787-31904 | (10,0)→31904 |
+| 11 (Leyndell) | 0,5,10 | 1812-31903 | (11,0)→31903 |
+| 12 (Underground) | 1,2,3,5,7 | 31900-31903 | (12,2)→31903 |
+| 30 (Catacombs) | 0-20 | 1785-3827 | (30,6)→3827 |
+| 31 (Caves) | 0-7,9-12,15,17-22 | 1786-31903 | (31,21)→31903 |
+| 32 (Tunnels) | 0-2,4-5,7-8,11 | 1788-28979 | (32,8)→28979 |
+
+Full mapping in `src/db/pickup_flags.rs::DUNGEON_PICKUP_SECTION_BASES`
+
+##### Discovery Scripts
+
+- `scripts/discover_per_section_bases.py` - Brute-force search per section
+- `scripts/build_pickup_section_map.py` - Generate Rust HashMap from save files
+- `scripts/verify_specific_pickups.py` - Verify pickups against actual save data
 
 ---
 

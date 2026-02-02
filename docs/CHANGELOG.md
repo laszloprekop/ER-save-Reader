@@ -4,6 +4,23 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.7.2 - Documentation: Per-Section Discovery
+
+### Documentation
+- Updated `docs/EVENT-FLAG-GEOGRAPHY.md` with per-section discovery findings
+  - Added "Dungeon Pickup Bases (CRITICAL DISCOVERY)" section
+  - Documented why linear formula was wrong
+  - Added table of verified section bases (89 total)
+  - Listed discovery scripts for future reference
+  - Updated Legacy Dungeons table with verification status
+
+### Files Modified
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Added per-section discovery documentation
+- `docs/CHANGELOG.md`: Added v0.7.2 entry
+- `Cargo.toml`: bumped to 0.7.2
+
+---
+
 ## v0.7.1 - Per-Section Pickup Base Discovery
 
 ### Bug Fix
