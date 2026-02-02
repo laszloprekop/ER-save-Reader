@@ -4,6 +4,43 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.6.0 - WASM Shared EventFlags Detection
+
+### Features
+- **Single source of truth for EventFlags detection**
+  - New `wasm-event-flags` crate provides shared detection algorithm
+  - Used by both ER-save-Editor (native Rust) and elden-map (via WASM)
+  - Eliminates implementation drift between projects
+  - Guarantees identical detection results
+
+- **Improved detection algorithm**
+  - Added negative validation flags (late-game graces that should NOT be set)
+  - Prevents false positives from random data matching bit patterns
+  - Fixed search start offset to 0x12000 (73,728 bytes)
+
+- **Detection parameters in ground_truth_offsets.json**
+  - Added `event_flags_detection` section with all validation flags
+  - Documents positive validation (7 flags) and negative validation (6 flags)
+  - Single source of truth for detection configuration
+
+### Architecture
+- `crates/wasm-event-flags/` - New Rust crate with detection algorithm
+- `src/save/common/event_flags_detection.rs` - Delegates to shared crate
+- Builds to WebAssembly for elden-map via `wasm-pack`
+
+### Documentation
+- Added `docs/WASM-EVENT-FLAGS.md` with full documentation
+- Updated `CLAUDE.md` with WASM docs reference
+
+### Files Modified
+- `Cargo.toml`: Added workspace, wasm-event-flags dependency
+- `crates/wasm-event-flags/`: New shared detection crate
+- `src/save/common/event_flags_detection.rs`: Delegates to shared crate
+- `ground_truth_offsets.json`: Added event_flags_detection section
+- `docs/WASM-EVENT-FLAGS.md`: New documentation
+
+---
+
 ## v0.5.4 - Item Pickup Auto-Completion & Late-Game Grace Fixes
 
 ### Features

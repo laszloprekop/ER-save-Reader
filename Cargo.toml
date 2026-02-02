@@ -1,9 +1,13 @@
+[workspace]
+members = [".", "crates/wasm-event-flags"]
+
 [package]
 name = "er-save-editor"
-version = "0.5.4"
+version = "0.6.0"
 edition = "2021"
 
 [dependencies]
+wasm-event-flags = { path = "crates/wasm-event-flags" }
 aes = "0.8.4"
 binary-reader = "0.4.5"
 bitflags = "2.4.2"

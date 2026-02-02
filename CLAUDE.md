@@ -33,9 +33,12 @@ Treat third party resources with caution because we don't have control over thei
 |-------|----------|
 | **System architecture** | `docs/ARCHITECTURE.md` |
 | Event flag geography & formulas | `docs/EVENT-FLAG-GEOGRAPHY.md` |
+| **WASM shared detection** | `docs/WASM-EVENT-FLAGS.md` |
 | Discovery methodology | `docs/discovery-verification-cycle.md` |
 | Corroboration system | `docs/CORROBORATION-SYSTEM.md` |
 | Database coverage | `docs/DATABASE_COVERAGE_ANALYSIS.md` |
 | Ground truth data | `ground_truth_offsets.json` |
 
-**Single Source of Truth**: Always use `ground_truth_offsets.json` for offset values. Never use `flag_formulas.py` which contains outdated values.
+**Single Source of Truth**:
+- Offset values: `ground_truth_offsets.json` (never use `flag_formulas.py`)
+- EventFlags detection: `crates/wasm-event-flags/` (shared with elden-map via WASM)

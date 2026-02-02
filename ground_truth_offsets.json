@@ -7,7 +7,119 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-02-01 - Added 6 more verified flags in block 520000."
+    "last_probe_run": "2026-02-02 - Fixed EF detection algorithm, added shared validation flags."
+  },
+  "event_flags_detection": {
+    "description": "Parameters for detecting EventFlags section offset within slot data. SINGLE SOURCE OF TRUTH for both ER-save-Editor and elden-map.",
+    "search_start": 73728,
+    "search_start_hex": "0x12000",
+    "max_search_range": 200000,
+    "positive_validation_flags": [
+      {
+        "flag_id": 71800,
+        "byte_offset": 2725,
+        "bit_position": 7,
+        "name": "Cave of Knowledge",
+        "tier": 1,
+        "notes": "Tutorial grace - MUST be set for any playable character"
+      },
+      {
+        "flag_id": 71801,
+        "byte_offset": 2725,
+        "bit_position": 6,
+        "name": "Stranded Graveyard",
+        "tier": 1,
+        "notes": "Tutorial grace - MUST be set for any playable character"
+      },
+      {
+        "flag_id": 76100,
+        "byte_offset": 3262,
+        "bit_position": 3,
+        "name": "The First Step",
+        "tier": 1,
+        "notes": "First overworld grace - MUST be set for any playable character"
+      },
+      {
+        "flag_id": 76101,
+        "byte_offset": 3262,
+        "bit_position": 2,
+        "name": "Church of Elleh",
+        "tier": 1,
+        "notes": "Early game grace - MUST be set for any playable character"
+      },
+      {
+        "flag_id": 76102,
+        "byte_offset": 3262,
+        "bit_position": 1,
+        "name": "Gatefront Ruins",
+        "tier": 2,
+        "notes": "Early game grace - likely set for most characters"
+      },
+      {
+        "flag_id": 76104,
+        "byte_offset": 3263,
+        "bit_position": 7,
+        "name": "Agheel Lake South",
+        "tier": 2,
+        "notes": "Early game grace - helps distinguish from false positives"
+      },
+      {
+        "flag_id": 76106,
+        "byte_offset": 3263,
+        "bit_position": 5,
+        "name": "Church of Dragon Communion",
+        "tier": 2,
+        "notes": "Early game grace - helps distinguish from false positives"
+      }
+    ],
+    "negative_validation_flags": [
+      {
+        "flag_id": 76223,
+        "byte_offset": 3277,
+        "bit_position": 0,
+        "name": "Fortified Manor, First Floor",
+        "notes": "Leyndell Capital - requires 2 Great Runes, should NOT be set for early/mid-game"
+      },
+      {
+        "flag_id": 76224,
+        "byte_offset": 3278,
+        "bit_position": 7,
+        "name": "East Capital Rampart",
+        "notes": "Leyndell Capital - requires 2 Great Runes"
+      },
+      {
+        "flag_id": 76225,
+        "byte_offset": 3278,
+        "bit_position": 6,
+        "name": "Divine Bridge",
+        "notes": "Leyndell Capital - requires 2 Great Runes"
+      },
+      {
+        "flag_id": 76300,
+        "byte_offset": 3287,
+        "bit_position": 3,
+        "name": "Zamor Ruins",
+        "notes": "Mountaintops of the Giants - very late game"
+      },
+      {
+        "flag_id": 76301,
+        "byte_offset": 3287,
+        "bit_position": 2,
+        "name": "Ancient Snow Valley Ruins",
+        "notes": "Mountaintops of the Giants - very late game"
+      },
+      {
+        "flag_id": 76350,
+        "byte_offset": 3293,
+        "bit_position": 5,
+        "name": "Haligtree Town",
+        "notes": "Miquella's Haligtree - endgame optional area"
+      }
+    ],
+    "algorithm": {
+      "description": "Search from search_start, find ALL offsets where ALL tier-1 positive flags match, then return FIRST offset with ALL negative flags UNSET. If no perfect match, prefer highest negative score, then highest positive score, then lowest offset.",
+      "min_tier1_score": 4
+    }
   },
   "summary": {
     "by_category": {
@@ -3458,8 +3570,8 @@
         "block_start": 73000,
         "base_offset": 2662,
         "block_size": 1000,
-        "status": "verified",
-        "notes": "Dungeon graces - corrected via probe (73011=2663, base=2662)"
+        "status": "unreliable",
+        "notes": "Dungeon graces (Catacombs, Caves, Tunnels) - MARKED UNRELIABLE 2026-02-01: Base 2662 verified on some saves but shows false negatives on others (73004 Murkwater Catacombs NOT SET for L95 char who has visited). Needs per-save calibration like 71xxx blocks."
       },
       "74000": {
         "block_start": 74000,
@@ -3569,7 +3681,7 @@
         "base_offset": 4112,
         "section_size": 1125,
         "status": "calculated",
-        "notes": "Stormveil Castle GENERAL EVENTS (local_id 0-999). Item pickup flags (local_id 7000+) use base 6459 - see dungeon_pickup_bases."
+        "notes": "Stormveil Castle GENERAL EVENTS (local_id 0-999). Item pickup flags (local_id 7000+) use base 31906 - see dungeon_pickup_bases."
       },
       "11": {
         "map_area": 11,
@@ -3712,10 +3824,10 @@
       "formula": "offset = base + section*1125 + local_id/8, bit = 7 - (local_id % 8)",
       "10": {
         "map_area": 10,
-        "base_offset": 6459,
+        "base_offset": 31906,
         "section_size": 1125,
         "status": "verified",
-        "notes": "Stormveil Castle item pickups - VERIFIED 2026-01-23: 11/11 flags match. Godskin Prayerbook (10007990), Claw Talisman (10007230), etc. all SET. Offset from general event base (4112): +2347."
+        "notes": "Stormveil Castle item pickups - CORRECTED 2026-02-02: Previous base 6459 was WRONG (0 temporal diff matches). New base 31906 shows 88 temporal diff matches. Mimic's Veil, Wooden Greatshield, Hawk Crest Wooden Shield, Miséricorde, Claw Talisman all correctly detected."
       },
       "11": {
         "map_area": 11,
@@ -3723,6 +3835,146 @@
         "section_size": 1125,
         "status": "verified",
         "notes": "Leyndell Royal Capital item pickups - VERIFIED 2026-01-23: 5/5 flags match. Assassin's Prayerbook (11107700), Golden Order Seal (11007200), Perfume Bottle (11007130) all SET. Offset from general event base (8612): +25113."
+      },
+      "30": {
+        "map_area": 30,
+        "base_offset": 17731,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Catacombs item pickups - VERIFIED 2026-02-01: Temporal diff shows slot0 (mid-game) has 27 pickups, slot1 (early-game) has 6 pickups. Items include Holy Grease (30107010), Crucible Feather Talisman (30107040), Golden Epitaph (30107050). Offset from general event base (27411): -9680."
+      },
+      "31": {
+        "map_area": 31,
+        "base_offset": 8346,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Caves item pickups - VERIFIED 2026-02-01: Temporal diff shows slot0 (mid-game) has 34 pickups, slot1 (early-game) has 18 pickups. Items include Venomous Fang (31207010), Serpent Bow (31207020). Offset from general event base (28634): -20288."
+      },
+      "32": {
+        "map_area": 32,
+        "base_offset": 29658,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Tunnels item pickups - VERIFIED 2026-02-01: Temporal diff shows slot0 (mid-game) has 23 pickups, slot1 (early-game) has 5 pickups. Items include Smithing Stone [1] (32017000), Somber Smithing Stone [2] (32027000). Offset from general event base (31577): -1919."
+      },
+      "12": {
+        "map_area": 12,
+        "base_offset": 29653,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Underground (Siofra, Ainsel, etc.) item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 182 pickups, slot1 (early-game) has 64 pickups. Items include Golden Rune [1], Golden Rune [2], Smithing Stone [1]."
+      },
+      "13": {
+        "map_area": 13,
+        "base_offset": 31918,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Crumbling Farum Azula item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 87 pickups, slot1 (early-game) has 10 pickups. Items include Smithing Stone [8], Somber Ancient Dragon Smithing Stone, Golden Rune [9]."
+      },
+      "14": {
+        "map_area": 14,
+        "base_offset": 31908,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Academy of Raya Lucaria item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 65 pickups, slot1 (early-game) has 6 pickups. Items include Magic Grease, Twinsage Glintstone Crown, Rune Arc."
+      },
+      "15": {
+        "map_area": 15,
+        "base_offset": 31908,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Miquella's Haligtree item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 99 pickups, slot1 (early-game) has 14 pickups. Items include Stonesword Key, Sacramental Bud, Golden Rune [10]."
+      },
+      "16": {
+        "map_area": 16,
+        "base_offset": 31913,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Volcano Manor item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 58 pickups, slot1 (early-game) has 5 pickups. Items include Ash of War: Royal Knight's Resolve, Budding Horn, Fireproof Dried Liver."
+      },
+      "18": {
+        "map_area": 18,
+        "base_offset": 3847,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Roundtable Hold item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 9 pickups, slot1 (early-game) has 0 pickups. Items include Poisonbone Dart, Stonesword Key, Golden Rune [5]."
+      },
+      "20": {
+        "map_area": 20,
+        "base_offset": 31923,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Stranded Graveyard/DLC item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 123 pickups, slot1 (early-game) has 11 pickups. Items include Shadow Realm Rune [1], Fireproof Dried Liver, Black Pyrefly."
+      },
+      "21": {
+        "map_area": 21,
+        "base_offset": 31908,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Miquella's Haligtree (alt section) item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 158 pickups, slot1 (early-game) has 14 pickups. Items include Festive Grease, Smithing Stone [1], Main-gauche."
+      },
+      "22": {
+        "map_area": 22,
+        "base_offset": 32281,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Castle Sol item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 16 pickups, slot1 (early-game) has 0 pickups. Items include Scadutree Fragment, Congealed Putrescence, St. Trina's Arrow."
+      },
+      "28": {
+        "map_area": 28,
+        "base_offset": 31938,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Area 28 item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 11 pickups, slot1 (early-game) has 0 pickups. Items include Swollen Grape, Torn Diary Page."
+      },
+      "34": {
+        "map_area": 34,
+        "base_offset": 18409,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Divine Towers item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 30 pickups, slot1 (early-game) has 11 pickups. Items include Stormhawk Feather, Boltdrake Talisman, Ash-of-War Scarab."
+      },
+      "35": {
+        "map_area": 35,
+        "base_offset": 31901,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Mohgwyn Palace item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 72 pickups, slot1 (early-game) has 8 pickups. Items include Golden Rune [1], Crimson Amber Medallion +2, Golden Rune [11]."
+      },
+      "39": {
+        "map_area": 39,
+        "base_offset": 9787,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Elden Throne item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 20 pickups, slot1 (early-game) has 0 pickups. Items include Golden Rune [1], Smithing Stone [5], Rune Arc."
+      },
+      "40": {
+        "map_area": 40,
+        "base_offset": 31170,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Hero's Graves item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 29 pickups, slot1 (early-game) has 8 pickups. Items include Grave Glovewort [1], Grave Glovewort [7], Rada Fruit."
+      },
+      "41": {
+        "map_area": 41,
+        "base_offset": 31168,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Minor Dungeons item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 27 pickups, slot1 (early-game) has 3 pickups. Items include Frozen Maggot, Silver Horn Tender."
+      },
+      "42": {
+        "map_area": 42,
+        "base_offset": 29835,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Crystal Caves item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 19 pickups, slot1 (early-game) has 4 pickups. Items include Smithing Stone [5], Smithing Stone [2], Smithscript Dagger."
+      },
+      "43": {
+        "map_area": 43,
+        "base_offset": 31906,
+        "section_size": 1125,
+        "status": "verified",
+        "notes": "Evergaols item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 12 pickups, slot1 (early-game) has 0 pickups. Items include Sliver of Meat, Hefty Beast Bone, Shadow Realm Rune [1]."
       }
     }
   },
