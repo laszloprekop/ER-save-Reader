@@ -55,6 +55,35 @@ pub const DUNGEON_SECTION_SIZE: u32 = 1125;
 /// Maximum local ID for tile flags (7000+ are untrackable)
 pub const MAX_TILE_LOCAL_ID: u32 = TILE_MAX_LOCAL_ID;
 
+/// Convert getItemFlagId to storable row_id for tile-based world pickups.
+///
+/// DISCOVERY (2026-01-23): For tile-based world pickups:
+/// - ItemLotParam has getItemFlagId = row_id + 7000
+/// - The game stores row_id (storable, localId 0-999), NOT getItemFlagId (unstorable, localId 7000+)
+/// - MapGenie mappings use getItemFlagId, but we need row_id to check the save
+///
+/// # Arguments
+///
+/// * `flag_id` - The event flag ID (potentially getItemFlagId with localId >= 7000)
+///
+/// # Returns
+///
+/// The row_id (with localId 0-999) if conversion applies, None otherwise
+pub fn convert_to_row_id(flag_id: u32) -> Option<u32> {
+    // Only applies to 10-digit tile flags
+    if flag_id < 1_000_000_000 || flag_id >= 2_000_000_000 {
+        return None;
+    }
+
+    let local_id = flag_id % 10000;
+    // If localId >= 7000, this is getItemFlagId - convert to row_id
+    if local_id >= 7000 {
+        Some(flag_id - 7000) // row_id has localId in 0-999 range
+    } else {
+        None // Already a valid flag (localId < 7000)
+    }
+}
+
 // ============================================================================
 // DUNGEON BASE OFFSETS (complete mapping from elden-map)
 // ============================================================================
@@ -102,10 +131,16 @@ pub static DUNGEON_BASE_OFFSETS: Lazy<HashMap<&'static str, u32>> = Lazy::new(||
 /// VERIFIED areas:
 /// - Area 10 (Stormveil): base 6459 - 11/11 flags match (Godskin Prayerbook, Claw Talisman, etc.)
 /// - Area 11 (Leyndell): base 33725 - 5/5 flags match (Assassin's Prayerbook, Golden Order Seal, etc.)
+/// - Area 30 (Catacombs): base 17731 - VERIFIED 2026-02-01 (temporal diff: slot0=27, slot1=6)
+/// - Area 31 (Caves): base 8346 - VERIFIED 2026-02-01 (temporal diff: slot0=34, slot1=18)
+/// - Area 32 (Tunnels): base 29658 - VERIFIED 2026-02-01 (temporal diff: slot0=23, slot1=5)
 pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
     HashMap::from([
         (10, 6459),   // Stormveil Castle item pickups - VERIFIED
         (11, 33725),  // Leyndell Royal Capital item pickups - VERIFIED
+        (30, 17731),  // Catacombs item pickups - VERIFIED 2026-02-01
+        (31, 8346),   // Caves item pickups - VERIFIED 2026-02-01
+        (32, 29658),  // Tunnels item pickups - VERIFIED 2026-02-01
     ])
 });
 
@@ -401,6 +436,34 @@ pub enum VerificationStatus {
     Unknown,
 }
 
+/// Check if a block-based flag (5-digit) is from a reliable/verified block
+///
+/// Returns true if the block has status "verified", false for "unreliable",
+/// "needs_investigation", "disproven", or unknown blocks.
+///
+/// Use this to filter out flags that may produce false positives on some saves.
+pub fn is_block_reliable(flag_id: u32) -> bool {
+    // Only applies to 5-digit block flags (60000-99999)
+    if flag_id < 60000 || flag_id >= 100000 {
+        return true; // Non-block flags use different formulas
+    }
+
+    // Check sub-block first (100-flag granularity, e.g., 71600)
+    let sub_block = (flag_id / 100) * 100;
+    if let Some(base) = VERIFIED_BLOCK_BASES.get(&sub_block) {
+        return base.status == "verified";
+    }
+
+    // Check main block (1000-flag granularity, e.g., 71000)
+    let block = (flag_id / 1000) * 1000;
+    if let Some(base) = VERIFIED_BLOCK_BASES.get(&block) {
+        return base.status == "verified";
+    }
+
+    // Unknown block - treat as unreliable
+    false
+}
+
 impl VerificationStatus {
     /// Returns true if this status indicates potential inaccuracy
     pub fn is_uncertain(&self) -> bool {
@@ -486,6 +549,42 @@ pub fn get_flag_verification_status(flag_id: u32) -> VerificationStatus {
 /// Check if an event flag is set in the save file's EventFlags section
 pub fn is_flag_set(event_flags: &[u8], flag_id: u32) -> bool {
     if let Some((byte_off, bit)) = get_flag_offset(flag_id) {
+        if (byte_off as usize) < event_flags.len() {
+            return (event_flags[byte_off as usize] & (1 << bit)) != 0;
+        }
+    }
+    false
+}
+
+/// Check if a tile pickup flag is set, using row_id conversion if needed.
+///
+/// DISCOVERY (2026-01-23): For tile-based world pickups with localId >= 7000 (getItemFlagId),
+/// the game stores row_id (localId 0-999), NOT getItemFlagId (localId 7000+).
+/// This function handles the conversion automatically.
+///
+/// # Arguments
+///
+/// * `event_flags` - The event flags byte slice from the save
+/// * `flag_id` - The event flag ID (may be getItemFlagId with localId >= 7000)
+/// * `calibrated_tile_base` - The calibrated tile base offset (use CalibrationService)
+///
+/// # Returns
+///
+/// true if the flag is set, false otherwise
+pub fn is_tile_pickup_flag_set(event_flags: &[u8], flag_id: u32, calibrated_tile_base: u32) -> bool {
+    // Check if this is a getItemFlagId that needs conversion
+    if let Some(row_id) = convert_to_row_id(flag_id) {
+        // Use row_id - this is what the game actually stores
+        if let Some((byte_off, bit)) = get_flag_offset_calibrated(row_id, calibrated_tile_base) {
+            if (byte_off as usize) < event_flags.len() {
+                return (event_flags[byte_off as usize] & (1 << bit)) != 0;
+            }
+        }
+        return false;
+    }
+
+    // Not a getItemFlagId - use normal check with calibrated base
+    if let Some((byte_off, bit)) = get_flag_offset_calibrated(flag_id, calibrated_tile_base) {
         if (byte_off as usize) < event_flags.len() {
             return (event_flags[byte_off as usize] & (1 << bit)) != 0;
         }
@@ -988,5 +1087,46 @@ mod tests {
 
         // Tile 50_55 (Mountaintops)
         assert!(get_flag_offset(1050550000).is_some());
+    }
+
+    #[test]
+    fn test_is_block_reliable() {
+        // Verified blocks should be reliable
+        assert!(is_block_reliable(76100)); // The First Step - block 76000 is verified
+        assert!(is_block_reliable(76101)); // Another Limgrave grace
+        assert!(is_block_reliable(71800)); // Cave of Knowledge - block 71800 is verified
+        assert!(is_block_reliable(72000)); // DLC grace - block 72000 is verified
+
+        // Unreliable blocks should NOT be reliable
+        assert!(!is_block_reliable(71000)); // Godrick the Grafted - block 71000 is unreliable
+        assert!(!is_block_reliable(71007)); // Stormveil grace - block 71000 is unreliable
+        assert!(!is_block_reliable(71100)); // Leyndell grace - block 71100 is unreliable
+        assert!(!is_block_reliable(71105)); // Another Leyndell grace
+        assert!(!is_block_reliable(71600)); // Rykard - block 71600 is unreliable
+        assert!(!is_block_reliable(71607)); // Volcano Manor grace
+
+        // Non-block flags should be reliable (they use different formulas)
+        assert!(is_block_reliable(300));           // Small flag
+        assert!(is_block_reliable(1042370000));    // Tile flag
+        assert!(is_block_reliable(10007030));      // Dungeon flag
+    }
+
+    #[test]
+    fn test_convert_to_row_id() {
+        // getItemFlagId with localId >= 7000 should be converted
+        // Example: 1033407100 (localId 7100) -> 1033400100 (localId 100)
+        assert_eq!(convert_to_row_id(1033407100), Some(1033400100));
+
+        // Another example: 1044367310 (localId 7310) -> 1044360310 (localId 310)
+        assert_eq!(convert_to_row_id(1044367310), Some(1044360310));
+
+        // LocalId < 7000 should return None (already storable)
+        assert_eq!(convert_to_row_id(1033400100), None);
+        assert_eq!(convert_to_row_id(1043500010), None); // Smoldering Butterfly
+
+        // Non-tile flags should return None
+        assert_eq!(convert_to_row_id(76100), None);     // Block flag
+        assert_eq!(convert_to_row_id(10007030), None);  // Dungeon flag
+        assert_eq!(convert_to_row_id(300), None);       // Simple flag
     }
 }

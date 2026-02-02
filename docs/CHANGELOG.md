@@ -4,6 +4,80 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.5.4 - Item Pickup Auto-Completion & Late-Game Grace Fixes
+
+### Features
+- **Progression-gated validation for late-game graces (76400+)**
+  - Level 10 characters no longer show Forbidden Lands (76500) as discovered
+  - Graces require prerequisite boss defeats: Morgott for 76500-76700, Fire Giant for 76700+
+  - Prevents false positives from uninitialized memory in late-game grace regions
+
+- **Dungeon prerequisite validation for Stormveil Castle (71000)**
+  - Calibration now checks if Margit (10000850) is defeated before calibrating Stormveil
+  - Prevents false positives when player hasn't reached the castle
+  - Lowered match threshold to 50% (3 of 6 graces) for Stormveil since it's required progression
+
+- **Row ID conversion for world tile pickups**
+  - Added `convert_to_row_id()` to convert getItemFlagId (localId 7000+) to row_id (localId 0-999)
+  - The game stores row_id, not getItemFlagId - this enables 993 world pickups to be tracked
+  - Added `is_tile_pickup_flag_set()` for calibrated tile pickup checking
+
+### Technical Changes
+- Added `PROGRESSION_GATES` constant with boss flag requirements per grace range
+- Added `check_progression_gate()` to verify boss defeats before showing late-game graces
+- Added `DUNGEON_PREREQUISITES` constant mapping dungeon blocks to required boss flags
+- Added `LEGACY_DUNGEON_BLOCKS` with Stormveil grace anchors for calibration
+- Added `calibrate_legacy_dungeon_block()` for independent legacy dungeon calibration
+
+### Key Findings
+- **Row ID Discovery (2026-01-23)**: For tile-based world pickups, ItemLotParam has `getItemFlagId = row_id + 7000`. The game stores `row_id` (storable), NOT `getItemFlagId` (unstorable). Example: flag 1044367310 (localId 7310) → stored as 1044360310 (localId 310).
+- **Progression gates**: Late-game grace flags (76500+) can show false positives on early-game saves because the memory region may contain uninitialized/garbage data. Gating by boss defeats ensures the player has actually reached those areas.
+
+### Files Modified
+- `src/calibration.rs`: Added DUNGEON_PREREQUISITES, LEGACY_DUNGEON_BLOCKS, calibrate_legacy_dungeon_block()
+- `src/db/pickup_flags.rs`: Added convert_to_row_id(), is_tile_pickup_flag_set(), test
+- `src/vm/events.rs`: Added PROGRESSION_GATES, check_progression_gate()
+
+---
+
+## v0.5.3 - Dynamic Grace Block Calibration
+
+### Features
+- **Dynamic calibration for unreliable grace blocks**: Graces from blocks 71000, 71100, 71600 now use per-save calibration
+  - Uses tutorial grace (Cave of Knowledge, flag 71800) as calibration anchor
+  - Detects offset delta between ground truth and actual save layout
+  - Validates calibration using multiple early-game graces (The First Step, Church of Elleh, etc.)
+  - Confidence scoring: 0.90+ for high-quality matches, lower for uncertain calibration
+
+- **Reliability filtering fallback**: When calibration fails, graces are marked `[?]` and excluded from counts
+  - Prevents false positives where calibration cannot be determined
+  - UI shows warning for unreliable graces with uncertain status
+
+### Technical Changes
+- Added `GraceBlockCalibration` struct with calibrated bases per block
+- Added `CalibrationService::calibrate_grace_blocks()` for dynamic offset detection
+- Added `CalibrationService::detect_offset_delta()` using tutorial grace anchor
+- Added `CalibrationService::validate_delta()` for cross-validation
+- Added `CalibrationService::get_grace_offset_calibrated()` for calibrated lookups
+- Added `GraceStatus` enum with `Discovered`, `NotDiscovered`, `Unreliable` variants
+- Added `is_block_reliable(flag_id)` function for static reliability checks
+- Unreliable graces (failed calibration) are skipped when writing to save file
+
+### Coverage Impact
+- **Before**: 329/421 graces (78%) reliably detectable, 92 (22%) marked unreliable
+- **After**: Up to 421/421 graces (100%) detectable when calibration succeeds
+- Calibration success depends on save having tutorial graces discovered
+
+### Files Modified
+- `src/calibration.rs`: Added grace block calibration infrastructure
+- `src/db/pickup_flags.rs`: Added `is_block_reliable()` function
+- `src/vm/events.rs`: Use calibration for grace status detection
+- `src/ui/events.rs`: Updated graces view to show reliability status
+- `src/vm/vm.rs`: Skip unreliable graces when updating save
+- `src/vm/slot.rs`: Handle GraceStatus in export
+
+---
+
 ## v0.5.2 - Block 520000 Expansion & 67000 Investigation
 
 ### Database Expansion
