@@ -4,6 +4,43 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.11.0 - Character General Page Redesign
+
+### Build Planner-Style Layout
+- Redesigned Character > General page with 3-column layout inspired by build planners
+- Column 1: Character Status (matching game's status screen)
+  - Level, Runes Held
+  - All 8 attributes (Vigor, Mind, Endurance, Strength, Dexterity, Intelligence, Faith, Arcane)
+  - HP (current/max), FP (current/max), Stamina
+  - Weapon Level, Total Runes
+  - DLC Blessings (Scadutree, Spirit Ash) - shown only if > 0
+  - Current Location (region name + map ID)
+- Column 2: Equipment grid layout
+  - Equipped Gear: 3-column grid (Right Hand | Armor | Left Hand)
+  - Armaments: 4-column grid for arrows/bolts
+  - Talismans: 4-column grid with lock icons for unavailable slots
+- Column 3: Quick Items (10 slots) and Pouch (6 slots)
+
+### New Data Fields
+- `StatsViewModel`: Added hp, max_hp, fp, max_fp, stamina, max_stamina
+- `GeneralViewModel`: Added map_id with MapID struct
+- `MapID`: Parses 4-byte location, provides display_name() for region names
+
+### Visual Design
+- Dark card backgrounds (Color32::from_rgb(30, 30, 35))
+- Grid cells expand to fill available container width
+- Double-click to copy item names
+- Right-click context menu on equipment slots
+
+### Files Modified
+- `src/vm/stats.rs`: Added HP, FP, Stamina fields
+- `src/vm/general.rs`: Added MapID struct with region name mapping
+- `src/ui/general.rs`: Complete rewrite with 3-column build planner layout
+- `docs/CHANGELOG.md`: Added v0.11.0 entry
+- `Cargo.toml`: Bumped to 0.11.0
+
+---
+
 ## v0.10.0 - Unified Table Design for Event Flags and Inventory
 
 ### Event Flags UI Redesign

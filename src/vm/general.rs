@@ -3,14 +3,58 @@ pub mod general_view_model {
 
     #[derive(Default, Clone)]
     pub struct MapID {
-        area_id: u8,
-        block_id: u8,
-        region_id: u8,
-        index_id: u8,
+        pub area_id: u8,
+        pub block_id: u8,
+        pub region_id: u8,
+        pub index_id: u8,
     }
-    impl ToString for MapID {
-        fn to_string(&self) -> String {
-            format!("{:02}{:02}{:02}{:02}", self.area_id, self.block_id, self.region_id, self.index_id)
+
+    impl MapID {
+        pub fn from_bytes(bytes: &[u8; 4]) -> Self {
+            Self {
+                area_id: bytes[0],
+                block_id: bytes[1],
+                region_id: bytes[2],
+                index_id: bytes[3],
+            }
+        }
+
+        pub fn to_string(&self) -> String {
+            format!("m{:02}_{:02}_{:02}_{:02}", self.area_id, self.block_id, self.region_id, self.index_id)
+        }
+
+        pub fn display_name(&self) -> &'static str {
+            // Map area_id to region names
+            match self.area_id {
+                10 => "Limgrave",
+                11 => "Liurnia",
+                12 => "Altus Plateau",
+                13 => "Mt. Gelmir",
+                14 => "Caelid",
+                15 => "Mountaintops",
+                16 => "Siofra River",
+                17 => "Ainsel River",
+                18 => "Deeproot Depths",
+                19 => "Mohgwyn Palace",
+                20 => "Leyndell",
+                30 => "Stormveil Castle",
+                31 => "Raya Lucaria",
+                32 => "Redmane Castle",
+                33 => "Volcano Manor",
+                34 => "Leyndell, Royal Capital",
+                35 => "Crumbling Farum Azula",
+                36 => "Haligtree",
+                37 => "Elphael",
+                39 => "Elden Throne",
+                40 => "Roundtable Hold",
+                60 => "Chapel of Anticipation",
+                61 => "Stranded Graveyard",
+                // DLC areas
+                20 if self.block_id >= 40 => "Shadow Realm",
+                21 => "Shadow Realm",
+                22 => "Shadow Realm",
+                _ => "Unknown Region",
+            }
         }
     }
 
@@ -38,6 +82,7 @@ pub mod general_view_model {
         pub character_name: String,
         pub gender: Gender,
         pub weapon_level: u8,
+        pub map_id: MapID,
     }
 
     impl GeneralViewModel {
@@ -61,11 +106,15 @@ pub mod general_view_model {
             // Weapon Level
             let weapon_level = slot.player_game_data.match_making_wpn_lvl;
 
+            // Map ID (location)
+            let map_id = MapID::from_bytes(&slot.map_id);
+
             Self {
                 steam_id,
                 character_name,
                 gender,
                 weapon_level,
+                map_id,
             }
         }
     }

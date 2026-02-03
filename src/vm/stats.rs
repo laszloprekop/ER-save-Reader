@@ -17,6 +17,13 @@ pub mod stats_view_model {
         pub soulsmemory: u32,
         pub scadutree: u32,
         pub spirit_ash: u32,
+        // HP, FP, SP (Stamina)
+        pub hp: u32,
+        pub max_hp: u32,
+        pub fp: u32,
+        pub max_fp: u32,
+        pub stamina: u32,
+        pub max_stamina: u32,
     }
 
     impl Default for StatsViewModel {
@@ -36,6 +43,12 @@ pub mod stats_view_model {
                 soulsmemory: Default::default(),
                 scadutree: Default::default(),
                 spirit_ash: Default::default(),
+                hp: Default::default(),
+                max_hp: Default::default(),
+                fp: Default::default(),
+                max_fp: Default::default(),
+                stamina: Default::default(),
+                max_stamina: Default::default(),
             }
         }
     }
@@ -59,6 +72,14 @@ pub mod stats_view_model {
             let scadutree = slot.player_game_data.scadutree_lvl.into();
             let spirit_ash = slot.player_game_data.spirit_ash_lvl.into();
 
+            // HP, FP, Stamina
+            let hp = slot.player_game_data.health;
+            let max_hp = slot.player_game_data.max_health;
+            let fp = slot.player_game_data.fp;
+            let max_fp = slot.player_game_data.max_fp;
+            let stamina = slot.player_game_data.sp;
+            let max_stamina = slot.player_game_data.max_sp;
+
             Self {
                 arche_type,
                 vigor,
@@ -74,6 +95,12 @@ pub mod stats_view_model {
                 soulsmemory,
                 scadutree,
                 spirit_ash,
+                hp,
+                max_hp,
+                fp,
+                max_fp,
+                stamina,
+                max_stamina,
             }
         }
     }
