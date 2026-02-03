@@ -420,7 +420,8 @@ impl eframe::App for App {
                         let event_flags = self.save.save_type.get_event_flags(self.vm.index);
                         let inventory = self.save.save_type.get_inventory(self.vm.index);
                         let storage = self.save.save_type.get_storage_inventory(self.vm.index);
-                        events(ui, &mut self.vm, event_flags, inventory, storage);
+                        let save_path = self.picked_path.to_string_lossy().to_string();
+                        events(ui, &mut self.vm, event_flags, inventory, storage, &save_path);
                     },
                     Route::Regions => regions(ui, &mut self.vm),
                     Route::Spells => spells_view(ui, &mut self.spells_view_state),

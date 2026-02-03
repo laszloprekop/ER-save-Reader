@@ -4,6 +4,24 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.8.1 - Context Metadata in Flag Details Export
+
+### Enhancement
+- **Added context metadata to Copy Details export**
+  - `timestamp`: When the export was created
+  - `save_file`: Full path to the loaded .sl2 file
+  - `slot_index`: Character slot number (0-9)
+  - `character_name`: Character's in-game name
+  - `event_flags_size`: Size of event flags array (validates data loaded)
+
+### Files Modified
+- `src/main.rs`: Pass save_path to events view
+- `src/ui/events.rs`: Include context metadata in Copy Details output
+- `docs/CHANGELOG.md`: Added v0.8.1 entry
+- `Cargo.toml`: Bumped to 0.8.1
+
+---
+
 ## v0.8.0 - Flag Details Sidebar with Inventory Evidence
 
 ### Features

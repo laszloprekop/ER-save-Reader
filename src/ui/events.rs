@@ -4,7 +4,7 @@ pub mod events {
     use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
-    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>) {
+    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
             .id_salt("left")
@@ -66,7 +66,7 @@ pub mod events {
                 .default_width(280.0)
                 .min_width(200.0)
                 .show(ui.ctx(), |ui| {
-                    flag_details_sidebar(ui, vm, event_flags, inventory, storage);
+                    flag_details_sidebar(ui, vm, event_flags, inventory, storage, save_path);
                 });
         }
 
@@ -1200,6 +1200,7 @@ pub mod events {
         event_flags: Option<&[u8]>,
         inventory: Option<&EquipInventoryData>,
         storage: Option<&EquipInventoryData>,
+        save_path: &str,
     ) {
         let (selected_flag_id, flag_name, is_collected, is_world_pickup) = match vm.slots[vm.index].events_vm.current_route {
             EventsRoute::WorldPickups => {
@@ -1442,7 +1443,20 @@ pub mod events {
         // Copy Details button - generates comprehensive debug output
         if ui.button("Copy Details").clicked() {
             let mut details = String::new();
-            details.push_str("=== FLAG DETAILS ===\n");
+
+            // Context metadata for precise understanding
+            let slot_index = vm.index;
+            let character_name = vm.slots[slot_index].general_vm.character_name.trim_matches('\0');
+            let timestamp = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+
+            details.push_str("=== CONTEXT ===\n");
+            details.push_str(&format!("timestamp: {}\n", timestamp));
+            details.push_str(&format!("save_file: {}\n", save_path));
+            details.push_str(&format!("slot_index: {}\n", slot_index));
+            details.push_str(&format!("character_name: {}\n", character_name));
+            details.push_str(&format!("event_flags_size: {}\n", event_flags.map(|ef| ef.len()).unwrap_or(0)));
+
+            details.push_str("\n=== FLAG DETAILS ===\n");
             details.push_str(&format!("flag_id: {}\n", selected_flag_id));
             details.push_str(&format!("flag_id_hex: 0x{:08X}\n", selected_flag_id));
             details.push_str(&format!("item_name: {}\n", flag_name));
