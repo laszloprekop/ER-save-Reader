@@ -4,6 +4,57 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.8.0 - Flag Details Sidebar with Inventory Evidence
+
+### Features
+- **Flag Details sidebar panel** for World/Dungeon Pickups
+  - Click any pickup row to select it and open details panel
+  - Shows flag ID (decimal/hex), item name, collected status
+  - Displays byte offset and bit position for debugging
+  - "Copy Details" button exports comprehensive debug data
+
+- **Inventory evidence matching** with fuzzy search
+  - Searches both equipped inventory AND storage box (4 locations total)
+  - Shows whether inventory evidence SUPPORTS or CHALLENGES flag status
+  - Collapsible "Raw Data" section with ga_item_handle, inventory_index, storage location
+  - Match scoring (exact=100%, contains=90%, word overlap=60%+)
+
+- **World pickup row_id formula** for local_id >= 7000
+  - Discovery: World pickups with getItemFlagId (local_id 7000+) use separate bitfield
+  - Formula: `byte_offset = (row_id - 1037373320) / 8`
+  - Verified via before/after save captures of Golden Rune pickups
+
+### Bug Fixes
+- **Reverse lookup returns all overlapping blocks** - Fixed to return ALL matching blocks when byte ranges overlap (blocks 71600 and 76000 overlap at [3250, 3323))
+- **Widget ID collisions** - Fixed egui ID errors in inventory matches loop using `push_id`
+
+### Technical Changes
+- Added `get_storage_inventory()` method to SaveType
+- Added `WORLD_PICKUP_ROW_ID_BASE` constant (1037373320)
+- Added `calculate_world_pickup_offset_by_row_id()` function
+- Updated `calculate_tile_flag_offset` to use row_id formula for local_id >= 7000
+- Extended WASM crate with pickup flag calculations and tests
+- Updated tests to reflect new formula expectations
+
+### Documentation
+- Added "False Negative Investigation Protocol" to CLAUDE.md
+- Documented row_id tracking discovery in EVENT-FLAG-GEOGRAPHY.md
+
+### Files Modified
+- `src/ui/events.rs`: Flag details sidebar, inventory matching, Copy Details
+- `src/vm/events.rs`: Added selected_flag_id to filter structs
+- `src/db/pickup_flags.rs`: Row_id formula, updated tile/dungeon offset calculations
+- `src/save/save.rs`: Added get_storage_inventory() method
+- `src/main.rs`: Pass storage inventory to events view
+- `src/discovery/reverse_lookup.rs`: Return all overlapping blocks
+- `crates/wasm-event-flags/src/lib.rs`: Pickup flag calculations
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: Row_id tracking documentation
+- `CLAUDE.md`: False Negative Investigation Protocol
+- `tests/regression_suite.rs`: Updated block base test
+- `Cargo.toml`: bumped to 0.8.0
+
+---
+
 ## v0.7.2 - Documentation: Per-Section Discovery
 
 ### Documentation

@@ -84,6 +84,8 @@ pub mod events_view_model {
         pub collected_filter: CollectedFilter,
         pub region_filter: String,
         pub search: String,
+        /// Currently selected flag ID for details panel
+        pub selected_flag_id: Option<u32>,
     }
 
     impl Default for WorldPickupsFilter {
@@ -93,6 +95,7 @@ pub mod events_view_model {
                 collected_filter: CollectedFilter::All,
                 region_filter: "All".to_string(),
                 search: String::new(),
+                selected_flag_id: None,
             }
         }
     }
@@ -103,6 +106,8 @@ pub mod events_view_model {
         pub collected_filter: CollectedFilter,
         pub dungeon_filter: String,  // "All" or specific dungeon area name
         pub search: String,
+        /// Currently selected flag ID for details panel
+        pub selected_flag_id: Option<u32>,
     }
 
     impl Default for DungeonPickupsFilter {
@@ -112,6 +117,7 @@ pub mod events_view_model {
                 collected_filter: CollectedFilter::All,
                 dungeon_filter: "All".to_string(),
                 search: String::new(),
+                selected_flag_id: None,
             }
         }
     }

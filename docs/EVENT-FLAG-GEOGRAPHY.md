@@ -287,11 +287,74 @@ These 76 special items use block flags that ARE stored:
 | 67xxx-68xxx | 25 | Cookbooks |
 | 69xxx | 1 | Notes |
 
+### Row ID Tracking for World Pickups (CRITICAL DISCOVERY 2026-02-02)
+
+**Key Finding**: World pickups with getItemFlagId (local_id >= 7000) are tracked using a SEPARATE row_id-based bitfield, NOT the tile formula.
+
+#### The Problem
+
+When checking world pickup `1044360310` (Golden Rune [1] at tile 44,36):
+- The `getItemFlagId` is `1044367310` (local_id = 7310)
+- The tile formula marks this as "untrackable" (local_id > 6999)
+- But the pickup IS tracked - the light beam disappears when collected
+
+#### The Discovery
+
+Through save diff analysis (Wretch captures 34→35), we found:
+- Clean single-bit changes at EF+873373 bit 1 and EF+873377 bit 3
+- These correspond to row_ids `1044360310` and `1044360340` (Golden Rune [1] and [3])
+
+#### The Formula
+
+```
+WORLD_PICKUP_ROW_ID_BASE = 1037373320
+
+byte_offset = (row_id - WORLD_PICKUP_ROW_ID_BASE) / 8
+bit_position = 7 - ((row_id - WORLD_PICKUP_ROW_ID_BASE) % 8)
+```
+
+#### Verification
+
+| Pickup | row_id | Expected Offset | Verified |
+|--------|--------|-----------------|----------|
+| Golden Rune [1] | 1044360310 | EF+873373 bit 1 | ✅ SET after pickup |
+| Golden Rune [3] | 1044360340 | EF+873377 bit 3 | ✅ SET after pickup |
+
+#### Two Tracking Systems for World Pickups
+
+| Pickup Type | Flag Field | Formula | Region |
+|-------------|------------|---------|--------|
+| local_id < 7000 | row_id directly | Tile formula | Tile storage (875 bytes/tile) |
+| local_id >= 7000 | row_id (from getItemFlagId - 7000) | Row ID formula | Row ID bitfield |
+
+#### How to Check World Pickup Status
+
+1. Get `getItemFlagId` from ItemLotParam_map
+2. If local_id >= 7000:
+   - Convert to row_id: `row_id = getItemFlagId - 7000`
+   - Use row_id formula: `byte_offset = (row_id - 1037373320) / 8`
+3. If local_id < 7000:
+   - Use tile formula (standard)
+
+#### Code Reference
+
+```rust
+// From crates/wasm-event-flags/src/lib.rs
+pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
+
+pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> FlagOffset {
+    let bit_offset = row_id - WORLD_PICKUP_ROW_ID_BASE;
+    let byte_offset = bit_offset / 8;
+    let bit_position = (7 - (bit_offset % 8)) as u8;
+    FlagOffset::new(byte_offset, bit_position)
+}
+```
+
 ### Implications for Save Editing
 
-1. **Don't track most world pickups via event flags** - use inventory checks instead
-2. **Block flags work** - cookbooks, whetblades, etc. can be read/written
-3. **Tile flags with local_id 7000+** - these are effectively phantom flags
+1. **World pickups ARE trackable** - even those with getItemFlagId local_id >= 7000
+2. **Block flags work** - cookbooks, whetblades, etc. can be read/written via block formula
+3. **Two formulas needed** - tile formula for general tile flags, row_id formula for pickup tracking
 
 ---
 

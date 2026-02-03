@@ -100,9 +100,9 @@ impl FlagReverser {
         // IMPORTANT: Check block flags FIRST - they are verified and more specific
         // than simple flags. Block 71000+ can have base_offsets < 7500, which would
         // otherwise incorrectly match simple flag calculation.
-        if let Some(block_flag) = self.try_reverse_block(byte_offset, bit_position) {
-            results.push(block_flag);
-        }
+        // NOTE: Multiple blocks can overlap at the same byte offset, so collect ALL matches
+        let block_flags = self.try_reverse_blocks(byte_offset, bit_position);
+        results.extend(block_flags);
 
         // Try simple flag (0-59999): byte = flag_id / 8, bit = 7 - (flag_id % 8)
         // Only if no block flag matched at this offset
@@ -131,8 +131,10 @@ impl FlagReverser {
         results
     }
 
-    fn try_reverse_block(&self, byte_offset: usize, bit_position: u8) -> Option<PossibleFlagType> {
-        // Find which block this byte falls into
+    /// Find ALL blocks that could map to this byte offset (blocks can overlap)
+    fn try_reverse_blocks(&self, byte_offset: usize, bit_position: u8) -> Vec<PossibleFlagType> {
+        let mut results = Vec::new();
+
         for (start, end, block_start) in &self.block_byte_ranges {
             if byte_offset >= *start && byte_offset < *end {
                 // Calculate flag_id within block
@@ -141,14 +143,14 @@ impl FlagReverser {
                 let flag_id = *block_start + local_offset as u32;
 
                 if flag_id < *block_start + 1000 {
-                    return Some(PossibleFlagType::Block {
+                    results.push(PossibleFlagType::Block {
                         flag_id,
                         block_start: *block_start,
                     });
                 }
             }
         }
-        None
+        results
     }
 
     fn try_reverse_tile(&self, byte_offset: usize, bit_position: u8) -> Option<PossibleFlagType> {
@@ -360,8 +362,8 @@ mod tests {
                 let results = reverser.reverse_lookup(byte as usize, bit);
                 assert!(
                     results.iter().any(|r| r.flag_id() == Some(flag_id)),
-                    "Block flag {} at ({}, {}) did not reverse correctly",
-                    flag_id, byte, bit
+                    "Block flag {} at ({}, {}) did not reverse correctly. Results: {:?}",
+                    flag_id, byte, bit, results
                 );
             }
         }

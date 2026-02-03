@@ -1,10 +1,10 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
-    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
+    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>) {
         egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
             .id_salt("left")
@@ -53,6 +53,22 @@ pub mod events {
                 })
             });
         });
+
+        // Right sidebar for flag details (only show when a flag is selected in world/dungeon pickups)
+        let selected_flag = match vm.slots[vm.index].events_vm.current_route {
+            EventsRoute::WorldPickups => vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id,
+            EventsRoute::DungeonPickups => vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id,
+            _ => None,
+        };
+
+        if selected_flag.is_some() {
+            egui::SidePanel::right("flag_details_panel")
+                .default_width(280.0)
+                .min_width(200.0)
+                .show(ui.ctx(), |ui| {
+                    flag_details_sidebar(ui, vm, event_flags, inventory, storage);
+                });
+        }
 
         egui::CentralPanel::default().show(ui.ctx(), |ui|{
             egui::ScrollArea::vertical()
@@ -598,7 +614,12 @@ pub mod events {
                     pickup.category.display_name(), pickup.quantity, region
                 );
 
-                let text_color = if verification_status.is_uncertain() {
+                // Check if this row is selected
+                let is_selected = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id == Some(pickup.event_flag);
+
+                let text_color = if is_selected {
+                    Color32::YELLOW // Highlight selected row
+                } else if verification_status.is_uncertain() {
                     Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
                 } else if is_collected {
                     Color32::from_rgb(100, 200, 100)
@@ -610,6 +631,11 @@ pub mod events {
                     egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                         .sense(egui::Sense::click())
                 );
+
+                // Single click selects for details panel
+                if response.clicked() {
+                    vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                }
 
                 if response.double_clicked() {
                     ui.output_mut(|o| o.copied_text = row_text.clone());
@@ -844,7 +870,12 @@ pub mod events {
                     pickup.category.display_name(), pickup.quantity, area_name
                 );
 
-                let text_color = if !is_verified {
+                // Check if this row is selected
+                let is_selected = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id == Some(pickup.event_flag);
+
+                let text_color = if is_selected {
+                    Color32::YELLOW // Highlight selected row
+                } else if !is_verified {
                     Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
                 } else if is_collected {
                     Color32::from_rgb(100, 200, 100)
@@ -856,6 +887,11 @@ pub mod events {
                     egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
                         .sense(egui::Sense::click())
                 );
+
+                // Single click selects for details panel
+                if response.clicked() {
+                    vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                }
 
                 if response.double_clicked() {
                     ui.output_mut(|o| o.copied_text = row_text.clone());
@@ -1031,5 +1067,464 @@ pub mod events {
         }
 
         set_flags
+    }
+
+    /// Resolve an inventory item's name from its ga_item_handle
+    /// Returns (display_name, item_type_str, raw_item_id)
+    fn resolve_inventory_item_name_with_id(ga_item_handle: u32) -> (String, &'static str, u32) {
+        let item_type = ga_item_handle & 0xF0000000;
+        let item_id = ga_item_handle & 0x0FFFFFFF;
+
+        match item_type {
+            0x80000000 => {
+                // Weapon
+                let base_id = (item_id / 100) * 100;
+                let upgrade = item_id % 100;
+                if let Some(name) = WEAPON_NAME.lock().unwrap().get(&base_id) {
+                    let display_name = if upgrade > 0 {
+                        format!("{} +{}", name, upgrade)
+                    } else {
+                        name.to_string()
+                    };
+                    (display_name, "Weapon", item_id)
+                } else {
+                    (format!("[Unknown Weapon {}]", item_id), "Weapon", item_id)
+                }
+            }
+            0x90000000 => {
+                // Armor
+                if let Some(name) = ARMOR_NAME.lock().unwrap().get(&item_id) {
+                    (name.to_string(), "Armor", item_id)
+                } else {
+                    (format!("[Unknown Armor {}]", item_id), "Armor", item_id)
+                }
+            }
+            0xA0000000 => {
+                // Accessory (Talisman)
+                if let Some(name) = ACCESSORY_NAME.lock().unwrap().get(&item_id) {
+                    (name.to_string(), "Accessory", item_id)
+                } else {
+                    (format!("[Unknown Accessory {}]", item_id), "Accessory", item_id)
+                }
+            }
+            0xB0000000 => {
+                // Item/Good
+                if let Some(name) = ITEM_NAME.lock().unwrap().get(&item_id) {
+                    (name.to_string(), "Item", item_id)
+                } else {
+                    (format!("[Unknown Item {}]", item_id), "Item", item_id)
+                }
+            }
+            0xC0000000 => {
+                // Ash of War
+                if let Some(name) = AOW_NAME.lock().unwrap().get(&item_id) {
+                    (name.to_string(), "Ash of War", item_id)
+                } else {
+                    (format!("[Unknown AoW {}]", item_id), "Ash of War", item_id)
+                }
+            }
+            _ => (format!("[Unknown Type 0x{:X}]", ga_item_handle), "Unknown", item_id),
+        }
+    }
+
+    /// Fuzzy match: check if two item names are likely the same item
+    /// Returns (is_match, match_score) where score is 0-100
+    fn fuzzy_match_item_names(flag_name: &str, inv_name: &str) -> (bool, u32) {
+        let flag_lower = flag_name.to_lowercase();
+        let inv_lower = inv_name.to_lowercase();
+
+        // Exact match
+        if flag_lower == inv_lower {
+            return (true, 100);
+        }
+
+        // One contains the other (handles upgrade levels like "Uchigatana +5")
+        if inv_lower.contains(&flag_lower) || flag_lower.contains(&inv_lower) {
+            return (true, 90);
+        }
+
+        // Strip common suffixes and prefixes for comparison
+        let flag_clean = flag_lower
+            .trim_end_matches(|c: char| c.is_numeric() || c == '+' || c == ' ')
+            .trim();
+        let inv_clean = inv_lower
+            .trim_end_matches(|c: char| c.is_numeric() || c == '+' || c == ' ')
+            .trim();
+
+        if flag_clean == inv_clean {
+            return (true, 85);
+        }
+
+        // Word-based matching: check if significant words overlap
+        let flag_words: std::collections::HashSet<&str> = flag_lower
+            .split_whitespace()
+            .filter(|w| w.len() > 2)
+            .collect();
+        let inv_words: std::collections::HashSet<&str> = inv_lower
+            .split_whitespace()
+            .filter(|w| w.len() > 2)
+            .collect();
+
+        if !flag_words.is_empty() && !inv_words.is_empty() {
+            let common: usize = flag_words.intersection(&inv_words).count();
+            let total = flag_words.len().max(inv_words.len());
+            let overlap_ratio = (common * 100) / total;
+
+            if overlap_ratio >= 60 {
+                return (true, overlap_ratio as u32);
+            }
+        }
+
+        (false, 0)
+    }
+
+    /// Inventory match result for display and debugging
+    struct InventoryMatch {
+        // Display fields
+        item_name: String,
+        item_type: &'static str,
+        quantity: u32,
+        match_score: u32,
+        is_supporting: bool, // true = supports flag status, false = challenges it
+        // Debug fields
+        ga_item_handle: u32,
+        inventory_index: u32,
+        storage_location: &'static str, // "equip_common", "equip_key", "storage_common", "storage_key"
+        raw_item_id: u32, // item_id extracted from ga_item_handle
+    }
+
+    /// Flag details right sidebar
+    fn flag_details_sidebar(
+        ui: &mut Ui,
+        vm: &mut ViewModel,
+        event_flags: Option<&[u8]>,
+        inventory: Option<&EquipInventoryData>,
+        storage: Option<&EquipInventoryData>,
+    ) {
+        let (selected_flag_id, flag_name, is_collected, is_world_pickup) = match vm.slots[vm.index].events_vm.current_route {
+            EventsRoute::WorldPickups => {
+                if let Some(flag_id) = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id {
+                    // Find the pickup data for this flag
+                    let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
+                    if let Some(p) = pickup {
+                        let ef = event_flags.unwrap_or(&[]);
+                        let (is_set, _) = is_flag_set_with_status(ef, flag_id);
+                        (Some(flag_id), p.name.to_string(), is_set, true)
+                    } else {
+                        (None, String::new(), false, true)
+                    }
+                } else {
+                    (None, String::new(), false, true)
+                }
+            }
+            EventsRoute::DungeonPickups => {
+                if let Some(flag_id) = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id {
+                    // Find the dungeon pickup data for this flag
+                    let pickup = DUNGEON_PICKUPS.iter().find(|p| p.event_flag == flag_id);
+                    if let Some(p) = pickup {
+                        // For dungeon pickups, we need to check the flag differently
+                        // using the dungeon base offsets
+                        let ef = event_flags.unwrap_or(&[]);
+                        let is_set = if let Some(&base) = DUNGEON_PICKUP_BASES.get(&p.dungeon_area) {
+                            use crate::db::pickup_flags::DUNGEON_SECTION_SIZE;
+                            use crate::util::bit::bit::get_bit;
+                            let byte_offset = base + p.section * DUNGEON_SECTION_SIZE + p.event_flag % 10000 / 8;
+                            let bit_pos = 7 - (p.event_flag % 8);
+                            if (byte_offset as usize) < ef.len() {
+                                get_bit(ef[byte_offset as usize], bit_pos as u8)
+                            } else {
+                                false
+                            }
+                        } else {
+                            false
+                        };
+                        (Some(flag_id), p.name.to_string(), is_set, false)
+                    } else {
+                        (None, String::new(), false, false)
+                    }
+                } else {
+                    (None, String::new(), false, false)
+                }
+            }
+            _ => (None, String::new(), false, true),
+        };
+
+        let selected_flag_id = match selected_flag_id {
+            Some(id) => id,
+            None => {
+                ui.label("No flag selected");
+                return;
+            }
+        };
+
+        // Header
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Flag Details").strong().size(14.0));
+            if ui.small_button("✕").clicked() {
+                // Clear selection
+                if is_world_pickup {
+                    vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = None;
+                } else {
+                    vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = None;
+                }
+            }
+        });
+        ui.separator();
+
+        // Flag Info section
+        ui.label(RichText::new("Raw Data").color(Color32::YELLOW).small());
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Flag ID:").color(Color32::LIGHT_GRAY));
+            ui.label(RichText::new(format!("{}", selected_flag_id)).monospace());
+        });
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Hex:").color(Color32::LIGHT_GRAY));
+            ui.label(RichText::new(format!("0x{:X}", selected_flag_id)).monospace());
+        });
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Item:").color(Color32::LIGHT_GRAY));
+            ui.label(&flag_name);
+        });
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
+            let (status_text, status_color) = if is_collected {
+                ("COLLECTED", Color32::from_rgb(100, 200, 100))
+            } else {
+                ("NOT COLLECTED", Color32::LIGHT_GRAY)
+            };
+            ui.label(RichText::new(status_text).color(status_color));
+        });
+        ui.separator();
+
+        // Inventory Matching section
+        ui.label(RichText::new("Inventory Evidence").color(Color32::YELLOW).small());
+
+        if let Some(inv) = inventory {
+            // Find fuzzy matches in inventory
+            let mut matches: Vec<InventoryMatch> = Vec::new();
+
+            // Helper to create match entry
+            let mut add_match = |item: &crate::save::common::save_slot::EquipInventoryItem,
+                                 storage_location: &'static str| {
+                if item.ga_item_handle == 0 || item.quantity == 0 {
+                    return;
+                }
+                let (item_name, item_type, raw_item_id) = resolve_inventory_item_name_with_id(item.ga_item_handle);
+                let (is_match, score) = fuzzy_match_item_names(&flag_name, &item_name);
+                if is_match {
+                    let is_supporting = is_collected;
+                    matches.push(InventoryMatch {
+                        item_name,
+                        item_type,
+                        quantity: item.quantity,
+                        match_score: score,
+                        is_supporting,
+                        ga_item_handle: item.ga_item_handle,
+                        inventory_index: item.inventory_index,
+                        storage_location,
+                        raw_item_id,
+                    });
+                }
+            };
+
+            // Check equipped common items
+            for item in &inv.common_items {
+                add_match(item, "equip_common");
+            }
+
+            // Check equipped key items
+            for item in &inv.key_items {
+                add_match(item, "equip_key");
+            }
+
+            // Check storage box (if available)
+            if let Some(stor) = storage {
+                for item in &stor.common_items {
+                    add_match(item, "storage_common");
+                }
+                for item in &stor.key_items {
+                    add_match(item, "storage_key");
+                }
+            }
+
+            // Sort by match score descending
+            matches.sort_by(|a, b| b.match_score.cmp(&a.match_score));
+
+            if matches.is_empty() {
+                if is_collected {
+                    // Flag says collected but no matching item found
+                    ui.label(RichText::new("⚠ No matching item in inventory")
+                        .color(Color32::from_rgb(255, 200, 100))
+                        .small());
+                    ui.label(RichText::new("This CHALLENGES the flag status")
+                        .color(Color32::from_rgb(255, 165, 0))
+                        .small());
+                    ui.label(RichText::new("(item may have been sold/used)")
+                        .color(Color32::GRAY)
+                        .small());
+                } else {
+                    // Flag says not collected and no item found - consistent
+                    ui.label(RichText::new("No matching item found")
+                        .color(Color32::GRAY)
+                        .small());
+                    ui.label(RichText::new("This SUPPORTS the flag status")
+                        .color(Color32::from_rgb(100, 200, 100))
+                        .small());
+                }
+            } else {
+                // Show matches
+                ui.label(RichText::new(format!("Found {} match(es):", matches.len()))
+                    .color(Color32::LIGHT_GRAY)
+                    .small());
+                ui.add_space(4.0);
+
+                egui::ScrollArea::vertical()
+                    .id_salt("flag_details_matches")
+                    .max_height(250.0)
+                    .show(ui, |ui| {
+                        for (idx, m) in matches.iter().enumerate() {
+                            let evidence_type = if m.is_supporting {
+                                ("SUPPORTS", Color32::from_rgb(100, 200, 100))
+                            } else {
+                                ("CHALLENGES", Color32::from_rgb(255, 165, 0))
+                            };
+
+                            // Use push_id to ensure unique widget IDs for each match
+                            ui.push_id(idx, |ui| {
+                                egui::Frame::none()
+                                    .inner_margin(egui::Margin::same(4.0))
+                                    .fill(Color32::from_rgb(40, 40, 50))
+                                    .rounding(2.0)
+                                    .show(ui, |ui| {
+                                        ui.label(RichText::new(&m.item_name).strong());
+                                        ui.horizontal(|ui| {
+                                            ui.label(RichText::new(m.item_type).color(Color32::GRAY).small());
+                                            ui.label(RichText::new(format!("x{}", m.quantity)).small());
+                                            ui.label(RichText::new(format!("{}%", m.match_score)).color(Color32::GRAY).small());
+                                        });
+                                        ui.horizontal(|ui| {
+                                            ui.label(RichText::new(evidence_type.0).color(evidence_type.1).small());
+                                            ui.label(RichText::new("flag status").color(Color32::GRAY).small());
+                                        });
+                                        // Debug details (collapsible)
+                                        ui.collapsing(RichText::new("Raw Data").color(Color32::GRAY).small(), |ui| {
+                                            ui.label(RichText::new(format!("ga_item_handle: 0x{:08X}", m.ga_item_handle)).monospace().small());
+                                            ui.label(RichText::new(format!("raw_item_id: {}", m.raw_item_id)).monospace().small());
+                                            ui.label(RichText::new(format!("inventory_index: {}", m.inventory_index)).monospace().small());
+                                            ui.label(RichText::new(format!("storage: {}", m.storage_location)).monospace().small());
+                                        });
+                                    });
+                                ui.add_space(2.0);
+                            });
+                        }
+                    });
+
+                // Summary
+                if !is_collected && !matches.is_empty() {
+                    ui.separator();
+                    ui.label(RichText::new("⚠ Item found but flag NOT set")
+                        .color(Color32::from_rgb(255, 165, 0))
+                        .small());
+                    ui.label(RichText::new("This CHALLENGES the flag status")
+                        .color(Color32::from_rgb(255, 165, 0))
+                        .small());
+                    ui.label(RichText::new("(possible detection error)")
+                        .color(Color32::GRAY)
+                        .small());
+                }
+            }
+        } else {
+            ui.label(RichText::new("No inventory data available").color(Color32::GRAY));
+        }
+
+        ui.separator();
+
+        // Copy Details button - generates comprehensive debug output
+        if ui.button("Copy Details").clicked() {
+            let mut details = String::new();
+            details.push_str("=== FLAG DETAILS ===\n");
+            details.push_str(&format!("flag_id: {}\n", selected_flag_id));
+            details.push_str(&format!("flag_id_hex: 0x{:08X}\n", selected_flag_id));
+            details.push_str(&format!("item_name: {}\n", flag_name));
+            details.push_str(&format!("is_collected: {}\n", is_collected));
+            details.push_str(&format!("pickup_type: {}\n", if is_world_pickup { "world" } else { "dungeon" }));
+
+            // Add flag offset info if available
+            if let Some(ef) = event_flags {
+                use crate::db::pickup_flags::get_flag_offset;
+                if let Some((byte_off, bit_pos)) = get_flag_offset(selected_flag_id) {
+                    details.push_str(&format!("byte_offset: {} (0x{:X})\n", byte_off, byte_off));
+                    details.push_str(&format!("bit_position: {}\n", bit_pos));
+                    if (byte_off as usize) < ef.len() {
+                        let byte_value = ef[byte_off as usize];
+                        details.push_str(&format!("byte_value: 0x{:02X} (binary: {:08b})\n", byte_value, byte_value));
+                        let bit_set = (byte_value & (1 << bit_pos)) != 0;
+                        details.push_str(&format!("bit_is_set: {}\n", bit_set));
+                    }
+                } else {
+                    details.push_str("offset: UNKNOWN (no formula)\n");
+                }
+            }
+
+            details.push_str("\n=== INVENTORY EVIDENCE ===\n");
+
+            // Helper closure for scanning items
+            let scan_items = |items: &[crate::save::common::save_slot::EquipInventoryItem],
+                             location: &str,
+                             flag_name: &str,
+                             is_collected: bool,
+                             match_count: &mut u32,
+                             details: &mut String| {
+                for item in items {
+                    if item.ga_item_handle == 0 || item.quantity == 0 {
+                        continue;
+                    }
+                    let (item_name_resolved, item_type, raw_id) = resolve_inventory_item_name_with_id(item.ga_item_handle);
+                    let (is_match, score) = fuzzy_match_item_names(flag_name, &item_name_resolved);
+                    if is_match {
+                        *match_count += 1;
+                        details.push_str(&format!("\n--- Match {} ---\n", *match_count));
+                        details.push_str(&format!("storage: {}\n", location));
+                        details.push_str(&format!("item_name: {}\n", item_name_resolved));
+                        details.push_str(&format!("item_type: {}\n", item_type));
+                        details.push_str(&format!("quantity: {}\n", item.quantity));
+                        details.push_str(&format!("match_score: {}%\n", score));
+                        details.push_str(&format!("ga_item_handle: 0x{:08X}\n", item.ga_item_handle));
+                        details.push_str(&format!("raw_item_id: {}\n", raw_id));
+                        details.push_str(&format!("inventory_index: {}\n", item.inventory_index));
+                        let verdict = if is_collected { "SUPPORTS" } else { "CHALLENGES" };
+                        details.push_str(&format!("verdict: {} flag status\n", verdict));
+                    }
+                }
+            };
+
+            let mut match_count = 0u32;
+
+            if let Some(inv) = inventory {
+                details.push_str(&format!("equip_common_count: {}\n", inv.common_inventory_items_distinct_count));
+                details.push_str(&format!("equip_key_count: {}\n", inv.key_inventory_items_distinct_count));
+                scan_items(&inv.common_items, "equip_common", &flag_name, is_collected, &mut match_count, &mut details);
+                scan_items(&inv.key_items, "equip_key", &flag_name, is_collected, &mut match_count, &mut details);
+            } else {
+                details.push_str("equip_inventory: NOT AVAILABLE\n");
+            }
+
+            if let Some(stor) = storage {
+                details.push_str(&format!("storage_common_count: {}\n", stor.common_inventory_items_distinct_count));
+                details.push_str(&format!("storage_key_count: {}\n", stor.key_inventory_items_distinct_count));
+                scan_items(&stor.common_items, "storage_common", &flag_name, is_collected, &mut match_count, &mut details);
+                scan_items(&stor.key_items, "storage_key", &flag_name, is_collected, &mut match_count, &mut details);
+            } else {
+                details.push_str("storage_inventory: NOT AVAILABLE\n");
+            }
+
+            if match_count == 0 {
+                details.push_str("\nNo matching items found in any inventory\n");
+            } else {
+                details.push_str(&format!("\nTotal matches: {}\n", match_count));
+            }
+
+            ui.output_mut(|o| o.copied_text = details);
+        }
     }
 }

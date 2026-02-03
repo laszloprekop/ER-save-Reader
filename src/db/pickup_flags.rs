@@ -52,8 +52,13 @@ pub const EVENT_FLAGS_SIZE: u32 = 0x1BF99F; // 1,833,375 bytes
 /// Bytes per dungeon section
 pub const DUNGEON_SECTION_SIZE: u32 = 1125;
 
-/// Maximum local ID for tile flags (7000+ are untrackable)
+/// Maximum local ID for tile flags (7000+ use row_id formula instead)
 pub const MAX_TILE_LOCAL_ID: u32 = TILE_MAX_LOCAL_ID;
+
+/// Base offset for world pickup row_id-based tracking
+/// DISCOVERY (2026-02-02): World pickups with getItemFlagId local_id >= 7000
+/// are tracked by row_id in a separate bitfield region starting at this offset.
+pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
 
 /// Convert getItemFlagId to storable row_id for tile-based world pickups.
 ///
@@ -278,20 +283,22 @@ pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
 /// Flag format: 1XXYYZZZZ where:
 /// - XX: tile row (33-60+)
 /// - YY: tile column (30-58+)
-/// - ZZZZ: local ID (0-6999 trackable, 7000+ untrackable)
+/// - ZZZZ: local ID (0-6999 use tile formula, 7000+ use row_id formula)
 ///
 /// Uses VERIFIED_TILE_BASE_OFFSET (485330, reverted 2026-01-25)
+/// For local_id >= 7000, delegates to row_id-based formula.
 fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
-    let bit = (7 - (flag_id % 8)) as u8;
-
-    let tile_index = (flag_id - 1_000_000_000) / 10000;
     let local_id = flag_id % 10000;
 
-    // LocalId > 6999 has no storage (consumables, etc.)
-    // MAX_TILE_LOCAL_ID is 6999 (the highest valid ID), so 7000+ are invalid
+    // LocalId >= 7000 uses row_id-based formula (not tile storage)
+    // DISCOVERY (2026-02-02): These are tracked by row_id in a separate bitfield
     if local_id > MAX_TILE_LOCAL_ID {
-        return None;
+        let row_id = flag_id - 7000;
+        return calculate_world_pickup_offset_by_row_id(row_id);
     }
+
+    let bit = (7 - (flag_id % 8)) as u8;
+    let tile_index = (flag_id - 1_000_000_000) / 10000;
 
     let row = tile_index / 100;
     let col = tile_index % 100;
@@ -514,16 +521,20 @@ pub fn get_flag_offset_calibrated(flag_id: u32, calibrated_tile_base: u32) -> Op
 /// Calculate tile flag offset using a specific base offset.
 ///
 /// This allows using a calibrated base instead of the static TILE_BASE_OFFSET.
+/// For flags with local_id >= 7000, uses the row_id-based formula instead.
 fn calculate_tile_flag_offset_with_base(flag_id: u32, base_offset: u32) -> Option<(u32, u8)> {
-    let bit = (7 - (flag_id % 8)) as u8;
-
-    let tile_index = (flag_id - 1_000_000_000) / 10000;
     let local_id = flag_id % 10000;
 
-    // LocalId > 6999 has no storage (consumables, etc.)
+    // LocalId >= 7000 uses row_id-based formula (not tile storage)
+    // DISCOVERY (2026-02-02): These are tracked by row_id in a separate bitfield
     if local_id > MAX_TILE_LOCAL_ID {
-        return None;
+        // Convert getItemFlagId to row_id and use row_id formula
+        let row_id = flag_id - 7000;
+        return calculate_world_pickup_offset_by_row_id(row_id);
     }
+
+    let bit = (7 - (flag_id % 8)) as u8;
+    let tile_index = (flag_id - 1_000_000_000) / 10000;
 
     let row = tile_index / 100;
     let col = tile_index % 100;
@@ -544,6 +555,45 @@ fn calculate_tile_flag_offset_with_base(flag_id: u32, base_offset: u32) -> Optio
     }
 
     Some((byte_offset, bit))
+}
+
+/// Calculate offset for world pickup tracking using ItemLotParam row_id.
+///
+/// DISCOVERY (2026-02-02): World pickups with getItemFlagId (local_id >= 7000)
+/// are NOT stored in the tile region. Instead, they're tracked by row_id
+/// in a separate bitfield region.
+///
+/// Formula:
+/// - byte_offset = (row_id - WORLD_PICKUP_ROW_ID_BASE) / 8
+/// - bit_position = 7 - ((row_id - WORLD_PICKUP_ROW_ID_BASE) % 8)
+///
+/// Verified via before/after save captures of Golden Rune [1] and [3] pickups.
+pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> Option<(u32, u8)> {
+    // Only valid for 10-digit row_ids in the 1B range
+    if row_id < 1_000_000_000 || row_id >= 2_000_000_000 {
+        return None;
+    }
+
+    // row_id should have local_id < 7000 (it's the raw ItemLotParam row_id)
+    let local_id = row_id % 10000;
+    if local_id >= 7000 {
+        return None;
+    }
+
+    // Must be >= base to have valid storage
+    if row_id < WORLD_PICKUP_ROW_ID_BASE {
+        return None;
+    }
+
+    let bit_offset = row_id - WORLD_PICKUP_ROW_ID_BASE;
+    let byte_offset = bit_offset / 8;
+    let bit_position = (7 - (bit_offset % 8)) as u8;
+
+    if byte_offset >= EVENT_FLAGS_SIZE {
+        return None;
+    }
+
+    Some((byte_offset, bit_position))
 }
 
 /// Verification status for flag offset calculations
@@ -927,26 +977,34 @@ mod tests {
     }
 
     #[test]
-    fn test_tile_untrackable_local_id() {
-        // LocalId >= 7000 should return None (consumables, etc.)
-        // Flag 1042377300 has localId 7300 which exceeds max
+    fn test_tile_row_id_formula() {
+        // UPDATED (2026-02-02): LocalId >= 7000 now uses row_id formula (not "untrackable")
+        // Flag 1042377300 has localId 7300, which converts to row_id 1042370300
+        // Formula: byte_offset = (row_id - 1037373320) / 8
+        //          bit_position = 7 - ((row_id - 1037373320) % 8)
         let result = get_flag_offset(1042377300);
-        assert!(result.is_none(), "LocalId 7300 should be untrackable");
+        assert!(result.is_some(), "LocalId 7300 should be trackable via row_id formula");
+        let (byte, bit) = result.unwrap();
+        // row_id = 1042370300, bit_offset = 1042370300 - 1037373320 = 4996980
+        // byte = 4996980 / 8 = 624622, bit = 7 - (4996980 % 8) = 7 - 4 = 3
+        assert_eq!(byte, 624622);
+        assert_eq!(bit, 3);
 
-        // LocalId 6999 should still work
+        // LocalId 6999 uses tile formula
         let result = get_flag_offset(1042376999);
-        assert!(result.is_some(), "LocalId 6999 should be trackable");
+        assert!(result.is_some(), "LocalId 6999 should be trackable via tile formula");
     }
 
     #[test]
     fn test_dungeon_flag() {
-        // Stormveil Castle flag (m10_00)
-        // Base for 10_00 is 4112 (empirically verified 2026-01-09)
-        // Flag 10007030 -> local 7030, byte offset = 4112 + 7030/8 = 4112 + 878 = 4990
+        // Stormveil Castle flag (m10_00) - PICKUP flag with local_id >= 7000
+        // UPDATED (2026-02-02): Pickup flags use DUNGEON_PICKUP_SECTION_BASES
+        // Section base for (10, 0) is 31904 (empirically verified)
+        // Flag 10007030 -> local 7030, byte offset = 31904 + 7030/8 = 31904 + 878 = 32782
         let result = get_flag_offset(10007030);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 4112 + 7030 / 8);  // 4990
+        assert_eq!(byte, 31904 + 7030 / 8);  // 32782
         assert_eq!(bit, (7 - (7030 % 8)) as u8);
     }
 
@@ -1002,15 +1060,16 @@ mod tests {
 
     #[test]
     fn test_verified_dungeon_tunnels() {
-        // Test tunnels (area 32) using VERIFIED_DUNGEON_BASES
-        // Area 32 has status="verified", base_offset=31577, section_size=1125
+        // Test tunnels (area 32) pickup flag using DUNGEON_PICKUP_SECTION_BASES
+        // UPDATED (2026-02-02): Pickup flags use per-section bases
+        // Section base for (32, 1) is 1835 (empirically verified)
         // Flag 32017000 -> area=32, section=1, local_id=7000
-        // byte = 31577 + 1*1125 + 7000/8 = 31577 + 1125 + 875 = 33577
+        // byte = 1835 + 7000/8 = 1835 + 875 = 2710
         // bit = 7 - (7000 % 8) = 7 - 0 = 7
         let result = get_flag_offset(32017000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 33577);  // Verified via probe
+        assert_eq!(byte, 2710);  // Verified via per-section discovery
         assert_eq!(bit, 7);
     }
 
@@ -1144,33 +1203,33 @@ mod tests {
     }
 
     #[test]
-    fn test_block_65000_whetblades_verified() {
-        // Block 65000 (Whetblades) verified via hardcoded offsets in event_flags.rs
-        // Block base_offset=1875, verified by matching:
-        //   65610 -> 0x79f (1951) = 1875 + 610/8 = 1875 + 76 = 1951 ✓
-        //   65700 -> 0x7aa (1962) = 1875 + 700/8 = 1875 + 87 = 1962 ✓
-        //   65710 -> 0x7ab (1963) = 1875 + 710/8 = 1875 + 88 = 1963 ✓
-        //   65720 -> 0x7ad (1965) = 1875 + 720/8 = 1875 + 90 = 1965 ✓
+    fn test_block_65000_crystal_tears_verified() {
+        // Block 65000 (Crystal Tears) - CORRECTED 2026-01-21
+        // Block base_offset=37412 (verified), not old base 1875
+        // Previously labeled "whetblades" but corrected in ground_truth
+        //   65610 -> 37412 + 610/8 = 37412 + 76 = 37488
+        //   65700 -> 37412 + 700/8 = 37412 + 87 = 37499
+        //   65720 -> 37412 + 720/8 = 37412 + 90 = 37502
 
-        // Flag 65610 (Iron Whetblade): byte=1951, bit=7-(610%8)=7-2=5
+        // Flag 65610: byte=37488, bit=7-(610%8)=7-2=5
         let result = get_flag_offset(65610);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1951);
+        assert_eq!(byte, 37488);
         assert_eq!(bit, 5);
 
-        // Flag 65700 (Black Whetblade Poison): byte=1962, bit=7-(700%8)=7-4=3
+        // Flag 65700: byte=37499, bit=7-(700%8)=7-4=3
         let result = get_flag_offset(65700);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1962);
+        assert_eq!(byte, 37499);
         assert_eq!(bit, 3);
 
-        // Flag 65720 (Black Whetblade): byte=1965, bit=7-(720%8)=7-0=7
+        // Flag 65720: byte=37502, bit=7-(720%8)=7-0=7
         let result = get_flag_offset(65720);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1965);
+        assert_eq!(byte, 37502);
         assert_eq!(bit, 7);
     }
 
