@@ -1,7 +1,8 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::ExportToolbar}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
+    use serde::Serialize;
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus, SimpleEventFlagViewState, GracesViewState}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
     /// Icon size multiplier for table icons (150%)
@@ -61,273 +62,361 @@ pub mod events {
             });
     }
 
+    /// Export item structure for graces
+    #[derive(Serialize)]
+    struct GraceExportItem {
+        name: String,
+        region: String,
+        flag_id: u32,
+        status: String,
+    }
+
     fn graces(ui: &mut Ui, vm: &mut ViewModel) {
         let graces_data = &vm.slots[vm.index].events_vm.graces;
-        let grace_groups = &vm.slots[vm.index].events_vm.grace_groups;
+        let state = &mut vm.slots[vm.index].events_vm.graces_view_state;
 
-        // Count discovered (only from reliable blocks)
+        // Build region filter options
+        let map_name_lock = MAP_NAME.lock().unwrap();
+        let mut regions: Vec<&str> = map_name_lock.values().cloned().collect();
+        regions.sort();
+
+        let region_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
+            .chain(regions.iter().map(|r| FilterOption::from_str(*r)))
+            .collect();
+
+        // Sync filter state
+        state.region_filter = state.filter_state.category.clone();
+        state.search = state.filter_state.search.clone();
+
+        // Filter bar with region dropdown and search
+        FilterBar::new("graces_filter", &mut state.filter_state)
+            .category("Region", region_options)
+            .search("Search graces...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Status filter chips (Discovered / Not Discovered / Unreliable)
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::All, "All");
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::Collected, "Discovered");
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::NotCollected, "Not Discovered");
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::Unverified, "Unreliable");
+        });
+
+        spacing::space_sm(ui);
+
+        // Export toolbar
+        let has_filters = state.filter_state.has_active_filters() || state.collected_filter != CollectedFilter::All;
+        let export_response = ExportToolbar::new("graces_export", &mut state.export_format, &mut state.export_filtered_only)
+            .has_filters(has_filters)
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Get filter values
+        let region_filter = state.region_filter.clone();
+        let search = state.search.clone();
+        let collected_filter = state.collected_filter;
+        let export_format = state.export_format;
+
+        let graces_lookup = GRACES.lock().unwrap();
+
+        // Build filtered data - flat list with region column
+        let mut items: Vec<(&crate::db::graces::maps::Grace, &str, &str, u32, GraceStatus)> = graces_data.iter()
+            .filter_map(|(grace, &status)| {
+                let info = graces_lookup.get(grace)?;
+                let region_name = map_name_lock.get(&info.0).cloned().unwrap_or("Unknown");
+                let name = info.2;
+                let flag_id = info.1;
+
+                // Apply collected filter
+                match collected_filter {
+                    CollectedFilter::All => {},
+                    CollectedFilter::Collected => if !status.is_discovered() { return None; },
+                    CollectedFilter::NotCollected => if status.is_discovered() || status.is_unreliable() { return None; },
+                    CollectedFilter::Unverified => if !status.is_unreliable() { return None; },
+                }
+
+                // Apply region filter
+                if region_filter != "All" && region_name != region_filter {
+                    return None;
+                }
+
+                // Apply search
+                if !search.is_empty() {
+                    let matches = fuzzy_match_default(name, &search) || fuzzy_match_default(region_name, &search);
+                    if !matches {
+                        return None;
+                    }
+                }
+
+                Some((grace, name, region_name, flag_id, status))
+            })
+            .collect();
+
+        // Apply sorting
+        if let Some(sort_col) = &state.table_state.sort_column {
+            let asc = state.table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "name" => items.sort_by(|a, b| if asc { a.1.cmp(b.1) } else { b.1.cmp(a.1) }),
+                "region" => items.sort_by(|a, b| if asc { a.2.cmp(b.2) } else { b.2.cmp(a.2) }),
+                "flag_id" => items.sort_by(|a, b| if asc { a.3.cmp(&b.3) } else { b.3.cmp(&a.3) }),
+                "status" => items.sort_by(|a, b| {
+                    let sa = match a.4 { GraceStatus::Discovered => 2, GraceStatus::NotDiscovered => 0, GraceStatus::Unreliable => 1 };
+                    let sb = match b.4 { GraceStatus::Discovered => 2, GraceStatus::NotDiscovered => 0, GraceStatus::Unreliable => 1 };
+                    if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
+                }),
+                _ => {}
+            }
+        }
+
+        // Summary
         let discovered_count = graces_data.values().filter(|v| v.is_discovered()).count();
         let unreliable_count = graces_data.values().filter(|v| v.is_unreliable()).count();
         let total_count = graces_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Region | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        // Summary - show reliable discovered vs total reliable
+        let filtered_count = items.len();
         let reliable_total = total_count - unreliable_count;
-        let summary = if unreliable_count > 0 {
+
+        let summary = if filtered_count < total_count {
+            if unreliable_count > 0 {
+                format!("Sites of Grace: {}/{} discovered ({} unreliable) - showing {}", discovered_count, reliable_total, unreliable_count, filtered_count)
+            } else {
+                format!("Sites of Grace: {}/{} discovered - showing {}", discovered_count, total_count, filtered_count)
+            }
+        } else if unreliable_count > 0 {
             format!("Sites of Grace: {}/{} discovered ({} unreliable)", discovered_count, reliable_total, unreliable_count)
         } else {
             format!("Sites of Grace: {}/{} discovered", discovered_count, total_count)
         };
         ui.label(RichText::new(&summary).strong());
-        spacer(ui);
 
-        let graces_lookup = GRACES.lock().unwrap();
+        spacing::space_sm(ui);
 
-        // Group by region
-        for (map_id, grace_ids) in grace_groups {
-            let region_name = MAP_NAME.lock().unwrap().get(map_id).cloned().unwrap_or("Unknown");
-            let region_discovered = grace_ids.iter()
-                .filter(|g| graces_data.get(g).map(|s| s.is_discovered()).unwrap_or(false))
-                .count();
-            let region_unreliable = grace_ids.iter()
-                .filter(|g| graces_data.get(g).map(|s| s.is_unreliable()).unwrap_or(false))
-                .count();
-
-            let region_header = if region_unreliable > 0 {
-                format!("{} ({}/{}, {} unreliable)", region_name, region_discovered, grace_ids.len() - region_unreliable, region_unreliable)
-            } else {
-                format!("{} ({}/{})", region_name, region_discovered, grace_ids.len())
+        // Build row data
+        let rows: Vec<RowData> = items.iter().map(|(_, name, region, flag_id, status)| {
+            let (status_icon, row_color) = match status {
+                GraceStatus::Discovered => (icons::COLLECTED, colors::STATUS_COLLECTED),
+                GraceStatus::NotDiscovered => (icons::NOT_COLLECTED, Color32::LIGHT_GRAY),
+                GraceStatus::Unreliable => (icons::UNKNOWN, colors::STATUS_WARNING),
             };
-            ui.label(RichText::new(region_header).strong());
 
-            for grace_id in grace_ids {
-                if let Some(grace_info) = graces_lookup.get(grace_id) {
-                    let grace_status = graces_data.get(grace_id).copied().unwrap_or(GraceStatus::NotDiscovered);
-                    let flag_id = grace_info.1;
-                    let name = grace_info.2;
+            RowData::new(vec![
+                status_icon.to_string(),
+                name.to_string(),
+                region.to_string(),
+                flag_id.to_string(),
+            ]).with_color(row_color)
+        }).collect();
 
-                    let (status_icon, status_color, status_text) = match grace_status {
-                        GraceStatus::Discovered => (icons::COLLECTED, colors::STATUS_COLLECTED, "Discovered"),
-                        GraceStatus::NotDiscovered => (icons::NOT_COLLECTED, Color32::LIGHT_GRAY, "Not discovered"),
-                        GraceStatus::Unreliable => (icons::UNKNOWN, colors::STATUS_WARNING, "Unreliable"),
-                    };
+        // Define columns
+        let columns = vec![
+            Column::new("status", "Status").width(50.0).sortable(true).center().icon(),
+            Column::new("name", "Name").width_fraction(0.35).sortable(true),
+            Column::new("region", "Region").width_fraction(0.25).sortable(true),
+            Column::new("flag_id", "Flag ID").width(100.0).sortable(true).monospace(true),
+        ];
 
-                    let row_text = format!("{} | {} | {}", name, region_name, flag_id);
-                    let full_row_text = format!("{} | {} | {} | {}", status_text, name, region_name, flag_id);
+        // Show table
+        let table_response = UnifiedTable::new("graces_table", &mut state.table_state)
+            .columns(columns)
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
 
-                    let response = ui.horizontal(|ui| {
-                        // Status icon at 150% size
-                        ui.label(RichText::new(status_icon)
-                            .color(status_color)
-                            .size(TABLE_MONO_SIZE * ICON_SIZE_MULTIPLIER));
-                        ui.add(
-                            egui::Label::new(RichText::new(&row_text).color(status_color).monospace().size(TABLE_MONO_SIZE))
-                                .sense(egui::Sense::click())
-                        )
-                    }).inner;
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
+        }
 
-                    if response.double_clicked() {
-                        ui.output_mut(|o| o.copied_text = full_row_text.clone());
-                    }
-
-                    response.context_menu(|ui| {
-                        if ui.button("Copy row").clicked() {
-                            ui.output_mut(|o| o.copied_text = full_row_text.clone());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy name").clicked() {
-                            ui.output_mut(|o| o.copied_text = name.to_string());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy flag ID").clicked() {
-                            ui.output_mut(|o| o.copied_text = flag_id.to_string());
-                            ui.close_menu();
-                        }
-                    });
-                }
+        // Handle double-click to copy row
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some((_, name, region, flag_id, status)) = items.get(row_idx) {
+                let status_text = match status {
+                    GraceStatus::Discovered => "Discovered",
+                    GraceStatus::NotDiscovered => "Not discovered",
+                    GraceStatus::Unreliable => "Unreliable",
+                };
+                let row_text = format!("{}\t{}\t{}\t{}", status_text, name, region, flag_id);
+                ui.output_mut(|o| o.copied_text = row_text);
             }
-            spacer(ui);
+        }
+
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let export_data: Vec<GraceExportItem> = items.iter()
+                .map(|(_, name, region, flag_id, status)| GraceExportItem {
+                    name: name.to_string(),
+                    region: region.to_string(),
+                    flag_id: *flag_id,
+                    status: match status {
+                        GraceStatus::Discovered => "Discovered",
+                        GraceStatus::NotDiscovered => "Not Discovered",
+                        GraceStatus::Unreliable => "Unreliable",
+                    }.to_string(),
+                })
+                .collect();
+
+            let content = match export_format {
+                ExportFormat::Json => {
+                    let export = PageExport::new(
+                        PageExportMetadata::new("Sites of Grace")
+                            .with_counts(total_count, filtered_count),
+                        &export_data,
+                    );
+                    to_json(&export).unwrap_or_default()
+                }
+                ExportFormat::Csv => {
+                    let headers = &["Name", "Region", "Flag ID", "Status"];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.name.clone(),
+                            item.region.clone(),
+                            item.flag_id.to_string(),
+                            item.status.clone(),
+                        ])
+                        .collect();
+                    to_csv(headers, &rows)
+                }
+                ExportFormat::Markdown => {
+                    let headers = &["Name", "Region", "Flag ID", "Status"];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.name.clone(),
+                            item.region.clone(),
+                            item.flag_id.to_string(),
+                            item.status.clone(),
+                        ])
+                        .collect();
+                    to_markdown(headers, &rows)
+                }
+            };
+
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content);
+            }
         }
     }
 
     fn whetblades(ui: &mut Ui, vm: &mut ViewModel) {
         let whetblades_data = &vm.slots[vm.index].events_vm.whetblades;
-
-        let discovered_count = whetblades_data.values().filter(|v| **v).count();
-        let total_count = whetblades_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Whetblades: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.whetblades_view_state;
 
         let whetblades_lookup = WHETBLADES.lock().unwrap();
 
-        for (whetblade, discovered) in whetblades_data {
-            if let Some(info) = whetblades_lookup.get(whetblade) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "whetblades",
+            "Whetblades",
+            "discovered",
+            whetblades_data,
+            state,
+            |key| whetblades_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn cookbooks(ui: &mut Ui, vm: &mut ViewModel) {
         let cookbooks_data = &vm.slots[vm.index].events_vm.cookbooks;
-
-        let discovered_count = cookbooks_data.values().filter(|v| **v).count();
-        let total_count = cookbooks_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Cookbooks: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.cookbooks_view_state;
 
         let cookbooks_lookup = COOKBOKS.lock().unwrap();
 
-        for (cookbook, discovered) in cookbooks_data {
-            if let Some(info) = cookbooks_lookup.get(cookbook) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "cookbooks",
+            "Cookbooks",
+            "discovered",
+            cookbooks_data,
+            state,
+            |key| cookbooks_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn maps(ui: &mut Ui, vm: &mut ViewModel) {
         let maps_data = &vm.slots[vm.index].events_vm.maps;
-
-        let discovered_count = maps_data.values().filter(|v| **v).count();
-        let total_count = maps_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Maps: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.maps_view_state;
 
         let maps_lookup = MAPS.lock().unwrap();
 
-        for (map, discovered) in maps_data {
-            if let Some(info) = maps_lookup.get(map) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "maps",
+            "Maps",
+            "discovered",
+            maps_data,
+            state,
+            |key| maps_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn bosses(ui: &mut Ui, vm: &mut ViewModel) {
         let bosses_data = &vm.slots[vm.index].events_vm.bosses;
-
-        let defeated_count = bosses_data.values().filter(|v| **v).count();
-        let total_count = bosses_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Bosses: {}/{} defeated", defeated_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.bosses_view_state;
 
         let bosses_lookup = BOSSES.lock().unwrap();
 
-        for (boss, defeated) in bosses_data {
-            if let Some(info) = bosses_lookup.get(boss) {
-                display_event_row_with_icon(ui, info.1, info.0, *defeated);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "bosses",
+            "Bosses",
+            "defeated",
+            bosses_data,
+            state,
+            |key| bosses_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn summoning_pools(ui: &mut Ui, vm: &mut ViewModel) {
         let pools_data = &vm.slots[vm.index].events_vm.summoning_pools;
-
-        let discovered_count = pools_data.values().filter(|v| **v).count();
-        let total_count = pools_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Summoning Pools: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.summoning_pools_view_state;
 
         let pools_lookup = SUMMONING_POOLS.lock().unwrap();
 
-        for (pool, discovered) in pools_data {
-            if let Some(info) = pools_lookup.get(pool) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "summoning_pools",
+            "Summoning Pools",
+            "discovered",
+            pools_data,
+            state,
+            |key| pools_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn colosseums(ui: &mut Ui, vm: &mut ViewModel) {
         let colosseums_data = &vm.slots[vm.index].events_vm.colosseums;
-
-        let discovered_count = colosseums_data.values().filter(|v| **v).count();
-        let total_count = colosseums_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Colosseums: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.colosseums_view_state;
 
         let colosseums_lookup = COLOSSEUMS.lock().unwrap();
 
-        for (colosseum, discovered) in colosseums_data {
-            if let Some(info) = colosseums_lookup.get(colosseum) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "colosseums",
+            "Colosseums",
+            "discovered",
+            colosseums_data,
+            state,
+            |key| colosseums_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     fn landmarks_view(ui: &mut Ui, vm: &mut ViewModel) {
         let landmarks_data = &vm.slots[vm.index].events_vm.landmarks;
-
-        let discovered_count = landmarks_data.values().filter(|v| **v).count();
-        let total_count = landmarks_data.len();
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        let summary = format!("Landmarks: {}/{} discovered", discovered_count, total_count);
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
+        let state = &mut vm.slots[vm.index].events_vm.landmarks_view_state;
 
         let landmarks_lookup = LANDMARKS.lock().unwrap();
 
-        for (landmark, discovered) in landmarks_data {
-            if let Some(info) = landmarks_lookup.get(landmark) {
-                display_event_row_with_icon(ui, info.1, info.0, *discovered);
-            }
-        }
+        simple_event_flag_view(
+            ui,
+            "landmarks",
+            "Landmarks",
+            "discovered",
+            landmarks_data,
+            state,
+            |key| landmarks_lookup.get(key).map(|info| (info.1, info.0)),
+        );
     }
 
     /// Display an event row with icon-based status
@@ -376,6 +465,226 @@ pub mod events {
                 ui.close_menu();
             }
         });
+    }
+
+    /// Export item structure for simple event flag pages
+    #[derive(Serialize)]
+    struct SimpleEventFlagExportItem {
+        name: String,
+        flag_id: u32,
+        discovered: bool,
+    }
+
+    /// Generic view function for simple event flag pages
+    /// Renders FilterBar + UnifiedTable + ExportToolbar pattern
+    fn simple_event_flag_view<K, F>(
+        ui: &mut Ui,
+        page_id: &str,
+        page_name: &str,
+        status_verb: &str,  // "discovered" or "defeated"
+        data: &std::collections::BTreeMap<K, bool>,
+        state: &mut SimpleEventFlagViewState,
+        lookup_fn: F,
+    ) where
+        K: Copy + Ord,
+        F: Fn(&K) -> Option<(&'static str, u32)>,  // Returns (name, flag_id)
+    {
+        // Sync filter state
+        state.search = state.filter_state.search.clone();
+
+        // Filter bar with search only (simple pages don't have categories)
+        FilterBar::new(format!("{}_filter", page_id), &mut state.filter_state)
+            .search("Search...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Status filter chips
+        ui.horizontal(|ui| {
+            ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::All, "All");
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::Collected,
+                if status_verb == "defeated" { "Defeated" } else { "Discovered" });
+            ui.selectable_value(&mut state.collected_filter, CollectedFilter::NotCollected,
+                if status_verb == "defeated" { "Not Defeated" } else { "Not Discovered" });
+        });
+
+        spacing::space_sm(ui);
+
+        // Export toolbar
+        let has_filters = state.filter_state.has_active_filters() || state.collected_filter != CollectedFilter::All;
+        let export_response = ExportToolbar::new(format!("{}_export", page_id), &mut state.export_format, &mut state.export_filtered_only)
+            .has_filters(has_filters)
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Build filtered data
+        let search = state.search.clone();
+        let collected_filter = state.collected_filter;
+        let export_format = state.export_format;
+
+        let mut items: Vec<(&K, &str, u32, bool)> = data.iter()
+            .filter_map(|(key, &discovered)| {
+                let (name, flag_id) = lookup_fn(key)?;
+
+                // Apply collected filter
+                match collected_filter {
+                    CollectedFilter::All => {},
+                    CollectedFilter::Collected => if !discovered { return None; },
+                    CollectedFilter::NotCollected => if discovered { return None; },
+                    CollectedFilter::Unverified => {
+                        // For simple flags, use the verification status
+                        let status = get_flag_verification_status(flag_id);
+                        if !status.is_uncertain() { return None; }
+                    },
+                }
+
+                // Apply search
+                if !search.is_empty() && !fuzzy_match_default(name, &search) {
+                    return None;
+                }
+
+                Some((key, name, flag_id, discovered))
+            })
+            .collect();
+
+        // Apply sorting
+        if let Some(sort_col) = &state.table_state.sort_column {
+            let asc = state.table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "name" => items.sort_by(|a, b| if asc { a.1.cmp(b.1) } else { b.1.cmp(a.1) }),
+                "flag_id" => items.sort_by(|a, b| if asc { a.2.cmp(&b.2) } else { b.2.cmp(&a.2) }),
+                "status" => items.sort_by(|a, b| {
+                    let sa = if a.3 { 1 } else { 0 };
+                    let sb = if b.3 { 1 } else { 0 };
+                    if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
+                }),
+                _ => {}
+            }
+        }
+
+        // Summary
+        let discovered_count = data.values().filter(|v| **v).count();
+        let total_count = data.len();
+        let filtered_count = items.len();
+
+        if filtered_count < total_count {
+            ui.label(RichText::new(format!("{}: {}/{} {} (showing {})", page_name, discovered_count, total_count, status_verb, filtered_count)).strong());
+        } else {
+            ui.label(RichText::new(format!("{}: {}/{} {}", page_name, discovered_count, total_count, status_verb)).strong());
+        }
+
+        spacing::space_sm(ui);
+
+        // Build row data
+        let rows: Vec<RowData> = items.iter().map(|(_, name, flag_id, discovered)| {
+            let status = get_flag_verification_status(*flag_id);
+            let is_unverified = status.is_uncertain();
+
+            let status_icon = if is_unverified {
+                icons::MISMATCH
+            } else if *discovered {
+                icons::COLLECTED
+            } else {
+                icons::NOT_COLLECTED
+            };
+
+            let row_color = if is_unverified {
+                colors::STATUS_WARNING
+            } else if *discovered {
+                colors::STATUS_COLLECTED
+            } else {
+                Color32::LIGHT_GRAY
+            };
+
+            RowData::new(vec![
+                status_icon.to_string(),
+                name.to_string(),
+                flag_id.to_string(),
+            ]).with_color(row_color)
+        }).collect();
+
+        // Define columns
+        let columns = vec![
+            Column::new("status", "Status").width(50.0).sortable(true).center().icon(),
+            Column::new("name", "Name").width_fraction(0.5).sortable(true),
+            Column::new("flag_id", "Flag ID").width(100.0).sortable(true).monospace(true),
+        ];
+
+        // Show table
+        let table_response = UnifiedTable::new(format!("{}_table", page_id), &mut state.table_state)
+            .columns(columns)
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
+
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
+        }
+
+        // Handle double-click to copy row
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some((_, name, flag_id, discovered)) = items.get(row_idx) {
+                let status_text = if *discovered {
+                    if status_verb == "defeated" { "Defeated" } else { "Discovered" }
+                } else {
+                    if status_verb == "defeated" { "Not defeated" } else { "Not discovered" }
+                };
+                let row_text = format!("{}\t{}\t{}", status_text, name, flag_id);
+                ui.output_mut(|o| o.copied_text = row_text);
+            }
+        }
+
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let export_data: Vec<SimpleEventFlagExportItem> = items.iter()
+                .map(|(_, name, flag_id, discovered)| SimpleEventFlagExportItem {
+                    name: name.to_string(),
+                    flag_id: *flag_id,
+                    discovered: *discovered,
+                })
+                .collect();
+
+            let content = match export_format {
+                ExportFormat::Json => {
+                    let export = PageExport::new(
+                        PageExportMetadata::new(page_name)
+                            .with_counts(total_count, filtered_count),
+                        &export_data,
+                    );
+                    to_json(&export).unwrap_or_default()
+                }
+                ExportFormat::Csv => {
+                    let headers = &["Name", "Flag ID", if status_verb == "defeated" { "Defeated" } else { "Discovered" }];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.name.clone(),
+                            item.flag_id.to_string(),
+                            if item.discovered { "Yes" } else { "No" }.to_string(),
+                        ])
+                        .collect();
+                    to_csv(headers, &rows)
+                }
+                ExportFormat::Markdown => {
+                    let headers = &["Name", "Flag ID", if status_verb == "defeated" { "Defeated" } else { "Discovered" }];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.name.clone(),
+                            item.flag_id.to_string(),
+                            if item.discovered { "Yes" } else { "No" }.to_string(),
+                        ])
+                        .collect();
+                    to_markdown(headers, &rows)
+                }
+            };
+
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content);
+            }
+        }
     }
 
     /// Check if an item is in the character's inventory based on flag ID
@@ -831,6 +1140,18 @@ pub mod events {
         }
     }
 
+    /// Export item structure for dungeon pickups
+    #[derive(Serialize)]
+    struct DungeonPickupExportItem {
+        flag_id: u32,
+        item_name: String,
+        category: String,
+        quantity: u32,
+        dungeon: String,
+        collected: bool,
+        verified: bool,
+    }
+
     fn dungeon_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         use crate::db::dungeon_pickups::DungeonPickup;
         use crate::db::pickup_flags::DUNGEON_SECTION_SIZE;
@@ -838,7 +1159,31 @@ pub mod events {
 
         let filter = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter;
 
-        // Type filter row
+        // Build dungeon filter options
+        let mut dungeons: Vec<&str> = DUNGEON_PICKUPS.iter()
+            .map(|p| get_dungeon_area_name(p.dungeon_area))
+            .collect::<std::collections::HashSet<_>>()
+            .into_iter()
+            .collect();
+        dungeons.sort();
+
+        let dungeon_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
+            .chain(dungeons.iter().map(|d| FilterOption::from_str(*d)))
+            .collect();
+
+        // Sync filter state
+        filter.dungeon_filter = filter.filter_state.category.clone();
+        filter.search = filter.filter_state.search.clone();
+
+        // Filter bar with dungeon dropdown and search
+        FilterBar::new("dungeon_pickups_filter", &mut filter.filter_state)
+            .category("Dungeon", dungeon_options)
+            .search("Search items...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Type filter chips
         ui.horizontal(|ui| {
             ui.label(RichText::new("Type:").color(Color32::LIGHT_GRAY));
             egui::ComboBox::from_id_salt("dungeon_pickup_type_filter")
@@ -874,33 +1219,7 @@ pub mod events {
                 });
         });
 
-        // Dungeon filter and search row
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Dungeon:").color(Color32::LIGHT_GRAY));
-
-            // Get unique dungeons from data
-            let mut dungeons: Vec<&str> = DUNGEON_PICKUPS.iter()
-                .map(|p| get_dungeon_area_name(p.dungeon_area))
-                .collect::<std::collections::HashSet<_>>()
-                .into_iter()
-                .collect();
-            dungeons.sort();
-            dungeons.insert(0, "All");
-
-            egui::ComboBox::from_id_salt("dungeon_pickups_dungeon_filter")
-                .selected_text(&filter.dungeon_filter)
-                .show_ui(ui, |ui| {
-                    for dungeon in &dungeons {
-                        ui.selectable_value(&mut filter.dungeon_filter, dungeon.to_string(), *dungeon);
-                    }
-                });
-
-            spacer(ui);
-            ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
-            ui.text_edit_singleline(&mut filter.search);
-        });
-
-        // Collected filter row
+        // Status filter chips
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::All, "All");
@@ -908,21 +1227,25 @@ pub mod events {
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
         });
-        spacer(ui);
+
+        spacing::space_sm(ui);
+
+        // Export toolbar
+        let has_filters = filter.filter_state.has_active_filters()
+            || filter.type_filter != PickupTypeFilter::All
+            || filter.collected_filter != CollectedFilter::All;
+        let export_response = ExportToolbar::new("dungeon_pickups_export", &mut filter.export_format, &mut filter.export_filtered_only)
+            .has_filters(has_filters)
+            .show(ui);
+
+        spacing::space_sm(ui);
 
         // Get current filter values (to avoid borrow issues)
         let type_filter = filter.type_filter;
         let collected_filter = filter.collected_filter;
         let dungeon_filter = filter.dungeon_filter.clone();
         let search = filter.search.clone();
-        let search_lower = search.to_lowercase();
-
-        // Count collected/total
-        let mut collected = 0;
-        let mut total = 0;
-        let mut filtered_total = 0;
-        let mut filtered_collected = 0;
-        let mut unverified_count = 0;
+        let export_format = filter.export_format;
 
         let ef = event_flags.unwrap_or(&[]);
 
@@ -946,306 +1269,247 @@ pub mod events {
             (is_set, true) // true = verified base
         }
 
-        for pickup in DUNGEON_PICKUPS.iter() {
-            let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
-            if is_collected {
-                collected += 1;
-            }
-            if !is_verified {
-                unverified_count += 1;
-            }
-            total += 1;
+        // Build filtered data - flat list
+        let mut items: Vec<(&DungeonPickup, &str, bool, bool)> = DUNGEON_PICKUPS.iter()
+            .filter_map(|pickup| {
+                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
+                let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
 
-            // Check if passes filters
-            if passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
-                filtered_total += 1;
-                if is_collected {
-                    filtered_collected += 1;
+                // Apply collected filter
+                match collected_filter {
+                    CollectedFilter::All => {},
+                    CollectedFilter::Collected => if !is_collected { return None; },
+                    CollectedFilter::NotCollected => if is_collected { return None; },
+                    CollectedFilter::Unverified => if is_verified { return None; },
                 }
+
+                // Apply type filter
+                let type_match = match type_filter {
+                    PickupTypeFilter::All => true,
+                    PickupTypeFilter::GoldenRunes => pickup.category == PickupCategory::GoldenRunes,
+                    PickupTypeFilter::SmithingStones => pickup.category == PickupCategory::SmithingStones,
+                    PickupTypeFilter::SomberStones => pickup.category == PickupCategory::SomberStones,
+                    PickupTypeFilter::Glovewort => pickup.category == PickupCategory::Glovewort,
+                    PickupTypeFilter::Weapons => pickup.category == PickupCategory::Weapons,
+                    PickupTypeFilter::Armor => pickup.category == PickupCategory::Armor,
+                    PickupTypeFilter::Talismans => pickup.category == PickupCategory::Talismans,
+                    PickupTypeFilter::AshesOfWar => pickup.category == PickupCategory::AshesOfWar,
+                    PickupTypeFilter::KeyItems => pickup.category == PickupCategory::KeyItems,
+                    PickupTypeFilter::CraftingMaterials => pickup.category == PickupCategory::CraftingMaterials,
+                    PickupTypeFilter::Consumables => pickup.category == PickupCategory::Consumables,
+                    PickupTypeFilter::Other => pickup.category == PickupCategory::Other,
+                };
+                if !type_match { return None; }
+
+                // Apply dungeon filter
+                if dungeon_filter != "All" && dungeon_name != dungeon_filter {
+                    return None;
+                }
+
+                // Apply search using fuzzy match
+                if !search.is_empty() {
+                    let matches = fuzzy_match_default(pickup.name, &search)
+                        || fuzzy_match_default(dungeon_name, &search);
+                    if !matches { return None; }
+                }
+
+                Some((pickup, dungeon_name, is_collected, is_verified))
+            })
+            .collect();
+
+        // Apply sorting
+        let table_state = &vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state;
+        if let Some(sort_col) = &table_state.sort_column {
+            let asc = table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "flag_id" => items.sort_by(|a, b| if asc { a.0.event_flag.cmp(&b.0.event_flag) } else { b.0.event_flag.cmp(&a.0.event_flag) }),
+                "item" => items.sort_by(|a, b| if asc { a.0.name.cmp(b.0.name) } else { b.0.name.cmp(a.0.name) }),
+                "category" => items.sort_by(|a, b| {
+                    let ca = a.0.category.display_name();
+                    let cb = b.0.category.display_name();
+                    if asc { ca.cmp(cb) } else { cb.cmp(ca) }
+                }),
+                "qty" => items.sort_by(|a, b| if asc { a.0.quantity.cmp(&b.0.quantity) } else { b.0.quantity.cmp(&a.0.quantity) }),
+                "dungeon" => items.sort_by(|a, b| if asc { a.1.cmp(b.1) } else { b.1.cmp(a.1) }),
+                "status" => items.sort_by(|a, b| {
+                    let sa = if a.2 { 1 } else { 0 };
+                    let sb = if b.2 { 1 } else { 0 };
+                    if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
+                }),
+                _ => {}
             }
         }
 
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Flag ID | Item | Category | Qty | Dungeon").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
+        // Count totals
+        let total_count = DUNGEON_PICKUPS.len();
+        let filtered_count = items.len();
+        let collected_count: usize = DUNGEON_PICKUPS.iter()
+            .filter(|p| is_dungeon_pickup_collected(ef, p).0)
+            .count();
+        let unverified_count: usize = DUNGEON_PICKUPS.iter()
+            .filter(|p| !is_dungeon_pickup_collected(ef, p).1)
+            .count();
 
         // Summary
-        let summary = if filtered_total == total {
+        let summary = if filtered_count < total_count {
             if unverified_count > 0 {
-                format!("Dungeon Pickups: {}/{} collected ({} unverified)", collected, total, unverified_count)
+                format!("Dungeon Pickups: {}/{} collected ({} unverified) - showing {}", collected_count, total_count, unverified_count, filtered_count)
             } else {
-                format!("Dungeon Pickups: {}/{} collected", collected, total)
+                format!("Dungeon Pickups: {}/{} collected - showing {}", collected_count, total_count, filtered_count)
             }
+        } else if unverified_count > 0 {
+            format!("Dungeon Pickups: {}/{} collected ({} unverified)", collected_count, total_count, unverified_count)
         } else {
-            format!("Dungeon Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
+            format!("Dungeon Pickups: {}/{} collected", collected_count, total_count)
         };
         ui.label(RichText::new(&summary).strong());
-        spacer(ui);
 
-        // Group by dungeon area
-        let mut dungeons_map: std::collections::BTreeMap<u32, Vec<_>> = std::collections::BTreeMap::new();
-        for pickup in DUNGEON_PICKUPS.iter() {
-            dungeons_map.entry(pickup.dungeon_area).or_default().push(pickup);
+        spacing::space_sm(ui);
+
+        // Build row data
+        let selected_flag_id = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id;
+        let rows: Vec<RowData> = items.iter().map(|(pickup, dungeon_name, is_collected, is_verified)| {
+            let status_icon = if !is_verified {
+                icons::MISMATCH
+            } else if *is_collected {
+                icons::COLLECTED
+            } else {
+                icons::NOT_COLLECTED
+            };
+
+            let is_selected = selected_flag_id == Some(pickup.event_flag);
+
+            let row_color = if is_selected {
+                Color32::YELLOW
+            } else if !is_verified {
+                colors::STATUS_WARNING
+            } else if *is_collected {
+                colors::STATUS_COLLECTED
+            } else {
+                Color32::LIGHT_GRAY
+            };
+
+            RowData::new(vec![
+                status_icon.to_string(),
+                pickup.event_flag.to_string(),
+                pickup.name.to_string(),
+                pickup.category.display_name().to_string(),
+                pickup.quantity.to_string(),
+                dungeon_name.to_string(),
+            ]).with_color(row_color)
+        }).collect();
+
+        // Define columns
+        let columns = vec![
+            Column::new("status", "Status").width(50.0).sortable(true).center().icon(),
+            Column::new("flag_id", "Flag ID").width(80.0).sortable(true).monospace(true),
+            Column::new("item", "Item").width_fraction(0.25).sortable(true),
+            Column::new("category", "Category").width(100.0).sortable(true),
+            Column::new("qty", "Qty").width(50.0).sortable(true).right(),
+            Column::new("dungeon", "Dungeon").width_fraction(0.2).sortable(true),
+        ];
+
+        // Show table
+        let table_state = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state;
+        let table_response = UnifiedTable::new("dungeon_pickups_table", table_state)
+            .columns(columns)
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
+
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
         }
 
-        for (area, pickups) in dungeons_map {
-            let area_name = get_dungeon_area_name(area);
-
-            // Count collected and filtered in this area
-            let mut area_collected = 0;
-            let mut area_filtered = 0;
-
-            for pickup in &pickups {
-                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
-                if is_collected {
-                    area_collected += 1;
-                }
-                if passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
-                    area_filtered += 1;
-                }
-            }
-
-            // Skip area if no items pass filter
-            if area_filtered == 0 {
-                continue;
-            }
-
-            let area_header = if area_filtered == pickups.len() {
-                format!("{} ({}/{})", area_name, area_collected, pickups.len())
-            } else {
-                format!("{} ({}/{} collected, showing {})", area_name, area_collected, pickups.len(), area_filtered)
-            };
-            ui.label(RichText::new(area_header).strong());
-
-            for pickup in &pickups {
-                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
-
-                // Apply filters
-                if !passes_dungeon_pickup_filters(pickup, is_collected, is_verified, type_filter, collected_filter, &dungeon_filter, &search_lower) {
-                    continue;
-                }
-
-                // Determine status icon
-                let (status_icon, status_color) = if !is_verified {
-                    (icons::MISMATCH, colors::STATUS_WARNING)
-                } else if is_collected {
-                    (icons::COLLECTED, colors::STATUS_COLLECTED)
-                } else {
-                    (icons::NOT_COLLECTED, Color32::LIGHT_GRAY)
-                };
-
-                // Build row text without status (status will be rendered as icon)
-                let row_text = format!(
-                    "{} | {} | {} | {} | {}",
-                    pickup.event_flag, pickup.name,
-                    pickup.category.display_name(), pickup.quantity, area_name
-                );
-
-                // Check if this row is selected
-                let is_selected = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id == Some(pickup.event_flag);
-
-                let text_color = if is_selected {
-                    Color32::YELLOW // Highlight selected row
-                } else if !is_verified {
-                    colors::STATUS_WARNING
-                } else if is_collected {
-                    colors::STATUS_COLLECTED
-                } else {
-                    Color32::LIGHT_GRAY
-                };
-
-                // Render row with icon prefix
-                let response = ui.horizontal(|ui| {
-                    // Status icon at 150% size
-                    ui.label(RichText::new(status_icon)
-                        .color(status_color)
-                        .size(TABLE_MONO_SIZE * ICON_SIZE_MULTIPLIER));
-                    ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                            .sense(egui::Sense::click())
-                    )
-                }).inner;
-
-                // Single click selects for details panel
-                if response.clicked() {
+        // Handle row selection for details panel
+        if table_response.sort_changed || vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
+                if let Some((pickup, _, _, _)) = items.get(idx) {
                     vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
+            }
+        }
 
-                // Build full row text for copying (with text status, not icon)
+        // Handle double-click
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some((pickup, dungeon_name, is_collected, is_verified)) = items.get(row_idx) {
                 let status_text = if !is_verified {
                     "Unverified"
-                } else if is_collected {
+                } else if *is_collected {
                     "Collected"
                 } else {
                     "Not collected"
                 };
-                let full_row_text = format!(
-                    "{} | {} | {} | {} | {} | {}",
+                let row_text = format!(
+                    "{}\t{}\t{}\t{}\t{}\t{}",
                     status_text, pickup.event_flag, pickup.name,
-                    pickup.category.display_name(), pickup.quantity, area_name
+                    pickup.category.display_name(), pickup.quantity, dungeon_name
                 );
-
-                if response.double_clicked() {
-                    ui.output_mut(|o| o.copied_text = full_row_text.clone());
-                }
-
-                response.context_menu(|ui| {
-                    if ui.button("Copy row").clicked() {
-                        ui.output_mut(|o| o.copied_text = full_row_text.clone());
-                        ui.close_menu();
-                    }
-                    if ui.button("Copy item name").clicked() {
-                        ui.output_mut(|o| o.copied_text = pickup.name.to_string());
-                        ui.close_menu();
-                    }
-                    if ui.button(format!("Copy flag ID: {}", pickup.event_flag)).clicked() {
-                        ui.output_mut(|o| o.copied_text = pickup.event_flag.to_string());
-                        ui.close_menu();
-                    }
-                });
-            }
-
-            spacer(ui);
-        }
-    }
-
-    fn passes_dungeon_pickup_filters(
-        pickup: &crate::db::dungeon_pickups::DungeonPickup,
-        is_collected: bool,
-        is_verified: bool,
-        type_filter: PickupTypeFilter,
-        collected_filter: CollectedFilter,
-        dungeon_filter: &str,
-        search_lower: &str,
-    ) -> bool {
-        // Apply collected filter
-        match collected_filter {
-            CollectedFilter::All => {},
-            CollectedFilter::Collected => {
-                if !is_collected {
-                    return false;
-                }
-            },
-            CollectedFilter::NotCollected => {
-                if is_collected {
-                    return false;
-                }
-            },
-            CollectedFilter::Unverified => {
-                // Show only items with unverified bases
-                if is_verified {
-                    return false;
-                }
-            },
-        }
-
-        // Apply type filter
-        let type_match = match type_filter {
-            PickupTypeFilter::All => true,
-            PickupTypeFilter::GoldenRunes => pickup.category == PickupCategory::GoldenRunes,
-            PickupTypeFilter::SmithingStones => pickup.category == PickupCategory::SmithingStones,
-            PickupTypeFilter::SomberStones => pickup.category == PickupCategory::SomberStones,
-            PickupTypeFilter::Glovewort => pickup.category == PickupCategory::Glovewort,
-            PickupTypeFilter::Weapons => pickup.category == PickupCategory::Weapons,
-            PickupTypeFilter::Armor => pickup.category == PickupCategory::Armor,
-            PickupTypeFilter::Talismans => pickup.category == PickupCategory::Talismans,
-            PickupTypeFilter::AshesOfWar => pickup.category == PickupCategory::AshesOfWar,
-            PickupTypeFilter::KeyItems => pickup.category == PickupCategory::KeyItems,
-            PickupTypeFilter::CraftingMaterials => pickup.category == PickupCategory::CraftingMaterials,
-            PickupTypeFilter::Consumables => pickup.category == PickupCategory::Consumables,
-            PickupTypeFilter::Other => pickup.category == PickupCategory::Other,
-        };
-
-        if !type_match {
-            return false;
-        }
-
-        // Apply dungeon filter
-        let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
-        if dungeon_filter != "All" && dungeon_name != dungeon_filter {
-            return false;
-        }
-
-        // Apply search
-        if !search_lower.is_empty() {
-            let matches = pickup.name.to_lowercase().contains(search_lower)
-                || dungeon_name.to_lowercase().contains(search_lower);
-            if !matches {
-                return false;
+                ui.output_mut(|o| o.copied_text = row_text);
             }
         }
 
-        true
-    }
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let export_data: Vec<DungeonPickupExportItem> = items.iter()
+                .map(|(pickup, dungeon_name, is_collected, is_verified)| DungeonPickupExportItem {
+                    flag_id: pickup.event_flag,
+                    item_name: pickup.name.to_string(),
+                    category: pickup.category.display_name().to_string(),
+                    quantity: pickup.quantity,
+                    dungeon: dungeon_name.to_string(),
+                    collected: *is_collected,
+                    verified: *is_verified,
+                })
+                .collect();
 
-    fn passes_pickup_filters(
-        pickup: &crate::db::pickup_data::WorldPickup,
-        is_collected: bool,
-        verification_status: crate::db::pickup_flags::VerificationStatus,
-        type_filter: PickupTypeFilter,
-        collected_filter: CollectedFilter,
-        region_filter: &str,
-        search_lower: &str,
-    ) -> bool {
-        // Apply collected filter
-        match collected_filter {
-            CollectedFilter::All => {},
-            CollectedFilter::Collected => {
-                if !is_collected {
-                    return false;
+            let content = match export_format {
+                ExportFormat::Json => {
+                    let export = PageExport::new(
+                        PageExportMetadata::new("Dungeon Pickups")
+                            .with_counts(total_count, filtered_count),
+                        &export_data,
+                    );
+                    to_json(&export).unwrap_or_default()
                 }
-            },
-            CollectedFilter::NotCollected => {
-                if is_collected {
-                    return false;
+                ExportFormat::Csv => {
+                    let headers = &["Flag ID", "Item", "Category", "Qty", "Dungeon", "Collected", "Verified"];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.flag_id.to_string(),
+                            item.item_name.clone(),
+                            item.category.clone(),
+                            item.quantity.to_string(),
+                            item.dungeon.clone(),
+                            if item.collected { "Yes" } else { "No" }.to_string(),
+                            if item.verified { "Yes" } else { "No" }.to_string(),
+                        ])
+                        .collect();
+                    to_csv(headers, &rows)
                 }
-            },
-            CollectedFilter::Unverified => {
-                // Show only items with uncertain verification status
-                if !verification_status.is_uncertain() {
-                    return false;
+                ExportFormat::Markdown => {
+                    let headers = &["Flag ID", "Item", "Category", "Qty", "Dungeon", "Collected", "Verified"];
+                    let rows: Vec<Vec<String>> = export_data.iter()
+                        .map(|item| vec![
+                            item.flag_id.to_string(),
+                            item.item_name.clone(),
+                            item.category.clone(),
+                            item.quantity.to_string(),
+                            item.dungeon.clone(),
+                            if item.collected { "Yes" } else { "No" }.to_string(),
+                            if item.verified { "Yes" } else { "No" }.to_string(),
+                        ])
+                        .collect();
+                    to_markdown(headers, &rows)
                 }
-            },
-        }
+            };
 
-        // Apply type filter
-        let type_match = match type_filter {
-            PickupTypeFilter::All => true,
-            PickupTypeFilter::GoldenRunes => pickup.category == PickupCategory::GoldenRunes,
-            PickupTypeFilter::SmithingStones => pickup.category == PickupCategory::SmithingStones,
-            PickupTypeFilter::SomberStones => pickup.category == PickupCategory::SomberStones,
-            PickupTypeFilter::Glovewort => pickup.category == PickupCategory::Glovewort,
-            PickupTypeFilter::Weapons => pickup.category == PickupCategory::Weapons,
-            PickupTypeFilter::Armor => pickup.category == PickupCategory::Armor,
-            PickupTypeFilter::Talismans => pickup.category == PickupCategory::Talismans,
-            PickupTypeFilter::AshesOfWar => pickup.category == PickupCategory::AshesOfWar,
-            PickupTypeFilter::KeyItems => pickup.category == PickupCategory::KeyItems,
-            PickupTypeFilter::CraftingMaterials => pickup.category == PickupCategory::CraftingMaterials,
-            PickupTypeFilter::Consumables => pickup.category == PickupCategory::Consumables,
-            PickupTypeFilter::Other => pickup.category == PickupCategory::Other,
-        };
-
-        if !type_match {
-            return false;
-        }
-
-        // Apply region filter
-        if region_filter != "All" && pickup.region != region_filter {
-            return false;
-        }
-
-        // Apply search
-        if !search_lower.is_empty() {
-            let matches = pickup.name.to_lowercase().contains(search_lower)
-                || pickup.region.to_lowercase().contains(search_lower);
-            if !matches {
-                return false;
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content);
             }
         }
-
-        true
     }
 
     /// Collect all set flags from the unique items database for verification

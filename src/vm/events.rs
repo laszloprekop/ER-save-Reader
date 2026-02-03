@@ -97,6 +97,56 @@ pub mod events_view_model {
         }
     }
 
+    /// Generic view state for simple event flag pages (whetblades, cookbooks, maps, bosses, etc.)
+    #[derive(Clone)]
+    pub struct SimpleEventFlagViewState {
+        pub collected_filter: CollectedFilter,
+        pub search: String,
+        pub table_state: TableState,
+        pub filter_state: FilterBarState,
+        pub export_format: ExportFormat,
+        pub export_filtered_only: bool,
+    }
+
+    impl Default for SimpleEventFlagViewState {
+        fn default() -> Self {
+            Self {
+                collected_filter: CollectedFilter::All,
+                search: String::new(),
+                table_state: TableState::new().with_sort("name", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
+            }
+        }
+    }
+
+    /// View state for Sites of Grace (has region filter and GraceStatus)
+    #[derive(Clone)]
+    pub struct GracesViewState {
+        pub collected_filter: CollectedFilter,
+        pub region_filter: String,
+        pub search: String,
+        pub table_state: TableState,
+        pub filter_state: FilterBarState,
+        pub export_format: ExportFormat,
+        pub export_filtered_only: bool,
+    }
+
+    impl Default for GracesViewState {
+        fn default() -> Self {
+            Self {
+                collected_filter: CollectedFilter::All,
+                region_filter: "All".to_string(),
+                search: String::new(),
+                table_state: TableState::new().with_sort("name", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
+            }
+        }
+    }
+
     #[derive(Clone)]
     pub struct WorldPickupsFilter {
         pub type_filter: PickupTypeFilter,
@@ -139,6 +189,14 @@ pub mod events_view_model {
         pub search: String,
         /// Currently selected flag ID for details panel
         pub selected_flag_id: Option<u32>,
+        /// Table state for unified table
+        pub table_state: TableState,
+        /// Filter bar state
+        pub filter_state: FilterBarState,
+        /// Export format
+        pub export_format: ExportFormat,
+        /// Export filtered only
+        pub export_filtered_only: bool,
     }
 
     impl Default for DungeonPickupsFilter {
@@ -149,6 +207,10 @@ pub mod events_view_model {
                 dungeon_filter: "All".to_string(),
                 search: String::new(),
                 selected_flag_id: None,
+                table_state: TableState::new().with_sort("flag_id", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
             }
         }
     }
@@ -169,6 +231,22 @@ pub mod events_view_model {
         pub dungeon_pickups_filter: DungeonPickupsFilter,
         /// Verification comparison view model (per-slot)
         pub verification_vm: VerificationViewModel,
+        /// View state for Sites of Grace
+        pub graces_view_state: GracesViewState,
+        /// View state for Whetblades
+        pub whetblades_view_state: SimpleEventFlagViewState,
+        /// View state for Cookbooks
+        pub cookbooks_view_state: SimpleEventFlagViewState,
+        /// View state for Maps
+        pub maps_view_state: SimpleEventFlagViewState,
+        /// View state for Bosses
+        pub bosses_view_state: SimpleEventFlagViewState,
+        /// View state for Summoning Pools
+        pub summoning_pools_view_state: SimpleEventFlagViewState,
+        /// View state for Colosseums
+        pub colosseums_view_state: SimpleEventFlagViewState,
+        /// View state for Landmarks
+        pub landmarks_view_state: SimpleEventFlagViewState,
     }
 
     impl Default for EventsViewModel {
@@ -187,6 +265,14 @@ pub mod events_view_model {
                 world_pickups_filter: Default::default(),
                 dungeon_pickups_filter: Default::default(),
                 verification_vm: Default::default(),
+                graces_view_state: Default::default(),
+                whetblades_view_state: Default::default(),
+                cookbooks_view_state: Default::default(),
+                maps_view_state: Default::default(),
+                bosses_view_state: Default::default(),
+                summoning_pools_view_state: Default::default(),
+                colosseums_view_state: Default::default(),
+                landmarks_view_state: Default::default(),
              }
         }
     }

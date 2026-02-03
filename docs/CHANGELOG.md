@@ -4,6 +4,43 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.10.0 - Unified Table Design for Event Flags and Inventory
+
+### Event Flags UI Redesign
+- Applied World Pickups design pattern (FilterBar + UnifiedTable + ExportToolbar) to all Event Flag subpages
+- Created generic `simple_event_flag_view()` helper function to reduce code duplication
+- Refactored 7 simple pages to use the generic helper:
+  - Whetblades, Cookbooks, Maps, Bosses, Summoning Pools, Colosseums, Landmarks
+- Sites of Grace: Flat table with region column, region dropdown filter, status chips
+- Dungeon Pickups: Flat table with dungeon dropdown, type/status chips
+
+### Inventory Browse Redesign
+- Complete rewrite of Browse view using FilterBar + UnifiedTable + ExportToolbar
+- Storage location filter dropdown (All/Equipped/Storage Box)
+- Type filter chips for 6 item categories
+- Default route changed from None to Browse
+- Row colors: green for Equipped, gray for Storage Box
+
+### New State Structs
+- `SimpleEventFlagViewState` for generic event flag pages
+- `GracesViewState` for Sites of Grace (has region filter)
+- `BrowseViewState` for Inventory Browse
+- `StorageLocation` enum (All, Equipped, StorageBox)
+
+### Export Structs
+- `SimpleEventFlagExportItem`, `GraceExportItem`, `DungeonPickupExportItem`
+- `InventoryExportItem` for inventory browse export
+
+### Files Modified
+- `src/vm/events.rs`: Added view state structs, updated EventsViewModel
+- `src/ui/events.rs`: Refactored 9 view functions, added generic helper
+- `src/vm/inventory/mod.rs`: Added BrowseViewState, StorageLocation, default Browse route
+- `src/ui/inventory/browse.rs`: Complete rewrite with new design pattern
+- `docs/CHANGELOG.md`: Added v0.10.0 entry
+- `Cargo.toml`: Bumped to 0.10.0
+
+---
+
 ## v0.9.0 - Hierarchical Navigation Restructure
 
 ### Navigation Architecture

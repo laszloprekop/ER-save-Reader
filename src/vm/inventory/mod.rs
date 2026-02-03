@@ -11,19 +11,69 @@ use crate::{
     },
     util::regulation::Regulation,
     vm::regulation::regulation_view_model::WepType,
+    ui::components::{
+        table::{TableState, SortDirection},
+        filter::FilterBarState,
+        export::ExportFormat,
+    },
 };
 
 use super::regulation::regulation_view_model::GoodsType;
 
-#[derive(Default, Clone)]
+#[derive(Default, Clone, PartialEq, Copy)]
 pub enum InventoryRoute {
-    #[default]
     None,
     Add,
+    #[default]
     Browse,
 }
 
-#[derive(Default, Clone)]
+/// Storage location filter for inventory browse
+#[derive(Default, Clone, Copy, PartialEq)]
+pub enum StorageLocation {
+    #[default]
+    All,
+    Equipped,
+    StorageBox,
+}
+
+impl StorageLocation {
+    pub fn label(&self) -> &'static str {
+        match self {
+            StorageLocation::All => "All",
+            StorageLocation::Equipped => "Equipped",
+            StorageLocation::StorageBox => "Storage Box",
+        }
+    }
+}
+
+/// View state for inventory browse page
+#[derive(Clone)]
+pub struct BrowseViewState {
+    pub storage_location: StorageLocation,
+    pub type_filter: InventoryTypeRoute,
+    pub search: String,
+    pub table_state: TableState,
+    pub filter_state: FilterBarState,
+    pub export_format: ExportFormat,
+    pub export_filtered_only: bool,
+}
+
+impl Default for BrowseViewState {
+    fn default() -> Self {
+        Self {
+            storage_location: StorageLocation::All,
+            type_filter: InventoryTypeRoute::CommonItems,
+            search: String::new(),
+            table_state: TableState::new().with_sort("name", SortDirection::Ascending),
+            filter_state: FilterBarState::new(),
+            export_format: ExportFormat::Json,
+            export_filtered_only: false,
+        }
+    }
+}
+
+#[derive(Default, Clone, Copy, PartialEq)]
 pub enum InventoryTypeRoute {
     #[default]
     CommonItems,
@@ -32,6 +82,30 @@ pub enum InventoryTypeRoute {
     Armors,
     AshOfWar,
     Talismans,
+}
+
+impl InventoryTypeRoute {
+    pub fn label(&self) -> &'static str {
+        match self {
+            InventoryTypeRoute::CommonItems => "Common Items",
+            InventoryTypeRoute::KeyItems => "Key Items",
+            InventoryTypeRoute::Weapons => "Weapons",
+            InventoryTypeRoute::Armors => "Armors",
+            InventoryTypeRoute::AshOfWar => "Ashes of War",
+            InventoryTypeRoute::Talismans => "Talismans",
+        }
+    }
+
+    pub fn all_variants() -> &'static [InventoryTypeRoute] {
+        &[
+            InventoryTypeRoute::CommonItems,
+            InventoryTypeRoute::KeyItems,
+            InventoryTypeRoute::Weapons,
+            InventoryTypeRoute::Armors,
+            InventoryTypeRoute::AshOfWar,
+            InventoryTypeRoute::Talismans,
+        ]
+    }
 }
 
 #[derive(Default, PartialEq, Clone)]
@@ -288,12 +362,16 @@ pub struct InventoryViewModel {
     part_gaitem_handle: u8,
     next_aow_index: usize,
     next_armament_or_armor_index: usize,
+
+    // Browse view state
+    pub browse_view_state: BrowseViewState,
 }
 
 impl InventoryViewModel {
     pub fn from_save(slot: &SaveSlot) -> Self {
         let mut inventory_vm = InventoryViewModel::default();
         inventory_vm.at_single_items = true;
+        inventory_vm.current_route = InventoryRoute::Browse; // Default to Browse
         inventory_vm.storage = vec![InventoryStorage::default(); 2];
         inventory_vm.replace_bulk_items_selected_map(InventoryTypeRoute::CommonItems);
 
