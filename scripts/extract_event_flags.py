@@ -1430,13 +1430,23 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
         # Save file diff analysis confirmed: when picking up item lot 1044360310,
         # flag 1044360310 (row_id, local_id 310) is SET, not 1044367310 (getItemFlagId).
         #
-        # Therefore: for tile-based pickups (10-digit IDs starting with 1 or 2),
-        # we use row_id as the flag_id for tracking purposes.
-        is_tile_based = 1_000_000_000 <= row_id < 3_000_000_000
+        # IMPORTANT EXCEPTION (2026-02-02): Some tile-based items have a SPECIAL OVERRIDE
+        # where getItemFlagId is a completely different block-based flag (e.g., 60130 for
+        # Whetstone Knife, 62010 for Map: Limgrave West). These use getItemFlagId, not row_id.
+        #
+        # Detection: if row_id is tile-based but getItemFlagId is NOT tile-based,
+        # then getItemFlagId is a special override and should be used.
+        is_tile_based_row = 1_000_000_000 <= row_id < 3_000_000_000
+        is_tile_based_flag = 1_000_000_000 <= get_item_flag_id < 3_000_000_000
 
-        if is_tile_based:
-            # For tile-based world pickups, use row_id as the actual stored flag
-            flag_id = row_id
+        if is_tile_based_row:
+            if is_tile_based_flag or get_item_flag_id == 0:
+                # Normal tile pickup: use row_id (the stored flag)
+                flag_id = row_id
+            else:
+                # SPECIAL OVERRIDE: getItemFlagId is a block-based flag (e.g., 60130)
+                # These items use getItemFlagId for tracking, not the tile system
+                flag_id = get_item_flag_id
         else:
             # For non-tile pickups (dungeons, etc.), use getItemFlagId
             flag_id = get_item_flag_id

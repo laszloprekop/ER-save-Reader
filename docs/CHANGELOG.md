@@ -4,6 +4,34 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.8.2 - Special Override Detection in Event Flag Extraction
+
+### Enhancements
+- **Special override detection** for tile-based items with block-based getItemFlagId
+  - Items like Whetstone Knife (tile row_id) use block flag 60130 instead of tile formula
+  - Extraction scripts now detect when `getItemFlagId` returns a different flag type
+  - Prevents incorrect flag ID assignment in generated database
+
+- **Improved region parsing** in world pickups extraction
+  - Better 10-digit tile ID vs 8-digit dungeon ID differentiation
+  - Cleaner region classification logic
+
+### Database Regeneration
+- Regenerated `extracted_event_flags.json` (7086 flags)
+- Regenerated `extracted_event_flags.md` with location data
+- Regenerated `src/db/world_pickups.rs` database
+
+### Files Modified
+- `scripts/extract_event_flags.py`: Special override detection logic
+- `scripts/extract_world_pickups_v2.py`: Improved region ID parsing
+- `scripts/extracted_event_flags.json`: Regenerated database
+- `scripts/extracted_event_flags.md`: Regenerated documentation
+- `src/db/world_pickups.rs`: Regenerated Rust database
+- `docs/CHANGELOG.md`: Added v0.8.2 entry
+- `Cargo.toml`: Bumped to 0.8.2
+
+---
+
 ## v0.8.1 - Context Metadata in Flag Details Export
 
 ### Enhancement

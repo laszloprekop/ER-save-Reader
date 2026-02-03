@@ -92,62 +92,88 @@ def resolve_item_name(databases: dict, item_id: int, category: int) -> tuple[str
 def get_region_from_lot_id(lot_id: int) -> tuple[str, int, int]:
     """
     Determine region from lot ID pattern.
-    Format: AABBCCDDDD where:
-    - AA = map area (10, 11, 12, 30, 31, etc.)
-    - BB = tile X
-    - CC = tile Y
-    - DDDD = item index
+
+    For 10-digit tile-based IDs (1XXYYZZZZ):
+    - 1 = base game, 2 = DLC
+    - XX = tile X coordinate (33-54 base game)
+    - YY = tile Y coordinate (31-58 base game)
+    - ZZZZ = local flag index
+
+    For 8-digit dungeon IDs (AASSZZZZ):
+    - AA = area code (10-43)
+    - SS = section
+    - ZZZZ = local flag index
 
     Returns (region_name, tile_x, tile_y)
     """
+    # 10-digit tile-based world pickups (1000000000+)
+    if lot_id >= 1_000_000_000 and lot_id < 3_000_000_000:
+        prefix = lot_id // 1_000_000_000  # 1 = base, 2 = DLC
+        tile_index = (lot_id // 10000) % 10000
+        tile_x = tile_index // 100
+        tile_y = tile_index % 100
+
+        # Map tile coordinates to regions (approximate based on EVENT-FLAG-GEOGRAPHY.md)
+        if prefix == 2:
+            return ("Shadow Realm (DLC)", tile_x, tile_y)
+
+        # Base game tile regions
+        if 42 <= tile_x <= 44 and 36 <= tile_y <= 40:
+            return ("Limgrave", tile_x, tile_y)
+        elif 40 <= tile_x <= 43 and 33 <= tile_y <= 35:
+            return ("Weeping Peninsula", tile_x, tile_y)
+        elif 37 <= tile_x <= 44 and 41 <= tile_y <= 47:
+            return ("Liurnia of the Lakes", tile_x, tile_y)
+        elif 37 <= tile_x <= 44 and 48 <= tile_y <= 52:
+            return ("Altus Plateau", tile_x, tile_y)
+        elif 33 <= tile_x <= 38 and 48 <= tile_y <= 52:
+            return ("Mt. Gelmir", tile_x, tile_y)
+        elif 46 <= tile_x <= 54 and 36 <= tile_y <= 44:
+            return ("Caelid", tile_x, tile_y)
+        elif 48 <= tile_x <= 54 and 45 <= tile_y <= 50:
+            return ("Greyoll's Dragonbarrow", tile_x, tile_y)
+        elif 37 <= tile_x <= 44 and 53 <= tile_y <= 58:
+            return ("Mountaintops of the Giants", tile_x, tile_y)
+        elif 33 <= tile_x <= 38 and 55 <= tile_y <= 58:
+            return ("Consecrated Snowfield", tile_x, tile_y)
+        else:
+            return ("Open World", tile_x, tile_y)
+
+    # 8-digit dungeon flags
     lot_str = str(lot_id)
-
-    # Different patterns based on ID length
     if len(lot_str) >= 8:
-        # 10-digit format: AABBCCDDDD
         area = lot_str[:2]
-        tile_x = int(lot_str[2:4]) if len(lot_str) > 4 else 0
-        tile_y = int(lot_str[4:6]) if len(lot_str) > 6 else 0
-    elif len(lot_str) >= 6:
-        # Shorter format
-        area = lot_str[:2]
-        tile_x = int(lot_str[2:4]) if len(lot_str) > 3 else 0
-        tile_y = int(lot_str[4:6]) if len(lot_str) > 5 else 0
-    else:
-        return ("Unknown", 0, 0)
+        section = int(lot_str[2:4]) if len(lot_str) > 4 else 0
 
-    # Map area codes to region names
-    region_map = {
-        "10": "Limgrave",
-        "11": "Liurnia",
-        "12": "Altus Plateau",
-        "13": "Mt. Gelmir",
-        "14": "Caelid",
-        "15": "Mountaintops",
-        "16": "Siofra River",
-        "17": "Ainsel River",
-        "18": "Deeproot Depths",
-        "19": "Lake of Rot",
-        "20": "Shadow Realm",  # DLC
-        "21": "Shadow Realm",  # DLC
-        "30": "Stormveil Castle",
-        "31": "Raya Lucaria",
-        "32": "Redmane Castle",
-        "33": "Volcano Manor",
-        "34": "Leyndell",
-        "35": "Shunning-Grounds",
-        "36": "Academy Crystal Cave",
-        "37": "Ainsel Main",
-        "38": "Nokron",
-        "39": "Mohgwyn Palace",
-        "40": "Elphael",
-        "41": "Farum Azula",
-        "50": "Tutorial",
-        "60": "Overworld",  # Legacy dungeon items
-    }
+        dungeon_map = {
+            "10": "Stormveil Castle",
+            "11": "Leyndell Royal Capital",
+            "12": "Underground",
+            "13": "Crumbling Farum Azula",
+            "14": "Academy of Raya Lucaria",
+            "15": "Miquella's Haligtree",
+            "16": "Volcano Manor",
+            "18": "Roundtable Hold",
+            "20": "Elden Throne",
+            "21": "Elden Throne",
+            "22": "Mohgwyn Palace",
+            "28": "Divine Tower",
+            "30": "Catacombs",
+            "31": "Caves",
+            "32": "Tunnels",
+            "34": "Divine Towers",
+            "35": "Mohgwyn Palace",
+            "39": "Deeproot Depths",
+            "40": "Elphael",
+            "41": "Haligtree",
+            "42": "Gaols",
+            "43": "Evergaols",
+        }
 
-    region = region_map.get(area, f"Area {area}")
-    return (region, tile_x, tile_y)
+        region = dungeon_map.get(area, f"Dungeon {area}")
+        return (region, 0, section)
+
+    return ("Unknown", 0, 0)
 
 def category_to_type(category: int) -> str:
     """Convert lotItemCategory to PickupItemType."""
