@@ -5,55 +5,6 @@ pub mod events {
     use crate::save::common::save_slot::EquipInventoryData;
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
-        egui::SidePanel::left("inventory_menu").show(ui.ctx(), |ui|{
-            egui::ScrollArea::vertical()
-            .id_salt("left")
-            .show(ui, |ui| {
-                ui.vertical(|ui| {
-                    let sites_of_grace = ui.add_sized([100., 40.], egui::Button::new("Sites Of Grace"));
-                    let whetblades = ui.add_sized([100., 40.], egui::Button::new("Whetblades"));
-                    let cookboks = ui.add_sized([100., 40.], egui::Button::new("Cookbooks"));
-                    let maps = ui.add_sized([100., 40.], egui::Button::new("Maps"));
-                    let bosses = ui.add_sized([100., 40.], egui::Button::new("Bosses"));
-                    let summoning_pools = ui.add_sized([100., 60.], egui::Button::new("Summoning\nPools"));
-                    let colosseums = ui.add_sized([100., 40.], egui::Button::new("Colosseums"));
-                    let landmarks = ui.add_sized([100., 40.], egui::Button::new("Landmarks"));
-                    let world_pickups = ui.add_sized([100., 40.], egui::Button::new("World Pickups"));
-                    let dungeon_pickups = ui.add_sized([100., 60.], egui::Button::new("Dungeon\nPickups"));
-                    ui.separator();
-                    let verification = ui.add_sized([100., 40.], egui::Button::new("Verification"));
-
-                    if sites_of_grace.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::SitesOfGrace}
-                    if whetblades.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Whetblades}
-                    if cookboks.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Cookboks}
-                    if maps.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Maps}
-                    if bosses.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Bosses}
-                    if summoning_pools.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::SummoningPools}
-                    if colosseums.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Colosseums}
-                    if landmarks.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Landmarks}
-                    if world_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::WorldPickups}
-                    if dungeon_pickups.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::DungeonPickups}
-                    if verification.clicked() {vm.slots[vm.index].events_vm.current_route = EventsRoute::Verification}
-
-                    // Highlight active
-                    match vm.slots[vm.index].events_vm.current_route {
-                        EventsRoute::None => {},
-                        EventsRoute::SitesOfGrace => {sites_of_grace.highlight();},
-                        EventsRoute::Whetblades => {whetblades.highlight();},
-                        EventsRoute::Cookboks => {cookboks.highlight();},
-                        EventsRoute::Maps => {maps.highlight();},
-                        EventsRoute::Bosses => {bosses.highlight();},
-                        EventsRoute::SummoningPools => {summoning_pools.highlight();},
-                        EventsRoute::Colosseums => {colosseums.highlight();},
-                        EventsRoute::Landmarks => {landmarks.highlight();},
-                        EventsRoute::WorldPickups => {world_pickups.highlight();},
-                        EventsRoute::DungeonPickups => {dungeon_pickups.highlight();},
-                        EventsRoute::Verification => {verification.highlight();},
-                    }
-                })
-            });
-        });
-
         // Right sidebar for flag details (only show when a flag is selected in world/dungeon pickups)
         let selected_flag = match vm.slots[vm.index].events_vm.current_route {
             EventsRoute::WorldPickups => vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id,
@@ -70,13 +21,17 @@ pub mod events {
                 });
         }
 
-        egui::CentralPanel::default().show(ui.ctx(), |ui|{
-            egui::ScrollArea::vertical()
-            .id_salt("left")
+        // Content renders directly into the provided ui (wrapped in scroll area)
+        egui::ScrollArea::vertical()
+            .id_salt("events_content")
             .auto_shrink(false)
             .show(ui, |ui| {
                 match vm.slots[vm.index].events_vm.current_route {
-                    EventsRoute::None => {},
+                    EventsRoute::None => {
+                        ui.centered_and_justified(|ui| {
+                            ui.label("Select an Event Flags category from the navigation bar above");
+                        });
+                    },
                     EventsRoute::SitesOfGrace => {graces(ui, vm);},
                     EventsRoute::Whetblades => {whetblades(ui, vm);},
                     EventsRoute::Cookboks => {cookbooks(ui, vm);},
@@ -101,8 +56,6 @@ pub mod events {
                     },
                 }
             });
-        });
-
     }
 
     fn graces(ui: &mut Ui, vm: &mut ViewModel) {

@@ -4,6 +4,37 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.8.3 - Horizontal Navigation Layout
+
+### UI Restructure
+- **Replaced vertical sidebars with horizontal 3-row navigation**
+  - Row 1: Toolbar with Open/Save buttons, platform info, Steam ID, Export button
+  - Row 2: Clickable breadcrumb trail (Characters > CharacterName > Area > Subroute)
+  - Row 3: Dynamic navigation buttons that change based on current level
+
+- **Navigation hierarchy**
+  - Level 1 (Root): Character buttons + Database view buttons
+  - Level 2 (Character selected): Area buttons (General, Stats, Equipment, etc.)
+  - Level 3 (Event Flags): Subroute buttons (Sites of Grace, Bosses, World Pickups, etc.)
+
+- **Added display_name() methods** to Route and EventsRoute enums for breadcrumb display
+
+### Removed
+- Left sidebar for character list
+- Left sidebar for slot sections menu
+- Left sidebar for EventFlags subroute navigation
+
+### Files Modified
+- `src/ui/menu.rs`: Added breadcrumb_bar(), navigation_buttons(), helper functions, Route::display_name()
+- `src/vm/events.rs`: Added EventsRoute::display_name()
+- `src/main.rs`: Removed sidebars, added breadcrumb/navigation panels, updated toolbar layout
+- `src/ui/events.rs`: Removed left sidebar, content renders directly into provided ui
+- `src/ui/none.rs`: Updated empty state message
+- `docs/CHANGELOG.md`: Added v0.8.3 entry
+- `Cargo.toml`: Bumped to 0.8.3
+
+---
+
 ## v0.8.2 - Special Override Detection in Event Flag Extraction
 
 ### Enhancements

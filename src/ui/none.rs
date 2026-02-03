@@ -3,7 +3,7 @@ pub mod none {
 
     pub fn none(ui: &mut Ui) {
         ui.with_layout(egui::Layout::centered_and_justified(egui::Direction::TopDown), |ui| {
-            ui.label("Empty");
+            ui.label("Select a character or database view from the navigation bar above");
         });
     }
 }

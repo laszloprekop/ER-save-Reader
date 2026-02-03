@@ -15,7 +15,7 @@ use std::{env, fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, Layout, Order, RichText, Rounding, Style}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::{Save, SaveType};
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{menu, database_menu, Route}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}};
 use vm::verification_vm::VerificationViewModel;
 use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
@@ -284,25 +284,52 @@ impl App {
 impl eframe::App for App {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         ctx.set_zoom_factor(1.5);
-        // TOP PANEL
+        // Row 1: Toolbar
         egui::TopBottomPanel::top("toolbar").default_height(35.).show(ctx, |ui| {
-            ui.columns(2, |uis|{
-                uis[0].with_layout(Layout::left_to_right(Align::Center),| ui| {
-                    if ui.button(egui::RichText::new(format!("{} open", egui_phosphor::regular::FOLDER_OPEN))).clicked() {
-                        let files = Self::open_file_dialog(self.last_directory.as_ref());
-                        match files {
-                            Some(path) => self.open(path),
-                            None => {},
-                        }
+            ui.horizontal(|ui| {
+                // Left section: Open, Save buttons
+                if ui.button(egui::RichText::new(format!("{} Open", egui_phosphor::regular::FOLDER_OPEN))).clicked() {
+                    let files = Self::open_file_dialog(self.last_directory.as_ref());
+                    match files {
+                        Some(path) => self.open(path),
+                        None => {},
                     }
-                    // Save disabled - display only mode
-                    ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} save", egui_phosphor::regular::FLOPPY_DISK)).strikethrough()));
-                });
+                }
+                // Save disabled - display only mode
+                ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} Save", egui_phosphor::regular::FLOPPY_DISK)).strikethrough()));
 
-                uis[1].with_layout(Layout::right_to_left(egui::Align::Center),|ui| {
-                    // Import disabled - display only mode
-                    ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} Import Character", egui_phosphor::regular::DOWNLOAD_SIMPLE)).strikethrough()));
+                ui.add_space(20.0);
 
+                // Center section: Platform + Steam ID
+                if self.picked_path.exists() {
+                    let save_type = match self.save.save_type {
+                        SaveType::Unknown => "Platform: Unknown",
+                        SaveType::PC(_) => "Platform: PC",
+                        SaveType::PlayStation(_) => "Platform: PlayStation",
+                    };
+                    ui.label(save_type);
+
+                    if self.vm.active.is_some_and(|valid| valid) {
+                        match self.save.save_type {
+                            SaveType::PC(_) => {
+                                ui.label("Steam ID:");
+                                let steam_id_text_edit = egui::widgets::TextEdit::singleline(&mut self.vm.steam_id)
+                                    .char_limit(17)
+                                    .desired_width(125.);
+                                let steam_id_response = ui.add(steam_id_text_edit);
+                                if steam_id_response.hovered() {
+                                    egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), steam_id_response.id, |ui: &mut egui::Ui|{
+                                        ui.label(egui::RichText::new("Important: This needs to match the id of the steam account that will use this save!").size(8.0).color(Color32::PLACEHOLDER));
+                                    });
+                                }
+                            },
+                            _ => {},
+                        };
+                    }
+                }
+
+                // Right section: Export JSON button (use remaining space)
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     // Export Character button (JSON export still enabled)
                     let export_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Export JSON", egui_phosphor::regular::UPLOAD_SIMPLE)));
                     if ui.add_enabled(!self.vm.steam_id.is_empty(), export_button).clicked() {
@@ -310,99 +337,22 @@ impl eframe::App for App {
                     }
                 });
             });
-
         });
 
-        // TOP PANEL
-        egui::TopBottomPanel::top("top").show(ctx, |ui| {
-            if self.picked_path.exists() {
-                let save_type = match self.save.save_type {
-                    SaveType::Unknown => {
-                        "Platform: Unknown"
-                    }
-                    SaveType::PC(_) => {
-                        "Platform: PC"
-                    }
-                    SaveType::PlayStation(_) => {
-                        "Platform: Playstation"
-                    },
-                };
-
-                ui.columns(2,| uis| {
-                    if self.vm.active.is_some_and(|valid| valid) {
-                        egui::Frame::none().show(&mut uis[1], |ui| {
-                            let steam_id_text_edit = egui::widgets::TextEdit::singleline(&mut self.vm.steam_id)
-                            .char_limit(17)
-                            .desired_width(125.);
-                            ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                                ui.label(format!("Character: {}", self.vm.slots[self.vm.index].general_vm.character_name));
-
-                                match self.save.save_type {
-                                    SaveType::Unknown => {},
-                                    SaveType::PC(_) => {
-                                        let steam_id_text_edit = ui.add(steam_id_text_edit).labelled_by(ui.label("Steam Id:").id);
-                                        if steam_id_text_edit.hovered() {
-                                            egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), steam_id_text_edit.id, |ui: &mut egui::Ui|{
-                                                ui.label(egui::RichText::new("Important: This needs to match the id of the steam account that will use this save!").size(8.0).color(Color32::PLACEHOLDER));
-                                            });
-                                        }
-                                    },
-                                    SaveType::PlayStation(_) => {},
-                                };
-                            });
-                        });
-                    }
-                    egui::Frame::none().show(&mut uis[0], |ui| {
-                        ui.with_layout(egui::Layout::left_to_right(egui::Align::Center), |ui| {
-                            ui.label(format!("{}",save_type));
-                        });
-                    });
-                });
-            }
-        });
-
-        // Character List Panel
+        // Row 2: Breadcrumb (only show when file loaded)
         if self.vm.active.is_some_and(|valid| valid) {
-            egui::SidePanel::left("characters").show(ctx, |ui| {
-                egui::ScrollArea::vertical()
-                    .id_salt("left")
-                    .show(ui, |ui| {
-                        ui.vertical(|ui| {
-                            // Character list
-                            for i in 0..0xA {
-                                if self.vm.profile_summary[i].active {
-                                    let button = ui.add_sized([120., 40.], egui::Button::new(&self.vm.slots[i].general_vm.character_name));
-                                    if button.clicked() {
-                                        self.vm.index = i;
-                                        // Switch to General view when selecting a character (if not already in a character view)
-                                        if !self.current_route.is_character_view() {
-                                            self.current_route = Route::General;
-                                        }
-                                    }
-                                    if self.vm.index == i && self.current_route.is_character_view() {
-                                        button.highlight();
-                                    }
-                                }
-                            }
-
-                            // Database Views section (under character list)
-                            ui.add_space(20.);
-                            ui.separator();
-                            database_menu(ui, self);
-                        })
-                    });
+            egui::TopBottomPanel::top("breadcrumb").show(ctx, |ui| {
+                ui.horizontal(|ui| {
+                    breadcrumb_bar(ui, self);
+                });
             });
 
-            // Slot Section Panel (only show for character views)
-            if self.current_route.is_character_view() {
-                egui::SidePanel::left("slot_sections_menu").show(ctx, |ui| {
-                    egui::ScrollArea::vertical().id_salt("left").show(ui, |ui| {
-                        ui.vertical(|ui| {
-                            menu(ui, self);
-                        })
-                    });
+            // Row 3: Navigation Buttons
+            egui::TopBottomPanel::top("navigation").show(ctx, |ui| {
+                ui.horizontal_wrapped(|ui| {
+                    navigation_buttons(ui, self);
                 });
-            }
+            });
 
             // Main Content
             egui::CentralPanel::default().show(ctx, |ui| {

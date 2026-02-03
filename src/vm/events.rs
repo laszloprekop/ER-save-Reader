@@ -29,6 +29,25 @@ pub mod events_view_model {
         Verification,
     }
 
+    impl EventsRoute {
+        pub fn display_name(&self) -> &'static str {
+            match self {
+                EventsRoute::None => "",
+                EventsRoute::SitesOfGrace => "Sites of Grace",
+                EventsRoute::Whetblades => "Whetblades",
+                EventsRoute::Cookboks => "Cookbooks",
+                EventsRoute::Maps => "Maps",
+                EventsRoute::Bosses => "Bosses",
+                EventsRoute::SummoningPools => "Summoning Pools",
+                EventsRoute::Colosseums => "Colosseums",
+                EventsRoute::Landmarks => "Landmarks",
+                EventsRoute::WorldPickups => "World Pickups",
+                EventsRoute::DungeonPickups => "Dungeon Pickups",
+                EventsRoute::Verification => "Verification",
+            }
+        }
+    }
+
     #[derive(Clone, Copy, PartialEq)]
     pub enum PickupTypeFilter {
         All,
