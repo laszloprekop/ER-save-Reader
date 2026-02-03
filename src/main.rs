@@ -63,6 +63,48 @@ fn main() -> Result<(), eframe::Error> {
 
     eframe::run_native("ER Save Editor", options, Box::new(|creation_context| {
         let mut fonts = egui::FontDefinitions::default();
+
+        // IBM Plex font family
+        fonts.font_data.insert(
+            "IBMPlexSans".to_owned(),
+            egui::FontData::from_static(include_bytes!("../assets/fonts/IBM_Plex_Sans/static/IBMPlexSans-Regular.ttf")),
+        );
+        fonts.font_data.insert(
+            "IBMPlexSansCondensed".to_owned(),
+            egui::FontData::from_static(include_bytes!("../assets/fonts/IBM_Plex_Sans_Condensed/IBMPlexSansCondensed-Regular.ttf")),
+        );
+        fonts.font_data.insert(
+            "IBMPlexMono".to_owned(),
+            egui::FontData::from_static(include_bytes!("../assets/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf")),
+        );
+        fonts.font_data.insert(
+            "IBMPlexSerif".to_owned(),
+            egui::FontData::from_static(include_bytes!("../assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf")),
+        );
+
+        // Set IBM Plex Sans as default proportional font
+        fonts.families
+            .entry(egui::FontFamily::Proportional)
+            .or_default()
+            .insert(0, "IBMPlexSans".to_owned());
+
+        // Set IBM Plex Mono as default monospace font
+        fonts.families
+            .entry(egui::FontFamily::Monospace)
+            .or_default()
+            .insert(0, "IBMPlexMono".to_owned());
+
+        // Named families for specific uses
+        fonts.families.insert(
+            egui::FontFamily::Name("Condensed".into()),
+            vec!["IBMPlexSansCondensed".to_owned()],
+        );
+        fonts.families.insert(
+            egui::FontFamily::Name("Serif".into()),
+            vec!["IBMPlexSerif".to_owned()],
+        );
+
+        // Add phosphor icons
         egui_phosphor::add_to_fonts(&mut fonts, egui_phosphor::Variant::Regular);
         egui_phosphor::add_to_fonts(&mut fonts, egui_phosphor::Variant::Fill);
         creation_context.egui_ctx.set_fonts(fonts);

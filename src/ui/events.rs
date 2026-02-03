@@ -1,7 +1,7 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::TABLE_MONO_SIZE}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
@@ -47,7 +47,7 @@ pub mod events {
                         if inventory.is_some() || event_flags.is_some() {
                             let set_flags = collect_set_flags(event_flags);
                             inventory_verification_summary(ui, &set_flags, inventory);
-                            ui.separator();
+                            spacer(ui);
                             ui.add_space(10.0);
                         }
 
@@ -75,7 +75,7 @@ pub mod events {
             ui.label(RichText::new(format!("? = unreliable block ({} graces) - result may be inaccurate", unreliable_count))
                 .color(Color32::from_rgb(255, 200, 100)).small());
         }
-        ui.separator();
+        spacer(ui);
 
         // Summary - show reliable discovered vs total reliable
         let reliable_total = total_count - unreliable_count;
@@ -85,7 +85,7 @@ pub mod events {
             format!("Sites of Grace: {}/{} discovered", discovered_count, total_count)
         };
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let graces_lookup = GRACES.lock().unwrap();
 
@@ -145,7 +145,7 @@ pub mod events {
                     });
                 }
             }
-            ui.separator();
+            spacer(ui);
         }
     }
 
@@ -159,11 +159,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Whetblades: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let whetblades_lookup = WHETBLADES.lock().unwrap();
 
@@ -186,11 +186,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Cookbooks: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let cookbooks_lookup = COOKBOKS.lock().unwrap();
 
@@ -213,11 +213,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Maps: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let maps_lookup = MAPS.lock().unwrap();
 
@@ -240,11 +240,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Bosses: {}/{} defeated", defeated_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let bosses_lookup = BOSSES.lock().unwrap();
 
@@ -267,11 +267,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Summoning Pools: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let pools_lookup = SUMMONING_POOLS.lock().unwrap();
 
@@ -294,11 +294,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Colosseums: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let colosseums_lookup = COLOSSEUMS.lock().unwrap();
 
@@ -321,11 +321,11 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         let summary = format!("Landmarks: {}/{} discovered", discovered_count, total_count);
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         let landmarks_lookup = LANDMARKS.lock().unwrap();
 
@@ -444,7 +444,7 @@ pub mod events {
                     }
                 });
 
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut filter.search);
         });
@@ -457,7 +457,7 @@ pub mod events {
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
         });
-        ui.separator();
+        spacer(ui);
 
         // Get current filter values (to avoid borrow issues)
         let type_filter = filter.type_filter;
@@ -501,7 +501,7 @@ pub mod events {
         if unverified_count > 0 {
             ui.label(RichText::new("! = unverified formula (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
         }
-        ui.separator();
+        spacer(ui);
 
         // Summary
         let summary = if filtered_total == total {
@@ -514,7 +514,7 @@ pub mod events {
             format!("World Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
         };
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         // Group by region
         let mut regions_map: std::collections::BTreeMap<&str, Vec<_>> = std::collections::BTreeMap::new();
@@ -610,7 +610,7 @@ pub mod events {
                 });
             }
 
-            ui.separator();
+            spacer(ui);
         }
     }
 
@@ -678,7 +678,7 @@ pub mod events {
                     }
                 });
 
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut filter.search);
         });
@@ -691,7 +691,7 @@ pub mod events {
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
         });
-        ui.separator();
+        spacer(ui);
 
         // Get current filter values (to avoid borrow issues)
         let type_filter = filter.type_filter;
@@ -755,7 +755,7 @@ pub mod events {
         if unverified_count > 0 {
             ui.label(RichText::new("! = unverified base (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
         }
-        ui.separator();
+        spacer(ui);
 
         // Summary
         let summary = if filtered_total == total {
@@ -768,7 +768,7 @@ pub mod events {
             format!("Dungeon Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
         };
         ui.label(RichText::new(&summary).strong());
-        ui.separator();
+        spacer(ui);
 
         // Group by dungeon area
         let mut dungeons_map: std::collections::BTreeMap<u32, Vec<_>> = std::collections::BTreeMap::new();
@@ -862,7 +862,7 @@ pub mod events {
                 });
             }
 
-            ui.separator();
+            spacer(ui);
         }
     }
 
@@ -1223,7 +1223,7 @@ pub mod events {
                 }
             }
         });
-        ui.separator();
+        spacer(ui);
 
         // Flag Info section
         ui.label(RichText::new("Raw Data").color(Color32::YELLOW).small());
@@ -1248,7 +1248,7 @@ pub mod events {
             };
             ui.label(RichText::new(status_text).color(status_color));
         });
-        ui.separator();
+        spacer(ui);
 
         // Inventory Matching section
         ui.label(RichText::new("Inventory Evidence").color(Color32::YELLOW).small());
@@ -1375,7 +1375,7 @@ pub mod events {
 
                 // Summary
                 if !is_collected && !matches.is_empty() {
-                    ui.separator();
+                    spacer(ui);
                     ui.label(RichText::new("⚠ Item found but flag NOT set")
                         .color(Color32::from_rgb(255, 165, 0))
                         .small());
@@ -1391,7 +1391,7 @@ pub mod events {
             ui.label(RichText::new("No inventory data available").color(Color32::GRAY));
         }
 
-        ui.separator();
+        spacer(ui);
 
         // Copy Details button - generates comprehensive debug output
         if ui.button("Copy Details").clicked() {

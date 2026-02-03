@@ -1,6 +1,34 @@
 //! Shared UI styling constants for consistent appearance across views.
 
-use eframe::egui::Color32;
+use eframe::egui::{Color32, FontFamily, Ui};
+use std::sync::Arc;
+
+// =========================================================================
+// Font Families
+// =========================================================================
+
+/// Condensed font for table/list headers
+pub fn font_condensed() -> FontFamily {
+    FontFamily::Name(Arc::from("Condensed"))
+}
+
+/// Serif font for paragraph text (descriptions, item text)
+pub fn font_serif() -> FontFamily {
+    FontFamily::Name(Arc::from("Serif"))
+}
+
+// =========================================================================
+// Layout Spacing
+// =========================================================================
+
+/// Standard vertical spacing between sections (replaces separators)
+pub const SECTION_SPACING: f32 = 8.0;
+
+/// Add standard spacing between sections
+#[inline]
+pub fn spacer(ui: &mut Ui) {
+    ui.add_space(SECTION_SPACING);
+}
 
 // =========================================================================
 // Monospace Table Styling

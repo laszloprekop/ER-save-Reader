@@ -1,7 +1,7 @@
 pub mod general {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::{general::general_view_model::Gender, vm::vm::ViewModel};
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     pub fn general(ui: &mut Ui, vm: &mut ViewModel) {
         let general_vm = &vm.slots[vm.index].general_vm;
@@ -10,7 +10,7 @@ pub mod general {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Property | Value").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         egui::ScrollArea::vertical()
             .auto_shrink(false)

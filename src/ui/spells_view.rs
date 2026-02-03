@@ -1,7 +1,7 @@
 pub mod spells_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::spells::{SPELLS, SpellType};
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum SpellFilter {
@@ -33,17 +33,17 @@ pub mod spells_view {
             ui.selectable_value(&mut state.filter, SpellFilter::All, "All");
             ui.selectable_value(&mut state.filter, SpellFilter::Sorceries, "Sorceries");
             ui.selectable_value(&mut state.filter, SpellFilter::Incantations, "Incantations");
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut state.search);
         });
-        ui.separator();
+        spacer(ui);
 
         // Column headers
         ui.horizontal(|ui| {
             ui.label(RichText::new("ID | Name | Type | FP | Slots | INT | FTH").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Scrollable list
         egui::ScrollArea::vertical()

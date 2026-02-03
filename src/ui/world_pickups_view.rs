@@ -4,7 +4,7 @@ pub mod world_pickups_view {
     use crate::db::pickup_flags::get_flag_offset_calibrated;
     use crate::calibration::CalibrationService;
     use crate::util::bit::bit::get_bit;
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
     use crate::save::common::save_slot::EquipInventoryData;
     use crate::discovery::inventory_verification::{
         InventoryVerificationService, UNIQUE_ITEMS_BY_FLAG, VerificationConfidence,
@@ -151,7 +151,7 @@ pub mod world_pickups_view {
                     }
                 });
 
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut state.search);
         });
@@ -166,7 +166,7 @@ pub mod world_pickups_view {
                 ui.selectable_value(&mut state.collected_filter, CollectedFilter::Unverified, "Unverified");
             });
         }
-        ui.separator();
+        spacer(ui);
 
         // Column headers
         let header = match (event_flags.is_some(), inventory.is_some()) {
@@ -178,7 +178,7 @@ pub mod world_pickups_view {
         ui.horizontal(|ui| {
             ui.label(RichText::new(header).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Scrollable list
         egui::ScrollArea::vertical()

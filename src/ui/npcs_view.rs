@@ -1,7 +1,7 @@
 pub mod npcs_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::npcs::{NPCS, NpcType};
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum NpcFilter {
@@ -37,17 +37,17 @@ pub mod npcs_view {
             ui.selectable_value(&mut state.filter, NpcFilter::QuestNpcs, "Quest NPCs");
             ui.selectable_value(&mut state.filter, NpcFilter::RoundtableNpcs, "Roundtable");
             ui.selectable_value(&mut state.filter, NpcFilter::Invaders, "Invaders");
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut state.search);
         });
-        ui.separator();
+        spacer(ui);
 
         // Column headers
         ui.horizontal(|ui| {
             ui.label(RichText::new("ID | Name | Type | Location | Discovery Flag | Death Flag").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Scrollable list
         egui::ScrollArea::vertical()

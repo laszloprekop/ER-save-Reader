@@ -7,7 +7,7 @@ pub mod event_flags_db_view {
         EVENT_FLAGS_DB, EventFlagCategory, EventFlagEntryOwned, get_unique_regions,
         export_to_json, export_filtered_to_json
     };
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum EventFlagCategoryFilter {
@@ -120,7 +120,7 @@ pub mod event_flags_db_view {
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::System, "System");
         });
 
-        ui.separator();
+        spacer(ui);
 
         // Header row 3: Region filter and search
         ui.horizontal(|ui| {
@@ -136,7 +136,7 @@ pub mod event_flags_db_view {
                     }
                 });
 
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.add(egui::TextEdit::singleline(&mut state.search).desired_width(200.0));
 
@@ -147,7 +147,7 @@ pub mod event_flags_db_view {
             }
         });
 
-        ui.separator();
+        spacer(ui);
 
         // Export buttons row
         ui.horizontal(|ui| {
@@ -225,7 +225,7 @@ pub mod event_flags_db_view {
             }
         });
 
-        ui.separator();
+        spacer(ui);
 
         // Column headers
         ui.horizontal(|ui| {
@@ -234,7 +234,7 @@ pub mod event_flags_db_view {
                 "Flag ID", "Name", "Category", "Region"
             )).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Count filtered entries
         let search_lower = state.search.to_lowercase();
@@ -245,7 +245,7 @@ pub mod event_flags_db_view {
         ui.label(RichText::new(format!("Showing {} of {} flags", filtered_count, EVENT_FLAGS_DB.len()))
             .color(Color32::GRAY).small());
 
-        ui.separator();
+        spacer(ui);
 
         // Scrollable list
         egui::ScrollArea::vertical()

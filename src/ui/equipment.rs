@@ -1,7 +1,7 @@
 pub mod equipment {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::vm::vm::ViewModel;
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     pub fn equipment(ui: &mut Ui, vm: &mut ViewModel) {
         let equipment_vm = &vm.slots[vm.index].equipment_vm;
@@ -10,7 +10,7 @@ pub mod equipment {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Slot | Item Name | Item ID | GA Handle").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         egui::ScrollArea::vertical()
             .auto_shrink(false)
@@ -22,7 +22,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &weapon.name, weapon.id, weapon.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Left Hand Weapons
                 ui.label(RichText::new("Left Hand Weapons").strong());
@@ -31,7 +31,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &weapon.name, weapon.id, weapon.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Arrows
                 ui.label(RichText::new("Arrows").strong());
@@ -40,7 +40,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &arrow.name, arrow.id, arrow.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Bolts
                 ui.label(RichText::new("Bolts").strong());
@@ -49,7 +49,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &bolt.name, bolt.id, bolt.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Armor
                 ui.label(RichText::new("Armor").strong());
@@ -58,7 +58,7 @@ pub mod equipment {
                 display_equipment_row(ui, "Arms", &equipment_vm.arms.name, equipment_vm.arms.id, equipment_vm.arms.gaitem_handle);
                 display_equipment_row(ui, "Legs", &equipment_vm.legs.name, equipment_vm.legs.id, equipment_vm.legs.gaitem_handle);
 
-                ui.separator();
+                spacer(ui);
 
                 // Talismans
                 ui.label(RichText::new("Talismans").strong());
@@ -67,7 +67,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &talisman.name, talisman.id, talisman.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Quick Items
                 ui.label(RichText::new("Quick Items").strong());
@@ -76,7 +76,7 @@ pub mod equipment {
                     display_equipment_row(ui, &slot, &item.name, item.id, item.gaitem_handle);
                 }
 
-                ui.separator();
+                spacer(ui);
 
                 // Pouch
                 ui.label(RichText::new("Pouch").strong());

@@ -1,6 +1,6 @@
 pub mod import {
     use eframe::egui::{self, Color32, Ui};
-    use crate::{save::save::save::Save, vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel}};
+    use crate::{save::save::save::Save, ui::style::spacer, vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel}};
 
     pub fn character_importer(ui: &mut Ui, open: &mut bool, importer_vm: &mut ImporterViewModel, to_save:&mut Save, vm: &mut ViewModel) {
         egui::Window::new("Importer")
@@ -11,7 +11,7 @@ pub mod import {
                 ui.columns(2, |uis|{
                     uis[0].vertical_centered_justified(|ui|{
                         ui.heading("From");
-                        ui.separator();
+                        spacer(ui);
                         for (i, from_character) in importer_vm.from_list.iter().filter(|c|c.active).enumerate() {
                             if ui.selectable_label(importer_vm.selected_from_index == i, &from_character.name).clicked() {
                                 importer_vm.selected_from_index = i
@@ -20,7 +20,7 @@ pub mod import {
                     });
                     uis[1].vertical_centered_justified(|ui|{
                         ui.heading("To");
-                        ui.separator();
+                        spacer(ui);
                         for (i, to_character) in importer_vm.to_list.iter().filter(|c|c.active).enumerate() {
                             if ui.selectable_label(importer_vm.selected_to_index == i, &to_character.name).clicked() {
                                 importer_vm.selected_to_index = i

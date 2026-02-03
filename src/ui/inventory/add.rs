@@ -1,9 +1,9 @@
 
 use eframe::{egui::{self, Layout, Ui, Vec2}, epaint::Color32};
 use crate::{db::{
-    accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME, aows::aows, armor_name::armor_name::ARMOR_NAME, armors::armor_sets, item_name::item_name::ITEM_NAME, items::items, talismans::talismans, weapon_name::weapon_name::WEAPON_NAME, weapons::weapons}, ui::custom::checkbox::checkbox::{
+    accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME, aows::aows, armor_name::armor_name::ARMOR_NAME, armors::armor_sets, item_name::item_name::ITEM_NAME, items::items, talismans::talismans, weapon_name::weapon_name::WEAPON_NAME, weapons::weapons}, ui::{custom::checkbox::checkbox::{
         three_states_checkbox, State
-    }, 
+    }, style::spacer}, 
     util::regulation::Regulation, 
     vm::{
         inventory::{
@@ -165,7 +165,7 @@ pub fn add(ui: &mut Ui, vm:&mut ViewModel) {
                 });
             });
         });
-        ui.separator();
+        spacer(ui);
         ui.with_layout(Layout::top_down(egui::Align::Min), |ui| {
             ui.push_id("log", |ui| {
                 egui::ScrollArea::vertical()
@@ -189,7 +189,7 @@ fn single(ui: &mut Ui, regulation_vm: &mut RegulationViewModel, inventory_vm: &m
                 regulation_vm.filter(&inventory_vm.current_type_route, &inventory_vm.filter_text);
             };
         });
-        ui.separator();
+        spacer(ui);
         ui.add_space(8.);
         
         let row_height = 10.;
@@ -298,7 +298,7 @@ fn bulk(ui: &mut Ui, inventory_vm: &mut InventoryViewModel) {
             };
             ui.label("Select All");
         });
-        ui.separator();
+        spacer(ui);
         egui::ScrollArea::vertical()
             .auto_shrink(false)
             .max_height(ui.available_height()-8.)

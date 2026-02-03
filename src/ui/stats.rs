@@ -1,7 +1,7 @@
 pub mod stats {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::vm::vm::vm::ViewModel;
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     pub fn stats(ui: &mut Ui, vm: &mut ViewModel) {
         let stats_vm = &vm.slots[vm.index].stats_vm;
@@ -15,7 +15,7 @@ pub mod stats {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Stat | Value").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         egui::ScrollArea::vertical()
             .auto_shrink(false)
@@ -23,12 +23,12 @@ pub mod stats {
                 // Starting Class
                 display_stat_row(ui, "Starting Class", &stats_vm.arche_type.to_string());
 
-                ui.separator();
+                spacer(ui);
 
                 // Level
                 display_stat_row(ui, "Level", &level.to_string());
 
-                ui.separator();
+                spacer(ui);
 
                 // Main Stats
                 display_stat_row(ui, "Vigor", &stats_vm.vigor.to_string());
@@ -40,13 +40,13 @@ pub mod stats {
                 display_stat_row(ui, "Faith", &stats_vm.faith.to_string());
                 display_stat_row(ui, "Arcane", &stats_vm.arcane.to_string());
 
-                ui.separator();
+                spacer(ui);
 
                 // DLC Stats
                 display_stat_row(ui, "Scadutree Blessing", &stats_vm.scadutree.to_string());
                 display_stat_row(ui, "Shadow Realm Blessing", &stats_vm.spirit_ash.to_string());
 
-                ui.separator();
+                spacer(ui);
 
                 // Runes
                 display_stat_row(ui, "Current Runes", &stats_vm.souls.to_string());

@@ -3,7 +3,7 @@ pub mod regions {
 
     use eframe::egui::{self, Ui};
 
-    use crate::{db::{map_name::map_name::MAP_NAME, regions::regions::REGIONS}, ui::custom::checkbox::checkbox::{three_states_checkbox, State}, vm::vm::vm::ViewModel};
+    use crate::{db::{map_name::map_name::MAP_NAME, regions::regions::REGIONS}, ui::{custom::checkbox::checkbox::{three_states_checkbox, State}, style::spacer}, vm::vm::vm::ViewModel};
 
     pub fn regions(ui: &mut Ui, vm:&mut ViewModel) { 
         egui::ScrollArea::vertical()
@@ -13,14 +13,14 @@ pub mod regions {
             let regions = &mut vm.slots[vm.index].regions_vm.regions;
             ui.horizontal(|ui| {
                 display_all_checkbox(ui, regions, "All Regions");
-                ui.separator();
+                spacer(ui);
                 display_open_world_checkbox(ui, regions, "Open World");
-                ui.separator();
+                spacer(ui);
                 display_dungeon_checkbox(ui, regions, "Dungeons");
-                ui.separator();
+                spacer(ui);
                 display_bosses_checkbox(ui, regions, "Bosses");
             });
-            ui.separator();
+            spacer(ui);
             
             for map in maps {
                 ui.push_id(map.0, |ui| {

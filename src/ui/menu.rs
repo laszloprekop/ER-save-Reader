@@ -113,6 +113,8 @@ pub mod menu {
     pub fn breadcrumb_bar(ui: &mut Ui, app: &mut App) {
         use crate::vm::events::events_view_model::EventsRoute;
 
+        let caret = egui_phosphor::regular::CARET_RIGHT;
+
         // "Characters" is always the root
         if ui.selectable_label(false, egui::RichText::new("Characters").strong()).clicked() {
             app.current_route = Route::None;
@@ -121,7 +123,7 @@ pub mod menu {
         // If a character is selected (either character view or we have a valid index)
         if app.vm.active.is_some_and(|v| v) && (app.current_route.is_character_view() || app.current_route.is_database_view()) {
             if app.current_route.is_character_view() {
-                ui.label(">");
+                ui.label(caret);
                 let char_name = app.vm.slots[app.vm.index].general_vm.character_name.trim_matches('\0');
                 if ui.selectable_label(false, char_name).clicked() {
                     app.current_route = Route::General;
@@ -132,7 +134,7 @@ pub mod menu {
                 // If we're in a specific area
                 let area_name = app.current_route.display_name();
                 if !area_name.is_empty() {
-                    ui.label(">");
+                    ui.label(caret);
 
                     // If EventFlags, check for subroute
                     if matches!(app.current_route, Route::EventFlags) {
@@ -147,7 +149,7 @@ pub mod menu {
                             if ui.selectable_label(false, area_name).clicked() {
                                 app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
                             }
-                            ui.label(">");
+                            ui.label(caret);
                             // Subroute name is current (not clickable)
                             ui.label(egui::RichText::new(subroute_name).strong());
                         }
@@ -158,7 +160,7 @@ pub mod menu {
                 }
             } else if app.current_route.is_database_view() {
                 // Database view
-                ui.label(">");
+                ui.label(caret);
                 ui.label(egui::RichText::new(app.current_route.display_name()).strong());
             }
         }

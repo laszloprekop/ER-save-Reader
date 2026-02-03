@@ -4,6 +4,35 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.8.4 - IBM Plex Fonts and UI Polish
+
+### Typography
+- **Added IBM Plex font family**
+  - IBM Plex Sans: Default UI font (proportional)
+  - IBM Plex Sans Condensed: Table/list headers (`font_condensed()`)
+  - IBM Plex Mono: Monospace text (`.monospace()`)
+  - IBM Plex Serif: Paragraph/description text (`font_serif()`)
+
+### UI Polish
+- **Replaced separator lines with spacer component**
+  - Added `spacer(ui)` function in `style.rs` with `SECTION_SPACING = 8.0`
+  - Removed gray horizontal lines from all views
+  - Cleaner visual appearance
+
+- **Breadcrumb caret icon**
+  - Replaced ">" text with Phosphor CARET_RIGHT icon
+
+### Files Modified
+- `src/main.rs`: Font configuration with IBM Plex family
+- `src/ui/style.rs`: Added `spacer()`, `font_condensed()`, `font_serif()`
+- `src/ui/*.rs`: Replaced `ui.separator()` with `spacer(ui)` (14 files)
+- `src/ui/menu.rs`: Breadcrumb uses CARET_RIGHT icon
+- `assets/fonts/`: IBM Plex font files (Sans, Condensed, Mono, Serif)
+- `docs/CHANGELOG.md`: Added v0.8.4 entry
+- `Cargo.toml`: Bumped to 0.8.4
+
+---
+
 ## v0.8.3 - Horizontal Navigation Layout
 
 ### UI Restructure

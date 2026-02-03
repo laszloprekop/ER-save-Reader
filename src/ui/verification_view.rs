@@ -2,7 +2,7 @@ pub mod verification_view {
     use eframe::egui::{self, Ui, RichText, ScrollArea, Color32};
     use crate::vm::verification_vm::{VerificationViewModel, VerificationFilterStatus, DetectionCategory};
     use crate::ui::style::{
-        TABLE_MONO_SIZE,
+        TABLE_MONO_SIZE, spacer,
         CAT_RED, CAT_GREEN, CAT_YELLOW, CAT_PEACH, CAT_TEAL, CAT_SUBTEXT, CAT_OVERLAY,
     };
     use crate::save::common::save_slot::EquipInventoryData;
@@ -37,7 +37,7 @@ pub mod verification_view {
                 summary.agreement_rate, summary.matches, summary.total
             )).color(color).size(16.0).strong());
         });
-        ui.separator();
+        spacer(ui);
 
         // Category breakdown
         ui.horizontal_wrapped(|ui| {
@@ -54,10 +54,10 @@ pub mod verification_view {
                     "{}: {:.0}% ({}/{})",
                     cat, stats.rate, stats.matches, stats.total
                 )).color(color));
-                ui.separator();
+                spacer(ui);
             }
         });
-        ui.separator();
+        spacer(ui);
 
         // Flagged detections section
         let flagged_count = vm.suspicious_count();
@@ -147,13 +147,13 @@ pub mod verification_view {
                                 ui.output_mut(|o| o.copied_text = det.flag_name.clone());
                                 ui.close_menu();
                             }
-                            ui.separator();
+                            spacer(ui);
                             ui.label(RichText::new("Details:").small().strong());
                             ui.label(RichText::new(&det.description).small());
                         });
                     }
                 });
-            ui.separator();
+            spacer(ui);
         }
 
         // Discovered regions info
@@ -166,11 +166,11 @@ pub mod verification_view {
                     ui.horizontal_wrapped(|ui| {
                         for region in regions {
                             ui.label(RichText::new(region).color(CAT_TEAL).small());
-                            ui.separator();
+                            spacer(ui);
                         }
                     });
                 });
-            ui.separator();
+            spacer(ui);
         }
 
         // Filter controls - Status
@@ -197,14 +197,14 @@ pub mod verification_view {
                 }
             }
         });
-        ui.separator();
+        spacer(ui);
 
         // Results count
         let filtered_count = vm.filtered_count();
         ui.label(RichText::new(format!("Showing {} records", filtered_count))
             .color(CAT_OVERLAY)
             .small());
-        ui.separator();
+        spacer(ui);
 
         // Column header
         ui.horizontal(|ui| {
@@ -212,7 +212,7 @@ pub mod verification_view {
                 "Flag ID      | Name                                                                              | Category         | Manual | Auto   | Match"
             ).color(CAT_YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Records table (horizontal scroll for wide content)
         ScrollArea::both()
@@ -258,7 +258,7 @@ pub mod verification_view {
                             ));
                             ui.close_menu();
                         }
-                        ui.separator();
+                        spacer(ui);
                         ui.label(format!("Type: {}", record.flag_type));
                         ui.label(format!("Region: {}", record.flag_region));
                         ui.label(format!("Offset: {}", record.computed_byte_offset));
@@ -294,7 +294,7 @@ pub mod verification_view {
         ui.horizontal(|ui| {
             ui.label(RichText::new("🔺 Inventory Verification Triangle").size(16.0).strong().color(CAT_TEAL));
         });
-        ui.separator();
+        spacer(ui);
 
         // Overall stats
         ui.horizontal_wrapped(|ui| {
@@ -313,14 +313,14 @@ pub mod verification_view {
                 stats.total_verifiable
             )).color(match_rate_color).strong());
 
-            ui.separator();
+            spacer(ui);
 
             ui.label(RichText::new(format!(
                 "Database: {} unique items",
                 stats.total_unique_items
             )).color(CAT_SUBTEXT));
         });
-        ui.separator();
+        spacer(ui);
 
         // Count high vs low confidence items
         let high_confidence_items: Vec<_> = UNIQUE_ITEMS.iter()
@@ -336,13 +336,13 @@ pub mod verification_view {
                 "Verifiable: {} items (high/very high confidence)",
                 high_confidence_items.len()
             )).color(CAT_GREEN).small());
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new(format!(
                 "Pending: {} items (no formula/low confidence)",
                 low_confidence_items.len()
             )).color(CAT_OVERLAY).small());
         });
-        ui.separator();
+        spacer(ui);
 
         // Category breakdown
         let categories = [
@@ -386,10 +386,10 @@ pub mod verification_view {
                 ui.label(RichText::new(format!("{}: {}/{}", name, owned, cat_items.len()))
                     .color(display_color)
                     .small());
-                ui.separator();
+                spacer(ui);
             }
         });
-        ui.separator();
+        spacer(ui);
 
         // Mismatch sections
         if !report.flag_set_no_item.is_empty() {
@@ -402,7 +402,7 @@ pub mod verification_view {
                     ui.label(RichText::new("These flags are set but the corresponding item is not in inventory. Could indicate: item was used/sold, or flag detection error.")
                         .color(CAT_SUBTEXT)
                         .small());
-                    ui.separator();
+                    spacer(ui);
 
                     for item in &report.flag_set_no_item {
                         let row = format!(
@@ -449,7 +449,7 @@ pub mod verification_view {
                         ui.label(RichText::new("These items are in inventory but the flag is not detected. Indicates: flag formula bug, or item obtained through non-standard means.")
                             .color(CAT_SUBTEXT)
                             .small());
-                        ui.separator();
+                        spacer(ui);
 
                         for item in high_conf_mismatches {
                             let row = format!(
@@ -487,7 +487,7 @@ pub mod verification_view {
                         ui.label(RichText::new("These items use flag ranges (520xxx) where no formula has been discovered yet. They cannot be verified until the 520000 block offset is discovered.")
                             .color(CAT_SUBTEXT)
                             .small());
-                        ui.separator();
+                        spacer(ui);
 
                         for item in low_conf_items {
                             let row = format!(
@@ -513,7 +513,7 @@ pub mod verification_view {
                     ui.label(RichText::new("Flag status and inventory possession match. High confidence in detection accuracy.")
                         .color(CAT_SUBTEXT)
                         .small());
-                    ui.separator();
+                    spacer(ui);
 
                     ScrollArea::vertical()
                         .max_height(200.0)

@@ -1,7 +1,7 @@
 pub mod shop_items_view {
     use eframe::egui::{self, Ui, Color32, RichText};
     use crate::db::shop_items::{SHOP_ITEMS, MERCHANTS, ItemCategory};
-    use crate::ui::style::TABLE_MONO_SIZE;
+    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
 
     pub struct ShopItemsViewState {
         pub merchant_filter: String,
@@ -37,17 +37,17 @@ pub mod shop_items_view {
                     }
                 });
 
-            ui.separator();
+            spacer(ui);
             ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
             ui.text_edit_singleline(&mut state.search);
         });
-        ui.separator();
+        spacer(ui);
 
         // Column headers
         ui.horizontal(|ui| {
             ui.label(RichText::new("ID | Merchant | Item | Category | Price | Qty | Stock Flag").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        ui.separator();
+        spacer(ui);
 
         // Scrollable list
         egui::ScrollArea::vertical()
