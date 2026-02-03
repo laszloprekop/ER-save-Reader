@@ -1,8 +1,8 @@
 pub mod import {
-    use eframe::egui::{self, Color32, Ui};
+    use eframe::egui::{self, Color32, RichText, Ui};
     use crate::{save::save::save::Save, ui::style::spacer, vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel}};
 
-    pub fn character_importer(ui: &mut Ui, open: &mut bool, importer_vm: &mut ImporterViewModel, to_save:&mut Save, vm: &mut ViewModel) {
+    pub fn character_importer(ui: &mut Ui, open: &mut bool, importer_vm: &mut ImporterViewModel, _to_save:&mut Save, _vm: &mut ViewModel) {
         egui::Window::new("Importer")
         .open(open)
         .resizable(false)
@@ -30,13 +30,21 @@ pub mod import {
                 });
                 ui.add_space(5.);
                 ui.vertical_centered_justified(|ui|{
-                    if ui.add_sized([ui.available_width(), 40.], egui::widgets::Button::new("Import")).clicked() {
-                        importer_vm.import_character(to_save, vm);
+                    // Import button is disabled (destructive feature)
+                    let import_btn = ui.add_enabled(
+                        false,
+                        egui::Button::new(RichText::new("Import (Disabled)").strikethrough())
+                            .min_size(egui::vec2(ui.available_width(), 40.))
+                    );
+                    if import_btn.hovered() {
+                        egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), import_btn.id, |ui: &mut egui::Ui|{
+                            ui.label(RichText::new("Editing features are disabled in display-only mode.").size(10.0).color(Color32::GRAY));
+                        });
                     }
                 });
             }
             else {
-                ui.label(egui::RichText::new("Save file has irregular data!").color(Color32::DARK_RED));
+                ui.label(RichText::new("Save file has irregular data!").color(Color32::DARK_RED));
             }
         });
     }

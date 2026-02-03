@@ -1,5 +1,5 @@
 pub mod inventory {
-    use eframe::egui::{self, Color32, Ui};
+    use eframe::egui::{self, Color32, RichText, Ui};
     use crate::ui::inventory::{add::add, browse::browse_inventory};
     use crate::vm::{inventory::InventoryRoute, vm::vm::ViewModel};
 
@@ -9,16 +9,18 @@ pub mod inventory {
             .id_salt("inventory_item_type_menu")
             .show(ui, |ui| {
                 ui.vertical(|ui| {
-                    let add_items = ui.add_sized([120., 60.], egui::Button::new("Add\n(WIP)"));
+                    // Add button is disabled (destructive feature)
+                    let add_items = ui.add_enabled(
+                        false,
+                        egui::Button::new(RichText::new("Add\n(Disabled)").strikethrough())
+                            .min_size(egui::vec2(120., 60.))
+                    );
                     let browse_items = ui.add_sized([120., 40.], egui::Button::new("Browse"));
 
-                    if add_items.clicked() {
-                        vm.slots[vm.index].inventory_vm.filter();
-                        vm.slots[vm.index].inventory_vm.current_route = InventoryRoute::Add
-                    }
+                    // Add button tooltip explaining why it's disabled
                     if add_items.hovered() {
                         egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), add_items.id, |ui: &mut egui::Ui|{
-                            ui.label(egui::RichText::new("Warning: This is an experimental feature that is still being worked on. Use with catution.").size(8.0).color(Color32::PLACEHOLDER));
+                            ui.label(RichText::new("Editing features are disabled in display-only mode.").size(10.0).color(Color32::GRAY));
                         });
                     }
                     if browse_items.clicked() {
@@ -26,11 +28,11 @@ pub mod inventory {
                         vm.regulation.filter(&vm.slots[vm.index].inventory_vm.current_type_route, &vm.slots[vm.index].inventory_vm.filter_text);
                         vm.slots[vm.index].inventory_vm.current_route = InventoryRoute::Browse
                     }
-                    
-                    // Highlight active 
+
+                    // Highlight active (only Browse can be active now)
                     match vm.slots[vm.index].inventory_vm.current_route {
                         InventoryRoute::None => {},
-                        InventoryRoute::Add => {add_items.highlight();},
+                        InventoryRoute::Add => {}, // Can't reach this state anymore
                         InventoryRoute::Browse => {browse_items.highlight();},
                     }
                 })

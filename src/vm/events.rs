@@ -1,7 +1,7 @@
 pub mod events_view_model {
     use std::collections::BTreeMap;
 
-    use crate::{calibration::{CalibrationService, GraceBlockCalibration}, db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::{get_flag_offset, is_block_reliable}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel};
+    use crate::{calibration::{CalibrationService, GraceBlockCalibration}, db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::{get_flag_offset, is_block_reliable}}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
 
     /// Progression gates for late-game graces (76400+).
     /// Only show graces if prerequisite bosses are defeated.
@@ -105,6 +105,14 @@ pub mod events_view_model {
         pub search: String,
         /// Currently selected flag ID for details panel
         pub selected_flag_id: Option<u32>,
+        /// Table state for unified table
+        pub table_state: TableState,
+        /// Filter bar state
+        pub filter_state: FilterBarState,
+        /// Export format
+        pub export_format: ExportFormat,
+        /// Export filtered only
+        pub export_filtered_only: bool,
     }
 
     impl Default for WorldPickupsFilter {
@@ -115,6 +123,10 @@ pub mod events_view_model {
                 region_filter: "All".to_string(),
                 search: String::new(),
                 selected_flag_id: None,
+                table_state: TableState::new().with_sort("lot_id", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
             }
         }
     }

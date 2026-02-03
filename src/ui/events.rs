@@ -1,8 +1,11 @@
 pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::ExportToolbar}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
+
+    /// Icon size multiplier for table icons (150%)
+    const ICON_SIZE_MULTIPLIER: f32 = 1.5;
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
         // Right sidebar for flag details (only show when a flag is selected in world/dungeon pickups)
@@ -40,7 +43,7 @@ pub mod events {
                     EventsRoute::SummoningPools => {summoning_pools(ui, vm);},
                     EventsRoute::Colosseums => {colosseums(ui, vm);},
                     EventsRoute::Landmarks => {landmarks_view(ui, vm);},
-                    EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags);},
+                    EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags, inventory);},
                     EventsRoute::DungeonPickups => {dungeon_pickups(ui, vm, event_flags);},
                     EventsRoute::Verification => {
                         // Inventory Verification Triangle section first
@@ -71,10 +74,6 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Name | Region | Flag ID").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        if unreliable_count > 0 {
-            ui.label(RichText::new(format!("? = unreliable block ({} graces) - result may be inaccurate", unreliable_count))
-                .color(Color32::from_rgb(255, 200, 100)).small());
-        }
         spacer(ui);
 
         // Summary - show reliable discovered vs total reliable
@@ -112,26 +111,33 @@ pub mod events {
                     let flag_id = grace_info.1;
                     let name = grace_info.2;
 
-                    let (status_text, text_color) = match grace_status {
-                        GraceStatus::Discovered => ("[X]", Color32::from_rgb(100, 200, 100)),
-                        GraceStatus::NotDiscovered => ("[ ]", Color32::LIGHT_GRAY),
-                        GraceStatus::Unreliable => ("[?]", Color32::from_rgb(255, 200, 100)),
+                    let (status_icon, status_color, status_text) = match grace_status {
+                        GraceStatus::Discovered => (icons::COLLECTED, colors::STATUS_COLLECTED, "Discovered"),
+                        GraceStatus::NotDiscovered => (icons::NOT_COLLECTED, Color32::LIGHT_GRAY, "Not discovered"),
+                        GraceStatus::Unreliable => (icons::UNKNOWN, colors::STATUS_WARNING, "Unreliable"),
                     };
 
-                    let row_text = format!("{} | {} | {} | {}", status_text, name, region_name, flag_id);
+                    let row_text = format!("{} | {} | {}", name, region_name, flag_id);
+                    let full_row_text = format!("{} | {} | {} | {}", status_text, name, region_name, flag_id);
 
-                    let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                            .sense(egui::Sense::click())
-                    );
+                    let response = ui.horizontal(|ui| {
+                        // Status icon at 150% size
+                        ui.label(RichText::new(status_icon)
+                            .color(status_color)
+                            .size(TABLE_MONO_SIZE * ICON_SIZE_MULTIPLIER));
+                        ui.add(
+                            egui::Label::new(RichText::new(&row_text).color(status_color).monospace().size(TABLE_MONO_SIZE))
+                                .sense(egui::Sense::click())
+                        )
+                    }).inner;
 
                     if response.double_clicked() {
-                        ui.output_mut(|o| o.copied_text = row_text.clone());
+                        ui.output_mut(|o| o.copied_text = full_row_text.clone());
                     }
 
                     response.context_menu(|ui| {
                         if ui.button("Copy row").clicked() {
-                            ui.output_mut(|o| o.copied_text = row_text.clone());
+                            ui.output_mut(|o| o.copied_text = full_row_text.clone());
                             ui.close_menu();
                         }
                         if ui.button("Copy name").clicked() {
@@ -169,9 +175,7 @@ pub mod events {
 
         for (whetblade, discovered) in whetblades_data {
             if let Some(info) = whetblades_lookup.get(whetblade) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
@@ -196,9 +200,7 @@ pub mod events {
 
         for (cookbook, discovered) in cookbooks_data {
             if let Some(info) = cookbooks_lookup.get(cookbook) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
@@ -223,9 +225,7 @@ pub mod events {
 
         for (map, discovered) in maps_data {
             if let Some(info) = maps_lookup.get(map) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
@@ -250,9 +250,7 @@ pub mod events {
 
         for (boss, defeated) in bosses_data {
             if let Some(info) = bosses_lookup.get(boss) {
-                let status = if *defeated { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *defeated);
+                display_event_row_with_icon(ui, info.1, info.0, *defeated);
             }
         }
     }
@@ -277,9 +275,7 @@ pub mod events {
 
         for (pool, discovered) in pools_data {
             if let Some(info) = pools_lookup.get(pool) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
@@ -304,9 +300,7 @@ pub mod events {
 
         for (colosseum, discovered) in colosseums_data {
             if let Some(info) = colosseums_lookup.get(colosseum) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
@@ -331,46 +325,46 @@ pub mod events {
 
         for (landmark, discovered) in landmarks_data {
             if let Some(info) = landmarks_lookup.get(landmark) {
-                let status = if *discovered { "[X]" } else { "[ ]" };
-                let row_text = format!("{} | {} | {}", status, info.1, info.0);
-                display_event_row(ui, &row_text, info.1, info.0, *discovered);
+                display_event_row_with_icon(ui, info.1, info.0, *discovered);
             }
         }
     }
 
-    fn display_event_row(ui: &mut Ui, row_text: &str, name: &str, flag_id: u32, discovered: bool) {
+    /// Display an event row with icon-based status
+    fn display_event_row_with_icon(ui: &mut Ui, name: &str, flag_id: u32, discovered: bool) {
         let verification_status = get_flag_verification_status(flag_id);
         let is_unverified = verification_status.is_uncertain();
 
-        // Add "!" indicator for unverified flags - insert after the status brackets [X] or [ ]
-        let display_text = if is_unverified {
-            // Insert "!" after the first 3 characters (the [X] or [ ] part)
-            let (status_part, rest) = row_text.split_at(3.min(row_text.len()));
-            format!("{}!{}", status_part, rest)
-        } else {
-            row_text.to_string()
-        };
-
-        let text_color = if is_unverified {
-            Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
+        // Determine status icon and color
+        let (status_icon, status_color, status_text) = if is_unverified {
+            (icons::MISMATCH, colors::STATUS_WARNING, "Unverified")
         } else if discovered {
-            Color32::from_rgb(100, 200, 100)
+            (icons::COLLECTED, colors::STATUS_COLLECTED, "Discovered")
         } else {
-            Color32::LIGHT_GRAY
+            (icons::NOT_COLLECTED, Color32::LIGHT_GRAY, "Not discovered")
         };
 
-        let response = ui.add(
-            egui::Label::new(RichText::new(&display_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                .sense(egui::Sense::click())
-        );
+        let row_text = format!("{} | {}", name, flag_id);
+        let full_row_text = format!("{} | {} | {}", status_text, name, flag_id);
+
+        let response = ui.horizontal(|ui| {
+            // Status icon at 150% size
+            ui.label(RichText::new(status_icon)
+                .color(status_color)
+                .size(TABLE_MONO_SIZE * ICON_SIZE_MULTIPLIER));
+            ui.add(
+                egui::Label::new(RichText::new(&row_text).color(status_color).monospace().size(TABLE_MONO_SIZE))
+                    .sense(egui::Sense::click())
+            )
+        }).inner;
 
         if response.double_clicked() {
-            ui.output_mut(|o| o.copied_text = display_text.clone());
+            ui.output_mut(|o| o.copied_text = full_row_text.clone());
         }
 
         response.context_menu(|ui| {
             if ui.button("Copy row").clicked() {
-                ui.output_mut(|o| o.copied_text = display_text.clone());
+                ui.output_mut(|o| o.copied_text = full_row_text.clone());
                 ui.close_menu();
             }
             if ui.button("Copy name").clicked() {
@@ -384,10 +378,76 @@ pub mod events {
         });
     }
 
-    fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
+    /// Check if an item is in the character's inventory based on flag ID
+    /// Returns (has_item, confidence) or None if no mapping exists
+    fn is_item_in_inventory(flag_id: u32, inventory: Option<&EquipInventoryData>) -> Option<(bool, VerificationConfidence)> {
+        let inventory = inventory?;
+
+        // Check if this flag has associated unique items
+        if let Some(mappings) = UNIQUE_ITEMS_BY_FLAG.get(&flag_id) {
+            // Extract item IDs from inventory
+            let inventory_items: std::collections::HashSet<u32> = inventory
+                .common_items
+                .iter()
+                .chain(inventory.key_items.iter())
+                .filter(|item| item.ga_item_handle != 0)
+                .map(|item| item.ga_item_handle & 0x0FFFFFFF)
+                .collect();
+
+            // Check if any expected item is present
+            for mapping in mappings {
+                if inventory_items.contains(&mapping.item_id) {
+                    return Some((true, mapping.confidence));
+                }
+            }
+
+            // Item not found, return best confidence from mappings
+            let best_confidence = mappings
+                .iter()
+                .map(|m| m.confidence)
+                .min_by_key(|c| match c {
+                    VerificationConfidence::VeryHigh => 0,
+                    VerificationConfidence::High => 1,
+                    VerificationConfidence::Medium => 2,
+                    VerificationConfidence::Low => 3,
+                    VerificationConfidence::Unknown => 4,
+                })
+                .unwrap_or(VerificationConfidence::Unknown);
+
+            return Some((false, best_confidence));
+        }
+
+        None // No unique item mapping for this flag
+    }
+
+    fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
         let filter = &mut vm.slots[vm.index].events_vm.world_pickups_filter;
 
-        // Type filter row - using scroll area for many options
+        // Build region filter options
+        let mut regions: Vec<&str> = WORLD_PICKUPS.iter()
+            .map(|p| p.region)
+            .collect::<std::collections::HashSet<_>>()
+            .into_iter()
+            .collect();
+        regions.sort();
+
+        let region_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
+            .chain(regions.iter().map(|r| FilterOption::from_str(*r)))
+            .collect();
+
+        // Sync filter state
+        filter.region_filter = filter.filter_state.category.clone();
+        filter.search = filter.filter_state.search.clone();
+
+        // Filter bar with region dropdown and search
+        FilterBar::new("char_world_pickups_filter", &mut filter.filter_state)
+            .category("Region", region_options)
+            .search("Search items...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Type filter chips
         ui.horizontal(|ui| {
             ui.label(RichText::new("Type:").color(Color32::LIGHT_GRAY));
             egui::ComboBox::from_id_salt("char_pickup_type_filter")
@@ -423,32 +483,6 @@ pub mod events {
                 });
         });
 
-        // Region filter and search row
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Region:").color(Color32::LIGHT_GRAY));
-
-            // Get unique regions from new data format
-            let mut regions: Vec<&str> = WORLD_PICKUPS.iter()
-                .map(|p| p.region)
-                .collect::<std::collections::HashSet<_>>()
-                .into_iter()
-                .collect();
-            regions.sort();
-            regions.insert(0, "All");
-
-            egui::ComboBox::from_id_salt("char_world_pickups_region_filter")
-                .selected_text(&filter.region_filter)
-                .show_ui(ui, |ui| {
-                    for region in &regions {
-                        ui.selectable_value(&mut filter.region_filter, region.to_string(), *region);
-                    }
-                });
-
-            spacer(ui);
-            ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
-            ui.text_edit_singleline(&mut filter.search);
-        });
-
         // Collected filter row
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
@@ -457,160 +491,343 @@ pub mod events {
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::NotCollected, "Not Collected");
             ui.selectable_value(&mut filter.collected_filter, CollectedFilter::Unverified, "Unverified");
         });
-        spacer(ui);
+
+        spacing::space_sm(ui);
+
+        // Export toolbar
+        let export_response = ExportToolbar::new("char_world_pickups_export", &mut filter.export_format, &mut filter.export_filtered_only)
+            .has_filters(filter.filter_state.has_active_filters() || filter.type_filter != PickupTypeFilter::All || filter.collected_filter != CollectedFilter::All)
+            .show(ui);
+
+        spacing::space_sm(ui);
 
         // Get current filter values (to avoid borrow issues)
         let type_filter = filter.type_filter;
         let collected_filter = filter.collected_filter;
         let region_filter = filter.region_filter.clone();
         let search = filter.search.clone();
-        let search_lower = search.to_lowercase();
-
-        // Count collected/total using new formula-based flag checking
-        let mut collected = 0;
-        let mut total = 0;
-        let mut filtered_total = 0;
-        let mut filtered_collected = 0;
-        let mut unverified_count = 0;
 
         let ef = event_flags.unwrap_or(&[]);
 
-        for pickup in WORLD_PICKUPS.iter() {
-            let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
-            if is_collected {
-                collected += 1;
-            }
-            if status.is_uncertain() {
-                unverified_count += 1;
-            }
-            total += 1;
+        // Build filtered data with inventory status
+        let mut pickups: Vec<(&crate::db::pickup_data::WorldPickup, bool, crate::db::pickup_flags::VerificationStatus, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
+            .filter_map(|pickup| {
+                let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
 
-            // Check if passes filters
-            if passes_pickup_filters(pickup, is_collected, status, type_filter, collected_filter, &region_filter, &search_lower) {
-                filtered_total += 1;
-                if is_collected {
-                    filtered_collected += 1;
+                // Apply collected filter
+                match collected_filter {
+                    CollectedFilter::All => {},
+                    CollectedFilter::Collected => {
+                        if !is_collected {
+                            return None;
+                        }
+                    },
+                    CollectedFilter::NotCollected => {
+                        if is_collected {
+                            return None;
+                        }
+                    },
+                    CollectedFilter::Unverified => {
+                        if !status.is_uncertain() {
+                            return None;
+                        }
+                    },
                 }
+
+                // Apply type filter
+                let type_match = match type_filter {
+                    PickupTypeFilter::All => true,
+                    PickupTypeFilter::GoldenRunes => pickup.category == PickupCategory::GoldenRunes,
+                    PickupTypeFilter::SmithingStones => pickup.category == PickupCategory::SmithingStones,
+                    PickupTypeFilter::SomberStones => pickup.category == PickupCategory::SomberStones,
+                    PickupTypeFilter::Glovewort => pickup.category == PickupCategory::Glovewort,
+                    PickupTypeFilter::Weapons => pickup.category == PickupCategory::Weapons,
+                    PickupTypeFilter::Armor => pickup.category == PickupCategory::Armor,
+                    PickupTypeFilter::Talismans => pickup.category == PickupCategory::Talismans,
+                    PickupTypeFilter::AshesOfWar => pickup.category == PickupCategory::AshesOfWar,
+                    PickupTypeFilter::KeyItems => pickup.category == PickupCategory::KeyItems,
+                    PickupTypeFilter::CraftingMaterials => pickup.category == PickupCategory::CraftingMaterials,
+                    PickupTypeFilter::Consumables => pickup.category == PickupCategory::Consumables,
+                    PickupTypeFilter::Other => pickup.category == PickupCategory::Other,
+                };
+                if !type_match {
+                    return None;
+                }
+
+                // Apply region filter
+                if region_filter != "All" && pickup.region != region_filter {
+                    return None;
+                }
+
+                // Apply search using fuzzy match
+                if !search.is_empty() {
+                    let matches = fuzzy_match_default(pickup.name, &search)
+                        || fuzzy_match_default(pickup.region, &search);
+                    if !matches {
+                        return None;
+                    }
+                }
+
+                // Check inventory status
+                let inv_status = is_item_in_inventory(pickup.event_flag, inventory);
+
+                Some((pickup, is_collected, status, inv_status))
+            })
+            .collect();
+
+        // Apply sorting
+        let table_state = &vm.slots[vm.index].events_vm.world_pickups_filter.table_state;
+        if let Some(sort_col) = &table_state.sort_column {
+            let asc = table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "lot_id" => pickups.sort_by(|a, b| if asc { a.0.item_lot_id.cmp(&b.0.item_lot_id) } else { b.0.item_lot_id.cmp(&a.0.item_lot_id) }),
+                "flag_id" => pickups.sort_by(|a, b| if asc { a.0.event_flag.cmp(&b.0.event_flag) } else { b.0.event_flag.cmp(&a.0.event_flag) }),
+                "item" => pickups.sort_by(|a, b| if asc { a.0.name.cmp(&b.0.name) } else { b.0.name.cmp(&a.0.name) }),
+                "category" => pickups.sort_by(|a, b| {
+                    let ca = a.0.category.display_name();
+                    let cb = b.0.category.display_name();
+                    if asc { ca.cmp(cb) } else { cb.cmp(ca) }
+                }),
+                "qty" => pickups.sort_by(|a, b| if asc { a.0.quantity.cmp(&b.0.quantity) } else { b.0.quantity.cmp(&a.0.quantity) }),
+                "region" => pickups.sort_by(|a, b| if asc { a.0.region.cmp(&b.0.region) } else { b.0.region.cmp(&a.0.region) }),
+                "status" => pickups.sort_by(|a, b| {
+                    let sa = if a.1 { 1 } else { 0 };
+                    let sb = if b.1 { 1 } else { 0 };
+                    if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
+                }),
+                _ => {}
             }
         }
-
-        // Header
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Status | Lot ID | Flag ID | Item | Category | Qty | Region").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        if unverified_count > 0 {
-            ui.label(RichText::new("! = unverified formula (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
-        }
-        spacer(ui);
 
         // Summary
-        let summary = if filtered_total == total {
-            if unverified_count > 0 {
-                format!("World Pickups: {}/{} collected ({} unverified)", collected, total, unverified_count)
-            } else {
-                format!("World Pickups: {}/{} collected", collected, total)
-            }
+        let total_count = WORLD_PICKUPS.len();
+        let filtered_count = pickups.len();
+        if filtered_count < total_count {
+            ui.label(RichText::new(format!("World Pickups: {} (showing {}/{})", total_count, filtered_count, total_count)).strong());
         } else {
-            format!("World Pickups: {}/{} collected (showing {}/{})", collected, total, filtered_collected, filtered_total)
-        };
-        ui.label(RichText::new(&summary).strong());
-        spacer(ui);
-
-        // Group by region
-        let mut regions_map: std::collections::BTreeMap<&str, Vec<_>> = std::collections::BTreeMap::new();
-        for pickup in WORLD_PICKUPS.iter() {
-            regions_map.entry(pickup.region).or_default().push(pickup);
+            ui.label(RichText::new(format!("World Pickups: {}", total_count)).strong());
         }
 
-        for (region, pickups) in regions_map {
-            // Count collected and filtered in this region
-            let mut region_collected = 0;
-            let mut region_filtered = 0;
+        spacing::space_sm(ui);
 
-            for pickup in &pickups {
-                let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
-                if is_collected {
-                    region_collected += 1;
-                }
-                if passes_pickup_filters(pickup, is_collected, status, type_filter, collected_filter, &region_filter, &search_lower) {
-                    region_filtered += 1;
-                }
-            }
-
-            // Skip region if no items pass filter
-            if region_filtered == 0 {
-                continue;
-            }
-
-            let region_header = if region_filtered == pickups.len() {
-                format!("{} ({}/{})", region, region_collected, pickups.len())
+        // Build row data with status colors
+        let selected_flag_id = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id;
+        let rows: Vec<RowData> = pickups.iter().map(|(pickup, is_collected, status, inv_status)| {
+            let flag_str = if status.is_uncertain() {
+                icons::MISMATCH
+            } else if *is_collected {
+                icons::COLLECTED
             } else {
-                format!("{} ({}/{} collected, showing {})", region, region_collected, pickups.len(), region_filtered)
+                icons::NOT_COLLECTED
             };
-            ui.label(RichText::new(region_header).strong());
 
-            for pickup in &pickups {
-                let (is_collected, verification_status) = is_flag_set_with_status(ef, pickup.event_flag);
+            // Inventory status icon (same logic as world_pickups_view.rs)
+            let inv_str = match inv_status {
+                Some((true, VerificationConfidence::VeryHigh)) => icons::HIGH_CONFIDENCE,
+                Some((true, VerificationConfidence::High)) => icons::COLLECTED,
+                Some((true, _)) => icons::PARTIAL,
+                Some((false, VerificationConfidence::VeryHigh)) => icons::NOT_COLLECTED,
+                Some((false, VerificationConfidence::High)) => icons::NO_DATA,
+                Some((false, _)) => icons::LOW_CONFIDENCE,
+                None => icons::NO_DATA,
+            };
 
-                // Apply filters
-                if !passes_pickup_filters(pickup, is_collected, verification_status, type_filter, collected_filter, &region_filter, &search_lower) {
-                    continue;
-                }
+            // Check for mismatch between flag and inventory
+            let has_mismatch = match (is_collected, inv_status) {
+                (true, Some((false, _))) => true,  // Flag says collected but not in inventory
+                (false, Some((true, _))) => true,  // Flag says not collected but in inventory
+                _ => false,
+            };
 
-                // Add "!" indicator for unverified flags
-                let unverified_marker = if verification_status.is_uncertain() { "!" } else { "" };
-                let status = if is_collected { "[X]" } else { "[ ]" };
+            let mut cells = vec![
+                flag_str.to_string(),
+            ];
 
-                let row_text = format!(
-                    "{}{} | {} | {} | {} | {} | {} | {}",
-                    status, unverified_marker, pickup.item_lot_id, pickup.event_flag, pickup.name,
-                    pickup.category.display_name(), pickup.quantity, region
-                );
+            // Add Inv column if inventory data is available
+            if inventory.is_some() {
+                cells.push(inv_str.to_string());
+            }
 
-                // Check if this row is selected
-                let is_selected = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id == Some(pickup.event_flag);
+            cells.extend(vec![
+                pickup.item_lot_id.to_string(),
+                pickup.event_flag.to_string(),
+                pickup.name.to_string(),
+                pickup.category.display_name().to_string(),
+                pickup.quantity.to_string(),
+                pickup.region.to_string(),
+            ]);
 
-                let text_color = if is_selected {
-                    Color32::YELLOW // Highlight selected row
-                } else if verification_status.is_uncertain() {
-                    Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
-                } else if is_collected {
-                    Color32::from_rgb(100, 200, 100)
-                } else {
-                    Color32::LIGHT_GRAY
-                };
+            let is_selected = selected_flag_id == Some(pickup.event_flag);
 
-                let response = ui.add(
-                    egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                        .sense(egui::Sense::click())
-                );
+            let mut row = RowData::new(cells);
 
-                // Single click selects for details panel
-                if response.clicked() {
+            // Color based on status and mismatch
+            if is_selected {
+                row = row.with_color(Color32::YELLOW);
+            } else if has_mismatch {
+                row = row.with_color(Color32::from_rgb(255, 165, 0)); // Orange for mismatch
+            } else if status.is_uncertain() {
+                row = row.with_color(colors::STATUS_WARNING);
+            } else if *is_collected {
+                row = row.with_color(colors::STATUS_COLLECTED);
+            } else {
+                row = row.with_color(Color32::LIGHT_GRAY);
+            }
+
+            row
+        }).collect();
+
+        // Build columns dynamically based on available data
+        let mut columns = vec![
+            Column::new("status", "Flag").width(40.0).sortable(true).center().icon(),
+        ];
+        if inventory.is_some() {
+            columns.push(Column::new("inv", "Inv").width(40.0).center().icon());
+        }
+        columns.extend(vec![
+            Column::new("lot_id", "Lot ID").width(80.0).sortable(true).monospace(true),
+            Column::new("flag_id", "Flag ID").width(80.0).sortable(true).monospace(true),
+            Column::new("item", "Item").width_fraction(0.25).sortable(true),
+            Column::new("category", "Category").width(100.0).sortable(true),
+            Column::new("qty", "Qty").width(40.0).sortable(true).right(),
+            Column::new("region", "Region").width_fraction(0.15).sortable(true),
+        ]);
+
+        // Show table
+        let table_state = &mut vm.slots[vm.index].events_vm.world_pickups_filter.table_state;
+        let table_response = UnifiedTable::new("char_world_pickups_table", table_state)
+            .columns(columns)
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
+
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
+        }
+
+        // Handle row selection for details panel
+        if table_response.sort_changed || vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selected_rows.iter().next() {
+                if let Some((pickup, _, _, _)) = pickups.get(idx) {
                     vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
-
-                if response.double_clicked() {
-                    ui.output_mut(|o| o.copied_text = row_text.clone());
-                }
-
-                response.context_menu(|ui| {
-                    if ui.button("Copy row").clicked() {
-                        ui.output_mut(|o| o.copied_text = row_text.clone());
-                        ui.close_menu();
-                    }
-                    if ui.button("Copy item name").clicked() {
-                        ui.output_mut(|o| o.copied_text = pickup.name.to_string());
-                        ui.close_menu();
-                    }
-                    if ui.button("Copy flag ID").clicked() {
-                        ui.output_mut(|o| o.copied_text = pickup.event_flag.to_string());
-                        ui.close_menu();
-                    }
-                });
             }
+        }
 
-            spacer(ui);
+        // Handle double-click
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some((pickup, is_collected, status, inv_status)) = pickups.get(row_idx) {
+                let status_text = if status.is_uncertain() {
+                    "Unverified"
+                } else if *is_collected {
+                    "Collected"
+                } else {
+                    "Not collected"
+                };
+                let inv_text = match inv_status {
+                    Some((true, _)) => "In Inv",
+                    Some((false, _)) => "Not in Inv",
+                    None => "N/A",
+                };
+                let row_text = format!(
+                    "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+                    status_text, inv_text, pickup.item_lot_id, pickup.event_flag, pickup.name,
+                    pickup.category.display_name(), pickup.quantity, pickup.region
+                );
+                ui.output_mut(|o| o.copied_text = row_text);
+            }
+        }
+
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let content = build_world_pickups_export(&pickups, &vm.slots[vm.index].events_vm.world_pickups_filter.export_format);
+
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content);
+            }
+        }
+    }
+
+    /// Build export content for world pickups
+    fn build_world_pickups_export(
+        pickups: &[(&crate::db::pickup_data::WorldPickup, bool, crate::db::pickup_flags::VerificationStatus, Option<(bool, VerificationConfidence)>)],
+        format: &crate::ui::components::export::ExportFormat,
+    ) -> String {
+        use crate::ui::components::export::{ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
+        use serde::Serialize;
+
+        #[derive(Serialize)]
+        struct ExportItem {
+            lot_id: u32,
+            flag_id: u32,
+            item_name: String,
+            category: String,
+            quantity: u32,
+            region: String,
+            collected: bool,
+            verified: bool,
+            in_inventory: Option<bool>,
+        }
+
+        let data: Vec<ExportItem> = pickups.iter()
+            .map(|(p, is_collected, status, inv_status)| ExportItem {
+                lot_id: p.item_lot_id,
+                flag_id: p.event_flag,
+                item_name: p.name.to_string(),
+                category: p.category.display_name().to_string(),
+                quantity: p.quantity,
+                region: p.region.to_string(),
+                collected: *is_collected,
+                verified: !status.is_uncertain(),
+                in_inventory: inv_status.map(|(has, _)| has),
+            })
+            .collect();
+
+        match format {
+            ExportFormat::Json => {
+                let export = PageExport::new(
+                    PageExportMetadata::new("Character World Pickups")
+                        .with_counts(crate::db::pickup_data::WORLD_PICKUPS.len(), pickups.len()),
+                    &data,
+                );
+                to_json(&export).unwrap_or_else(|_| String::new())
+            }
+            ExportFormat::Csv => {
+                let headers = &["Lot ID", "Flag ID", "Item", "Category", "Qty", "Region", "Collected", "Verified", "In Inventory"];
+                let rows: Vec<Vec<String>> = data.iter()
+                    .map(|p| vec![
+                        p.lot_id.to_string(),
+                        p.flag_id.to_string(),
+                        p.item_name.clone(),
+                        p.category.clone(),
+                        p.quantity.to_string(),
+                        p.region.clone(),
+                        if p.collected { "Yes" } else { "No" }.to_string(),
+                        if p.verified { "Yes" } else { "No" }.to_string(),
+                        p.in_inventory.map(|has| if has { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                    ])
+                    .collect();
+                to_csv(headers, &rows)
+            }
+            ExportFormat::Markdown => {
+                let headers = &["Lot ID", "Flag ID", "Item", "Category", "Qty", "Region", "Collected", "Verified", "In Inventory"];
+                let rows: Vec<Vec<String>> = data.iter()
+                    .map(|p| vec![
+                        p.lot_id.to_string(),
+                        p.flag_id.to_string(),
+                        p.item_name.clone(),
+                        p.category.clone(),
+                        p.quantity.to_string(),
+                        p.region.clone(),
+                        if p.collected { "Yes" } else { "No" }.to_string(),
+                        if p.verified { "Yes" } else { "No" }.to_string(),
+                        p.in_inventory.map(|has| if has { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                    ])
+                    .collect();
+                to_markdown(headers, &rows)
+            }
         }
     }
 
@@ -752,9 +969,6 @@ pub mod events {
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status | Flag ID | Item | Category | Qty | Dungeon").color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
         });
-        if unverified_count > 0 {
-            ui.label(RichText::new("! = unverified base (result may be inaccurate)").color(Color32::from_rgb(255, 200, 100)).small());
-        }
         spacer(ui);
 
         // Summary
@@ -813,13 +1027,19 @@ pub mod events {
                     continue;
                 }
 
-                // Add "!" indicator for unverified bases
-                let unverified_marker = if !is_verified { "!" } else { "" };
-                let status = if is_collected { "[X]" } else { "[ ]" };
+                // Determine status icon
+                let (status_icon, status_color) = if !is_verified {
+                    (icons::MISMATCH, colors::STATUS_WARNING)
+                } else if is_collected {
+                    (icons::COLLECTED, colors::STATUS_COLLECTED)
+                } else {
+                    (icons::NOT_COLLECTED, Color32::LIGHT_GRAY)
+                };
 
+                // Build row text without status (status will be rendered as icon)
                 let row_text = format!(
-                    "{}{} | {} | {} | {} | {} | {}",
-                    status, unverified_marker, pickup.event_flag, pickup.name,
+                    "{} | {} | {} | {} | {}",
+                    pickup.event_flag, pickup.name,
                     pickup.category.display_name(), pickup.quantity, area_name
                 );
 
@@ -829,30 +1049,55 @@ pub mod events {
                 let text_color = if is_selected {
                     Color32::YELLOW // Highlight selected row
                 } else if !is_verified {
-                    Color32::from_rgb(255, 200, 100) // Orange/yellow for unverified
+                    colors::STATUS_WARNING
                 } else if is_collected {
-                    Color32::from_rgb(100, 200, 100)
+                    colors::STATUS_COLLECTED
                 } else {
                     Color32::LIGHT_GRAY
                 };
 
-                let response = ui.add(
-                    egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                        .sense(egui::Sense::click())
-                );
+                // Render row with icon prefix
+                let response = ui.horizontal(|ui| {
+                    // Status icon at 150% size
+                    ui.label(RichText::new(status_icon)
+                        .color(status_color)
+                        .size(TABLE_MONO_SIZE * ICON_SIZE_MULTIPLIER));
+                    ui.add(
+                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
+                            .sense(egui::Sense::click())
+                    )
+                }).inner;
 
                 // Single click selects for details panel
                 if response.clicked() {
                     vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
 
+                // Build full row text for copying (with text status, not icon)
+                let status_text = if !is_verified {
+                    "Unverified"
+                } else if is_collected {
+                    "Collected"
+                } else {
+                    "Not collected"
+                };
+                let full_row_text = format!(
+                    "{} | {} | {} | {} | {} | {}",
+                    status_text, pickup.event_flag, pickup.name,
+                    pickup.category.display_name(), pickup.quantity, area_name
+                );
+
                 if response.double_clicked() {
-                    ui.output_mut(|o| o.copied_text = row_text.clone());
+                    ui.output_mut(|o| o.copied_text = full_row_text.clone());
                 }
 
                 response.context_menu(|ui| {
                     if ui.button("Copy row").clicked() {
-                        ui.output_mut(|o| o.copied_text = row_text.clone());
+                        ui.output_mut(|o| o.copied_text = full_row_text.clone());
+                        ui.close_menu();
+                    }
+                    if ui.button("Copy item name").clicked() {
+                        ui.output_mut(|o| o.copied_text = pickup.name.to_string());
                         ui.close_menu();
                     }
                     if ui.button(format!("Copy flag ID: {}", pickup.event_flag)).clicked() {

@@ -3,44 +3,74 @@ pub mod menu {
     use crate::App;
 
     pub enum Route {
-        None,
-        General,
-        Stats,
-        Equipment,
-        Inventory,
-        EventFlags,
-        Regions,
-        // Database views
-        Spells,
-        Npcs,
-        ShopItems,
-        WorldPickups,
-        EventFlagsDb,
+        // Landing page (home view)
+        Landing,
+
+        // Character selection (file loaded, no character selected yet)
+        CharacterSelect,
+
+        // Character views (file loaded, character selected)
+        CharacterGeneral,
+        CharacterStats,
+        CharacterEquipment,
+        CharacterInventory,
+        CharacterEventFlags,
+        CharacterRegions,
+
+        // Database selection (no specific database selected yet)
+        DatabaseSelect,
+
+        // Database views (reference data from decompiled game files)
+        DatabaseSpells,
+        DatabaseNpcs,
+        DatabaseShopItems,
+        DatabaseWorldPickups,
+        DatabaseDungeonPickups,
+        DatabaseEventFlags,
     }
 
     impl Route {
         pub fn is_database_view(&self) -> bool {
-            matches!(self, Route::Spells | Route::Npcs | Route::ShopItems | Route::WorldPickups | Route::EventFlagsDb)
+            matches!(
+                self,
+                Route::DatabaseSpells
+                    | Route::DatabaseNpcs
+                    | Route::DatabaseShopItems
+                    | Route::DatabaseWorldPickups
+                    | Route::DatabaseDungeonPickups
+                    | Route::DatabaseEventFlags
+            )
         }
 
         pub fn is_character_view(&self) -> bool {
-            matches!(self, Route::General | Route::Stats | Route::Equipment | Route::Inventory | Route::EventFlags | Route::Regions)
+            matches!(
+                self,
+                Route::CharacterGeneral
+                    | Route::CharacterStats
+                    | Route::CharacterEquipment
+                    | Route::CharacterInventory
+                    | Route::CharacterEventFlags
+                    | Route::CharacterRegions
+            )
         }
 
         pub fn display_name(&self) -> &'static str {
             match self {
-                Route::None => "",
-                Route::General => "General",
-                Route::Stats => "Stats",
-                Route::Equipment => "Equipment",
-                Route::Inventory => "Inventory",
-                Route::EventFlags => "Event Flags",
-                Route::Regions => "Regions",
-                Route::Spells => "Spells",
-                Route::Npcs => "NPCs",
-                Route::ShopItems => "Shop Items",
-                Route::WorldPickups => "World Pickups",
-                Route::EventFlagsDb => "Event Flags DB",
+                Route::Landing => "",
+                Route::CharacterSelect => "",
+                Route::CharacterGeneral => "General",
+                Route::CharacterStats => "Stats",
+                Route::CharacterEquipment => "Equipment",
+                Route::CharacterInventory => "Inventory",
+                Route::CharacterEventFlags => "Event Flags",
+                Route::CharacterRegions => "Regions",
+                Route::DatabaseSelect => "",
+                Route::DatabaseSpells => "Spells",
+                Route::DatabaseNpcs => "NPCs",
+                Route::DatabaseShopItems => "Shop Items",
+                Route::DatabaseWorldPickups => "World Pickups",
+                Route::DatabaseDungeonPickups => "Dungeon Pickups",
+                Route::DatabaseEventFlags => "Event Flags DB",
             }
         }
     }
@@ -56,21 +86,21 @@ pub mod menu {
         let regions = ui.add_sized([120., 40.], egui::Button::new("Regions"));
 
         // Listen for clicks
-        if general.clicked() { app.current_route = Route::General; }
-        if stats.clicked() { app.current_route = Route::Stats; }
-        if equipment.clicked() { app.current_route = Route::Equipment; }
-        if inventory.clicked() { app.current_route = Route::Inventory; }
-        if event_flags.clicked() { app.current_route = Route::EventFlags; }
-        if regions.clicked() { app.current_route = Route::Regions; }
+        if general.clicked() { app.current_route = Route::CharacterGeneral; }
+        if stats.clicked() { app.current_route = Route::CharacterStats; }
+        if equipment.clicked() { app.current_route = Route::CharacterEquipment; }
+        if inventory.clicked() { app.current_route = Route::CharacterInventory; }
+        if event_flags.clicked() { app.current_route = Route::CharacterEventFlags; }
+        if regions.clicked() { app.current_route = Route::CharacterRegions; }
 
         // Highlight active
         match app.current_route {
-            Route::General => { general.highlight(); },
-            Route::Stats => { stats.highlight(); },
-            Route::Equipment => { equipment.highlight(); },
-            Route::Inventory => { inventory.highlight(); },
-            Route::EventFlags => { event_flags.highlight(); },
-            Route::Regions => { regions.highlight(); },
+            Route::CharacterGeneral => { general.highlight(); },
+            Route::CharacterStats => { stats.highlight(); },
+            Route::CharacterEquipment => { equipment.highlight(); },
+            Route::CharacterInventory => { inventory.highlight(); },
+            Route::CharacterEventFlags => { event_flags.highlight(); },
+            Route::CharacterRegions => { regions.highlight(); },
             _ => {},
         }
     }
@@ -83,22 +113,25 @@ pub mod menu {
         let npcs = ui.add_sized([120., 40.], egui::Button::new("NPCs"));
         let shop_items = ui.add_sized([120., 40.], egui::Button::new("Shop Items"));
         let world_pickups = ui.add_sized([120., 40.], egui::Button::new("World Pickups"));
+        let dungeon_pickups = ui.add_sized([120., 40.], egui::Button::new("Dungeon Pickups"));
         let event_flags_db = ui.add_sized([120., 40.], egui::Button::new("Event Flags DB"));
 
         // Listen for clicks
-        if spells.clicked() { app.current_route = Route::Spells; }
-        if npcs.clicked() { app.current_route = Route::Npcs; }
-        if shop_items.clicked() { app.current_route = Route::ShopItems; }
-        if world_pickups.clicked() { app.current_route = Route::WorldPickups; }
-        if event_flags_db.clicked() { app.current_route = Route::EventFlagsDb; }
+        if spells.clicked() { app.current_route = Route::DatabaseSpells; }
+        if npcs.clicked() { app.current_route = Route::DatabaseNpcs; }
+        if shop_items.clicked() { app.current_route = Route::DatabaseShopItems; }
+        if world_pickups.clicked() { app.current_route = Route::DatabaseWorldPickups; }
+        if dungeon_pickups.clicked() { app.current_route = Route::DatabaseDungeonPickups; }
+        if event_flags_db.clicked() { app.current_route = Route::DatabaseEventFlags; }
 
         // Highlight active
         match app.current_route {
-            Route::Spells => { spells.highlight(); },
-            Route::Npcs => { npcs.highlight(); },
-            Route::ShopItems => { shop_items.highlight(); },
-            Route::WorldPickups => { world_pickups.highlight(); },
-            Route::EventFlagsDb => { event_flags_db.highlight(); },
+            Route::DatabaseSpells => { spells.highlight(); },
+            Route::DatabaseNpcs => { npcs.highlight(); },
+            Route::DatabaseShopItems => { shop_items.highlight(); },
+            Route::DatabaseWorldPickups => { world_pickups.highlight(); },
+            Route::DatabaseDungeonPickups => { dungeon_pickups.highlight(); },
+            Route::DatabaseEventFlags => { event_flags_db.highlight(); },
             _ => {},
         }
     }
@@ -109,125 +142,177 @@ pub mod menu {
     }
 
     /// Breadcrumb navigation bar (Row 2)
-    /// Shows clickable navigation path: Characters > CharacterName > AreaName > SubrouteName
+    /// Path A: Home → PC|SteamID → CharName → Area → Subroute
+    /// Path B: Home → Database → DatabaseName
     pub fn breadcrumb_bar(ui: &mut Ui, app: &mut App) {
         use crate::vm::events::events_view_model::EventsRoute;
+        use crate::save::save::save::SaveType;
 
         let caret = egui_phosphor::regular::CARET_RIGHT;
+        let home_icon = egui_phosphor::regular::HOUSE;
 
-        // "Characters" is always the root
-        if ui.selectable_label(false, egui::RichText::new("Characters").strong()).clicked() {
-            app.current_route = Route::None;
+        // Home icon (always visible) → goes to landing page
+        if ui.selectable_label(false, home_icon).clicked() {
+            app.current_route = Route::Landing;
         }
 
-        // If a character is selected (either character view or we have a valid index)
-        if app.vm.active.is_some_and(|v| v) && (app.current_route.is_character_view() || app.current_route.is_database_view()) {
-            if app.current_route.is_character_view() {
-                ui.label(caret);
-                let char_name = app.vm.slots[app.vm.index].general_vm.character_name.trim_matches('\0');
+        // ===== PATH A: File/Character hierarchy =====
+        // Level 2: CharacterSelect (file loaded, showing character list)
+        if matches!(app.current_route, Route::CharacterSelect) && app.picked_path.exists() {
+            ui.label(caret);
+            // PC|SteamID - current level (not clickable, shown as strong)
+            let platform_label = match &app.save.save_type {
+                SaveType::PC(_) => format!("PC | {}", &app.vm.steam_id),
+                SaveType::PlayStation(_) => "PlayStation".to_string(),
+                SaveType::Unknown => "Unknown".to_string(),
+            };
+            let response = ui.label(egui::RichText::new(&platform_label).strong());
+            if response.hovered() {
+                egui::show_tooltip(ui.ctx(), ui.layer_id(), response.id, |ui| {
+                    ui.label(app.picked_path.to_string_lossy().to_string());
+                });
+            }
+        }
+        // Level 3+: Character view (character selected)
+        else if app.current_route.is_character_view() && app.picked_path.exists() {
+            ui.label(caret);
+
+            // PC|SteamID - clickable → goes to CharacterSelect
+            let platform_label = match &app.save.save_type {
+                SaveType::PC(_) => format!("PC | {}", &app.vm.steam_id),
+                SaveType::PlayStation(_) => "PlayStation".to_string(),
+                SaveType::Unknown => "Unknown".to_string(),
+            };
+            let response = ui.selectable_label(false, &platform_label);
+            if response.hovered() {
+                egui::show_tooltip(ui.ctx(), ui.layer_id(), response.id, |ui| {
+                    ui.label(app.picked_path.to_string_lossy().to_string());
+                });
+            }
+            if response.clicked() {
+                app.current_route = Route::CharacterSelect;
+            }
+
+            ui.label(caret);
+
+            // Character name segment
+            let char_name = app.vm.slots[app.vm.index].general_vm.character_name.trim_matches('\0');
+
+            // Level 3: CharacterGeneral - char name is current (strong)
+            if matches!(app.current_route, Route::CharacterGeneral) {
+                ui.label(egui::RichText::new(char_name).strong());
+            }
+            // Level 4+: Deeper views - char name is clickable
+            else {
                 if ui.selectable_label(false, char_name).clicked() {
-                    app.current_route = Route::General;
-                    // Reset EventFlags subroute when navigating back to character
+                    app.current_route = Route::CharacterGeneral;
                     app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
                 }
 
-                // If we're in a specific area
-                let area_name = app.current_route.display_name();
-                if !area_name.is_empty() {
-                    ui.label(caret);
-
-                    // If EventFlags, check for subroute
-                    if matches!(app.current_route, Route::EventFlags) {
-                        let events_route = &app.vm.slots[app.vm.index].events_vm.current_route;
-                        let subroute_name = events_route.display_name();
-
-                        if subroute_name.is_empty() {
-                            // No subroute - area name is current (not clickable)
-                            ui.label(egui::RichText::new(area_name).strong());
-                        } else {
-                            // Has subroute - area name is clickable
-                            if ui.selectable_label(false, area_name).clicked() {
-                                app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
-                            }
-                            ui.label(caret);
-                            // Subroute name is current (not clickable)
-                            ui.label(egui::RichText::new(subroute_name).strong());
-                        }
-                    } else {
-                        // Not EventFlags - area name is current (not clickable)
-                        ui.label(egui::RichText::new(area_name).strong());
-                    }
-                }
-            } else if app.current_route.is_database_view() {
-                // Database view
                 ui.label(caret);
-                ui.label(egui::RichText::new(app.current_route.display_name()).strong());
+
+                let area_name = app.current_route.display_name();
+
+                // Level 4: Area view (not EventFlags or EventFlags without subroute)
+                if matches!(app.current_route, Route::CharacterEventFlags) {
+                    let events_route = &app.vm.slots[app.vm.index].events_vm.current_route;
+                    let subroute_name = events_route.display_name();
+
+                    if subroute_name.is_empty() {
+                        // No subroute - area name is current
+                        ui.label(egui::RichText::new(area_name).strong());
+                    } else {
+                        // Level 5: Has subroute - area name is clickable
+                        if ui.selectable_label(false, area_name).clicked() {
+                            app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
+                        }
+                        ui.label(caret);
+                        ui.label(egui::RichText::new(subroute_name).strong());
+                    }
+                } else {
+                    // Other areas - area name is current
+                    ui.label(egui::RichText::new(area_name).strong());
+                }
             }
+        }
+
+        // ===== PATH B: Database hierarchy =====
+        // Level 2: DatabaseSelect (showing database list)
+        else if matches!(app.current_route, Route::DatabaseSelect) {
+            ui.label(caret);
+            ui.label(egui::RichText::new("Database").strong());
+        }
+        // Level 3: Specific database view
+        else if app.current_route.is_database_view() {
+            ui.label(caret);
+            // Database - clickable → goes to DatabaseSelect
+            if ui.selectable_label(false, "Database").clicked() {
+                app.current_route = Route::DatabaseSelect;
+            }
+            ui.label(caret);
+            ui.label(egui::RichText::new(app.current_route.display_name()).strong());
         }
     }
 
-    /// Navigation buttons (Row 3)
-    /// Shows appropriate buttons based on current navigation level
+    /// Navigation buttons (Row 3 - Sub Menu)
+    /// Shows context-dependent navigation items based on current route
     pub fn navigation_buttons(ui: &mut Ui, app: &mut App) {
-        // Determine current level
-        // Level 1: Route::None or database view -> show characters + databases
-        // Level 2: Character view but NOT EventFlags -> show area buttons
-        // Level 3: EventFlags -> show EventFlags subroute buttons
+        match app.current_route {
+            // Landing: no submenu
+            Route::Landing => {},
 
-        if matches!(app.current_route, Route::None) || app.current_route.is_database_view() {
-            level1_navigation(ui, app);
-        } else if app.current_route.is_character_view() {
-            if matches!(app.current_route, Route::EventFlags) {
-                level3_event_flags_navigation(ui, app);
-            } else {
-                level2_area_navigation(ui, app);
-            }
+            // Path A Level 2: CharacterSelect → show character slots
+            Route::CharacterSelect => {
+                character_select_navigation(ui, app);
+            },
+
+            // Path A Level 3: Character view → show area buttons
+            Route::CharacterGeneral | Route::CharacterStats | Route::CharacterEquipment |
+            Route::CharacterInventory | Route::CharacterRegions => {
+                area_navigation(ui, app);
+            },
+
+            // Path A Level 4: EventFlags → show subroute buttons
+            Route::CharacterEventFlags => {
+                event_flags_navigation(ui, app);
+            },
+
+            // Path B Level 2: DatabaseSelect → show database list
+            Route::DatabaseSelect => {
+                database_select_navigation(ui, app);
+            },
+
+            // Path B Level 3: Specific database → no submenu (or sub-items if any)
+            Route::DatabaseSpells | Route::DatabaseNpcs | Route::DatabaseShopItems |
+            Route::DatabaseWorldPickups | Route::DatabaseDungeonPickups | Route::DatabaseEventFlags => {
+                // No submenu for specific database views currently
+            },
         }
     }
 
-    /// Level 1 navigation: Characters + Databases horizontal buttons
-    fn level1_navigation(ui: &mut Ui, app: &mut App) {
-        // Character buttons
+    /// Path A Level 2: Character slot buttons
+    fn character_select_navigation(ui: &mut Ui, app: &mut App) {
         for i in 0..0xA {
             if app.vm.profile_summary[i].active {
                 let char_name = app.vm.slots[i].general_vm.character_name.trim_matches('\0');
-                let is_selected = app.vm.index == i && app.current_route.is_character_view();
-                let button = ui.selectable_label(is_selected, char_name);
-                if button.clicked() {
+                let is_selected = app.vm.index == i;
+                if ui.selectable_label(is_selected, char_name).clicked() {
                     app.vm.index = i;
-                    app.current_route = Route::General;
+                    app.current_route = Route::CharacterGeneral;
                 }
-            }
-        }
-
-        ui.add_space(20.0);
-
-        // Database buttons
-        let db_buttons = [
-            ("Spells", Route::Spells),
-            ("NPCs", Route::Npcs),
-            ("Shop Items", Route::ShopItems),
-            ("World Pickups", Route::WorldPickups),
-            ("Event Flags DB", Route::EventFlagsDb),
-        ];
-
-        for (label, route) in db_buttons {
-            let is_selected = std::mem::discriminant(&app.current_route) == std::mem::discriminant(&route);
-            if ui.selectable_label(is_selected, label).clicked() {
-                app.current_route = route;
             }
         }
     }
 
-    /// Level 2 navigation: Area buttons (General, Stats, Equipment, etc.)
-    fn level2_area_navigation(ui: &mut Ui, app: &mut App) {
+    /// Path A Level 3: Area buttons (General, Stats, Equipment, etc.)
+    fn area_navigation(ui: &mut Ui, app: &mut App) {
         let area_buttons = [
-            ("General", Route::General),
-            ("Stats", Route::Stats),
-            ("Equipment", Route::Equipment),
-            ("Inventory", Route::Inventory),
-            ("Event Flags", Route::EventFlags),
-            ("Regions", Route::Regions),
+            ("General", Route::CharacterGeneral),
+            ("Stats", Route::CharacterStats),
+            ("Equipment", Route::CharacterEquipment),
+            ("Inventory", Route::CharacterInventory),
+            ("Event Flags", Route::CharacterEventFlags),
+            ("Regions", Route::CharacterRegions),
         ];
 
         for (label, route) in area_buttons {
@@ -238,8 +323,8 @@ pub mod menu {
         }
     }
 
-    /// Level 3 navigation: EventFlags subroute buttons
-    fn level3_event_flags_navigation(ui: &mut Ui, app: &mut App) {
+    /// Path A Level 4: EventFlags subroute buttons
+    fn event_flags_navigation(ui: &mut Ui, app: &mut App) {
         use crate::vm::events::events_view_model::EventsRoute;
 
         let subroute_buttons = [
@@ -256,13 +341,30 @@ pub mod menu {
             ("Verification", EventsRoute::Verification),
         ];
 
-        // Clone the current route to avoid borrow issues
         let current_subroute = app.vm.slots[app.vm.index].events_vm.current_route.clone();
 
         for (label, route) in subroute_buttons {
             let is_selected = std::mem::discriminant(&current_subroute) == std::mem::discriminant(&route);
             if ui.selectable_label(is_selected, label).clicked() {
                 app.vm.slots[app.vm.index].events_vm.current_route = route;
+            }
+        }
+    }
+
+    /// Path B Level 2: Database list buttons
+    fn database_select_navigation(ui: &mut Ui, app: &mut App) {
+        let database_buttons = [
+            ("World Pickups", Route::DatabaseWorldPickups),
+            ("Dungeon Pickups", Route::DatabaseDungeonPickups),
+            ("Event Flags DB", Route::DatabaseEventFlags),
+            ("Spells", Route::DatabaseSpells),
+            ("NPCs", Route::DatabaseNpcs),
+            ("Shop Items", Route::DatabaseShopItems),
+        ];
+
+        for (label, route) in database_buttons {
+            if ui.selectable_label(false, label).clicked() {
+                app.current_route = route;
             }
         }
     }

@@ -4,6 +4,59 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.9.0 - Hierarchical Navigation Restructure
+
+### Navigation Architecture
+- **Two-path navigation system**
+  - Path A (File): Home → PC|SteamId → CharName → Area → Subroute
+  - Path B (Database): Home → Database → DatabaseName
+
+- **New intermediate routes**
+  - `CharacterSelect`: File loaded, shows character slots in submenu
+  - `DatabaseSelect`: Database mode, shows database list in submenu
+
+- **Clickable breadcrumb levels**
+  - Each segment navigates to that hierarchy level
+  - Platform/SteamID shows full save path on hover
+
+### Landing Page
+- **New home view with recent files**
+  - Shows list of recently opened save files
+  - Displays character names for each save
+  - Persists to `~/.er-save-editor/config.json`
+  - Supports drag-and-drop file opening
+
+### Top Menu Bar
+- **Simplified toolbar layout**
+  - Left: Open button (with recent files dropdown), Database button
+  - Right: Save (disabled/strikethrough), Export button
+
+### Compact Footer
+- **Icon-only status bar legend**
+  - Shows Flag and Inv section labels
+  - Icons with hover tooltips for detailed explanations
+  - Reduced height from 28px to 24px
+
+### Route Enum Restructure
+- Renamed routes for clarity:
+  - `General` → `CharacterGeneral`, etc.
+  - `Spells` → `DatabaseSpells`, etc.
+- Added `CharacterSelect` and `DatabaseSelect` routes
+- Added `DatabaseDungeonPickups` route
+
+### Files Modified
+- `src/ui/menu.rs`: Route enum, breadcrumb_bar, navigation_buttons
+- `src/main.rs`: Top menu, content routing, App struct with recent_files
+- `src/ui/landing.rs`: New landing page module
+- `src/ui/state/recent_files.rs`: Recent files persistence
+- `src/ui/state/mod.rs`: Export recent_files module
+- `src/ui/mod.rs`: Export landing module
+- `src/ui/components/status_bar.rs`: Compact icon legend with hover tooltips
+- `docs/CHANGELOG.md`: Added v0.9.0 entry
+- `Cargo.toml`: Bumped to 0.9.0
+
+---
+
 ## v0.8.4 - IBM Plex Fonts and UI Polish
 
 ### Typography

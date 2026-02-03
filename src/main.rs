@@ -15,7 +15,7 @@ use std::{env, fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, text::LayoutJob, Align, FontSelection, Id, LayerId, Layout, Order, RichText, Rounding, Style}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::{Save, SaveType};
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, none::none::none, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, landing::landing::landing_page, state::RecentFilesManager};
 use vm::verification_vm::VerificationViewModel;
 use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
@@ -104,9 +104,8 @@ fn main() -> Result<(), eframe::Error> {
             vec!["IBMPlexSerif".to_owned()],
         );
 
-        // Add phosphor icons
+        // Add phosphor icons (Regular variant only - Fill would overwrite Regular due to same font key)
         egui_phosphor::add_to_fonts(&mut fonts, egui_phosphor::Variant::Regular);
-        egui_phosphor::add_to_fonts(&mut fonts, egui_phosphor::Variant::Fill);
         creation_context.egui_ctx.set_fonts(fonts);
         let mut visuals = creation_context.egui_ctx.style().visuals.clone();
         let rounding = 3.;
@@ -134,14 +133,20 @@ pub struct App {
     verification_loaded_slots: [bool; 10],
     // Remember the last directory used for file dialogs
     last_directory: Option<PathBuf>,
+    // Recent files manager for landing page
+    recent_files: RecentFilesManager,
 }
 
 impl App {
     pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+        // Load recent files from disk
+        let mut recent_files = RecentFilesManager::load();
+        recent_files.prune_missing();
+
         Self {
             save: Save::default(),
             picked_path: Default::default(),
-            current_route: Route::None,
+            current_route: Route::Landing,
             vm: ViewModel::default(),
             importer_vm: Default::default(),
             importer_open: Default::default(),
@@ -155,6 +160,8 @@ impl App {
             verification_loaded_slots: [false; 10],
             // Initialize last directory to None (will use system default)
             last_directory: None,
+            // Recent files for landing page
+            recent_files,
         }
     }
 
@@ -239,6 +246,21 @@ impl App {
         self.picked_path = path.clone();
         // Reset verification state - will be loaded on demand per slot
         self.verification_loaded_slots = [false; 10];
+
+        // Collect character names for recent files
+        let character_names: Vec<String> = self.vm.profile_summary
+            .iter()
+            .enumerate()
+            .filter(|(_, ps)| ps.active)
+            .map(|(i, _)| self.vm.slots[i].general_vm.character_name.trim_matches('\0').to_string())
+            .filter(|n| !n.is_empty())
+            .collect();
+
+        // Add to recent files
+        self.recent_files.add(&path, &character_names);
+
+        // Navigate to character selection
+        self.current_route = Route::CharacterSelect;
     }
 
     fn save(&mut self, path: PathBuf) {
@@ -326,165 +348,155 @@ impl App {
 impl eframe::App for App {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         ctx.set_zoom_factor(1.5);
-        // Row 1: Toolbar
+
+        // Row 1: Top Menu Bar
         egui::TopBottomPanel::top("toolbar").default_height(35.).show(ctx, |ui| {
             ui.horizontal(|ui| {
-                // Left section: Open, Save buttons
-                if ui.button(egui::RichText::new(format!("{} Open", egui_phosphor::regular::FOLDER_OPEN))).clicked() {
-                    let files = Self::open_file_dialog(self.last_directory.as_ref());
-                    match files {
-                        Some(path) => self.open(path),
-                        None => {},
-                    }
-                }
-                // Save disabled - display only mode
-                ui.add_enabled(false, egui::Button::new(egui::RichText::new(format!("{} Save", egui_phosphor::regular::FLOPPY_DISK)).strikethrough()));
+                // LEFT SIDE: Open | Database
 
-                ui.add_space(20.0);
-
-                // Center section: Platform + Steam ID
-                if self.picked_path.exists() {
-                    let save_type = match self.save.save_type {
-                        SaveType::Unknown => "Platform: Unknown",
-                        SaveType::PC(_) => "Platform: PC",
-                        SaveType::PlayStation(_) => "Platform: PlayStation",
-                    };
-                    ui.label(save_type);
-
-                    if self.vm.active.is_some_and(|valid| valid) {
-                        match self.save.save_type {
-                            SaveType::PC(_) => {
-                                ui.label("Steam ID:");
-                                let steam_id_text_edit = egui::widgets::TextEdit::singleline(&mut self.vm.steam_id)
-                                    .char_limit(17)
-                                    .desired_width(125.);
-                                let steam_id_response = ui.add(steam_id_text_edit);
-                                if steam_id_response.hovered() {
-                                    egui::popup::show_tooltip(ui.ctx(), ui.layer_id(), steam_id_response.id, |ui: &mut egui::Ui|{
-                                        ui.label(egui::RichText::new("Important: This needs to match the id of the steam account that will use this save!").size(8.0).color(Color32::PLACEHOLDER));
-                                    });
+                // Open button with dropdown for recent files
+                ui.menu_button(
+                    egui::RichText::new(format!("{} Open", egui_phosphor::regular::FOLDER_OPEN)),
+                    |ui| {
+                        if ui.button("Browse...").clicked() {
+                            ui.close_menu();
+                            let files = Self::open_file_dialog(self.last_directory.as_ref());
+                            if let Some(path) = files {
+                                self.open(path);
+                            }
+                        }
+                        if !self.recent_files.is_empty() {
+                            ui.separator();
+                            ui.label(RichText::new("Recent:").small().color(Color32::GRAY));
+                            // Collect paths first to avoid borrow issues
+                            let recent_items: Vec<(PathBuf, String)> = self.recent_files
+                                .get_recent()
+                                .iter()
+                                .take(5)
+                                .map(|r| (r.path.clone(), r.display_name()))
+                                .collect();
+                            for (path, label) in recent_items {
+                                if ui.button(&label).clicked() {
+                                    ui.close_menu();
+                                    self.open(path);
                                 }
-                            },
-                            _ => {},
-                        };
-                    }
+                            }
+                        }
+                    },
+                );
+
+                // Database button → navigates to DatabaseSelect
+                if ui.button("Database").clicked() {
+                    self.current_route = Route::DatabaseSelect;
                 }
 
-                // Right section: Export JSON button (use remaining space)
+                // RIGHT SIDE: ~~Save~~ | Export
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                    // Export Character button (JSON export still enabled)
-                    let export_button = egui::widgets::Button::new(egui::RichText::new(format!("{} Export JSON", egui_phosphor::regular::UPLOAD_SIMPLE)));
-                    if ui.add_enabled(!self.vm.steam_id.is_empty(), export_button).clicked() {
+                    // Export button
+                    let export_button = egui::widgets::Button::new(
+                        egui::RichText::new(format!("{} Export", egui_phosphor::regular::UPLOAD_SIMPLE))
+                    );
+                    if ui.add_enabled(self.picked_path.exists() && !self.vm.steam_id.is_empty(), export_button).clicked() {
                         self.export_character();
                     }
+
+                    // Save (disabled with strikethrough)
+                    ui.add_enabled(
+                        false,
+                        egui::Button::new(
+                            egui::RichText::new(format!("{} Save", egui_phosphor::regular::FLOPPY_DISK)).strikethrough()
+                        ),
+                    );
                 });
             });
         });
 
-        // Row 2: Breadcrumb (only show when file loaded)
-        if self.vm.active.is_some_and(|valid| valid) {
+        // Determine if we should show the breadcrumb and navigation bars
+        // Show for all routes except Landing
+        let show_panels = !matches!(self.current_route, Route::Landing);
+
+        if show_panels {
+            // Row 2: Breadcrumb
             egui::TopBottomPanel::top("breadcrumb").show(ctx, |ui| {
                 ui.horizontal(|ui| {
                     breadcrumb_bar(ui, self);
                 });
             });
 
-            // Row 3: Navigation Buttons
-            egui::TopBottomPanel::top("navigation").show(ctx, |ui| {
-                ui.horizontal_wrapped(|ui| {
-                    navigation_buttons(ui, self);
+            // Row 3: Navigation Buttons (context-dependent)
+            // Show for CharacterSelect, character views, DatabaseSelect
+            let show_nav = matches!(self.current_route,
+                Route::CharacterSelect |
+                Route::CharacterGeneral | Route::CharacterStats | Route::CharacterEquipment |
+                Route::CharacterInventory | Route::CharacterEventFlags | Route::CharacterRegions |
+                Route::DatabaseSelect
+            );
+            if show_nav {
+                egui::TopBottomPanel::top("navigation").show(ctx, |ui| {
+                    ui.horizontal_wrapped(|ui| {
+                        navigation_buttons(ui, self);
+                    });
                 });
-            });
+            }
 
-            // Main Content
-            egui::CentralPanel::default().show(ctx, |ui| {
-                match self.current_route {
-                    Route::None => none(ui),
-                    Route::General => general(ui, &mut self.vm),
-                    Route::Stats => stats(ui, &mut self.vm),
-                    Route::Equipment => equipment(ui, &mut self.vm),
-                    Route::Inventory => inventory(ui, &mut self.vm),
-                    Route::EventFlags => {
-                        // Load verification records on demand for current slot
-                        if !self.verification_loaded_slots[self.vm.index] {
-                            self.load_verification_records_for_slot();
-                        }
-                        let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                        let inventory = self.save.save_type.get_inventory(self.vm.index);
-                        let storage = self.save.save_type.get_storage_inventory(self.vm.index);
-                        let save_path = self.picked_path.to_string_lossy().to_string();
-                        events(ui, &mut self.vm, event_flags, inventory, storage, &save_path);
-                    },
-                    Route::Regions => regions(ui, &mut self.vm),
-                    Route::Spells => spells_view(ui, &mut self.spells_view_state),
-                    Route::Npcs => npcs_view(ui, &mut self.npcs_view_state),
-                    Route::ShopItems => shop_items_view(ui, &mut self.shop_items_view_state),
-                    Route::WorldPickups => {
-                        let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                        let inventory = self.save.save_type.get_inventory(self.vm.index);
-                        world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags, inventory);
-                    },
-                    Route::EventFlagsDb => event_flags_db_view(ui, &mut self.event_flags_db_view_state),
-                }
-            });
+            // Status Bar (bottom) - shows icon legend
+            egui::TopBottomPanel::bottom("status_bar")
+                .exact_height(24.0)
+                .show(ctx, |ui| {
+                    show_status_bar(ui);
+                });
         }
-        // No file loaded View
-        else {
-            // Listen for dragged files and update path
-            egui::CentralPanel::default().show(ctx, |ui| {
-                // Check if hovering a file
-                let path = ctx.input(|i| {
-                    if !i.raw.hovered_files.is_empty() {
-                        let file = i.raw.hovered_files[0].clone();
-                        let path: std::path::PathBuf = file.path.expect("Error!");
-                        return path.into_os_string().into_string().expect("");
-                    }
-                    "".to_string()
-                });
 
-                // Display indicator of hovering file
-                ui.centered_and_justified(|ui| {
-                    if !path.is_empty() {
-                        let painter =
-                            ctx.layer_painter(LayerId::new(Order::Foreground, Id::new("file_drop_target")));
-
-                        let screen_rect = ctx.screen_rect();
-                        painter.rect_filled(screen_rect, 0.0, Color32::from_black_alpha(96));
-                        ui.label(egui::RichText::new(path));
+        // Main Content
+        egui::CentralPanel::default().show(ctx, |ui| {
+            match self.current_route {
+                Route::Landing => {
+                    landing_page(ui, self, ctx);
+                },
+                Route::CharacterSelect => {
+                    // Show a message prompting to select a character
+                    ui.centered_and_justified(|ui| {
+                        ui.label("Select a character from the menu above");
+                    });
+                },
+                Route::CharacterGeneral => general(ui, &mut self.vm),
+                Route::CharacterStats => stats(ui, &mut self.vm),
+                Route::CharacterEquipment => equipment(ui, &mut self.vm),
+                Route::CharacterInventory => inventory(ui, &mut self.vm),
+                Route::CharacterEventFlags => {
+                    // Load verification records on demand for current slot
+                    if !self.verification_loaded_slots[self.vm.index] {
+                        self.load_verification_records_for_slot();
                     }
-                    else {
-                        let style = Style::default();
-                        let mut layout_job = LayoutJob::default();
-                        if self.vm.active.is_some_and(|valid| !valid) {
-                            RichText::new("Save file has irregular data!\n\n")
-                            .color(Color32::DARK_RED)
-                            .append_to(
-                                &mut layout_job,
-                                &style,
-                                FontSelection::Default,
-                                Align::Center,
-                            );
-                        }
-                        RichText::new("Drop a save file here or click 'Open' to browse")
-                        .append_to(
-                            &mut layout_job,
-                            &style,
-                            FontSelection::Default,
-                            Align::Center,
-                        );
-                        ui.label(layout_job);
-                    }
-                });
-
-                // Check a file that has been dropped in the window
-                ctx.input(|i| {
-                    if !i.raw.dropped_files.is_empty() {
-                        let file = i.raw.dropped_files[0].clone();
-                        let path: std::path::PathBuf = file.path.expect("Error!");
-                        self.open(path);
-                    }
-                });
-            });
-        }
+                    let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                    let inventory = self.save.save_type.get_inventory(self.vm.index);
+                    let storage = self.save.save_type.get_storage_inventory(self.vm.index);
+                    let save_path = self.picked_path.to_string_lossy().to_string();
+                    events(ui, &mut self.vm, event_flags, inventory, storage, &save_path);
+                },
+                Route::CharacterRegions => regions(ui, &mut self.vm),
+                Route::DatabaseSelect => {
+                    // Show a message prompting to select a database
+                    ui.centered_and_justified(|ui| {
+                        ui.label("Select a database from the menu above");
+                    });
+                },
+                Route::DatabaseSpells => spells_view(ui, &mut self.spells_view_state),
+                Route::DatabaseNpcs => npcs_view(ui, &mut self.npcs_view_state),
+                Route::DatabaseShopItems => shop_items_view(ui, &mut self.shop_items_view_state),
+                Route::DatabaseWorldPickups => {
+                    let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                    let inventory = self.save.save_type.get_inventory(self.vm.index);
+                    world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags, inventory);
+                },
+                Route::DatabaseDungeonPickups => {
+                    // TODO: Implement dungeon pickups view (similar to world pickups)
+                    ui.centered_and_justified(|ui| {
+                        ui.label("Dungeon Pickups view - Coming soon");
+                    });
+                },
+                Route::DatabaseEventFlags => event_flags_db_view(ui, &mut self.event_flags_db_view_state),
+            }
+        });
     }
 }

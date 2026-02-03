@@ -4,10 +4,13 @@ pub mod event_flags_db_view {
     use std::fs::File;
     use std::io::Write;
     use crate::db::event_flags_db::event_flags_db::{
-        EVENT_FLAGS_DB, EventFlagCategory, EventFlagEntryOwned, get_unique_regions,
-        export_to_json, export_filtered_to_json
+        EVENT_FLAGS_DB, EventFlagCategory, EventFlagEntryOwned, get_unique_regions
     };
-    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
+    use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
+    use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
+    use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
+    use crate::ui::tokens::spacing;
+    use serde::Serialize;
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum EventFlagCategoryFilter {
@@ -64,6 +67,15 @@ pub mod event_flags_db_view {
         }
     }
 
+    #[derive(Serialize)]
+    struct EventFlagExportItem {
+        flag_id: u32,
+        name: String,
+        category: String,
+        region: String,
+        coords: Option<(f32, f32, f32)>,
+    }
+
     pub struct EventFlagsDbViewState {
         pub category_filter: EventFlagCategoryFilter,
         pub region_filter: String,
@@ -71,6 +83,10 @@ pub mod event_flags_db_view {
         pub selected_id: Option<u32>,
         pub regions_cache: Vec<String>,
         pub export_status: Option<String>,
+        pub table_state: TableState,
+        pub filter_state: FilterBarState,
+        pub export_format: ExportFormat,
+        pub export_filtered_only: bool,
     }
 
     impl Default for EventFlagsDbViewState {
@@ -82,6 +98,10 @@ pub mod event_flags_db_view {
                 selected_id: None,
                 regions_cache: Vec::new(),
                 export_status: None,
+                table_state: TableState::new().with_sort("flag_id", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
             }
         }
     }
@@ -92,25 +112,38 @@ pub mod event_flags_db_view {
             state.regions_cache = get_unique_regions();
         }
 
-        // Header row 1: Category filters
+        // Build region filter options
+        let region_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
+            .chain(state.regions_cache.iter().map(|r| FilterOption::from_str(r)))
+            .collect();
+
+        // Sync filter state
+        state.region_filter = state.filter_state.category.clone();
+        state.search = state.filter_state.search.clone();
+
+        // Filter bar with region dropdown and search
+        FilterBar::new("event_flags_filter", &mut state.filter_state)
+            .category("Region", region_options)
+            .search("Search flags...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Category filter chips (keeping these separate since there are many)
         ui.horizontal(|ui| {
             ui.label(RichText::new("Category:").color(Color32::LIGHT_GRAY));
-
-            // Main category filters
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::All, "All");
-            ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::GreatRune, "Great Rune");
+            ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::GreatRune, "Rune");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::BossDefeat, "Boss");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Remembrance, "Remembrance");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Grace, "Grace");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::MapFragment, "Map");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Landmark, "Landmark");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Cookbook, "Cookbook");
-            ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::Whetblade, "Whetblade");
         });
 
-        // Header row 2: More category filters
         ui.horizontal(|ui| {
-            ui.add_space(60.0); // Indent to align with row above
+            ui.add_space(60.0);
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::WorldPickup, "World");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::DungeonPickup, "Dungeon");
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::DLCPickup, "DLC");
@@ -120,211 +153,202 @@ pub mod event_flags_db_view {
             ui.selectable_value(&mut state.category_filter, EventFlagCategoryFilter::System, "System");
         });
 
-        spacer(ui);
+        spacing::space_sm(ui);
 
-        // Header row 3: Region filter and search
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Region:").color(Color32::LIGHT_GRAY));
+        // Export toolbar
+        let export_response = ExportToolbar::new("event_flags_export", &mut state.export_format, &mut state.export_filtered_only)
+            .has_filters(state.filter_state.has_active_filters() || state.category_filter != EventFlagCategoryFilter::All)
+            .show(ui);
 
-            egui::ComboBox::from_id_salt("region_filter")
-                .selected_text(&state.region_filter)
-                .width(200.0)
-                .show_ui(ui, |ui| {
-                    ui.selectable_value(&mut state.region_filter, "All".to_string(), "All");
-                    for region in &state.regions_cache {
-                        ui.selectable_value(&mut state.region_filter, region.clone(), region.as_str());
-                    }
-                });
+        spacing::space_sm(ui);
 
-            spacer(ui);
-            ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
-            ui.add(egui::TextEdit::singleline(&mut state.search).desired_width(200.0));
-
-            if ui.button("Clear").clicked() {
-                state.search.clear();
-                state.region_filter = "All".to_string();
-                state.category_filter = EventFlagCategoryFilter::All;
-            }
-        });
-
-        spacer(ui);
-
-        // Export buttons row
-        ui.horizontal(|ui| {
-            if ui.button("Export All to JSON").clicked() {
-                if let Some(path) = FileDialog::new()
-                    .add_filter("JSON", &["json"])
-                    .set_file_name("event_flags_db.json")
-                    .save_file()
-                {
-                    match export_to_json() {
-                        Ok(json) => {
-                            match File::create(&path) {
-                                Ok(mut file) => {
-                                    match file.write_all(json.as_bytes()) {
-                                        Ok(_) => {
-                                            state.export_status = Some(format!("Exported {} flags to {}", EVENT_FLAGS_DB.len(), path.display()));
-                                        }
-                                        Err(e) => {
-                                            state.export_status = Some(format!("Write error: {}", e));
-                                        }
-                                    }
-                                }
-                                Err(e) => {
-                                    state.export_status = Some(format!("File error: {}", e));
-                                }
-                            }
-                        }
-                        Err(e) => {
-                            state.export_status = Some(format!("JSON error: {}", e));
-                        }
-                    }
-                }
-            }
-
-            if ui.button("Export Filtered to JSON").clicked() {
-                let search_lower = state.search.to_lowercase();
-                let filtered: Vec<&EventFlagEntryOwned> = EVENT_FLAGS_DB
-                    .iter()
-                    .filter(|e| filter_entry(e, state, &search_lower))
-                    .collect();
-
-                if let Some(path) = FileDialog::new()
-                    .add_filter("JSON", &["json"])
-                    .set_file_name("event_flags_filtered.json")
-                    .save_file()
-                {
-                    match export_filtered_to_json(&filtered) {
-                        Ok(json) => {
-                            match File::create(&path) {
-                                Ok(mut file) => {
-                                    match file.write_all(json.as_bytes()) {
-                                        Ok(_) => {
-                                            state.export_status = Some(format!("Exported {} flags to {}", filtered.len(), path.display()));
-                                        }
-                                        Err(e) => {
-                                            state.export_status = Some(format!("Write error: {}", e));
-                                        }
-                                    }
-                                }
-                                Err(e) => {
-                                    state.export_status = Some(format!("File error: {}", e));
-                                }
-                            }
-                        }
-                        Err(e) => {
-                            state.export_status = Some(format!("JSON error: {}", e));
-                        }
-                    }
-                }
-            }
-
-            // Show export status
-            if let Some(status) = &state.export_status {
-                ui.label(RichText::new(status).color(Color32::YELLOW).small());
-            }
-        });
-
-        spacer(ui);
-
-        // Column headers
-        ui.horizontal(|ui| {
-            ui.label(RichText::new(format!(
-                "{:<12} | {:<50} | {:<15} | {}",
-                "Flag ID", "Name", "Category", "Region"
-            )).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
-
-        // Count filtered entries
+        // Build filtered data
         let search_lower = state.search.to_lowercase();
-        let filtered_count = EVENT_FLAGS_DB.iter()
+        let mut entries: Vec<&EventFlagEntryOwned> = EVENT_FLAGS_DB.iter()
             .filter(|entry| filter_entry(entry, state, &search_lower))
-            .count();
+            .collect();
 
-        ui.label(RichText::new(format!("Showing {} of {} flags", filtered_count, EVENT_FLAGS_DB.len()))
-            .color(Color32::GRAY).small());
+        // Apply sorting
+        if let Some(sort_col) = &state.table_state.sort_column {
+            let asc = state.table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "flag_id" => entries.sort_by(|a, b| if asc { a.flag_id.cmp(&b.flag_id) } else { b.flag_id.cmp(&a.flag_id) }),
+                "name" => entries.sort_by(|a, b| if asc { a.name.cmp(&b.name) } else { b.name.cmp(&a.name) }),
+                "category" => entries.sort_by(|a, b| {
+                    let ca = a.category.name();
+                    let cb = b.category.name();
+                    if asc { ca.cmp(cb) } else { cb.cmp(ca) }
+                }),
+                "region" => entries.sort_by(|a, b| if asc { a.region.cmp(&b.region) } else { b.region.cmp(&a.region) }),
+                _ => {}
+            }
+        }
 
-        spacer(ui);
+        // Summary
+        let total_count = EVENT_FLAGS_DB.len();
+        let filtered_count = entries.len();
+        if filtered_count < total_count {
+            ui.label(RichText::new(format!("Event Flags: {} (showing {}/{})", total_count, filtered_count, total_count)).strong());
+        } else {
+            ui.label(RichText::new(format!("Event Flags: {}", total_count)).strong());
+        }
 
-        // Scrollable list
-        egui::ScrollArea::vertical()
-            .auto_shrink(false)
-            .show(ui, |ui| {
-                for entry in EVENT_FLAGS_DB.iter() {
-                    // Apply filters
-                    if !filter_entry(entry, state, &search_lower) {
-                        continue;
-                    }
+        spacing::space_sm(ui);
 
-                    let coords_str = if let Some(coords) = &entry.coords {
-                        format!(" [{:.1}, {:.1}, {:.1}]", coords.x, coords.y, coords.z)
-                    } else {
-                        String::new()
-                    };
+        // Build row data with category colors
+        let rows: Vec<RowData> = entries.iter().map(|entry| {
+            let coords_str = if let Some(coords) = &entry.coords {
+                format!("({:.0}, {:.0}, {:.0})", coords.x, coords.y, coords.z)
+            } else {
+                "-".to_string()
+            };
 
-                    let row_text = format!(
-                        "{:<12} | {:<50} | {:<15} | {}{}",
-                        entry.flag_id,
-                        truncate_str(&entry.name, 50),
-                        entry.category.name(),
-                        &entry.region,
-                        coords_str
+            let is_selected = state.selected_id == Some(entry.flag_id);
+
+            let mut row = RowData::new(vec![
+                entry.flag_id.to_string(),
+                entry.name.clone(),
+                entry.category.name().to_string(),
+                entry.region.clone(),
+                coords_str,
+            ]);
+
+            if is_selected {
+                row = row.with_color(Color32::YELLOW);
+            } else {
+                row = row.with_color(get_category_color(entry.category));
+            }
+
+            row
+        }).collect();
+
+        // Show table
+        let table_response = UnifiedTable::new("event_flags_table", &mut state.table_state)
+            .columns(vec![
+                Column::new("flag_id", "Flag ID").width(100.0).sortable(true).monospace(true),
+                Column::new("name", "Name").width_fraction(0.35).sortable(true),
+                Column::new("category", "Category").width(120.0).sortable(true),
+                Column::new("region", "Region").width_fraction(0.2).sortable(true),
+                Column::new("coords", "Coordinates").width(140.0).monospace(true),
+            ])
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
+
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
+        }
+
+        // Handle double-click
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some(entry) = entries.get(row_idx) {
+                let row_text = format!(
+                    "{}\t{}\t{}\t{}",
+                    entry.flag_id, entry.name, entry.category.name(), entry.region
+                );
+                ui.output_mut(|o| o.copied_text = row_text);
+            }
+        }
+
+        // Update selected_id
+        if state.table_state.selection_count() == 1 {
+            if let Some(&idx) = state.table_state.selected_rows.iter().next() {
+                if let Some(entry) = entries.get(idx) {
+                    state.selected_id = Some(entry.flag_id);
+                }
+            }
+        }
+
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let data_to_export: Vec<_> = entries.iter()
+                .map(|entry| EventFlagExportItem {
+                    flag_id: entry.flag_id,
+                    name: entry.name.clone(),
+                    category: entry.category.name().to_string(),
+                    region: entry.region.clone(),
+                    coords: entry.coords.as_ref().map(|c| (c.x, c.y, c.z)),
+                })
+                .collect();
+
+            let content = match state.export_format {
+                ExportFormat::Json => {
+                    let export = PageExport::new(
+                        PageExportMetadata::new("Event Flags")
+                            .with_counts(total_count, filtered_count),
+                        &data_to_export,
                     );
+                    to_json(&export).unwrap_or_else(|_| String::new())
+                }
+                ExportFormat::Csv => {
+                    let headers = &["Flag ID", "Name", "Category", "Region", "Coordinates"];
+                    let rows: Vec<Vec<String>> = data_to_export.iter()
+                        .map(|e| vec![
+                            e.flag_id.to_string(),
+                            e.name.clone(),
+                            e.category.clone(),
+                            e.region.clone(),
+                            e.coords.map(|(x, y, z)| format!("{}, {}, {}", x, y, z)).unwrap_or_default(),
+                        ])
+                        .collect();
+                    to_csv(headers, &rows)
+                }
+                ExportFormat::Markdown => {
+                    let headers = &["Flag ID", "Name", "Category", "Region", "Coordinates"];
+                    let rows: Vec<Vec<String>> = data_to_export.iter()
+                        .map(|e| vec![
+                            e.flag_id.to_string(),
+                            e.name.clone(),
+                            e.category.clone(),
+                            e.region.clone(),
+                            e.coords.map(|(x, y, z)| format!("{}, {}, {}", x, y, z)).unwrap_or_default(),
+                        ])
+                        .collect();
+                    to_markdown(headers, &rows)
+                }
+            };
 
-                    let is_selected = state.selected_id == Some(entry.flag_id);
-                    let text_color = if is_selected {
-                        Color32::YELLOW
-                    } else {
-                        get_category_color(entry.category)
-                    };
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content.clone());
+            }
 
-                    let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                            .sense(egui::Sense::click())
-                    );
-
-                    if response.clicked() {
-                        state.selected_id = Some(entry.flag_id);
-                    }
-
-                    // Copy on double-click
-                    if response.double_clicked() {
-                        ui.output_mut(|o| o.copied_text = row_text.clone());
-                    }
-
-                    // Context menu
-                    response.context_menu(|ui| {
-                        if ui.button("Copy row").clicked() {
-                            ui.output_mut(|o| o.copied_text = row_text.clone());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy Flag ID").clicked() {
-                            ui.output_mut(|o| o.copied_text = entry.flag_id.to_string());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy Name").clicked() {
-                            ui.output_mut(|o| o.copied_text = entry.name.clone());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy Flag ID (Hex)").clicked() {
-                            ui.output_mut(|o| o.copied_text = format!("0x{:X}", entry.flag_id));
-                            ui.close_menu();
-                        }
-                        if entry.coords.is_some() {
-                            if ui.button("Copy Coordinates").clicked() {
-                                if let Some(coords) = &entry.coords {
-                                    ui.output_mut(|o| o.copied_text = format!("{}, {}, {}", coords.x, coords.y, coords.z));
-                                }
-                                ui.close_menu();
+            // Handle file export
+            if export_response.export_clicked {
+                let extension = match state.export_format {
+                    ExportFormat::Json => "json",
+                    ExportFormat::Csv => "csv",
+                    ExportFormat::Markdown => "md",
+                };
+                if let Some(path) = FileDialog::new()
+                    .add_filter(extension.to_uppercase().as_str(), &[extension])
+                    .set_file_name(format!("event_flags.{}", extension))
+                    .save_file()
+                {
+                    match File::create(&path) {
+                        Ok(mut file) => {
+                            if let Err(e) = file.write_all(content.as_bytes()) {
+                                state.export_status = Some(format!("Write error: {}", e));
+                            } else {
+                                state.export_status = Some(format!("Exported {} flags to {}", filtered_count, path.display()));
                             }
                         }
-                    });
+                        Err(e) => {
+                            state.export_status = Some(format!("File error: {}", e));
+                        }
+                    }
                 }
-            });
+            }
+        }
+
+        // Show export status
+        if let Some(status) = &state.export_status {
+            ui.label(RichText::new(status).color(Color32::YELLOW).small());
+        }
     }
 
-    fn filter_entry(entry: &EventFlagEntryOwned, state: &EventFlagsDbViewState, search_lower: &str) -> bool {
+    fn filter_entry(entry: &EventFlagEntryOwned, state: &EventFlagsDbViewState, _search_lower: &str) -> bool {
         // Category filter
         if !state.category_filter.matches(entry.category) {
             return false;
@@ -335,24 +359,16 @@ pub mod event_flags_db_view {
             return false;
         }
 
-        // Search filter (by name or flag ID)
-        if !search_lower.is_empty() {
-            let name_match = entry.name.to_lowercase().contains(search_lower);
-            let id_match = entry.flag_id.to_string().contains(search_lower);
+        // Search filter (by name or flag ID) using fuzzy match
+        if !state.search.is_empty() {
+            let name_match = fuzzy_match_default(&entry.name, &state.search);
+            let id_match = entry.flag_id.to_string().contains(&state.search);
             if !name_match && !id_match {
                 return false;
             }
         }
 
         true
-    }
-
-    fn truncate_str(s: &str, max_len: usize) -> String {
-        if s.len() <= max_len {
-            s.to_string()
-        } else {
-            format!("{}...", &s[..max_len - 3])
-        }
     }
 
     fn get_category_color(category: EventFlagCategory) -> Color32 {

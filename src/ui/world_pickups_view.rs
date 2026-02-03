@@ -4,11 +4,14 @@ pub mod world_pickups_view {
     use crate::db::pickup_flags::get_flag_offset_calibrated;
     use crate::calibration::CalibrationService;
     use crate::util::bit::bit::get_bit;
-    use crate::ui::style::{TABLE_MONO_SIZE, spacer};
     use crate::save::common::save_slot::EquipInventoryData;
-    use crate::discovery::inventory_verification::{
-        InventoryVerificationService, UNIQUE_ITEMS_BY_FLAG, VerificationConfidence,
-    };
+    use crate::discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence};
+    use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
+    use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
+    use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
+    use crate::ui::components::legend::icons;
+    use crate::ui::tokens::{spacing, colors};
+    use serde::Serialize;
 
     #[derive(Clone, Copy, PartialEq)]
     pub enum PickupFilter {
@@ -28,12 +31,29 @@ pub mod world_pickups_view {
         Unverified,
     }
 
+    #[derive(Serialize)]
+    struct WorldPickupExportItem {
+        lot_id: u32,
+        flag_id: u32,
+        item_name: String,
+        item_type: String,
+        quantity: i32,
+        region: String,
+        tile: String,
+        collected: Option<bool>,
+        in_inventory: Option<bool>,
+    }
+
     pub struct WorldPickupsViewState {
         pub filter: PickupFilter,
         pub collected_filter: CollectedFilter,
         pub region_filter: String,
         pub search: String,
         pub selected_id: Option<u32>,
+        pub table_state: TableState,
+        pub filter_state: FilterBarState,
+        pub export_format: ExportFormat,
+        pub export_filtered_only: bool,
     }
 
     impl Default for WorldPickupsViewState {
@@ -44,6 +64,10 @@ pub mod world_pickups_view {
                 region_filter: "All".to_string(),
                 search: String::new(),
                 selected_id: None,
+                table_state: TableState::new().with_sort("lot_id", SortDirection::Ascending),
+                filter_state: FilterBarState::new(),
+                export_format: ExportFormat::Json,
+                export_filtered_only: false,
             }
         }
     }
@@ -120,7 +144,31 @@ pub mod world_pickups_view {
             .map(|ef| CalibrationService::calibrate(ef).tile_base)
             .unwrap_or(crate::generated::ground_truth::VERIFIED_TILE_BASE_OFFSET);
 
-        // Header with filters
+        // Build region filter options
+        let mut regions: Vec<&str> = WORLD_PICKUPS.values()
+            .map(|p| p.region)
+            .collect::<std::collections::HashSet<_>>()
+            .into_iter()
+            .collect();
+        regions.sort();
+
+        let region_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
+            .chain(regions.iter().map(|r| FilterOption::from_str(*r)))
+            .collect();
+
+        // Sync filter state
+        state.region_filter = state.filter_state.category.clone();
+        state.search = state.filter_state.search.clone();
+
+        // Filter bar with region dropdown and search
+        FilterBar::new("world_pickups_filter", &mut state.filter_state)
+            .category("Region", region_options)
+            .search("Search items...")
+            .show(ui);
+
+        spacing::space_sm(ui);
+
+        // Type filter chips
         ui.horizontal(|ui| {
             ui.label(RichText::new("Type:").color(Color32::LIGHT_GRAY));
             ui.selectable_value(&mut state.filter, PickupFilter::All, "All");
@@ -129,31 +177,6 @@ pub mod world_pickups_view {
             ui.selectable_value(&mut state.filter, PickupFilter::Accessory, "Accessory");
             ui.selectable_value(&mut state.filter, PickupFilter::Good, "Good");
             ui.selectable_value(&mut state.filter, PickupFilter::AshOfWar, "Ash of War");
-        });
-
-        ui.horizontal(|ui| {
-            ui.label(RichText::new("Region:").color(Color32::LIGHT_GRAY));
-
-            // Get unique regions
-            let mut regions: Vec<&str> = WORLD_PICKUPS.values()
-                .map(|p| p.region)
-                .collect::<std::collections::HashSet<_>>()
-                .into_iter()
-                .collect();
-            regions.sort();
-            regions.insert(0, "All");
-
-            egui::ComboBox::from_id_salt("region_filter")
-                .selected_text(&state.region_filter)
-                .show_ui(ui, |ui| {
-                    for region in &regions {
-                        ui.selectable_value(&mut state.region_filter, region.to_string(), *region);
-                    }
-                });
-
-            spacer(ui);
-            ui.label(RichText::new("Search:").color(Color32::LIGHT_GRAY));
-            ui.text_edit_singleline(&mut state.search);
         });
 
         // Collected filter (only show if event flags are available)
@@ -166,200 +189,308 @@ pub mod world_pickups_view {
                 ui.selectable_value(&mut state.collected_filter, CollectedFilter::Unverified, "Unverified");
             });
         }
-        spacer(ui);
 
-        // Column headers
-        let header = match (event_flags.is_some(), inventory.is_some()) {
-            (true, true) => "Flag | Inv | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
-            (true, false) => "Flag | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
-            (false, true) => "Inv | Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
-            (false, false) => "Lot ID | Flag ID | Item | Type | Qty | Region | Tile",
-        };
-        ui.horizontal(|ui| {
-            ui.label(RichText::new(header).color(Color32::YELLOW).monospace().size(TABLE_MONO_SIZE));
-        });
-        spacer(ui);
+        spacing::space_sm(ui);
 
-        // Scrollable list
-        egui::ScrollArea::vertical()
-            .auto_shrink(false)
-            .show(ui, |ui| {
-                let search_lower = state.search.to_lowercase();
+        // Export toolbar
+        let export_response = ExportToolbar::new("world_pickups_export", &mut state.export_format, &mut state.export_filtered_only)
+            .has_filters(state.filter_state.has_active_filters() || state.filter != PickupFilter::All || state.collected_filter != CollectedFilter::All)
+            .show(ui);
 
-                let mut pickups: Vec<_> = WORLD_PICKUPS.iter().collect();
-                pickups.sort_by_key(|(id, _)| *id);
+        spacing::space_sm(ui);
 
-                for (id, pickup) in pickups {
-                    // Check collected status using calibrated tile base
-                    let is_collected = is_pickup_collected(pickup.flag_id, event_flags, calibrated_tile_base);
+        // Legend is now shown in the app-wide status bar
 
-                    // Apply collected filter
-                    match state.collected_filter {
-                        CollectedFilter::All => {},
-                        CollectedFilter::Collected => {
-                            if is_collected != Some(true) {
-                                continue;
-                            }
-                        },
-                        CollectedFilter::NotCollected => {
-                            if is_collected == Some(true) {
-                                continue;
-                            }
-                        },
-                        CollectedFilter::Unverified => {
-                            // Show only items where verification status is unknown
-                            if is_collected.is_some() {
-                                continue;
-                            }
-                        },
-                    }
+        // Build filtered data
+        let mut pickups: Vec<(u32, &crate::db::world_pickups::WorldPickup, Option<bool>, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
+            .filter_map(|(id, pickup)| {
+                // Check collected status using calibrated tile base
+                let is_collected = is_pickup_collected(pickup.flag_id, event_flags, calibrated_tile_base);
 
-                    // Apply type filter
-                    let type_match = match state.filter {
-                        PickupFilter::All => true,
-                        PickupFilter::Weapon => pickup.item_type == PickupItemType::Weapon,
-                        PickupFilter::Armor => pickup.item_type == PickupItemType::Armor,
-                        PickupFilter::Accessory => pickup.item_type == PickupItemType::Accessory,
-                        PickupFilter::Good => pickup.item_type == PickupItemType::Good,
-                        PickupFilter::AshOfWar => pickup.item_type == PickupItemType::AshOfWar,
-                    };
-
-                    if !type_match {
-                        continue;
-                    }
-
-                    // Apply region filter
-                    if state.region_filter != "All" && pickup.region != state.region_filter {
-                        continue;
-                    }
-
-                    // Apply search
-                    if !state.search.is_empty() {
-                        let matches = pickup.item_name.to_lowercase().contains(&search_lower)
-                            || pickup.region.to_lowercase().contains(&search_lower);
-                        if !matches {
-                            continue;
+                // Apply collected filter
+                match state.collected_filter {
+                    CollectedFilter::All => {},
+                    CollectedFilter::Collected => {
+                        if is_collected != Some(true) {
+                            return None;
                         }
-                    }
-
-                    let type_str = match pickup.item_type {
-                        PickupItemType::Weapon => "Weapon",
-                        PickupItemType::Armor => "Armor",
-                        PickupItemType::Accessory => "Accessory",
-                        PickupItemType::Good => "Good",
-                        PickupItemType::AshOfWar => "Ash of War",
-                        PickupItemType::Unknown => "Unknown",
-                    };
-
-                    let tile_str = format!("({}, {})", pickup.tile_x, pickup.tile_y);
-
-                    // Check inventory status
-                    let inv_status = is_item_in_inventory(pickup.flag_id, inventory);
-
-                    // Build flag status string
-                    let flag_str = match is_collected {
-                        Some(true) => "[X]",
-                        Some(false) => "[ ]",
-                        None => "[?]",
-                    };
-
-                    // Build inventory status string with confidence indicator
-                    let inv_str = match inv_status {
-                        Some((true, VerificationConfidence::VeryHigh)) => "[X]",  // Has item, very high confidence
-                        Some((true, VerificationConfidence::High)) => "[x]",     // Has item, high confidence
-                        Some((true, _)) => "[~]",                                 // Has item, lower confidence
-                        Some((false, VerificationConfidence::VeryHigh)) => "[ ]", // No item, very high confidence
-                        Some((false, VerificationConfidence::High)) => "[-]",    // No item, high confidence
-                        Some((false, _)) => "[.]",                                // No item, lower confidence
-                        None => "   ",                                            // No mapping
-                    };
-
-                    // Build row text based on available data
-                    let row_text = match (event_flags.is_some(), inventory.is_some()) {
-                        (true, true) => format!(
-                            "{} | {} | {} | {} | {} | {} | {} | {} | {}",
-                            flag_str, inv_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                        ),
-                        (true, false) => format!(
-                            "{} | {} | {} | {} | {} | {} | {} | {}",
-                            flag_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                        ),
-                        (false, true) => format!(
-                            "{} | {} | {} | {} | {} | {} | {} | {}",
-                            inv_str, id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                        ),
-                        (false, false) => format!(
-                            "{} | {} | {} | {} | {} | {} | {}",
-                            id, pickup.flag_id, pickup.item_name, type_str, pickup.quantity, pickup.region, tile_str
-                        ),
-                    };
-
-                    let status_str = flag_str.to_string();
-
-                    let is_selected = state.selected_id == Some(*id);
-
-                    // Determine if there's a mismatch between flag and inventory
-                    let has_mismatch = match (is_collected, inv_status) {
-                        (Some(flag_set), Some((has_item, _))) if flag_set != has_item => true,
-                        _ => false,
-                    };
-
-                    // Color based on collected status and mismatches
-                    let text_color = if is_selected {
-                        Color32::YELLOW
-                    } else if has_mismatch {
-                        Color32::from_rgb(255, 165, 0) // Orange for mismatch
-                    } else {
-                        match is_collected {
-                            Some(true) => Color32::from_rgb(100, 200, 100), // Green for collected
-                            Some(false) => Color32::LIGHT_GRAY,
-                            None => Color32::from_rgb(180, 180, 180), // Dim for unknown
+                    },
+                    CollectedFilter::NotCollected => {
+                        if is_collected == Some(true) {
+                            return None;
                         }
-                    };
-
-                    let response = ui.add(
-                        egui::Label::new(RichText::new(&row_text).color(text_color).monospace().size(TABLE_MONO_SIZE))
-                            .sense(egui::Sense::click())
-                    );
-
-                    if response.clicked() {
-                        state.selected_id = Some(*id);
-                    }
-
-                    if response.double_clicked() {
-                        ui.output_mut(|o| o.copied_text = row_text.clone());
-                    }
-
-                    response.context_menu(|ui| {
-                        if ui.button("Copy row").clicked() {
-                            ui.output_mut(|o| o.copied_text = row_text.clone());
-                            ui.close_menu();
+                    },
+                    CollectedFilter::Unverified => {
+                        if is_collected.is_some() {
+                            return None;
                         }
-                        if ui.button("Copy Item Name").clicked() {
-                            ui.output_mut(|o| o.copied_text = pickup.item_name.to_string());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy Flag ID").clicked() {
-                            ui.output_mut(|o| o.copied_text = pickup.flag_id.to_string());
-                            ui.close_menu();
-                        }
-                        if ui.button("Copy Tile").clicked() {
-                            ui.output_mut(|o| o.copied_text = tile_str.clone());
-                            ui.close_menu();
-                        }
-                        if !status_str.is_empty() {
-                            if ui.button("Copy Status").clicked() {
-                                let status_text = match is_collected {
-                                    Some(true) => "Collected",
-                                    Some(false) => "Not Collected",
-                                    None => "Unknown",
-                                };
-                                ui.output_mut(|o| o.copied_text = status_text.to_string());
-                                ui.close_menu();
-                            }
-                        }
-                    });
+                    },
                 }
-            });
+
+                // Apply type filter
+                let type_match = match state.filter {
+                    PickupFilter::All => true,
+                    PickupFilter::Weapon => pickup.item_type == PickupItemType::Weapon,
+                    PickupFilter::Armor => pickup.item_type == PickupItemType::Armor,
+                    PickupFilter::Accessory => pickup.item_type == PickupItemType::Accessory,
+                    PickupFilter::Good => pickup.item_type == PickupItemType::Good,
+                    PickupFilter::AshOfWar => pickup.item_type == PickupItemType::AshOfWar,
+                };
+                if !type_match {
+                    return None;
+                }
+
+                // Apply region filter
+                if state.region_filter != "All" && pickup.region != state.region_filter {
+                    return None;
+                }
+
+                // Apply search using fuzzy match
+                if !state.search.is_empty() {
+                    let matches = fuzzy_match_default(&pickup.item_name, &state.search)
+                        || fuzzy_match_default(&pickup.region, &state.search);
+                    if !matches {
+                        return None;
+                    }
+                }
+
+                let inv_status = is_item_in_inventory(pickup.flag_id, inventory);
+                Some((*id, pickup, is_collected, inv_status))
+            })
+            .collect();
+
+        // Apply sorting
+        if let Some(sort_col) = &state.table_state.sort_column {
+            let asc = state.table_state.sort_direction == SortDirection::Ascending;
+            match sort_col.as_str() {
+                "lot_id" => pickups.sort_by(|a, b| if asc { a.0.cmp(&b.0) } else { b.0.cmp(&a.0) }),
+                "flag_id" => pickups.sort_by(|a, b| if asc { a.1.flag_id.cmp(&b.1.flag_id) } else { b.1.flag_id.cmp(&a.1.flag_id) }),
+                "item" => pickups.sort_by(|a, b| if asc { a.1.item_name.cmp(&b.1.item_name) } else { b.1.item_name.cmp(&a.1.item_name) }),
+                "type" => pickups.sort_by(|a, b| {
+                    let ta = format!("{:?}", a.1.item_type);
+                    let tb = format!("{:?}", b.1.item_type);
+                    if asc { ta.cmp(&tb) } else { tb.cmp(&ta) }
+                }),
+                "qty" => pickups.sort_by(|a, b| if asc { a.1.quantity.cmp(&b.1.quantity) } else { b.1.quantity.cmp(&a.1.quantity) }),
+                "region" => pickups.sort_by(|a, b| if asc { a.1.region.cmp(&b.1.region) } else { b.1.region.cmp(&a.1.region) }),
+                "status" => pickups.sort_by(|a, b| {
+                    let sa = a.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
+                    let sb = b.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
+                    if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
+                }),
+                _ => {}
+            }
+        }
+
+        // Summary
+        let total_count = WORLD_PICKUPS.len();
+        let filtered_count = pickups.len();
+        if filtered_count < total_count {
+            ui.label(RichText::new(format!("World Pickups: {} (showing {}/{})", total_count, filtered_count, total_count)).strong());
+        } else {
+            ui.label(RichText::new(format!("World Pickups: {}", total_count)).strong());
+        }
+
+        spacing::space_sm(ui);
+
+        // Build row data with status colors
+        let rows: Vec<RowData> = pickups.iter().map(|(id, pickup, is_collected, inv_status)| {
+            let type_str = match pickup.item_type {
+                PickupItemType::Weapon => "Weapon",
+                PickupItemType::Armor => "Armor",
+                PickupItemType::Accessory => "Accessory",
+                PickupItemType::Good => "Good",
+                PickupItemType::AshOfWar => "Ash of War",
+                PickupItemType::Unknown => "Unknown",
+            };
+
+            let tile_str = format!("({}, {})", pickup.tile_x, pickup.tile_y);
+
+            let flag_str = match is_collected {
+                Some(true) => icons::COLLECTED,
+                Some(false) => icons::NOT_COLLECTED,
+                None => icons::UNKNOWN,
+            };
+
+            let inv_str = match inv_status {
+                Some((true, VerificationConfidence::VeryHigh)) => icons::HIGH_CONFIDENCE,
+                Some((true, VerificationConfidence::High)) => icons::COLLECTED,
+                Some((true, _)) => icons::PARTIAL,
+                Some((false, VerificationConfidence::VeryHigh)) => icons::NOT_COLLECTED,
+                Some((false, VerificationConfidence::High)) => icons::NO_DATA,
+                Some((false, _)) => icons::LOW_CONFIDENCE,
+                None => icons::NO_DATA,
+            };
+
+            let is_selected = state.selected_id == Some(*id);
+
+            // Determine if there's a mismatch between flag and inventory
+            let has_mismatch = match (is_collected, inv_status) {
+                (Some(flag_set), Some((has_item, _))) if *flag_set != *has_item => true,
+                _ => false,
+            };
+
+            // Build row cells - include all columns
+            let mut cells = vec![];
+
+            if event_flags.is_some() {
+                cells.push(flag_str.to_string());
+            }
+            if inventory.is_some() {
+                cells.push(inv_str.to_string());
+            }
+
+            cells.extend(vec![
+                id.to_string(),
+                pickup.flag_id.to_string(),
+                pickup.item_name.to_string(),
+                type_str.to_string(),
+                pickup.quantity.to_string(),
+                pickup.region.to_string(),
+                tile_str,
+            ]);
+
+            let mut row = RowData::new(cells);
+
+            // Color based on collected status and mismatches
+            if is_selected {
+                row = row.with_color(Color32::YELLOW);
+            } else if has_mismatch {
+                row = row.with_color(Color32::from_rgb(255, 165, 0)); // Orange for mismatch
+            } else {
+                let color = match is_collected {
+                    Some(true) => Color32::from_rgb(100, 200, 100), // Green for collected
+                    Some(false) => Color32::LIGHT_GRAY,
+                    None => Color32::from_rgb(180, 180, 180), // Dim for unknown
+                };
+                row = row.with_color(color);
+            }
+
+            row
+        }).collect();
+
+        // Build columns dynamically based on available data
+        let mut columns = vec![];
+        if event_flags.is_some() {
+            columns.push(Column::new("status", "Flag").width(40.0).sortable(true).center().icon());
+        }
+        if inventory.is_some() {
+            columns.push(Column::new("inv", "Inv").width(40.0).center().icon());
+        }
+        columns.extend(vec![
+            Column::new("lot_id", "Lot ID").width(80.0).sortable(true).monospace(true),
+            Column::new("flag_id", "Flag ID").width(80.0).sortable(true).monospace(true),
+            Column::new("item", "Item").width_fraction(0.25).sortable(true),
+            Column::new("type", "Type").width(80.0).sortable(true),
+            Column::new("qty", "Qty").width(40.0).sortable(true).right(),
+            Column::new("region", "Region").width_fraction(0.15).sortable(true),
+            Column::new("tile", "Tile").width(80.0).monospace(true),
+        ]);
+
+        // Show table
+        let table_response = UnifiedTable::new("world_pickups_table", &mut state.table_state)
+            .columns(columns)
+            .rows(rows)
+            .zebra_stripe(true)
+            .selectable(true)
+            .show(ui);
+
+        // Handle copy
+        if let Some(text) = table_response.clipboard_text {
+            ui.output_mut(|o| o.copied_text = text);
+        }
+
+        // Handle double-click
+        if let Some(row_idx) = table_response.double_clicked_row {
+            if let Some((id, pickup, _, _)) = pickups.get(row_idx) {
+                let row_text = format!(
+                    "{}\t{}\t{}\t{}\t{}",
+                    id, pickup.flag_id, pickup.item_name, pickup.quantity, pickup.region
+                );
+                ui.output_mut(|o| o.copied_text = row_text);
+            }
+        }
+
+        // Update selected_id
+        if state.table_state.selection_count() == 1 {
+            if let Some(&idx) = state.table_state.selected_rows.iter().next() {
+                if let Some((id, _, _, _)) = pickups.get(idx) {
+                    state.selected_id = Some(*id);
+                }
+            }
+        }
+
+        // Handle export
+        if export_response.export_clicked || export_response.copy_clicked {
+            let data_to_export: Vec<_> = pickups.iter()
+                .map(|(id, pickup, is_collected, inv_status)| WorldPickupExportItem {
+                    lot_id: *id,
+                    flag_id: pickup.flag_id,
+                    item_name: pickup.item_name.to_string(),
+                    item_type: match pickup.item_type {
+                        PickupItemType::Weapon => "Weapon".to_string(),
+                        PickupItemType::Armor => "Armor".to_string(),
+                        PickupItemType::Accessory => "Accessory".to_string(),
+                        PickupItemType::Good => "Good".to_string(),
+                        PickupItemType::AshOfWar => "Ash of War".to_string(),
+                        PickupItemType::Unknown => "Unknown".to_string(),
+                    },
+                    quantity: pickup.quantity as i32,
+                    region: pickup.region.to_string(),
+                    tile: format!("({}, {})", pickup.tile_x, pickup.tile_y),
+                    collected: *is_collected,
+                    in_inventory: inv_status.map(|(has, _)| has),
+                })
+                .collect();
+
+            let content = match state.export_format {
+                ExportFormat::Json => {
+                    let export = PageExport::new(
+                        PageExportMetadata::new("World Pickups")
+                            .with_counts(total_count, filtered_count),
+                        &data_to_export,
+                    );
+                    to_json(&export).unwrap_or_else(|_| String::new())
+                }
+                ExportFormat::Csv => {
+                    let headers = &["Lot ID", "Flag ID", "Item", "Type", "Qty", "Region", "Tile", "Collected", "In Inventory"];
+                    let rows: Vec<Vec<String>> = data_to_export.iter()
+                        .map(|p| vec![
+                            p.lot_id.to_string(),
+                            p.flag_id.to_string(),
+                            p.item_name.clone(),
+                            p.item_type.clone(),
+                            p.quantity.to_string(),
+                            p.region.clone(),
+                            p.tile.clone(),
+                            p.collected.map(|c| if c { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                            p.in_inventory.map(|c| if c { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                        ])
+                        .collect();
+                    to_csv(headers, &rows)
+                }
+                ExportFormat::Markdown => {
+                    let headers = &["Lot ID", "Flag ID", "Item", "Type", "Qty", "Region", "Tile", "Collected", "In Inventory"];
+                    let rows: Vec<Vec<String>> = data_to_export.iter()
+                        .map(|p| vec![
+                            p.lot_id.to_string(),
+                            p.flag_id.to_string(),
+                            p.item_name.clone(),
+                            p.item_type.clone(),
+                            p.quantity.to_string(),
+                            p.region.clone(),
+                            p.tile.clone(),
+                            p.collected.map(|c| if c { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                            p.in_inventory.map(|c| if c { "Yes" } else { "No" }.to_string()).unwrap_or_default(),
+                        ])
+                        .collect();
+                    to_markdown(headers, &rows)
+                }
+            };
+
+            if export_response.copy_clicked {
+                ui.output_mut(|o| o.copied_text = content);
+            }
+        }
     }
 }

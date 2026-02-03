@@ -1,10 +1,16 @@
 //! Shared UI styling constants for consistent appearance across views.
+//!
+//! This module delegates to the tokens module while maintaining backwards
+//! compatibility with existing code that imports from style.rs.
 
 use eframe::egui::{Color32, FontFamily, Ui};
 use std::sync::Arc;
 
+// Re-export from tokens for new code
+pub use crate::ui::tokens;
+
 // =========================================================================
-// Font Families
+// Font Families (delegates to tokens)
 // =========================================================================
 
 /// Condensed font for table/list headers
@@ -18,7 +24,7 @@ pub fn font_serif() -> FontFamily {
 }
 
 // =========================================================================
-// Layout Spacing
+// Layout Spacing (delegates to tokens::spacing)
 // =========================================================================
 
 /// Standard vertical spacing between sections (replaces separators)
@@ -31,14 +37,14 @@ pub fn spacer(ui: &mut Ui) {
 }
 
 // =========================================================================
-// Monospace Table Styling
+// Monospace Table Styling (delegates to tokens::typography)
 // =========================================================================
 
 /// Standard monospace font size for table content (75% of original 12.0)
 pub const TABLE_MONO_SIZE: f32 = 9.0;
 
 // =========================================================================
-// Catppuccin Frappé Color Palette (shared across views)
+// Catppuccin Frappe Color Palette (delegates to tokens::colors)
 // =========================================================================
 
 pub const CAT_RED: Color32 = Color32::from_rgb(231, 130, 132);      // #e78284
