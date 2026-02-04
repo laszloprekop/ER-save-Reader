@@ -13,7 +13,7 @@ use crate::db::pickup_flags::{
     TILE_ROW_BASE, TILE_COL_BASE, MAX_TILE_LOCAL_ID, DUNGEON_SECTION_SIZE,
     DUNGEON_BASE_OFFSETS,
 };
-use crate::generated::ground_truth::{VERIFIED_BLOCK_BASES, VERIFIED_DUNGEON_BASES};
+use crate::generated::ground_truth::VERIFIED_BLOCK_BASES;
 
 /// Possible flag types that could match a (byte, bit) position
 #[derive(Debug, Clone, PartialEq, Eq)]

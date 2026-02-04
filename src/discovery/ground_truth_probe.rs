@@ -116,7 +116,7 @@ pub fn probe_from_verification_records(
 
             // Verify against actual save state
             let actual = is_flag_set(event_flags, record.flag_id);
-            let calc_offset = get_flag_offset(record.flag_id);
+            let _calc_offset = get_flag_offset(record.flag_id);
 
             println!("║   Computed: byte {}, bit {} (from formula)",
                 record.computed_byte_offset, record.computed_bit_position);

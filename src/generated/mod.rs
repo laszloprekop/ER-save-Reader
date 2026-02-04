@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! Auto-generated code from ground_truth_offsets.json
 //!
 //! This module provides verified event flag offset calculations.
@@ -24,18 +25,3 @@
 pub mod ground_truth;
 
 // Re-export commonly used items
-pub use ground_truth::{
-    calculate_block_flag_offset,
-    calculate_tile_flag_offset,
-    calculate_dungeon_flag_offset,
-    VERIFIED_BLOCK_BASES,
-    VERIFIED_DUNGEON_BASES,
-    VERIFIED_TILE_BASE_OFFSET,
-    TILE_BYTES_PER_SLOT,
-    TILE_SLOTS_PER_ROW,
-    TILE_ROW_BASE,
-    TILE_COL_BASE,
-    TILE_MAX_LOCAL_ID,
-    BlockBase,
-    DungeonBase,
-};

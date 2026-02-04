@@ -14,11 +14,10 @@ use std::fs::{self, File};
 use std::io::{BufReader, BufWriter};
 use std::path::{Path, PathBuf};
 
-use chrono::{DateTime, Utc};
-use serde::{Deserialize, Serialize};
+use chrono::Utc;
 use serde_json::Value;
 
-use super::discovery_store::{StoredDiscovery, DiscoveryStatus};
+use super::discovery_store::StoredDiscovery;
 use super::consensus::{ConsensusBuilder, ConsensusStatus};
 
 /// Configuration for ground truth updates

@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 pub mod bnd4 {
     use std::io::Error;
     use binary_reader::{BinaryReader, Endian};

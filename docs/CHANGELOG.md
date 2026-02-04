@@ -4,6 +4,25 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.11.1 - Warning Cleanup
+
+### Compiler Warnings Fixed
+- Fixed unreachable pattern in `vm/general.rs` - DLC region detection now correctly ordered
+- Fixed overlapping range patterns in `pickup_flags.rs` and `event_flags_db.rs` for region detection
+- Removed 97 unused imports via `cargo fix`
+- Added `#![allow(dead_code)]` to research/development modules (discovery, verification, tokens)
+- Moved workspace profile settings from subcrate to root `Cargo.toml`
+
+### Files Modified
+- `src/vm/general.rs`: Reordered DLC pattern before base game pattern
+- `src/db/pickup_flags.rs`: Fixed overlapping region ranges
+- `src/db/event_flags_db.rs`: Fixed overlapping region ranges
+- `Cargo.toml`: Added workspace-level release profile
+- `crates/wasm-event-flags/Cargo.toml`: Removed profile (moved to workspace root)
+- Multiple modules: Added `#![allow(dead_code)]` for research tooling
+
+---
+
 ## v0.11.0 - Character General Page Redesign
 
 ### Build Planner-Style Layout

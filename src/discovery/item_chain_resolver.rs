@@ -21,7 +21,7 @@
 //! - Completion tracking: Identify what gates item acquisition
 //! - Debug: Understand why an item's flag isn't detected
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 use crate::db::pickup_flags::{get_flag_offset, is_flag_set};
 use super::chain_data::{BOSS_DEFEAT_CHAINS, BossDefeatChain};

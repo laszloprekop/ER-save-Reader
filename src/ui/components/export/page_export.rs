@@ -1,7 +1,7 @@
 //! Per-page export data structures.
 
 use serde::Serialize;
-use chrono::{DateTime, Local};
+use chrono::Local;
 
 /// Metadata about an export
 #[derive(Clone, Debug, Serialize)]

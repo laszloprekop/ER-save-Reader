@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// Event Flag Discovery Module
 ///
 /// Implements sophisticated techniques for discovering event flag mappings
@@ -47,76 +48,25 @@ pub mod unified_db;
 pub mod inventory_verification;
 pub mod item_chain_resolver;
 
-pub use byte_diff::ByteDiffScanner;
-pub use segment_analysis::SegmentAnalyzer;
-pub use reverse_lookup::FlagReverser;
-pub use discovery_report::DiscoveryReport;
-pub use integration::{
-    run_discovery_workflow, run_differential_discovery,
-    run_differential_discovery_with_persistence, run_offset_probing_with_persistence,
-    differential_discovery_and_save,
-};
-pub use offset_probe::{
-    probe_failing_flags, OffsetProber, ProbeResult, ProbeConfig,
-    probe_and_persist, probe_and_save, persist_probe_results,
-};
-pub use flag_catalog::{FlagCatalog, CatalogFlag, CatalogError};
-pub use discovery_store::{
-    DiscoveryStore, StoredDiscovery, DiscoveryStatus,
-    OffsetObservation, ObservationSource, StoreError, StoreSummary,
-};
+pub use integration::run_discovery_workflow;
+pub use discovery_store::DiscoveryStore;
 pub use snapshot_batch::{
-    run_batch_analysis, batch_analyze_and_save, list_snapshot_pairs,
-    get_snapshot_summary, SnapshotPair, SnapshotMetadata, BatchAnalysisResult,
+    batch_analyze_and_save,
+    get_snapshot_summary,
 };
-pub use consensus::{
-    ConsensusBuilder, ConsensusConfig, ConsensusResult, ConsensusStatus,
-    ConsensusReport, SourceWeights,
-};
-pub use cross_validator::{
-    CrossValidator, CrossValidationConfig, CrossValidationResult,
-    batch_validate, BatchValidationResult,
-};
+pub use consensus::ConsensusBuilder;
 pub use ground_truth_updater::{
-    GroundTruthUpdater, UpdateConfig, PendingUpdate, UpdateResult, UpdateError,
-    list_backups,
+    GroundTruthUpdater, UpdateConfig,
 };
-pub use relationship_graph::{
-    RelationshipGraph, FlagRelationship, RelationshipType,
-    CorroborationPair, GraphSummary, GraphError,
-};
+pub use relationship_graph::RelationshipGraph;
 pub use corroboration::{
-    CorroborationEngine, CorroborationConfig, CorroborationResult, CorroborationStatus,
-    DualFormulaResult, RelatedFlagCheck, BatchCorroborationResult, PairStatus,
-    BossChainResult, AreaPrerequisiteResult, GeographicCorrelationResult,
-    EventGraphValidation,
+    CorroborationEngine, PairStatus,
 };
-pub use chain_data::{
-    BossDefeatChain, AreaPrerequisite, GeographicRegion, ScrollUnlock, BlockBaseOffset,
-    BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES, GEOGRAPHIC_REGIONS, SCROLL_UNLOCKS, VERIFIED_BLOCK_BASES,
-    find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
-    find_area_prerequisite, is_late_game_flag, get_geographic_correlations,
-};
-pub use event_graph::{
-    EventGraph, FlagTrigger, FlagTriggerEntry, FlagDependencyEntry,
-    DependencyInfo, EnablesInfo, EntityFlagMapping, AssociatedFlag,
-    ProgressionChain, GraphMetadata, GraphError as EventGraphError,
-    ValidationEvidence,
-};
+pub use event_graph::EventGraph;
 pub use param_flags::{
-    ParamFlagDb, ParamFlag, ParamSource, FlagCategory,
-    ExtractionStats, ExtractionMetadata, ParamError,
+    ParamFlagDb, FlagCategory,
 };
 pub use unified_db::{
-    UnifiedFlagDb, UnifiedFlag, UnifiedStats, UnifiedMetadata,
-    SourceConfidence, Position, ItemInfo, ParamSourceInfo, TriggerInfo,
-    UnifiedDbError,
-};
-pub use inventory_verification::{
-    InventoryVerificationService, InventoryVerificationResult, InventoryMismatchReport,
-    VerificationStats, VerificationConfidence, UniqueItemMapping, UniqueItemCategory,
-    UNIQUE_ITEMS, UNIQUE_ITEMS_BY_FLAG, FLAGS_BY_ITEM,
-};
-pub use item_chain_resolver::{
-    ItemChainResolver, ItemFlagChain, ChainFlag, FlagRole, FlagSource, ChainType,
+    UnifiedFlagDb,
+    SourceConfidence,
 };

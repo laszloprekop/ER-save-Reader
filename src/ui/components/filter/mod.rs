@@ -35,7 +35,7 @@ pub mod search;
 pub mod state;
 pub mod bar;
 
-pub use dimension::{CompletionStatus, FilterOption};
-pub use search::{fuzzy_match, fuzzy_match_default, fuzzy_match_any, match_score, DEFAULT_THRESHOLD};
+pub use dimension::FilterOption;
+pub use search::fuzzy_match_default;
 pub use state::FilterBarState;
-pub use bar::{FilterBar, FilterBarResponse};
+pub use bar::FilterBar;

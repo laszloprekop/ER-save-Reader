@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// Verification module for save file accuracy testing
 ///
 /// Implements verification processes to ensure accurate parsing:

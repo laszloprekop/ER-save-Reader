@@ -15,7 +15,7 @@ use std::fs::File;
 use std::io::BufReader;
 
 use serde::{Deserialize, Deserializer, Serialize};
-use serde::de::{self, Visitor};
+use serde::de::Visitor;
 
 /// Custom deserializer for item_rarity which can be integer or string
 fn deserialize_rarity<'de, D>(deserializer: D) -> Result<Option<String>, D::Error>

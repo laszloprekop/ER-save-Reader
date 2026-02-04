@@ -1,5 +1,5 @@
 pub mod event_flags_db_view {
-    use eframe::egui::{self, Ui, Color32, RichText};
+    use eframe::egui::{Ui, Color32, RichText};
     use rfd::FileDialog;
     use std::fs::File;
     use std::io::Write;

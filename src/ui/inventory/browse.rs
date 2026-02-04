@@ -1,4 +1,4 @@
-use eframe::egui::{self, Ui, Color32, RichText};
+use eframe::egui::{Ui, Color32, RichText};
 use serde::Serialize;
 use crate::{
     ui::components::{

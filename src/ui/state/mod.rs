@@ -48,6 +48,4 @@ pub mod view_state;
 pub mod persistence;
 pub mod recent_files;
 
-pub use view_state::PageState;
-pub use persistence::{UiState, UiPreferences};
-pub use recent_files::{RecentFile, RecentFilesManager};
+pub use recent_files::RecentFilesManager;

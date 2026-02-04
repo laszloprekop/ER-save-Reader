@@ -7,7 +7,7 @@ pub mod verification_view {
     };
     use crate::save::common::save_slot::EquipInventoryData;
     use crate::discovery::inventory_verification::{
-        InventoryVerificationService, VerificationStats, InventoryMismatchReport,
+        InventoryVerificationService,
         UniqueItemCategory, VerificationConfidence, UNIQUE_ITEMS,
     };
     use std::collections::HashSet;

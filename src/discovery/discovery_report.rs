@@ -9,12 +9,10 @@
 /// 6. Repeat until convergence
 
 use std::collections::HashMap;
-use std::path::Path;
 
-use crate::save::save::save::Save;
 use crate::db::pickup_flags::{get_flag_offset, is_flag_set};
 
-use super::byte_diff::{ByteDiffScanner, BitChange, ByteDiffResult};
+use super::byte_diff::ByteDiffScanner;
 use super::reverse_lookup::{FlagReverser, PossibleFlagType};
 use super::segment_analysis::{SegmentAnalyzer, SegmentAnalysisResult};
 

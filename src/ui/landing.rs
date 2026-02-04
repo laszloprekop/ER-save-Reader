@@ -3,7 +3,7 @@
 pub mod landing {
     use eframe::egui::{self, Color32, Id, LayerId, Order, RichText, Ui};
     use crate::App;
-    use crate::ui::menu::menu::Route;
+    
 
     /// Render the landing page
     pub fn landing_page(ui: &mut Ui, app: &mut App, ctx: &egui::Context) {

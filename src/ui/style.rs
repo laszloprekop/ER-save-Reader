@@ -7,7 +7,6 @@ use eframe::egui::{Color32, FontFamily, Ui};
 use std::sync::Arc;
 
 // Re-export from tokens for new code
-pub use crate::ui::tokens;
 
 // =========================================================================
 // Font Families (delegates to tokens)

@@ -1,27 +1,14 @@
-/// Corroboration Engine
-///
-/// Multi-point validation using the flag relationship graph.
-/// Validates discoveries by checking related flags and dual-formula pairs.
-///
-/// ## Validation Strategies:
-/// 1. **Dual-formula validation**: Check both tile flag and block flag offsets
-/// 2. **Related flag validation**: Check flags connected by relationships
-/// 3. **Cross-slot validation**: Check same flag across multiple save slots
-
-use std::path::Path;
 use std::sync::Arc;
 
-use crate::save::save::save::Save;
-use crate::db::pickup_flags::EVENT_FLAGS_SIZE;
 
-use super::relationship_graph::{RelationshipGraph, CorroborationPair, RelationshipType};
-use super::discovery_store::{DiscoveryStore, OffsetObservation, ObservationSource};
+use super::relationship_graph::{RelationshipGraph, RelationshipType};
+use super::discovery_store::{OffsetObservation, ObservationSource};
 use super::chain_data::{
-    BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES, GEOGRAPHIC_REGIONS,
+    BOSS_DEFEAT_CHAINS, AREA_PREREQUISITES,
     find_region_for_flag, find_boss_chain_by_defeat, find_boss_chain_by_remembrance,
     is_late_game_flag, get_geographic_correlations,
 };
-use super::event_graph::{EventGraph, FlagTrigger, ProgressionChain};
+use super::event_graph::EventGraph;
 
 /// Configuration for corroboration engine
 #[derive(Debug, Clone)]
@@ -697,9 +684,9 @@ impl CorroborationEngine {
 
             // Check for progression chain
             let chain = event_graph.find_remembrance_chain(flag_id)
-                .map(|c| format!("remembrance_{}", flag_id))
+                .map(|_c| format!("remembrance_{}", flag_id))
                 .or_else(|| event_graph.find_map_fragment_chain(flag_id)
-                    .map(|c| format!("map_fragment_{}", flag_id)));
+                    .map(|_c| format!("map_fragment_{}", flag_id)));
 
             Some(EventGraphValidation::found(trigger_count, context, sources, chain))
         } else {

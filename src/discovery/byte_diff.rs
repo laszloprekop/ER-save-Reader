@@ -1,9 +1,3 @@
-/// Byte Differential Scanner
-///
-/// Compares raw event flag bytes between two saves without any formula assumptions.
-/// This is the foundation for discovering unknown flag mappings.
-
-use std::collections::HashMap;
 
 /// A single bit change detected between two saves
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]

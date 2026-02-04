@@ -1,8 +1,8 @@
 //! Export toolbar component.
 
-use eframe::egui::{self, RichText, Ui};
+use eframe::egui::{self, Ui};
 use super::formats::ExportFormat;
-use crate::ui::tokens::{colors, spacing};
+use crate::ui::tokens::spacing;
 
 /// Builder for export toolbar
 pub struct ExportToolbar<'a> {

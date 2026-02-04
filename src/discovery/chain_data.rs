@@ -1,15 +1,3 @@
-/// Chain Data Module
-///
-/// Contains static relationship data for enhanced corroboration validation.
-/// Data sourced from docs/EVENT-FLAG-GEOGRAPHY.md and decompiled game files.
-///
-/// ## Chain Types:
-/// - Boss defeat chains: defeat → remembrance → great rune → activation
-/// - Area prerequisites: items required to access areas
-/// - Geographic regions: flag ranges by region for proximity validation
-/// - Scroll unlocks: scrolls/items that unlock spells/recipes
-
-use super::relationship_graph::RelationshipType;
 
 /// A boss defeat chain with all related flags
 #[derive(Debug, Clone)]

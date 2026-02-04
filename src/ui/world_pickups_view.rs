@@ -1,5 +1,5 @@
 pub mod world_pickups_view {
-    use eframe::egui::{self, Ui, Color32, RichText};
+    use eframe::egui::{Ui, Color32, RichText};
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
     use crate::db::pickup_flags::get_flag_offset_calibrated;
     use crate::calibration::CalibrationService;
@@ -10,7 +10,7 @@ pub mod world_pickups_view {
     use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
     use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
     use crate::ui::components::legend::icons;
-    use crate::ui::tokens::{spacing, colors};
+    use crate::ui::tokens::spacing;
     use serde::Serialize;
 
     #[derive(Clone, Copy, PartialEq)]

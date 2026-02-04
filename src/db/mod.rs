@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 pub mod item_name;
 pub mod weapon_name;
 pub mod armor_name;

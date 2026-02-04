@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! Calibration Service - Dynamic formula base calibration for per-save verification.
 //!
 //! The tile formula base_offset (485330 in ground_truth_offsets.json) varies per save
@@ -14,7 +15,6 @@
 //! println!("Tile base: {} (confidence: {})", result.tile_base, result.tile_base_confidence);
 //! ```
 
-use std::collections::HashMap;
 
 use crate::generated::ground_truth::{
     VERIFIED_TILE_BASE_OFFSET,
@@ -478,7 +478,7 @@ impl CalibrationService {
         // Phase 5: Calibrate legacy dungeon blocks (Stormveil, etc.)
         // Each legacy dungeon has its own offset that doesn't share delta with tutorial
         let mut legacy_notes: Vec<String> = Vec::new();
-        for &(block_start, ground_truth_base, name, anchors) in &LEGACY_DUNGEON_BLOCKS {
+        for &(block_start, ground_truth_base, _name, anchors) in &LEGACY_DUNGEON_BLOCKS {
             if let Some(calibration) = Self::calibrate_legacy_dungeon_block(
                 event_flags,
                 block_start,

@@ -360,7 +360,7 @@ impl OffsetProber {
 
         // Block flag reverse
         if original_flag_id >= 60000 && original_flag_id < 100000 {
-            let target_block = (original_flag_id / 1000) * 1000;
+            let _target_block = (original_flag_id / 1000) * 1000;
 
             // Check if byte is in any known block
             for (&block_start, block_info) in VERIFIED_BLOCK_BASES.iter() {

@@ -1,5 +1,5 @@
 pub mod shop_items_view {
-    use eframe::egui::{self, Ui, Color32, RichText};
+    use eframe::egui::{Ui, Color32, RichText};
     use crate::db::shop_items::{SHOP_ITEMS, MERCHANTS, ItemCategory};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
     use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};

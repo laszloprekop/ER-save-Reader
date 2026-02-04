@@ -1,10 +1,10 @@
 pub mod spells_view {
-    use eframe::egui::{self, Ui, Color32, RichText};
+    use eframe::egui::{Ui, Color32, RichText};
     use crate::db::spells::{SPELLS, SpellType};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
-    use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
+    use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
     use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
-    use crate::ui::tokens::{spacing, colors};
+    use crate::ui::tokens::spacing;
     use serde::Serialize;
 
     #[derive(Clone, Copy, PartialEq)]
@@ -88,7 +88,7 @@ pub mod spells_view {
         spacing::space_sm(ui);
 
         // Build spell data with filtering and sorting
-        let search_lower = state.search.to_lowercase();
+        let _search_lower = state.search.to_lowercase();
         let mut spells: Vec<(u32, &crate::db::spells::SpellInfo)> = SPELLS.iter()
             .filter(|(_, spell)| {
                 // Type filter

@@ -11,9 +11,9 @@ use std::path::{Path, PathBuf};
 use super::{
     batch_analyze_and_save, get_snapshot_summary,
     run_discovery_workflow,
-    DiscoveryStore, ConsensusBuilder, ConsensusStatus,
+    DiscoveryStore, ConsensusBuilder,
     GroundTruthUpdater, UpdateConfig,
-    RelationshipGraph, CorroborationEngine, CorroborationStatus,
+    RelationshipGraph, CorroborationEngine,
     EventGraph,
     ParamFlagDb, FlagCategory,
     UnifiedFlagDb, SourceConfidence,

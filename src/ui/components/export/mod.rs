@@ -39,6 +39,6 @@ pub mod formats;
 pub mod page_export;
 pub mod toolbar;
 
-pub use formats::{ExportFormat, to_json, to_csv, to_markdown, to_tsv};
-pub use page_export::{PageExport, PageExportMetadata, FilterDescription, PageSummary};
-pub use toolbar::{ExportToolbar, ExportToolbarResponse};
+pub use formats::{ExportFormat, to_json, to_csv, to_markdown};
+pub use page_export::{PageExport, PageExportMetadata};
+pub use toolbar::ExportToolbar;

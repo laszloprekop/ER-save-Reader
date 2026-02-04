@@ -36,7 +36,11 @@ pub mod general_view_model {
                 17 => "Ainsel River",
                 18 => "Deeproot Depths",
                 19 => "Mohgwyn Palace",
+                // DLC areas (must come before base game region 20)
+                20 if self.block_id >= 40 => "Shadow Realm",
                 20 => "Leyndell",
+                21 => "Shadow Realm",
+                22 => "Shadow Realm",
                 30 => "Stormveil Castle",
                 31 => "Raya Lucaria",
                 32 => "Redmane Castle",
@@ -49,10 +53,6 @@ pub mod general_view_model {
                 40 => "Roundtable Hold",
                 60 => "Chapel of Anticipation",
                 61 => "Stranded Graveyard",
-                // DLC areas
-                20 if self.block_id >= 40 => "Shadow Realm",
-                21 => "Shadow Realm",
-                22 => "Shadow Realm",
                 _ => "Unknown Region",
             }
         }

@@ -34,6 +34,6 @@ pub mod column;
 pub mod state;
 pub mod builder;
 
-pub use column::{Column, ColumnWidth, Alignment, SortDirection};
+pub use column::{Column, SortDirection};
 pub use state::TableState;
-pub use builder::{UnifiedTable, RowData, TableResponse};
+pub use builder::{UnifiedTable, RowData};

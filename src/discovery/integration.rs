@@ -3,22 +3,21 @@
 /// This module provides high-level functions to run the discovery process
 /// on actual save files and integrate with the verification system.
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
 use crate::save::save::save::Save;
-use crate::db::pickup_flags::{is_flag_set, get_flag_offset};
+use crate::db::pickup_flags::get_flag_offset;
 use crate::util::verification::{
     get_confessor_known_flags, get_wretch_known_flags,
-    verify_flag_formula, KnownFlag,
+    verify_flag_formula,
 };
 
 use super::byte_diff::{ByteDiffScanner, find_changed_regions};
 use super::segment_analysis::SegmentAnalyzer;
 use super::reverse_lookup::FlagReverser;
-use super::discovery_report::DiscoveryEngine;
 use super::offset_probe::{probe_failing_flags, generate_ground_truth_updates};
 use super::discovery_store::{
-    DiscoveryStore, OffsetObservation, ObservationSource, StoreError,
+    DiscoveryStore, OffsetObservation, ObservationSource,
 };
 use super::flag_catalog::FlagCatalog;
 

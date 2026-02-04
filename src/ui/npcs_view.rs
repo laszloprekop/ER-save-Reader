@@ -1,5 +1,5 @@
 pub mod npcs_view {
-    use eframe::egui::{self, Ui, Color32, RichText};
+    use eframe::egui::{Ui, Color32, RichText};
     use crate::db::npcs::{NPCS, NpcType};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
     use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};

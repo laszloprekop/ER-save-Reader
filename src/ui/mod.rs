@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 mod custom;
 pub mod tokens;
 pub mod style;

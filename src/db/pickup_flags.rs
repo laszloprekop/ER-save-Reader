@@ -865,10 +865,10 @@ pub mod item_ids {
 /// Region names for open world tiles
 pub fn get_region_name(tile_x: u32, tile_y: u32) -> &'static str {
     match (tile_x, tile_y) {
-        // Limgrave
-        (41..=44, 36..=39) => "Limgrave",
-        (43..=44, 30..=35) => "Weeping Peninsula",
+        // Limgrave - Stormhill checked first (more specific), then Weeping Peninsula, then general Limgrave
         (44..=45, 32..=35) => "Stormhill",
+        (43, 30..=35) => "Weeping Peninsula",
+        (41..=44, 36..=39) => "Limgrave",
 
         // Liurnia
         (33..=40, 40..=50) => "Liurnia of the Lakes",
@@ -876,17 +876,17 @@ pub fn get_region_name(tile_x: u32, tile_y: u32) -> &'static str {
         // Caelid
         (45..=52, 36..=43) => "Caelid",
 
+        // Mt. Gelmir - checked before Altus to avoid overlap at 38
+        (33..=37, 49..=55) => "Mt. Gelmir",
+
         // Altus Plateau
         (38..=44, 49..=55) => "Altus Plateau",
 
-        // Mt. Gelmir
-        (33..=38, 49..=55) => "Mt. Gelmir",
+        // Consecrated Snowfield - checked before Mountaintops (more northern)
+        (47..=54, 56..=58) => "Consecrated Snowfield",
 
         // Mountaintops of the Giants
-        (47..=54, 54..=58) => "Mountaintops of the Giants",
-
-        // Consecrated Snowfield
-        (47..=54, 55..=58) => "Consecrated Snowfield",
+        (47..=54, 54..=55) => "Mountaintops of the Giants",
 
         // DLC (Shadow of the Erdtree - m61)
         (60, 33..=44) => "Shadow of the Erdtree",

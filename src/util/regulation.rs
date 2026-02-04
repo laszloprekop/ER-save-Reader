@@ -120,7 +120,7 @@ impl Regulation {
         let mut buf = cipher_text[16..cipher_text.len()].to_vec();
         Aes256CbcDec::new(&key.into(), iv.into())
             .decrypt_padded_mut::<NoPadding>(&mut buf)
-            .map_err(|e| Error::new(ErrorKind::Other, "upps"))
+            .map_err(|_e| Error::new(ErrorKind::Other, "upps"))
             .map(|pt| pt.to_vec())
     }
     
@@ -164,7 +164,7 @@ impl Regulation {
         assert_eq!(br.read_i32()?, 0x20);
 
         // Read the compression level instead of asserting a specific value
-        let compression_level = br.read_u8()?; // 0x15 for ZSTD, 0x09 for DFLT
+        let _compression_level = br.read_u8()?; // 0x15 for ZSTD, 0x09 for DFLT
 
         // Read the remaining header values without strict assertions
         let _unknown1 = br.read_u8()?;
@@ -258,8 +258,8 @@ impl Regulation {
         check!(br.read_bytes(4), b"DCS\0");
 
         // Read decompressed and compressed sizes (used later if needed)
-        let decompressed_size = br.read_i32()?;
-        let compressed_size = br.read_i32()?;
+        let _decompressed_size = br.read_i32()?;
+        let _compressed_size = br.read_i32()?;
 
         // Check for compression type (either ZSTD or DFLT)
         check!(br.read_bytes(4), b"DCP\0");

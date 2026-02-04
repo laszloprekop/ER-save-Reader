@@ -212,7 +212,7 @@ impl SegmentAnalyzer {
     fn classify_segments(&self, blocks: &[RegionStats]) -> Vec<Segment> {
         let mut segments: Vec<Segment> = Vec::new();
 
-        for (i, block) in blocks.iter().enumerate() {
+        for (_i, block) in blocks.iter().enumerate() {
             let seg_type = self.classify_block(block);
 
             // Merge with previous if same type

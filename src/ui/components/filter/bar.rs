@@ -1,9 +1,9 @@
 //! Filter bar builder and rendering.
 
-use eframe::egui::{self, Color32, RichText, Ui};
+use eframe::egui::{self, RichText, Ui};
 use super::dimension::{CompletionStatus, FilterOption};
 use super::state::FilterBarState;
-use crate::ui::tokens::{colors, typography, dimensions, spacing};
+use crate::ui::tokens::{colors, dimensions, spacing};
 
 /// Builder for creating filter bars
 pub struct FilterBar<'a> {
