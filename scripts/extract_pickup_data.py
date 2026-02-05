@@ -10,12 +10,19 @@ Fixes applied:
 """
 
 import xml.etree.ElementTree as ET
+import json
 from pathlib import Path
 from collections import defaultdict
+from typing import Dict, Optional
 
 # Path to game files
 GAME_FILES = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files/regulation-bin")
 OUTPUT_FILE = Path("/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/src/db/pickup_data.rs")
+
+# MapGenie enrichment files
+ELDEN_MAP_DATA_DIR = Path("/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data")
+ENRICHED_POIS = ELDEN_MAP_DATA_DIR / "game-pois/enriched-comprehensive-pois.json"
+EVENT_FLAG_TO_MAPGENIE = ELDEN_MAP_DATA_DIR / "event-flag-to-mapgenie.json"
 
 # Item ID ranges for categorization
 GOLDEN_RUNE_IDS = set(range(2900, 2920))  # Golden Rune [1] through [13], Hero's Runes, Lord's Rune
@@ -23,6 +30,46 @@ SMITHING_STONE_IDS = set(range(10100, 10141))  # Smithing Stone [1-8], Ancient D
 SOMBER_STONE_IDS = set(range(10160, 10201))  # Somber [1-9], Somber Ancient Dragon
 GLOVEWORT_IDS = set(range(10900, 10920))  # Grave/Ghost Glovewort
 GREAT_RUNE_IDS = set(range(190, 198))  # Great Runes (these are KEY items, not world pickups)
+
+def load_mapgenie_enrichment() -> Dict[int, str]:
+    """Load event flag to MapGenie location ID mapping."""
+    mapgenie_by_flag: Dict[int, str] = {}
+
+    # Load from enriched POIs first (higher confidence for direct matches)
+    if ENRICHED_POIS.exists():
+        try:
+            with open(ENRICHED_POIS, 'r') as f:
+                data = json.load(f)
+                for poi in data.get("pois", []):
+                    event_flag = poi.get("eventFlag")
+                    mapgenie_id = poi.get("mapgenieId")
+                    if event_flag and mapgenie_id:
+                        mapgenie_by_flag[int(event_flag)] = str(mapgenie_id)
+            print(f"Loaded {len(mapgenie_by_flag)} MapGenie IDs from enriched POIs")
+        except Exception as e:
+            print(f"Warning: Failed to load enriched POIs: {e}")
+
+    # Supplement with event flag mapping (may have additional entries)
+    if EVENT_FLAG_TO_MAPGENIE.exists():
+        try:
+            with open(EVENT_FLAG_TO_MAPGENIE, 'r') as f:
+                data = json.load(f)
+                added = 0
+                for flag_str, mapping in data.get("mappings", {}).items():
+                    try:
+                        flag_id = int(flag_str)
+                        location_id = mapping.get("location_id")
+                        if location_id and flag_id not in mapgenie_by_flag:
+                            mapgenie_by_flag[flag_id] = str(location_id)
+                            added += 1
+                    except (ValueError, TypeError):
+                        pass
+                print(f"Added {added} additional MapGenie IDs from flag mapping")
+        except Exception as e:
+            print(f"Warning: Failed to load flag mapping: {e}")
+
+    return mapgenie_by_flag
+
 
 def load_item_database(filename: str) -> dict[int, str]:
     """Load item ID -> name mapping from a param XML file."""
@@ -530,6 +577,9 @@ def main():
     print("Loading item databases...")
     databases = load_all_databases()
 
+    print("\nLoading MapGenie enrichment data...")
+    mapgenie_by_flag = load_mapgenie_enrichment()
+
     print(f"\nParsing {GAME_FILES / 'ItemLotParam_map.param.xml'}...")
     tree = ET.parse(GAME_FILES / "ItemLotParam_map.param.xml")
     root = tree.getroot()
@@ -538,6 +588,7 @@ def main():
     skipped_count = 0
     category_counts = defaultdict(int)
     region_counts = defaultdict(int)
+    mapgenie_count = 0
 
     for row in root.findall('.//row'):
         raw_lot_id = int(row.get('id', 0))
@@ -573,6 +624,11 @@ def main():
         # Get region from lot ID and event flag (already uses normalized ID internally)
         region = get_region_from_lot_id(lot_id, flag_id)
 
+        # Get MapGenie ID enrichment
+        mapgenie_id = mapgenie_by_flag.get(flag_id)
+        if mapgenie_id:
+            mapgenie_count += 1
+
         pickups.append({
             'lot_id': lot_id,
             'flag_id': flag_id,
@@ -581,12 +637,14 @@ def main():
             'quantity': quantity,
             'category': category,
             'region': region,
+            'mapgenie_id': mapgenie_id,
         })
 
         category_counts[category] += 1
         region_counts[region] += 1
 
     print(f"\nProcessed {len(pickups)} world pickups (skipped {skipped_count})")
+    print(f"MapGenie enrichment: {mapgenie_count}/{len(pickups)} pickups have MapGenie IDs")
     print(f"\nBy category:")
     for cat, count in sorted(category_counts.items(), key=lambda x: -x[1]):
         print(f"  {cat}: {count}")
@@ -619,6 +677,8 @@ def main():
         f.write('    pub quantity: u32,\n')
         f.write('    pub category: PickupCategory,\n')
         f.write('    pub region: &\'static str,\n')
+        f.write('    /// MapGenie location ID for external map link (enrichment data)\n')
+        f.write('    pub mapgenie_id: Option<&\'static str>,\n')
         f.write('}\n\n')
 
         # Category enum
@@ -665,6 +725,8 @@ def main():
         for p in pickups:
             name_escaped = escape_rust_string(p['name'])
             region_escaped = escape_rust_string(p['region'])
+            mapgenie_id = p.get('mapgenie_id')
+            mapgenie_str = f'Some("{mapgenie_id}")' if mapgenie_id else 'None'
             f.write(f'    WorldPickup {{\n')
             f.write(f'        item_lot_id: {p["lot_id"]},\n')
             f.write(f'        event_flag: {p["flag_id"]},\n')
@@ -673,6 +735,7 @@ def main():
             f.write(f'        quantity: {p["quantity"]},\n')
             f.write(f'        category: PickupCategory::{p["category"]},\n')
             f.write(f'        region: "{region_escaped}",\n')
+            f.write(f'        mapgenie_id: {mapgenie_str},\n')
             f.write(f'    }},\n')
 
         f.write('];\n\n')

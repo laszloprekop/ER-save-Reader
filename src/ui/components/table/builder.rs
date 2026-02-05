@@ -242,6 +242,9 @@ impl<'a> UnifiedTable<'a> {
                                 } else {
                                     self.state.select_row(row_index);
                                 }
+                                // Track that a row was clicked (single click)
+                                response.clicked_row = Some(row_index);
+                                response.selection_changed = true;
                             }
 
                             // Handle double-click to copy
@@ -297,4 +300,8 @@ pub struct TableResponse {
     pub clipboard_text: Option<String>,
     /// Row index that was double-clicked
     pub double_clicked_row: Option<usize>,
+    /// Row index that was clicked (single click - for opening details)
+    pub clicked_row: Option<usize>,
+    /// Whether selection changed this frame
+    pub selection_changed: bool,
 }

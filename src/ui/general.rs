@@ -1,7 +1,9 @@
 pub mod general {
     use eframe::egui::{self, Ui, Color32, RichText, Frame, Rounding};
     use crate::vm::{general::general_view_model::Gender, vm::vm::ViewModel};
+    use crate::vm::equipment::equipment_view_model::EquipmentItemViewModel;
     use crate::ui::tokens::{colors, spacing, typography};
+    use crate::ui::icons::{icon_with_name, ICON_DISPLAY_SIZE};
 
     /// Deep gray card background (darker than app background)
     const CARD_BG: Color32 = Color32::from_rgb(30, 30, 35);
@@ -192,6 +194,57 @@ pub mod general {
         });
     }
 
+    /// Equipment slot with game icon (icon on top, name below)
+    fn equipment_icon_slot(ui: &mut Ui, item: &EquipmentItemViewModel, size: f32) {
+        let response = icon_with_name(ui, item.icon_id, &item.name, size);
+
+        if response.double_clicked() && !item.name.is_empty() && item.name != "Empty" {
+            ui.output_mut(|o| o.copied_text = item.name.clone());
+        }
+
+        response.context_menu(|ui| {
+            if ui.button("Copy name").clicked() {
+                ui.output_mut(|o| o.copied_text = item.name.clone());
+                ui.close_menu();
+            }
+        });
+    }
+
+    /// Locked equipment slot placeholder
+    fn locked_slot(ui: &mut Ui, size: f32) {
+        let (rect, _response) = ui.allocate_exact_size(
+            egui::vec2(size + 8.0, size + 20.0),
+            egui::Sense::hover()
+        );
+
+        if ui.is_rect_visible(rect) {
+            // Draw locked placeholder
+            let icon_rect = egui::Rect::from_min_size(
+                rect.min + egui::vec2(4.0, 0.0),
+                egui::vec2(size, size)
+            );
+            ui.painter().rect_filled(
+                icon_rect,
+                4.0,
+                Color32::from_rgb(30, 30, 35)
+            );
+            ui.painter().rect_stroke(
+                icon_rect,
+                4.0,
+                egui::Stroke::new(1.0, Color32::from_rgb(50, 50, 55))
+            );
+            // Draw lock icon
+            let lock_pos = icon_rect.center();
+            ui.painter().text(
+                lock_pos,
+                egui::Align2::CENTER_CENTER,
+                "🔒",
+                egui::FontId::proportional(12.0),
+                colors::CAT_SURFACE2
+            );
+        }
+    }
+
     /// Quick item slot (compact, shows index)
     fn quick_slot(ui: &mut Ui, index: usize, name: &str) {
         ui.horizontal(|ui| {
@@ -357,7 +410,7 @@ pub mod general {
                 });
 
             // ═══════════════════════════════════════════════════════════════
-            // COLUMN 2: Equipment (Grid layout like game UI)
+            // COLUMN 2: Equipment (Grid layout like game UI with icons)
             // ═══════════════════════════════════════════════════════════════
             // Equipped Gear - Grid: Right Hand | Armor | Left Hand
             Frame::none()
@@ -367,35 +420,33 @@ pub mod general {
                 .show(&mut columns[1], |ui| {
                     section_header(ui, "EQUIPPED GEAR");
 
-                    // Grid: 3 columns (Right Hand | Armor | Left Hand)
-                    let col_width = (ui.available_width() - 16.0) / 3.0;
+                    // Grid: 3 columns (Right Hand | Armor | Left Hand) with icons
                     egui::Grid::new("equipped_gear_grid")
                         .num_columns(3)
-                        .spacing([8.0, 6.0])
-                        .min_col_width(col_width)
+                        .spacing([4.0, 4.0])
                         .show(ui, |ui| {
                             // Row 0: Empty | Head | Empty
-                            ui.label(RichText::new("").size(typography::TEXT_SM)); // empty
-                            gear_slot_centered(ui, &equipment_vm.head.name);
-                            ui.label(RichText::new("").size(typography::TEXT_SM)); // empty
+                            ui.allocate_space(egui::vec2(ICON_DISPLAY_SIZE + 8.0, 1.0));
+                            equipment_icon_slot(ui, &equipment_vm.head, ICON_DISPLAY_SIZE);
+                            ui.allocate_space(egui::vec2(ICON_DISPLAY_SIZE + 8.0, 1.0));
                             ui.end_row();
 
                             // Row 1: R-Hand 1 | Chest | L-Hand 1
-                            gear_slot(ui, &equipment_vm.right_hand_armaments[0].name);
-                            gear_slot_centered(ui, &equipment_vm.chest.name);
-                            gear_slot(ui, &equipment_vm.left_hand_armaments[0].name);
+                            equipment_icon_slot(ui, &equipment_vm.right_hand_armaments[0], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.chest, ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.left_hand_armaments[0], ICON_DISPLAY_SIZE);
                             ui.end_row();
 
                             // Row 2: R-Hand 2 | Arms | L-Hand 2
-                            gear_slot(ui, &equipment_vm.right_hand_armaments[1].name);
-                            gear_slot_centered(ui, &equipment_vm.arms.name);
-                            gear_slot(ui, &equipment_vm.left_hand_armaments[1].name);
+                            equipment_icon_slot(ui, &equipment_vm.right_hand_armaments[1], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.arms, ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.left_hand_armaments[1], ICON_DISPLAY_SIZE);
                             ui.end_row();
 
                             // Row 3: R-Hand 3 | Legs | L-Hand 3
-                            gear_slot(ui, &equipment_vm.right_hand_armaments[2].name);
-                            gear_slot_centered(ui, &equipment_vm.legs.name);
-                            gear_slot(ui, &equipment_vm.left_hand_armaments[2].name);
+                            equipment_icon_slot(ui, &equipment_vm.right_hand_armaments[2], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.legs, ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.left_hand_armaments[2], ICON_DISPLAY_SIZE);
                             ui.end_row();
                         });
                 });
@@ -410,23 +461,21 @@ pub mod general {
                 .show(&mut columns[1], |ui| {
                     section_header(ui, "ARMAMENTS");
 
-                    let col_width = (ui.available_width() - 18.0) / 4.0;
                     egui::Grid::new("ammo_grid")
                         .num_columns(4)
-                        .spacing([6.0, 4.0])
-                        .min_col_width(col_width)
+                        .spacing([4.0, 4.0])
                         .show(ui, |ui| {
-                            gear_slot(ui, &equipment_vm.arrows[0].name);
-                            gear_slot(ui, &equipment_vm.arrows[1].name);
-                            gear_slot(ui, &equipment_vm.bolts[0].name);
-                            gear_slot(ui, &equipment_vm.bolts[1].name);
+                            equipment_icon_slot(ui, &equipment_vm.arrows[0], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.arrows[1], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.bolts[0], ICON_DISPLAY_SIZE);
+                            equipment_icon_slot(ui, &equipment_vm.bolts[1], ICON_DISPLAY_SIZE);
                             ui.end_row();
                         });
                 });
 
             spacing::space_sm(&mut columns[1]);
 
-            // Talismans - 4 columns
+            // Talismans - 4 columns with icons
             Frame::none()
                 .fill(CARD_BG)
                 .rounding(Rounding::same(6.0))
@@ -434,22 +483,16 @@ pub mod general {
                 .show(&mut columns[1], |ui| {
                     section_header(ui, "TALISMANS");
 
-                    let col_width = (ui.available_width() - 18.0) / 4.0;
                     egui::Grid::new("talisman_grid")
                         .num_columns(4)
-                        .spacing([6.0, 4.0])
-                        .min_col_width(col_width)
+                        .spacing([4.0, 4.0])
                         .show(ui, |ui| {
                             for (i, talisman) in equipment_vm.talismans.iter().enumerate() {
                                 let available = (i as u32) < equipment_vm.talisman_count;
                                 if available {
-                                    gear_slot(ui, &talisman.name);
+                                    equipment_icon_slot(ui, talisman, ICON_DISPLAY_SIZE);
                                 } else {
-                                    ui.label(
-                                        RichText::new("🔒")
-                                            .size(typography::TEXT_SM)
-                                            .color(colors::CAT_SURFACE2)
-                                    );
+                                    locked_slot(ui, ICON_DISPLAY_SIZE);
                                 }
                             }
                             ui.end_row();
@@ -457,9 +500,9 @@ pub mod general {
                 });
 
             // ═══════════════════════════════════════════════════════════════
-            // COLUMN 3: Quick Items & Pouch
+            // COLUMN 3: Quick Items & Pouch (with icons in grid layout)
             // ═══════════════════════════════════════════════════════════════
-            // Quick Items
+            // Quick Items - 5x2 grid
             Frame::none()
                 .fill(CARD_BG)
                 .rounding(Rounding::same(6.0))
@@ -467,14 +510,22 @@ pub mod general {
                 .show(&mut columns[2], |ui| {
                     section_header(ui, "QUICK ITEMS");
 
-                    for (i, item) in equipment_vm.quickitems.iter().enumerate() {
-                        quick_slot(ui, i, &item.name);
-                    }
+                    egui::Grid::new("quickitems_grid")
+                        .num_columns(5)
+                        .spacing([2.0, 4.0])
+                        .show(ui, |ui| {
+                            for (i, item) in equipment_vm.quickitems.iter().enumerate() {
+                                equipment_icon_slot(ui, item, ICON_DISPLAY_SIZE);
+                                if (i + 1) % 5 == 0 {
+                                    ui.end_row();
+                                }
+                            }
+                        });
                 });
 
             spacing::space_sm(&mut columns[2]);
 
-            // Pouch
+            // Pouch - 3x2 grid
             Frame::none()
                 .fill(CARD_BG)
                 .rounding(Rounding::same(6.0))
@@ -482,9 +533,17 @@ pub mod general {
                 .show(&mut columns[2], |ui| {
                     section_header(ui, "POUCH");
 
-                    for (i, item) in equipment_vm.pouch.iter().enumerate() {
-                        quick_slot(ui, i, &item.name);
-                    }
+                    egui::Grid::new("pouch_grid")
+                        .num_columns(3)
+                        .spacing([2.0, 4.0])
+                        .show(ui, |ui| {
+                            for (i, item) in equipment_vm.pouch.iter().enumerate() {
+                                equipment_icon_slot(ui, item, ICON_DISPLAY_SIZE);
+                                if (i + 1) % 3 == 0 {
+                                    ui.end_row();
+                                }
+                            }
+                        });
                 });
         });
     }

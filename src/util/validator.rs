@@ -1,6 +1,7 @@
 pub mod validator {
     use std::collections::{HashMap, HashSet};
     use crate::{save::{common::save_slot::{EquipInventoryItem, GaItem}, save::save::Save}, util::{param_structs::EQUIP_PARAM_GEM_ST, params::params::Row, regulation::Regulation}, vm::{inventory::{InventoryGaitemType, InventoryItemType}, regulation::regulation_view_model::{GoodsType, ProtectorCategory, WepType}}};
+    use crate::ui::validation::{ValidationReport, ValidationIssue};
 
     pub struct Validator;
 
@@ -224,7 +225,7 @@ pub mod validator {
         // Check if inventory_common_items only has EquipInventoryItem with unique ids
         fn check_for_duplicate_items(item_list: &Vec<EquipInventoryItem>) -> bool {
             let mut item_ids = HashSet::new();
-            
+
             for item in item_list.iter().filter(|i| i.ga_item_handle.to_le_bytes()[3] == 0xB0) {
                 if let Some(_existing_id) = item_ids.get(&item.ga_item_handle) {
                     return false;
@@ -233,6 +234,271 @@ pub mod validator {
                 }
             }
             true
+        }
+        // endregion
+
+        // region: detailed validation (returns issues)
+
+        /// Validate weapons with detailed issue reporting.
+        pub fn is_weapons_valid_detailed(save: &Save, index: usize, report: &mut ValidationReport) -> bool {
+            let slot = save.save_type.get_slot(index);
+            let weapons = Regulation::equip_weapon_params_map();
+            let gems = Regulation::equip_gem_param_map();
+
+            let ga_item_weapons = &slot.ga_items.iter()
+                .filter(|gaitem| gaitem.gaitem_handle.to_le_bytes()[3] == 0)
+                .collect::<Vec<&GaItem>>();
+
+            let ga_item_gems = &slot.ga_items.iter()
+                .filter(|gaitem| gaitem.gaitem_handle.to_le_bytes()[3] == 0xC0)
+                .map(|g| (g.gaitem_handle, g))
+                .collect::<HashMap<u32,&GaItem>>();
+
+            let mut valid = true;
+
+            for weapon_ga_item in ga_item_weapons {
+                let res_weapon = weapons.get(&weapon_ga_item.item_id);
+
+                if res_weapon.is_none() && weapon_ga_item.item_id != 0xFFFFFFFF {
+                    report.add_error(ValidationIssue::error(
+                        "Weapons",
+                        index,
+                        "Invalid weapon ID",
+                        &format!("Weapon ID {} not found in game params", weapon_ga_item.item_id),
+                    ));
+                    valid = false;
+                    continue;
+                }
+
+                let current_weapon_gem = weapon_ga_item.aow_gaitem_handle;
+                if current_weapon_gem == u32::MAX || current_weapon_gem == 0 {
+                    continue;
+                }
+
+                if let Some(gem_ga_item) = ga_item_gems.get(&current_weapon_gem) {
+                    let res_gem = gems.get(&gem_ga_item.item_id);
+
+                    if res_gem.is_none() {
+                        report.add_error(ValidationIssue::error(
+                            "Weapons",
+                            index,
+                            "Invalid Ash of War",
+                            &format!("Ash of War ID {} not found in game params", gem_ga_item.item_id),
+                        ));
+                        valid = false;
+                        continue;
+                    }
+
+                    if let Some(weapon_param) = res_weapon {
+                        if weapon_param.data.gemMountType == 0 {
+                            report.add_error(ValidationIssue::error(
+                                "Weapons",
+                                index,
+                                "Invalid Ash of War mount",
+                                &format!("Weapon {} cannot have Ash of War applied", weapon_ga_item.item_id),
+                            ));
+                            valid = false;
+                        }
+
+                        if let Some(gem_param) = res_gem {
+                            if !Self::validate_attached_gem(WepType::from(weapon_param.data.wepType), gem_param) {
+                                report.add_error(ValidationIssue::error(
+                                    "Weapons",
+                                    index,
+                                    "Incompatible Ash of War",
+                                    &format!("Ash of War {} is not compatible with weapon type", gem_ga_item.item_id),
+                                ));
+                                valid = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            valid
+        }
+
+        /// Validate items with detailed issue reporting.
+        pub fn is_items_valid_detailed(save: &Save, index: usize, report: &mut ValidationReport) -> bool {
+            let inventory_common_items = &save.save_type.get_slot(index).equip_inventory_data.common_items;
+            let storage_common_items = &save.save_type.get_slot(index).storage_inventory_data.common_items;
+
+            let inv_valid = Self::check_for_duplicate_items_detailed(inventory_common_items, index, "Inventory", report);
+            let storage_valid = Self::check_for_duplicate_items_detailed(storage_common_items, index, "Storage", report);
+
+            inv_valid && storage_valid
+        }
+
+        fn check_for_duplicate_items_detailed(item_list: &Vec<EquipInventoryItem>, slot: usize, location: &str, report: &mut ValidationReport) -> bool {
+            let mut item_ids = HashSet::new();
+            let mut valid = true;
+
+            for item in item_list.iter().filter(|i| i.ga_item_handle.to_le_bytes()[3] == 0xB0) {
+                if item_ids.contains(&item.ga_item_handle) {
+                    report.add_error(ValidationIssue::error(
+                        "Items",
+                        slot,
+                        "Duplicate item",
+                        &format!("Duplicate item handle {} in {}", item.ga_item_handle, location),
+                    ));
+                    valid = false;
+                } else {
+                    item_ids.insert(item.ga_item_handle);
+                }
+            }
+            valid
+        }
+
+        /// Validate armor with detailed issue reporting.
+        pub fn is_armor_valid_detailed(save: &Save, index: usize, report: &mut ValidationReport) -> bool {
+            let mut valid = true;
+
+            let pieces = [
+                ("Head", save.save_type.get_slot(index).chr_asm.head, ProtectorCategory::Head),
+                ("Chest", save.save_type.get_slot(index).chr_asm.chest, ProtectorCategory::Body),
+                ("Arms", save.save_type.get_slot(index).chr_asm.arms, ProtectorCategory::Arms),
+                ("Legs", save.save_type.get_slot(index).chr_asm.legs, ProtectorCategory::Legs),
+            ];
+
+            for (name, id, category) in pieces {
+                if !Self::validate_armor_piece_detailed(id, category, name, index, report) {
+                    valid = false;
+                }
+            }
+
+            valid
+        }
+
+        fn validate_armor_piece_detailed(id: u32, protector_category: ProtectorCategory, piece_name: &str, slot: usize, report: &mut ValidationReport) -> bool {
+            let res_armor_piece = Regulation::equip_protectors_param_map().get(&id);
+            if res_armor_piece.is_none() {
+                report.add_error(ValidationIssue::error(
+                    "Armor",
+                    slot,
+                    &format!("Invalid {} armor", piece_name),
+                    &format!("Armor ID {} not found in game params", id),
+                ));
+                return false;
+            }
+
+            let armor_piece = res_armor_piece.unwrap();
+            let armor_piece_pc = ProtectorCategory::try_from(armor_piece.data.protectorCategory);
+            if armor_piece_pc.is_err() || armor_piece_pc.unwrap() != protector_category {
+                report.add_error(ValidationIssue::error(
+                    "Armor",
+                    slot,
+                    &format!("Wrong {} category", piece_name),
+                    &format!("Armor ID {} has wrong protector category", id),
+                ));
+                return false;
+            }
+            true
+        }
+
+        /// Validate physics with detailed issue reporting.
+        pub fn is_physics_valid_detailed(save: &Save, index: usize, report: &mut ValidationReport) -> bool {
+            let physics_slot1 = save.save_type.get_slot(index).equip_physics_data.slot1;
+            let physics_slot2 = save.save_type.get_slot(index).equip_physics_data.slot2;
+            let mut valid = true;
+
+            if physics_slot1 != u32::MAX && physics_slot2 != u32::MAX && physics_slot1 == physics_slot2 {
+                report.add_error(ValidationIssue::error(
+                    "Physics Flask",
+                    index,
+                    "Duplicate tears",
+                    "Same tear equipped in both physick slots",
+                ));
+                valid = false;
+            }
+
+            if physics_slot1 != u32::MAX {
+                let res_physics1_good = Regulation::equip_goods_param_map().get(&(physics_slot1 ^ InventoryGaitemType::ITEM as u32));
+                if res_physics1_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) {
+                    report.add_error(ValidationIssue::error(
+                        "Physics Flask",
+                        index,
+                        "Invalid physick tear slot 1",
+                        "Item in physick slot 1 is not a Wondrous Physick tear",
+                    ));
+                    valid = false;
+                }
+            }
+
+            if physics_slot2 != u32::MAX {
+                let res_physics2_good = Regulation::equip_goods_param_map().get(&(physics_slot2 ^ InventoryGaitemType::ITEM as u32));
+                if res_physics2_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) {
+                    report.add_error(ValidationIssue::error(
+                        "Physics Flask",
+                        index,
+                        "Invalid physick tear slot 2",
+                        "Item in physick slot 2 is not a Wondrous Physick tear",
+                    ));
+                    valid = false;
+                }
+            }
+
+            valid
+        }
+
+        /// Validate equipped items with detailed issue reporting.
+        pub fn is_equipped_items_valid_detailed(save: &Save, index: usize, report: &mut ValidationReport) -> bool {
+            let quick_slot_items = &save.save_type.get_slot(index).equip_item_data.quick_slot_items;
+            let pouch_items = &save.save_type.get_slot(index).equip_item_data.pouch_items;
+            let mut valid = true;
+
+            // Check quickslot items
+            let mut item_ids = HashSet::new();
+            for item in quick_slot_items.iter() {
+                if item.item_id == 0 { continue; }
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() {
+                    report.add_error(ValidationIssue::error(
+                        "Quick Slots",
+                        index,
+                        "Invalid quick slot item",
+                        &format!("Item {} not found in game params", item.item_id),
+                    ));
+                    valid = false;
+                }
+                if item_ids.contains(&item.item_id) {
+                    report.add_error(ValidationIssue::error(
+                        "Quick Slots",
+                        index,
+                        "Duplicate quick slot item",
+                        &format!("Item {} appears multiple times in quick slots", item.item_id),
+                    ));
+                    valid = false;
+                } else {
+                    item_ids.insert(item.item_id);
+                }
+            }
+
+            // Check pouch items
+            let mut item_ids = HashSet::new();
+            for item in pouch_items.iter() {
+                if item.item_id == 0 { continue; }
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() {
+                    report.add_error(ValidationIssue::error(
+                        "Pouch",
+                        index,
+                        "Invalid pouch item",
+                        &format!("Item {} not found in game params", item.item_id),
+                    ));
+                    valid = false;
+                }
+                if item_ids.contains(&item.item_id) {
+                    report.add_error(ValidationIssue::error(
+                        "Pouch",
+                        index,
+                        "Duplicate pouch item",
+                        &format!("Item {} appears multiple times in pouch", item.item_id),
+                    ));
+                    valid = false;
+                } else {
+                    item_ids.insert(item.item_id);
+                }
+            }
+
+            valid
         }
         // endregion
     }

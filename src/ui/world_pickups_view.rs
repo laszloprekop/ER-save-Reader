@@ -10,6 +10,7 @@ pub mod world_pickups_view {
     use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
     use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
     use crate::ui::components::legend::icons;
+    use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction};
     use crate::ui::tokens::spacing;
     use serde::Serialize;
 
@@ -50,6 +51,8 @@ pub mod world_pickups_view {
         pub region_filter: String,
         pub search: String,
         pub selected_id: Option<u32>,
+        /// Track which pickup we last opened the detail panel for
+        pub last_detail_id: Option<u32>,
         pub table_state: TableState,
         pub filter_state: FilterBarState,
         pub export_format: ExportFormat,
@@ -64,6 +67,7 @@ pub mod world_pickups_view {
                 region_filter: "All".to_string(),
                 search: String::new(),
                 selected_id: None,
+                last_detail_id: None,
                 table_state: TableState::new().with_sort("lot_id", SortDirection::Ascending),
                 filter_state: FilterBarState::new(),
                 export_format: ExportFormat::Json,
@@ -138,6 +142,7 @@ pub mod world_pickups_view {
         state: &mut WorldPickupsViewState,
         event_flags: Option<&[u8]>,
         inventory: Option<&EquipInventoryData>,
+        detail_panel: &mut DetailPanelState,
     ) {
         // Calibrate tile base once per frame (if event flags available)
         let calibrated_tile_base = event_flags
@@ -282,6 +287,62 @@ pub mod world_pickups_view {
             }
         }
 
+        // Auto-open detail panel if selection was set programmatically (from navigation)
+        if let Some(id) = state.selected_id {
+            if state.last_detail_id != Some(id) {
+                // Find the pickup in the filtered list and open its detail panel
+                if let Some((_, pickup, _, _)) = pickups.iter().find(|(lot_id, _, _, _)| *lot_id == id) {
+                    let type_str = match pickup.item_type {
+                        PickupItemType::Weapon => "Weapon",
+                        PickupItemType::Armor => "Armor",
+                        PickupItemType::Accessory => "Accessory",
+                        PickupItemType::Good => "Good",
+                        PickupItemType::AshOfWar => "Ash of War",
+                        PickupItemType::Unknown => "Unknown",
+                    };
+
+                    let mut sections = Vec::new();
+
+                    // Add location info
+                    sections.push(
+                        RelationshipSection::new("Location").with_items(vec![
+                            RelationshipItem::new(
+                                pickup.region.to_string(),
+                                DetailPanelAction::None,
+                            ).with_secondary(format!("Tile ({}, {})", pickup.tile_x, pickup.tile_y)),
+                        ])
+                    );
+
+                    // Add item type info
+                    sections.push(
+                        RelationshipSection::new("Details").with_items(vec![
+                            RelationshipItem::new(
+                                format!("Type: {}", type_str),
+                                DetailPanelAction::None,
+                            ),
+                            RelationshipItem::new(
+                                format!("Quantity: {}", pickup.quantity),
+                                DetailPanelAction::None,
+                            ),
+                            RelationshipItem::new(
+                                format!("Flag ID: {}", pickup.flag_id),
+                                DetailPanelAction::None,
+                            ),
+                        ])
+                    );
+
+                    detail_panel.select_with_relationships(
+                        SelectedEntity::Pickup {
+                            flag_id: pickup.flag_id,
+                            item_name: pickup.item_name.to_string(),
+                        },
+                        sections,
+                    );
+                    state.last_detail_id = Some(id);
+                }
+            }
+        }
+
         // Summary
         let total_count = WORLD_PICKUPS.len();
         let filtered_count = pickups.len();
@@ -371,20 +432,21 @@ pub mod world_pickups_view {
 
         // Build columns dynamically based on available data
         let mut columns = vec![];
+        // Build columns with auto-width (icon columns keep small width)
         if event_flags.is_some() {
-            columns.push(Column::new("status", "Flag").width(40.0).sortable(true).center().icon());
+            columns.push(Column::new("status", "Flag").sortable(true).center().icon());
         }
         if inventory.is_some() {
-            columns.push(Column::new("inv", "Inv").width(40.0).center().icon());
+            columns.push(Column::new("inv", "Inv").center().icon());
         }
         columns.extend(vec![
-            Column::new("lot_id", "Lot ID").width(80.0).sortable(true).monospace(true),
-            Column::new("flag_id", "Flag ID").width(80.0).sortable(true).monospace(true),
-            Column::new("item", "Item").width_fraction(0.25).sortable(true),
-            Column::new("type", "Type").width(80.0).sortable(true),
-            Column::new("qty", "Qty").width(40.0).sortable(true).right(),
-            Column::new("region", "Region").width_fraction(0.15).sortable(true),
-            Column::new("tile", "Tile").width(80.0).monospace(true),
+            Column::new("lot_id", "Lot ID").sortable(true).monospace(true),
+            Column::new("flag_id", "Flag ID").sortable(true).monospace(true),
+            Column::new("item", "Item").sortable(true),
+            Column::new("type", "Type").sortable(true),
+            Column::new("qty", "Qty").sortable(true).right(),
+            Column::new("region", "Region").sortable(true),
+            Column::new("tile", "Tile").monospace(true),
         ]);
 
         // Show table
@@ -400,7 +462,60 @@ pub mod world_pickups_view {
             ui.output_mut(|o| o.copied_text = text);
         }
 
-        // Handle double-click
+        // Handle single click - open detail panel
+        if let Some(row_idx) = table_response.clicked_row {
+            if let Some((id, pickup, _, _)) = pickups.get(row_idx) {
+                let type_str = match pickup.item_type {
+                    PickupItemType::Weapon => "Weapon",
+                    PickupItemType::Armor => "Armor",
+                    PickupItemType::Accessory => "Accessory",
+                    PickupItemType::Good => "Good",
+                    PickupItemType::AshOfWar => "Ash of War",
+                    PickupItemType::Unknown => "Unknown",
+                };
+
+                let mut sections = Vec::new();
+
+                // Add location info
+                sections.push(
+                    RelationshipSection::new("Location").with_items(vec![
+                        RelationshipItem::new(
+                            pickup.region.to_string(),
+                            DetailPanelAction::None,
+                        ).with_secondary(format!("Tile ({}, {})", pickup.tile_x, pickup.tile_y)),
+                    ])
+                );
+
+                // Add item type info
+                sections.push(
+                    RelationshipSection::new("Details").with_items(vec![
+                        RelationshipItem::new(
+                            format!("Type: {}", type_str),
+                            DetailPanelAction::None,
+                        ),
+                        RelationshipItem::new(
+                            format!("Quantity: {}", pickup.quantity),
+                            DetailPanelAction::None,
+                        ),
+                        RelationshipItem::new(
+                            format!("Flag ID: {}", pickup.flag_id),
+                            DetailPanelAction::None,
+                        ),
+                    ])
+                );
+
+                detail_panel.select_with_relationships(
+                    SelectedEntity::Pickup {
+                        flag_id: pickup.flag_id,
+                        item_name: pickup.item_name.to_string(),
+                    },
+                    sections,
+                );
+                state.last_detail_id = Some(*id);
+            }
+        }
+
+        // Handle double-click - copy row data
         if let Some(row_idx) = table_response.double_clicked_row {
             if let Some((id, pickup, _, _)) = pickups.get(row_idx) {
                 let row_text = format!(

@@ -2,6 +2,7 @@ pub mod menu {
     use eframe::egui::{self, Ui};
     use crate::App;
 
+    #[derive(Debug, Clone, Copy, PartialEq)]
     pub enum Route {
         // Landing page (home view)
         Landing,
@@ -16,6 +17,8 @@ pub mod menu {
         CharacterInventory,
         CharacterEventFlags,
         CharacterRegions,
+        CharacterComparison,
+        CharacterValidation,
 
         // Database selection (no specific database selected yet)
         DatabaseSelect,
@@ -27,6 +30,13 @@ pub mod menu {
         DatabaseWorldPickups,
         DatabaseDungeonPickups,
         DatabaseEventFlags,
+
+        // Database Explorer views (new comprehensive database views)
+        DatabaseItems,       // Unified items from all EquipParam files
+        DatabaseGraces,      // Sites of grace from BonfireWarpParam
+        DatabaseMerchants,   // Merchant inventories from ShopLineupParam
+        DatabaseBosses,      // Boss encounters with defeat flags
+        DatabaseEventChains, // Quest progression visualization
     }
 
     impl Route {
@@ -39,6 +49,11 @@ pub mod menu {
                     | Route::DatabaseWorldPickups
                     | Route::DatabaseDungeonPickups
                     | Route::DatabaseEventFlags
+                    | Route::DatabaseItems
+                    | Route::DatabaseGraces
+                    | Route::DatabaseMerchants
+                    | Route::DatabaseBosses
+                    | Route::DatabaseEventChains
             )
         }
 
@@ -51,6 +66,8 @@ pub mod menu {
                     | Route::CharacterInventory
                     | Route::CharacterEventFlags
                     | Route::CharacterRegions
+                    | Route::CharacterComparison
+                    | Route::CharacterValidation
             )
         }
 
@@ -64,6 +81,8 @@ pub mod menu {
                 Route::CharacterInventory => "Inventory",
                 Route::CharacterEventFlags => "Event Flags",
                 Route::CharacterRegions => "Regions",
+                Route::CharacterComparison => "Comparison",
+                Route::CharacterValidation => "Validation",
                 Route::DatabaseSelect => "",
                 Route::DatabaseSpells => "Spells",
                 Route::DatabaseNpcs => "NPCs",
@@ -71,6 +90,11 @@ pub mod menu {
                 Route::DatabaseWorldPickups => "World Pickups",
                 Route::DatabaseDungeonPickups => "Dungeon Pickups",
                 Route::DatabaseEventFlags => "Event Flags DB",
+                Route::DatabaseItems => "Items",
+                Route::DatabaseGraces => "Graces",
+                Route::DatabaseMerchants => "Merchants",
+                Route::DatabaseBosses => "Bosses",
+                Route::DatabaseEventChains => "Quest Progress",
             }
         }
     }
@@ -268,7 +292,8 @@ pub mod menu {
 
             // Path A Level 3: Character view → show area buttons
             Route::CharacterGeneral | Route::CharacterStats | Route::CharacterEquipment |
-            Route::CharacterInventory | Route::CharacterRegions => {
+            Route::CharacterInventory | Route::CharacterRegions | Route::CharacterComparison |
+            Route::CharacterValidation => {
                 area_navigation(ui, app);
             },
 
@@ -284,7 +309,9 @@ pub mod menu {
 
             // Path B Level 3: Specific database → no submenu (or sub-items if any)
             Route::DatabaseSpells | Route::DatabaseNpcs | Route::DatabaseShopItems |
-            Route::DatabaseWorldPickups | Route::DatabaseDungeonPickups | Route::DatabaseEventFlags => {
+            Route::DatabaseWorldPickups | Route::DatabaseDungeonPickups | Route::DatabaseEventFlags |
+            Route::DatabaseItems | Route::DatabaseGraces | Route::DatabaseMerchants | Route::DatabaseBosses |
+            Route::DatabaseEventChains => {
                 // No submenu for specific database views currently
             },
         }
@@ -313,6 +340,8 @@ pub mod menu {
             ("Inventory", Route::CharacterInventory),
             ("Event Flags", Route::CharacterEventFlags),
             ("Regions", Route::CharacterRegions),
+            ("Comparison", Route::CharacterComparison),
+            ("Validation", Route::CharacterValidation),
         ];
 
         for (label, route) in area_buttons {
@@ -353,6 +382,26 @@ pub mod menu {
 
     /// Path B Level 2: Database list buttons
     fn database_select_navigation(ui: &mut Ui, app: &mut App) {
+        // Database Explorer section
+        ui.label(egui::RichText::new("Explorer").small().color(egui::Color32::GRAY));
+        let explorer_buttons = [
+            ("Items", Route::DatabaseItems),
+            ("Graces", Route::DatabaseGraces),
+            ("Merchants", Route::DatabaseMerchants),
+            ("Bosses", Route::DatabaseBosses),
+            ("Quest Progress", Route::DatabaseEventChains),
+        ];
+
+        for (label, route) in explorer_buttons {
+            if ui.selectable_label(false, label).clicked() {
+                app.current_route = route;
+            }
+        }
+
+        ui.separator();
+
+        // Legacy database views
+        ui.label(egui::RichText::new("Reference").small().color(egui::Color32::GRAY));
         let database_buttons = [
             ("World Pickups", Route::DatabaseWorldPickups),
             ("Dungeon Pickups", Route::DatabaseDungeonPickups),

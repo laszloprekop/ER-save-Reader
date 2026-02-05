@@ -4,6 +4,50 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.12.0 - Database Browser & Game Icons
+
+### Game Icon System
+- New icon loading module (`src/ui/icons/`) for displaying game item icons
+- Icons loaded from extracted game files (160x160 PNG, displayed at 64x64)
+- Equipment slots on Character General now show icons with names below
+- Lazy-loaded texture caching with egui TextureHandle
+- Graceful fallback to dark placeholder when icons unavailable
+
+### Database Browser Enhancements
+- Single-click now opens detail panel (was double-click)
+- Table columns auto-width based on content
+- Navigation breadcrumbs show entity names (e.g., "Graces > Table of Lost Grace")
+- Quest chains view is now character-agnostic (pure reference data, no completion tracking)
+
+### New Database Modules
+- `src/db/bosses_data.rs`: Boss definitions with defeat flags
+- `src/db/graces_data.rs`: Site of Grace database
+- `src/db/merchants_data.rs`: Merchant locations and inventory
+- `src/db/quest_chains.rs`: Quest progression steps with flag IDs
+- `src/db/entity_relationships.rs`: Cross-entity relationship mapping
+- `src/db/unified_items.rs`: Consolidated item database
+
+### UI Components
+- Detail panel system (`src/ui/components/detail_panel/`)
+- Navigation breadcrumb component (`src/ui/components/navigation/`)
+- Database views (`src/ui/database/`) for browsing game data
+- Comparison view scaffolding (`src/ui/comparison/`)
+- Validation view scaffolding (`src/ui/validation/`)
+
+### Equipment ViewModel
+- Added `icon_id: u16` field to `EquipmentItemViewModel`
+- Icon IDs extracted from param data (EquipWeaponParam, EquipProtectorParam, etc.)
+
+### Files Modified
+- `src/ui/general.rs`: Equipment display with game icons
+- `src/ui/icons/mod.rs`: New icon loading and caching system
+- `src/vm/equipment.rs`: Added icon_id to equipment view model
+- `src/ui/database/event_chains_view.rs`: Character-agnostic quest reference
+- `src/main.rs`: Updated routing and view calls
+- Multiple database and UI component files
+
+---
+
 ## v0.11.1 - Warning Cleanup
 
 ### Compiler Warnings Fixed

@@ -16,7 +16,7 @@ use std::{env, fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, Align, Layout, RichText, Rounding}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::Save;
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, landing::landing::landing_page, state::RecentFilesManager};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, components::detail_panel::{DetailPanelState, DetailPanelAction, detail_panel}, components::navigation::{NavigationStack, NavigationEntry, EntityReference, navigation_breadcrumb, NavAction}, landing::landing::landing_page, state::RecentFilesManager, database::{items_view, graces_view, merchants_view, bosses_view, event_chains_view, ItemsViewState, GracesViewState, MerchantsViewState, BossesViewState, EventChainsViewState}, comparison::{ComparisonState, comparison_view}, validation::{ValidationState, validation_view}};
 use vm::verification_vm::VerificationViewModel;
 use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
@@ -130,6 +130,20 @@ pub struct App {
     shop_items_view_state: ShopItemsViewState,
     world_pickups_view_state: WorldPickupsViewState,
     event_flags_db_view_state: EventFlagsDbViewState,
+    // Database Explorer view states
+    items_view_state: ItemsViewState,
+    graces_view_state: GracesViewState,
+    merchants_view_state: MerchantsViewState,
+    bosses_view_state: BossesViewState,
+    event_chains_view_state: EventChainsViewState,
+    // Detail panel for database views
+    detail_panel_state: DetailPanelState,
+    // Comparison view state
+    comparison_state: ComparisonState,
+    // Validation view state
+    validation_state: ValidationState,
+    // Navigation stack for database views
+    database_nav: NavigationStack,
     // Track which slots have had verification records loaded
     verification_loaded_slots: [bool; 10],
     // Remember the last directory used for file dialogs
@@ -157,6 +171,20 @@ impl App {
             shop_items_view_state: ShopItemsViewState::default(),
             world_pickups_view_state: WorldPickupsViewState::default(),
             event_flags_db_view_state: EventFlagsDbViewState::default(),
+            // Database Explorer view states
+            items_view_state: ItemsViewState::default(),
+            graces_view_state: GracesViewState::default(),
+            merchants_view_state: MerchantsViewState::default(),
+            bosses_view_state: BossesViewState::default(),
+            event_chains_view_state: EventChainsViewState::default(),
+            // Detail panel for database views
+            detail_panel_state: DetailPanelState::new(),
+            // Comparison view state
+            comparison_state: ComparisonState::new(),
+            // Validation view state
+            validation_state: ValidationState::new(),
+            // Navigation stack for database views
+            database_nav: NavigationStack::new(),
             // Track which slots have had verification records loaded
             verification_loaded_slots: [false; 10],
             // Initialize last directory to None (will use system default)
@@ -343,6 +371,26 @@ impl App {
             None => {},
         }
     }
+
+    /// Handle navigation actions from breadcrumb
+    fn handle_nav_action(&mut self, action: NavAction) {
+        match action {
+            NavAction::Back => {
+                if let Some(entry) = self.database_nav.back() {
+                    self.current_route = entry.route;
+                }
+            }
+            NavAction::Forward => {
+                if let Some(entry) = self.database_nav.forward() {
+                    self.current_route = entry.route;
+                }
+            }
+            NavAction::GoTo(route) => {
+                self.current_route = route;
+            }
+            NavAction::None => {}
+        }
+    }
 }
 
 
@@ -430,7 +478,7 @@ impl eframe::App for App {
                 Route::CharacterSelect |
                 Route::CharacterGeneral | Route::CharacterStats | Route::CharacterEquipment |
                 Route::CharacterInventory | Route::CharacterEventFlags | Route::CharacterRegions |
-                Route::DatabaseSelect
+                Route::CharacterComparison | Route::CharacterValidation | Route::DatabaseSelect
             );
             if show_nav {
                 egui::TopBottomPanel::top("navigation").show(ctx, |ui| {
@@ -446,6 +494,58 @@ impl eframe::App for App {
                 .show(ctx, |ui| {
                     show_status_bar(ui);
                 });
+        }
+
+        // Detail Panel (right side, for database views)
+        // Render before CentralPanel as required by egui
+        let detail_action = detail_panel(ctx, &mut self.detail_panel_state);
+
+        // Handle detail panel navigation actions
+        match detail_action {
+            DetailPanelAction::NavigateToGrace { event_flag, name } => {
+                self.database_nav.push(
+                    NavigationEntry::new(Route::DatabaseGraces, name)
+                        .with_entity(EntityReference::Grace { event_flag })
+                );
+                self.current_route = Route::DatabaseGraces;
+                // Update graces_view selection
+                self.graces_view_state.selected_flag = Some(event_flag);
+            }
+            DetailPanelAction::NavigateToBoss { defeat_flag, name } => {
+                self.database_nav.push(
+                    NavigationEntry::new(Route::DatabaseBosses, name)
+                        .with_entity(EntityReference::Boss { defeat_flag })
+                );
+                self.current_route = Route::DatabaseBosses;
+                // Update bosses_view selection
+                self.bosses_view_state.selected_flag = Some(defeat_flag);
+            }
+            DetailPanelAction::NavigateToItem { category, id, name } => {
+                use crate::db::unified_items::UnifiedItemCategory;
+                self.database_nav.push(
+                    NavigationEntry::new(Route::DatabaseItems, name)
+                        .with_entity(EntityReference::Item { category: category.clone(), id })
+                );
+                self.current_route = Route::DatabaseItems;
+                // Update items_view selection
+                let cat = match category.as_str() {
+                    "Weapon" => UnifiedItemCategory::Weapon,
+                    "Armor" => UnifiedItemCategory::Armor,
+                    "Accessory" => UnifiedItemCategory::Accessory,
+                    _ => UnifiedItemCategory::Good,
+                };
+                self.items_view_state.selected_key = Some((cat, id));
+            }
+            DetailPanelAction::NavigateToPickup { flag_id, name } => {
+                self.database_nav.push(
+                    NavigationEntry::new(Route::DatabaseWorldPickups, name)
+                        .with_entity(EntityReference::Pickup { flag_id })
+                );
+                self.current_route = Route::DatabaseWorldPickups;
+                // Update world_pickups_view selection
+                self.world_pickups_view_state.selected_id = Some(flag_id);
+            }
+            DetailPanelAction::None => {}
         }
 
         // Main Content
@@ -476,6 +576,27 @@ impl eframe::App for App {
                     events(ui, &mut self.vm, event_flags, inventory, storage, &save_path);
                 },
                 Route::CharacterRegions => regions(ui, &mut self.vm),
+                Route::CharacterComparison => {
+                    // Get event flags for both comparison slots
+                    let event_flags_a = self.comparison_state.slot_a.and_then(|idx| self.save.save_type.get_event_flags(idx));
+                    let event_flags_b = self.comparison_state.slot_b.and_then(|idx| self.save.save_type.get_event_flags(idx));
+
+                    comparison_view(
+                        ui,
+                        &mut self.comparison_state,
+                        &self.vm.slots,
+                        event_flags_a,
+                        event_flags_b,
+                    );
+                },
+                Route::CharacterValidation => {
+                    validation_view(
+                        ui,
+                        &mut self.validation_state,
+                        &self.save,
+                        &self.vm.slots,
+                    );
+                },
                 Route::DatabaseSelect => {
                     // Show a message prompting to select a database
                     ui.centered_and_justified(|ui| {
@@ -488,7 +609,7 @@ impl eframe::App for App {
                 Route::DatabaseWorldPickups => {
                     let event_flags = self.save.save_type.get_event_flags(self.vm.index);
                     let inventory = self.save.save_type.get_inventory(self.vm.index);
-                    world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags, inventory);
+                    world_pickups_view(ui, &mut self.world_pickups_view_state, event_flags, inventory, &mut self.detail_panel_state);
                 },
                 Route::DatabaseDungeonPickups => {
                     // TODO: Implement dungeon pickups view (similar to world pickups)
@@ -497,6 +618,45 @@ impl eframe::App for App {
                     });
                 },
                 Route::DatabaseEventFlags => event_flags_db_view(ui, &mut self.event_flags_db_view_state),
+                // Database Explorer views - show breadcrumb navigation
+                Route::DatabaseItems => {
+                    // Show navigation breadcrumb if we have history
+                    if !self.database_nav.is_empty() {
+                        let nav_action = navigation_breadcrumb(ui, &self.database_nav);
+                        self.handle_nav_action(nav_action);
+                        ui.separator();
+                    }
+                    items_view(ui, &mut self.items_view_state, &mut self.detail_panel_state);
+                },
+                Route::DatabaseGraces => {
+                    if !self.database_nav.is_empty() {
+                        let nav_action = navigation_breadcrumb(ui, &self.database_nav);
+                        self.handle_nav_action(nav_action);
+                        ui.separator();
+                    }
+                    let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                    graces_view(ui, &mut self.graces_view_state, event_flags, &mut self.detail_panel_state);
+                },
+                Route::DatabaseMerchants => {
+                    if !self.database_nav.is_empty() {
+                        let nav_action = navigation_breadcrumb(ui, &self.database_nav);
+                        self.handle_nav_action(nav_action);
+                        ui.separator();
+                    }
+                    merchants_view(ui, &mut self.merchants_view_state, &mut self.detail_panel_state);
+                },
+                Route::DatabaseBosses => {
+                    if !self.database_nav.is_empty() {
+                        let nav_action = navigation_breadcrumb(ui, &self.database_nav);
+                        self.handle_nav_action(nav_action);
+                        ui.separator();
+                    }
+                    let event_flags = self.save.save_type.get_event_flags(self.vm.index);
+                    bosses_view(ui, &mut self.bosses_view_state, event_flags, &mut self.detail_panel_state);
+                },
+                Route::DatabaseEventChains => {
+                    event_chains_view(ui, &mut self.event_chains_view_state, &mut self.detail_panel_state);
+                },
             }
         });
     }

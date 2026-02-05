@@ -96,3 +96,61 @@ pub mod icons {
     /// Low confidence
     pub const LOW_CONFIDENCE: &str = egui_phosphor::regular::DOTS_THREE;
 }
+
+/// Phosphor icons for entity types
+pub mod entity_icons {
+    /// Item icon (equipment, consumables, etc.)
+    pub const ITEM: &str = egui_phosphor::regular::CUBE;
+    /// Weapon icon
+    pub const WEAPON: &str = egui_phosphor::regular::SWORD;
+    /// Armor icon
+    pub const ARMOR: &str = egui_phosphor::regular::SHIELD;
+    /// Talisman/accessory icon
+    pub const TALISMAN: &str = egui_phosphor::regular::STAR;
+    /// Spirit ash icon
+    pub const SPIRIT_ASH: &str = egui_phosphor::regular::GHOST;
+    /// Grace icon (site of grace)
+    pub const GRACE: &str = egui_phosphor::regular::CAMPFIRE;
+    /// Boss icon
+    pub const BOSS: &str = egui_phosphor::regular::SKULL;
+    /// Merchant icon
+    pub const MERCHANT: &str = egui_phosphor::regular::STOREFRONT;
+    /// World pickup icon
+    pub const PICKUP: &str = egui_phosphor::regular::MAP_PIN;
+    /// NPC icon
+    pub const NPC: &str = egui_phosphor::regular::USER;
+    /// Quest icon
+    pub const QUEST: &str = egui_phosphor::regular::SCROLL;
+    /// Region icon
+    pub const REGION: &str = egui_phosphor::regular::MAP_TRIFOLD;
+    /// Key item icon
+    pub const KEY_ITEM: &str = egui_phosphor::regular::KEY;
+    /// Incantation/spell icon
+    pub const SPELL: &str = egui_phosphor::regular::SPARKLE;
+    /// Ash of War icon
+    pub const ASH_OF_WAR: &str = egui_phosphor::regular::FIRE;
+}
+
+/// Navigation icons
+pub mod nav_icons {
+    /// External link
+    pub const EXTERNAL_LINK: &str = egui_phosphor::regular::ARROW_SQUARE_OUT;
+    /// Expand/collapse
+    pub const EXPAND: &str = egui_phosphor::regular::CARET_DOWN;
+    /// Collapsed
+    pub const COLLAPSE: &str = egui_phosphor::regular::CARET_RIGHT;
+    /// Search
+    pub const SEARCH: &str = egui_phosphor::regular::MAGNIFYING_GLASS;
+    /// Filter
+    pub const FILTER: &str = egui_phosphor::regular::FUNNEL;
+    /// Export
+    pub const EXPORT: &str = egui_phosphor::regular::EXPORT;
+    /// Copy
+    pub const COPY: &str = egui_phosphor::regular::COPY;
+    /// Close
+    pub const CLOSE: &str = egui_phosphor::regular::X;
+    /// Home
+    pub const HOME: &str = egui_phosphor::regular::HOUSE;
+    /// Navigate/Go
+    pub const NAVIGATE: &str = egui_phosphor::regular::CARET_RIGHT;
+}

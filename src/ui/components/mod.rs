@@ -7,3 +7,5 @@ pub mod filter;
 pub mod export;
 pub mod legend;
 pub mod status_bar;
+pub mod navigation;
+pub mod detail_panel;

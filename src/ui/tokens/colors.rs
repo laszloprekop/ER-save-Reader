@@ -103,6 +103,12 @@ pub const TEXT_LABEL: Color32 = Color32::LIGHT_GRAY;
 /// Highlight/accent color
 pub const ACCENT: Color32 = CAT_BLUE;
 
+/// Primary accent color (for links, highlights)
+pub const ACCENT_PRIMARY: Color32 = CAT_SAPPHIRE;
+
+/// Warning highlight color
+pub const WARNING: Color32 = CAT_YELLOW;
+
 /// Focus indicator color
 pub const FOCUS: Color32 = CAT_LAVENDER;
 
