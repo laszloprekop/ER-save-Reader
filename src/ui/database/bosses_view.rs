@@ -194,7 +194,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                         RelationshipSection::new("External Links").with_items(vec![
                             RelationshipItem::new(
                                 format!("View on MapGenie ({})", mapgenie_id),
-                                DetailPanelAction::None,
+                                DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
                             ).with_secondary(mapgenie_url)
                         ])
                     );
@@ -297,7 +297,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                     RelationshipSection::new("External Links").with_items(vec![
                         RelationshipItem::new(
                             format!("View on MapGenie ({})", mapgenie_id),
-                            DetailPanelAction::None,
+                            DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
                         ).with_secondary(mapgenie_url)
                     ])
                 );

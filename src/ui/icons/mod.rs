@@ -2,11 +2,11 @@
 //!
 //! Loads item icons from extracted game files and caches them as egui textures.
 
+use eframe::egui::{self, ColorImage, TextureHandle, TextureOptions};
+use once_cell::sync::Lazy;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::Mutex;
-use eframe::egui::{self, TextureHandle, TextureOptions, ColorImage};
-use once_cell::sync::Lazy;
 
 /// Default path to extracted game icons (can be overridden)
 const DEFAULT_ICONS_PATH: &str = "/Users/laszloprekop/dev/Elden Ring stuff ARCHIVE/Elden-map references/reference-images/Elden Ring v1.14 Item Images and Maps/hi_01_common-tpf-dcx_split";
@@ -17,9 +17,7 @@ pub const ICON_DISPLAY_SIZE: f32 = 64.0;
 pub const ICON_SMALL_SIZE: f32 = 32.0;
 
 /// Global icon cache
-static ICON_CACHE: Lazy<Mutex<IconCache>> = Lazy::new(|| {
-    Mutex::new(IconCache::new())
-});
+static ICON_CACHE: Lazy<Mutex<IconCache>> = Lazy::new(|| Mutex::new(IconCache::new()));
 
 /// Cache for loaded icon textures
 pub struct IconCache {
@@ -109,7 +107,10 @@ pub fn get_icon(ctx: &egui::Context, icon_id: u16) -> Option<TextureHandle> {
 
 /// Check if icons are available on the system
 pub fn icons_available() -> bool {
-    ICON_CACHE.lock().map(|c| c.icons_available()).unwrap_or(false)
+    ICON_CACHE
+        .lock()
+        .map(|c| c.icons_available())
+        .unwrap_or(false)
 }
 
 /// Set the icons directory path
@@ -127,23 +128,17 @@ pub fn icon_image(ui: &mut egui::Ui, icon_id: u16, size: f32) -> egui::Response 
         ui.add(egui::Image::new(&texture).fit_to_exact_size(egui::vec2(size, size)))
     } else {
         // Fallback: show a dark placeholder square
-        let (rect, response) = ui.allocate_exact_size(
-            egui::vec2(size, size),
-            egui::Sense::hover()
-        );
+        let (rect, response) = ui.allocate_exact_size(egui::vec2(size, size), egui::Sense::hover());
 
         if ui.is_rect_visible(rect) {
-            ui.painter().rect_filled(
-                rect,
-                4.0,
-                egui::Color32::from_rgb(40, 40, 45)
-            );
+            ui.painter()
+                .rect_filled(rect, 4.0, egui::Color32::from_rgb(40, 40, 45));
             // Draw a subtle border
-            ui.painter().rect_stroke(
+            /*             ui.painter().rect_stroke(
                 rect,
                 4.0,
-                egui::Stroke::new(1.0, egui::Color32::from_rgb(60, 60, 65))
-            );
+                egui::Stroke::new(1.0, egui::Color32::from_rgb(60, 60, 65)),
+            ); */
         }
 
         response
@@ -152,9 +147,12 @@ pub fn icon_image(ui: &mut egui::Ui, icon_id: u16, size: f32) -> egui::Response 
 
 /// Display an icon with name below (compact equipment slot style)
 pub fn icon_with_name(ui: &mut egui::Ui, icon_id: u16, name: &str, size: f32) -> egui::Response {
+    const NAME_MAX_WIDTH: f32 = 100.0;
     let response = ui.vertical(|ui| {
-        ui.set_width(size + 16.0);
-        ui.set_height(size + 32.0); // Fixed height for icon + 2 lines of text
+        // Use the larger of icon size or name width for container
+        let container_width = NAME_MAX_WIDTH.max(size);
+        ui.set_width(container_width);
+        ui.set_height(size + 20.0); // Icon + space for wrapped text
 
         // Center the icon
         ui.with_layout(egui::Layout::top_down(egui::Align::Center), |ui| {
@@ -174,15 +172,11 @@ pub fn icon_with_name(ui: &mut egui::Ui, icon_id: u16, name: &str, size: f32) ->
             };
 
             // Use a fixed-width label that wraps to two lines
-            ui.allocate_ui(egui::vec2(size + 12.0, 26.0), |ui| {
+            ui.allocate_ui(egui::vec2(NAME_MAX_WIDTH, 32.0), |ui| {
                 ui.with_layout(egui::Layout::top_down(egui::Align::Center), |ui| {
                     ui.add(
-                        egui::Label::new(
-                            egui::RichText::new(display_name)
-                                .size(9.0)
-                                .color(color)
-                        )
-                        .wrap()
+                        egui::Label::new(egui::RichText::new(display_name).size(9.0).color(color))
+                            .wrap(),
                     );
                 });
             });

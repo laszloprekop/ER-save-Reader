@@ -174,7 +174,7 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
                         .map(|r| {
                             let mut rel_item = RelationshipItem::new(
                                 r.label.to_string(),
-                                DetailPanelAction::None,
+                                DetailPanelAction::NavigateToMerchant { shop_id: r.target_id, name: r.label.to_string() },
                             );
                             if let Some(secondary) = &r.secondary {
                                 rel_item = rel_item.with_secondary(secondary.clone());
@@ -310,7 +310,7 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
                     .map(|r| {
                         let mut rel_item = RelationshipItem::new(
                             r.label.to_string(),
-                            DetailPanelAction::None, // TODO: Navigate to merchant
+                            DetailPanelAction::NavigateToMerchant { shop_id: r.target_id, name: r.label.to_string() },
                         );
                         if let Some(secondary) = &r.secondary {
                             rel_item = rel_item.with_secondary(secondary.clone());

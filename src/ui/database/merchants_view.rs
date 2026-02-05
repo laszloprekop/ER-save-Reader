@@ -7,7 +7,7 @@ use crate::db::merchants_data::{MERCHANT_ITEMS, MERCHANT_NAMES};
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
-use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity};
+use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, DetailPanelAction, RelationshipSection, RelationshipItem};
 use crate::ui::tokens::spacing;
 use serde::Serialize;
 
@@ -119,11 +119,26 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
         if state.last_detail_shop_id != Some(shop_id) {
             // Find the item in the filtered list and open its detail panel
             if let Some((_, item)) = items.iter().find(|(id, _)| *id == shop_id) {
-                detail_panel.select(SelectedEntity::Merchant {
-                    shop_id,
-                    merchant_name: item.merchant_name.to_string(),
-                    item_name: item.item_name.to_string(),
-                });
+                let sections = vec![
+                    RelationshipSection::new("Item Sold").with_items(vec![
+                        RelationshipItem::new(
+                            item.item_name.to_string(),
+                            DetailPanelAction::NavigateToItem {
+                                category: item.equip_type.as_str().to_string(),
+                                id: item.item_id,
+                                name: item.item_name.to_string(),
+                            },
+                        ).with_secondary(format!("{} runes", item.price))
+                    ])
+                ];
+                detail_panel.select_with_relationships(
+                    SelectedEntity::Merchant {
+                        shop_id,
+                        merchant_name: item.merchant_name.to_string(),
+                        item_name: item.item_name.to_string(),
+                    },
+                    sections,
+                );
                 state.last_detail_shop_id = Some(shop_id);
             }
         }
@@ -189,11 +204,26 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
     // Handle single click - open detail panel
     if let Some(row_idx) = table_response.clicked_row {
         if let Some((shop_id, item)) = items.get(row_idx) {
-            detail_panel.select(SelectedEntity::Merchant {
-                shop_id: *shop_id,
-                merchant_name: item.merchant_name.to_string(),
-                item_name: item.item_name.to_string(),
-            });
+            let sections = vec![
+                RelationshipSection::new("Item Sold").with_items(vec![
+                    RelationshipItem::new(
+                        item.item_name.to_string(),
+                        DetailPanelAction::NavigateToItem {
+                            category: item.equip_type.as_str().to_string(),
+                            id: item.item_id,
+                            name: item.item_name.to_string(),
+                        },
+                    ).with_secondary(format!("{} runes", item.price))
+                ])
+            ];
+            detail_panel.select_with_relationships(
+                SelectedEntity::Merchant {
+                    shop_id: *shop_id,
+                    merchant_name: item.merchant_name.to_string(),
+                    item_name: item.item_name.to_string(),
+                },
+                sections,
+            );
             state.last_detail_shop_id = Some(*shop_id);
         }
     }

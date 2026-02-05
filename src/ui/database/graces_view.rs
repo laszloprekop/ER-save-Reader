@@ -132,7 +132,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
                         RelationshipSection::new("External Links").with_items(vec![
                             RelationshipItem::new(
                                 format!("View on MapGenie ({})", mapgenie_id),
-                                DetailPanelAction::None,
+                                DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
                             ).with_secondary(mapgenie_url)
                         ])
                     );
@@ -231,7 +231,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
                     RelationshipSection::new("External Links").with_items(vec![
                         RelationshipItem::new(
                             format!("View on MapGenie ({})", mapgenie_id),
-                            DetailPanelAction::None, // External link - would need browser open
+                            DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
                         ).with_secondary(mapgenie_url)
                     ])
                 );

@@ -4,6 +4,33 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.12.1 - Detail Panel Navigation & UI Polish
+
+### Detail Panel Navigation
+- External links (MapGenie) now open in default browser via `open` crate
+- Merchant relationship links navigate to merchant detail view
+- Item detail panel shows merchant cross-navigation with price info
+- Added `NavigateToMerchant` and `OpenExternalUrl` detail panel actions
+
+### UI Polish
+- Replaced emoji lock icon with Phosphor `LOCK` icon on locked talisman slots
+- Improved icon label layout: wider name area (100px), better text wrapping
+- Removed monospace from stat values on Character General page
+- Code formatting cleanup across general.rs and icons/mod.rs
+
+### Files Modified
+- src/ui/general.rs: formatting, lock icon, style tweaks
+- src/ui/icons/mod.rs: icon label sizing, formatting
+- src/ui/components/detail_panel/panel.rs: new action variants
+- src/main.rs: handlers for NavigateToMerchant and OpenExternalUrl
+- src/ui/database/bosses_view.rs: OpenExternalUrl for MapGenie links
+- src/ui/database/graces_view.rs: OpenExternalUrl for MapGenie links
+- src/ui/database/items_view.rs: NavigateToMerchant for merchant links
+- src/ui/database/merchants_view.rs: item relationship navigation
+- Cargo.toml: added `open` dependency
+
+---
+
 ## v0.12.0 - Database Browser & Game Icons
 
 ### Game Icon System

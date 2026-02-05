@@ -545,6 +545,19 @@ impl eframe::App for App {
                 // Update world_pickups_view selection
                 self.world_pickups_view_state.selected_id = Some(flag_id);
             }
+            DetailPanelAction::NavigateToMerchant { shop_id, name } => {
+                self.database_nav.push(
+                    NavigationEntry::new(Route::DatabaseMerchants, name)
+                        .with_entity(EntityReference::Merchant { shop_id })
+                );
+                self.current_route = Route::DatabaseMerchants;
+                // Update merchants_view selection
+                self.merchants_view_state.selected_shop_id = Some(shop_id);
+            }
+            DetailPanelAction::OpenExternalUrl { url } => {
+                // Open URL in default browser
+                let _ = open::that(&url);
+            }
             DetailPanelAction::None => {}
         }
 

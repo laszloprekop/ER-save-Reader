@@ -157,6 +157,10 @@ pub enum DetailPanelAction {
     NavigateToItem { category: String, id: u32, name: String },
     /// Navigate to a pickup.
     NavigateToPickup { flag_id: u32, name: String },
+    /// Navigate to a merchant shop entry.
+    NavigateToMerchant { shop_id: u32, name: String },
+    /// Open an external URL in the default browser.
+    OpenExternalUrl { url: String },
     /// No action.
     None,
 }
