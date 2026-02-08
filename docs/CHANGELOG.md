@@ -4,6 +4,24 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.13.3 - Player Coordinate Extraction Verification
+
+### Changes
+- Add `scripts/verification/verify_player_coords.py`: signature-based PlayerCoords extraction from save file snapshots
+- Validates extracted coordinates against known grace/boss world positions across 15 test cases (2 character slots, 7 locations)
+- Extraction method: searches for slot header `map_id` pattern in the 0x1D0000–0x280000 range, validates surrounding padding bytes (17+16 byte blocks), reads 3×f32 coordinates
+- Validation guards: coordinate range (±10,000), magnitude threshold (>10), NaN/Inf rejection, false-positive filtering via padding zero-count scoring
+
+### Key Findings
+- Structural parsing (EventFlags→UknownLists→PlayerCoords) fails due to EF offset false positives; signature-based search is reliable
+- PlayerCoords `padding2` (16 bytes after coords2) being mostly zeros is the strongest discriminator
+- Typical extraction accuracy: 1–14 game units from reference positions for graces, 5–35 units for boss arenas
+
+### Files Modified
+- `scripts/verification/verify_player_coords.py`: new file
+
+---
+
 ## v0.13.2 - Documentation Audit, Cleanup & Restructuring
 
 ### Changes
