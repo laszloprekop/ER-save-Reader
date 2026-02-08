@@ -24,3 +24,4 @@ pub mod landing;
 pub mod database;
 pub mod comparison;
 pub mod validation;
+pub mod utilities;

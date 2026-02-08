@@ -16,7 +16,7 @@ use std::{env, fs::File, io::Write, path::PathBuf};
 use eframe::{egui::{self, Align, Layout, RichText, Rounding}, epaint::Color32};
 use rfd::FileDialog;
 use save::save::save::Save;
-use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, components::detail_panel::{DetailPanelState, DetailPanelAction, detail_panel}, components::navigation::{NavigationStack, NavigationEntry, EntityReference, navigation_breadcrumb, NavAction}, landing::landing::landing_page, state::RecentFilesManager, database::{items_view, graces_view, merchants_view, bosses_view, event_chains_view, ItemsViewState, GracesViewState, MerchantsViewState, BossesViewState, EventChainsViewState}, comparison::{ComparisonState, comparison_view}, validation::{ValidationState, validation_view}};
+use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, components::detail_panel::{DetailPanelState, DetailPanelAction, detail_panel}, components::navigation::{NavigationStack, NavigationEntry, EntityReference, navigation_breadcrumb, NavAction}, landing::landing::landing_page, state::RecentFilesManager, database::{items_view, graces_view, merchants_view, bosses_view, event_chains_view, ItemsViewState, GracesViewState, MerchantsViewState, BossesViewState, EventChainsViewState}, comparison::{ComparisonState, comparison_view}, validation::{ValidationState, validation_view}, utilities::icons_view::{icons_view, IconsViewState}};
 use vm::verification_vm::VerificationViewModel;
 use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
 use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
@@ -83,6 +83,12 @@ fn main() -> Result<(), eframe::Error> {
             egui::FontData::from_static(include_bytes!("../assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf")),
         );
 
+        // Icomoon icon font (Elden Map marker glyphs)
+        fonts.font_data.insert(
+            "Icomoon".to_owned(),
+            egui::FontData::from_static(include_bytes!("../assets/fonts/icomoon.ttf")),
+        );
+
         // Set IBM Plex Sans as default proportional font
         fonts.families
             .entry(egui::FontFamily::Proportional)
@@ -103,6 +109,10 @@ fn main() -> Result<(), eframe::Error> {
         fonts.families.insert(
             egui::FontFamily::Name("Serif".into()),
             vec!["IBMPlexSerif".to_owned()],
+        );
+        fonts.families.insert(
+            egui::FontFamily::Name("Icomoon".into()),
+            vec!["Icomoon".to_owned()],
         );
 
         // Add phosphor icons (Regular variant only - Fill would overwrite Regular due to same font key)
@@ -142,6 +152,8 @@ pub struct App {
     comparison_state: ComparisonState,
     // Validation view state
     validation_state: ValidationState,
+    // Utilities view states
+    icons_view_state: IconsViewState,
     // Navigation stack for database views
     database_nav: NavigationStack,
     // Track which slots have had verification records loaded
@@ -183,6 +195,8 @@ impl App {
             comparison_state: ComparisonState::new(),
             // Validation view state
             validation_state: ValidationState::new(),
+            // Utilities view states
+            icons_view_state: IconsViewState::default(),
             // Navigation stack for database views
             database_nav: NavigationStack::new(),
             // Track which slots have had verification records loaded
@@ -439,6 +453,11 @@ impl eframe::App for App {
                     self.current_route = Route::DatabaseSelect;
                 }
 
+                // Utilities button → navigates to UtilitiesSelect
+                if ui.button("Utilities").clicked() {
+                    self.current_route = Route::UtilitiesSelect;
+                }
+
                 // RIGHT SIDE: ~~Save~~ | Export
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     // Export button
@@ -478,7 +497,8 @@ impl eframe::App for App {
                 Route::CharacterSelect |
                 Route::CharacterGeneral | Route::CharacterStats | Route::CharacterEquipment |
                 Route::CharacterInventory | Route::CharacterEventFlags | Route::CharacterRegions |
-                Route::CharacterComparison | Route::CharacterValidation | Route::DatabaseSelect
+                Route::CharacterComparison | Route::CharacterValidation | Route::DatabaseSelect |
+                Route::UtilitiesSelect
             );
             if show_nav {
                 egui::TopBottomPanel::top("navigation").show(ctx, |ui| {
@@ -669,6 +689,15 @@ impl eframe::App for App {
                 },
                 Route::DatabaseEventChains => {
                     event_chains_view(ui, &mut self.event_chains_view_state, &mut self.detail_panel_state);
+                },
+                // Utilities views
+                Route::UtilitiesSelect => {
+                    ui.centered_and_justified(|ui| {
+                        ui.label("Select a utility from the menu above");
+                    });
+                },
+                Route::UtilitiesIcons => {
+                    icons_view(ui, &mut self.icons_view_state);
                 },
             }
         });

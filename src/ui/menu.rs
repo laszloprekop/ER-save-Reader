@@ -37,6 +37,12 @@ pub mod menu {
         DatabaseMerchants,   // Merchant inventories from ShopLineupParam
         DatabaseBosses,      // Boss encounters with defeat flags
         DatabaseEventChains, // Quest progression visualization
+
+        // Utilities selection (no specific utility selected yet)
+        UtilitiesSelect,
+
+        // Utilities views
+        UtilitiesIcons,      // Icomoon font glyph reference grid
     }
 
     impl Route {
@@ -55,6 +61,10 @@ pub mod menu {
                     | Route::DatabaseBosses
                     | Route::DatabaseEventChains
             )
+        }
+
+        pub fn is_utilities_view(&self) -> bool {
+            matches!(self, Route::UtilitiesIcons)
         }
 
         pub fn is_character_view(&self) -> bool {
@@ -95,6 +105,8 @@ pub mod menu {
                 Route::DatabaseMerchants => "Merchants",
                 Route::DatabaseBosses => "Bosses",
                 Route::DatabaseEventChains => "Quest Progress",
+                Route::UtilitiesSelect => "",
+                Route::UtilitiesIcons => "Icons",
             }
         }
     }
@@ -276,6 +288,22 @@ pub mod menu {
             ui.label(caret);
             ui.label(egui::RichText::new(app.current_route.display_name()).strong());
         }
+
+        // ===== PATH C: Utilities hierarchy =====
+        // Level 2: UtilitiesSelect (showing utilities list)
+        else if matches!(app.current_route, Route::UtilitiesSelect) {
+            ui.label(caret);
+            ui.label(egui::RichText::new("Utilities").strong());
+        }
+        // Level 3: Specific utility view
+        else if app.current_route.is_utilities_view() {
+            ui.label(caret);
+            if ui.selectable_label(false, "Utilities").clicked() {
+                app.current_route = Route::UtilitiesSelect;
+            }
+            ui.label(caret);
+            ui.label(egui::RichText::new(app.current_route.display_name()).strong());
+        }
     }
 
     /// Navigation buttons (Row 3 - Sub Menu)
@@ -314,6 +342,14 @@ pub mod menu {
             Route::DatabaseEventChains => {
                 // No submenu for specific database views currently
             },
+
+            // Path C Level 2: UtilitiesSelect → show utilities list
+            Route::UtilitiesSelect => {
+                utilities_select_navigation(ui, app);
+            },
+
+            // Path C Level 3: Specific utility → no submenu
+            Route::UtilitiesIcons => {},
         }
     }
 
@@ -412,6 +448,19 @@ pub mod menu {
         ];
 
         for (label, route) in database_buttons {
+            if ui.selectable_label(false, label).clicked() {
+                app.current_route = route;
+            }
+        }
+    }
+
+    /// Path C Level 2: Utilities list buttons
+    fn utilities_select_navigation(ui: &mut Ui, app: &mut App) {
+        let utilities_buttons = [
+            ("Icons", Route::UtilitiesIcons),
+        ];
+
+        for (label, route) in utilities_buttons {
             if ui.selectable_label(false, label).clicked() {
                 app.current_route = route;
             }

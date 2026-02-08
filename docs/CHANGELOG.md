@@ -4,6 +4,26 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.13.1 - Utilities Section & Icon Font Reference
+
+### Features
+- Added Utilities top-level section with navigation breadcrumbs
+- Added Icomoon icon font reference grid (96 Elden Map marker glyphs)
+- Click-to-copy glyph properties, search/filter, hover tooltips with 48px preview
+- Registered Icomoon font family for use in UI components
+
+### Files Modified
+- src/main.rs: font registration, Utilities route handling, IconsViewState
+- src/ui/menu.rs: UtilitiesSelect/UtilitiesIcons routes, breadcrumbs, navigation
+- src/ui/mod.rs: added utilities module
+- src/ui/utilities/mod.rs: new module
+- src/ui/utilities/icons_view.rs: new 96-glyph reference grid
+- assets/fonts/icomoon.ttf: new icon font asset
+- docs/CHANGELOG.md: v0.13.1
+- Cargo.toml: bumped to 0.13.1
+
+---
+
 ## v0.13.0 - Entity Relationships Pipeline & DRY Refactor
 
 ### Entity Relationships Upstream Migration
