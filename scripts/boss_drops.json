@@ -1,0 +1,332 @@
+{
+  "schema_version": 1,
+  "drops": [
+    {
+      "boss_flag": 10000800,
+      "items": [
+        {"item_id": 8150, "name": "Remembrance of the Grafted", "category": "Remembrance"},
+        {"item_id": 8101, "name": "Godrick's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 14000800,
+      "items": [
+        {"item_id": 8151, "name": "Remembrance of the Full Moon Queen", "category": "Remembrance"},
+        {"item_id": 8103, "name": "Great Rune of the Unborn", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 1252380800,
+      "items": [
+        {"item_id": 8153, "name": "Remembrance of the Starscourge", "category": "Remembrance"},
+        {"item_id": 8105, "name": "Radahn's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 16000800,
+      "items": [
+        {"item_id": 8152, "name": "Remembrance of the Blasphemous", "category": "Remembrance"},
+        {"item_id": 8104, "name": "Rykard's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 11000800,
+      "items": [
+        {"item_id": 8156, "name": "Remembrance of the Omen King", "category": "Remembrance"},
+        {"item_id": 8102, "name": "Morgott's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 12050800,
+      "items": [
+        {"item_id": 8155, "name": "Remembrance of the Blood Lord", "category": "Remembrance"},
+        {"item_id": 8107, "name": "Mohg's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 15000800,
+      "items": [
+        {"item_id": 8154, "name": "Remembrance of the Rot Goddess", "category": "Remembrance"},
+        {"item_id": 8106, "name": "Malenia's Great Rune", "category": "GreatRune"}
+      ]
+    },
+    {
+      "boss_flag": 13000800,
+      "items": [
+        {"item_id": 8157, "name": "Remembrance of the Black Blade", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 11050800,
+      "items": [
+        {"item_id": 8159, "name": "Remembrance of Hoarah Loux", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 19000800,
+      "items": [
+        {"item_id": 8158, "name": "Elden Remembrance", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 1052520800,
+      "items": [
+        {"item_id": 8164, "name": "Remembrance of the Fire Giant", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 13000830,
+      "items": [
+        {"item_id": 8161, "name": "Remembrance of the Dragonlord", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 12030850,
+      "items": [
+        {"item_id": 8162, "name": "Remembrance of the Lichdragon", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 12040800,
+      "items": [
+        {"item_id": 8165, "name": "Remembrance of the Naturalborn", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 12090800,
+      "items": [
+        {"item_id": 8163, "name": "Remembrance of the Regal Ancestor", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 1043300800,
+      "items": [
+        {"item_id": 21100000, "name": "Grafted Blade Greatsword", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 1044360800,
+      "items": [
+        {"item_id": 17020000, "name": "Bloodhound's Fang", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 1042380850,
+      "items": [
+        {"item_id": 15110000, "name": "Golden Halberd", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 30000800,
+      "items": [
+        {"item_id": 9000000, "name": "Battle Hammer", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 32010800,
+      "items": [
+        {"item_id": 17170000, "name": "Rusted Anchor", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 1037530800,
+      "items": [
+        {"item_id": 21150000, "name": "Fallingstar Beast Jaw", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 1049380800,
+      "items": [
+        {"item_id": 15140000, "name": "Commander's Standard", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 12020800,
+      "items": [
+        {"item_id": 12040000, "name": "Gargoyle's Greatsword", "category": "Weapon"},
+        {"item_id": 12060000, "name": "Gargoyle's Twinblade", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 39200800,
+      "items": [
+        {"item_id": 21040000, "name": "Magma Wyrm's Scalesword", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 14000850,
+      "items": [
+        {"item_id": 8010, "name": "Memory Stone", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 1044350800,
+      "items": [
+        {"item_id": 8000, "name": "Dragon Heart", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 1034450800,
+      "items": [
+        {"item_id": 8000, "name": "Dragon Heart", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 1048370800,
+      "items": [
+        {"item_id": 8000, "name": "Dragon Heart", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 11000850,
+      "items": [
+        {"item_id": 8011, "name": "Talisman Pouch", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 1051560800,
+      "items": [
+        {"item_id": 1350, "name": "Veteran's Prosthesis", "category": "Weapon"}
+      ]
+    },
+    {
+      "boss_flag": 12020850,
+      "items": [
+        {"item_id": 1980, "name": "Larval Tear", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 12080800,
+      "items": [
+        {"item_id": 1080, "name": "Ancestral Spirit's Horn", "category": "Talisman"},
+        {"item_id": 419000, "name": "Ancestral Follower Ashes", "category": "SpiritAsh"}
+      ]
+    },
+    {
+      "boss_flag": 1042330800,
+      "items": [
+        {"item_id": 1020, "name": "Radagon's Scarseal", "category": "Talisman"}
+      ]
+    },
+    {
+      "boss_flag": 31190800,
+      "items": [
+        {"item_id": 1200, "name": "Godskin Swaddling Cloth", "category": "Talisman"}
+      ]
+    },
+    {
+      "boss_flag": 1042380800,
+      "items": [
+        {"item_id": 4040, "name": "Aspects of the Crucible: Tail", "category": "Incantation"}
+      ]
+    },
+    {
+      "boss_flag": 30070800,
+      "items": [
+        {"item_id": 310200, "name": "Ordovis's Vortex", "category": "Incantation"}
+      ]
+    },
+    {
+      "boss_flag": 1035500800,
+      "items": [
+        {"item_id": 4003, "name": "Loretta's Greatbow", "category": "Sorcery"}
+      ]
+    },
+    {
+      "boss_flag": 35000800,
+      "items": [
+        {"item_id": 4370, "name": "Bloodflame Talons", "category": "Incantation"}
+      ]
+    },
+    {
+      "boss_flag": 30030800,
+      "items": [
+        {"item_id": 410000, "name": "Lhutel the Headless", "category": "SpiritAsh"}
+      ]
+    },
+    {
+      "boss_flag": 1050570800,
+      "items": [
+        {"item_id": 424000, "name": "Black Knife Tiche", "category": "SpiritAsh"}
+      ]
+    },
+    {
+      "boss_flag": 30190800,
+      "items": [
+        {"item_id": 417000, "name": "Ancient Dragon Knight Kristoff", "category": "SpiritAsh"}
+      ]
+    },
+    {
+      "boss_flag": 1042370800,
+      "items": [
+        {"item_id": 22000200, "name": "Ash of War: Repeating Thrust", "category": "AshOfWar"}
+      ]
+    },
+    {
+      "boss_flag": 1048380800,
+      "items": [
+        {"item_id": 22000400, "name": "Ash of War: Poison Moth Flight", "category": "AshOfWar"}
+      ]
+    },
+    {
+      "boss_flag": 1037500800,
+      "items": [
+        {"item_id": 22000800, "name": "Ash of War: Ice Spear", "category": "AshOfWar"}
+      ]
+    },
+    {
+      "boss_flag": 1040510800,
+      "items": [
+        {"item_id": 22001400, "name": "Ash of War: Shared Order", "category": "AshOfWar"}
+      ]
+    },
+    {
+      "boss_flag": 13000850,
+      "items": [
+        {"item_id": 8700, "name": "Smithing-Stone Miner's Bell Bearing [4]", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 16000850,
+      "items": [
+        {"item_id": 8010, "name": "Memory Stone", "category": "KeyItem"}
+      ]
+    },
+    {
+      "boss_flag": 15010800,
+      "items": [
+        {"item_id": 429000, "name": "Cleanrot Knight Finlay", "category": "SpiritAsh"}
+      ]
+    },
+    {
+      "boss_flag": 20000800,
+      "items": [
+        {"item_id": 8180, "name": "Remembrance of the Dancing Lion", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 21010800,
+      "items": [
+        {"item_id": 8181, "name": "Remembrance of the Impaler", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 20010800,
+      "items": [
+        {"item_id": 8184, "name": "Remembrance of a God and a Lord", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 28000800,
+      "items": [
+        {"item_id": 8183, "name": "Remembrance of the Lord of Frenzied Flame", "category": "Remembrance"}
+      ]
+    },
+    {
+      "boss_flag": 25000800,
+      "items": [
+        {"item_id": 8185, "name": "Remembrance of the Mother of Fingers", "category": "Remembrance"}
+      ]
+    }
+  ]
+}

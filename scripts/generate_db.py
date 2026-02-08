@@ -14,14 +14,16 @@ Usage:
     python scripts/generate_db.py
 
 Generated files:
-    src/db/graces_data.rs      - Sites of grace with event flags
-    src/db/unified_items.rs    - Combined items from all EquipParam files
-    src/db/merchants_data.rs   - Shop inventory from ShopLineupParam
-    src/db/bosses_data.rs      - Boss data with defeat flags
+    src/db/graces_data.rs                - Sites of grace with event flags
+    src/db/unified_items.rs              - Combined items from all EquipParam files
+    src/db/merchants_data.rs             - Shop inventory from ShopLineupParam
+    src/db/bosses_data.rs                - Boss data with defeat flags (from GameAreaParam)
+    src/db/entity_relationships_data.rs  - Boss drops, proximity data, indexes
 """
 
 import os
 import json
+import math
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
@@ -44,7 +46,12 @@ EQUIP_PARAM_WEAPON = GAME_FILES_DIR / "regulation-bin" / "EquipParamWeapon.param
 EQUIP_PARAM_PROTECTOR = GAME_FILES_DIR / "regulation-bin" / "EquipParamProtector.param.xml"
 EQUIP_PARAM_ACCESSORY = GAME_FILES_DIR / "regulation-bin" / "EquipParamAccessory.param.xml"
 SHOP_LINEUP_PARAM = GAME_FILES_DIR / "regulation-bin" / "ShopLineupParam.param.xml"
+GAME_AREA_PARAM = GAME_FILES_DIR / "regulation-bin" / "GameAreaParam.param.xml"
 NPC_PARAM = GAME_FILES_DIR / "regulation-bin" / "NpcParam.param.xml"
+
+# Script directory (for boss_drops.json)
+SCRIPT_DIR = Path(__file__).parent
+BOSS_DROPS_JSON = SCRIPT_DIR / "boss_drops.json"
 
 # Message files for names
 PLACE_NAME_FMG = GAME_FILES_DIR / "msg/engus/item-msgbnd-dcx/PlaceName.fmg.xml"
@@ -113,13 +120,19 @@ class MerchantItem:
 
 @dataclass
 class BossData:
-    """Boss data from NpcParam + event scripts"""
+    """Boss data from GameAreaParam"""
     id: int
     name: str
-    hp: int
-    souls: int  # getSoul
     defeat_flag: int
     region: str
+    runes: int  # bonusSoul_single
+    pos_x: float
+    pos_y: float
+    pos_z: float
+    area_no: int
+    block_no: int
+    found_flag: int
+    challenge_flag: int
     # Enrichment
     mapgenie_id: Optional[str] = None
     boss_type: Optional[str] = None
@@ -461,62 +474,165 @@ def generate_merchants() -> List[MerchantItem]:
 # Generator: Bosses
 # ============================================================================
 
-# Known boss defeat flags from event scripts
-BOSS_DEFEAT_FLAGS = {
-    # Shardbearers
-    10000800: ("Godrick the Grafted", "Stormveil Castle", "demigod"),
-    14000800: ("Rennala, Queen of the Full Moon", "Academy of Raya Lucaria", "demigod"),
-    16000800: ("Rykard, Lord of Blasphemy", "Volcano Manor", "demigod"),
-    12010800: ("Starscourge Radahn", "Caelid", "demigod"),
-    15000800: ("Malenia, Blade of Miquella", "Haligtree", "demigod"),
-    12050800: ("Mohg, Lord of Blood", "Mohgwyn Palace", "demigod"),
-    11000800: ("Morgott, the Omen King", "Leyndell", "demigod"),
-    13000800: ("Maliketh, the Black Blade", "Crumbling Farum Azula", "great_boss"),
+# Placeholder row IDs to skip in GameAreaParam
+GAME_AREA_SKIP_IDS = {0, 1, 9999991, 9999992}
 
-    # Major bosses
-    19000800: ("Radagon / Elden Beast", "Stone Platform", "great_boss"),
-    16000850: ("God-Devouring Serpent", "Volcano Manor", "great_boss"),
-    11050800: ("Hoarah Loux, Warrior", "Leyndell", "great_boss"),
 
-    # Field bosses and minibosses
-    1035420800: ("Margit, the Fell Omen", "Stormhill", "boss"),
-    1042380800: ("Tree Sentinel", "Limgrave", "boss"),
-    1044350800: ("Flying Dragon Agheel", "Limgrave", "boss"),
-    1034500800: ("Tibia Mariner", "Limgrave", "boss"),
-    1035500800: ("Bell Bearing Hunter", "Limgrave", "boss"),
-    1036540800: ("Night's Cavalry", "Limgrave", "boss"),
+# Known shardbearers by defeat flag (rune thresholds alone can't identify them)
+SHARDBEARER_FLAGS = {
+    10000800,   # Godrick the Grafted
+    14000800,   # Rennala, Queen of the Full Moon
+    16000800,   # Rykard, Lord of Blasphemy
+    1252380800, # Starscourge Radahn
+    15000800,   # Malenia, Blade of Miquella
+    12050800,   # Mohg, Lord of Blood
+    11000800,   # Morgott, the Omen King
 }
 
 
+def classify_boss_type(runes: int, defeat_flag: int) -> str:
+    """Classify boss type by shardbearer status, then rune reward tier."""
+    if defeat_flag in SHARDBEARER_FLAGS:
+        return "demigod"
+    elif runes >= 100000:
+        return "great_boss"
+    elif runes >= 30000:
+        return "boss"
+    else:
+        return "miniboss"
+
+
 def generate_bosses() -> List[BossData]:
-    """Generate boss data from known defeat flags + NpcParam"""
-    print("Generating bosses...")
+    """Generate boss data from GameAreaParam.param.xml"""
+    print("Generating bosses from GameAreaParam...")
 
     # Load enrichment
     pois_by_flag, mapgenie_by_flag = load_enrichment_data()
 
-    bosses = []
+    # Parse GameAreaParam
+    rows = parse_param_xml(GAME_AREA_PARAM)
 
-    for defeat_flag, (name, region, boss_type) in BOSS_DEFEAT_FLAGS.items():
+    # Collect all bosses, deduplicating by defeatBossFlagId
+    bosses_by_flag: Dict[int, BossData] = {}
+
+    for row in rows:
+        row_id = get_row_attr(row, "id", 0, int)
+        if row_id in GAME_AREA_SKIP_IDS:
+            continue
+
+        paramdex_name = get_row_attr(row, "paramdexName", "", str)
+        if not paramdex_name:
+            continue  # Skip rows without names
+
+        defeat_flag = get_row_attr(row, "defeatBossFlagId", 0, int)
+        if defeat_flag == 0:
+            continue
+
+        # Extract name and region from paramdex name
+        region = extract_region_from_name(paramdex_name)
+        if "]" in paramdex_name:
+            name = paramdex_name[paramdex_name.index("]") + 1:].strip()
+            # Clean up name: replace "- " artifacts from paramdex encoding
+            name = name.replace("- ", ", ").rstrip(",").strip()
+            # But only if it doesn't break known names (e.g. "Morgott- the Omen King" -> "Morgott, the Omen King")
+        else:
+            name = paramdex_name.strip()
+
+        runes = get_row_attr(row, "bonusSoul_single", 0, int)
+        boss_type = classify_boss_type(runes, defeat_flag)
+
         boss = BossData(
-            id=defeat_flag,
+            id=row_id,
             name=name,
-            hp=0,  # Would need NpcParam correlation
-            souls=0,
             defeat_flag=defeat_flag,
             region=region,
+            runes=runes,
+            pos_x=get_row_attr(row, "bossPosX", 0.0, float),
+            pos_y=get_row_attr(row, "bossPosY", 0.0, float),
+            pos_z=get_row_attr(row, "bossPosZ", 0.0, float),
+            area_no=get_row_attr(row, "bossMapAreaNo", 0, int),
+            block_no=get_row_attr(row, "bossMapBlockNo", 0, int),
+            found_flag=get_row_attr(row, "foundBossFlagId", 0, int),
+            challenge_flag=get_row_attr(row, "bossChallengeFlagId", 0, int),
             boss_type=boss_type,
         )
 
-        # Apply enrichment
-        if defeat_flag in mapgenie_by_flag:
-            mapping = mapgenie_by_flag[defeat_flag]
+        # Dedup by defeat flag: keep the one with higher runes (boss duos share defeat flags)
+        if defeat_flag in bosses_by_flag:
+            existing = bosses_by_flag[defeat_flag]
+            if boss.runes > existing.runes:
+                bosses_by_flag[defeat_flag] = boss
+        else:
+            bosses_by_flag[defeat_flag] = boss
+
+    # Apply enrichment
+    for boss in bosses_by_flag.values():
+        if boss.defeat_flag in mapgenie_by_flag:
+            mapping = mapgenie_by_flag[boss.defeat_flag]
             boss.mapgenie_id = mapping.get("location_id")
 
-        bosses.append(boss)
-
-    print(f"  Generated {len(bosses)} bosses")
+    bosses = sorted(bosses_by_flag.values(), key=lambda b: b.defeat_flag)
+    print(f"  Generated {len(bosses)} bosses (from {len(rows)} GameAreaParam rows)")
     return bosses
+
+
+def compute_proximity(
+    graces: List[GraceData],
+    bosses: List[BossData],
+    threshold: float = 200.0,
+) -> Tuple[Dict[int, List[Tuple[int, float]]], Dict[int, List[Tuple[int, float]]]]:
+    """Compute grace<->boss proximity at generation time.
+
+    Returns:
+        (boss_flag -> [(grace_flag, distance)], grace_flag -> [(boss_flag, distance)])
+    """
+    print("Computing grace<->boss proximity...")
+
+    # Overworld areas use a shared world coordinate system
+    OVERWORLD_AREAS = {60, 61}
+
+    boss_to_graces: Dict[int, List[Tuple[int, float]]] = {}
+    grace_to_bosses: Dict[int, List[Tuple[int, float]]] = {}
+
+    for boss in bosses:
+        nearby = []
+        boss_is_overworld = boss.area_no in OVERWORLD_AREAS
+
+        for grace in graces:
+            # Pre-filter by area: legacy dungeons use local coordinate systems
+            grace_is_overworld = grace.area_no in OVERWORLD_AREAS
+            if boss_is_overworld:
+                if not grace_is_overworld:
+                    continue
+            else:
+                # For dungeon bosses, only match graces in the same area
+                if grace.area_no != boss.area_no:
+                    continue
+
+            # Euclidean distance (XYZ)
+            dx = boss.pos_x - grace.pos_x
+            dy = boss.pos_y - grace.pos_y
+            dz = boss.pos_z - grace.pos_z
+            dist = math.sqrt(dx * dx + dy * dy + dz * dz)
+
+            if dist <= threshold:
+                nearby.append((grace.event_flag_id, dist))
+
+        # Sort by distance, keep top 5
+        nearby.sort(key=lambda x: x[1])
+        nearby = nearby[:5]
+
+        if nearby:
+            boss_to_graces[boss.defeat_flag] = nearby
+            for grace_flag, dist in nearby:
+                grace_to_bosses.setdefault(grace_flag, []).append((boss.defeat_flag, dist))
+
+    # Sort each grace's boss list by distance
+    for grace_flag in grace_to_bosses:
+        grace_to_bosses[grace_flag].sort(key=lambda x: x[1])
+
+    print(f"  Found {len(boss_to_graces)} bosses with nearby graces, {len(grace_to_bosses)} graces with nearby bosses")
+    return boss_to_graces, grace_to_bosses
 
 
 # ============================================================================
@@ -759,7 +875,7 @@ def write_bosses_rust(bosses: List[BossData]):
     path = OUTPUT_DIR / "bosses_data.rs"
 
     with open(path, 'w') as f:
-        f.write("""//! Bosses database with defeat flags
+        f.write("""//! Bosses database generated from GameAreaParam.param.xml
 //! This file is auto-generated by scripts/generate_db.py - do not edit manually
 
 use once_cell::sync::Lazy;
@@ -793,6 +909,14 @@ pub struct BossData {
     pub defeat_flag: u32,
     pub region: &'static str,
     pub boss_type: BossType,
+    pub runes: u32,
+    pub pos_x: f32,
+    pub pos_y: f32,
+    pub pos_z: f32,
+    pub area_no: u8,
+    pub block_no: u8,
+    pub found_flag: u32,
+    pub challenge_flag: u32,
     // Enrichment
     pub mapgenie_id: Option<&'static str>,
 }
@@ -817,6 +941,14 @@ pub struct BossData {
             f.write(f'defeat_flag: {boss.defeat_flag}, ')
             f.write(f'region: "{escape_rust_string(boss.region)}", ')
             f.write(f'boss_type: BossType::{boss_type_rust}, ')
+            f.write(f'runes: {boss.runes}, ')
+            f.write(f'pos_x: {boss.pos_x:.2f}, ')
+            f.write(f'pos_y: {boss.pos_y:.2f}, ')
+            f.write(f'pos_z: {boss.pos_z:.2f}, ')
+            f.write(f'area_no: {boss.area_no}, ')
+            f.write(f'block_no: {boss.block_no}, ')
+            f.write(f'found_flag: {boss.found_flag}, ')
+            f.write(f'challenge_flag: {boss.challenge_flag}, ')
             f.write(f'mapgenie_id: {option_str(boss.mapgenie_id)}, ')
             f.write("});\n")
 
@@ -830,6 +962,219 @@ pub struct BossData {
         for region in regions:
             f.write(f'    "{escape_rust_string(region)}",\n')
         f.write("];\n")
+
+    print(f"  Wrote {path}")
+
+
+# ============================================================================
+# Generator: Entity Relationships (boss drops + proximity)
+# ============================================================================
+
+@dataclass
+class BossDropEntry:
+    """A single boss drop from boss_drops.json"""
+    boss_flag: int
+    boss_name: str  # Resolved at generation time from GameAreaParam
+    item_id: int
+    item_name: str
+    category: str
+
+
+def load_boss_drops(bosses: List[BossData]) -> List[BossDropEntry]:
+    """Load boss drops from JSON and cross-validate against GameAreaParam data."""
+    print("Loading boss drops from JSON...")
+
+    if not BOSS_DROPS_JSON.exists():
+        print(f"  WARNING: Boss drops file not found: {BOSS_DROPS_JSON}")
+        return []
+
+    with open(BOSS_DROPS_JSON, 'r') as f:
+        data = json.load(f)
+
+    # Build boss name lookup by defeat flag
+    boss_names = {b.defeat_flag: b.name for b in bosses}
+
+    entries = []
+    unmatched_flags = []
+
+    for drop_group in data.get("drops", []):
+        boss_flag = drop_group["boss_flag"]
+        boss_name = boss_names.get(boss_flag, None)
+
+        if boss_name is None:
+            unmatched_flags.append(boss_flag)
+            # Still include the drop but with a placeholder name
+            boss_name = f"Unknown Boss ({boss_flag})"
+
+        for item in drop_group["items"]:
+            entries.append(BossDropEntry(
+                boss_flag=boss_flag,
+                boss_name=boss_name,
+                item_id=item["item_id"],
+                item_name=item["name"],
+                category=item["category"],
+            ))
+
+    if unmatched_flags:
+        print(f"  WARNING: {len(unmatched_flags)} boss flags in boss_drops.json not found in GameAreaParam:")
+        for flag in unmatched_flags:
+            print(f"    - {flag}")
+
+    print(f"  Loaded {len(entries)} boss drop entries")
+    return entries
+
+
+def write_entity_relationships_rust(
+    drops: List[BossDropEntry],
+    boss_to_graces: Dict[int, List[Tuple[int, float]]],
+    grace_to_bosses: Dict[int, List[Tuple[int, float]]],
+):
+    """Write entity_relationships_data.rs with boss drops and proximity data."""
+    path = OUTPUT_DIR / "entity_relationships_data.rs"
+
+    with open(path, 'w') as f:
+        f.write("""//! Entity relationship data generated from boss_drops.json + GameAreaParam proximity
+//! This file is auto-generated by scripts/generate_db.py - do not edit manually
+
+use once_cell::sync::Lazy;
+use std::collections::HashMap;
+
+/// Drop category for boss rewards
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum DropCategory {
+    Remembrance,
+    GreatRune,
+    Weapon,
+    AshOfWar,
+    Talisman,
+    SpiritAsh,
+    KeyItem,
+    Incantation,
+    Sorcery,
+    Other,
+}
+
+impl DropCategory {
+    pub fn display_name(&self) -> &'static str {
+        match self {
+            DropCategory::Remembrance => "Remembrance",
+            DropCategory::GreatRune => "Great Rune",
+            DropCategory::Weapon => "Weapon",
+            DropCategory::AshOfWar => "Ash of War",
+            DropCategory::Talisman => "Talisman",
+            DropCategory::SpiritAsh => "Spirit Ash",
+            DropCategory::KeyItem => "Key Item",
+            DropCategory::Incantation => "Incantation",
+            DropCategory::Sorcery => "Sorcery",
+            DropCategory::Other => "Other",
+        }
+    }
+}
+
+/// A boss drop entry
+#[derive(Debug, Clone)]
+pub struct BossDropEntry {
+    pub boss_flag: u32,
+    pub boss_name: &'static str,
+    pub item_id: u32,
+    pub item_name: &'static str,
+    pub category: DropCategory,
+}
+
+""")
+
+        # Write BOSS_DROPS static array
+        f.write(f"/// All boss drops ({len(drops)} entries)\n")
+        f.write("pub static BOSS_DROPS: &[BossDropEntry] = &[\n")
+        for drop in drops:
+            cat_rust = {
+                "Remembrance": "Remembrance",
+                "GreatRune": "GreatRune",
+                "Weapon": "Weapon",
+                "AshOfWar": "AshOfWar",
+                "Talisman": "Talisman",
+                "SpiritAsh": "SpiritAsh",
+                "KeyItem": "KeyItem",
+                "Incantation": "Incantation",
+                "Sorcery": "Sorcery",
+            }.get(drop.category, "Other")
+
+            f.write(f'    BossDropEntry {{ boss_flag: {drop.boss_flag}, ')
+            f.write(f'boss_name: "{escape_rust_string(drop.boss_name)}", ')
+            f.write(f'item_id: {drop.item_id}, ')
+            f.write(f'item_name: "{escape_rust_string(drop.item_name)}", ')
+            f.write(f'category: DropCategory::{cat_rust} }},\n')
+
+        f.write("];\n\n")
+
+        # Write ITEM_DROPPED_BY index: item_id -> Vec<(boss_flag, boss_name)>
+        item_to_bosses: Dict[int, List[Tuple[int, str]]] = {}
+        for drop in drops:
+            item_to_bosses.setdefault(drop.item_id, []).append((drop.boss_flag, drop.boss_name))
+
+        f.write(f"/// Item -> bosses that drop it ({len(item_to_bosses)} items)\n")
+        f.write("pub static ITEM_DROPPED_BY: Lazy<HashMap<u32, Vec<(u32, &'static str)>>> = Lazy::new(|| {\n")
+        f.write("    let mut m = HashMap::new();\n")
+
+        for item_id in sorted(item_to_bosses.keys()):
+            boss_list = item_to_bosses[item_id]
+            entries_str = ", ".join(
+                f'({flag}, "{escape_rust_string(name)}")'
+                for flag, name in boss_list
+            )
+            f.write(f"    m.insert({item_id}, vec![{entries_str}]);\n")
+
+        f.write("    m\n")
+        f.write("});\n\n")
+
+        # Write BOSS_DROP_INDEX: boss_flag -> Vec<usize> (indices into BOSS_DROPS)
+        boss_to_indices: Dict[int, List[int]] = {}
+        for i, drop in enumerate(drops):
+            boss_to_indices.setdefault(drop.boss_flag, []).append(i)
+
+        f.write(f"/// Boss -> indices into BOSS_DROPS ({len(boss_to_indices)} bosses with drops)\n")
+        f.write("pub static BOSS_DROP_INDEX: Lazy<HashMap<u32, Vec<usize>>> = Lazy::new(|| {\n")
+        f.write("    let mut m = HashMap::new();\n")
+
+        for boss_flag in sorted(boss_to_indices.keys()):
+            indices = boss_to_indices[boss_flag]
+            indices_str = ", ".join(str(i) for i in indices)
+            f.write(f"    m.insert({boss_flag}, vec![{indices_str}]);\n")
+
+        f.write("    m\n")
+        f.write("});\n\n")
+
+        # Write BOSS_NEARBY_GRACES: boss_flag -> Vec<(grace_flag, distance)>
+        f.write(f"/// Boss -> nearby graces ({len(boss_to_graces)} bosses)\n")
+        f.write("pub static BOSS_NEARBY_GRACES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(|| {\n")
+        f.write("    let mut m = HashMap::new();\n")
+
+        for boss_flag in sorted(boss_to_graces.keys()):
+            nearby = boss_to_graces[boss_flag]
+            entries_str = ", ".join(
+                f"({grace_flag}, {dist:.1f})"
+                for grace_flag, dist in nearby
+            )
+            f.write(f"    m.insert({boss_flag}, vec![{entries_str}]);\n")
+
+        f.write("    m\n")
+        f.write("});\n\n")
+
+        # Write GRACE_NEARBY_BOSSES: grace_flag -> Vec<(boss_flag, distance)>
+        f.write(f"/// Grace -> nearby bosses ({len(grace_to_bosses)} graces)\n")
+        f.write("pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(|| {\n")
+        f.write("    let mut m = HashMap::new();\n")
+
+        for grace_flag in sorted(grace_to_bosses.keys()):
+            nearby = grace_to_bosses[grace_flag]
+            entries_str = ", ".join(
+                f"({boss_flag}, {dist:.1f})"
+                for boss_flag, dist in nearby
+            )
+            f.write(f"    m.insert({grace_flag}, vec![{entries_str}]);\n")
+
+        f.write("    m\n")
+        f.write("});\n")
 
     print(f"  Wrote {path}")
 
@@ -859,6 +1204,10 @@ def main():
     merchants = generate_merchants()
     bosses = generate_bosses()
 
+    # Compute entity relationships
+    boss_to_graces, grace_to_bosses = compute_proximity(graces, bosses)
+    drops = load_boss_drops(bosses)
+
     print()
     print("Writing Rust files...")
 
@@ -866,14 +1215,10 @@ def main():
     write_unified_items_rust(items)
     write_merchants_rust(merchants)
     write_bosses_rust(bosses)
+    write_entity_relationships_rust(drops, boss_to_graces, grace_to_bosses)
 
     print()
     print("Done!")
-    print("Don't forget to add new modules to src/db/mod.rs:")
-    print("  pub mod graces_data;")
-    print("  pub mod unified_items;")
-    print("  pub mod merchants_data;")
-    print("  pub mod bosses_data;")
 
     return 0
 

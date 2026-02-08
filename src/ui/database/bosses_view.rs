@@ -4,11 +4,12 @@
 
 use eframe::egui::{Ui, Color32, RichText};
 use crate::db::bosses_data::{BOSSES_DATA, BOSS_REGIONS, BossType};
+use crate::db::entity_relationships::{get_boss_relationships, RelationType};
 use crate::db::pickup_flags::is_flag_set;
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
-use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction};
+use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction, mapgenie_section, section_from_relationships};
 use crate::ui::tokens::spacing;
 use serde::Serialize;
 
@@ -19,33 +20,17 @@ pub enum BossTypeFilter {
     Demigod,
     GreatBoss,
     Boss,
+    Miniboss,
 }
 
 impl BossTypeFilter {
-    fn to_filter_value(&self) -> &'static str {
-        match self {
-            Self::All => "All",
-            Self::Demigod => "Demigod",
-            Self::GreatBoss => "Great Boss",
-            Self::Boss => "Boss",
-        }
-    }
-
-    fn from_filter_value(s: &str) -> Self {
-        match s {
-            "Demigod" => Self::Demigod,
-            "Great Boss" => Self::GreatBoss,
-            "Boss" => Self::Boss,
-            _ => Self::All,
-        }
-    }
-
     fn matches(&self, boss_type: BossType) -> bool {
         match self {
             Self::All => true,
             Self::Demigod => boss_type == BossType::Demigod,
             Self::GreatBoss => boss_type == BossType::GreatBoss,
             Self::Boss => boss_type == BossType::Boss,
+            Self::Miniboss => boss_type == BossType::Miniboss,
         }
     }
 }
@@ -99,6 +84,58 @@ fn is_boss_defeated(defeat_flag: u32, event_flags: Option<&[u8]>) -> Option<bool
     event_flags.map(|flags| is_flag_set(flags, defeat_flag))
 }
 
+/// Build detail panel sections for a boss, including relationships.
+fn build_boss_sections(boss: &crate::db::bosses_data::BossData, flag: u32) -> Vec<RelationshipSection> {
+    let mut sections = Vec::new();
+
+    if let Some(id) = boss.mapgenie_id {
+        sections.push(mapgenie_section(id));
+    }
+
+    // Boss info
+    let mut info_items = vec![
+        RelationshipItem::new(
+            format!("Type: {}", boss.boss_type.as_str()),
+            DetailPanelAction::None,
+        ),
+        RelationshipItem::new(
+            format!("Region: {}", boss.region),
+            DetailPanelAction::None,
+        ),
+    ];
+    if boss.runes > 0 {
+        info_items.push(RelationshipItem::new(
+            format!("Runes: {}", boss.runes),
+            DetailPanelAction::None,
+        ));
+    }
+    sections.push(RelationshipSection::new("Info").with_items(info_items));
+
+    // Relationship-based sections (drops + nearby graces)
+    let rels = get_boss_relationships(flag);
+
+    if let Some(s) = section_from_relationships("Drops", &rels, RelationType::Drops, |r| {
+        DetailPanelAction::NavigateToItem {
+            category: r.secondary.clone().unwrap_or_default(),
+            id: r.target_id,
+            name: r.label.to_string(),
+        }
+    }) {
+        sections.push(s);
+    }
+
+    if let Some(s) = section_from_relationships("Nearby Graces", &rels, RelationType::NearbyGrace, |r| {
+        DetailPanelAction::NavigateToGrace {
+            event_flag: r.target_id,
+            name: r.label.to_string(),
+        }
+    }) {
+        sections.push(s);
+    }
+
+    sections
+}
+
 pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option<&[u8]>, detail_panel: &mut DetailPanelState) {
     // Sync filter_state with state
     state.region_filter = state.filter_state.category.clone();
@@ -122,6 +159,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
         ui.selectable_value(&mut state.type_filter, BossTypeFilter::Demigod, "Demigod");
         ui.selectable_value(&mut state.type_filter, BossTypeFilter::GreatBoss, "Great Boss");
         ui.selectable_value(&mut state.type_filter, BossTypeFilter::Boss, "Boss");
+        ui.selectable_value(&mut state.type_filter, BossTypeFilter::Miniboss, "Miniboss");
     });
 
     spacing::space_sm(ui);
@@ -183,43 +221,13 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
     // Auto-open detail panel if selection was set programmatically (from navigation)
     if let Some(flag) = state.selected_flag {
         if state.last_detail_flag != Some(flag) {
-            // Find the boss in the filtered list and open its detail panel
             if let Some((_, boss, _)) = bosses.iter().find(|(f, _, _)| *f == flag) {
-                let mut sections = Vec::new();
-
-                // Add MapGenie link if available
-                if let Some(mapgenie_id) = boss.mapgenie_id {
-                    let mapgenie_url = format!("https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds={}", mapgenie_id);
-                    sections.push(
-                        RelationshipSection::new("External Links").with_items(vec![
-                            RelationshipItem::new(
-                                format!("View on MapGenie ({})", mapgenie_id),
-                                DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
-                            ).with_secondary(mapgenie_url)
-                        ])
-                    );
-                }
-
-                // Add boss info
-                sections.push(
-                    RelationshipSection::new("Info").with_items(vec![
-                        RelationshipItem::new(
-                            format!("Type: {}", boss.boss_type.as_str()),
-                            DetailPanelAction::None,
-                        ),
-                        RelationshipItem::new(
-                            format!("Region: {}", boss.region),
-                            DetailPanelAction::None,
-                        ),
-                    ])
-                );
-
                 detail_panel.select_with_relationships(
                     SelectedEntity::Boss {
                         defeat_flag: flag,
                         name: boss.name.to_string(),
                     },
-                    sections,
+                    build_boss_sections(boss, flag),
                 );
                 state.last_detail_flag = Some(flag);
             }
@@ -285,44 +293,15 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
         ui.output_mut(|o| o.copied_text = text);
     }
 
-    // Handle single click - open detail panel with MapGenie info
+    // Handle single click - open detail panel
     if let Some(row_idx) = table_response.clicked_row {
         if let Some((flag, boss, _)) = bosses.get(row_idx) {
-            let mut sections = Vec::new();
-
-            // Add MapGenie link if available
-            if let Some(mapgenie_id) = boss.mapgenie_id {
-                let mapgenie_url = format!("https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds={}", mapgenie_id);
-                sections.push(
-                    RelationshipSection::new("External Links").with_items(vec![
-                        RelationshipItem::new(
-                            format!("View on MapGenie ({})", mapgenie_id),
-                            DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
-                        ).with_secondary(mapgenie_url)
-                    ])
-                );
-            }
-
-            // Add boss info
-            sections.push(
-                RelationshipSection::new("Info").with_items(vec![
-                    RelationshipItem::new(
-                        format!("Type: {}", boss.boss_type.as_str()),
-                        DetailPanelAction::None,
-                    ),
-                    RelationshipItem::new(
-                        format!("Region: {}", boss.region),
-                        DetailPanelAction::None,
-                    ),
-                ])
-            );
-
             detail_panel.select_with_relationships(
                 SelectedEntity::Boss {
                     defeat_flag: *flag,
                     name: boss.name.to_string(),
                 },
-                sections,
+                build_boss_sections(boss, *flag),
             );
             state.last_detail_flag = Some(*flag);
         }
@@ -359,7 +338,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                 );
                 to_json(&export).unwrap_or_else(|_| String::new())
             }
-            ExportFormat::Csv => {
+            ExportFormat::Csv | ExportFormat::Markdown => {
                 let headers = &["Defeat Flag", "Name", "Region", "Type", "Defeated", "MapGenie ID"];
                 let rows: Vec<Vec<String>> = data_to_export.iter()
                     .map(|b| vec![
@@ -371,21 +350,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                         b.mapgenie_id.clone().unwrap_or_default(),
                     ])
                     .collect();
-                to_csv(headers, &rows)
-            }
-            ExportFormat::Markdown => {
-                let headers = &["Defeat Flag", "Name", "Region", "Type", "Defeated", "MapGenie ID"];
-                let rows: Vec<Vec<String>> = data_to_export.iter()
-                    .map(|b| vec![
-                        b.defeat_flag.to_string(),
-                        b.name.clone(),
-                        b.region.clone(),
-                        b.boss_type.clone(),
-                        b.defeated.map(|d| if d { "Yes" } else { "No" }).unwrap_or("-").to_string(),
-                        b.mapgenie_id.clone().unwrap_or_default(),
-                    ])
-                    .collect();
-                to_markdown(headers, &rows)
+                if state.export_format == ExportFormat::Csv { to_csv(headers, &rows) } else { to_markdown(headers, &rows) }
             }
         };
 

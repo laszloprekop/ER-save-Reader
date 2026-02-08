@@ -53,6 +53,22 @@ struct MerchantExportItem {
     release_flag: u32,
 }
 
+/// Build detail panel sections for a merchant shop entry.
+fn build_merchant_sections(item: &crate::db::merchants_data::MerchantItem) -> Vec<RelationshipSection> {
+    vec![
+        RelationshipSection::new("Item Sold").with_items(vec![
+            RelationshipItem::new(
+                item.item_name.to_string(),
+                DetailPanelAction::NavigateToItem {
+                    category: item.equip_type.as_str().to_string(),
+                    id: item.item_id,
+                    name: item.item_name.to_string(),
+                },
+            ).with_secondary(format!("{} runes", item.price))
+        ])
+    ]
+}
+
 pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel: &mut DetailPanelState) {
     // Sync filter_state with state
     state.merchant_filter = state.filter_state.category.clone();
@@ -117,27 +133,14 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
     // Auto-open detail panel if selection was set programmatically (from navigation)
     if let Some(shop_id) = state.selected_shop_id {
         if state.last_detail_shop_id != Some(shop_id) {
-            // Find the item in the filtered list and open its detail panel
             if let Some((_, item)) = items.iter().find(|(id, _)| *id == shop_id) {
-                let sections = vec![
-                    RelationshipSection::new("Item Sold").with_items(vec![
-                        RelationshipItem::new(
-                            item.item_name.to_string(),
-                            DetailPanelAction::NavigateToItem {
-                                category: item.equip_type.as_str().to_string(),
-                                id: item.item_id,
-                                name: item.item_name.to_string(),
-                            },
-                        ).with_secondary(format!("{} runes", item.price))
-                    ])
-                ];
                 detail_panel.select_with_relationships(
                     SelectedEntity::Merchant {
                         shop_id,
                         merchant_name: item.merchant_name.to_string(),
                         item_name: item.item_name.to_string(),
                     },
-                    sections,
+                    build_merchant_sections(item),
                 );
                 state.last_detail_shop_id = Some(shop_id);
             }
@@ -204,25 +207,13 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
     // Handle single click - open detail panel
     if let Some(row_idx) = table_response.clicked_row {
         if let Some((shop_id, item)) = items.get(row_idx) {
-            let sections = vec![
-                RelationshipSection::new("Item Sold").with_items(vec![
-                    RelationshipItem::new(
-                        item.item_name.to_string(),
-                        DetailPanelAction::NavigateToItem {
-                            category: item.equip_type.as_str().to_string(),
-                            id: item.item_id,
-                            name: item.item_name.to_string(),
-                        },
-                    ).with_secondary(format!("{} runes", item.price))
-                ])
-            ];
             detail_panel.select_with_relationships(
                 SelectedEntity::Merchant {
                     shop_id: *shop_id,
                     merchant_name: item.merchant_name.to_string(),
                     item_name: item.item_name.to_string(),
                 },
-                sections,
+                build_merchant_sections(item),
             );
             state.last_detail_shop_id = Some(*shop_id);
         }
@@ -262,7 +253,7 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
                 );
                 to_json(&export).unwrap_or_else(|_| String::new())
             }
-            ExportFormat::Csv => {
+            ExportFormat::Csv | ExportFormat::Markdown => {
                 let headers = &["Shop ID", "Merchant", "Item", "Item ID", "Price", "Stock", "Type", "Stock Flag", "Release Flag"];
                 let rows: Vec<Vec<String>> = data_to_export.iter()
                     .map(|m| vec![
@@ -277,24 +268,7 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
                         m.release_flag.to_string(),
                     ])
                     .collect();
-                to_csv(headers, &rows)
-            }
-            ExportFormat::Markdown => {
-                let headers = &["Shop ID", "Merchant", "Item", "Item ID", "Price", "Stock", "Type", "Stock Flag", "Release Flag"];
-                let rows: Vec<Vec<String>> = data_to_export.iter()
-                    .map(|m| vec![
-                        m.shop_id.to_string(),
-                        m.merchant.clone(),
-                        m.item_name.clone(),
-                        m.item_id.to_string(),
-                        m.price.to_string(),
-                        m.quantity.to_string(),
-                        m.item_type.clone(),
-                        m.stock_flag.to_string(),
-                        m.release_flag.to_string(),
-                    ])
-                    .collect();
-                to_markdown(headers, &rows)
+                if state.export_format == ExportFormat::Csv { to_csv(headers, &rows) } else { to_markdown(headers, &rows) }
             }
         };
 

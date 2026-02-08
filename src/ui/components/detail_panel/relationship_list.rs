@@ -2,6 +2,7 @@
 
 use eframe::egui::{Ui, RichText};
 use super::panel::DetailPanelAction;
+use crate::db::entity_relationships::{Relationship, RelationType};
 use crate::ui::components::filter::fuzzy_match_default;
 use crate::ui::tokens::{colors, spacing};
 
@@ -157,59 +158,46 @@ pub fn relationship_section_filtered(
     action
 }
 
-/// Helper to create a "Found At" section for items.
-pub fn found_at_section(locations: Vec<(u32, String, String)>) -> RelationshipSection {
-    let items = locations
-        .into_iter()
-        .map(|(flag_id, item_name, region)| {
-            RelationshipItem::new(item_name.clone(), DetailPanelAction::NavigateToPickup { flag_id, name: item_name })
-                .with_secondary(region)
-        })
-        .collect();
-
-    RelationshipSection::new("Found At").with_items(items)
+/// Build a MapGenie "External Links" section from a MapGenie location ID.
+pub fn mapgenie_section(mapgenie_id: &str) -> RelationshipSection {
+    let url = format!(
+        "https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds={}",
+        mapgenie_id
+    );
+    RelationshipSection::new("External Links").with_items(vec![
+        RelationshipItem::new(
+            format!("View on MapGenie ({})", mapgenie_id),
+            DetailPanelAction::OpenExternalUrl { url: url.clone() },
+        )
+        .with_secondary(url),
+    ])
 }
 
-/// Helper to create a "Sold By" section for items.
-pub fn sold_by_section(merchants: Vec<(u32, String, u32)>) -> RelationshipSection {
-    let items = merchants
-        .into_iter()
-        .map(|(shop_id, merchant_name, price)| {
-            RelationshipItem::new(
-                &merchant_name,
-                DetailPanelAction::NavigateToItem {
-                    category: "Good".to_string(),
-                    id: shop_id,
-                    name: merchant_name.clone(),
-                },
-            )
-            .with_secondary(format!("{} runes", price))
+/// Build a RelationshipSection from a slice of Relationships, filtering by type.
+///
+/// Returns `None` if no relationships match the given type.
+/// The `action_fn` maps each Relationship to the appropriate DetailPanelAction.
+pub fn section_from_relationships(
+    title: &str,
+    relationships: &[Relationship],
+    rel_type: RelationType,
+    action_fn: impl Fn(&Relationship) -> DetailPanelAction,
+) -> Option<RelationshipSection> {
+    let items: Vec<_> = relationships
+        .iter()
+        .filter(|r| r.rel_type == rel_type)
+        .map(|r| {
+            let mut item = RelationshipItem::new(r.label.to_string(), action_fn(r));
+            if let Some(secondary) = &r.secondary {
+                item = item.with_secondary(secondary.clone());
+            }
+            item
         })
         .collect();
 
-    RelationshipSection::new("Sold By").with_items(items)
-}
-
-/// Helper to create a "Dropped By" section for items.
-pub fn dropped_by_section(enemies: Vec<(u32, String)>) -> RelationshipSection {
-    let items = enemies
-        .into_iter()
-        .map(|(defeat_flag, boss_name)| {
-            RelationshipItem::new(boss_name.clone(), DetailPanelAction::NavigateToBoss { defeat_flag, name: boss_name })
-        })
-        .collect();
-
-    RelationshipSection::new("Dropped By").with_items(items)
-}
-
-/// Helper to create a "Nearby Graces" section.
-pub fn nearby_graces_section(graces: Vec<(u32, String)>) -> RelationshipSection {
-    let items = graces
-        .into_iter()
-        .map(|(event_flag, name)| {
-            RelationshipItem::new(name.clone(), DetailPanelAction::NavigateToGrace { event_flag, name })
-        })
-        .collect();
-
-    RelationshipSection::new("Nearby Graces").with_items(items)
+    if items.is_empty() {
+        None
+    } else {
+        Some(RelationshipSection::new(title).with_items(items))
+    }
 }

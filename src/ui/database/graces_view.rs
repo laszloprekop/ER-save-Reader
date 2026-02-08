@@ -4,11 +4,12 @@
 
 use eframe::egui::{Ui, Color32, RichText};
 use crate::db::graces_data::{GRACES_DATA, GRACE_REGIONS};
+use crate::db::entity_relationships::{get_grace_relationships, RelationType};
 use crate::db::pickup_flags::is_flag_set;
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
-use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction};
+use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction, mapgenie_section, section_from_relationships};
 use crate::ui::tokens::spacing;
 use serde::Serialize;
 
@@ -56,6 +57,38 @@ struct GraceExportItem {
 /// Uses the verified block base offsets from ground_truth_offsets.json.
 fn is_grace_discovered(event_flag: u32, event_flags: Option<&[u8]>) -> Option<bool> {
     event_flags.map(|flags| is_flag_set(flags, event_flag))
+}
+
+/// Build detail panel sections for a grace, including relationships.
+fn build_grace_sections(grace: &crate::db::graces_data::GraceData, flag: u32) -> Vec<RelationshipSection> {
+    let mut sections = Vec::new();
+
+    if let Some(id) = grace.mapgenie_id {
+        sections.push(mapgenie_section(id));
+    }
+
+    // Location info
+    sections.push(
+        RelationshipSection::new("Location").with_items(vec![
+            RelationshipItem::new(
+                grace.region.to_string(),
+                DetailPanelAction::None,
+            ).with_secondary(format!("{:.0}, {:.0}, {:.0}", grace.pos_x, grace.pos_y, grace.pos_z))
+        ])
+    );
+
+    // Nearby bosses from relationship data
+    let rels = get_grace_relationships(flag);
+    if let Some(s) = section_from_relationships("Nearby Bosses", &rels, RelationType::NearbyBoss, |r| {
+        DetailPanelAction::NavigateToBoss {
+            defeat_flag: r.target_id,
+            name: r.label.to_string(),
+        }
+    }) {
+        sections.push(s);
+    }
+
+    sections
 }
 
 pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option<&[u8]>, detail_panel: &mut DetailPanelState) {
@@ -121,39 +154,13 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
     // Auto-open detail panel if selection was set programmatically (from navigation)
     if let Some(flag) = state.selected_flag {
         if state.last_detail_flag != Some(flag) {
-            // Find the grace in the filtered list and open its detail panel
             if let Some((_, grace, _)) = graces.iter().find(|(f, _, _)| *f == flag) {
-                let mut sections = Vec::new();
-
-                // Add MapGenie link if available
-                if let Some(mapgenie_id) = grace.mapgenie_id {
-                    let mapgenie_url = format!("https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds={}", mapgenie_id);
-                    sections.push(
-                        RelationshipSection::new("External Links").with_items(vec![
-                            RelationshipItem::new(
-                                format!("View on MapGenie ({})", mapgenie_id),
-                                DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
-                            ).with_secondary(mapgenie_url)
-                        ])
-                    );
-                }
-
-                // Add location info
-                sections.push(
-                    RelationshipSection::new("Location").with_items(vec![
-                        RelationshipItem::new(
-                            grace.region.to_string(),
-                            DetailPanelAction::None,
-                        ).with_secondary(format!("{:.0}, {:.0}, {:.0}", grace.pos_x, grace.pos_y, grace.pos_z))
-                    ])
-                );
-
                 detail_panel.select_with_relationships(
                     SelectedEntity::Grace {
                         event_flag: flag,
                         name: grace.name.to_string(),
                     },
-                    sections,
+                    build_grace_sections(grace, flag),
                 );
                 state.last_detail_flag = Some(flag);
             }
@@ -219,40 +226,15 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
         ui.output_mut(|o| o.copied_text = text);
     }
 
-    // Handle single click - open detail panel with MapGenie info
+    // Handle single click - open detail panel
     if let Some(row_idx) = table_response.clicked_row {
         if let Some((flag, grace, _)) = graces.get(row_idx) {
-            let mut sections = Vec::new();
-
-            // Add MapGenie link if available
-            if let Some(mapgenie_id) = grace.mapgenie_id {
-                let mapgenie_url = format!("https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds={}", mapgenie_id);
-                sections.push(
-                    RelationshipSection::new("External Links").with_items(vec![
-                        RelationshipItem::new(
-                            format!("View on MapGenie ({})", mapgenie_id),
-                            DetailPanelAction::OpenExternalUrl { url: mapgenie_url.clone() },
-                        ).with_secondary(mapgenie_url)
-                    ])
-                );
-            }
-
-            // Add location info
-            sections.push(
-                RelationshipSection::new("Location").with_items(vec![
-                    RelationshipItem::new(
-                        grace.region.to_string(),
-                        DetailPanelAction::None,
-                    ).with_secondary(format!("{:.0}, {:.0}, {:.0}", grace.pos_x, grace.pos_y, grace.pos_z))
-                ])
-            );
-
             detail_panel.select_with_relationships(
                 SelectedEntity::Grace {
                     event_flag: *flag,
                     name: grace.name.to_string(),
                 },
-                sections,
+                build_grace_sections(grace, *flag),
             );
             state.last_detail_flag = Some(*flag);
         }
@@ -290,7 +272,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
                 );
                 to_json(&export).unwrap_or_else(|_| String::new())
             }
-            ExportFormat::Csv => {
+            ExportFormat::Csv | ExportFormat::Markdown => {
                 let headers = &["Flag ID", "Name", "Region", "Pos X", "Pos Y", "Pos Z", "MapGenie ID"];
                 let rows: Vec<Vec<String>> = data_to_export.iter()
                     .map(|g| vec![
@@ -303,22 +285,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
                         g.mapgenie_id.clone().unwrap_or_default(),
                     ])
                     .collect();
-                to_csv(headers, &rows)
-            }
-            ExportFormat::Markdown => {
-                let headers = &["Flag ID", "Name", "Region", "Pos X", "Pos Y", "Pos Z", "MapGenie ID"];
-                let rows: Vec<Vec<String>> = data_to_export.iter()
-                    .map(|g| vec![
-                        g.event_flag.to_string(),
-                        g.name.clone(),
-                        g.region.clone(),
-                        format!("{:.1}", g.pos_x),
-                        format!("{:.1}", g.pos_y),
-                        format!("{:.1}", g.pos_z),
-                        g.mapgenie_id.clone().unwrap_or_default(),
-                    ])
-                    .collect();
-                to_markdown(headers, &rows)
+                if state.export_format == ExportFormat::Csv { to_csv(headers, &rows) } else { to_markdown(headers, &rows) }
             }
         };
 

@@ -4,6 +4,43 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.13.0 - Entity Relationships Pipeline & DRY Refactor
+
+### Entity Relationships Upstream Migration
+- Expanded boss database from 17 hardcoded entries to 205 extracted from GameAreaParam
+- Added grace↔boss proximity computation with 200m threshold (188 bosses with nearby graces, 313 graces with nearby bosses)
+- Migrated boss drops to structured JSON (`scripts/boss_drops.json`) with 53 boss drop groups
+- Generated `entity_relationships_data.rs` with BOSS_DROPS, ITEM_DROPPED_BY, BOSS_DROP_INDEX, BOSS_NEARBY_GRACES, GRACE_NEARBY_BOSSES
+- Boss detail panel now shows "Drops" and "Nearby Graces" sections
+- Grace detail panel now shows "Nearby Bosses" section with distances
+- Accurate boss type classification using SHARDBEARER_FLAGS set + rune tiers
+
+### DRY Refactoring
+- Added `mapgenie_section()` shared helper (was duplicated in bosses + graces views)
+- Added `section_from_relationships()` generic filter→map→section builder
+- Extracted `build_item_sections()` in items_view.rs (removed ~70 lines of copy-paste)
+- Extracted `build_merchant_sections()` in merchants_view.rs
+- Merged identical CSV/Markdown export arms in all 4 database views
+- Removed 6 unused helper functions from relationship_list.rs
+
+### Files Modified
+- scripts/generate_db.py: GameAreaParam extraction, proximity computation, boss drops loading, relationship generation
+- scripts/boss_drops.json: new structured boss drops data
+- src/db/entity_relationships_data.rs: new generated relationships module
+- src/db/entity_relationships.rs: refactored to use generated data
+- src/db/bosses_data.rs: regenerated with 205 bosses and full metadata
+- src/db/boss_drops.rs: deleted (replaced by generated data)
+- src/db/mod.rs: updated module declarations
+- src/ui/components/detail_panel/relationship_list.rs: new shared helpers, removed dead code
+- src/ui/components/detail_panel/mod.rs: updated re-exports
+- src/ui/database/bosses_view.rs: uses shared helpers, merged export arms
+- src/ui/database/graces_view.rs: uses shared helpers, merged export arms
+- src/ui/database/items_view.rs: extracted build_item_sections, merged export arms
+- src/ui/database/merchants_view.rs: extracted build_merchant_sections, merged export arms
+- Cargo.toml: bumped to 0.13.0
+
+---
+
 ## v0.12.1 - Detail Panel Navigation & UI Polish
 
 ### Detail Panel Navigation

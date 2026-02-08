@@ -7,9 +7,9 @@ use crate::db::unified_items::{UNIFIED_ITEMS, UnifiedItemCategory};
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
-use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction};
+use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction, section_from_relationships};
 use crate::ui::tokens::spacing;
-use crate::db::entity_relationships::get_item_relationships;
+use crate::db::entity_relationships::{get_item_relationships, RelationType};
 use serde::Serialize;
 
 #[derive(Clone, Copy, PartialEq, Default)]
@@ -92,6 +92,52 @@ struct ItemExportItem {
     max_hold: u16,
 }
 
+/// Build detail panel sections for an item, including relationships.
+fn build_item_sections(item: &crate::db::unified_items::UnifiedItem) -> Vec<RelationshipSection> {
+    let rels = get_item_relationships(item.id);
+    let mut sections = Vec::new();
+
+    if let Some(s) = section_from_relationships("Sold By", &rels, RelationType::SoldBy, |r| {
+        DetailPanelAction::NavigateToMerchant { shop_id: r.target_id, name: r.label.to_string() }
+    }) {
+        sections.push(s);
+    }
+
+    if let Some(s) = section_from_relationships("Dropped By", &rels, RelationType::DroppedBy, |r| {
+        DetailPanelAction::NavigateToBoss { defeat_flag: r.target_id, name: r.label.to_string() }
+    }) {
+        sections.push(s);
+    }
+
+    // Found At — limited to 10 with count in title
+    let found_at: Vec<_> = rels.iter()
+        .filter(|r| r.rel_type == RelationType::FoundAt)
+        .collect();
+    if !found_at.is_empty() {
+        let rel_items: Vec<RelationshipItem> = found_at.iter()
+            .take(10)
+            .map(|r| {
+                let mut rel_item = RelationshipItem::new(
+                    r.label.to_string(),
+                    DetailPanelAction::NavigateToPickup { flag_id: r.target_id, name: r.label.to_string() },
+                );
+                if let Some(secondary) = &r.secondary {
+                    rel_item = rel_item.with_secondary(secondary.clone());
+                }
+                rel_item
+            })
+            .collect();
+        let title = if found_at.len() > 10 {
+            format!("Found At ({} locations, showing 10)", found_at.len())
+        } else {
+            "Found At".to_string()
+        };
+        sections.push(RelationshipSection::new(title).with_items(rel_items));
+    }
+
+    sections
+}
+
 pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut DetailPanelState) {
     // Sync filter_state with state
     state.filter = ItemCategoryFilter::from_filter_value(&state.filter_state.category);
@@ -158,84 +204,14 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
     // Auto-open detail panel if selection was set programmatically (from navigation)
     if let Some(key) = state.selected_key {
         if state.last_detail_key != Some(key) {
-            // Find the item in the filtered list and open its detail panel
             if let Some((_, item)) = items.iter().find(|(k, _)| *k == key) {
-                // Build relationship sections
-                let relationships = get_item_relationships(item.id);
-                let mut sections = Vec::new();
-
-                // Group by relationship type - Sold By
-                let sold_by: Vec<_> = relationships.iter()
-                    .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::SoldBy))
-                    .collect();
-
-                if !sold_by.is_empty() {
-                    let rel_items: Vec<RelationshipItem> = sold_by.iter()
-                        .map(|r| {
-                            let mut rel_item = RelationshipItem::new(
-                                r.label.to_string(),
-                                DetailPanelAction::NavigateToMerchant { shop_id: r.target_id, name: r.label.to_string() },
-                            );
-                            if let Some(secondary) = &r.secondary {
-                                rel_item = rel_item.with_secondary(secondary.clone());
-                            }
-                            rel_item
-                        })
-                        .collect();
-                    sections.push(RelationshipSection::new("Sold By").with_items(rel_items));
-                }
-
-                // Group by relationship type - Dropped By
-                let dropped_by: Vec<_> = relationships.iter()
-                    .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::DroppedBy))
-                    .collect();
-
-                if !dropped_by.is_empty() {
-                    let rel_items: Vec<RelationshipItem> = dropped_by.iter()
-                        .map(|r| {
-                            RelationshipItem::new(
-                                r.label.to_string(),
-                                DetailPanelAction::NavigateToBoss { defeat_flag: r.target_id, name: r.label.to_string() },
-                            )
-                        })
-                        .collect();
-                    sections.push(RelationshipSection::new("Dropped By").with_items(rel_items));
-                }
-
-                // Group by relationship type - Found At
-                let found_at: Vec<_> = relationships.iter()
-                    .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::FoundAt))
-                    .collect();
-
-                if !found_at.is_empty() {
-                    let rel_items: Vec<RelationshipItem> = found_at.iter()
-                        .take(10)
-                        .map(|r| {
-                            let mut rel_item = RelationshipItem::new(
-                                r.label.to_string(),
-                                DetailPanelAction::NavigateToPickup { flag_id: r.target_id, name: r.label.to_string() },
-                            );
-                            if let Some(secondary) = &r.secondary {
-                                rel_item = rel_item.with_secondary(secondary.clone());
-                            }
-                            rel_item
-                        })
-                        .collect();
-                    let title = if found_at.len() > 10 {
-                        format!("Found At ({} locations, showing 10)", found_at.len())
-                    } else {
-                        "Found At".to_string()
-                    };
-                    sections.push(RelationshipSection::new(title).with_items(rel_items));
-                }
-
                 detail_panel.select_with_relationships(
                     SelectedEntity::Item {
                         category: key.0.as_str().to_string(),
                         id: key.1,
                         name: item.name.to_string(),
                     },
-                    sections,
+                    build_item_sections(item),
                 );
                 state.last_detail_key = Some(key);
             }
@@ -296,82 +272,13 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
     // Handle single click - open detail panel with relationships
     if let Some(row_idx) = table_response.clicked_row {
         if let Some(((category, id), item)) = items.get(row_idx) {
-            // Build relationship sections
-            let relationships = get_item_relationships(item.id);
-            let mut sections = Vec::new();
-
-            // Group by relationship type - Sold By
-            let sold_by: Vec<_> = relationships.iter()
-                .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::SoldBy))
-                .collect();
-
-            if !sold_by.is_empty() {
-                let rel_items: Vec<RelationshipItem> = sold_by.iter()
-                    .map(|r| {
-                        let mut rel_item = RelationshipItem::new(
-                            r.label.to_string(),
-                            DetailPanelAction::NavigateToMerchant { shop_id: r.target_id, name: r.label.to_string() },
-                        );
-                        if let Some(secondary) = &r.secondary {
-                            rel_item = rel_item.with_secondary(secondary.clone());
-                        }
-                        rel_item
-                    })
-                    .collect();
-                sections.push(RelationshipSection::new("Sold By").with_items(rel_items));
-            }
-
-            // Group by relationship type - Dropped By (show first, most important)
-            let dropped_by: Vec<_> = relationships.iter()
-                .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::DroppedBy))
-                .collect();
-
-            if !dropped_by.is_empty() {
-                let rel_items: Vec<RelationshipItem> = dropped_by.iter()
-                    .map(|r| {
-                        RelationshipItem::new(
-                            r.label.to_string(),
-                            DetailPanelAction::NavigateToBoss { defeat_flag: r.target_id, name: r.label.to_string() },
-                        )
-                    })
-                    .collect();
-                sections.push(RelationshipSection::new("Dropped By").with_items(rel_items));
-            }
-
-            // Group by relationship type - Found At
-            let found_at: Vec<_> = relationships.iter()
-                .filter(|r| matches!(r.rel_type, crate::db::entity_relationships::RelationType::FoundAt))
-                .collect();
-
-            if !found_at.is_empty() {
-                let rel_items: Vec<RelationshipItem> = found_at.iter()
-                    .take(10) // Limit to first 10 to avoid overwhelming the panel
-                    .map(|r| {
-                        let mut rel_item = RelationshipItem::new(
-                            r.label.to_string(),
-                            DetailPanelAction::NavigateToPickup { flag_id: r.target_id, name: r.label.to_string() },
-                        );
-                        if let Some(secondary) = &r.secondary {
-                            rel_item = rel_item.with_secondary(secondary.clone());
-                        }
-                        rel_item
-                    })
-                    .collect();
-                let title = if found_at.len() > 10 {
-                    format!("Found At ({} locations, showing 10)", found_at.len())
-                } else {
-                    "Found At".to_string()
-                };
-                sections.push(RelationshipSection::new(title).with_items(rel_items));
-            }
-
             detail_panel.select_with_relationships(
                 SelectedEntity::Item {
                     category: category.as_str().to_string(),
                     id: *id,
                     name: item.name.to_string(),
                 },
-                sections,
+                build_item_sections(item),
             );
             state.last_detail_key = Some((*category, *id));
         }
@@ -409,7 +316,7 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
                 );
                 to_json(&export).unwrap_or_else(|_| String::new())
             }
-            ExportFormat::Csv => {
+            ExportFormat::Csv | ExportFormat::Markdown => {
                 let headers = &["ID", "Name", "Category", "Icon", "Weight", "Value", "Max"];
                 let rows: Vec<Vec<String>> = data_to_export.iter()
                     .map(|i| vec![
@@ -422,22 +329,7 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
                         i.max_hold.to_string(),
                     ])
                     .collect();
-                to_csv(headers, &rows)
-            }
-            ExportFormat::Markdown => {
-                let headers = &["ID", "Name", "Category", "Icon", "Weight", "Value", "Max"];
-                let rows: Vec<Vec<String>> = data_to_export.iter()
-                    .map(|i| vec![
-                        i.id.to_string(),
-                        i.name.clone(),
-                        i.category.clone(),
-                        i.icon_id.to_string(),
-                        format!("{:.1}", i.weight),
-                        i.sell_value.to_string(),
-                        i.max_hold.to_string(),
-                    ])
-                    .collect();
-                to_markdown(headers, &rows)
+                if state.export_format == ExportFormat::Csv { to_csv(headers, &rows) } else { to_markdown(headers, &rows) }
             }
         };
 
