@@ -634,9 +634,7 @@ if not bitmap.is_trackable(520210):  # False - sparse gap
 
 ## Flag Storage in Save File
 
-See also: `docs/Flag-islands.md`
-
-Event flags are stored in contiguous bit arrays within each character slot:
+Event flags are stored in contiguous bit arrays within each character slot. One verified flag anchor reveals entire blocks - finding one flag's offset allows calculating all flags in the same block/tile/section.
 
 | Section | Approximate Offset | Size |
 |---------|-------------------|------|
@@ -669,7 +667,7 @@ Analysis of 55+ b-series and 10+ Confessor-series snapshots revealed:
 |-------------|-----------------------------------|-------|
 | b-series (Slot 0) | 485951 | Early captures |
 | Confessor series | 490522 | Later captures, +4571 difference |
-| Ground truth | 489981 | Calibrated 2026-01-20 |
+| Ground truth | 485330 | Reverted 2026-01-25 (489981 was wrong) |
 
 ### Solution: Dynamic Calibration
 
@@ -705,8 +703,7 @@ print(f"Confidence: {cal.tile_base_confidence:.2f}")
 
 ## Related Documentation
 
-- `CLAUDE.md` - Complete flag range reference tables
-- `Flag-islands.md` - Block offset propagation
-- `DATABASE_COVERAGE_ANALYSIS.md` - Current implementation coverage
-- `SAVE_FILE_GROUND_TRUTH.md` - Verified flag positions
-- `discovery-verification-cycle.md` - Automated capture workflow
+- [SAVE_FILE_GROUND_TRUTH.md](SAVE_FILE_GROUND_TRUTH.md) - Verified flag positions
+- [DATABASE_COVERAGE_ANALYSIS.md](DATABASE_COVERAGE_ANALYSIS.md) - Current implementation coverage
+- [discovery-verification-cycle.md](discovery-verification-cycle.md) - Discovery and verification methodology
+- [CORROBORATION-SYSTEM.md](CORROBORATION-SYSTEM.md) - Dual-formula validation

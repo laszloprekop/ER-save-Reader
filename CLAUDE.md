@@ -79,9 +79,13 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
 | **WASM shared detection** | `docs/WASM-EVENT-FLAGS.md` |
 | Discovery methodology | `docs/discovery-verification-cycle.md` |
 | Corroboration system | `docs/CORROBORATION-SYSTEM.md` |
+| Case verification guide | `docs/CASE-VERIFICATION-GUIDE.md` |
 | Database coverage | `docs/DATABASE_COVERAGE_ANALYSIS.md` |
+| Save file ground truth | `docs/SAVE_FILE_GROUND_TRUTH.md` |
+| Data sources & characters | `docs/DATA-SOURCES.md` |
+| Project backlog | `docs/BACKLOG.md` |
 | Ground truth data | `ground_truth_offsets.json` |
 
 **Single Source of Truth**:
-- Offset values: `ground_truth_offsets.json` (never use `flag_formulas.py`)
+- Offset values: `ground_truth_offsets.json` (never use `flag_formulas.py`, which is deprecated)
 - EventFlags detection: `crates/wasm-event-flags/` (shared with elden-map via WASM)

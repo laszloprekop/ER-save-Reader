@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [DATABASE_COVERAGE_ANALYSIS.md](../DATABASE_COVERAGE_ANALYSIS.md) (analysis doc, not reference).
+
 # Flag Catalog vs Param Database
 
 | Aspect | Flag Catalog | Param Database |

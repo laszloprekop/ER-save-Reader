@@ -1,298 +1,198 @@
 # Database Module Coverage Analysis
 
-**Date**: 2026-01-07
-**Analyzed Save**: Slot 0 (Confessor, mid-game progression)
+**Last updated**: 2026-02-08
+**App Version**: v0.13.1
 
 ---
 
 ## Executive Summary
 
-The ER-save-Editor has good coverage for core item/equipment data (~90-100%) but significant gaps in event flag coverage (<10%) and missing database modules for spells, NPCs, landmarks, and shop items.
+The ER-save-Editor has **40 database modules** cataloging **~22,184 game data entries** across equipment, world pickups, event flags, NPCs, shops, spells, and more. Coverage for core item/equipment data is excellent (~90-100%). Event flag detection is production-ready for tile and dungeon formulas, with block formula coverage at ~76%.
 
-**Key Blindspots**:
-1. No spell/incantation database (317 spells in game)
-2. ~~Only 1,350 of ~15,000+ event flags mapped~~ **RESOLVED** - Event Flags DB view added (v0.2.0)
-3. No NPC tracking or merchant discovery
-4. No landmark/POI database
-
-**Recent Improvements (v0.2.0)**:
-- Added comprehensive Event Flags Database view with ~5,000+ entries
-- Integrated data from pickup_data.rs, graces.rs, bosses.rs, cookbooks.rs, whetblades.rs
-- Full category/region filtering and JSON export functionality
+**Current State**:
+- 21 UI routes (8 character views, 11 database views, 2 utilities)
+- 8 auto-generated modules (via `scripts/generate_db.py`)
+- 32 hand-maintained modules
 
 ---
 
-## Current Database Modules
+## Database Module Inventory
 
-### Module Inventory
+### Equipment Name Databases
 
-| Module | Purpose | Lines | Entry Count |
-|--------|---------|-------|-------------|
-| `weapon_name.rs` | Weapon ID → Name | 3,089 | 3,081 |
-| `armor_name.rs` | Armor ID → Name | 806 | 798 |
-| `item_name.rs` | Item ID → Name | 2,324 | 2,316 |
-| `accessory_name.rs` | Talisman ID → Name | 164 | 156 |
-| `aow_name.rs` | Ash of War ID → Name | 251 | 243 |
-| `event_flags.rs` | Event ID → (byte, bit) | 1,359 | 1,350 |
-| `event_flags_db.rs` | Comprehensive flag database | ~700 | ~5,000+ |
-| `graces.rs` | Grace enum + flags | 983 | 381 |
-| `bosses.rs` | Boss enum + flags | 412 | 157 |
-| `regions.rs` | Region enum + metadata | 983 | 278 |
-| `summoning_pools.rs` | Pool enum + flags | 336 | 162 |
-| `maps.rs` | Map enum + flags | 80 | 33 |
-| `cookbooks.rs` | Cookbook enum + flags | 302 | 104 |
-| `whetblades.rs` | Whetblade enum + flags | 37 | 12 |
-| `colosseums.rs` | Colosseum enum + flags | 17 | 3 |
-| `stats.rs` | Stat growth tables | 2,389 | N/A |
-| `classes.rs` | Starting class data | 193 | 10 |
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `weapon_name.rs` | Weapon ID -> Name | 3,081 | Hand-maintained |
+| `armor_name.rs` | Armor ID -> Name | 798 | Hand-maintained |
+| `item_name.rs` | Item ID -> Name | 2,316 | Hand-maintained |
+| `accessory_name.rs` | Talisman ID -> Name | 156 | Hand-maintained |
+| `aow_name.rs` | Ash of War ID -> Name | 243 | Hand-maintained |
+| `unified_items.rs` | All EquipParam combined | 6,857 | Auto-generated |
+
+### Event Flag & World Data
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `event_flags.rs` | Event ID -> (byte, bit) | 5,751 | Auto-generated |
+| `world_pickups.rs` | Overworld pickup tracking | 5,477 | Auto-generated |
+| `pickup_data.rs` | Enriched pickup data | 4,810 | Auto-generated |
+| `dungeon_pickups.rs` | Dungeon pickup tracking | 2,109 | Auto-generated |
+| `pickup_flags.rs` | Formula-based flag offsets | N/A | Hand-maintained |
+| `entity_relationships_data.rs` | Cross-entity relationships | 613 | Auto-generated |
+
+### Sites of Grace & Bosses
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `graces.rs` | Grace enum + flags | 382 | Hand-maintained |
+| `graces_data.rs` | Enriched grace data | 421 | Auto-generated |
+| `bosses.rs` | Boss enum + flags | 157 | Hand-maintained |
+| `bosses_data.rs` | Enriched boss data | 205 | Auto-generated |
+
+### Discovery & Progression
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `regions.rs` | Region enum + metadata | 278 | Hand-maintained |
+| `summoning_pools.rs` | Pool enum + flags | 162 | Hand-maintained |
+| `maps.rs` | Map enum + flags | 33 | Hand-maintained |
+| `cookbooks.rs` | Cookbook enum + flags | 104 | Hand-maintained |
+| `whetblades.rs` | Whetblade enum + flags | 12 | Hand-maintained |
+| `colosseums.rs` | Colosseum enum + flags | 3 | Hand-maintained |
+| `landmarks.rs` | Landmark/POI tracking | 308 | Hand-maintained |
+
+### NPCs & Quests
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `npcs.rs` | NPC tracking | 30 | Hand-maintained |
+| `quest_chains.rs` | Quest chain definitions | 24 | Hand-maintained |
+
+### Shops & Commerce
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `shop_items.rs` | Shop stock tracking | 1,372 | Hand-maintained |
+| `merchants_data.rs` | Merchant-grouped data | 1,277 | Hand-maintained |
+
+### Spells & Character
+
+| Module | Purpose | Entry Count | Generation |
+|--------|---------|-------------|------------|
+| `spells.rs` | Spell database | 315 | Auto-generated |
+| `stats.rs` | Stat growth tables | N/A | Hand-maintained |
+| `classes.rs` | Starting class data | 10 | Hand-maintained |
 
 ---
 
 ## Comparison with Game Params
 
-### Primary Equipment Params
+### Equipment Coverage
 
-| Category | DB Module | DB Count | Game Param | Param Rows | Coverage % |
-|----------|-----------|----------|------------|------------|------------|
-| Weapons | weapon_name.rs | 3,081 | EquipParamWeapon | 3,554 | **87%** |
-| Armor | armor_name.rs | 798 | EquipParamProtector | 820 | **97%** |
-| Talismans | accessory_name.rs | 156 | EquipParamAccessory | 157 | **99%** |
-| Items/Goods | item_name.rs | 2,316 | EquipParamGoods | 2,326 | **99%** |
-| Ashes of War | aow_name.rs | 243 | EquipParamGem | 242 | **100%** |
+| Category | DB Count | Game Param | Param Rows | Coverage |
+|----------|----------|------------|------------|----------|
+| Weapons | 3,081 | EquipParamWeapon | 3,554 | **87%** |
+| Armor | 798 | EquipParamProtector | 820 | **97%** |
+| Talismans | 156 | EquipParamAccessory | 157 | **99%** |
+| Items/Goods | 2,316 | EquipParamGoods | 2,326 | **99%** |
+| Ashes of War | 243 | EquipParamGem | 242 | **100%** |
+| Spells | 315 | Magic | 317 | **99%** |
 
-### Missing from Game Params
+### World Data Coverage
 
-| Category | Game Param | Rows | DB Module | Status |
-|----------|------------|------|-----------|--------|
-| Spells | Magic | 317 | N/A | **MISSING** |
-| Special Effects | SpEffectParam | 11,325 | N/A | Not needed |
-| Shop Items | ShopLineupParam | 1,277 | N/A | **MISSING** |
-| World Pickups | ItemLotParam_map | 5,564 | N/A | Partial (via event_flags) |
-| Gestures | GestureParam | ~60 | N/A | **MISSING** |
-| NPCs | NpcParam | ~500 | N/A | **MISSING** |
+| Category | DB Count | Estimated Total | Coverage |
+|----------|----------|-----------------|----------|
+| World Pickups | 5,477 + 4,810 | ~5,564 | **98%+** |
+| Dungeon Pickups | 2,109 | ~2,500 | **84%** |
+| Graces | 421 | 422 | **99%** |
+| Bosses | 205 | ~210 | **98%** |
+| Landmarks | 308 | ~320 | **96%** |
+| NPCs | 30 | ~500 | **6%** |
+| Shop Items | 1,372 + 1,277 | ~1,400 | **98%** |
 
----
+### Still Missing
 
-## Save File Data Coverage
-
-### SaveSlot Structure Analysis
-
-From `src/save/common/save_slot.rs`:
-
-| Field | Type | Size | DB Coverage | UI Editable |
-|-------|------|------|-------------|-------------|
-| `player_game_data` | PlayerGameData | 588 bytes | Partial | Yes |
-| `chr_asm` | ChrAsm | 88 bytes | Yes | Yes |
-| `chr_asm2` | ChrAsm2 | 84 bytes | Yes | Yes |
-| `equip_inventory_data` | EquipInventoryData | 29,696 bytes | Yes | Yes |
-| `storage_inventory_data` | EquipInventoryData | 29,696 bytes | Yes | Yes |
-| `equip_magic_data` | EquipMagicData | 116 bytes | **No** | Partial |
-| `equip_item_data` | EquipItemData | 128 bytes | Yes | Yes |
-| `equip_projectile_data` | EquipProjectileData | 56 bytes | Yes | Yes |
-| `equip_physics_data` | EquipPhysicsData | 40 bytes | Partial | Yes |
-| `event_flags` | EventFlags | 1,835,008 bytes | **<10%** | Partial |
-| `regions` | Regions | Variable | Yes | Yes |
-| `ga_items` | Vec<GaItem> | 327,680 bytes | Yes | Partial |
-| `ga_item_data` | GaItemData | 448,512 bytes | Partial | No |
-| `gesture_game_data` | Vec<i32> | 256 bytes | **No** | No |
-| `ride_game_data` | RideGameData | 36 bytes | No | No |
-| `face_data` | [u8; 0x12f] | 303 bytes | No | No |
-| `tutorial_data` | [u8; 0x408] | 1,032 bytes | No | No |
-| `world_area_weather` | WorldAreaWeather | 12 bytes | No | No |
-| `world_area_time` | WorldAreaTime | 12 bytes | No | No |
-
-### Event Flags Analysis
-
-**Current coverage**: ~5,000+ flags accessible via Event Flags DB view (consolidated from multiple sources)
-
-**Event Flag Byte Array**:
-- Total size: 0x1bf99f bytes (1,835,039 bytes ≈ 1.75 MB)
-- Bit-packed storage: Each flag = 1 bit
-- Maximum flags: ~14,680,000 (theoretical)
-- Actual used: ~15,000-20,000 (estimated)
-
-**Mapped Flag Ranges**:
-
-| Range | Count | Category |
-|-------|-------|----------|
-| 0-199 | ~50 | Great Runes, boss markers |
-| 300-999 | ~100 | Grace flags |
-| 60000-69999 | ~500 | Progression, cookbooks |
-| 71000-76999 | ~200 | Bosses, maps |
-| 10XXXXXXXX | ~500 | World pickups (partial) |
-
-**Unmapped Flag Ranges**:
-
-| Range | Estimated | Category |
-|-------|-----------|----------|
-| 9100-9299 | ~200 | Remembrance possession |
-| 100000-160000 | ~2,000 | Shop stock flags |
-| 10XXXXXXXX | ~4,000 | World pickups (most) |
-| 11XXXXXXXX | ~1,000 | Legacy dungeon events |
-| 20XXXXXXXX | ~2,000 | DLC pickups |
+| Category | Game Param | Estimated Rows | Status |
+|----------|------------|----------------|--------|
+| Gestures | GestureParam | ~60 | NOT STARTED |
+| Full NPC DB | NpcParam | ~500 | Only 30 of ~500 |
 
 ---
 
-## World Pickup Tracking
+## Event Flag Detection Success Rates
 
-### Categories in Save (from Export Analysis)
+**Overall: ~60.7% of tested flags proven correct**
 
-| Category | Total Items | Tracked in Save | Notes |
-|----------|-------------|-----------------|-------|
-| Golden Runes | 667 | Yes | Flag format: 10XXYYZZZZ |
-| Smithing Stones | 346 | Yes | Category 7 in tile data |
-| Somber Stones | 200 | Yes | Category 7 in tile data |
-| Glovewort | 70 | Yes | For spirit ashes |
-| Weapons | 2,367 | Yes | World-dropped weapons |
-| Armor | 375 | Yes | World-dropped armor |
-| Talismans | 112 | Yes | Hidden talismans |
-| Ashes of War | 82 | Yes | Scarabs, chests |
-| Key Items | 20 | Yes | Quest items |
-| Crafting Materials | 16 | Yes | Rare spawns |
-| Consumables | 18 | Yes | Boluses, etc. |
+### By Formula Type
 
-**Total World Pickups**: ~4,273 items
+| Formula Type | Success Rate | Count | Status |
+|-------------|-------------|-------|--------|
+| **Tile Formula** (10-digit) | **100%** | 69/69 | PRODUCTION READY |
+| **Dungeon Formula** (8-digit) | **99.4%** | 2,316/2,331 | PRODUCTION READY |
+| **Block Formula** (5-digit) | **76.4%** | 375/491 | MOSTLY READY |
 
-### POI Discovery Tracking
+### By Flag Category
 
-| POI Type | Total | Currently Tracked | DB Coverage |
-|----------|-------|-------------------|-------------|
-| Graces | 422 | Yes (via graces.rs) | 381/422 (90%) |
-| Bosses | 104 | Yes (via bosses.rs) | 157 (includes DLC) |
-| NPCs | 71 | In save, not in UI | 0% |
-| Landmarks | 236 | In save, not in UI | 0% |
+| Flag Category | Proven Rate | Notes |
+|--------------|------------|-------|
+| Grace Flags | 76.2% (375/492) | 6 block bases validated |
+| Great Boss Defeat | 9.6% (8/83) | Low coverage, needs work |
+| Field Boss Defeat | 4.3% (1/23) | Very low coverage |
+| Generic Boss Defeat | 13.8% (8/58) | Low coverage |
 
----
+### Block Base Status
 
-## Identified Blindspots
+| Status | Count | Blocks |
+|--------|-------|--------|
+| **Verified** | 9 | 60000, 61000, 62000, 65000, 67000, 68000, 71800, 76000, 78000 |
+| **Unreliable** | 4 | 71000, 71100, 71600, 73000 (varies by save progression) |
+| **Disproven** | 2 | 75000, 77000 |
 
-### Critical (High Impact)
+### Dungeon Base Status
 
-1. **Spell Database**
-   - Impact: Cannot display spell names in equipped spells
-   - Source: Magic.param (317 rows)
-   - Solution: Create `db/spells.rs`
-
-2. **Event Flags (<10% coverage)**
-   - Impact: Most world state not viewable/editable
-   - Source: ItemLotParam_map, common.emevd.js
-   - Solution: Expand event_flags.rs by ~10x
-
-3. **NPC Discovery**
-   - Impact: Cannot track which NPCs have been found
-   - Source: NpcParam, TalkParam
-   - Solution: Create `db/npcs.rs`
-
-4. **Merchant Shop Stock**
-   - Impact: Cannot see/reset purchased items
-   - Source: ShopLineupParam (1,277 rows)
-   - Solution: Create `db/shop_items.rs`
-
-### Moderate (Quality of Life)
-
-5. **Landmarks/POIs**
-   - 236 landmarks not named in UI
-   - Source: WorldMapPointParam
-
-6. **Gestures**
-   - Unlocked gestures not editable
-   - Source: GestureParam (~60 rows)
-
-7. **Great Runes**
-   - Possession/activation not in event flags UI
-   - Flags: 160-167, 180-187
-
-8. **Remembrance Duplication**
-   - Walking Mausoleum usage not tracked
-   - Flags: 69010-69760
-
-### Minor (Low Priority)
-
-9. Tutorial progress
-10. Weather/time state
-11. Character appearance (face_data)
-12. Torrent (horse) state
+| Status | Count | Details |
+|--------|-------|---------|
+| **Verified** | 7 areas | 10, 11, 12, 14, 30, 31, 32 |
+| **Calculated** | 8 areas | 13, 15, 16, 18, 19, 34, 35, 39 |
+| **Unverified** | 2 areas | 20, 21 |
+| **Pickup section bases** | 89 sections | Across 22 areas |
 
 ---
 
-## Requirements for Full Coverage
+## Code Redundancy Notes
 
-### New Database Modules
+Several data categories have parallel modules that evolved independently:
 
-| Module | Source Param | Rows | Priority |
-|--------|--------------|------|----------|
-| spells.rs | Magic | 317 | High |
-| npcs.rs | NpcParam | ~500 | High |
-| shop_items.rs | ShopLineupParam | 1,277 | High |
-| landmarks.rs | WorldMapPointParam | ~200 | Medium |
-| gestures.rs | GestureParam | ~60 | Medium |
+| Data | Module A | Module B | Issue |
+|------|----------|----------|-------|
+| Pickups | `world_pickups.rs` (5,477) | `pickup_data.rs` (4,810) | Different struct, overlapping data |
+| Graces | `graces.rs` (382 enum) | `graces_data.rs` (421 enriched) | Enum + enriched data split |
+| Bosses | `bosses.rs` (157 enum) | `bosses_data.rs` (205 enriched) | Enum + enriched data split |
+| Shops | `shop_items.rs` (1,372) | `merchants_data.rs` (1,277) | Different grouping of same source |
 
-### Event Flags Expansion Plan
-
-**Phase 1**: Core flags (~2,000 additional)
-- Great Runes (160-187)
-- Remembrance possession (9100-9199)
-- Shop stock subset (most-used 500)
-
-**Phase 2**: World pickups (~4,000 additional)
-- All 10-digit pickup flags from ItemLotParam_map
-- Group by region for UI organization
-
-**Phase 3**: Legacy dungeon events (~1,000 additional)
-- 11xxxxxx format flags
-- Quest progression markers
-
-### UI Enhancements
-
-| Feature | New Files | Complexity |
-|---------|-----------|------------|
-| Spell Management | ui/spells.rs, vm/spells.rs | Medium |
-| NPC Tracker | ui/npcs.rs | Low |
-| World Pickup Browser | ui/pickups.rs | High |
-| Shop Stock Editor | ui/shop.rs | Medium |
-| Quest Progress View | ui/quests.rs | High |
+These pairs serve different purposes (enum-based vs data-enriched) but represent potential consolidation opportunities.
 
 ---
 
-## Data Sources Reference
+## Key Technical Constants
 
-### Primary (Decompiled Game Files)
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md) for complete formula documentation.
 
-| File | Location | Purpose |
-|------|----------|---------|
-| EquipParamWeapon.param.xml | regulation-bin/ | Weapon definitions |
-| EquipParamProtector.param.xml | regulation-bin/ | Armor definitions |
-| EquipParamAccessory.param.xml | regulation-bin/ | Talisman definitions |
-| EquipParamGoods.param.xml | regulation-bin/ | Item definitions |
-| EquipParamGem.param.xml | regulation-bin/ | Ash of War definitions |
-| Magic.param.xml | regulation-bin/ | Spell definitions |
-| ShopLineupParam.param.xml | regulation-bin/ | Shop inventory |
-| ItemLotParam_map.param.xml | regulation-bin/ | World pickups |
-| NpcParam.param.xml | regulation-bin/ | NPC definitions |
-| GestureParam.param.xml | regulation-bin/ | Gesture definitions |
-| common.emevd.js | event/ | Event scripts |
-| openmap.eventflagalloclist | event/eventflag/ | Overworld flag mapping |
-| legacymap.eventflagalloclist | event/eventflag/ | Dungeon flag mapping |
+Single source of truth for constants: `crates/wasm-event-flags/src/lib.rs`
 
-### Save File Structure
-
-| Section | Offset | Size | Description |
-|---------|--------|------|-------------|
-| Slot Header | 0x0 | 0x310 | Version, map ID, checksums |
-| ga_items | 0x310 | 327,680 | Item handle metadata |
-| PlayerGameData | +0x50000 | 588 | Character stats |
-| Equipment | +0x5024C | ~400 | Equipped items |
-| Inventory | +0x50358 | 59,392 | Held + storage items |
-| Event Flags | +0x6BF58 | 1,835,008 | All world state flags |
-| GaItemData | +0x21BF58 | 448,512 | Extended item data |
+| Constant | Value |
+|----------|-------|
+| Tile base_offset | 485330 |
+| Row base | 33 |
+| Col base | 30 |
+| Bytes per slot | 875 |
+| Slots per row | 40 |
+| Max local ID | 6999 |
+| World pickup row ID base | 1037373320 |
+| Event flags size | 0x1BF99F (1,833,375) |
 
 ---
 
-## Conclusion
+## Remaining Gaps
 
-The application has excellent coverage for equipment and inventory (90-100%) but significant gaps in world state tracking. Priority should be:
-
-1. **Immediate**: Add spell database for equipped spell display
-2. **Short-term**: Expand event_flags.rs by 3-5x for common flags
-3. **Medium-term**: Add NPC and shop tracking modules
-4. **Long-term**: Complete world pickup integration with UI browser
+See [BACKLOG.md](BACKLOG.md) for the full prioritized list of outstanding work.

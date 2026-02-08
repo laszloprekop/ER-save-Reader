@@ -277,7 +277,7 @@ Tile formula section:
 {
   "formulas": {
     "tile_formula": {
-      "base_offset": 489981,
+      "base_offset": 485330,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
@@ -356,24 +356,9 @@ let is_set = (event_flags[byte_offset] & (1 << bit_position)) != 0;
 
 ### Tile Formula
 
-```rust
-let tile_index = (flag_id - 1_000_000_000) / 10000;
-let local_id = flag_id % 10000;
-let row = tile_index / 100;
-let col = tile_index % 100;
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#1-overworld-tile-system-10-digit-flags) for the full tile formula.
 
-let slot = (row - ROW_BASE) * SLOTS_PER_ROW + (col - COL_BASE);
-let byte_offset = BASE_OFFSET + slot * BYTES_PER_SLOT + local_id / 8;
-let bit = 7 - (local_id % 8);
-```
-
-Constants (verified 2026-01-20):
-
-- `BASE_OFFSET`: 489981 (corrected from 495830/485330)
-- `BYTES_PER_SLOT`: 875
-- `SLOTS_PER_ROW`: 40
-- `ROW_BASE`: 33
-- `COL_BASE`: 30
+Key constant: `BASE_OFFSET = 485330` (source of truth: `crates/wasm-event-flags/src/lib.rs`)
 
 ---
 

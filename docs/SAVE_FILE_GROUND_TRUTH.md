@@ -22,11 +22,11 @@ This document is the **single source of truth** for Elden Ring save file parsing
 | **Cookbooks (67xxx-68xxx)** | **VERIFIED** | Block base=3546 (corrected from 3987!) |
 | **Dungeon Graces (73xxx)** | **VERIFIED** | Block base=2664, 13/13 dungeon graces matched |
 | **Whetblades (65xxx)** | Unverified | Block base ~1875 needs testing |
-| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=489981 (CORRECTED 2026-01-20) |
+| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=485330 (CORRECTED 2026-01-20) |
 | **World Pickups (col < 30)** | Unverified | Western tiles may use different storage |
 | **Dungeon Boss Flags (30,31,32)** | **VERIFIED** | Catacombs/Caves/Tunnels bases discovered |
 | **Dungeon Boss Flags (Legacy)** | Unverified | Stormveil, Academy, etc. need investigation |
-| **Consumable Treasures** | **UNTRACKABLE** | LocalId >= 7000 has no storage space |
+| **Consumable Treasures** | **TRACKABLE** | Via Row ID formula (discovered 2026-02-02) |
 
 ---
 
@@ -209,33 +209,13 @@ Use these to validate EventFlags offset detection.
 
 ## Known Limitations
 
-### Consumable Treasures (UNTRACKABLE)
+### Consumable Treasures (Row ID Formula)
 
-The following categories **cannot be tracked** via event flags:
+Consumables with `getItemFlagId` creating localId >= 7000 were previously thought to be untrackable via tile formula. However, the **Row ID formula** (discovered 2026-02-02) tracks these pickups using a separate bitfield.
 
-- Golden Runes (all types)
-- Smithing Stones (all types)
-- Somber Smithing Stones
-- Ghost Glovewort / Grave Glovewort
-- Crafting materials
-- Consumable items (Fire Grease, etc.)
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#row-id-tracking-for-world-pickups-critical-discovery-2026-02-02) for the Row ID formula details.
 
-**Root Cause**:
-1. ItemLotParam `eventFlagId = itemLotId + 7000`
-2. This creates localId values >= 7000
-3. Tile slots only have 875 bytes (7000 flags)
-4. No storage space exists for these flags
-5. Game engine doesn't actually SET these flags
-
-**Evidence**: MSB Treasure events have `EntityID=0` (no EMEVD link). The game handles pickup state differently for consumables.
-
-### Alternative Tracking Methods
-
-For items that can't be tracked via event flags:
-
-1. **Inventory Matching**: Check if item exists in GaItemData section
-2. **Count Comparison**: Compare inventory count to expected regional counts
-3. **Region Heuristics**: Group by map tile and mark region as partially complete
+**Summary**: World pickups with localId >= 7000 ARE tracked via `row_id = getItemFlagId - 7000` using a dedicated row ID bitfield (base: 1037373320).
 
 ---
 
@@ -253,7 +233,7 @@ For items that can't be tracked via event flags:
 | Block 76000 | World Graces | **VERIFIED** | Validation flags 76100, 76101 (base=3250), 65% match rate |
 | Block 73000 | Dungeon Graces | **VERIFIED** | 13/13 dungeon graces matched via slot comparison (base=2664) |
 | Block 78000 | POI Flags | UNVERIFIED | 0% match rate - base offset needs discovery |
-| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) temporal diff, base=489981 |
+| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) temporal diff, base=485330 |
 | Tile (col < 30) | World Pickups | UNVERIFIED | Western tiles may use different storage |
 | Dungeon Area 30 | Catacombs | **VERIFIED** | 5 boss flags matched (base=27411) |
 | Dungeon Area 31 | Caves | **VERIFIED** | 5 boss flags matched (base=28634) |
@@ -288,7 +268,7 @@ For items that can't be tracked via event flags:
 |--------|---------|
 | `scripts/run_verification.py` | Main verification runner |
 | `scripts/verification/save_parser.py` | Save file parsing |
-| `scripts/verification/flag_formulas.py` | Formula implementations |
+| `scripts/verification/ground_truth_loader.py` | Loads formulas from ground_truth_offsets.json |
 | `scripts/verification/diff_analyzer.py` | Before/after comparison |
 
 ### Output Files
@@ -347,7 +327,7 @@ To improve the ground truth:
 1. Run `python scripts/run_verification.py --verbose`
 2. Review mismatches and unverified flags
 3. Use `diff_analyzer.py` with before/after saves to discover correct offsets
-4. Update `flag_formulas.py` with corrected base offsets
+4. Update `ground_truth_offsets.json` with corrected base offsets (NOT `flag_formulas.py`, which is deprecated)
 5. Re-run verification to confirm improvements
 
 ---
@@ -356,17 +336,10 @@ To improve the ground truth:
 
 ### 2026-01-25
 - **REVERT** tile formula base_offset: 489981 → **485330** (reverted to original)
-- The 2026-01-20 "correction" was WRONG - offset 857482 showed no change during pickup
+- The 2026-01-20 "correction" to 489981 was WRONG - offset 857482 showed no change during pickup
 - Re-verified: Smoldering Butterfly (1043500010) at byte **852831** bit 5 (0x00→0x20)
 - Added calibration_anchors section to ground_truth_offsets.json for runtime validation
-
-### 2026-01-20
-- **INCORRECT** tile formula base_offset: 485330 → 489981 (+4651 bytes) - REVERTED 2026-01-25
-- This correction was wrong due to misread temporal diff data
-
-### 2026-01-12 (Tile Fix) - SUPERSEDED by 2026-01-20
-- **CORRECTED** Tile formula base: 349750 → 495830 → 485330 → **489981** (final)
-- Original verification at byte 852831 was incorrect - actual verified offset is 857482
+- **Final value: 485330** (confirmed in `crates/wasm-event-flags/src/lib.rs`)
 
 ### 2026-01-12
 - **VERIFIED** Dungeon formula bases for minor dungeons:
@@ -391,4 +364,4 @@ To improve the ground truth:
 
 ---
 
-*Last updated: 2026-01-20*
+*Last updated: 2026-02-08*

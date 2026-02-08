@@ -498,19 +498,42 @@ python case_cli.py discover \
 
 ```
 scripts/verification/
-├── case_manager.py          # Core case system
-├── case_cli.py              # Command-line interface
-├── batch_case_verification.py  # Batch runner
-├── cases/                   # Saved case files
+├── case_manager.py              # Core case system
+├── case_cli.py                  # Command-line interface
+├── case_analysis.py             # Coverage, blindspot, and base tracking
+├── blindspot_analysis.py        # CLI for blindspot detection
+├── batch_case_verification.py   # Batch runner
+├── cases/                       # Saved case files
 │   ├── 520000_20260201.json
 │   ├── 520030_20260201.json
 │   └── ...
 └── ...
 
 docs/
-├── CASE-BASED-VERIFICATION.md   # Methodology document
-└── CASE-VERIFICATION-GUIDE.md   # This guide
+├── CASE-VERIFICATION-GUIDE.md   # This guide (authoritative)
+└── archive/
+    ├── CASE-BASED-VERIFICATION.md   # Superseded methodology doc
+    └── CONFIDENCE-NORMALIZATION.md  # Merged into this guide
 ```
+
+---
+
+## Confidence Normalization
+
+To prevent score inflation from repetitive evidence:
+
+- **Diminishing returns**: Each subsequent piece of same-type evidence contributes 50% less: `contribution = base_weight * (0.5 ** count)`
+- **Per-type caps**: `cross_save: 0.20`, `chain_anchor: 0.15`, `inventory_presence: 0.35`, `differential: 0.25`
+- **Match rate normalization**: Chain anchor confidence uses match rate (not count): `supports = match_rate >= 0.7`
+
+This ensures confidence reflects evidence diversity, not just volume.
+
+### Blindspot Analysis
+
+Use `scripts/verification/blindspot_analysis.py` to detect:
+- Data vs padding regions within blocks
+- Coverage percentages per block
+- Unknown data regions (non-0xFF/0x00 bytes not belonging to any known block)
 
 ---
 

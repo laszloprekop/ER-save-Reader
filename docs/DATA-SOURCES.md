@@ -2,7 +2,7 @@
 
 ## Characters:
 
-Slot 0, Confessor - midgame regions discovered, harvested, Margit, Godrick and Radahn defeated. Hundreds of world pickups completed, Limgrage, Caelid, Altus plateau, Liurnia, Stormveil Castle explored, multiple questline progressions.
+Slot 0, Confessor - midgame regions discovered, harvested, Margit, Godrick and Radahn defeated. Hundreds of world pickups completed, Limgrave, Caelid, Altus Plateau, Liurnia, Stormveil Castle explored, multiple questline progressions.
 
 Slot 1, Wretch - early game, a few graces and pickups completed, only the tutorial enemy is defeated
 
@@ -18,7 +18,7 @@ The save files are legitimate, unaltered files saved by the game.
 
 ### Latest
 
-(might contain fresher save slots the the Manual completion log):
+(might contain fresher save slots than the Manual completion log):
 '/Users/laszloprekop/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/76561197969778805/ER0000.sl2'
 
 ### Archived:
@@ -29,10 +29,24 @@ The save files are legitimate, unaltered files saved by the game.
 
 '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging'
 
+## Decompiled game resource files (single source of truth)
+
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
+
+Key files:
+- `regulation-bin/ItemLotParam_map.param.xml` - World pickup definitions
+- `regulation-bin/ShopLineupParam.param.xml` - Shop stock/release flags
+- `regulation-bin/BonfireWarpParam.param.xml` - Grace warp points
+- `regulation-bin/WorldMapPointParam.param.xml` - Grace/landmark definitions
+- `regulation-bin/Magic.param.xml` - Spell definitions
+- `event/common.emevd.js` - Event script logic
+- `event/openmap.eventflagalloclist` - Overworld flag allocation
+- `event/legacymap.eventflagalloclist` - Dungeon flag allocation
+
 ## Manually maintained completion log
 
-A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces, unique item pickups, boss drops are checked.  
-''/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl''
+A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces, unique item pickups, boss drops are checked.
+'/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl'
 
 ## Event flags
 

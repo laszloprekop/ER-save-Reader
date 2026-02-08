@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [CASE-VERIFICATION-GUIDE.md](../CASE-VERIFICATION-GUIDE.md) (merged into guide).
+
 # Confidence Normalization & Blindspot Analysis
 
 This document addresses concerns about confidence score distortion and introduces new analysis capabilities.

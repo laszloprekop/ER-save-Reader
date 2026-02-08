@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document is a point-in-time report and has been archived for historical reference.
+
 # Viewer Ground Truth Audit Report
 
 **Date:** 2026-02-01

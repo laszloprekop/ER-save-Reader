@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [EVENT-FLAG-GEOGRAPHY.md](../EVENT-FLAG-GEOGRAPHY.md) (core concept absorbed).
+
 # Identifying one verified flag unlocks many nearby flags.
 
 The save file stores flags in blocks:

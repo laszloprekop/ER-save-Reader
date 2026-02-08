@@ -57,7 +57,10 @@ DEFAULT_SAVE_DIR = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save fil
 |----------|---------|
 | `discovery-verification-cycle.md` | How to discover and verify flags |
 | `CORROBORATION-SYSTEM.md` | Dual-formula validation |
+| `CASE-VERIFICATION-GUIDE.md` | Case-based verification system |
 | `EVENT-FLAG-GEOGRAPHY.md` | Flag ranges and formats |
+| `SAVE_FILE_GROUND_TRUTH.md` | Verified flag positions |
+| `WASM-EVENT-FLAGS.md` | Shared detection algorithm |
 | This file (`ARCHITECTURE.md`) | System structure |
 
 ---

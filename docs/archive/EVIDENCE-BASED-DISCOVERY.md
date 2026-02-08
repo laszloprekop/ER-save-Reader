@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [CASE-VERIFICATION-GUIDE.md](../CASE-VERIFICATION-GUIDE.md) (absorbed into guide).
+
 # Evidence-Based Flag Discovery Methodology
 
 A systematic approach for discovering unknown event flag offsets using **multiple evidence sources** and **triangulation**.

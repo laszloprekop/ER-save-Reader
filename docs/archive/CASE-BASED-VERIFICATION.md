@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [CASE-VERIFICATION-GUIDE.md](../CASE-VERIFICATION-GUIDE.md) (methodology merged).
+
 # Case-Based Verification System
 
 ## Overview

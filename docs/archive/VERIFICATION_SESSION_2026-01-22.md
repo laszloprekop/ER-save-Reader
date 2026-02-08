@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [ground_truth_offsets.json](../../ground_truth_offsets.json) (findings absorbed).
+
 # Verification Session: 2026-01-22
 
 ## Session Summary

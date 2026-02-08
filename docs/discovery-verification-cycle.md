@@ -199,20 +199,9 @@ See [CORROBORATION-SYSTEM.md](CORROBORATION-SYSTEM.md) for full methodology.
 
 ### Inseparable Evidence
 
-Boss-grace pairs that cannot be set independently provide strong validation:
+Boss-grace pairs that cannot be set independently provide strong validation. If boss defeat flag is SET but grace flag is UNSET (or vice versa), one of the formulas is wrong.
 
-| Boss | Defeat Flag | Grace Flag | Grace Name |
-|------|-------------|------------|------------|
-| Godrick | 10000800 | 71010 | Godrick the Grafted |
-| Rennala | 14000800 | 71140 | Rennala, Queen of the Full Moon |
-| Morgott | 11000800 | 71110 | Morgott, the Omen King |
-| Rykard | 16000800 | 71600 | Audience Pathway |
-| Malenia | 15000800 | 71500 | Malenia, Goddess of Rot |
-| Maliketh | 13000800 | 71300 | Beside the Great Bridge |
-
-**Validation logic**: If boss defeat flag is SET but grace flag is UNSET (or vice versa), one of the formulas is wrong.
-
-See [CORROBORATION-SYSTEM.md#inseparable-evidence-methodology](CORROBORATION-SYSTEM.md#inseparable-evidence-methodology-2026-01-21) for details.
+See [CORROBORATION-SYSTEM.md](CORROBORATION-SYSTEM.md#inseparable-evidence-methodology-2026-01-21) for the full boss-grace pair table and validation logic.
 
 ---
 
@@ -317,14 +306,7 @@ Always clarify which you're using in verification scripts.
 
 ### 5. Formula vs Ground Truth Desync
 
-`flag_formulas.py` contains OUTDATED values. Always use `ground_truth_offsets.json`:
-
-| Block | flag_formulas.py | ground_truth.json | Winner |
-|-------|------------------|-------------------|--------|
-| 62000 | 1500 | 9359 | ground_truth |
-| 65000 | 1875 | 37412 | ground_truth |
-| 67000 | 3546 | 37411 | ground_truth |
-| 71000 | 2625 | 9315 | ground_truth |
+`flag_formulas.py` is **DEPRECATED** (archived to `scripts/verification/archive/`). Always use `ground_truth_offsets.json` via `ground_truth_loader.py`.
 
 ---
 
@@ -346,33 +328,18 @@ Before marking a flag/block as "verified":
 ## Quick Reference: Correct Formulas
 
 ### Block Flags (5-6 digit)
-```python
-block_start = (flag_id // 1000) * 1000  # or // 100 for sub-blocks
-relative_flag = flag_id - block_start
-byte_offset = BLOCK_BASES[block_start] + relative_flag // 8
-bit = 7 - (flag_id % 8)
-```
+
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#2-block-based-flags-5-6-digit-flags) for the authoritative block formula and verified base offsets.
 
 ### Tile Flags (10-digit: 10XXYYZZZZ)
-```python
-row = int(str(flag_id)[2:4])
-col = int(str(flag_id)[4:6])
-local_id = int(str(flag_id)[6:])
 
-tile_offset = ((row - 33) * 40 + (col - 30)) * 875
-byte_offset = 489981 + tile_offset + local_id // 8
-bit = 7 - (local_id % 8)  # Use local_id, NOT flag_id!
-```
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md) for the authoritative tile formula. Key values:
+- `BASE_OFFSET`: **485330** (source of truth: `crates/wasm-event-flags/src/lib.rs`)
+- `ROW_BASE`: 33, `COL_BASE`: 30, `BYTES_PER_SLOT`: 875, `SLOTS_PER_ROW`: 40
 
 ### Dungeon Flags (8-digit: AASSZZZZ)
-```python
-map_area = int(str(flag_id)[:2])
-section = int(str(flag_id)[2:4])
-local_id = int(str(flag_id)[4:])
 
-byte_offset = DUNGEON_BASES[map_area] + section * 1125 + local_id // 8
-bit = 7 - (local_id % 8)  # Use local_id, NOT flag_id!
-```
+See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#3-dungeon--area-flags-8-digit-flags) for the authoritative dungeon formula and verified area bases.
 
 ---
 
@@ -470,7 +437,7 @@ The capture catalog (`capture_catalog.json`) stores:
       "slot_context": {
         "slot_index": 0,
         "ef_offset": 79540,
-        "calibrated_tile_base": 489981
+        "calibrated_tile_base": 485330
       }
     }
   ],

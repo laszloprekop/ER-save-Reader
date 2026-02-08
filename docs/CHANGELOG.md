@@ -4,6 +4,36 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.13.2 - Documentation Audit, Cleanup & Restructuring
+
+### Changes
+- Rewrote `docs/DATABASE_COVERAGE_ANALYSIS.md` to reflect current state (40 modules, ~22,184 entries)
+- Fixed contradictions across docs: tile base_offset 489981→485330, consumable tracking now TRACKABLE, deprecated flag_formulas.py references removed
+- Deduplicated inline formulas in discovery-verification-cycle.md and CORROBORATION-SYSTEM.md with cross-references to EVENT-FLAG-GEOGRAPHY.md
+- Archived 9 stale documents to `docs/archive/` with archive headers
+- Created `docs/BACKLOG.md` consolidating all scattered "Next Steps" into one prioritized list
+- Updated CLAUDE.md doc table (added CASE-VERIFICATION-GUIDE, SAVE_FILE_GROUND_TRUTH, DATA-SOURCES, BACKLOG)
+- Updated ARCHITECTURE.md methodology table and COMMIT-PROTOCOL.md references
+- Updated `/snapshot` command to keep BACKLOG.md up to date
+- Merged confidence normalization concepts into CASE-VERIFICATION-GUIDE.md
+
+### Files Modified
+- `docs/DATABASE_COVERAGE_ANALYSIS.md`: full rewrite with current audit data
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: fixed contradictions, updated timestamp
+- `docs/CORROBORATION-SYSTEM.md`: fixed tile base, deduplicated formulas
+- `docs/discovery-verification-cycle.md`: fixed tile base, deduplicated formulas
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: absorbed Flag-islands concept, fixed stale value
+- `docs/CASE-VERIFICATION-GUIDE.md`: merged confidence normalization
+- `docs/ARCHITECTURE.md`: updated methodology table
+- `docs/COMMIT-PROTOCOL.md`: fixed IMPLEMENTATION_PLAN→BACKLOG reference
+- `docs/DATA-SOURCES.md`: added decompiled game files section
+- `docs/BACKLOG.md`: new file consolidating all planned work
+- `CLAUDE.md`: updated doc table
+- `.claude/commands/snapshot.md`: added BACKLOG.md tracking
+- 9 files moved to `docs/archive/` with archive headers
+
+---
+
 ## v0.13.1 - Utilities Section & Icon Font Reference
 
 ### Features

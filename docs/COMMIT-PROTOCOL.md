@@ -47,7 +47,7 @@ Categorize the changes to determine which docs need updates:
 - Item/weapon/armor database expansions
 - Coverage percentage improvements
 
-**Implementation Plans** → `docs/IMPLEMENTATION_PLAN.md`
+**Implementation Plans** → `docs/BACKLOG.md`
 - Planned features and their status
 - Database expansion roadmaps
 
@@ -248,7 +248,7 @@ cargo clippy     # Clean
 ```
 
 **Documentation:**
-- Update `docs/IMPLEMENTATION_PLAN.md`: Mark feature as complete
+- Update `docs/BACKLOG.md`: Mark feature as complete
 
 **Commit:**
 ```

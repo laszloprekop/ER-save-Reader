@@ -1,3 +1,5 @@
+> **ARCHIVED** (2026-02-08): This document has been archived. Superseded by [ground_truth_offsets.json](../../ground_truth_offsets.json) (stale probe results).
+
 # Verification Leads from User Records
 
 Analysis of `flag-correlation-candidates.jsonl` (473 records) to identify formula errors and verification opportunities.
