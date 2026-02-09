@@ -20,30 +20,46 @@ PlayerCoords struct (from save_slot.rs:82-128):
 """
 
 import struct
+import json
 import math
 import sys
 from pathlib import Path
 
 # ============================================================================
-# CONSTANTS
+# CONSTANTS (loaded from ground_truth_offsets.json via ground_truth_loader)
 # ============================================================================
+
+# Add parent path for imports when running standalone
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
+from scripts.verification.ground_truth_loader import get_player_coords_config
+
+_coords_config = get_player_coords_config()
 
 BND4_HEADER_SIZE = 0x40
 BND4_ENTRY_SIZE = 0x20
 BND4_ENTRY_OFFSET_POS = 0x10
 SLOT_CHECKSUM_SIZE = 16
 
-# PlayerCoords is located after EventFlags (0x1BF99F bytes) + 1 byte +
-# 5 variable-length UknownLists. In practice, it falls in the 0x1D0000-0x200000
-# range within the slot for typical saves.
-PLAYER_COORDS_SEARCH_START = 0x1D0000
-PLAYER_COORDS_SEARCH_END = 0x280000
+PLAYER_COORDS_SEARCH_START = _coords_config.get("search_start", 0x1D0000)
+PLAYER_COORDS_SEARCH_END = _coords_config.get("search_end", 0x280000)
+PLAYER_COORDS_SIZE = _coords_config.get("struct_size", 61)
+MID_SECTION_SIZE = _coords_config.get("mid_section_size", 17)
+MID_SECTION_MIN_ZEROS = _coords_config.get("mid_section_min_zeros", 10)
+FACING_ANGLE_OFFSET = _coords_config.get("facing_angle_offset", 4)
+PAD2_SIZE = _coords_config.get("padding2_size", 16)
+PAD2_MIN_ZEROS = _coords_config.get("padding2_min_zeros", 8)
+COORD_RANGE_MAX = _coords_config.get("coordinate_range_max", 10000.0)
+MAGNITUDE_THRESHOLD = _coords_config.get("magnitude_threshold", 10.0)
 
-# PlayerCoords struct size: 12 (coords) + 4 (map_id) + 17 (pad) + 12 (coords2) + 16 (pad2) = 61
-PLAYER_COORDS_SIZE = 61
+# ============================================================================
+# REFERENCE POSITIONS (loaded from generated reference_positions.json)
+# ============================================================================
 
-# Reference positions from graces_data.rs and bosses_data.rs
-REFERENCE_POSITIONS = {
+REFERENCE_POSITIONS_PATH = Path(__file__).parent / "reference_positions.json"
+
+# Hardcoded fallback for when reference_positions.json hasn't been generated yet
+_FALLBACK_REFERENCE_POSITIONS = {
     "Minor Erdtree Church grace": (-116.50, 910.02, -54.99),
     "The First Step grace": (-12.83, 90.70, -54.50),
     "Church of Elleh grace": (-40.73, 90.97, 79.34),
@@ -55,6 +71,24 @@ REFERENCE_POSITIONS = {
     "Erdtree Burial Watchdog (Stormfoot)": (103.67, 94.93, 74.18),
     "Cave of Knowledge grace": (-88.40, -10.17, 43.86),
 }
+
+
+def load_reference_positions():
+    """Load reference positions from generated JSON, with hardcoded fallback."""
+    if REFERENCE_POSITIONS_PATH.exists():
+        with open(REFERENCE_POSITIONS_PATH, 'r') as f:
+            data = json.load(f)
+        positions = {}
+        for entry in data.get("positions", []):
+            name = entry["name"]
+            suffix = " grace" if entry["type"] == "grace" else ""
+            key = f"{name}{suffix}"
+            positions[key] = (entry["x"], entry["y"], entry["z"])
+        return positions
+    return _FALLBACK_REFERENCE_POSITIONS
+
+
+REFERENCE_POSITIONS = load_reference_positions()
 
 
 def euclidean_distance(p1, p2):
@@ -92,19 +126,19 @@ def find_player_coords_by_signature(slot_data, header_map_id_bytes):
         if slot_data[i:i+4] != header_map_id_bytes:
             continue
 
-        # Check padding2 (16 bytes after coords2): should be mostly zeros
-        padding2_start = i + 4 + 17 + 12  # map_id + padding1 + coords2
-        if padding2_start + 16 > len(slot_data):
+        # Check padding2 (PAD2_SIZE bytes after coords2): should be mostly zeros
+        padding2_start = i + 4 + MID_SECTION_SIZE + 12  # map_id + mid_section + coords2
+        if padding2_start + PAD2_SIZE > len(slot_data):
             continue
-        padding2 = slot_data[padding2_start:padding2_start+16]
+        padding2 = slot_data[padding2_start:padding2_start+PAD2_SIZE]
         padding2_zeros = sum(1 for b in padding2 if b == 0)
-        if padding2_zeros < 8:
+        if padding2_zeros < PAD2_MIN_ZEROS:
             continue
 
-        # Check padding1 (17 bytes after map_id): should be mostly zeros
-        padding1 = slot_data[i+4:i+4+17]
+        # Check mid_section (MID_SECTION_SIZE bytes after map_id): should be mostly zeros
+        padding1 = slot_data[i+4:i+4+MID_SECTION_SIZE]
         padding1_zeros = sum(1 for b in padding1 if b == 0)
-        if padding1_zeros < 10:
+        if padding1_zeros < MID_SECTION_MIN_ZEROS:
             continue
 
         # Read coords before map_id (12 bytes = 3 x f32)
@@ -113,24 +147,29 @@ def find_player_coords_by_signature(slot_data, header_map_id_bytes):
         coords_offset = i - 12
         x, y, z = struct.unpack_from('<fff', slot_data, coords_offset)
 
-        # Skip NaN/Inf/out-of-range (game world coordinates are within ~±5000)
-        if any(math.isnan(c) or math.isinf(c) or abs(c) > 10000 for c in (x, y, z)):
+        # Skip NaN/Inf/out-of-range
+        if any(math.isnan(c) or math.isinf(c) or abs(c) > COORD_RANGE_MAX for c in (x, y, z)):
             continue
 
         # Read coords2
-        x2, y2, z2 = struct.unpack_from('<fff', slot_data, i + 4 + 17)
-        if any(math.isnan(c) or math.isinf(c) or abs(c) > 10000 for c in (x2, y2, z2)):
+        x2, y2, z2 = struct.unpack_from('<fff', slot_data, i + 4 + MID_SECTION_SIZE)
+        if any(math.isnan(c) or math.isinf(c) or abs(c) > COORD_RANGE_MAX for c in (x2, y2, z2)):
             continue
 
-        # Use magnitude threshold to avoid false positives from near-zero floats.
-        # Real game world positions always have significant magnitude (min observed: ~73).
+        # Read facing angle from mid_section bytes [FACING_ANGLE_OFFSET:FACING_ANGLE_OFFSET+4]
+        facing_angle = struct.unpack_from('<f', slot_data, i + 4 + FACING_ANGLE_OFFSET)[0]
+        if not math.isfinite(facing_angle):
+            facing_angle = 0.0
+
+        # Magnitude threshold to distinguish real positions from near-zero
         magnitude = abs(x) + abs(y) + abs(z)
-        has_position = magnitude > 10.0
+        has_position = magnitude > MAGNITUDE_THRESHOLD
 
         candidates.append({
             'offset': coords_offset,
             'coords': (x, y, z),
             'coords2': (x2, y2, z2),
+            'facing_angle': facing_angle,
             'map_id': struct.unpack_from('<4B', slot_data, i),
             'padding1_zeros': padding1_zeros,
             'padding2_zeros': padding2_zeros,
@@ -288,7 +327,9 @@ def main():
         print(f"    Map ID: {format_map_id(map_id)} (raw: {list(map_id)})")
         print(f"    Position (current): ({coords[0]:.2f}, {coords[1]:.2f}, {coords[2]:.2f})")
         print(f"    Position (respawn): ({coords2[0]:.2f}, {coords2[1]:.2f}, {coords2[2]:.2f})")
-        print(f"    Padding quality: pad1={result['padding1_zeros']}/17 pad2={result['padding2_zeros']}/16")
+        facing = result.get('facing_angle', 0.0)
+        print(f"    Facing angle: {math.degrees(facing):.1f}° ({facing:.4f} rad)")
+        print(f"    Padding quality: pad1={result['padding1_zeros']}/{MID_SECTION_SIZE} pad2={result['padding2_zeros']}/{PAD2_SIZE}")
 
         if not result['has_position']:
             print(f"    WARNING: All-zero coordinates")

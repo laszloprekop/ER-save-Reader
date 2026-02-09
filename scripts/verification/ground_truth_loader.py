@@ -275,6 +275,27 @@ def calculate_dungeon_offset(flag_id: int) -> Optional[Tuple[int, int]]:
     return (byte_offset, bit_position)
 
 
+def get_player_coords_config() -> Dict[str, Any]:
+    """
+    Get player coordinate extraction configuration.
+
+    Returns:
+        Dict with:
+        - search_start: int (0x1D0000)
+        - search_end: int (0x280000)
+        - struct_size: int (61)
+        - mid_section_size: int (17)
+        - mid_section_min_zeros: int (10)
+        - facing_angle_offset: int (4)
+        - padding2_min_zeros: int (8)
+        - padding2_size: int (16)
+        - coordinate_range_max: float (10000.0)
+        - magnitude_threshold: float (10.0)
+    """
+    data = _load_json()
+    return data.get("player_coords_extraction", {})
+
+
 def get_validation_flags() -> Dict[int, Tuple[int, int, str]]:
     """
     Get the anchor validation flags used for EF start detection.

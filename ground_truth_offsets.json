@@ -23073,5 +23073,22 @@
       "notes": "Falls into padding gap in block 520000. Offset shows 0xFF across all slots.",
       "discovered": "2026-02-01"
     }
+  },
+  "player_coords_extraction": {
+    "description": "Signature-based player coordinate extraction parameters. SINGLE SOURCE OF TRUTH for ER-save-Editor, elden-map, and Python verification.",
+    "search_start": 1900544,
+    "search_start_hex": "0x1D0000",
+    "search_end": 2621440,
+    "search_end_hex": "0x280000",
+    "struct_size": 61,
+    "struct_layout": "12B coords + 4B map_id + 17B mid_section + 12B coords2 + 16B pad2",
+    "mid_section_layout": "4B zeros + 4B facing_angle(f32 radians) + 8B zeros + 1B (always 0x01)",
+    "mid_section_size": 17,
+    "mid_section_min_zeros": 10,
+    "facing_angle_offset": 4,
+    "padding2_min_zeros": 8,
+    "padding2_size": 16,
+    "coordinate_range_max": 10000.0,
+    "magnitude_threshold": 10.0
   }
 }

@@ -12,7 +12,9 @@ import struct
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict, Tuple, BinaryIO, Union
+import math
 from .archive.flag_formulas import FlagFormulas
+from .ground_truth_loader import get_player_coords_config
 
 
 # ============================================================================
@@ -96,6 +98,12 @@ class SlotData:
 
     # Character info (if available)
     character_name: Optional[str] = None
+
+    # Player coordinates (extracted via signature-based search)
+    player_coords: Optional[Tuple[float, float, float]] = None
+    player_coords2: Optional[Tuple[float, float, float]] = None
+    player_facing: Optional[float] = None  # Y-axis rotation in radians [-pi, pi]
+    player_map_id: Optional[Tuple[int, int, int, int]] = None
 
 
 @dataclass
@@ -242,6 +250,13 @@ class SaveParser:
         # Extract character name
         character_name = self._extract_character_name(slot_data)
 
+        # Extract player coordinates
+        pc = self._extract_player_coords(slot_data)
+        player_coords = pc.get('coords') if pc else None
+        player_coords2 = pc.get('coords2') if pc else None
+        player_facing = pc.get('facing_angle') if pc else None
+        player_map_id = pc.get('map_id') if pc else None
+
         return SlotData(
             slot_index=slot_index,
             slot_offset=slot_offset,
@@ -255,7 +270,11 @@ class SaveParser:
             event_flags=event_flags,
             validation_score=validation_score,
             validated_graces=validated_graces,
-            character_name=character_name
+            character_name=character_name,
+            player_coords=player_coords,
+            player_coords2=player_coords2,
+            player_facing=player_facing,
+            player_map_id=player_map_id,
         )
 
     def _find_event_flags_offset(self, slot_data: bytes) -> int:
@@ -323,6 +342,97 @@ class SaveParser:
                     matched.append(name)
 
         return score, matched
+
+    def _extract_player_coords(self, slot_data: bytes) -> Dict:
+        """
+        Extract player coordinates from slot data using signature-based search.
+
+        Uses the same algorithm as verify_player_coords.py and the WASM crate,
+        with constants from ground_truth_offsets.json.
+
+        Returns dict with coords, coords2, facing_angle, map_id or empty dict.
+        """
+        config = get_player_coords_config()
+        search_start = config.get("search_start", 0x1D0000)
+        search_end = config.get("search_end", 0x280000)
+        struct_size = config.get("struct_size", 61)
+        mid_size = config.get("mid_section_size", 17)
+        mid_min_zeros = config.get("mid_section_min_zeros", 10)
+        facing_offset = config.get("facing_angle_offset", 4)
+        pad2_size = config.get("padding2_size", 16)
+        pad2_min_zeros = config.get("padding2_min_zeros", 8)
+        coord_max = config.get("coordinate_range_max", 10000.0)
+        mag_threshold = config.get("magnitude_threshold", 10.0)
+
+        if len(slot_data) < 12:
+            return {}
+
+        header_map_id = slot_data[4:8]
+        actual_end = min(len(slot_data), search_end)
+
+        candidates = []
+
+        for i in range(search_start, actual_end - struct_size):
+            if slot_data[i:i + 4] != header_map_id:
+                continue
+
+            # Check padding2
+            pad2_start = i + 4 + mid_size + 12
+            if pad2_start + pad2_size > len(slot_data):
+                continue
+            pad2_zeros = sum(1 for b in slot_data[pad2_start:pad2_start + pad2_size] if b == 0)
+            if pad2_zeros < pad2_min_zeros:
+                continue
+
+            # Check mid_section
+            mid_zeros = sum(1 for b in slot_data[i + 4:i + 4 + mid_size] if b == 0)
+            if mid_zeros < mid_min_zeros:
+                continue
+
+            # Read coords before map_id
+            if i < 12:
+                continue
+            coords_offset = i - 12
+            x, y, z = struct.unpack_from('<fff', slot_data, coords_offset)
+
+            if any(math.isnan(c) or math.isinf(c) or abs(c) > coord_max for c in (x, y, z)):
+                continue
+
+            # Read coords2
+            x2, y2, z2 = struct.unpack_from('<fff', slot_data, i + 4 + mid_size)
+            if any(math.isnan(c) or math.isinf(c) or abs(c) > coord_max for c in (x2, y2, z2)):
+                continue
+
+            # Facing angle
+            facing = struct.unpack_from('<f', slot_data, i + 4 + facing_offset)[0]
+            if not math.isfinite(facing):
+                facing = 0.0
+
+            magnitude = abs(x) + abs(y) + abs(z)
+            has_position = magnitude > mag_threshold
+
+            map_id = struct.unpack_from('<4B', slot_data, i)
+
+            candidates.append({
+                'offset': coords_offset,
+                'coords': (x, y, z),
+                'coords2': (x2, y2, z2),
+                'facing_angle': facing,
+                'map_id': map_id,
+                'pad1_zeros': mid_zeros,
+                'pad2_zeros': pad2_zeros,
+                'has_position': has_position,
+            })
+
+        if not candidates:
+            return {}
+
+        # Select best candidate
+        candidates.sort(key=lambda c: (c['has_position'], c['pad2_zeros'], c['pad1_zeros']), reverse=True)
+        best = candidates[0]
+        if not best['has_position']:
+            return {}
+        return best
 
     def _extract_character_name(self, slot_data: bytes) -> Optional[str]:
         """

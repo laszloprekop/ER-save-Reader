@@ -97,3 +97,4 @@ Items from previous "Next Steps" that have been done:
 | Quest chains | quest_chains.rs (24 entries) | v0.12.0 |
 | Row ID formula discovery | Consumable tracking enabled | v0.12.0 |
 | Dungeon pickup per-section bases | 89 sections across 22 areas | v0.12.0 |
+| Player coord extraction (DRY) | Consolidated into shared WASM module | v0.14.0 |

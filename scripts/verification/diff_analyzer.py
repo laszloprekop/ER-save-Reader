@@ -6,6 +6,8 @@ Used for empirical offset discovery and formula verification.
 """
 from __future__ import annotations
 
+import json
+import math
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Tuple, Any
@@ -46,6 +48,7 @@ class VerificationDiagnostics:
     suggested_flags_to_check: List[int] = field(default_factory=list)
     character_context: Dict[str, Any] = field(default_factory=dict)
     notes: str = ""
+    proximity_evidence: Optional[Dict[str, Any]] = None
 
 
 @dataclass
@@ -72,6 +75,10 @@ class DiffResult:
     # Character context (discovered graces across all regions)
     before_context: Dict[str, Any] = field(default_factory=dict)
     after_context: Dict[str, Any] = field(default_factory=dict)
+
+    # Player coordinates (from save data)
+    before_player_coords: Optional[Tuple[float, float, float]] = None
+    after_player_coords: Optional[Tuple[float, float, float]] = None
 
     # Verification diagnostics (populated when analyzing expected flags)
     diagnostics: Optional[VerificationDiagnostics] = None
@@ -165,6 +172,8 @@ class DiffAnalyzer:
             new_graces=new_graces,
             before_context=before_context,
             after_context=after_context,
+            before_player_coords=before_slot.player_coords,
+            after_player_coords=after_slot.player_coords,
         )
 
     def _find_flag_changes(
@@ -360,6 +369,72 @@ class DiffAnalyzer:
 
         return analysis
 
+    def _calculate_proximity_evidence(
+        self,
+        player_coords: Optional[Tuple[float, float, float]],
+        changed_flag_ids: List[int],
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Calculate proximity evidence: how close is the player to known
+        graces/bosses, and do the changed flags match nearby references?
+
+        Returns dict with nearest_name, nearest_distance, nearest_type,
+        confidence_label, and flag_match info.
+        """
+        if player_coords is None:
+            return None
+
+        # Load reference positions
+        ref_path = Path(__file__).parent / "reference_positions.json"
+        if not ref_path.exists():
+            return None
+
+        with open(ref_path, 'r') as f:
+            data = json.load(f)
+
+        positions = data.get("positions", [])
+        if not positions:
+            return None
+
+        # Find nearest reference
+        nearest_name = None
+        nearest_dist = float('inf')
+        nearest_type = None
+        nearest_flag = None
+
+        px, py, pz = player_coords
+        for entry in positions:
+            rx, ry, rz = entry["x"], entry["y"], entry["z"]
+            dist = math.sqrt((px - rx)**2 + (py - ry)**2 + (pz - rz)**2)
+            if dist < nearest_dist:
+                nearest_dist = dist
+                nearest_name = entry["name"]
+                nearest_type = entry["type"]
+                nearest_flag = entry.get("event_flag")
+
+        if nearest_name is None:
+            return None
+
+        # Confidence based on distance
+        if nearest_dist < 50:
+            confidence_label = "strong"
+        elif nearest_dist < 200:
+            confidence_label = "weak"
+        else:
+            confidence_label = "none"
+
+        # Check if changed flags match the nearest reference
+        flag_match = nearest_flag in changed_flag_ids if nearest_flag else False
+
+        return {
+            "nearest_name": nearest_name,
+            "nearest_distance": round(nearest_dist, 1),
+            "nearest_type": nearest_type,
+            "nearest_flag": nearest_flag,
+            "confidence_label": confidence_label,
+            "flag_match": flag_match,
+        }
+
     def _build_verification_diagnostics(
         self,
         flag_id: int,
@@ -435,6 +510,15 @@ class DiffAnalyzer:
 
         diag.possible_causes = possible_causes
         diag.suggested_flags_to_check = list(set(suggested_flags))[:10]
+
+        # Add proximity evidence if player coords available
+        all_changed_flags = []
+        for change in diff_result.flag_changes:
+            all_changed_flags.extend(change.possible_flag_ids)
+        diag.proximity_evidence = self._calculate_proximity_evidence(
+            diff_result.after_player_coords,
+            all_changed_flags,
+        )
 
         if possible_causes:
             diag.status = "investigation_needed"

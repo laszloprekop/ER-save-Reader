@@ -312,8 +312,8 @@ impl CorroborationEngine {
                     if expected_set { Some(true) } else { None }
                 }
                 RelationshipType::GeographicProximity => {
-                    // Geographic proximity: soft correlation
-                    None  // Don't count towards agreement, just informational
+                    // Geographic proximity: soft evidence from flag-range correlation
+                    Some(expected_set)
                 }
                 RelationshipType::ScrollUnlock => {
                     // If unlock (spell) is available, scroll pickup should be set

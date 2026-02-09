@@ -1,8 +1,8 @@
-# WASM Event Flags Detection
+# WASM Shared Detection Module
 
 ## Overview
 
-The `wasm-event-flags` crate provides the **single source of truth** for EventFlags offset detection. This ensures both ER-save-Editor (native Rust) and elden-map (via WebAssembly) use the **exact same algorithm** to locate the EventFlags section within character slot data.
+The `wasm-event-flags` crate provides the **single source of truth** for both EventFlags offset detection and player coordinate extraction. This ensures both ER-save-Editor (native Rust) and elden-map (via WebAssembly) use the **exact same algorithms**.
 
 ## Why This Matters
 
@@ -21,12 +21,17 @@ Previously, ER-save-Editor and elden-map had separate implementations of the det
 │                                                             │
 │  Location: crates/wasm-event-flags/                         │
 │                                                             │
-│  Exports:                                                   │
+│  Event Flags:                                               │
 │  • detect_event_flags_offset() - WASM entry point           │
 │  • detect_event_flags_offset_impl() - native Rust entry     │
-│  • POSITIVE_VALIDATION_FLAGS                                │
-│  • NEGATIVE_VALIDATION_FLAGS                                │
+│  • POSITIVE/NEGATIVE_VALIDATION_FLAGS                       │
 │  • SEARCH_START, EVENT_FLAGS_SIZE                           │
+│                                                             │
+│  Player Position:                                           │
+│  • extract_player_position() - WASM entry point             │
+│  • extract_player_position_impl() - native Rust entry       │
+│  • PlayerPositionResult (x,y,z,x2,y2,z2,facing,map_id)     │
+│  • PLAYER_COORDS_SEARCH_START/END                           │
 └────────────────────┬────────────────────┬───────────────────┘
                      │                    │
           ┌──────────▼──────────┐  ┌──────▼──────────────────┐
@@ -108,13 +113,61 @@ wasm-pack build --target web --out-dir ../../../elden-map/wasm-event-flags
 # - wasm_event_flags.d.ts (TypeScript definitions)
 ```
 
+## Player Position Extraction
+
+The crate also extracts player coordinates from slot data using a signature-based search. This consolidates three previously independent implementations (Rust, Python, TypeScript) into a single shared algorithm.
+
+### Algorithm
+
+1. Read header map_id from slot bytes 4-7
+2. Search range `PLAYER_COORDS_SEARCH_START` to `PLAYER_COORDS_SEARCH_END` for map_id match
+3. Validate mid-section pattern: 4B zeros + 4B facing_angle + 8B zeros + 1B (0x01)
+4. Validate padding2: 16 bytes with >=8 zeros
+5. Read f32 coordinates and facing angle
+6. Select best candidate by padding quality
+
+### Struct Layout (61 bytes)
+
+```
+12B coords (x,y,z as f32 LE) + 4B map_id + 17B mid_section + 12B coords2 + 16B pad2
+```
+
+### Facing Angle
+
+The mid-section contains a Y-axis rotation (yaw/heading) in radians [-pi, pi] at bytes [4:8] as f32 little-endian. Verified across 7 test saves.
+
+### Result: `PlayerPositionResult`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `x, y, z` | f32 | Primary coordinates |
+| `x2, y2, z2` | f32 | Secondary coordinates (usually same as primary) |
+| `facing_angle` | f32 | Y-axis rotation in radians [-pi, pi] |
+| `map_id_0..3` | u8 | Map ID bytes (individual fields; wasm_bindgen limitation) |
+| `valid` | bool | Whether extraction succeeded |
+| `offset` | usize | Byte offset where coords were found |
+
 ## Constants
+
+### Event Flags Detection
 
 | Constant | Value | Description |
 |----------|-------|-------------|
 | `SEARCH_START` | 0x12000 (73,728) | Byte offset to start searching |
 | `MAX_SEARCH_RANGE` | 200,000 | Maximum bytes to search |
 | `EVENT_FLAGS_SIZE` | 0x1BF99F (1,833,375) | Size of EventFlags section |
+
+### Player Position Extraction
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `PLAYER_COORDS_SEARCH_START` | 0x1D0000 (1,900,544) | Start of search range |
+| `PLAYER_COORDS_SEARCH_END` | 0x280000 (2,621,440) | End of search range |
+| `PLAYER_COORDS_STRUCT_SIZE` | 61 | Total struct size in bytes |
+| `MID_SECTION_SIZE` | 17 | Mid-section between map_id and coords2 |
+| `COORD_RANGE_MAX` | 10,000.0 | Maximum valid coordinate value |
+
+All constants are sourced from `ground_truth_offsets.json` (`player_coords_extraction` section).
 
 ## Testing
 

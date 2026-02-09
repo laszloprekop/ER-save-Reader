@@ -141,6 +141,7 @@ from scripts.verification.ground_truth_loader import (
 | `calculate_block_offset(flag_id)` | `Optional[Tuple[int, int]]` | (byte_offset, bit_position) |
 | `calculate_tile_offset(flag_id)` | `Optional[Tuple[int, int]]` | (byte_offset, bit_position) |
 | `calculate_dungeon_offset(flag_id)` | `Optional[Tuple[int, int]]` | (byte_offset, bit_position) |
+| `get_player_coords_config()` | `Dict[str, Any]` | Player coordinate extraction parameters |
 
 ### utils.py
 
