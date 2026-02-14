@@ -50,6 +50,9 @@ pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
 /// Dungeon section size
 pub const DUNGEON_SECTION_SIZE: u32 = 1125;
 
+/// Maximum local ID for tile flags (7000+ use row_id formula instead)
+pub const MAX_TILE_LOCAL_ID: u32 = 6999;
+
 /// Player coordinate extraction constants
 /// (from ground_truth_offsets.json player_coords_extraction)
 pub const PLAYER_COORDS_SEARCH_START: usize = 0x1D0000;  // 1,900,544
@@ -62,6 +65,13 @@ pub const PAD2_SIZE: usize = 16;
 pub const PAD2_MIN_ZEROS: usize = 8;
 pub const COORD_RANGE_MAX: f32 = 10000.0;
 pub const MAGNITUDE_THRESHOLD: f32 = 10.0;
+pub const FACING_ANGLE_MAX: f32 = std::f32::consts::TAU; // 2π ≈ 6.283
+
+/// Check if an f32 is denormalized (exponent bits all zero, but value non-zero).
+/// Denormalized floats indicate garbage data, not real game coordinates.
+fn is_denormalized(v: f32) -> bool {
+    v != 0.0 && (v.to_bits() & 0x7f800000) == 0
+}
 
 // =============================================================================
 // EVENTFLAGS DETECTION
@@ -350,6 +360,96 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
     ])
 }
 
+// =============================================================================
+// BLOCK, MIDRANGE, AND GENERAL DUNGEON BASES
+// =============================================================================
+
+/// Block bases for flags 60000-99999 (special system flags)
+/// SYNCED with ground_truth_offsets.json verified values from eventFlagService.ts
+/// Key: block start (e.g., 60000, 71800, 76000)
+/// Value: base offset in event flags array
+fn get_block_bases() -> HashMap<u32, u32> {
+    HashMap::from([
+        (60000, 2548),    // Progression flags (Crafting Kit, Whetstone, etc.)
+        (61000, 2671),    // Map area visit flags - verified (108 EMEVD flags)
+        (62000, 9359),    // Map fragments - verified (12/12 match)
+        (65000, 37412),   // Crystal Tears - verified (15/15 match)
+        (67000, 37411),   // Cookbooks - verified (34/34 match)
+        (68000, 37536),   // Cookbooks continued - verified (10/10 match)
+        (71800, 2725),    // Tutorial graces - VALIDATED via 71800, 71801
+        (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
+        (73000, 2662),    // Dungeon graces - verified via temporal diff
+        (74000, 3000),    // DLC dungeon graces - verified (8+ consistent proven)
+        (76000, 3250),    // World graces - VALIDATED via 76100, 76101
+        (78000, 3500),    // Grace guidance flags - verified (8+ proven flags)
+    ])
+}
+
+/// Midrange block bases for 6-digit flags (100000-999999)
+/// SYNCED with ground_truth_offsets.json verified values from eventFlagService.ts
+fn get_midrange_bases() -> HashMap<u32, u32> {
+    HashMap::from([
+        (510000, 63750),  // Remembrance consumption flags - verified
+        (540000, 67500),  // Sorcery/Incantation/Ash unlock flags - verified (129 flags)
+        (710000, 13875),  // Roundtable Hold NPC progression - verified (41 EMEVD flags)
+    ])
+}
+
+/// General dungeon base offsets (for local_id < 7000)
+/// From eventflagalloclist - formula: base + section * 1125 + local_id / 8
+/// Key format: "XX_YY" where XX is map area, YY is section
+fn get_dungeon_general_bases() -> HashMap<(u32, u32), u32> {
+    HashMap::from([
+        // Stormveil Castle (m10)
+        ((10,  0), 4112), ((10,  1), 5237),
+        // Leyndell (m11) - section formula: 8612 + section * 1125
+        ((11,  0), 8612), ((11,  5), 14237), ((11, 10), 19862), ((11, 71), 88487),
+        // Underground areas (m12)
+        ((12,  1), 16487), ((12,  2), 17612), ((12,  3), 18737), ((12,  4), 19862),
+        ((12,  5), 20987), ((12,  6), 22112), ((12,  7), 23237), ((12,  8), 24362), ((12,  9), 25487),
+        // Crumbling Farum Azula (m13)
+        ((13,  0), 26612),
+        // Academy of Raya Lucaria (m14)
+        ((14,  0), 29987),
+        // Miquella's Haligtree (m15)
+        ((15,  0), 33362),
+        // Volcano Manor (m16) - verified (was 36737 - WRONG, corrected to 40517)
+        ((16,  0), 40517),
+        // Roundtable Hold (m18)
+        ((18,  0), 43487),
+        // Chapel of Anticipation (m19)
+        ((19,  0), 46862),
+        // Stranded Graveyard (m20)
+        ((20,  0), 50237),
+        // Miquella's Haligtree sections (m21)
+        ((21,  0), 53612), ((21,  1), 54737), ((21,  2), 55862),
+        // Castle Sol (m22)
+        ((22,  0), 59237),
+        // Catacombs (m30) - VERIFIED base 27411
+        ((30,  0), 27411), ((30,  1), 28536), ((30,  2), 29661), ((30,  3), 30786),
+        ((30,  4), 31911), ((30,  5), 33036), ((30,  6), 34161), ((30,  7), 35286),
+        ((30,  8), 36411), ((30,  9), 37536), ((30, 10), 38661), ((30, 11), 39786),
+        ((30, 12), 40911), ((30, 13), 42036), ((30, 14), 43161), ((30, 15), 44286),
+        ((30, 16), 45411), ((30, 17), 46536), ((30, 18), 47661), ((30, 19), 48786), ((30, 20), 49911),
+        // Caves (m31) - VERIFIED base 28634
+        ((31,  0), 28634), ((31,  1), 29759), ((31,  2), 30884), ((31,  3), 32009),
+        ((31,  4), 33134), ((31,  5), 34259), ((31,  6), 35384), ((31,  7), 36509),
+        ((31,  9), 38759), ((31, 10), 39884), ((31, 11), 41009), ((31, 12), 42134),
+        ((31, 15), 45509), ((31, 17), 47759), ((31, 18), 48884), ((31, 19), 50009),
+        ((31, 20), 51134), ((31, 21), 52259), ((31, 22), 53384),
+        // Tunnels (m32) - VERIFIED base 31577
+        ((32,  0), 31577), ((32,  1), 32702), ((32,  2), 33827), ((32,  4), 36077),
+        ((32,  5), 37202), ((32,  7), 39452), ((32,  8), 40577), ((32, 11), 43952),
+        // Divine Towers (m34)
+        ((34, 10), 71612), ((34, 11), 72737), ((34, 12), 73862), ((34, 13), 74987),
+        ((34, 14), 76112), ((34, 15), 77237), ((34, 16), 78362),
+        // Mohgwyn Palace (m35)
+        ((35,  0), 50237),
+        // Elden Throne (m39)
+        ((39, 20), 53612),
+    ])
+}
+
 /// Result of flag offset calculation
 #[wasm_bindgen(getter_with_clone)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -464,8 +564,11 @@ pub fn calculate_tile_pickup_offset_with_base(flag_id: u32, tile_base: u32) -> F
 /// - byte_offset = (row_id - WORLD_PICKUP_ROW_ID_BASE) / 8
 /// - bit_position = 7 - ((row_id - WORLD_PICKUP_ROW_ID_BASE) % 8)
 ///
-/// This was verified via before/after save captures of Golden Rune [1] and [3]
-/// pickups at row_id 1044360310 and 1044360340.
+/// NOTE (2026-02-09): Row_ids with local_id < 7000 (like 1044360310) are
+/// actually stored via the TILE formula, not this row_id formula. This formula
+/// applies only to row_ids whose corresponding getItemFlagId would have
+/// local_id >= 7000 AND no valid tile slot (i.e., the tile formula returns
+/// invalid). The unified get_flag_offset() handles routing correctly.
 #[wasm_bindgen]
 pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> FlagOffset {
     calculate_world_pickup_offset_by_row_id_impl(row_id)
@@ -542,6 +645,202 @@ pub fn get_dungeon_pickup_sections() -> String {
     let bases = get_dungeon_pickup_section_bases();
     let keys: Vec<(u32, u32)> = bases.keys().cloned().collect();
     serde_json::to_string(&keys).unwrap_or_else(|_| "[]".to_string())
+}
+
+// =============================================================================
+// UNIFIED FLAG OFFSET CALCULATION
+// =============================================================================
+
+/// Calculate byte offset and bit position for ANY event flag.
+///
+/// This is the unified entry point that handles all flag types:
+/// - Simple flags (< 60,000): Direct flag_id / 8 calculation
+/// - Block flags (60,000-99,999): Uses BLOCK_BASES lookup
+/// - Midrange flags (100,000-999,999): Uses MIDRANGE_BASES lookup
+/// - Dungeon flags (10,000,000-43,999,999): General events and pickup flags
+/// - Tile flags (>= 1,000,000,000): Formula-based tile calculation
+///
+/// NOTE: Uses static TILE_BASE_OFFSET. For calibrated tile results, use
+/// get_flag_offset_calibrated() with a per-save calibrated base.
+#[wasm_bindgen]
+pub fn get_flag_offset(flag_id: u32) -> FlagOffset {
+    get_flag_offset_with_tile_base(flag_id, TILE_BASE_OFFSET)
+}
+
+/// Calculate flag offset using a calibrated tile base.
+/// Same as get_flag_offset() but uses a per-save calibrated tile base
+/// for accurate tile flag results.
+#[wasm_bindgen]
+pub fn get_flag_offset_calibrated(flag_id: u32, tile_base: u32) -> FlagOffset {
+    get_flag_offset_with_tile_base(flag_id, tile_base)
+}
+
+fn get_flag_offset_with_tile_base(flag_id: u32, tile_base: u32) -> FlagOffset {
+    // 10-digit open world tile flags (1,000,000,000+)
+    if flag_id >= 1_000_000_000 {
+        return calculate_tile_flag_offset_unified(flag_id, tile_base);
+    }
+
+    // 8-digit dungeon flags (10,000,000-43,999,999)
+    if flag_id >= 10_000_000 && flag_id < 44_000_000 {
+        return calculate_dungeon_flag_offset_unified(flag_id);
+    }
+
+    // 6-digit midrange flags (100,000-999,999)
+    if flag_id >= 100_000 && flag_id < 1_000_000 {
+        return calculate_midrange_flag_offset(flag_id);
+    }
+
+    // Simple and block flags (< 100,000)
+    if flag_id < 100_000 {
+        return calculate_simple_flag_offset(flag_id);
+    }
+
+    // Flags 1,000,000-9,999,999 are not commonly used
+    FlagOffset::invalid()
+}
+
+/// Calculate tile flag offset with row_id conversion for local_id >= 7000
+fn calculate_tile_flag_offset_unified(flag_id: u32, tile_base: u32) -> FlagOffset {
+    let local_id = flag_id % 10000;
+
+    // LocalId >= 7000 uses row_id-based formula (not tile storage)
+    if local_id > MAX_TILE_LOCAL_ID {
+        let row_id = flag_id - 7000;
+        return calculate_world_pickup_offset_by_row_id_impl(row_id);
+    }
+
+    // Standard tile formula
+    calculate_tile_pickup_offset_with_base(flag_id, tile_base)
+}
+
+/// Calculate dungeon flag offset for both general events (local_id < 7000)
+/// and pickup flags (local_id >= 7000)
+fn calculate_dungeon_flag_offset_unified(flag_id: u32) -> FlagOffset {
+    let area = (flag_id / 1_000_000) % 100;
+    let section = (flag_id / 10_000) % 100;
+    let local_id = flag_id % 10_000;
+    let bit_position = (7 - (flag_id % 8)) as u8;
+
+    // Pickup flags (local_id >= 7000) use per-section bases
+    if local_id >= 7000 {
+        return calculate_dungeon_pickup_offset_impl(flag_id);
+    }
+
+    // General dungeon events (local_id < 7000) use dungeon general bases
+    let general_bases = get_dungeon_general_bases();
+
+    // Try exact (area, section) lookup first
+    if let Some(&base) = general_bases.get(&(area, section)) {
+        let byte_offset = base + local_id / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit_position);
+        }
+    }
+
+    // Fall back: calculate from section 0 base using DUNGEON_SECTION_SIZE
+    if let Some(&base_00) = general_bases.get(&(area, 0)) {
+        let byte_offset = base_00 + section * DUNGEON_SECTION_SIZE + local_id / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit_position);
+        }
+    }
+
+    FlagOffset::invalid()
+}
+
+/// Calculate byte offset for simple flags (< 60,000) and block flags (60,000-99,999)
+fn calculate_simple_flag_offset(flag_id: u32) -> FlagOffset {
+    let bit = (7 - (flag_id % 8)) as u8;
+
+    // Simple flags use direct calculation
+    if flag_id < 60000 {
+        let byte_offset = flag_id / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit);
+        }
+        return FlagOffset::invalid();
+    }
+
+    // Block flags (60,000-99,999) - check sub-block (100-rounded) then main block (1000-rounded)
+    let block_bases = get_block_bases();
+    let sub_block = (flag_id / 100) * 100;
+    let main_block = (flag_id / 1000) * 1000;
+
+    if let Some(&base) = block_bases.get(&sub_block) {
+        let relative = flag_id - sub_block;
+        let byte_offset = base + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit);
+        }
+    }
+
+    if let Some(&base) = block_bases.get(&main_block) {
+        let relative = flag_id - main_block;
+        let byte_offset = base + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit);
+        }
+    }
+
+    FlagOffset::invalid()
+}
+
+/// Calculate byte offset for midrange flags (100,000-999,999)
+fn calculate_midrange_flag_offset(flag_id: u32) -> FlagOffset {
+    let bit = (7 - (flag_id % 8)) as u8;
+    let midrange_bases = get_midrange_bases();
+
+    // Try 10,000-flag block granularity first
+    let block_10k = (flag_id / 10000) * 10000;
+    if let Some(&base) = midrange_bases.get(&block_10k) {
+        let relative = flag_id - block_10k;
+        let byte_offset = base + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit);
+        }
+    }
+
+    // Fall back to 1,000-flag granularity
+    let block_1k = (flag_id / 1000) * 1000;
+    if let Some(&base) = midrange_bases.get(&block_1k) {
+        let relative = flag_id - block_1k;
+        let byte_offset = base + relative / 8;
+        if byte_offset < EVENT_FLAGS_SIZE as u32 {
+            return FlagOffset::new(byte_offset, bit);
+        }
+    }
+
+    FlagOffset::invalid()
+}
+
+/// Check if an event flag is set in the event flags data.
+/// Combines offset calculation + bit checking in one call.
+#[wasm_bindgen]
+pub fn is_flag_set(event_flags: &[u8], flag_id: u32) -> bool {
+    let result = get_flag_offset(flag_id);
+    if !result.valid {
+        return false;
+    }
+    let byte_off = result.byte_offset as usize;
+    if byte_off >= event_flags.len() {
+        return false;
+    }
+    (event_flags[byte_off] & (1 << result.bit_position)) != 0
+}
+
+/// Check if an event flag is set using a calibrated tile base.
+#[wasm_bindgen]
+pub fn is_flag_set_calibrated(event_flags: &[u8], flag_id: u32, tile_base: u32) -> bool {
+    let result = get_flag_offset_calibrated(flag_id, tile_base);
+    if !result.valid {
+        return false;
+    }
+    let byte_off = result.byte_offset as usize;
+    if byte_off >= event_flags.len() {
+        return false;
+    }
+    (event_flags[byte_off] & (1 << result.bit_position)) != 0
 }
 
 // =============================================================================
@@ -671,6 +970,11 @@ pub fn extract_player_position_impl(slot_data: &[u8]) -> PlayerPositionResult {
             continue;
         }
 
+        // Reject denormalized floats (garbage data, e.g. z=7.006e-44)
+        if is_denormalized(x) || is_denormalized(y) || is_denormalized(z) {
+            continue;
+        }
+
         // Read coords2 (12 bytes after mid_section)
         let coords2_offset = i + 4 + MID_SECTION_SIZE;
         let x2 = f32::from_le_bytes([
@@ -693,6 +997,11 @@ pub fn extract_player_position_impl(slot_data: &[u8]) -> PlayerPositionResult {
             continue;
         }
 
+        // Reject denormalized floats in coords2
+        if is_denormalized(x2) || is_denormalized(y2) || is_denormalized(z2) {
+            continue;
+        }
+
         // Read facing angle from mid_section bytes [4:8] as f32 (little-endian)
         let facing_offset = i + 4 + FACING_ANGLE_OFFSET;
         let facing_angle = f32::from_le_bytes([
@@ -700,6 +1009,11 @@ pub fn extract_player_position_impl(slot_data: &[u8]) -> PlayerPositionResult {
             slot_data[facing_offset + 2], slot_data[facing_offset + 3],
         ]);
         let facing_angle = if facing_angle.is_finite() { facing_angle } else { 0.0 };
+
+        // Reject candidates with extreme angles (valid game angles are within ±π)
+        if facing_angle.abs() > FACING_ANGLE_MAX {
+            continue;
+        }
 
         // Magnitude threshold to distinguish real positions from near-zero
         let magnitude = x.abs() + y.abs() + z.abs();
@@ -785,6 +1099,430 @@ pub fn get_player_coords_search_end() -> usize {
 }
 
 // =============================================================================
+// EQUIPMENT DATA EXTRACTION
+// =============================================================================
+
+// Section sizes from ER-save-Editor save_slot.rs (authoritative)
+const PLAYER_GAME_DATA_SIZE: usize = 0x1B0;
+const PRE_EQUIP_PADDING: usize = 0xD0;
+const EQUIP_DATA_STRUCT_SIZE: usize = 0x58; // 22 u32
+const CHR_ASM_STRUCT_SIZE: usize = 0x74;    // 29 u32
+const CHR_ASM2_STRUCT_SIZE: usize = 0x58;   // 22 u32
+const EQUIP_INV_COMMON_SLOTS: usize = 0xA80; // 2688
+const EQUIP_INV_KEY_SLOTS: usize = 0x180;    // 384
+const EQUIP_INV_ITEM_BYTES: usize = 12;      // 3 × u32
+const EQUIP_MAGIC_SPELL_SLOTS: usize = 12;
+const EQUIP_MAGIC_DATA_PADDING_BYTES: usize = 0x10;
+const EQUIP_ITEM_QUICK_COUNT: usize = 10;
+const EQUIP_ITEM_POUCH_COUNT: usize = 6;
+const EQUIP_ITEM_TRAILING_BYTES: usize = 8;
+const GESTURES_SLOT_COUNT: usize = 6;
+const EQUIPPED_ITEMS_U32_COUNT: usize = 39; // 0x9C / 4
+const GA_ITEMS_MAX: usize = 0x1400; // 5120
+
+// Computed sizes
+const EQUIP_INV_DATA_SIZE: usize =
+    4 + EQUIP_INV_COMMON_SLOTS * EQUIP_INV_ITEM_BYTES +
+    4 + EQUIP_INV_KEY_SLOTS * EQUIP_INV_ITEM_BYTES +
+    4 + 4; // = 0x9010
+
+const EQUIP_MAGIC_DATA_STRUCT_SIZE: usize =
+    EQUIP_MAGIC_SPELL_SLOTS * 8 + EQUIP_MAGIC_DATA_PADDING_BYTES + 4; // = 0x74
+
+const EQUIP_ITEM_DATA_STRUCT_SIZE: usize =
+    EQUIP_ITEM_QUICK_COUNT * 8 + 4 + EQUIP_ITEM_POUCH_COUNT * 8 + EQUIP_ITEM_TRAILING_BYTES; // = 0x8C
+
+const GESTURES_STRUCT_SIZE: usize = GESTURES_SLOT_COUNT * 4; // = 0x18
+const EQUIPPED_ITEMS_STRUCT_SIZE: usize = EQUIPPED_ITEMS_U32_COUNT * 4; // = 0x9C
+
+// Helper functions for reading little-endian values
+fn read_u32_le(data: &[u8], pos: usize) -> u32 {
+    u32::from_le_bytes([data[pos], data[pos+1], data[pos+2], data[pos+3]])
+}
+
+fn read_i32_le(data: &[u8], pos: usize) -> i32 {
+    i32::from_le_bytes([data[pos], data[pos+1], data[pos+2], data[pos+3]])
+}
+
+/// Find the end of the GaItems section (variable-length).
+/// Returns the absolute offset within slot_data, or None if parsing fails.
+fn find_ga_items_end(slot_data: &[u8]) -> Option<usize> {
+    if slot_data.len() < 12 {
+        return None;
+    }
+
+    let version = read_u32_le(slot_data, 0);
+    let header_padding: usize = if version == 81 { 0x8 } else { 0x18 };
+    let mut pos = 4 + 4 + header_padding;
+
+    for _ in 0..GA_ITEMS_MAX {
+        if pos + 8 > slot_data.len() {
+            return None;
+        }
+        pos += 4; // gaitem_handle
+        let item_id = read_u32_le(slot_data, pos);
+        pos += 4; // item_id
+
+        if item_id == 0 || item_id == 0xFFFFFFFF {
+            continue;
+        }
+
+        match item_id & 0xF0000000 {
+            0x00000000 => pos += 13, // Weapon
+            0x10000000 => pos += 8,  // Armor
+            _ => {}
+        }
+
+        if pos > slot_data.len() {
+            return None;
+        }
+    }
+
+    Some(pos)
+}
+
+/// WASM export: Find the end of GaItems section.
+/// Returns -1 if parsing fails.
+#[wasm_bindgen]
+pub fn parse_ga_items_end(slot_data: &[u8]) -> i64 {
+    match find_ga_items_end(slot_data) {
+        Some(pos) => pos as i64,
+        None => -1,
+    }
+}
+
+// JSON serialization types for equipment extraction
+
+#[derive(Serialize)]
+struct EquipmentOffsets {
+    player_game_data: usize,
+    equip_data: usize,
+    chr_asm: usize,
+    chr_asm2: usize,
+    equip_inventory_data: usize,
+    equip_magic_data: usize,
+    equip_item_data: usize,
+    gestures: usize,
+    equip_projectile_data: usize,
+    equipped_items: usize,
+    equip_physics_data: usize,
+}
+
+#[derive(Serialize)]
+struct ChrAsmJson {
+    arm_style: u32,
+    left_hand_active_slot: u32,
+    right_hand_active_slot: u32,
+    left_arrow_active_slot: u32,
+    right_arrow_active_slot: u32,
+    left_bolt_active_slot: u32,
+    right_bolt_active_slot: u32,
+    left_hand_armaments: [u32; 3],
+    right_hand_armaments: [u32; 3],
+    arrows: [u32; 2],
+    bolts: [u32; 2],
+    head: u32,
+    chest: u32,
+    arms: u32,
+    legs: u32,
+    talismans: [u32; 4],
+}
+
+#[derive(Serialize)]
+struct EquipItemJson {
+    item_id: u32,
+    equip_index: u32,
+}
+
+#[derive(Serialize)]
+struct EquipItemDataJson {
+    quick_items: Vec<EquipItemJson>,
+    active_slot: i32,
+    pouch_items: Vec<EquipItemJson>,
+}
+
+#[derive(Serialize)]
+struct EquipMagicSpellJson {
+    spell_id: i32,
+}
+
+#[derive(Serialize)]
+struct EquipMagicDataJson {
+    spells: Vec<EquipMagicSpellJson>,
+    active_slot: i32,
+}
+
+#[derive(Serialize)]
+struct EquippedItemsJson {
+    left_hand_armaments: [u32; 3],
+    right_hand_armaments: [u32; 3],
+    arrows: [u32; 2],
+    bolts: [u32; 2],
+    head: u32,
+    chest: u32,
+    arms: u32,
+    legs: u32,
+    talismans: [u32; 4],
+    quickitems: Vec<u32>,
+    pouch: Vec<u32>,
+}
+
+#[derive(Serialize)]
+struct EquipmentExtraction {
+    valid: bool,
+    ga_items_end: usize,
+    offsets: EquipmentOffsets,
+    chr_asm: ChrAsmJson,
+    equip_item_data: EquipItemDataJson,
+    equip_magic_data: EquipMagicDataJson,
+    equipped_items: EquippedItemsJson,
+}
+
+/// WASM export: Extract all equipment data from slot data.
+///
+/// Parses GaItems to find their end, then sequentially reads all equipment
+/// sections (matching ER-save-Editor save_slot.rs read order). Returns JSON
+/// with computed offsets and parsed equipment data.
+///
+/// This is the SINGLE SOURCE OF TRUTH for equipment section offsets,
+/// shared between ER-save-Editor and elden-map.
+#[wasm_bindgen]
+pub fn extract_equipment_data(slot_data: &[u8]) -> String {
+    match extract_equipment_impl(slot_data) {
+        Some(data) => serde_json::to_string(&data)
+            .unwrap_or_else(|_| r#"{"valid":false}"#.to_string()),
+        None => r#"{"valid":false}"#.to_string(),
+    }
+}
+
+fn extract_equipment_impl(slot_data: &[u8]) -> Option<EquipmentExtraction> {
+    let ga_items_end = find_ga_items_end(slot_data)?;
+
+    // Sequential offsets from gaItemsEnd (matching save_slot.rs read order):
+    // PlayerGameData(0x1B0) + _0xD0(0xD0) + EquipData(0x58) + ChrAsm(0x74) + ChrAsm2(0x58)
+    // = 0x3A4 to EquipInventoryData
+    let pgd_off = ga_items_end;
+    let equip_data_off = pgd_off + PLAYER_GAME_DATA_SIZE + PRE_EQUIP_PADDING;
+    let chr_asm_off = equip_data_off + EQUIP_DATA_STRUCT_SIZE;
+    let chr_asm2_off = chr_asm_off + CHR_ASM_STRUCT_SIZE;
+    let equip_inv_off = chr_asm2_off + CHR_ASM2_STRUCT_SIZE;
+    let equip_magic_off = equip_inv_off + EQUIP_INV_DATA_SIZE;
+    let equip_item_off = equip_magic_off + EQUIP_MAGIC_DATA_STRUCT_SIZE;
+    let gestures_off = equip_item_off + EQUIP_ITEM_DATA_STRUCT_SIZE;
+    let equip_proj_off = gestures_off + GESTURES_STRUCT_SIZE;
+
+    // EquipProjectileData is variable: count(i32) + count * 8 bytes
+    if equip_proj_off + 4 > slot_data.len() {
+        return None;
+    }
+    let proj_count = read_i32_le(slot_data, equip_proj_off).max(0) as usize;
+    let equip_proj_size = 4 + proj_count * 8;
+
+    let equipped_items_off = equip_proj_off + equip_proj_size;
+    let equip_physics_off = equipped_items_off + EQUIPPED_ITEMS_STRUCT_SIZE;
+
+    // Bounds check for final section
+    if equip_physics_off + 8 > slot_data.len() {
+        return None;
+    }
+
+    // Parse sections
+    let chr_asm = parse_chr_asm_data(slot_data, chr_asm_off)?;
+    let equip_magic = parse_equip_magic_data(slot_data, equip_magic_off)?;
+    let equip_item = parse_equip_item_data(slot_data, equip_item_off)?;
+    let equipped_items = parse_equipped_items_data(slot_data, equipped_items_off)?;
+
+    Some(EquipmentExtraction {
+        valid: true,
+        ga_items_end,
+        offsets: EquipmentOffsets {
+            player_game_data: pgd_off,
+            equip_data: equip_data_off,
+            chr_asm: chr_asm_off,
+            chr_asm2: chr_asm2_off,
+            equip_inventory_data: equip_inv_off,
+            equip_magic_data: equip_magic_off,
+            equip_item_data: equip_item_off,
+            gestures: gestures_off,
+            equip_projectile_data: equip_proj_off,
+            equipped_items: equipped_items_off,
+            equip_physics_data: equip_physics_off,
+        },
+        chr_asm,
+        equip_item_data: equip_item,
+        equip_magic_data: equip_magic,
+        equipped_items,
+    })
+}
+
+fn parse_chr_asm_data(data: &[u8], off: usize) -> Option<ChrAsmJson> {
+    if off + CHR_ASM_STRUCT_SIZE > data.len() {
+        return None;
+    }
+
+    let mut p = off;
+    let arm_style = read_u32_le(data, p); p += 4;
+    let left_hand_active_slot = read_u32_le(data, p); p += 4;
+    let right_hand_active_slot = read_u32_le(data, p); p += 4;
+    let left_arrow_active_slot = read_u32_le(data, p); p += 4;
+    let right_arrow_active_slot = read_u32_le(data, p); p += 4;
+    let left_bolt_active_slot = read_u32_le(data, p); p += 4;
+    let right_bolt_active_slot = read_u32_le(data, p); p += 4;
+
+    // Interleaved: L[0], R[0], L[1], R[1], L[2], R[2]
+    let mut left_hand = [0u32; 3];
+    let mut right_hand = [0u32; 3];
+    for i in 0..3 {
+        left_hand[i] = read_u32_le(data, p); p += 4;
+        right_hand[i] = read_u32_le(data, p); p += 4;
+    }
+
+    let mut arrows = [0u32; 2];
+    let mut bolts = [0u32; 2];
+    arrows[0] = read_u32_le(data, p); p += 4;
+    bolts[0] = read_u32_le(data, p); p += 4;
+    arrows[1] = read_u32_le(data, p); p += 4;
+    bolts[1] = read_u32_le(data, p); p += 4;
+
+    p += 4; // _0x4
+    p += 4; // _0x4_1
+
+    let head = read_u32_le(data, p); p += 4;
+    let chest = read_u32_le(data, p); p += 4;
+    let arms = read_u32_le(data, p); p += 4;
+    let legs = read_u32_le(data, p); p += 4;
+
+    p += 4; // _0x4_2
+
+    let mut talismans = [0u32; 4];
+    for i in 0..4 {
+        talismans[i] = read_u32_le(data, p); p += 4;
+    }
+    // unk field: p += 4 (not needed)
+
+    Some(ChrAsmJson {
+        arm_style,
+        left_hand_active_slot,
+        right_hand_active_slot,
+        left_arrow_active_slot,
+        right_arrow_active_slot,
+        left_bolt_active_slot,
+        right_bolt_active_slot,
+        left_hand_armaments: left_hand,
+        right_hand_armaments: right_hand,
+        arrows,
+        bolts,
+        head, chest, arms, legs,
+        talismans,
+    })
+}
+
+fn parse_equip_magic_data(data: &[u8], off: usize) -> Option<EquipMagicDataJson> {
+    if off + EQUIP_MAGIC_DATA_STRUCT_SIZE > data.len() {
+        return None;
+    }
+
+    let mut p = off;
+    let mut spells = Vec::with_capacity(EQUIP_MAGIC_SPELL_SLOTS);
+    for _ in 0..EQUIP_MAGIC_SPELL_SLOTS {
+        let spell_id = read_i32_le(data, p); p += 4;
+        p += 4; // unk
+        spells.push(EquipMagicSpellJson { spell_id });
+    }
+    p += EQUIP_MAGIC_DATA_PADDING_BYTES; // _0x10
+    let active_slot = read_i32_le(data, p);
+
+    Some(EquipMagicDataJson { spells, active_slot })
+}
+
+fn parse_equip_item_data(data: &[u8], off: usize) -> Option<EquipItemDataJson> {
+    if off + EQUIP_ITEM_DATA_STRUCT_SIZE > data.len() {
+        return None;
+    }
+
+    let mut p = off;
+    let mut quick_items = Vec::with_capacity(EQUIP_ITEM_QUICK_COUNT);
+    for _ in 0..EQUIP_ITEM_QUICK_COUNT {
+        let item_id = read_u32_le(data, p); p += 4;
+        let equip_index = read_u32_le(data, p); p += 4;
+        quick_items.push(EquipItemJson { item_id, equip_index });
+    }
+
+    let active_slot = read_i32_le(data, p); p += 4;
+
+    let mut pouch_items = Vec::with_capacity(EQUIP_ITEM_POUCH_COUNT);
+    for _ in 0..EQUIP_ITEM_POUCH_COUNT {
+        let item_id = read_u32_le(data, p); p += 4;
+        let equip_index = read_u32_le(data, p); p += 4;
+        pouch_items.push(EquipItemJson { item_id, equip_index });
+    }
+
+    Some(EquipItemDataJson { quick_items, active_slot, pouch_items })
+}
+
+fn parse_equipped_items_data(data: &[u8], off: usize) -> Option<EquippedItemsJson> {
+    if off + EQUIPPED_ITEMS_STRUCT_SIZE > data.len() {
+        return None;
+    }
+
+    let mut p = off;
+
+    // Interleaved: L[0], R[0], L[1], R[1], L[2], R[2]
+    let mut left_hand = [0u32; 3];
+    let mut right_hand = [0u32; 3];
+    for i in 0..3 {
+        left_hand[i] = read_u32_le(data, p); p += 4;
+        right_hand[i] = read_u32_le(data, p); p += 4;
+    }
+
+    let mut arrows = [0u32; 2];
+    let mut bolts = [0u32; 2];
+    arrows[0] = read_u32_le(data, p); p += 4;
+    bolts[0] = read_u32_le(data, p); p += 4;
+    arrows[1] = read_u32_le(data, p); p += 4;
+    bolts[1] = read_u32_le(data, p); p += 4;
+
+    p += 4; // _unk1
+    p += 4; // _unk2
+
+    let head = read_u32_le(data, p); p += 4;
+    let chest = read_u32_le(data, p); p += 4;
+    let arms = read_u32_le(data, p); p += 4;
+    let legs = read_u32_le(data, p); p += 4;
+
+    p += 4; // _unk3
+
+    let mut talismans = [0u32; 4];
+    for i in 0..4 {
+        talismans[i] = read_u32_le(data, p); p += 4;
+    }
+
+    p += 4; // _unk4 (covenant)
+
+    let mut quickitems = Vec::with_capacity(10);
+    for _ in 0..10 {
+        quickitems.push(read_u32_le(data, p)); p += 4;
+    }
+
+    let mut pouch = Vec::with_capacity(6);
+    for _ in 0..6 {
+        pouch.push(read_u32_le(data, p)); p += 4;
+    }
+    // _padding17: p += 4 (not needed)
+
+    Some(EquippedItemsJson {
+        left_hand_armaments: left_hand,
+        right_hand_armaments: right_hand,
+        arrows,
+        bolts,
+        head, chest, arms, legs,
+        talismans,
+        quickitems,
+        pouch,
+    })
+}
+
+// =============================================================================
 // TESTS
 // =============================================================================
 
@@ -864,15 +1602,19 @@ mod tests {
 
     #[test]
     fn test_world_pickup_offset_by_row_id() {
-        // Golden Rune [1] pickup at tile (44,36): row_id 1044360310
-        // Discovered: EF+873373 bit 1
+        // NOTE: These row_ids (1044360310, 1044360340) have local_id < 7000,
+        // so the game actually stores them via the TILE formula, NOT the row_id
+        // formula. The row_id formula produces valid-looking results but at the
+        // WRONG offsets. The unified get_flag_offset() correctly routes these
+        // through the tile formula instead.
+        //
+        // This test verifies the row_id formula's math is correct, but see
+        // test_tile_world_pickup_m60_4_43 for the correct storage locations.
         let result = calculate_world_pickup_offset_by_row_id_impl(1044360310);
         assert!(result.valid);
         assert_eq!(result.byte_offset, 873373);
         assert_eq!(result.bit_position, 1);
 
-        // Golden Rune [3] pickup at tile (44,36): row_id 1044360340
-        // Discovered: EF+873377 bit 3
         let result = calculate_world_pickup_offset_by_row_id_impl(1044360340);
         assert!(result.valid);
         assert_eq!(result.byte_offset, 873377);
@@ -977,5 +1719,293 @@ mod tests {
         assert_eq!(result.map_id_1, map_id[1]);
         assert_eq!(result.map_id_2, map_id[2]);
         assert_eq!(result.map_id_3, map_id[3]);
+    }
+
+    // =========================================================================
+    // UNIFIED get_flag_offset TESTS
+    // =========================================================================
+
+    #[test]
+    fn test_get_flag_offset_simple() {
+        // Flag 300: byte = 300/8 = 37, bit = 7 - (300%8) = 7-4 = 3
+        let result = get_flag_offset(300);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 37);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_get_flag_offset_block_grace() {
+        // Flag 76100 (The First Step): block 76000 base=3250, relative=100
+        // byte = 3250 + 100/8 = 3262, bit = 7 - (76100%8) = 7-4 = 3
+        let result = get_flag_offset(76100);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 3262);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_get_flag_offset_block_cookbook() {
+        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=37411
+        // byte = 37411 + 0/8 = 37411, bit = 7 - (67000%8) = 7-0 = 7
+        let result = get_flag_offset(67000);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 37411);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_get_flag_offset_midrange() {
+        // Flag 540000 (sorcery unlock): block 540000 base=67500
+        // byte = 67500 + 0/8 = 67500, bit = 7
+        let result = get_flag_offset(540000);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 67500);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_get_flag_offset_dungeon_general() {
+        // Flag 10000800 (Godrick): area=10, section=0, local=800
+        // base = 4112, byte = 4112 + 800/8 = 4212, bit = 7-(800%8) = 7
+        let result = get_flag_offset(10000800);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 4212);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_get_flag_offset_dungeon_general_catacombs() {
+        // Flag 30020800 (Erdtree Burial Watchdog): area=30, section=2, local=800
+        // base for 30_02 = 29661, byte = 29661 + 800/8 = 29761, bit = 7
+        let result = get_flag_offset(30020800);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 29761);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_get_flag_offset_dungeon_pickup() {
+        // Flag 10007000 (Stormveil pickup): local_id=7000, pickup base=31904
+        // byte = 31904 + 7000/8 = 32779, bit = 7
+        let result = get_flag_offset(10007000);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 32779);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_get_flag_offset_tile() {
+        // Flag 1043500010 (Smoldering Butterfly): empirical byte=852831, bit=5
+        let result = get_flag_offset(1043500010);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 852831);
+        assert_eq!(result.bit_position, 5);
+    }
+
+    #[test]
+    fn test_get_flag_offset_tile_row_id() {
+        // Flag with localId >= 7000 → row_id formula
+        // 1042377300 → row_id = 1042370300
+        // bit_offset = 1042370300 - 1037373320 = 4996980
+        // byte = 4996980/8 = 624622, bit = 7-(4996980%8) = 3
+        let result = get_flag_offset(1042377300);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 624622);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_get_flag_offset_calibrated_tile() {
+        // Using calibrated base 490000 instead of 485330
+        // Flag 1042360010: row=42,col=36,local=10
+        // slot = (42-33)*40 + (36-30) = 366
+        // byte = 490000 + 366*875 + 10/8 = 490000 + 320250 + 1 = 810251
+        let result = get_flag_offset_calibrated(1042360010, 490000);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 810251);
+    }
+
+    /// Verify tile formula for 5 world pickups at tile (44,36) in m60_4_43.
+    ///
+    /// EMPIRICALLY VERIFIED (2026-02-09) via granular before/after save captures
+    /// (files 119-127, slot 2 / V1 character). All 5 pickups use the TILE formula
+    /// because their local_ids (300-340) are < 7000.
+    ///
+    /// Timeline order of pickups:
+    ///   1. 1044360310 (file 119)
+    ///   2. 1044360340 (file 121)
+    ///   3. 1044360320 (file 123)
+    ///   4. 1044360330 (file 125)
+    ///   5. 1044360300 (file 127 - all 5 accumulated)
+    ///
+    /// Tile slot: (44-33)*40 + (36-30) = 446
+    /// All flags cluster in a 6-byte span at tile_base + 446*875 + 37..42.
+    /// Calibrated tile_base for the test save: 454876 (default: 485330).
+    #[test]
+    fn test_tile_world_pickup_m60_4_43() {
+        // These row_ids route through tile formula via get_flag_offset()
+        // because local_id < 7000. Verify with DEFAULT tile base.
+        // slot = (44-33)*40 + (36-30) = 446
+        // slot_offset = 485330 + 446*875 = 875580
+
+        // 1044360300: local_id=300, byte = 875580 + 300/8 = 875617, bit = 7-(300%8) = 3
+        let result = get_flag_offset(1044360300);
+        assert!(result.valid, "1044360300 should use tile formula (local_id=300 < 7000)");
+        assert_eq!(result.byte_offset, 875617);
+        assert_eq!(result.bit_position, 3);
+
+        // 1044360310: local_id=310, byte = 875580 + 310/8 = 875618, bit = 7-(310%8) = 1
+        let result = get_flag_offset(1044360310);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 875618);
+        assert_eq!(result.bit_position, 1);
+
+        // 1044360320: local_id=320, byte = 875580 + 320/8 = 875620, bit = 7-(320%8) = 7
+        let result = get_flag_offset(1044360320);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 875620);
+        assert_eq!(result.bit_position, 7);
+
+        // 1044360330: local_id=330, byte = 875580 + 330/8 = 875621, bit = 7-(330%8) = 5
+        let result = get_flag_offset(1044360330);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 875621);
+        assert_eq!(result.bit_position, 5);
+
+        // 1044360340: local_id=340, byte = 875580 + 340/8 = 875622, bit = 7-(340%8) = 3
+        let result = get_flag_offset(1044360340);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 875622);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    /// Same 5 world pickups but with calibrated tile base matching the test save.
+    /// Empirical verification (save captures 119-127): tile_base = 454876.
+    #[test]
+    fn test_tile_world_pickup_m60_4_43_calibrated() {
+        let tile_base = 454876;
+        // slot_offset = 454876 + 446*875 = 845126
+
+        let result = get_flag_offset_calibrated(1044360300, tile_base);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 845163); // 845126 + 37
+        assert_eq!(result.bit_position, 3);
+
+        let result = get_flag_offset_calibrated(1044360310, tile_base);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 845164); // 845126 + 38
+        assert_eq!(result.bit_position, 1);
+
+        let result = get_flag_offset_calibrated(1044360320, tile_base);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 845166); // 845126 + 40
+        assert_eq!(result.bit_position, 7);
+
+        let result = get_flag_offset_calibrated(1044360330, tile_base);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 845167); // 845126 + 41
+        assert_eq!(result.bit_position, 5);
+
+        let result = get_flag_offset_calibrated(1044360340, tile_base);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 845168); // 845126 + 42
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_get_flag_offset_calibrated_non_tile() {
+        // Non-tile flags ignore calibrated base
+        let result_default = get_flag_offset(76100);
+        let result_calibrated = get_flag_offset_calibrated(76100, 999999);
+        assert_eq!(result_default.byte_offset, result_calibrated.byte_offset);
+        assert_eq!(result_default.bit_position, result_calibrated.bit_position);
+    }
+
+    #[test]
+    fn test_is_flag_set_basic() {
+        // Create synthetic event flags data
+        let mut event_flags = vec![0u8; EVENT_FLAGS_SIZE];
+
+        // Set flag 300: byte 37, bit 3
+        event_flags[37] = 0b00001000; // bit 3 set
+
+        assert!(is_flag_set(&event_flags, 300));
+        assert!(!is_flag_set(&event_flags, 301)); // different bit in same byte
+    }
+
+    #[test]
+    fn test_is_flag_set_block_flag() {
+        let mut event_flags = vec![0u8; EVENT_FLAGS_SIZE];
+
+        // Flag 76100 (The First Step): byte 3262, bit 3
+        event_flags[3262] = 0b00001000;
+
+        assert!(is_flag_set(&event_flags, 76100));
+        assert!(!is_flag_set(&event_flags, 76101)); // bit 2, not set
+    }
+
+    #[test]
+    fn test_is_flag_set_unknown_flag() {
+        let event_flags = vec![0xFF; EVENT_FLAGS_SIZE]; // all bits set
+        // Flag in unknown range (1000000-9999999) should return false
+        assert!(!is_flag_set(&event_flags, 5000000));
+    }
+
+    // =========================================================================
+    // EQUIPMENT EXTRACTION TESTS
+    // =========================================================================
+
+    #[test]
+    fn test_equipment_section_size_constants() {
+        // Verify computed sizes match expected values
+        assert_eq!(EQUIP_INV_DATA_SIZE, 0x9010);
+        assert_eq!(EQUIP_MAGIC_DATA_STRUCT_SIZE, 0x74);
+        assert_eq!(EQUIP_ITEM_DATA_STRUCT_SIZE, 0x8C);
+        assert_eq!(GESTURES_STRUCT_SIZE, 0x18);
+        assert_eq!(EQUIPPED_ITEMS_STRUCT_SIZE, 0x9C);
+    }
+
+    #[test]
+    fn test_equipment_offset_chain() {
+        // Verify the offset chain from gaItemsEnd to EquipInventoryData
+        let gap = PLAYER_GAME_DATA_SIZE + PRE_EQUIP_PADDING +
+                  EQUIP_DATA_STRUCT_SIZE + CHR_ASM_STRUCT_SIZE + CHR_ASM2_STRUCT_SIZE;
+        assert_eq!(gap, 0x3A4, "gaItemsEnd to EquipInventoryData should be 0x3A4");
+
+        // EquipInventoryData to EquipMagicData
+        assert_eq!(EQUIP_INV_DATA_SIZE, 0x9010);
+
+        // EquipMagicData to EquipItemData
+        assert_eq!(EQUIP_MAGIC_DATA_STRUCT_SIZE, 0x74);
+
+        // Total gaItemsEnd to EquipItemData
+        let total = gap + EQUIP_INV_DATA_SIZE + EQUIP_MAGIC_DATA_STRUCT_SIZE;
+        assert_eq!(total, 0x9428, "gaItemsEnd to EquipItemData should be 0x9428");
+    }
+
+    #[test]
+    fn test_find_ga_items_end_empty() {
+        assert!(find_ga_items_end(&[]).is_none());
+        assert!(find_ga_items_end(&[0; 10]).is_none());
+    }
+
+    #[test]
+    fn test_find_ga_items_end_minimal() {
+        // Build minimal slot data: version(4) + map_id(4) + padding(0x18) + 5120 empty items
+        let header_size = 4 + 4 + 0x18; // version=0 (not 81), so 0x18 padding
+        let ga_items_size = GA_ITEMS_MAX * 8; // all empty = 8 bytes each
+        let total = header_size + ga_items_size;
+        let slot_data = vec![0u8; total];
+        let result = find_ga_items_end(&slot_data);
+        assert!(result.is_some());
+        assert_eq!(result.unwrap(), header_size + ga_items_size);
+    }
+
+    #[test]
+    fn test_extract_equipment_too_small() {
+        let result = extract_equipment_data(&[0; 100]);
+        let parsed: serde_json::Value = serde_json::from_str(&result).unwrap();
+        assert_eq!(parsed["valid"], false);
     }
 }

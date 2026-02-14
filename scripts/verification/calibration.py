@@ -41,15 +41,22 @@ from .ground_truth_loader import (
 # Known flags used for calibrating formula bases. These are common early-game
 # flags that should be SET in most progressed saves.
 
+# Multi-tile calibration anchors for tile formula verification.
+# Using anchors from multiple tiles makes false positives practically impossible.
+# All anchors verified SET across Slot 0 (Confessor, tile_base=446321) and Slot 7 (tile_base=453473).
+TILE_CALIBRATION_ANCHORS = [
+    {"row": 42, "col": 36, "local_id": 30, "bit": 1, "name": "Golden Rune [2]"},       # flag 1042360030
+    {"row": 42, "col": 37, "local_id": 0, "bit": 7, "name": "Ruin Fragment"},           # flag 1042370000
+    {"row": 43, "col": 37, "local_id": 0, "bit": 7, "name": "Smithing Stone [1]"},      # flag 1043370000
+    {"row": 44, "col": 36, "local_id": 40, "bit": 7, "name": "Somber Smithing Stone [1]"},  # flag 1044360040
+]
+
+TILE_SEARCH_START = 430000
+TILE_SEARCH_END = 510000
+TILE_MIN_ANCHOR_MATCHES = 3
+TILE_MIN_TILE_MATCHES = 2
+
 CALIBRATION_ANCHORS = {
-    "tile": {
-        "flag_id": 1043500010,
-        "name": "Smoldering Butterfly",
-        "expected_local_id": 10,
-        "expected_row": 43,
-        "expected_col": 50,
-        "notes": "Common early-game world pickup near Agheel Lake",
-    },
     "block": {
         "flag_id": 76100,
         "name": "The First Step",
@@ -80,7 +87,9 @@ class CalibrationResult:
     ef_offset: Optional[int] = None
     tile_base: Optional[int] = None
     tile_base_confidence: float = 0.0
-    tile_base_source: str = "unknown"  # "ground_truth", "anchor_verified", "search"
+    tile_base_source: str = "unknown"  # "ground_truth", "anchor_verified", "multi_tile_search"
+    tile_anchors_matched: int = 0
+    tile_tiles_matched: int = 0
     block_bases: Dict[int, int] = field(default_factory=dict)
     dungeon_bases: Dict[int, int] = field(default_factory=dict)
     calibration_flags_used: list = field(default_factory=list)
@@ -147,13 +156,14 @@ class CalibrationService:
             result.ef_offset = ef_start
             event_flags = extract_event_flags(slot_data, ef_start)
 
-            # Calibrate tile base using anchor flag
+            # Calibrate tile base using multi-tile anchors
             tile_result = cls._calibrate_tile_base(event_flags)
             if tile_result:
                 result.tile_base = tile_result[0]
                 result.tile_base_confidence = tile_result[1]
                 result.tile_base_source = tile_result[2]
-                result.calibration_flags_used.append(CALIBRATION_ANCHORS["tile"]["flag_id"])
+                result.tile_anchors_matched = tile_result[3]
+                result.tile_tiles_matched = tile_result[4]
 
             # Verify block bases work
             block_result = cls._calibrate_block_bases(event_flags)
@@ -197,94 +207,92 @@ class CalibrationService:
         cls._cache.clear()
 
     @classmethod
-    def _calibrate_tile_base(cls, event_flags: bytes) -> Optional[Tuple[int, float, str]]:
+    def _calibrate_tile_base(
+        cls, event_flags: bytes
+    ) -> Optional[Tuple[int, float, str, int, int]]:
         """
-        Calibrate the tile formula base using known anchor flags.
+        Calibrate the tile formula base using multi-tile anchors.
 
-        Returns (base_offset, confidence, source) or None.
+        Uses anchors from multiple different tiles so that a candidate base must
+        satisfy constraints at different tile slot offsets simultaneously, making
+        false positives practically impossible.
 
-        Confidence levels:
-        - 0.95: Anchor flag SET at ground truth base
-        - 0.70: Anchor flag SET at different offset (found via search)
-        - 0.50: Anchor flag NOT SET, using ground truth as fallback
+        Returns (base_offset, confidence, source, anchors_matched, tiles_matched) or None.
         """
         config = get_tile_config()
-        base_offset = config.get("base_offset", 485330)
+        ground_truth_base = config.get("base_offset", 485330)
         bytes_per_slot = config.get("bytes_per_slot", 875)
         slots_per_row = config.get("slots_per_row", 40)
         row_base = config.get("row_base", 33)
         col_base = config.get("col_base", 30)
 
-        anchor = CALIBRATION_ANCHORS["tile"]
-        local_id = anchor["expected_local_id"]
-        row = anchor["expected_row"]
-        col = anchor["expected_col"]
+        # Pre-compute tile offsets for each anchor (constant regardless of base)
+        anchor_offsets = []
+        for anchor in TILE_CALIBRATION_ANCHORS:
+            row, col = anchor["row"], anchor["col"]
+            local_id, bit_pos = anchor["local_id"], anchor["bit"]
+            tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
+            local_byte = local_id // 8
+            # (total_offset_from_base, bit_position, row, col)
+            anchor_offsets.append((tile_offset + local_byte, bit_pos, row, col))
 
-        # Calculate expected offset using ground truth base
-        tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
-        byte_offset = base_offset + tile_offset + local_id // 8
-        bit_pos = 7 - (local_id % 8)
+        max_anchor_offset = max(off for off, _, _, _ in anchor_offsets)
+        search_end = min(TILE_SEARCH_END, len(event_flags) - max_anchor_offset)
 
-        # Check if the flag is SET at ground truth location
-        if byte_offset < len(event_flags):
-            byte_val = event_flags[byte_offset]
-            is_set = (byte_val >> bit_pos) & 1
+        if TILE_SEARCH_START >= search_end:
+            return None
 
-            if is_set:
-                # Ground truth base works for this save
-                return (base_offset, 0.95, "anchor_verified")
+        best_base = None
+        best_matches = 0
+        best_tiles = 0
+
+        for base in range(TILE_SEARCH_START, search_end):
+            matches = 0
+            matched_tiles = set()
+
+            for offset_from_base, bit_pos, row, col in anchor_offsets:
+                byte_offset = base + offset_from_base
+                if byte_offset < len(event_flags):
+                    byte_val = event_flags[byte_offset]
+                    if (byte_val >> bit_pos) & 1:
+                        matches += 1
+                        matched_tiles.add((row, col))
+
+            tiles = len(matched_tiles)
+
+            if matches >= TILE_MIN_ANCHOR_MATCHES and tiles >= TILE_MIN_TILE_MATCHES:
+                is_better = (
+                    matches > best_matches
+                    or (matches == best_matches and tiles > best_tiles)
+                    or (
+                        matches == best_matches
+                        and tiles == best_tiles
+                        and (
+                            best_base is None
+                            or abs(base - ground_truth_base) < abs(best_base - ground_truth_base)
+                        )
+                    )
+                )
+
+                if is_better:
+                    best_base = base
+                    best_matches = matches
+                    best_tiles = tiles
+
+        if best_base is not None:
+            total_anchors = len(TILE_CALIBRATION_ANCHORS)
+            total_tiles = len({(a["row"], a["col"]) for a in TILE_CALIBRATION_ANCHORS})
+
+            if best_matches == total_anchors and best_tiles == total_tiles:
+                if best_base == ground_truth_base:
+                    return (best_base, 0.95, "anchor_verified", best_matches, best_tiles)
+                else:
+                    return (best_base, 0.95, "multi_tile_search", best_matches, best_tiles)
             else:
-                # Try to find the correct base by searching
-                search_result = cls._search_for_tile_base(event_flags, anchor)
-                if search_result:
-                    return search_result
-                # Anchor not found - use ground truth with low confidence
-                return (base_offset, 0.50, "ground_truth")
+                return (best_base, 0.85, "multi_tile_search", best_matches, best_tiles)
 
-        return None
-
-    @classmethod
-    def _search_for_tile_base(
-        cls,
-        event_flags: bytes,
-        anchor: Dict[str, Any]
-    ) -> Optional[Tuple[int, float, str]]:
-        """
-        Search for the correct tile base by looking for the anchor flag.
-
-        This handles cases where the save has a different base than ground truth
-        due to variable inventory size.
-        """
-        config = get_tile_config()
-        bytes_per_slot = config.get("bytes_per_slot", 875)
-        slots_per_row = config.get("slots_per_row", 40)
-        row_base = config.get("row_base", 33)
-        col_base = config.get("col_base", 30)
-
-        local_id = anchor["expected_local_id"]
-        row = anchor["expected_row"]
-        col = anchor["expected_col"]
-        expected_bit = 7 - (local_id % 8)
-
-        # Calculate tile offset (constant regardless of base)
-        tile_offset = ((row - row_base) * slots_per_row + (col - col_base)) * bytes_per_slot
-        local_byte_offset = local_id // 8
-
-        # Search for the base that makes this flag SET
-        # The tile region is typically around 480k-510k
-        search_start = 480000
-        search_end = min(510000, len(event_flags) - tile_offset - local_byte_offset)
-
-        for base in range(search_start, search_end):
-            byte_offset = base + tile_offset + local_byte_offset
-            if byte_offset < len(event_flags):
-                byte_val = event_flags[byte_offset]
-                if (byte_val >> expected_bit) & 1:
-                    # Found it! But verify it's not 0xFF padding
-                    if byte_val != 0xFF:
-                        return (base, 0.70, "search")
-
-        return None
+        # No candidate found — fall back to ground truth with low confidence
+        return (ground_truth_base, 0.50, "ground_truth", 0, 0)
 
     @classmethod
     def _calibrate_block_bases(cls, event_flags: bytes) -> Dict[int, int]:
@@ -350,6 +358,8 @@ def main():
     print(f"Tile Base:            {result.tile_base}")
     print(f"Tile Base Confidence: {result.tile_base_confidence:.2f}")
     print(f"Tile Base Source:     {result.tile_base_source}")
+    print(f"Tile Anchors Matched: {result.tile_anchors_matched}/{len(TILE_CALIBRATION_ANCHORS)}")
+    print(f"Tile Tiles Matched:   {result.tile_tiles_matched}/{len({(a['row'], a['col']) for a in TILE_CALIBRATION_ANCHORS})}")
     print(f"Block Bases Verified: {len(result.block_bases)}")
     print(f"Dungeon Bases:        {len(result.dungeon_bases)}")
     print(f"Anchors Used:         {result.calibration_flags_used}")

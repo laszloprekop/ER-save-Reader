@@ -1,6 +1,6 @@
 # Project Backlog
 
-**Last updated**: 2026-02-08
+**Last updated**: 2026-02-14
 
 This is the single location for all planned work, remaining gaps, and deferred items. Organized by priority.
 
@@ -33,6 +33,7 @@ This is the single location for all planned work, remaining gaps, and deferred i
 - **Blocks**: 71000, 71100, 71600, 73000
 - **Issue**: Base offsets vary by save progression (not stable across saves)
 - **Solution**: Dynamic calibration per save file, or discover stable alternative bases
+- **Progress** (v0.15.0): Multi-tile calibration with 4 anchors from 2+ tiles mitigates drift; unified flag routing in WASM uses calibrated tile_base
 
 ### Unverified Dungeon Areas
 - **Areas**: 20, 21 (unverified), plus 13, 15, 16, 18, 19, 34, 35, 39 (calculated but not empirically verified)
@@ -50,6 +51,7 @@ This is the single location for all planned work, remaining gaps, and deferred i
 - **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing 6 block bases that Save Editor has
 - **Missing blocks**: 61000 (map visits), 62000 (map fragments), 65000 (Crystal Tears), 72000 (DLC graces), 74000 (DLC dungeon graces), 78000 (grace guidance)
 - **Action**: Sync BLOCK_BASES from ground_truth_offsets.json to Elden Map
+- **Progress** (v0.15.0): WASM unified flag routing now includes all block bases — elden-map can use WASM `get_flag_offset()` instead of maintaining separate lookup tables
 
 ---
 
@@ -98,3 +100,7 @@ Items from previous "Next Steps" that have been done:
 | Row ID formula discovery | Consumable tracking enabled | v0.12.0 |
 | Dungeon pickup per-section bases | 89 sections across 22 areas | v0.12.0 |
 | Player coord extraction (DRY) | Consolidated into shared WASM module | v0.14.0 |
+| Unified flag resolution | Single WASM dispatcher for all flag ranges | v0.15.0 |
+| Multi-tile calibration | 4-anchor constraint satisfaction from 2+ tiles | v0.15.0 |
+| Position validation hardening | Denormalized float + angle range rejection | v0.15.0 |
+| Equipment extraction (WASM) | Equipped items, quick items, pouch parsing | v0.15.0 |

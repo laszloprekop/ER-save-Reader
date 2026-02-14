@@ -10,12 +10,16 @@
 /// 3. Include both KNOWN_TRUE and KNOWN_FALSE for each slot
 /// 4. Cover different flag types (grace, boss, cookbook, progression)
 ///
-/// ## World Pickup Flags Limitation
-/// World pickup flags (10-digit format like 1044367310) have limited trackability:
-/// - Tile formula stores 875 bytes (7000 bits) per map tile
-/// - Only local_id 0-6999 are trackable; 7000+ return None
-/// - Most ItemLotParam entries use local_id >= 7000 (untrackable)
-/// - These flags are still SET by the game but stored elsewhere
+/// ## World Pickup Flags
+/// World pickup flags (10-digit format) use two storage mechanisms:
+/// - **Tile formula** (local_id 0-6999): 875 bytes per map tile, fully trackable.
+///   The game stores the ItemLotParam row_id (NOT getItemFlagId) when local_id < 7000.
+///   Example: row_id 1044360310 (local_id=310) is stored via tile formula.
+/// - **Row_id formula** (local_id >= 7000 in getItemFlagId): separate bitfield region.
+///   The game converts getItemFlagId - 7000 → row_id and stores that.
+///
+/// Empirically verified (2026-02-09): 5 pickups at tile (44,36) confirmed via
+/// before/after save captures to use the tile formula with calibrated tile_base.
 ///
 /// ## Character Slots (from CLAUDE.md)
 /// - Slot 0: Confessor, mid-game progression
@@ -320,6 +324,12 @@ pub fn build_test_suite() -> TestSuiteCollection {
         location: Some("Minor Erdtree".to_string()),
     });
 
+    // --- KNOWN TRUE: Tile-formula world pickups (non-consumable) ---
+    // Verified SET across backup (tile_base=481729) and live (tile_base=487843) saves.
+    // These use the tile formula (local_id < 7000) — item names from ItemLotParam_map.
+    slot0.add_true(world_pickup(1042390010, "Lance", "Lance", "Limgrave tile (42,39)"));
+    slot0.add_true(world_pickup(1042390700, "AoW: Eruption", "Ash of War: Eruption", "Limgrave tile (42,39)"));
+
     collection.add_slot(slot0);
 
     // ========================================================================
@@ -350,7 +360,8 @@ pub fn build_test_suite() -> TestSuiteCollection {
     let mut slot2 = SlotTestSuite::new(
         2,
         "V1",
-        "Test character, very early game, one world pickup (1044367310)"
+        "Test character for item pickup debugging at tile (44,36) m60_4_43. \
+         5 world pickups verified via before/after save captures (files 119-127)."
     );
 
     // --- KNOWN TRUE: Graces V1 HAS touched (from verification-records.jsonl) ---
@@ -358,7 +369,27 @@ pub fn build_test_suite() -> TestSuiteCollection {
     slot2.add_true(grace(71801, "Stranded Graveyard", "Tutorial area"));
     slot2.add_true(grace(76101, "The First Step", "Limgrave starting area"));
 
-    // NOTE: World pickup flag 1044367310 has local_id=7310, outside trackable range (0-6999)
+    // --- KNOWN TRUE: World Pickups at tile (44,36) m60_4_43 ---
+    // Verified via granular before/after save captures (2026-02-09).
+    // These are ItemLotParam row_ids with local_id < 7000, stored via TILE formula.
+    // NOTE: getItemFlagId = row_id + 7000 (e.g., 1044367310), but the game stores
+    // the row_id directly (e.g., 1044360310 with local_id=310).
+    //
+    // Tile formula: byte_offset = tile_base + slot*875 + local_id/8
+    //   where slot = (44-33)*40 + (36-30) = 446
+    //   tile_base is per-save calibrated (454876 for the test snapshots)
+    //
+    // Timeline order (each "after" file has all previous pickups accumulated):
+    //   File 119: 1044360310 picked up (first)
+    //   File 121: 1044360340 picked up
+    //   File 123: 1044360320 picked up
+    //   File 125: 1044360330 picked up
+    //   File 127: 1044360300 picked up (all 5 present)
+    slot2.add_true(world_pickup(1044360300, "World Pickup 300 (m60_4_43)", "item at local_id 300", "Limgrave tile (44,36)"));
+    slot2.add_true(world_pickup(1044360310, "World Pickup 310 (m60_4_43)", "item at local_id 310", "Limgrave tile (44,36)"));
+    slot2.add_true(world_pickup(1044360320, "World Pickup 320 (m60_4_43)", "item at local_id 320", "Limgrave tile (44,36)"));
+    slot2.add_true(world_pickup(1044360330, "World Pickup 330 (m60_4_43)", "item at local_id 330", "Limgrave tile (44,36)"));
+    slot2.add_true(world_pickup(1044360340, "World Pickup 340 (m60_4_43)", "item at local_id 340", "Limgrave tile (44,36)"));
 
     collection.add_slot(slot2);
 
@@ -413,6 +444,12 @@ pub fn build_test_suite() -> TestSuiteCollection {
     // Graces with matches=false (offset formula BROKEN - Sam has them but formula doesn't find):
     // These are documented but expected to FAIL until formula is fixed
     // TRUE per manual verification: 76106, 76108, 76111, 76117, 76119, 76150, 76151, 76153, 76157, 76162, 76400
+
+    // --- KNOWN TRUE: Tile-formula world pickups (non-consumable) ---
+    // Verified SET across backup and live saves (tile_base=483220).
+    // Item names from ItemLotParam_map — both at Liurnia tile (44,33).
+    slot5.add_true(world_pickup(1044330000, "Flame Crest Wooden Shield", "Flame Crest Wooden Shield", "Liurnia tile (44,33)"));
+    slot5.add_true(world_pickup(1044330210, "Morning Star", "Morning Star", "Liurnia tile (44,33)"));
 
     collection.add_slot(slot5);
 
@@ -589,7 +626,8 @@ pub fn build_slot_test_suite_from_records(
 // ============================================================================
 
 use crate::save::save::save::Save;
-use crate::db::pickup_flags::get_flag_offset;
+use crate::db::pickup_flags::get_flag_offset_calibrated;
+use crate::calibration::CalibrationService;
 
 /// Result of validating a single test case
 #[derive(Debug)]
@@ -650,6 +688,10 @@ impl TestCaseValidator {
         let slot = save.save_type.get_slot(slot_index);
         let event_flags = &slot.event_flags.flags;
 
+        // Calibrate tile base for this slot's event flags
+        let calibration = CalibrationService::calibrate(event_flags);
+        let calibrated_tile_base = calibration.tile_base;
+
         // Get test suite for this slot
         let test_suite = self.suite.get_slot(slot_index)
             .ok_or_else(|| format!("No test suite defined for slot {}", slot_index))?;
@@ -661,7 +703,9 @@ impl TestCaseValidator {
 
         // Run all test cases
         for (case, expected_state) in test_suite.all_cases() {
-            let result = self.validate_case(event_flags, case, expected_state);
+            let result = validate_single_case_calibrated(
+                event_flags, case, expected_state, calibrated_tile_base,
+            );
 
             if result.error.is_some() {
                 errors += 1;
@@ -683,63 +727,6 @@ impl TestCaseValidator {
             errors,
             results,
         })
-    }
-
-    /// Validate a single test case
-    fn validate_case(
-        &self,
-        event_flags: &[u8],
-        case: &FlagTestCase,
-        expected: bool,
-    ) -> TestCaseResult {
-        // Try to get the offset for this flag
-        let offset = get_flag_offset(case.flag_id);
-
-        match offset {
-            Some((byte_offset, bit_pos)) => {
-                // Read the actual bit value
-                if byte_offset as usize >= event_flags.len() {
-                    return TestCaseResult {
-                        flag_id: case.flag_id,
-                        name: case.name.clone(),
-                        category: case.category,
-                        expected,
-                        actual: None,
-                        passed: false,
-                        offset: Some((byte_offset as usize, bit_pos)),
-                        error: Some(format!("Offset {} out of bounds (max {})",
-                            byte_offset, event_flags.len())),
-                    };
-                }
-
-                let byte = event_flags[byte_offset as usize];
-                let actual = (byte >> bit_pos) & 1 == 1;
-                let passed = actual == expected;
-
-                TestCaseResult {
-                    flag_id: case.flag_id,
-                    name: case.name.clone(),
-                    category: case.category,
-                    expected,
-                    actual: Some(actual),
-                    passed,
-                    offset: Some((byte_offset as usize, bit_pos)),
-                    error: None,
-                }
-            }
-            None => {
-                TestCaseResult {
-                    flag_id: case.flag_id,
-                    name: case.name.clone(),
-                    category: case.category,
-                    expected,
-                    actual: None,
-                    passed: false,
-                    offset: None,
-                    error: Some("No offset formula for this flag ID".to_string()),
-                }
-            }
-        }
     }
 
     /// Validate all slots and find cross-slot agreements/disagreements
@@ -812,6 +799,10 @@ impl DynamicTestCaseValidator {
         let slot = save.save_type.get_slot(slot_index);
         let event_flags = &slot.event_flags.flags;
 
+        // Calibrate tile base for this slot's event flags
+        let calibration = CalibrationService::calibrate(event_flags);
+        let calibrated_tile_base = calibration.tile_base;
+
         let test_suite = self.suite.get_slot(slot_index)
             .ok_or_else(|| format!("No verification records for slot {}", slot_index))?;
 
@@ -821,7 +812,9 @@ impl DynamicTestCaseValidator {
         let mut errors = 0;
 
         for (case, expected_state) in test_suite.all_cases() {
-            let result = validate_single_case(event_flags, case, expected_state);
+            let result = validate_single_case_calibrated(
+                event_flags, case, expected_state, calibrated_tile_base,
+            );
 
             if result.error.is_some() {
                 errors += 1;
@@ -880,13 +873,14 @@ impl DynamicTestCaseValidator {
     }
 }
 
-/// Validate a single test case (shared logic)
-fn validate_single_case(
+/// Validate a single test case using calibrated tile base
+fn validate_single_case_calibrated(
     event_flags: &[u8],
     case: &FlagTestCase,
     expected: bool,
+    calibrated_tile_base: u32,
 ) -> TestCaseResult {
-    let offset = get_flag_offset(case.flag_id);
+    let offset = get_flag_offset_calibrated(case.flag_id, calibrated_tile_base);
 
     match offset {
         Some((byte_offset, bit_pos)) => {

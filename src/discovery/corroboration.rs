@@ -193,6 +193,8 @@ pub struct CorroborationEngine {
     graph: Arc<RelationshipGraph>,
     event_graph: Option<Arc<EventGraph>>,
     config: CorroborationConfig,
+    /// Calibrated tile base offset (overrides VERIFIED_TILE_BASE_OFFSET when set)
+    calibrated_tile_base: Option<u32>,
 }
 
 impl CorroborationEngine {
@@ -202,17 +204,24 @@ impl CorroborationEngine {
             graph,
             event_graph: None,
             config: CorroborationConfig::default(),
+            calibrated_tile_base: None,
         }
     }
 
     /// Create with custom config
     pub fn with_config(graph: Arc<RelationshipGraph>, config: CorroborationConfig) -> Self {
-        Self { graph, event_graph: None, config }
+        Self { graph, event_graph: None, config, calibrated_tile_base: None }
     }
 
     /// Add event graph for EMEVD validation
     pub fn with_event_graph(mut self, event_graph: Arc<EventGraph>) -> Self {
         self.event_graph = Some(event_graph);
+        self
+    }
+
+    /// Set a calibrated tile base offset (overrides hardcoded VERIFIED_TILE_BASE_OFFSET)
+    pub fn with_calibrated_tile_base(mut self, tile_base: u32) -> Self {
+        self.calibrated_tile_base = Some(tile_base);
         self
     }
 
@@ -741,6 +750,9 @@ impl CorroborationEngine {
     }
 
     /// Calculate offset for tile-based flags (10-digit)
+    ///
+    /// Uses calibrated_tile_base when available, otherwise falls back to
+    /// VERIFIED_TILE_BASE_OFFSET from ground truth.
     fn calculate_tile_offset(&self, flag_id: u32) -> Option<(usize, u8)> {
         use crate::generated::ground_truth::{
             VERIFIED_TILE_BASE_OFFSET, TILE_BYTES_PER_SLOT,
@@ -768,7 +780,8 @@ impl CorroborationEngine {
             return None;
         }
 
-        let byte_offset = VERIFIED_TILE_BASE_OFFSET as usize
+        let base = self.calibrated_tile_base.unwrap_or(VERIFIED_TILE_BASE_OFFSET) as usize;
+        let byte_offset = base
             + (slot as usize) * TILE_BYTES_PER_SLOT as usize
             + (local_id / 8) as usize;
         let bit_position = 7 - ((local_id % 8) as u8);

@@ -51,6 +51,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "param-extract" | "pe" => cmd_param_extract(&args[1..]),
         "param-query" | "pq" => cmd_param_query(&args[1..]),
         "unified" | "u" => cmd_unified(&args[1..]),
+        "verify-anchors" | "va" => cmd_verify_anchors(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -81,6 +82,7 @@ fn print_help() {
     println!("    param-extract    Extract flags from regulation-bin XML params");
     println!("    param-query      Query the param flags database");
     println!("    unified          Query unified flag database (catalog + params + EMEVD)");
+    println!("    verify-anchors   Verify non-consumable tile pickup anchors across slots");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -100,6 +102,7 @@ fn print_help() {
     println!("    er-save-editor discovery param-query 400000   # Query block 400000 flags");
     println!("    er-save-editor discovery unified --build      # Build unified database");
     println!("    er-save-editor discovery unified 76100        # Query flag in unified db");
+    println!("    er-save-editor discovery verify-anchors --save <path> --slots 0,1,5");
 }
 
 /// Analyze a single save file slot
@@ -827,14 +830,25 @@ fn cmd_corroborate(args: &[String]) -> Result<(), String> {
     let slot = save.save_type.get_slot(slot_index);
     let event_flags = &slot.event_flags.flags;
 
-    // Load corroboration engine with event graph for EMEVD validation
+    // Calibrate tile base for this slot's event flags
+    let calibration = crate::calibration::CalibrationService::calibrate(event_flags);
+    println!("Tile base: {} ({}, {}/{} anchors from {} tiles)",
+        calibration.tile_base,
+        calibration.tile_base_source.as_str(),
+        calibration.tile_anchors_matched,
+        crate::calibration::TILE_CALIBRATION_ANCHORS.len(),
+        calibration.tile_tiles_matched,
+    );
+
+    // Load corroboration engine with event graph and calibrated tile base
     let engine = CorroborationEngine::load_with_event_graph()
         .or_else(|_| {
             // Fall back to without event graph if it fails to load
             println!("Note: Event graph not available, using relationship graph only");
             CorroborationEngine::load_default()
         })
-        .map_err(|e| format!("Failed to load corroboration engine: {}", e))?;
+        .map_err(|e| format!("Failed to load corroboration engine: {}", e))?
+        .with_calibrated_tile_base(calibration.tile_base);
 
     if engine.has_event_graph() {
         if let Some(summary) = engine.event_graph_summary() {
@@ -1988,6 +2002,233 @@ fn cmd_unified(args: &[String]) -> Result<(), String> {
     println!("    --db <path>       Path to unified_flags.json");
     println!();
     println!("Current database: {} flags", db.len());
+
+    Ok(())
+}
+
+// ============================================================================
+// VERIFY-ANCHORS: Non-consumable tile pickup anchor verification
+// ============================================================================
+
+/// Candidate tile pickup anchors for verification.
+/// Format: (flag_id, name, item_type, tier)
+/// Items verified from ItemLotParam_map.param.xml — only non-consumable items with local_id < 7000.
+/// NOTE: Talismans use local_id >= 7000 (row_id formula), NOT tile formula.
+/// All tile-formula non-consumables are weapons, shields, staffs, and ashes of war.
+const TILE_ANCHOR_CANDIDATES: [(u32, &str, &str, u8); 30] = [
+    // Tier 1: Limgrave & Stormhill (rows 42-43, cols 36-40)
+    (1042370100, "AoW: Flame of the Redmanes", "AoW", 1),
+    (1042370700, "Reduvia", "Dagger", 1),
+    (1042371011, "AoW: Storm Stomp", "AoW", 1),
+    (1042390010, "Lance", "Great Spear", 1),
+    (1042390700, "AoW: Eruption", "AoW", 1),
+    (1042390900, "Beast Crest Heater Shield", "Shield", 1),
+    (1043370400, "AoW: Repeating Thrust", "AoW", 1),
+    (1043400010, "AoW: Flaming Strike", "AoW", 1),
+    // Tier 2: Weeping Peninsula (rows 42-43, cols 33-35)
+    (1042330000, "Eclipse Crest Heater Shield", "Shield", 2),
+    (1042330100, "AoW: Charge Forth", "AoW", 2),
+    (1042340030, "Gilded Iron Shield", "Shield", 2),
+    (1042340100, "Winged Scythe", "Reaper", 2),
+    (1043340100, "Shield of the Guilty", "Shield", 2),
+    (1043340400, "Demi-Human Queen's Staff", "Staff", 2),
+    // Tier 3: Liurnia of the Lakes (rows 43-46, cols 33-37)
+    (1043361010, "Twinblade", "Twinblade", 3),
+    (1044330000, "Flame Crest Wooden Shield", "Shield", 3),
+    (1044330210, "Morning Star", "Hammer", 3),
+    (1044340080, "Large Club", "Great Hammer", 3),
+    (1044340100, "Hand Ballista", "Ballista", 3),
+    (1044350900, "Great Epee", "Heavy Thrust Sword", 3),
+    (1044370020, "AoW: Cragblade", "AoW", 3),
+    // Tier 4: Altus / Caelid / Dragonbarrow (rows 45-48, cols 35-41)
+    (1045371000, "AoW: Golden Land", "AoW", 4),
+    (1046360700, "AoW: Bloody Slash", "AoW", 4),
+    (1046400700, "AoW: Glintstone Pebble", "AoW", 4),
+    (1047380700, "AoW: Lion's Claw", "AoW", 4),
+    (1047380910, "Meteoric Ore Blade", "Katana", 4),
+    (1047400920, "Greatsword", "Colossal Sword", 4),
+    (1048380020, "Meteorite Staff", "Staff", 4),
+    (1048400060, "Spiked Palisade Shield", "Greatshield", 4),
+    (1048400900, "Visage Shield", "Greatshield", 4),
+];
+
+/// Tier names for display
+const TIER_NAMES: [&str; 4] = [
+    "Tier 1: Limgrave & Stormhill",
+    "Tier 2: Weeping Peninsula",
+    "Tier 3: Liurnia of the Lakes",
+    "Tier 4: Altus / Caelid / Dragonbarrow",
+];
+
+/// Verify non-consumable tile pickup anchors across multiple slots
+fn cmd_verify_anchors(args: &[String]) -> Result<(), String> {
+    use crate::calibration::CalibrationService;
+
+    // Parse --save argument
+    let save_path = args.iter()
+        .position(|a| a == "--save" || a == "-s")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| PathBuf::from(s))
+        .unwrap_or_else(|| PathBuf::from(DEFAULT_SAVE_PATH));
+
+    // Parse --slots argument (comma-separated)
+    let slots: Vec<usize> = args.iter()
+        .position(|a| a == "--slots")
+        .and_then(|i| args.get(i + 1))
+        .map(|s| {
+            s.split(',')
+                .filter_map(|n| n.trim().parse().ok())
+                .collect()
+        })
+        .unwrap_or_else(|| vec![0, 1, 5]);
+
+    if !save_path.exists() {
+        return Err(format!("Save file not found: {:?}", save_path));
+    }
+
+    if slots.is_empty() {
+        return Err("No slots specified. Use --slots 0,1,5".to_string());
+    }
+
+    let save = Save::from_path(&save_path)
+        .map_err(|e| format!("Failed to load save: {}", e))?;
+
+    println!("Tile Anchor Verification Matrix");
+    println!("Save: {:?}", save_path);
+    println!("═══════════════════════════════════════════════════════════════════════════");
+
+    // Calibrate each slot and collect results
+    struct SlotInfo {
+        index: usize,
+        name: String,
+        tile_base: u32,
+        source: String,
+        anchors_matched: usize,
+        tiles_matched: usize,
+    }
+
+    let mut slot_infos: Vec<SlotInfo> = Vec::new();
+
+    for &slot_index in &slots {
+        let slot = save.save_type.get_slot(slot_index);
+        let event_flags = &slot.event_flags.flags;
+
+        // Get character name
+        let character_name_raw = slot.player_game_data.character_name;
+        let mut character_name_trimmed: [u16; 0x10] = [0; 0x10];
+        for (i, ch) in character_name_raw.iter().enumerate() {
+            if *ch == 0 { break; }
+            character_name_trimmed[i] = *ch;
+        }
+        let name = String::from_utf16(&character_name_trimmed)
+            .unwrap_or_else(|_| "Unknown".to_string())
+            .trim_end_matches('\0')
+            .to_string();
+
+        let calibration = CalibrationService::calibrate(event_flags);
+
+        slot_infos.push(SlotInfo {
+            index: slot_index,
+            name,
+            tile_base: calibration.tile_base,
+            source: calibration.tile_base_source.as_str().to_string(),
+            anchors_matched: calibration.tile_anchors_matched,
+            tiles_matched: calibration.tile_tiles_matched,
+        });
+    }
+
+    // Print slot headers
+    print!("{:<42}", "");
+    for info in &slot_infos {
+        print!("{:>12}", format!("Slot {}", info.index));
+    }
+    println!();
+
+    print!("{:<42}", "");
+    for info in &slot_infos {
+        print!("{:>12}", format!("({})", info.name));
+    }
+    println!();
+
+    print!("{:<42}", "");
+    for info in &slot_infos {
+        print!("{:>12}", info.tile_base);
+    }
+    println!();
+
+    print!("{:<42}", "");
+    for info in &slot_infos {
+        print!("{:>12}", format!("{},{}/{}a,{}t",
+            info.source.chars().next().unwrap_or('?'),
+            info.anchors_matched,
+            crate::calibration::TILE_CALIBRATION_ANCHORS.len(),
+            info.tiles_matched));
+    }
+    println!();
+    println!("───────────────────────────────────────────────────────────────────────────");
+
+    // Track per-slot set counts
+    let mut slot_set_counts: Vec<usize> = vec![0; slots.len()];
+    let total_anchors = TILE_ANCHOR_CANDIDATES.len();
+
+    // Print each tier
+    let mut current_tier = 0u8;
+    for &(flag_id, name, _item_type, tier) in &TILE_ANCHOR_CANDIDATES {
+        if tier != current_tier {
+            current_tier = tier;
+            println!("{}", TIER_NAMES[(tier - 1) as usize]);
+        }
+
+        // Parse tile from flag_id for display
+        let flag_str = flag_id.to_string();
+        let row: u32 = flag_str[2..4].parse().unwrap_or(0);
+        let col: u32 = flag_str[4..6].parse().unwrap_or(0);
+
+        // Truncate name for display
+        let display_name = if name.len() > 28 {
+            format!("{}...", &name[..25])
+        } else {
+            name.to_string()
+        };
+
+        print!("  {:<28} ({},{})", display_name, row, col);
+
+        for (slot_idx, &slot_index) in slots.iter().enumerate() {
+            let slot = save.save_type.get_slot(slot_index);
+            let event_flags = &slot.event_flags.flags;
+            let tile_base = slot_infos[slot_idx].tile_base;
+
+            let status = match CalibrationService::get_tile_offset_calibrated(flag_id, tile_base) {
+                Some((byte_offset, bit_pos)) => {
+                    if CalibrationService::is_flag_set(event_flags, byte_offset, bit_pos) {
+                        slot_set_counts[slot_idx] += 1;
+                        "SET"
+                    } else {
+                        "UNSET"
+                    }
+                }
+                None => "N/A",
+            };
+
+            print!("{:>12}", status);
+        }
+        println!();
+    }
+
+    // Summary
+    println!("───────────────────────────────────────────────────────────────────────────");
+    print!("{:<42}", "Summary:");
+    for slot_idx in 0..slot_infos.len() {
+        print!("{:>12}", format!("{}/{}", slot_set_counts[slot_idx], total_anchors));
+    }
+    println!();
+
+    // Selection guidance
+    println!();
+    println!("Selection criteria:");
+    println!("  Tier 1: SET in >=2 slots across both saves -> add to matching slot suites");
+    println!("  Tier 2: SET in >=2 slots in at least one save -> add to matching slot suites");
+    println!("  Tier 3: SET in slot 0 in both saves -> add to slot 0 only");
 
     Ok(())
 }

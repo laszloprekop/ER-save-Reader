@@ -4,6 +4,37 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.15.0 - Unified Flag Resolution & Multi-Tile Calibration
+
+### Features
+- **Unified flag offset routing** (`get_flag_offset`, `get_flag_offset_calibrated`): single dispatcher handling all flag ranges — tile (1B+), dungeon (8-digit), midrange (6-digit), block/simple (< 100k)
+- **Block/midrange/dungeon base maps in WASM**: 12 block bases (60k–78k), 3 midrange bases (510k–710k), ~40 dungeon area+section tuples — all synced from `ground_truth_offsets.json`
+- **Multi-tile calibration**: replaced single-anchor calibration with 4-anchor constraint satisfaction from 2+ distinct tiles (Python + Rust), reducing false positives to near-zero
+- **Position validation**: reject candidates with denormalized float coordinates or extreme facing angles (|angle| > 2π)
+- **Equipment extraction in WASM**: `parse_quick_items_data()`, `parse_equipped_items_data()` for equipped slots, talismans, quick items, pouch
+- **`verify-anchors` CLI command**: matrix display of tile pickup anchors across multiple slots for calibration anchor discovery
+- **Timeline analysis scripts**: binary diff parsing, grace/pickup extraction, and gameplay narrative reconstruction from granular snapshots
+
+### Implementation
+- `get_flag_offset_with_tile_base()`: routes 1B+ → tile formula (local_id < 7000) or row_id formula (≥ 7000); 8-digit → dungeon; 6-digit → midrange lookup; < 100k → block/simple
+- Multi-tile calibration searches 430k–510k for candidates matching ≥ 3 anchors from ≥ 2 distinct tiles simultaneously
+- `is_denormalized(v: f32)`: checks exponent bits == 0 with non-zero value; `FACING_ANGLE_MAX = TAU`
+- `CorroborationEngine` now accepts calibrated tile_base via `with_calibrated_tile_base()`
+- Test cases updated with empirical world pickup data from timeline capture files 119–127
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: unified flag resolution, block/midrange/dungeon bases, position validation, equipment extraction, 13 new tests
+- `scripts/verification/calibration.py`: multi-tile calibration anchors, multi-constraint search
+- `src/calibration.rs`: Rust multi-tile calibration (parallel to Python)
+- `src/discovery/cli.rs`: calibrated corroboration, `verify-anchors` command
+- `src/discovery/corroboration.rs`: `calibrated_tile_base` field and setter
+- `src/discovery/test_cases.rs`: empirical tile-formula test cases, calibrated validation
+- `scripts/timeline_analysis.py`: new — binary diff analysis
+- `scripts/timeline_graces_pickups.py`: new — grace/pickup extraction from timeline
+- `scripts/timeline_narrative.py`: new — gameplay event reconstruction
+
+---
+
 ## v0.13.3 - Player Coordinate Extraction Verification
 
 ### Changes

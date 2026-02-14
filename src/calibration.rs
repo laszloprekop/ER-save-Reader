@@ -30,12 +30,27 @@ use crate::generated::ground_truth::{
 // CALIBRATION ANCHORS
 // ============================================================================
 
-/// Calibration anchor for tile formula verification.
-/// Smoldering Butterfly is a common early-game world pickup near Agheel Lake.
-pub const TILE_ANCHOR_FLAG_ID: u32 = 1043500010;
-pub const TILE_ANCHOR_ROW: u32 = 43;
-pub const TILE_ANCHOR_COL: u32 = 50;
-pub const TILE_ANCHOR_LOCAL_ID: u32 = 10;
+/// Multi-tile calibration anchors for tile formula verification.
+/// Using anchors from multiple tiles makes false positives practically impossible.
+/// All anchors verified SET across Slot 0 (Confessor, tile_base=446321) and Slot 7 (tile_base=453473).
+/// Format: (row, col, local_id, bit_position, name)
+pub const TILE_CALIBRATION_ANCHORS: [(u32, u32, u32, u8, &str); 4] = [
+    (42, 36, 30, 1, "Golden Rune [2]"),      // flag 1042360030
+    (42, 37, 0, 7, "Ruin Fragment"),          // flag 1042370000
+    (43, 37, 0, 7, "Smithing Stone [1]"),     // flag 1043370000
+    (44, 36, 40, 7, "Somber Smithing Stone [1]"), // flag 1044360040
+];
+
+/// Search range for tile base calibration (expanded to cover empirical range).
+/// Empirical data: Confessor tile_base=446321, Slot 7 tile_base=453473.
+pub const TILE_SEARCH_START: u32 = 430000;
+pub const TILE_SEARCH_END: u32 = 510000;
+
+/// Minimum number of anchor matches required for a valid tile base candidate.
+pub const TILE_MIN_ANCHOR_MATCHES: usize = 3;
+
+/// Minimum number of distinct tiles that must match for a valid candidate.
+pub const TILE_MIN_TILE_MATCHES: usize = 2;
 
 /// Calibration anchor for block formula verification.
 /// The First Step is the first overworld grace, always discovered.
@@ -171,6 +186,10 @@ pub struct CalibrationResult {
     pub tile_base_confidence: f32,
     /// How the tile base was determined
     pub tile_base_source: CalibrationSource,
+    /// Number of tile calibration anchors that matched
+    pub tile_anchors_matched: usize,
+    /// Number of distinct tiles that matched during calibration
+    pub tile_tiles_matched: usize,
     /// Whether block bases were verified
     pub block_bases_verified: bool,
     /// Number of verified dungeon bases
@@ -189,6 +208,8 @@ impl Default for CalibrationResult {
             tile_base: VERIFIED_TILE_BASE_OFFSET,
             tile_base_confidence: 0.0,
             tile_base_source: CalibrationSource::Unknown,
+            tile_anchors_matched: 0,
+            tile_tiles_matched: 0,
             block_bases_verified: false,
             dungeon_bases_count: 0,
             grace_block_calibration: GraceBlockCalibration::default(),
@@ -221,12 +242,15 @@ impl CalibrationService {
     pub fn calibrate(event_flags: &[u8]) -> CalibrationResult {
         let mut result = CalibrationResult::default();
 
-        // Calibrate tile base using anchor flag
-        if let Some((base, confidence, source)) = Self::calibrate_tile_base(event_flags) {
+        // Calibrate tile base using multi-tile anchors
+        if let Some((base, confidence, source, anchors_matched, tiles_matched)) =
+            Self::calibrate_tile_base(event_flags)
+        {
             result.tile_base = base;
             result.tile_base_confidence = confidence;
             result.tile_base_source = source;
-            result.calibration_flags_used.push(TILE_ANCHOR_FLAG_ID);
+            result.tile_anchors_matched = anchors_matched;
+            result.tile_tiles_matched = tiles_matched;
         }
 
         // Verify block bases work
@@ -245,9 +269,12 @@ impl CalibrationService {
         result.dungeon_bases_count = VERIFIED_DUNGEON_BASES.len();
 
         result.notes = format!(
-            "Tile base: {} ({}), Blocks: {}, Grace blocks: {} (delta={}), Dungeons: {}",
+            "Tile base: {} ({}, {}/{} anchors from {} tiles), Blocks: {}, Grace blocks: {} (delta={}), Dungeons: {}",
             result.tile_base,
             result.tile_base_source.as_str(),
+            result.tile_anchors_matched,
+            TILE_CALIBRATION_ANCHORS.len(),
+            result.tile_tiles_matched,
             if result.block_bases_verified { "verified" } else { "unverified" },
             if result.grace_block_calibration.success { "calibrated" } else { "uncalibrated" },
             result.grace_block_calibration.offset_delta,
@@ -321,80 +348,117 @@ impl CalibrationService {
     // Private calibration methods
     // ------------------------------------------------------------------------
 
-    /// Calibrate the tile formula base using known anchor flags.
+    /// Calibrate the tile formula base using multi-tile anchors.
     ///
-    /// Returns (base_offset, confidence, source) or None.
+    /// Uses anchors from multiple different tiles so that a candidate base must
+    /// satisfy constraints at different tile slot offsets simultaneously, making
+    /// false positives practically impossible.
     ///
-    /// Confidence levels:
-    /// - 0.95: Anchor flag SET at ground truth base
-    /// - 0.70: Anchor flag SET at different offset (found via search)
-    /// - 0.50: Anchor flag NOT SET, using ground truth as fallback
-    fn calibrate_tile_base(event_flags: &[u8]) -> Option<(u32, f32, CalibrationSource)> {
-        let base_offset = VERIFIED_TILE_BASE_OFFSET;
+    /// Returns (base_offset, confidence, source, anchors_matched, tiles_matched) or None.
+    fn calibrate_tile_base(event_flags: &[u8]) -> Option<(u32, f32, CalibrationSource, usize, usize)> {
+        // Pre-compute tile offsets for each anchor (constant regardless of base)
+        let anchor_offsets: Vec<(u32, u8, u32, u32)> = TILE_CALIBRATION_ANCHORS
+            .iter()
+            .map(|&(row, col, local_id, bit_pos, _name)| {
+                let tile_offset = ((row - TILE_ROW_BASE) * TILE_SLOTS_PER_ROW
+                    + (col - TILE_COL_BASE))
+                    * TILE_BYTES_PER_SLOT;
+                let local_byte = local_id / 8;
+                // (total_offset_from_base, bit_position, row, col)
+                (tile_offset + local_byte, bit_pos, row, col)
+            })
+            .collect();
 
-        // Calculate expected offset using ground truth base
-        let tile_offset = ((TILE_ANCHOR_ROW - TILE_ROW_BASE) * TILE_SLOTS_PER_ROW
-            + (TILE_ANCHOR_COL - TILE_COL_BASE))
-            * TILE_BYTES_PER_SLOT;
-        let byte_offset = base_offset + tile_offset + TILE_ANCHOR_LOCAL_ID / 8;
-        let bit_pos = 7 - (TILE_ANCHOR_LOCAL_ID % 8) as u8;
+        // Find the maximum offset any anchor adds to the base
+        let max_anchor_offset = anchor_offsets.iter().map(|&(off, _, _, _)| off).max().unwrap_or(0);
 
-        // Check if the flag is SET at ground truth location
-        if (byte_offset as usize) < event_flags.len() {
-            let byte_val = event_flags[byte_offset as usize];
-            let is_set = (byte_val >> bit_pos) & 1 == 1;
-
-            if is_set {
-                // Ground truth base works for this save
-                return Some((base_offset, 0.95, CalibrationSource::AnchorVerified));
-            } else {
-                // Try to find the correct base by searching
-                if let Some((found_base, confidence, source)) =
-                    Self::search_for_tile_base(event_flags)
-                {
-                    return Some((found_base, confidence, source));
-                }
-                // Anchor not found - use ground truth with low confidence
-                return Some((base_offset, 0.50, CalibrationSource::GroundTruth));
-            }
-        }
-
-        None
-    }
-
-    /// Search for the correct tile base by looking for the anchor flag.
-    ///
-    /// This handles cases where the save has a different base than ground truth
-    /// due to variable inventory size.
-    fn search_for_tile_base(event_flags: &[u8]) -> Option<(u32, f32, CalibrationSource)> {
-        let expected_bit = 7 - (TILE_ANCHOR_LOCAL_ID % 8) as u8;
-
-        // Calculate tile offset (constant regardless of base)
-        let tile_offset = ((TILE_ANCHOR_ROW - TILE_ROW_BASE) * TILE_SLOTS_PER_ROW
-            + (TILE_ANCHOR_COL - TILE_COL_BASE))
-            * TILE_BYTES_PER_SLOT;
-        let local_byte_offset = TILE_ANCHOR_LOCAL_ID / 8;
-
-        // Search for the base that makes this flag SET
-        // The tile region is typically around 480k-510k
-        let search_start: u32 = 480000;
         let search_end = std::cmp::min(
-            510000,
-            event_flags.len() as u32 - tile_offset - local_byte_offset,
+            TILE_SEARCH_END,
+            event_flags.len().saturating_sub(max_anchor_offset as usize) as u32,
         );
 
-        for base in search_start..search_end {
-            let byte_offset = base + tile_offset + local_byte_offset;
-            if (byte_offset as usize) < event_flags.len() {
-                let byte_val = event_flags[byte_offset as usize];
-                if (byte_val >> expected_bit) & 1 == 1 {
-                    // Found it! Note: Don't skip 0xFF - when all flags in byte are set, 0xFF is valid
-                    return Some((base, 0.70, CalibrationSource::Search));
+        if TILE_SEARCH_START >= search_end {
+            return None;
+        }
+
+        // Collect all candidates that meet the threshold
+        let mut best_base: Option<u32> = None;
+        let mut best_matches: usize = 0;
+        let mut best_tiles: usize = 0;
+
+        for base in TILE_SEARCH_START..search_end {
+            let mut matches = 0usize;
+            let mut matched_tiles: std::collections::HashSet<(u32, u32)> =
+                std::collections::HashSet::new();
+
+            for &(offset_from_base, bit_pos, row, col) in &anchor_offsets {
+                let byte_offset = base + offset_from_base;
+                if (byte_offset as usize) < event_flags.len() {
+                    let byte_val = event_flags[byte_offset as usize];
+                    if (byte_val >> bit_pos) & 1 == 1 {
+                        matches += 1;
+                        matched_tiles.insert((row, col));
+                    }
+                }
+            }
+
+            let tiles = matched_tiles.len();
+
+            if matches >= TILE_MIN_ANCHOR_MATCHES && tiles >= TILE_MIN_TILE_MATCHES {
+                // Better candidate: more matches wins, tiebreak by proximity to ground truth
+                let is_better = matches > best_matches
+                    || (matches == best_matches && tiles > best_tiles)
+                    || (matches == best_matches
+                        && tiles == best_tiles
+                        && best_base.map_or(true, |prev| {
+                            let dist_new =
+                                (base as i64 - VERIFIED_TILE_BASE_OFFSET as i64).unsigned_abs();
+                            let dist_prev =
+                                (prev as i64 - VERIFIED_TILE_BASE_OFFSET as i64).unsigned_abs();
+                            dist_new < dist_prev
+                        }));
+
+                if is_better {
+                    best_base = Some(base);
+                    best_matches = matches;
+                    best_tiles = tiles;
                 }
             }
         }
 
-        None
+        if let Some(base) = best_base {
+            // Determine confidence and source
+            let total_anchors = TILE_CALIBRATION_ANCHORS.len();
+            let total_tiles = TILE_CALIBRATION_ANCHORS
+                .iter()
+                .map(|&(r, c, _, _, _)| (r, c))
+                .collect::<std::collections::HashSet<_>>()
+                .len();
+
+            let (confidence, source) = if best_matches == total_anchors && best_tiles == total_tiles
+            {
+                // All anchors from all tiles matched
+                if base == VERIFIED_TILE_BASE_OFFSET {
+                    (0.95, CalibrationSource::AnchorVerified)
+                } else {
+                    (0.95, CalibrationSource::Search)
+                }
+            } else {
+                // Partial match (>= 3 anchors from >= 2 tiles)
+                (0.85, CalibrationSource::Search)
+            };
+
+            return Some((base, confidence, source, best_matches, best_tiles));
+        }
+
+        // No candidate found — fall back to ground truth with low confidence
+        Some((
+            VERIFIED_TILE_BASE_OFFSET,
+            0.50,
+            CalibrationSource::GroundTruth,
+            0,
+            0,
+        ))
     }
 
     /// Verify known block bases work for this save.
@@ -892,5 +956,41 @@ mod tests {
         assert_eq!(result.tile_base, VERIFIED_TILE_BASE_OFFSET);
         assert_eq!(result.tile_base_confidence, 0.0);
         assert_eq!(result.tile_base_source, CalibrationSource::Unknown);
+        assert_eq!(result.tile_anchors_matched, 0);
+        assert_eq!(result.tile_tiles_matched, 0);
+    }
+
+    #[test]
+    fn test_tile_anchor_constants_consistency() {
+        // Validate that anchor bit positions are correct for the declared local_ids
+        for &(row, col, local_id, bit_pos, name) in &TILE_CALIBRATION_ANCHORS {
+            let expected_bit = 7 - (local_id % 8) as u8;
+            assert_eq!(
+                bit_pos, expected_bit,
+                "Anchor '{}' at ({},{}) local_id={}: expected bit {} but declared {}",
+                name, row, col, local_id, expected_bit, bit_pos
+            );
+        }
+    }
+
+    #[test]
+    fn test_tile_anchors_use_multiple_tiles() {
+        // Verify that anchors come from at least TILE_MIN_TILE_MATCHES distinct tiles
+        let distinct_tiles: std::collections::HashSet<(u32, u32)> = TILE_CALIBRATION_ANCHORS
+            .iter()
+            .map(|&(row, col, _, _, _)| (row, col))
+            .collect();
+        assert!(
+            distinct_tiles.len() >= TILE_MIN_TILE_MATCHES,
+            "Need anchors from at least {} distinct tiles, have {}",
+            TILE_MIN_TILE_MATCHES,
+            distinct_tiles.len()
+        );
+        assert!(
+            TILE_CALIBRATION_ANCHORS.len() >= TILE_MIN_ANCHOR_MATCHES,
+            "Need at least {} anchors, have {}",
+            TILE_MIN_ANCHOR_MATCHES,
+            TILE_CALIBRATION_ANCHORS.len()
+        );
     }
 }
