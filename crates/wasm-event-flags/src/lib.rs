@@ -30,7 +30,7 @@ use std::collections::HashMap;
 pub const EVENT_FLAGS_SIZE: usize = 0x1BF99F;  // 1,833,375 bytes
 
 /// Search parameters for EventFlags detection
-pub const SEARCH_START: usize = 0x12000;  // 73728
+pub const SEARCH_START: usize = 0x30000;  // 196608 - skip inventory region where false positives occur
 pub const MAX_SEARCH_RANGE: usize = 200_000;
 
 /// Tile flag constants (10-digit flags like 1035537020)
@@ -96,7 +96,7 @@ pub const POSITIVE_VALIDATION_FLAGS: &[(u32, u32, u8, &str, u8)] = &[
     (76100, 3262, 3, "The First Step", 1),
     (76101, 3262, 2, "Church of Elleh", 1),
     // Tier 2: Early game graces (likely set for most characters)
-    (76102, 3262, 1, "Gatefront Ruins", 2),
+    (76102, 3262, 1, "Stormhill Shack", 2),
     (76104, 3263, 7, "Agheel Lake South", 2),
     (76106, 3263, 5, "Church of Dragon Communion", 2),
 ];
@@ -173,15 +173,6 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
                 }
             }
 
-            if negative_score == NEGATIVE_VALIDATION_FLAGS.len() {
-                return DetectionResult {
-                    offset: test_offset,
-                    positive_score,
-                    negative_score,
-                    confident: true,
-                };
-            }
-
             candidates.push(Candidate {
                 offset: test_offset,
                 positive_score,
@@ -194,7 +185,7 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
         candidates.sort_by(|a, b| {
             b.negative_score.cmp(&a.negative_score)
                 .then_with(|| b.positive_score.cmp(&a.positive_score))
-                .then_with(|| a.offset.cmp(&b.offset))
+                .then_with(|| b.offset.cmp(&a.offset))
         });
 
         let best = &candidates[0];
@@ -1532,7 +1523,7 @@ mod tests {
 
     #[test]
     fn test_constants() {
-        assert_eq!(SEARCH_START, 0x12000);
+        assert_eq!(SEARCH_START, 0x30000);
         assert_eq!(EVENT_FLAGS_SIZE, 0x1BF99F);
         assert_eq!(POSITIVE_VALIDATION_FLAGS.len(), 7);
         assert_eq!(NEGATIVE_VALIDATION_FLAGS.len(), 6);

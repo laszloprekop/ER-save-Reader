@@ -4,6 +4,29 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.15.1 - Fix EventFlags Detection False Positives
+
+### Bug Fixes
+- **SEARCH_START raised from 0x12000 to 0x30000**: inventory data at ~76K contained coincidental bit patterns that matched positive validation flags, causing the detector to return a false-positive offset ~146K below the real EventFlags section
+- **Removed early return on first perfect match**: the algorithm now collects ALL candidates and selects the best, preventing premature lock-on to false positives
+- **Tiebreaker changed to prefer highest offset**: when candidates have equal scores, the last (highest) valid match is selected — empirically validated across 701 captures showing the real EF copy is always the last one (2622 bytes after false copies)
+- **Fixed mislabeled validation flag**: flag 76102 was labeled "Gatefront Ruins" but is actually "Stormhill Shack" (real Gatefront is flag 76111)
+- **Updated fallback offset in save_slot.rs**: from 0x12B00 to 0x36500 to match the real EF region
+
+### Key Findings
+- Real EventFlags offset is ~222K-225K (0x36000-0x37000), NOT ~76K-78K
+- The gap between gaItemsEnd and EventFlags grows monotonically during gameplay (+4/+8 byte increments), making any fixed formula unreliable
+- Dynamic detection via validation flag scanning is the only correct approach
+- Verified stable across 701 captures spanning 14.5 hours of gameplay, 9 area codes, 83 map tiles
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: SEARCH_START, early return removal, tiebreaker, flag label fix
+- `src/save/common/event_flags_detection.rs`: test assertion update
+- `src/save/common/save_slot.rs`: local SEARCH_START and FALLBACK_OFFSET constants
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: corrected EF offset range from 0x12B00 to 0x36000
+
+---
+
 ## v0.15.0 - Unified Flag Resolution & Multi-Tile Calibration
 
 ### Features

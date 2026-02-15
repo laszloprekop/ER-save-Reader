@@ -66,14 +66,14 @@ Offset    | Size      | Content
 0x4       | 4         | Map ID
 0x20      | Variable  | GaItems (0x1400 max × variable bytes each)
 ...       | ...       | Other structures (PlayerGameData, Equipment, etc.)
-Variable  | 1,833,375 | EventFlags (offset around 0x12B00-0x13800)
+Variable  | 1,833,375 | EventFlags (offset around 0x36000-0x37000)
 ```
 
 **Critical**:
 1. Slot offsets are **NOT at fixed intervals** - they must be read from BND4 entries
 2. Each slot has a 16-byte MD5 checksum header before the actual data
-3. EventFlags offset **VARIES** per slot (around 0x12B00-0x13800) due to variable-size GaItems section
-4. Use validation flag pattern detection to locate EventFlags reliably
+3. EventFlags offset **VARIES** per slot (around 0x36000-0x37000, ~222K-225K) due to variable-size GaItems section and intermediate structures that grow during gameplay
+4. Use validation flag pattern detection to locate EventFlags reliably (search must start above 0x30000 to avoid false positives in inventory data at ~76K)
 
 ### Event Flags Section
 
