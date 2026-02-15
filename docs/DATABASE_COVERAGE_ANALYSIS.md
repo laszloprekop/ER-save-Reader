@@ -182,7 +182,7 @@ Single source of truth for constants: `crates/wasm-event-flags/src/lib.rs`
 
 | Constant | Value |
 |----------|-------|
-| Tile base_offset | 485330 |
+| Tile base_offset | 337375 |
 | Row base | 33 |
 | Col base | 30 |
 | Bytes per slot | 875 |

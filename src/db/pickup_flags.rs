@@ -285,7 +285,7 @@ pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
 /// - YY: tile column (30-58+)
 /// - ZZZZ: local ID (0-6999 use tile formula, 7000+ use row_id formula)
 ///
-/// Uses VERIFIED_TILE_BASE_OFFSET (485330, reverted 2026-01-25)
+/// Uses VERIFIED_TILE_BASE_OFFSET (337375, corrected 2026-02-15)
 /// For local_id >= 7000, delegates to row_id-based formula.
 fn calculate_tile_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     let local_id = flag_id % 10000;
@@ -950,29 +950,29 @@ mod tests {
 
     #[test]
     fn test_tile_flag_formula_verified() {
-        // Test Limgrave tile 42_37 with REVERTED base offset (485330)
+        // Test Limgrave tile 42_37
         // tile_index = (1042370000 - 1_000_000_000) / 10000 = 4237
         // row = 4237 / 100 = 42, col = 4237 % 100 = 37
         // Slot = (42-33)*40 + (37-30) = 9*40 + 7 = 367
-        // Base = 485330 (REVERTED 2026-01-25) + 367*875 = 485330 + 321125 = 806455
+        // Base = 337375 + 367*875 = 337375 + 321125 = 658500
         let result = get_flag_offset(1042370000);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 806455);  // Reverted with TILE_BASE=485330
+        assert_eq!(byte, 658500);
         assert_eq!(bit, 7);
     }
 
     #[test]
     fn test_tile_confirmed_empirical() {
-        // Test Smoldering Butterfly pickup (RE-VERIFIED 2026-01-25)
-        // Flag 1043500010: actual empirical byte_offset=852831
-        // row = 43, col = 50, local_id = 10
-        // slot = (43-33)*40 + (50-30) = 10*40 + 20 = 420
-        // byte_offset = 485330 + 420*875 + 10/8 = 485330 + 367500 + 1 = 852831
+        // Test Smoldering Butterfly pickup
+        // Empirically verified via before/after save captures (09/10, 135-149)
+        // Flag 1043500010: row=43, col=50, local_id=10
+        // slot = (43-33)*40 + (50-30) = 420
+        // byte_offset = 337375 + 420*875 + 10/8 = 337375 + 367500 + 1 = 704876
         let result = get_flag_offset(1043500010);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 852831, "Empirically confirmed via temporal diff");
+        assert_eq!(byte, 704876, "Empirically confirmed via temporal diff");
         assert_eq!(bit, 5); // 7 - (10 % 8) = 7 - 2 = 5
     }
 
@@ -1205,31 +1205,30 @@ mod tests {
     #[test]
     fn test_block_65000_crystal_tears_verified() {
         // Block 65000 (Whetblades/Crystal Tears) - CORRECTED 2026-02-15
-        // Block base_offset=1684 (0x694) from common.emevd.js
-        // Old base 37412 was calibrated against false-positive EF offset
-        //   65610 -> 1684 + 610/8 = 1684 + 76 = 1760
-        //   65700 -> 1684 + 700/8 = 1684 + 87 = 1771
-        //   65720 -> 1684 + 720/8 = 1684 + 90 = 1774
+        // Block base_offset=1685 (0x694+1) from common.emevd.js with +1 correction
+        //   65610 -> 1685 + 610/8 = 1685 + 76 = 1761
+        //   65700 -> 1685 + 700/8 = 1685 + 87 = 1772
+        //   65720 -> 1685 + 720/8 = 1685 + 90 = 1775
 
-        // Flag 65610: byte=1760, bit=7-(610%8)=7-2=5
+        // Flag 65610: byte=1761, bit=7-(610%8)=7-2=5
         let result = get_flag_offset(65610);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1760);
+        assert_eq!(byte, 1761);
         assert_eq!(bit, 5);
 
-        // Flag 65700: byte=1771, bit=7-(700%8)=7-4=3
+        // Flag 65700: byte=1772, bit=7-(700%8)=7-4=3
         let result = get_flag_offset(65700);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1771);
+        assert_eq!(byte, 1772);
         assert_eq!(bit, 3);
 
-        // Flag 65720: byte=1774, bit=7-(720%8)=7-0=7
+        // Flag 65720: byte=1775, bit=7-(720%8)=7-0=7
         let result = get_flag_offset(65720);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 1774);
+        assert_eq!(byte, 1775);
         assert_eq!(bit, 7);
     }
 

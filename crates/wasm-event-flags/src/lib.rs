@@ -34,7 +34,7 @@ pub const SEARCH_START: usize = 0x30000;  // 196608 - skip inventory region wher
 pub const MAX_SEARCH_RANGE: usize = 200_000;
 
 /// Tile flag constants (10-digit flags like 1035537020)
-pub const TILE_BASE_OFFSET: u32 = 485330;
+pub const TILE_BASE_OFFSET: u32 = 337375;
 pub const TILE_ROW_BASE: u32 = 33;
 pub const TILE_COL_BASE: u32 = 30;
 pub const TILE_BYTES_PER_SLOT: u32 = 875;
@@ -419,11 +419,20 @@ fn get_block_bases() -> HashMap<u32, u32> {
         (62000, 1500),    // 0x5dc - Map/Landmarks — VERIFIED via 6 timeline diffs
         (65000, 1685),    // 0x694+1 - Whetblades & Crystal Tears
         (66000, 1725),    // 0x6bc+1 - Pot/Perfume Upgrades
-        (67000, 1765),    // 0x6e4+1 - Cookbooks — VERIFIED (6/6 flags mod10=0)
-        (68000, 1805),    // 0x70c+1 - Cookbooks continued — VERIFIED (16/16 mod10=0)
+        (67000, 1765),    // 0x6e4+1 - Cookbooks (DLC) — VERIFIED (6/6 flags mod10=0)
+        (68000, 1805),    // 0x70c+1 - Cookbooks continued (DLC) — VERIFIED (16/16 mod10=0)
         (69000, 1845),    // 0x734+1 - Remembrance/Notes — VERIFIED (20/20 mod10=0)
         (91000, 2385),    // 0x950+1 - Boss Remembrance — VERIFIED (41/41 mod10=0)
         (92000, 2425),    // 0x978+1 - Container Upgrades — VERIFIED (16/16 mod10=0)
+        // Base game cookbook sub-block overrides
+        // The DLC introduced SEPARATE flag allocations for blocks 67000/68000.
+        // Base game cookbook flags (getItemFlagId from ItemLotParam_map) are stored
+        // at DIFFERENT byte offsets than DLC cookbook flags in the same nominal block.
+        // Sub-block entries (checked first) route base game ranges to the correct base.
+        // Verified empirically: Confessor (4/4 non-ADA), Bee (2/2) match at these bases.
+        (68200, 1500),    // Base game Fevor's/Missionary's[7] cookbooks (base 1475 + 200/8)
+        (68400, 1525),    // Base game Frenzied's cookbooks (base 1475 + 400/8)
+        (67600, 2145),    // Base game Missionary's cookbooks (base 2070 + 600/8)
         // Grace flags — verified via multi-slot validation
         (71800, 2725),    // Tutorial graces - VALIDATED via 71800, 71801
         (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
@@ -1982,10 +1991,12 @@ mod tests {
 
     #[test]
     fn test_get_flag_offset_tile() {
-        // Flag 1043500010 (Smoldering Butterfly): empirical byte=852831, bit=5
+        // Flag 1043500010 (Smoldering Butterfly): empirical byte=704876, bit=5
+        // Verified via before/after save captures (09/10) and slot 7 captures (135-149).
+        // tile_base(337375) + slot(420)*875 + 10/8 = 337375 + 367500 + 1 = 704876
         let result = get_flag_offset(1043500010);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 852831);
+        assert_eq!(result.byte_offset, 704876);
         assert_eq!(result.bit_position, 5);
     }
 
@@ -2003,7 +2014,7 @@ mod tests {
 
     #[test]
     fn test_get_flag_offset_calibrated_tile() {
-        // Using calibrated base 490000 instead of 485330
+        // Using calibrated base 490000 instead of default 337375
         // Flag 1042360010: row=42,col=36,local=10
         // slot = (42-33)*40 + (36-30) = 366
         // byte = 490000 + 366*875 + 10/8 = 490000 + 320250 + 1 = 810251
@@ -2027,75 +2038,77 @@ mod tests {
     ///
     /// Tile slot: (44-33)*40 + (36-30) = 446
     /// All flags cluster in a 6-byte span at tile_base + 446*875 + 37..42.
-    /// Calibrated tile_base for the test save: 454876 (default: 485330).
+    /// Tile base: 337375 (verified across 3 characters, 6+ tiles, 10+ snapshot diffs).
     #[test]
     fn test_tile_world_pickup_m60_4_43() {
         // These row_ids route through tile formula via get_flag_offset()
         // because local_id < 7000. Verify with DEFAULT tile base.
         // slot = (44-33)*40 + (36-30) = 446
-        // slot_offset = 485330 + 446*875 = 875580
+        // slot_offset = 337375 + 446*875 = 727625
 
-        // 1044360300: local_id=300, byte = 875580 + 300/8 = 875617, bit = 7-(300%8) = 3
+        // 1044360300: local_id=300, byte = 727625 + 300/8 = 727662, bit = 7-(300%8) = 3
         let result = get_flag_offset(1044360300);
         assert!(result.valid, "1044360300 should use tile formula (local_id=300 < 7000)");
-        assert_eq!(result.byte_offset, 875617);
+        assert_eq!(result.byte_offset, 727662);
         assert_eq!(result.bit_position, 3);
 
-        // 1044360310: local_id=310, byte = 875580 + 310/8 = 875618, bit = 7-(310%8) = 1
+        // 1044360310: local_id=310, byte = 727625 + 310/8 = 727663, bit = 7-(310%8) = 1
         let result = get_flag_offset(1044360310);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 875618);
+        assert_eq!(result.byte_offset, 727663);
         assert_eq!(result.bit_position, 1);
 
-        // 1044360320: local_id=320, byte = 875580 + 320/8 = 875620, bit = 7-(320%8) = 7
+        // 1044360320: local_id=320, byte = 727625 + 320/8 = 727665, bit = 7-(320%8) = 7
         let result = get_flag_offset(1044360320);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 875620);
+        assert_eq!(result.byte_offset, 727665);
         assert_eq!(result.bit_position, 7);
 
-        // 1044360330: local_id=330, byte = 875580 + 330/8 = 875621, bit = 7-(330%8) = 5
+        // 1044360330: local_id=330, byte = 727625 + 330/8 = 727666, bit = 7-(330%8) = 5
         let result = get_flag_offset(1044360330);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 875621);
+        assert_eq!(result.byte_offset, 727666);
         assert_eq!(result.bit_position, 5);
 
-        // 1044360340: local_id=340, byte = 875580 + 340/8 = 875622, bit = 7-(340%8) = 3
+        // 1044360340: local_id=340, byte = 727625 + 340/8 = 727667, bit = 7-(340%8) = 3
         let result = get_flag_offset(1044360340);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 875622);
+        assert_eq!(result.byte_offset, 727667);
         assert_eq!(result.bit_position, 3);
     }
 
-    /// Same 5 world pickups but with calibrated tile base matching the test save.
-    /// Empirical verification (save captures 119-127): tile_base = 454876.
+    /// Same 5 world pickups but with calibrated tile base.
+    /// Empirical tile_base = 337375, verified via before/after save captures
+    /// across Confessor (captures 05-10), V1 (119-127), and Slot 7 (135-149).
+    /// The correct tile_base matches the default TILE_BASE_OFFSET.
     #[test]
     fn test_tile_world_pickup_m60_4_43_calibrated() {
-        let tile_base = 454876;
-        // slot_offset = 454876 + 446*875 = 845126
+        let tile_base = 337375;
+        // slot_offset = 337375 + 446*875 = 727625
 
         let result = get_flag_offset_calibrated(1044360300, tile_base);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 845163); // 845126 + 37
+        assert_eq!(result.byte_offset, 727662); // 727625 + 37
         assert_eq!(result.bit_position, 3);
 
         let result = get_flag_offset_calibrated(1044360310, tile_base);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 845164); // 845126 + 38
+        assert_eq!(result.byte_offset, 727663); // 727625 + 38
         assert_eq!(result.bit_position, 1);
 
         let result = get_flag_offset_calibrated(1044360320, tile_base);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 845166); // 845126 + 40
+        assert_eq!(result.byte_offset, 727665); // 727625 + 40
         assert_eq!(result.bit_position, 7);
 
         let result = get_flag_offset_calibrated(1044360330, tile_base);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 845167); // 845126 + 41
+        assert_eq!(result.byte_offset, 727666); // 727625 + 41
         assert_eq!(result.bit_position, 5);
 
         let result = get_flag_offset_calibrated(1044360340, tile_base);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 845168); // 845126 + 42
+        assert_eq!(result.byte_offset, 727667); // 727625 + 42
         assert_eq!(result.bit_position, 3);
     }
 

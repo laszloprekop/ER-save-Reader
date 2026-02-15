@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 //! Calibration Service - Dynamic formula base calibration for per-save verification.
 //!
-//! The tile formula base_offset (485330 in ground_truth_offsets.json) varies per save
+//! The tile formula base_offset (337375 in ground_truth_offsets.json) is constant across saves
 //! due to the GaItems (inventory) section having variable size. This module provides
 //! a reusable calibration service that detects the correct bases for any given save.
 //!
@@ -935,19 +935,19 @@ mod tests {
     #[test]
     fn test_get_tile_offset_calibrated() {
         // Test Smoldering Butterfly (1043500010)
-        let result = CalibrationService::get_tile_offset_calibrated(1043500010, 485330);
+        let result = CalibrationService::get_tile_offset_calibrated(1043500010, 337375);
         assert!(result.is_some());
         let (offset, bit) = result.unwrap();
-        assert_eq!(offset, 852831);
+        assert_eq!(offset, 704876);
         assert_eq!(bit, 5);
     }
 
     #[test]
     fn test_get_tile_offset_calibrated_invalid() {
         // Test invalid flag (not a tile flag)
-        assert!(CalibrationService::get_tile_offset_calibrated(76100, 485330).is_none());
+        assert!(CalibrationService::get_tile_offset_calibrated(76100, 337375).is_none());
         // Test untrackable local_id
-        assert!(CalibrationService::get_tile_offset_calibrated(1043507000, 485330).is_none());
+        assert!(CalibrationService::get_tile_offset_calibrated(1043507000, 337375).is_none());
     }
 
     #[test]

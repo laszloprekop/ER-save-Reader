@@ -22,7 +22,7 @@ This document is the **single source of truth** for Elden Ring save file parsing
 | **Cookbooks (67xxx-68xxx)** | **VERIFIED** | Block base=3546 (corrected from 3987!) |
 | **Dungeon Graces (73xxx)** | **VERIFIED** | Block base=2664, 13/13 dungeon graces matched |
 | **Whetblades (65xxx)** | Unverified | Block base ~1875 needs testing |
-| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=485330 (CORRECTED 2026-01-20) |
+| **World Pickups (col >= 30)** | **VERIFIED** | Tile formula works, base=337375 (CORRECTED 2026-02-15) |
 | **World Pickups (col < 30)** | Unverified | Western tiles may use different storage |
 | **Dungeon Boss Flags (30,31,32)** | **VERIFIED** | Catacombs/Caves/Tunnels bases discovered |
 | **Dungeon Boss Flags (Legacy)** | Unverified | Stormveil, Academy, etc. need investigation |
@@ -132,8 +132,8 @@ row = int(flag_str[2:4])      # XX (tile row, e.g., 43)
 col = int(flag_str[4:6])      # YY (tile column, e.g., 50)
 local_id = int(flag_str[6:])  # ZZZZ (local flag ID, e.g., 0010)
 
-# Calculate offset (REVERTED 2026-01-25)
-base_offset = 485330          # REVERTED: 489981 was WRONG, original 485330 correct
+# Calculate offset (CORRECTED 2026-02-15)
+base_offset = 337375          # CORRECTED: 485330 was 147955 bytes too high
 bytes_per_slot = 875
 slots_per_row = 40
 row_base = 33
@@ -147,10 +147,10 @@ bit_position = 7 - (local_id % 8)  # Uses local_id, not flag_id
 **Verified Example**: Flag 1043500010 (Smoldering Butterfly at m60_43_50)
 - row=43, col=50, local=10
 - tile_offset = ((43-33)*40 + (50-30)) * 875 = 420 * 875 = 367500
-- byte_offset = 485330 + 367500 + 1 = **852831**
+- byte_offset = 337375 + 367500 + 1 = **704876**
 - bit_position = 7 - (10 % 8) = 5
 - Extraction: (byte >> 5) & 1
-- **Re-verified 2026-01-25**: Observed 0x00→0x20 at offset 852831 (not 857482)**
+- **Corrected 2026-02-15**: Verified via before/after snapshot diffs across 3 characters, 10+ pairs
 
 **LIMITATIONS**:
 
@@ -233,7 +233,7 @@ See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#row-id-tracking-for-world-
 | Block 76000 | World Graces | **VERIFIED** | Validation flags 76100, 76101 (base=3250), 65% match rate |
 | Block 73000 | Dungeon Graces | **VERIFIED** | 13/13 dungeon graces matched via slot comparison (base=2664) |
 | Block 78000 | POI Flags | UNVERIFIED | 0% match rate - base offset needs discovery |
-| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) temporal diff, base=485330 |
+| Tile (col >= 30) | World Pickups | **VERIFIED** | Smoldering Butterfly (1043500010) temporal diff, base=337375 (corrected 2026-02-15) |
 | Tile (col < 30) | World Pickups | UNVERIFIED | Western tiles may use different storage |
 | Dungeon Area 30 | Catacombs | **VERIFIED** | 5 boss flags matched (base=27411) |
 | Dungeon Area 31 | Caves | **VERIFIED** | 5 boss flags matched (base=28634) |

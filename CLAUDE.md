@@ -57,8 +57,8 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
 ### Phase 4: Calibration Verification
 
 - Check if calibration is returning correct base offset for THIS save file
-- The ground truth base (485330) only applies to specific save structures
-- Level/progression can shift the actual base by tens of thousands of bytes
+- The ground truth tile base (337375) is constant across saves within the same game version
+- The EF offset varies per character (due to variable GaItems), but tile_base within EF is fixed
 
 ### Only After Evidence Is Gathered
 

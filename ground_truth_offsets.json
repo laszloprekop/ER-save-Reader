@@ -3522,14 +3522,35 @@
         "base_offset": 1765,
         "block_size": 1000,
         "status": "verified",
-        "notes": "CORRECTED 2026-02-15: Base 1765 (0x6e4+1) — emevd hex + 1 correction. VERIFIED: 6/6 SET flags are mod10=0 (67890,67900,67920,67960,67970,67980). At old base 1764, same flags decoded as ...8 (non-round)."
+        "notes": "DLC allocation at 1765 (0x6e4+1). DLC flags verified: 6/6 mod10=0. Base game flags use SEPARATE allocation — sub-block 67600 at base 2145. Remaining base game ranges (67000-67499, 67700-67999) need further investigation."
+      },
+      "67600": {
+        "block_start": 67600,
+        "base_offset": 2145,
+        "block_size": 100,
+        "status": "verified",
+        "notes": "Base game cookbook sub-block override. Allocation base 2070 + 600/8 = 2145. Flags: 67600 (Missionary's[2]), 67610 (Missionary's[1]), 67630-67650 (Missionary's[3-5]). Verified: Confessor 7/7 match for 67500-67999 range at base 2070."
       },
       "68000": {
         "block_start": 68000,
         "base_offset": 1805,
         "block_size": 1000,
         "status": "verified",
-        "notes": "CORRECTED 2026-02-15: Base 1805 (0x70c+1) — emevd hex + 1 correction. VERIFIED: 16/16 SET flags are mod10=0 (68570,68580,68600,...,68870)."
+        "notes": "DLC allocation at 1805 (0x70c+1). Base game flags (68000-68499) use SEPARATE allocation at byte 1475 — sub-block overrides added for 68200 (base 1500) and 68400 (base 1525). DLC flags (68500+) verified: 16/16 mod10=0. Base game flags verified: Fevor's/Missionary's/Frenzied's cookbooks match across 2 slots."
+      },
+      "68200": {
+        "block_start": 68200,
+        "base_offset": 1500,
+        "block_size": 100,
+        "status": "verified",
+        "notes": "Base game cookbook sub-block override. Allocation base 1475 + 200/8 = 1500. Flags: 68200 (Fevor's[1]), 68210 (Fevor's[3]), 68220 (Fevor's[2]), 68230 (Missionary's[7]). Verified: Confessor 4/4 non-ADA match, Bee 2/2 match."
+      },
+      "68400": {
+        "block_start": 68400,
+        "base_offset": 1525,
+        "block_size": 100,
+        "status": "verified",
+        "notes": "Base game cookbook sub-block override. Allocation base 1475 + 400/8 = 1525. Flags: 68400 (Frenzied's[1]), 68410 (Frenzied's[2]). Verified: Confessor match."
       },
       "69000": {
         "block_start": 69000,
@@ -3638,14 +3659,14 @@
       }
     },
     "tile_formula": {
-      "base_offset": 485330,
+      "base_offset": 337375,
       "bytes_per_slot": 875,
       "slots_per_row": 40,
       "row_base": 33,
       "col_base": 30,
       "max_local_id": 6999,
       "status": "verified",
-      "notes": "REVERTED 2026-01-25: base_offset restored to 485330. Previous correction to 489981 was WRONG. Re-verified via Smoldering Butterfly: flag 1043500010 changes offset 852831 (not 857482). Calculation: 485330 + (43-33)*40*875 + (50-30)*875 + 10//8 = 485330 + 350000 + 17500 + 1 = 852831."
+      "notes": "CORRECTED 2026-02-15: base_offset 485330 was wrong (147955 bytes too high). Correct value 337375 verified via before/after save capture diffs across 3 characters (Confessor captures 05-10, V1 captures 119-127, Slot7 captures 135-149). All diffs consistently show tile_base=337375. Calculation: 337375 + (43-33)*40*875 + (50-30)*875 + 10//8 = 337375 + 367500 + 1 = 704876."
     },
     "midrange_formula": {
       "510000": {
@@ -3653,7 +3674,7 @@
         "base_offset": 63750,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010\u2192(63751,5), 510020\u2192(63752,3), 510030\u2192(63753,1), 510040\u2192(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
+        "notes": "Remembrance consumption flags - VERIFIED 2026-01-23: Base 63750 derived from event_flags.rs hardcoded data. Formula: byte = 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8). Verified mappings: 510010→(63751,5), 510020→(63752,3), 510030→(63753,1), 510040→(63755,7). 64 remembrance flags in this block. Flags SET when remembrance is USED at Enia, not when obtained."
       },
       "520000": {
         "block_start": 520000,
@@ -3693,7 +3714,7 @@
         "base_offset": 13875,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Roundtable Hold NPC progression flags - VERIFIED 2026-01-23: Base 13875 derived from event_flags.rs hardcoded 710620\u2192(0x3680,3). Formula: byte = 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8). 41 EMEVD flags primarily from m18 (Roundtable Hold). Most track NPC state changes during game progression."
+        "notes": "Roundtable Hold NPC progression flags - VERIFIED 2026-01-23: Base 13875 derived from event_flags.rs hardcoded 710620→(0x3680,3). Formula: byte = 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8). 41 EMEVD flags primarily from m18 (Roundtable Hold). Most track NPC state changes during game progression."
       }
     },
     "dungeon_formula": {
@@ -4007,10 +4028,10 @@
         "row": 43,
         "col": 50,
         "local_id": 10,
-        "verified_offset": 852831,
+        "verified_offset": 704876,
         "verified_bit": 5,
-        "verification_date": "2026-01-25",
-        "notes": "Primary calibration anchor. Temporal diff confirmed: 0x00 \u2192 0x20 (bit 5 SET)"
+        "verification_date": "2026-02-15",
+        "notes": "Primary calibration anchor. Temporal diff confirmed: 0x00 → 0x20 (bit 5 SET) at EF[704876]. Consistent across Confessor (cap 09/10), V1 (cap 119-127), Slot7 (cap 135-149)."
       }
     },
     "block": {
@@ -4044,7 +4065,7 @@
         "verified_offset": 3198,
         "verified_bit": 5,
         "verification_date": "2026-01-25",
-        "notes": "Volcano Manor grace - VERIFIED via temporal diff b38/b39. Corrected previous wrong base (155226 \u2192 3198)."
+        "notes": "Volcano Manor grace - VERIFIED via temporal diff b38/b39. Corrected previous wrong base (155226 → 3198)."
       }
     },
     "dungeon": {
@@ -21351,7 +21372,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 496805,
+          "offset": 348850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21380,7 +21401,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 530930,
+          "offset": 382975,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21409,7 +21430,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 536180,
+          "offset": 388225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21438,7 +21459,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 537930,
+          "offset": 389975,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21467,7 +21488,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 565930,
+          "offset": 417975,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21496,7 +21517,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 572930,
+          "offset": 424975,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21525,7 +21546,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 603497,
+          "offset": 455542,
           "bit": 3,
           "valid": true,
           "error": null
@@ -21554,7 +21575,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 611430,
+          "offset": 463475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21583,7 +21604,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 635872,
+          "offset": 487917,
           "bit": 3,
           "valid": true,
           "error": null
@@ -21612,7 +21633,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 639430,
+          "offset": 491475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21641,7 +21662,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 643805,
+          "offset": 495850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21670,7 +21691,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 645555,
+          "offset": 497600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21699,7 +21720,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 646431,
+          "offset": 498476,
           "bit": 5,
           "valid": true,
           "error": null
@@ -21728,7 +21749,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 676180,
+          "offset": 528225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21757,7 +21778,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 678805,
+          "offset": 530850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21786,7 +21807,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 679622,
+          "offset": 531667,
           "bit": 3,
           "valid": true,
           "error": null
@@ -21815,7 +21836,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 707680,
+          "offset": 559725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21844,7 +21865,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 713805,
+          "offset": 565850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21873,7 +21894,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 716430,
+          "offset": 568475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21902,7 +21923,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 749680,
+          "offset": 601725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21931,7 +21952,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 750555,
+          "offset": 602600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21960,7 +21981,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 782930,
+          "offset": 634975,
           "bit": 7,
           "valid": true,
           "error": null
@@ -21989,7 +22010,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 783805,
+          "offset": 635850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22018,7 +22039,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 783805,
+          "offset": 635850,
           "bit": 6,
           "valid": true,
           "error": null
@@ -22047,7 +22068,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 784680,
+          "offset": 636725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22076,7 +22097,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 785555,
+          "offset": 637600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22105,7 +22126,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 805680,
+          "offset": 657725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22134,7 +22155,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 807430,
+          "offset": 659475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22163,7 +22184,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 807436,
+          "offset": 659481,
           "bit": 5,
           "valid": true,
           "error": null
@@ -22192,7 +22213,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 822305,
+          "offset": 674350,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22221,7 +22242,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 835430,
+          "offset": 687475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22250,7 +22271,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 838055,
+          "offset": 690100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22279,7 +22300,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 855555,
+          "offset": 707600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22308,7 +22329,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 872122,
+          "offset": 724167,
           "bit": 3,
           "valid": true,
           "error": null
@@ -22337,7 +22358,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 875680,
+          "offset": 727725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22366,7 +22387,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 890555,
+          "offset": 742600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22395,7 +22416,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 913305,
+          "offset": 765350,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22424,7 +22445,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 924680,
+          "offset": 776725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22453,7 +22474,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 984180,
+          "offset": 836225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22482,7 +22503,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1019180,
+          "offset": 871225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22511,7 +22532,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1020055,
+          "offset": 872100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22540,7 +22561,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1034055,
+          "offset": 886100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22569,7 +22590,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1051555,
+          "offset": 903600,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22598,7 +22619,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1051561,
+          "offset": 903606,
           "bit": 5,
           "valid": true,
           "error": null
@@ -22627,7 +22648,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1052430,
+          "offset": 904475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22656,7 +22677,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1053305,
+          "offset": 905350,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22685,7 +22706,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1064680,
+          "offset": 916725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22714,7 +22735,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1104055,
+          "offset": 956100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22743,7 +22764,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1104061,
+          "offset": 956106,
           "bit": 5,
           "valid": true,
           "error": null
@@ -22772,7 +22793,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1120680,
+          "offset": 972725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22801,7 +22822,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1124180,
+          "offset": 976225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22830,7 +22851,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1126805,
+          "offset": 978850,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22859,7 +22880,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1139055,
+          "offset": 991100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22888,7 +22909,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1139055,
+          "offset": 991100,
           "bit": 6,
           "valid": true,
           "error": null
@@ -22917,7 +22938,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1157430,
+          "offset": 1009475,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22946,7 +22967,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1160055,
+          "offset": 1012100,
           "bit": 7,
           "valid": true,
           "error": null
@@ -22975,7 +22996,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1160061,
+          "offset": 1012106,
           "bit": 5,
           "valid": true,
           "error": null
@@ -23004,7 +23025,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1169680,
+          "offset": 1021725,
           "bit": 7,
           "valid": true,
           "error": null
@@ -23033,7 +23054,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1173180,
+          "offset": 1025225,
           "bit": 7,
           "valid": true,
           "error": null
@@ -23062,7 +23083,7 @@
       "matches": null,
       "formula_results": {
         "tile": {
-          "offset": 1243180,
+          "offset": 1095225,
           "bit": 7,
           "valid": true,
           "error": null

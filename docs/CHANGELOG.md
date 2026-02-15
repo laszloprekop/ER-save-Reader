@@ -4,6 +4,31 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.3 - Correct tile base offset for world pickup detection
+
+### Bug Fix
+- **Corrected TILE_BASE_OFFSET from 485330 to 337375** (was 147,955 bytes too high)
+- The old value was derived using an earlier incorrect EF offset formula; when EF detection was corrected, the tile base was not recalibrated
+- This fixes detection of all 69 tile-type world pickup flags (10-digit flags with localId < 7000)
+
+### Key Findings
+- Tile base within EventFlags is **constant across all characters** (337375), not variable as previously assumed
+- Verified via before/after snapshot diffs across 3 characters (Confessor, V1, Slot7) and 10+ capture pairs
+- Old calibration search range (480000-560000) was entirely wrong; corrected to 327000-347000
+- The Whetstone Knife tile flag (1042371010) is unreliable as a calibration anchor since the item is usually obtained from a chest (flag 1042371300), not the world pickup
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: TILE_BASE_OFFSET 485330→337375, updated 4 tests
+- `ground_truth_offsets.json`: tile_formula.base_offset, calibration anchor, 60 tile flag offsets
+- `src/calibration.rs`: updated test assertions
+- `src/db/pickup_flags.rs`: updated 2 test assertions
+- `src/discovery/offset_probe.rs`: updated tile_base (was 489981)
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: corrected tile base references
+- `docs/DATABASE_COVERAGE_ANALYSIS.md`: corrected tile base reference
+- `CLAUDE.md`: corrected tile base documentation
+- WASM rebuilt and deployed to elden-map
+- elden-map: updated calibrationService.ts, eventFlagService.ts, shared/wasm-loader.ts
+
 ## v0.16.2 - Fix emevd block base off-by-one
 
 ### Bug Fix
