@@ -29,9 +29,9 @@
     },
     "62000": {
       "category": "landmark",
-      "base_offset": 9359,
+      "base_offset": 1500,
       "description": "Map Fragments and Landmarks (block 62000)",
-      "notes": "CORRECTED 2026-02-01: Base offset 9359 from ground_truth_offsets.json (verified 12/12 match)",
+      "notes": "CORRECTED 2026-02-15: Base offset 1500 (0x5dc) from common.emevd.js, verified via 6 timeline diffs and multi-slot cross-validation",
       "items": [
         {"flag_id": 62010, "item_id": 8600, "name": "Map: Limgrave, West"},
         {"flag_id": 62011, "item_id": 8601, "name": "Map: Weeping Peninsula"},
@@ -59,9 +59,9 @@
     },
     "67000": {
       "category": "cookbook",
-      "base_offset": 37411,
+      "base_offset": 1764,
       "description": "Cookbooks (block 67000) - Nomadic Warrior's and others",
-      "notes": "CORRECTED 2026-02-01: Base offset 37411 from ground_truth_offsets.json (verified 34/34 match)",
+      "notes": "CORRECTED 2026-02-15: Base offset 1764 (0x6e4) from common.emevd.js. These are shop stock flags (eventFlag_forStock), not world pickup flags.",
       "items": [
         {"flag_id": 67000, "item_id": 9300, "name": "Nomadic Warrior's Cookbook [1]"},
         {"flag_id": 67010, "item_id": 9301, "name": "Nomadic Warrior's Cookbook [3]"},
@@ -82,9 +82,9 @@
     },
     "68000": {
       "category": "cookbook",
-      "base_offset": 37536,
+      "base_offset": 1804,
       "description": "Cookbooks (block 68000) - Ancient Dragon, Frenzied, Perfumer",
-      "notes": "CORRECTED 2026-02-01: Base offset 37536 from ground_truth_offsets.json (verified 10/10 match)",
+      "notes": "CORRECTED 2026-02-15: Base offset 1804 (0x70c) from common.emevd.js. These are shop stock flags (eventFlag_forStock).",
       "items": [
         {"flag_id": 68000, "item_id": 9350, "name": "Ancient Dragon Apostle's Cookbook [1]"},
         {"flag_id": 68010, "item_id": 9351, "name": "Ancient Dragon Apostle's Cookbook [2]"},

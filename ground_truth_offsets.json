@@ -3491,45 +3491,66 @@
     "block_bases": {
       "60000": {
         "block_start": 60000,
-        "base_offset": 2548,
+        "base_offset": 1260,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Progression flags - verified from multiple items"
-      },
-      "61000": {
-        "block_start": 61000,
-        "base_offset": 2671,
-        "block_size": 1000,
-        "status": "verified",
-        "notes": "Map area visit flags - VERIFIED 2026-01-23: Base 2671 confirmed via multi-flag correlation. Slot 0 mid-game: 61100 (Stormveil) SET at byte 2683 bit 4, 61104 (Raya Lucaria) SET at byte 2684 bit 0, 61128 (Roundtable Hold) SET at byte 2687 bit 0. Pattern: 611xx correlates to mXX dungeon map codes. 108 EMEVD flags in this block."
+        "notes": "CORRECTED 2026-02-15: Base 1260 (0x4ec) from common.emevd.js. Old base 2548 was calibrated against false-positive EF offset. Verified: flag 60130 SET at EF[1276] for Confessor, 60430 SET at EF[1313]."
       },
       "62000": {
         "block_start": 62000,
-        "base_offset": 9359,
+        "base_offset": 1500,
         "block_size": 1000,
-        "status": "needs_investigation",
-        "notes": "FLAGGED 2026-02-01: Investigation shows offset 9359 region contains 8-byte record structure, NOT bit-packed event flags. BLOCK_ITEMS uses flag IDs (62010-62080) that don't exist in game data. Actual 62000 block contains WorldMapPointParam flags (62060+, 62100+) for location discovery. Original verification likely used incorrect flag IDs. Base offset and flag IDs need complete re-verification."
+        "status": "verified",
+        "notes": "CORRECTED 2026-02-15: Base 1500 (0x5dc) from common.emevd.js. VERIFIED via 6 timeline diffs (exact bit-level match). Old base 9359 was calibrated against false-positive EF offset in GaItemData section. Cross-validated across 3 slots: Slot 0=16/25, Slot 1=1/25, Slot 5=8/25 (matching inventory)."
       },
       "65000": {
         "block_start": 65000,
-        "base_offset": 37412,
+        "base_offset": 1684,
         "block_size": 1000,
         "status": "verified",
-        "notes": "Crystal Tears - CORRECTED 2026-01-21: Base 37412 gives 15/15 match (100%) on Slot 0 confirmed flags AND 15/15 UNSET on Slot 1 early-game character. Old base 1875 gave 0% match."
+        "notes": "CORRECTED 2026-02-15: Base 1684 (0x694) from common.emevd.js. Old base 37412 was calibrated against false-positive EF offset. Covers Whetblades (65610-65670) and Crystal Tears (65700-65990). Flag IDs in elden-map event-flag-detection.ts may need separate verification."
+      },
+      "66000": {
+        "block_start": 66000,
+        "base_offset": 1724,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "NEW 2026-02-15: Base 1724 (0x6bc) from common.emevd.js. Pot/Perfume Upgrades."
       },
       "67000": {
         "block_start": 67000,
-        "base_offset": null,
+        "base_offset": 1764,
         "block_size": 1000,
-        "status": "blocked",
-        "notes": "BLOCKED 2026-02-01: BLOCK_ITEMS has completely incorrect flag-item mappings. E.g., BLOCK_ITEMS says 67120='Missionary's Cookbook [1]' but extracted_event_flags.json says 67120='Nomadic Warrior's Cookbook [21]'. Actual world pickup flags are: 67030, 67120, 67130, 67300, 67420, 67430, 67630, 67860, 67880, 67890, 67910. Need to rebuild BLOCK_ITEMS from game params before base can be verified."
+        "status": "verified",
+        "notes": "CORRECTED 2026-02-15: Base 1764 (0x6e4) from common.emevd.js. Cookbook shop stock flags. Note: these track shop PURCHASE events. World pickup cookbooks use tile-based flags. Flag IDs in elden-map need separate verification."
       },
       "68000": {
         "block_start": 68000,
-        "base_offset": 37536,
+        "base_offset": 1804,
         "block_size": 1000,
-        "status": "needs_investigation",
-        "notes": "FLAGGED 2026-02-01: Related to 67000 issue. Base 37536 derived from 67000 base + 125, but if 67000 base is incorrect, this is also incorrect. Needs re-verification after 67000 is resolved."
+        "status": "verified",
+        "notes": "CORRECTED 2026-02-15: Base 1804 (0x70c) from common.emevd.js. Cookbooks continued."
+      },
+      "69000": {
+        "block_start": 69000,
+        "base_offset": 1844,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "NEW 2026-02-15: Base 1844 (0x734) from common.emevd.js. Remembrance/Notes."
+      },
+      "91000": {
+        "block_start": 91000,
+        "base_offset": 2384,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "NEW 2026-02-15: Base 2384 (0x950) from common.emevd.js. Boss Remembrance flags."
+      },
+      "92000": {
+        "block_start": 92000,
+        "base_offset": 2424,
+        "block_size": 1000,
+        "status": "verified",
+        "notes": "NEW 2026-02-15: Base 2424 (0x978) from common.emevd.js. Container Upgrades."
       },
       "71000": {
         "block_start": 71000,

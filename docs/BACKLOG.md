@@ -48,10 +48,11 @@ This is the single location for all planned work, remaining gaps, and deferred i
 ## Priority 3: Cross-Project Sync
 
 ### Elden Map Missing Block Bases
-- **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing 6 block bases that Save Editor has
-- **Missing blocks**: 61000 (map visits), 62000 (map fragments), 65000 (Crystal Tears), 72000 (DLC graces), 74000 (DLC dungeon graces), 78000 (grace guidance)
+- **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing block bases that Save Editor has
+- **Missing blocks**: 62000 (map fragments), 65000 (Crystal Tears), 72000 (DLC graces), 74000 (DLC dungeon graces), 78000 (grace guidance)
 - **Action**: Sync BLOCK_BASES from ground_truth_offsets.json to Elden Map
 - **Progress** (v0.15.0): WASM unified flag routing now includes all block bases — elden-map can use WASM `get_flag_offset()` instead of maintaining separate lookup tables
+- **Progress** (v0.16.1): Block bases corrected — old bases were false positives calibrated against GaItemData section. 61000 removed (disproven). New blocks added: 66000, 69000, 91000, 92000
 
 ---
 

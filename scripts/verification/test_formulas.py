@@ -66,16 +66,16 @@ ANCHOR_FLAGS: List[TestCase] = [
 # VERIFIED BLOCK FORMULA TESTS
 # ============================================================================
 BLOCK_FORMULA_TESTS: List[TestCase] = [
-    # 60xxx Progression - base=2548, verified via cross-validation
-    TestCase(60100, 2560, 3, "Crafting Kit", "block", "60xxx base=2548"),
-    TestCase(60130, 2564, 5, "Whetstone Knife", "block", "60xxx base=2548"),
-    TestCase(60220, 2575, 3, "Furled Finger", "block", "60xxx base=2548"),
+    # 60xxx Progression - base=1260 (0x4ec from common.emevd.js)
+    TestCase(60100, 1272, 3, "Crafting Kit", "block", "60xxx base=1260"),
+    TestCase(60130, 1276, 5, "Whetstone Knife", "block", "60xxx base=1260"),
+    TestCase(60220, 1287, 3, "Furled Finger", "block", "60xxx base=1260"),
 
-    # 62xxx Map Fragments - base=1500, verified from 62174
+    # 62xxx Map Fragments - base=1500 (0x5dc), verified via 6 timeline diffs
     TestCase(62174, 1521, 1, "Ailing Village Map", "block", "62xxx base=1500"),
 
-    # 67xxx Cookbooks - base=3546, verified via Missionary's Cookbook [4]
-    TestCase(67020, 3548, 3, "Missionary's Cookbook [4]", "block", "67xxx base=3546"),
+    # 67xxx Cookbooks - base=1764 (0x6e4 from common.emevd.js, shop stock flags)
+    TestCase(67020, 1766, 3, "Missionary's Cookbook [4]", "block", "67xxx base=1764"),
 
     # 71xxx Tutorial Graces - base=2625, same as anchors
     TestCase(71800, 2725, 7, "Cave of Knowledge", "block", "71xxx base=2625"),

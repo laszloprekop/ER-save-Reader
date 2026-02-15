@@ -1204,32 +1204,32 @@ mod tests {
 
     #[test]
     fn test_block_65000_crystal_tears_verified() {
-        // Block 65000 (Crystal Tears) - CORRECTED 2026-01-21
-        // Block base_offset=37412 (verified), not old base 1875
-        // Previously labeled "whetblades" but corrected in ground_truth
-        //   65610 -> 37412 + 610/8 = 37412 + 76 = 37488
-        //   65700 -> 37412 + 700/8 = 37412 + 87 = 37499
-        //   65720 -> 37412 + 720/8 = 37412 + 90 = 37502
+        // Block 65000 (Whetblades/Crystal Tears) - CORRECTED 2026-02-15
+        // Block base_offset=1684 (0x694) from common.emevd.js
+        // Old base 37412 was calibrated against false-positive EF offset
+        //   65610 -> 1684 + 610/8 = 1684 + 76 = 1760
+        //   65700 -> 1684 + 700/8 = 1684 + 87 = 1771
+        //   65720 -> 1684 + 720/8 = 1684 + 90 = 1774
 
-        // Flag 65610: byte=37488, bit=7-(610%8)=7-2=5
+        // Flag 65610: byte=1760, bit=7-(610%8)=7-2=5
         let result = get_flag_offset(65610);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 37488);
+        assert_eq!(byte, 1760);
         assert_eq!(bit, 5);
 
-        // Flag 65700: byte=37499, bit=7-(700%8)=7-4=3
+        // Flag 65700: byte=1771, bit=7-(700%8)=7-4=3
         let result = get_flag_offset(65700);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 37499);
+        assert_eq!(byte, 1771);
         assert_eq!(bit, 3);
 
-        // Flag 65720: byte=37502, bit=7-(720%8)=7-0=7
+        // Flag 65720: byte=1774, bit=7-(720%8)=7-0=7
         let result = get_flag_offset(65720);
         assert!(result.is_some());
         let (byte, bit) = result.unwrap();
-        assert_eq!(byte, 37502);
+        assert_eq!(byte, 1774);
         assert_eq!(bit, 7);
     }
 

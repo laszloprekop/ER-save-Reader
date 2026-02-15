@@ -402,22 +402,32 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
 // =============================================================================
 
 /// Block bases for flags 60000-99999 (special system flags)
-/// SYNCED with ground_truth_offsets.json verified values from eventFlagService.ts
+/// Bases derived from common.emevd.js event definitions (see EVENT-FLAG-GEOGRAPHY.md)
 /// Key: block start (e.g., 60000, 71800, 76000)
-/// Value: base offset in event flags array
+/// Value: base offset in event flags array (relative to EF section start)
+///
+/// CORRECTED 2026-02-15: Non-grace block bases were wrong — they had been calibrated
+/// against a false-positive EF offset (0x1A570 in GaItemData section) rather than the
+/// correct structural EF offset. Correct values from game event scripts (common.emevd.js)
+/// and verified via timeline diffs for map fragments (6/6 exact bit matches at base 1500).
 fn get_block_bases() -> HashMap<u32, u32> {
     HashMap::from([
-        (60000, 2548),    // Progression flags (Crafting Kit, Whetstone, etc.)
-        (61000, 2671),    // Map area visit flags - verified (108 EMEVD flags)
-        (62000, 9359),    // Map fragments - verified (12/12 match)
-        (65000, 37412),   // Crystal Tears - verified (15/15 match)
-        (67000, 37411),   // Cookbooks - verified (34/34 match)
-        (68000, 37536),   // Cookbooks continued - verified (10/10 match)
+        // System flags — from common.emevd.js (hex values in EVENT-FLAG-GEOGRAPHY.md)
+        (60000, 1260),    // 0x4ec - Progression flags (Crafting Kit, Medallions, etc.)
+        (62000, 1500),    // 0x5dc - Map/Landmarks — VERIFIED via 6 timeline diffs
+        (65000, 1684),    // 0x694 - Whetblades & Crystal Tears
+        (66000, 1724),    // 0x6bc - Pot/Perfume Upgrades
+        (67000, 1764),    // 0x6e4 - Cookbooks (shop stock flags)
+        (68000, 1804),    // 0x70c - Cookbooks continued
+        (69000, 1844),    // 0x734 - Remembrance/Notes
+        (91000, 2384),    // 0x950 - Boss Remembrance
+        (92000, 2424),    // 0x978 - Container Upgrades
+        // Grace flags — verified via multi-slot validation
         (71800, 2725),    // Tutorial graces - VALIDATED via 71800, 71801
         (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
         (73000, 2662),    // Dungeon graces - verified via temporal diff
         (74000, 3000),    // DLC dungeon graces - verified (8+ consistent proven)
-        (76000, 3250),    // World graces - VALIDATED via 76100, 76101
+        (76000, 3250),    // 0xcb2 - World graces - VALIDATED via 76100, 76101
         (78000, 3500),    // Grace guidance flags - verified (8+ proven flags)
     ])
 }
@@ -1920,11 +1930,11 @@ mod tests {
 
     #[test]
     fn test_get_flag_offset_block_cookbook() {
-        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=37411
-        // byte = 37411 + 0/8 = 37411, bit = 7 - (67000%8) = 7-0 = 7
+        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=1764
+        // byte = 1764 + 0/8 = 1764, bit = 7 - (67000%8) = 7-0 = 7
         let result = get_flag_offset(67000);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 37411);
+        assert_eq!(result.byte_offset, 1764);
         assert_eq!(result.bit_position, 7);
     }
 

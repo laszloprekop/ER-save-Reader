@@ -4,6 +4,31 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.1 - Correct Non-Grace Block Bases
+
+### Bug Fix
+- **Corrected block base offsets** for non-grace event flag categories (progression, maps, whetblades, cookbooks, etc.) that were calibrated against a false-positive EF offset in the GaItemData section
+- Old bases (e.g. 62000→9359, 67000→37411) were checking bytes deep in intermediate save sections, not actual EventFlags
+- New bases sourced from `common.emevd.js` game event scripts: 60000→1260, 62000→1500, 65000→1684, 66000→1724, 67000→1764, 68000→1804, 69000→1844, 91000→2384, 92000→2424
+- Added 4 new block entries (66000, 69000, 91000, 92000); removed incorrect 61000 entry
+
+### Verification
+- Map fragment base 1500 verified via 6 timeline diffs with exact bit-level matches
+- Cross-validated across 3 character slots (Confessor mid-game, Wretch early, Bee extensive) with progression-appropriate results
+- Grace bases (2725, 3250) confirmed unaffected — they were already correct
+
+### Key Finding
+- The old "verified 12/12 match" was a false positive: the old bases mapped to byte positions within the GaItemData section (~37K into the slot), which contains non-zero structured data that coincidentally passed bit checks. The correct bases are all within the first ~4K bytes of the EF section, consistent with the system flag allocation layout in `common.emevd.js`.
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: corrected `get_block_bases()`, fixed cookbook test
+- `ground_truth_offsets.json`: updated block_bases with correct values
+- `src/db/pickup_flags.rs`: updated crystal tears test assertions
+- `scripts/verification/block_items.json`: updated bases for blocks 62000, 67000, 68000
+- `scripts/verification/test_formulas.py`: updated expected byte offsets
+
+---
+
 ## v0.16.0 - Structural EventFlags Detection
 
 ### Features
