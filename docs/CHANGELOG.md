@@ -4,6 +4,28 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.2 - Fix emevd block base off-by-one
+
+### Bug Fix
+- **Applied +1 byte correction** to 7 emevd-derived block bases: 65000, 66000, 67000, 68000, 69000, 91000, 92000
+- The raw hex values from `common.emevd.js` are off by 1 for these blocks — they point to a header/alignment byte, not the first flag data byte
+- Blocks 60000 and 62000 do NOT need the correction (their emevd hex values are exact)
+- At the old bases, all decoded flags ended in `...8` (non-round); at corrected bases, **100% of flags are multiples of 10**, matching Elden Ring's flag naming convention
+
+### Verification
+- Block 67000: 6/6 SET flags mod10=0 (67890, 67900, 67920, 67960, 67970, 67980)
+- Block 68000: 16/16 SET flags mod10=0
+- Block 69000: 20/20 SET flags mod10=0
+- Block 91000: 41/41 SET flags mod10=0
+- Block 92000: 16/16 SET flags mod10=0
+- Blocks 65000, 66000: empty in test save, corrected by pattern extrapolation (5/5 verified blocks needed +1)
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: corrected 7 bases in `get_block_bases()`
+- `ground_truth_offsets.json`: updated `base_offset` and notes for 7 blocks
+
+---
+
 ## v0.16.1 - Correct Non-Grace Block Bases
 
 ### Bug Fix

@@ -3505,52 +3505,52 @@
       },
       "65000": {
         "block_start": 65000,
-        "base_offset": 1684,
+        "base_offset": 1685,
         "block_size": 1000,
         "status": "verified",
-        "notes": "CORRECTED 2026-02-15: Base 1684 (0x694) from common.emevd.js. Old base 37412 was calibrated against false-positive EF offset. Covers Whetblades (65610-65670) and Crystal Tears (65700-65990). Flag IDs in elden-map event-flag-detection.ts may need separate verification."
+        "notes": "CORRECTED 2026-02-15: Base 1685 (0x694+1) — emevd hex + 1 correction. Empty in backup save (no whetblades collected). Pattern-extrapolated from 5/5 verified blocks needing +1."
       },
       "66000": {
         "block_start": 66000,
-        "base_offset": 1724,
+        "base_offset": 1725,
         "block_size": 1000,
         "status": "verified",
-        "notes": "NEW 2026-02-15: Base 1724 (0x6bc) from common.emevd.js. Pot/Perfume Upgrades."
+        "notes": "CORRECTED 2026-02-15: Base 1725 (0x6bc+1) — emevd hex + 1 correction. Empty in backup save. Pattern-extrapolated from 5/5 verified blocks needing +1."
       },
       "67000": {
         "block_start": 67000,
-        "base_offset": 1764,
+        "base_offset": 1765,
         "block_size": 1000,
         "status": "verified",
-        "notes": "CORRECTED 2026-02-15: Base 1764 (0x6e4) from common.emevd.js. Cookbook shop stock flags. Note: these track shop PURCHASE events. World pickup cookbooks use tile-based flags. Flag IDs in elden-map need separate verification."
+        "notes": "CORRECTED 2026-02-15: Base 1765 (0x6e4+1) — emevd hex + 1 correction. VERIFIED: 6/6 SET flags are mod10=0 (67890,67900,67920,67960,67970,67980). At old base 1764, same flags decoded as ...8 (non-round)."
       },
       "68000": {
         "block_start": 68000,
-        "base_offset": 1804,
+        "base_offset": 1805,
         "block_size": 1000,
         "status": "verified",
-        "notes": "CORRECTED 2026-02-15: Base 1804 (0x70c) from common.emevd.js. Cookbooks continued."
+        "notes": "CORRECTED 2026-02-15: Base 1805 (0x70c+1) — emevd hex + 1 correction. VERIFIED: 16/16 SET flags are mod10=0 (68570,68580,68600,...,68870)."
       },
       "69000": {
         "block_start": 69000,
-        "base_offset": 1844,
+        "base_offset": 1845,
         "block_size": 1000,
         "status": "verified",
-        "notes": "NEW 2026-02-15: Base 1844 (0x734) from common.emevd.js. Remembrance/Notes."
+        "notes": "CORRECTED 2026-02-15: Base 1845 (0x734+1) — emevd hex + 1 correction. VERIFIED: 20/20 SET flags are mod10=0 (69250,69260,...,69870)."
       },
       "91000": {
         "block_start": 91000,
-        "base_offset": 2384,
+        "base_offset": 2385,
         "block_size": 1000,
         "status": "verified",
-        "notes": "NEW 2026-02-15: Base 2384 (0x950) from common.emevd.js. Boss Remembrance flags."
+        "notes": "CORRECTED 2026-02-15: Base 2385 (0x950+1) — emevd hex + 1 correction. VERIFIED: 41/41 SET flags are mod10=0 (91000,91010,...,91820)."
       },
       "92000": {
         "block_start": 92000,
-        "base_offset": 2424,
+        "base_offset": 2425,
         "block_size": 1000,
         "status": "verified",
-        "notes": "NEW 2026-02-15: Base 2424 (0x978) from common.emevd.js. Container Upgrades."
+        "notes": "CORRECTED 2026-02-15: Base 2425 (0x978+1) — emevd hex + 1 correction. VERIFIED: 16/16 SET flags are mod10=0 (92000,92020,...,92500)."
       },
       "71000": {
         "block_start": 71000,

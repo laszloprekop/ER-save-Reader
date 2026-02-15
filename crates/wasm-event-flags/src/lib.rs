@@ -412,16 +412,18 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
 /// and verified via timeline diffs for map fragments (6/6 exact bit matches at base 1500).
 fn get_block_bases() -> HashMap<u32, u32> {
     HashMap::from([
-        // System flags — from common.emevd.js (hex values in EVENT-FLAG-GEOGRAPHY.md)
-        (60000, 1260),    // 0x4ec - Progression flags (Crafting Kit, Medallions, etc.)
+        // System flags — emevd hex + 1 for non-map/non-progression blocks
+        // Blocks 60000/62000: emevd hex value IS the correct byte offset
+        // Blocks 65000-69000, 91000-92000: emevd hex + 1 (verified via mod-10 flag alignment)
+        (60000, 1260),    // 0x4ec - Progression flags — VERIFIED (60020,60130,60220 SET)
         (62000, 1500),    // 0x5dc - Map/Landmarks — VERIFIED via 6 timeline diffs
-        (65000, 1684),    // 0x694 - Whetblades & Crystal Tears
-        (66000, 1724),    // 0x6bc - Pot/Perfume Upgrades
-        (67000, 1764),    // 0x6e4 - Cookbooks (shop stock flags)
-        (68000, 1804),    // 0x70c - Cookbooks continued
-        (69000, 1844),    // 0x734 - Remembrance/Notes
-        (91000, 2384),    // 0x950 - Boss Remembrance
-        (92000, 2424),    // 0x978 - Container Upgrades
+        (65000, 1685),    // 0x694+1 - Whetblades & Crystal Tears
+        (66000, 1725),    // 0x6bc+1 - Pot/Perfume Upgrades
+        (67000, 1765),    // 0x6e4+1 - Cookbooks — VERIFIED (6/6 flags mod10=0)
+        (68000, 1805),    // 0x70c+1 - Cookbooks continued — VERIFIED (16/16 mod10=0)
+        (69000, 1845),    // 0x734+1 - Remembrance/Notes — VERIFIED (20/20 mod10=0)
+        (91000, 2385),    // 0x950+1 - Boss Remembrance — VERIFIED (41/41 mod10=0)
+        (92000, 2425),    // 0x978+1 - Container Upgrades — VERIFIED (16/16 mod10=0)
         // Grace flags — verified via multi-slot validation
         (71800, 2725),    // Tutorial graces - VALIDATED via 71800, 71801
         (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
