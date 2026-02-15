@@ -81,7 +81,8 @@ def detect_event_flags_start(slot_data: bytes) -> Optional[int]:
     Find event flags section offset using validation flag patterns.
 
     Uses get_validation_flags() from ground_truth_loader - NOT hardcoded values.
-    Searches for the offset where ALL validation flags match.
+    Searches for the offset where ALL validation flags match, rejecting 0xFF
+    false positives.
 
     Args:
         slot_data: Raw slot data bytes
@@ -98,12 +99,20 @@ def detect_event_flags_start(slot_data: bytes) -> Optional[int]:
 
     for test_offset in range(EVENT_FLAGS_SEARCH_MIN, max_search):
         score = 0
+        has_0xff = False
         for flag_id, (rel_offset, bit, name) in validation_flags.items():
             abs_pos = test_offset + rel_offset
             if abs_pos < len(slot_data):
                 byte_val = slot_data[abs_pos]
+                if byte_val == 0xFF:
+                    has_0xff = True
+                    break
                 if (byte_val >> bit) & 1:
                     score += 1
+
+        # Skip candidates where any validation byte is 0xFF (padding)
+        if has_0xff:
+            continue
 
         if score > best_score:
             best_score = score
@@ -118,6 +127,98 @@ def detect_event_flags_start(slot_data: bytes) -> Optional[int]:
         return best_offset
 
     return None
+
+
+def detect_event_flags_start_robust(
+    slot_data: bytes,
+    hint_offset: Optional[int] = None,
+) -> Optional[int]:
+    """
+    Robust EF detection with structural validation and optional hint.
+
+    Improvements over detect_event_flags_start():
+    1. Searches entire range (doesn't stop at first 4/4 match)
+    2. Rejects 0xFF padding candidates
+    3. Validates structurally using GaItems count
+    4. If hint_offset provided, prefers candidates near it (for timeline stability)
+
+    Args:
+        slot_data: Raw slot data bytes
+        hint_offset: Optional previous EF offset for stability
+
+    Returns:
+        Offset within slot_data where event flags section starts,
+        or None if not found
+    """
+    import struct
+
+    validation_flags = get_validation_flags()
+    max_search = min(EVENT_FLAGS_SEARCH_MAX, len(slot_data) - EVENT_FLAGS_SIZE)
+
+    # Collect ALL candidates with perfect or near-perfect scores
+    candidates = []
+
+    for test_offset in range(EVENT_FLAGS_SEARCH_MIN, max_search):
+        score = 0
+        has_0xff = False
+
+        for flag_id, (rel_offset, bit, name) in validation_flags.items():
+            abs_pos = test_offset + rel_offset
+            if abs_pos < len(slot_data):
+                byte_val = slot_data[abs_pos]
+                if byte_val == 0xFF:
+                    has_0xff = True
+                    break
+                if (byte_val >> bit) & 1:
+                    score += 1
+
+        if has_0xff:
+            continue
+
+        if score >= len(validation_flags):
+            candidates.append((test_offset, score))
+
+    if not candidates:
+        # Fall back to basic detection
+        return detect_event_flags_start(slot_data)
+
+    # If only one perfect candidate, use it
+    if len(candidates) == 1:
+        return candidates[0][0]
+
+    # Multiple candidates — use structural validation
+    # Read GaItems count to estimate expected EF position
+    ga_items_offset = 0x20  # FIXED_HEADER_SIZE
+    if ga_items_offset + 4 <= len(slot_data):
+        ga_count = struct.unpack_from('<I', slot_data, ga_items_offset)[0]
+        if ga_count > 0x1400:
+            ga_count = 0  # Sanity check
+        ga_items_end = ga_items_offset + 8 + ga_count * 48
+
+        # EF should be ~170K-200K after GaItems end (intermediate sections)
+        expected_ef_min = ga_items_end + 170_000
+        expected_ef_max = ga_items_end + 200_000
+
+        # Filter candidates within structural range
+        structural_candidates = [
+            (off, score) for off, score in candidates
+            if expected_ef_min <= off <= expected_ef_max
+        ]
+
+        if structural_candidates:
+            # If hint provided, prefer closest to hint
+            if hint_offset is not None:
+                structural_candidates.sort(key=lambda x: abs(x[0] - hint_offset))
+            return structural_candidates[0][0]
+
+    # No structural match — use hint proximity if available
+    if hint_offset is not None:
+        candidates.sort(key=lambda x: abs(x[0] - hint_offset))
+        return candidates[0][0]
+
+    # Fall back to highest offset (heuristic: real EF tends to be higher)
+    candidates.sort(key=lambda x: -x[0])
+    return candidates[0][0]
 
 
 def extract_event_flags(slot_data: bytes, ef_start: Optional[int] = None) -> bytes:

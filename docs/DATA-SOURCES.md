@@ -10,7 +10,9 @@ Slot 2, V1 - test character, very early game, one world pickup: Flag ID 10443673
 Slot 3, V2 - test character, same as V1, just different travel path taken to the same one world pickup Flag ID 1044367310
 Slot 4, V3 - test character, same as V1-V2, traveled to the same location, but did NOT picked up Flag ID 1044367310
 
-Slot 5, Sam - early game, more progress, exploration and world pickups than Slot 1-4
+Slot 5, Bee - early game, more progress, exploration and world pickups than Slot 1-4. Primary timeline tracking character.
+
+Slot 6, Sam - minimal progression
 
 ## Game save files
 
@@ -28,6 +30,33 @@ The save files are legitimate, unaltered files saved by the game.
 ### Progressive, before-after save file snapshots for diff
 
 '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging'
+
+#### Confessor capture pairs (Slot 0)
+
+66 full save file snapshots for before/after verification of pickups, graces, and bosses:
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/slot 0 Confessor'
+
+Capture catalog (149 captures, 52 pairs):
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/capture_catalog.json'
+
+#### s5-Bee timeline (Slot 5)
+
+701 timeline entries with sparse byte-level diffs. Each .bin file is a sparse diff
+(6 bytes per changed byte: `[u32_LE offset][u8 old][u8 new]`), NOT raw slot data.
+
+Metadata:
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_changes.jsonl'
+
+Binary diffs:
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_diffs/'
+
+Key fields in slot_changes.jsonl:
+- `structuralOffsets.eventFlagsOffset`: EF offset within slot (available from ~entry 50+)
+- `structuralOffsets.gaItemsEnd`: GaItems section end offset
+- `structuralOffsets.efConfident`: Whether detection was confident
+- `inventoryDelta`: Items added/removed
+- `gracesDiscovered`: Grace flag transitions
+- `bossesDefeated`: Boss defeat flag transitions
 
 ## Decompiled game resource files (single source of truth)
 

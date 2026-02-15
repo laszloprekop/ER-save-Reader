@@ -1,6 +1,6 @@
 # Project Backlog
 
-**Last updated**: 2026-02-14
+**Last updated**: 2026-02-15
 
 This is the single location for all planned work, remaining gaps, and deferred items. Organized by priority.
 
@@ -104,3 +104,4 @@ Items from previous "Next Steps" that have been done:
 | Multi-tile calibration | 4-anchor constraint satisfaction from 2+ tiles | v0.15.0 |
 | Position validation hardening | Denormalized float + angle range rejection | v0.15.0 |
 | Equipment extraction (WASM) | Equipped items, quick items, pouch parsing | v0.15.0 |
+| Structural EF detection | Sequential section parsing replaces content-based search | v0.16.0 |

@@ -186,6 +186,9 @@ def calculate_block_offset(flag_id: int) -> Optional[Tuple[int, int]]:
     else:
         return None
 
+    if base_offset is None:
+        return None
+
     relative = flag_id - block_start
     byte_offset = base_offset + relative // 8
     bit_position = 7 - (flag_id % 8)

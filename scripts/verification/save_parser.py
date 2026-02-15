@@ -284,49 +284,50 @@ class SaveParser:
         The offset varies due to variable-size GaItems section (depends on inventory).
         Empirically, the offset is around 0x12B00-0x13800 for our test saves.
 
-        Algorithm (2026-01-25 update):
+        Algorithm:
         1. Search all candidate offsets and score each one
-        2. Prioritize Tier 1 flags (tutorial graces that MUST be set)
-        3. Among candidates with equal Tier 1 scores, use total score as tiebreaker
-        4. Only break early on a PERFECT match (all flags)
-
-        This prevents false positives where random data matches 2-4 bit patterns.
+        2. Reject candidates where validation bytes are 0xFF (padding false positives)
+        3. Prioritize Tier 1 flags (tutorial graces that MUST be set)
+        4. Among candidates with equal Tier 1 scores, prefer LOWER offsets
+           (first valid match is more likely correct than 0xFF padding at higher offsets)
         """
         best_offset = 0x12B00  # Default fallback based on empirical testing
         best_tier1_score = 0
         best_total_score = 0
 
-        tier1_flag_count = sum(1 for f in VALIDATION_FLAGS if f[4] == 1)
-
         # Search in 4-byte increments for speed
         for test_offset in range(EVENT_FLAGS_SEARCH_MIN, min(EVENT_FLAGS_SEARCH_MAX, len(slot_data) - EVENT_FLAGS_SIZE), 4):
             tier1_score = 0
             total_score = 0
+            has_0xff = False
 
             for flag_id, byte_off, bit_pos, name, tier in VALIDATION_FLAGS:
                 abs_pos = test_offset + byte_off
                 if abs_pos < len(slot_data):
-                    if (slot_data[abs_pos] & (1 << bit_pos)) != 0:
+                    byte_val = slot_data[abs_pos]
+                    if byte_val == 0xFF:
+                        has_0xff = True
+                    if (byte_val & (1 << bit_pos)) != 0:
                         total_score += 1
                         if tier == 1:
                             tier1_score += 1
 
-            # Update best based on: tier1 score first, then total score
-            # CRITICAL: Prefer HIGHER offsets on tie because the real EF section
-            # is at higher offsets - lower offsets are often false positives from
-            # random data that happens to match the validation bit patterns.
+            # Skip candidates where ANY validation byte is 0xFF — these are
+            # padding regions that produce false positives (all bits read as SET)
+            if has_0xff:
+                continue
+
+            # Prefer higher tier1, then higher total, but do NOT prefer higher
+            # offsets on tie (that causes false positives from 0xFF padding)
             is_better = (
                 tier1_score > best_tier1_score or
-                (tier1_score == best_tier1_score and total_score > best_total_score) or
-                (tier1_score == best_tier1_score and total_score == best_total_score)  # Prefer higher offset
+                (tier1_score == best_tier1_score and total_score > best_total_score)
             )
 
             if is_better:
                 best_tier1_score = tier1_score
                 best_total_score = total_score
                 best_offset = test_offset
-
-            # Do NOT break early - search entire range to find correct EF section
 
         return best_offset
 

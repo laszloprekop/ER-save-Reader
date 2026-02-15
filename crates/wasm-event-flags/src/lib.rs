@@ -127,17 +127,83 @@ pub fn detect_event_flags_offset(slot_data: &[u8]) -> DetectionResult {
     detect_event_flags_offset_impl(slot_data)
 }
 
+/// Minimum tier1 score to accept a content-based candidate
+const MIN_TIER1_SCORE: usize = 2;
+
 /// Internal implementation (also usable from native Rust without WASM)
+///
+/// Detection strategy (ordered by reliability):
+/// 1. **Structural computation** (primary): Sequential section parsing from slot start
+///    through all intermediate sections to EventFlags. Deterministic, zero false positives.
+///    Works even for brand-new characters with zero graces.
+/// 2. **Content-based search** (fallback): Scan for grace flag patterns in the data.
+///    Only used if structural computation fails (data corruption, unknown format).
 pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
+    // === PRIMARY: Structural computation ===
+    if let Some(structural_offset) = compute_structural_ef_offset(slot_data) {
+        // Validate the structural offset against grace flags (sanity check only)
+        let (_tier1_score, positive_score, negative_score) = validate_at_offset(slot_data, structural_offset);
+
+        return DetectionResult {
+            offset: structural_offset,
+            positive_score,
+            negative_score,
+            // Confident if we have structural + at least some grace validation,
+            // OR if we have structural alone (new characters have no graces but offset is still correct)
+            confident: true,
+        };
+    }
+
+    // === FALLBACK: Content-based search ===
+    // Only reached if structural computation fails (e.g., data too short, corrupted GaItems)
+    detect_event_flags_content_based(slot_data)
+}
+
+/// Validate grace flags at a candidate EventFlags offset.
+/// Returns (tier1_score, positive_score, negative_score).
+fn validate_at_offset(slot_data: &[u8], offset: usize) -> (usize, usize, usize) {
+    let mut tier1_score = 0;
+    let mut positive_score = 0;
+    let mut negative_score = 0;
+
+    for &(_, byte_offset, bit_pos, _, tier) in POSITIVE_VALIDATION_FLAGS {
+        let abs_pos = offset + byte_offset as usize;
+        if abs_pos < slot_data.len()
+            && (slot_data[abs_pos] & (1 << bit_pos)) != 0
+        {
+            positive_score += 1;
+            if tier == 1 {
+                tier1_score += 1;
+            }
+        }
+    }
+
+    for &(_, byte_offset, bit_pos, _) in NEGATIVE_VALIDATION_FLAGS {
+        let abs_pos = offset + byte_offset as usize;
+        if abs_pos < slot_data.len()
+            && (slot_data[abs_pos] & (1 << bit_pos)) == 0
+        {
+            negative_score += 1;
+        }
+    }
+
+    (tier1_score, positive_score, negative_score)
+}
+
+/// Content-based EventFlags detection (legacy fallback).
+///
+/// Searches for grace flag patterns across a 200K byte range.
+/// Susceptible to false positives for characters with few graces.
+fn detect_event_flags_content_based(slot_data: &[u8]) -> DetectionResult {
     let search_end = (SEARCH_START + MAX_SEARCH_RANGE).min(slot_data.len().saturating_sub(10000));
 
-    let tier1_flags: Vec<_> = POSITIVE_VALIDATION_FLAGS.iter()
+    let tier1_count = POSITIVE_VALIDATION_FLAGS.iter()
         .filter(|(_, _, _, _, tier)| *tier == 1)
-        .collect();
-    let tier1_count = tier1_flags.len();
+        .count();
 
     struct Candidate {
         offset: usize,
+        tier1_score: usize,
         positive_score: usize,
         negative_score: usize,
     }
@@ -161,7 +227,7 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
             }
         }
 
-        if tier1_score >= tier1_count {
+        if tier1_score >= MIN_TIER1_SCORE {
             let mut negative_score = 0;
             for &(_, byte_offset, bit_pos, _) in NEGATIVE_VALIDATION_FLAGS {
                 let abs_pos = test_offset + byte_offset as usize;
@@ -175,6 +241,7 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
 
             candidates.push(Candidate {
                 offset: test_offset,
+                tier1_score,
                 positive_score,
                 negative_score,
             });
@@ -183,7 +250,8 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
 
     if !candidates.is_empty() {
         candidates.sort_by(|a, b| {
-            b.negative_score.cmp(&a.negative_score)
+            b.tier1_score.cmp(&a.tier1_score)
+                .then_with(|| b.negative_score.cmp(&a.negative_score))
                 .then_with(|| b.positive_score.cmp(&a.positive_score))
                 .then_with(|| b.offset.cmp(&a.offset))
         });
@@ -193,37 +261,15 @@ pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
             offset: best.offset,
             positive_score: best.positive_score,
             negative_score: best.negative_score,
-            confident: best.negative_score >= NEGATIVE_VALIDATION_FLAGS.len() / 2,
+            confident: best.tier1_score >= tier1_count
+                && best.negative_score >= NEGATIVE_VALIDATION_FLAGS.len() / 2,
         };
     }
 
-    // Fallback
-    let mut best_offset = SEARCH_START;
-    let mut best_tier1_score = 0;
-
-    for test_offset in SEARCH_START..search_end {
-        let mut tier1_score = 0;
-
-        for &(_, byte_offset, bit_pos, _, tier) in POSITIVE_VALIDATION_FLAGS {
-            if tier != 1 { continue; }
-            let abs_pos = test_offset + byte_offset as usize;
-            if abs_pos < slot_data.len() {
-                let byte = slot_data[abs_pos];
-                if (byte & (1 << bit_pos)) != 0 {
-                    tier1_score += 1;
-                }
-            }
-        }
-
-        if tier1_score > best_tier1_score {
-            best_tier1_score = tier1_score;
-            best_offset = test_offset;
-        }
-    }
-
+    // Ultimate fallback: no detection possible
     DetectionResult {
-        offset: best_offset,
-        positive_score: best_tier1_score,
+        offset: SEARCH_START,
+        positive_score: 0,
         negative_score: 0,
         confident: false,
     }
@@ -1126,6 +1172,143 @@ const EQUIP_ITEM_DATA_STRUCT_SIZE: usize =
 const GESTURES_STRUCT_SIZE: usize = GESTURES_SLOT_COUNT * 4; // = 0x18
 const EQUIPPED_ITEMS_STRUCT_SIZE: usize = EQUIPPED_ITEMS_U32_COUNT * 4; // = 0x9C
 
+// =============================================================================
+// STRUCTURAL EVENTFLAGS DETECTION
+// =============================================================================
+//
+// Section sizes for the complete chain from GaItems end to EventFlags.
+// Verified empirically across 898 slot measurements (scripts/verification/measure_pre_ef_gap.py).
+//
+// The section chain from save_slot.rs read() order:
+//   GaItems → PlayerGameData → Padding → EquipData → ChrAsm → ChrAsm2 →
+//   EquipInventoryData → EquipMagicData → EquipItemData → EquipGestureData →
+//   EquipProjectileData(VARIABLE) → EquippedItems → EquipPhysicsData →
+//   Padding → FaceData → StorageInventoryData → GestureGameData →
+//   Regions(VARIABLE) → RideGameData → Misc fields → MenuProfileSaveLoad →
+//   TrophyEquipData → GaItemData → TutorialData → PRE_EF_GAP → EventFlags
+
+/// EquipPhysicsData: 2 × u32
+const EQUIP_PHYSICS_DATA_SIZE: usize = 8;
+
+/// FaceData section
+const FACE_DATA_SIZE: usize = 0x12F; // 303 bytes
+
+/// StorageInventoryData: EquipInventoryData(0x780, 0x80)
+/// = 4 + 0x780*12 + 4 + 0x80*12 + 4 + 4 = 24,592
+const STORAGE_INV_COMMON_SLOTS: usize = 0x780; // 1920
+const STORAGE_INV_KEY_SLOTS: usize = 0x80;     // 128
+const STORAGE_INV_DATA_SIZE: usize =
+    4 + STORAGE_INV_COMMON_SLOTS * EQUIP_INV_ITEM_BYTES +
+    4 + STORAGE_INV_KEY_SLOTS * EQUIP_INV_ITEM_BYTES +
+    4 + 4; // = 0x6010
+
+/// GestureGameData: 0x40 × i32
+const GESTURE_GAME_DATA_SIZE: usize = 0x40 * 4; // = 0x100
+
+/// RideGameData: 3×f32 + i32 + [u8;0x10] + u32 + u32
+const RIDE_GAME_DATA_SIZE: usize = 0x28; // 40 bytes
+
+/// Misc fields between Regions and MenuProfileSaveLoad
+/// _0x1(1) + _0x40(64) + _0x4_1(4) + _0x4_2(4) + _0x4_3(4) = 77
+const MISC_FIELDS_SIZE: usize = 1 + 0x40 + 4 + 4 + 4; // 77 bytes
+
+/// MenuProfileSaveLoad
+const MENU_PROFILE_SAVE_LOAD_SIZE: usize = 0x1008; // 4104 bytes
+
+/// TrophyEquipData
+const TROPHY_EQUIP_DATA_SIZE: usize = 0x34; // 52 bytes
+
+/// GaItemData: i32 + i32 + 0x1B58 × GaItem2(4×u32=16B) = 8 + 112000 = 112008
+const GA_ITEM2_SIZE: usize = 16; // 4 × u32
+const GA_ITEM2_COUNT: usize = 0x1B58; // 7000
+const GA_ITEM_DATA_SIZE: usize = 4 + 4 + GA_ITEM2_COUNT * GA_ITEM2_SIZE; // 112008
+
+/// TutorialData
+const TUTORIAL_DATA_SIZE: usize = 0x408; // 1032 bytes
+
+/// Fixed gap between TutorialData end and EventFlags start.
+/// Empirically verified constant = 29 bytes (0x1D) across ALL save versions.
+/// Measured across 898 slot measurements from 2 backup saves + 100+ snapshots.
+const PRE_EVENT_FLAGS_GAP: usize = 0x1D; // 29 bytes
+
+/// Sum of all fixed-size sections from GaItems end to EquipProjectileData start.
+/// PlayerGameData(0x1B0) + Padding(0xD0) + EquipData(0x58) + ChrAsm(0x74) +
+/// ChrAsm2(0x58) + EquipInventoryData(0x9010) + EquipMagicData(0x74) +
+/// EquipItemData(0x8C) + EquipGestureData(0x18) = 0x94CC
+const FIXED_BEFORE_PROJECTILE: usize =
+    PLAYER_GAME_DATA_SIZE + PRE_EQUIP_PADDING +
+    EQUIP_DATA_STRUCT_SIZE + CHR_ASM_STRUCT_SIZE + CHR_ASM2_STRUCT_SIZE +
+    EQUIP_INV_DATA_SIZE + EQUIP_MAGIC_DATA_STRUCT_SIZE +
+    EQUIP_ITEM_DATA_STRUCT_SIZE + GESTURES_STRUCT_SIZE;
+
+/// Sum of fixed-size sections between EquipProjectileData and Regions.
+/// EquippedItems(0x9C) + EquipPhysicsData(0x08) + Padding(0x04) +
+/// FaceData(0x12F) + StorageInventoryData(0x6010) + GestureGameData(0x100)
+const FIXED_BETWEEN_PROJ_AND_REGIONS: usize =
+    EQUIPPED_ITEMS_STRUCT_SIZE + EQUIP_PHYSICS_DATA_SIZE + 4 +
+    FACE_DATA_SIZE + STORAGE_INV_DATA_SIZE + GESTURE_GAME_DATA_SIZE;
+
+/// Sum of fixed-size sections from Regions end through TutorialData end.
+/// RideGameData(0x28) + Misc(77) + MenuProfileSaveLoad(0x1008) +
+/// TrophyEquipData(0x34) + GaItemData(112008) + TutorialData(0x408)
+const FIXED_AFTER_REGIONS: usize =
+    RIDE_GAME_DATA_SIZE + MISC_FIELDS_SIZE + MENU_PROFILE_SAVE_LOAD_SIZE +
+    TROPHY_EQUIP_DATA_SIZE + GA_ITEM_DATA_SIZE + TUTORIAL_DATA_SIZE;
+
+/// Compute EventFlags offset structurally by sequential section parsing.
+///
+/// This mirrors the save_slot.rs read order: after GaItems, parse all
+/// intermediate sections (fixed + 2 variable), then add the constant
+/// pre-EventFlags gap (0x1D bytes).
+///
+/// Returns Some(ef_offset) or None if parsing fails (data too short).
+fn compute_structural_ef_offset(slot_data: &[u8]) -> Option<usize> {
+    let ga_end = find_ga_items_end(slot_data)?;
+
+    // Fixed sections before EquipProjectileData
+    let mut pos = ga_end + FIXED_BEFORE_PROJECTILE;
+
+    // EquipProjectileData: count(i32) + count × 8 bytes
+    if pos + 4 > slot_data.len() {
+        return None;
+    }
+    let proj_count = read_i32_le(slot_data, pos).max(0) as usize;
+    pos += 4 + proj_count * 8;
+
+    // Fixed sections between EquipProjectileData and Regions
+    pos += FIXED_BETWEEN_PROJ_AND_REGIONS;
+
+    // Regions: count(u32) + count × 4 bytes
+    if pos + 4 > slot_data.len() {
+        return None;
+    }
+    let regions_count = read_u32_le(slot_data, pos) as usize;
+    pos += 4 + regions_count * 4;
+
+    // Fixed sections after Regions through TutorialData
+    pos += FIXED_AFTER_REGIONS;
+
+    // Constant gap before EventFlags
+    pos += PRE_EVENT_FLAGS_GAP;
+
+    // Bounds check: EventFlags must fit in remaining data
+    if pos + EVENT_FLAGS_SIZE > slot_data.len() {
+        return None;
+    }
+
+    Some(pos)
+}
+
+/// WASM export: Compute EventFlags offset structurally.
+/// Returns -1 if structural computation fails.
+#[wasm_bindgen]
+pub fn compute_structural_event_flags_offset(slot_data: &[u8]) -> i64 {
+    match compute_structural_ef_offset(slot_data) {
+        Some(pos) => pos as i64,
+        None => -1,
+    }
+}
+
 // Helper functions for reading little-endian values
 fn read_u32_le(data: &[u8], pos: usize) -> u32 {
     u32::from_le_bytes([data[pos], data[pos+1], data[pos+2], data[pos+3]])
@@ -1999,4 +2182,157 @@ mod tests {
         let parsed: serde_json::Value = serde_json::from_str(&result).unwrap();
         assert_eq!(parsed["valid"], false);
     }
+
+    // =========================================================================
+    // STRUCTURAL DETECTION TESTS
+    // =========================================================================
+
+    #[test]
+    fn test_structural_section_size_constants() {
+        // Verify key computed sizes
+        assert_eq!(EQUIP_PHYSICS_DATA_SIZE, 8);
+        assert_eq!(FACE_DATA_SIZE, 0x12F);
+        assert_eq!(GESTURE_GAME_DATA_SIZE, 0x100);
+        assert_eq!(RIDE_GAME_DATA_SIZE, 0x28);
+        assert_eq!(MISC_FIELDS_SIZE, 77);
+        assert_eq!(MENU_PROFILE_SAVE_LOAD_SIZE, 0x1008);
+        assert_eq!(TROPHY_EQUIP_DATA_SIZE, 0x34);
+        assert_eq!(TUTORIAL_DATA_SIZE, 0x408);
+        assert_eq!(PRE_EVENT_FLAGS_GAP, 0x1D);
+
+        // GaItemData: 8 + 7000 * 16 = 112008
+        assert_eq!(GA_ITEM2_SIZE, 16);
+        assert_eq!(GA_ITEM2_COUNT, 7000);
+        assert_eq!(GA_ITEM_DATA_SIZE, 112008);
+
+        // StorageInventoryData: 4 + 1920*12 + 4 + 128*12 + 4 + 4 = 24592
+        assert_eq!(STORAGE_INV_DATA_SIZE, 24592);
+    }
+
+    #[test]
+    fn test_structural_fixed_section_sums() {
+        // FIXED_BEFORE_PROJECTILE = 0x94CC (matches equipment extraction offset)
+        assert_eq!(FIXED_BEFORE_PROJECTILE, 0x94CC);
+
+        // FIXED_BETWEEN_PROJ_AND_REGIONS
+        let expected_between = EQUIPPED_ITEMS_STRUCT_SIZE + EQUIP_PHYSICS_DATA_SIZE + 4
+            + FACE_DATA_SIZE + STORAGE_INV_DATA_SIZE + GESTURE_GAME_DATA_SIZE;
+        assert_eq!(FIXED_BETWEEN_PROJ_AND_REGIONS, expected_between);
+
+        // FIXED_AFTER_REGIONS
+        let expected_after = RIDE_GAME_DATA_SIZE + MISC_FIELDS_SIZE
+            + MENU_PROFILE_SAVE_LOAD_SIZE + TROPHY_EQUIP_DATA_SIZE
+            + GA_ITEM_DATA_SIZE + TUTORIAL_DATA_SIZE;
+        assert_eq!(FIXED_AFTER_REGIONS, expected_after);
+    }
+
+    #[test]
+    fn test_structural_ef_offset_too_small() {
+        // Data too small for structural parsing
+        assert!(compute_structural_ef_offset(&[]).is_none());
+        assert!(compute_structural_ef_offset(&[0; 100]).is_none());
+    }
+
+    #[test]
+    fn test_structural_ef_offset_synthetic() {
+        // Build a synthetic slot with known structure:
+        // - Version 0 (not 81) → 0x18 header padding
+        // - All GaItems empty (5120 × 8 bytes = 40960)
+        // - EquipProjectileData count = 0
+        // - Regions count = 0
+        // This gives a deterministic offset.
+
+        let header_size = 4 + 4 + 0x18; // 0x20
+        let ga_items_size = GA_ITEMS_MAX * 8; // 5120 * 8 = 40960
+        let ga_end = header_size + ga_items_size; // 0x20 + 0xA000 = 0xA020
+
+        // Expected: ga_end + FIXED_BEFORE_PROJ + proj_header(4) +
+        //           FIXED_BETWEEN + regions_header(4) +
+        //           FIXED_AFTER + PRE_EF_GAP
+        let expected_ef = ga_end + FIXED_BEFORE_PROJECTILE
+            + 4 // proj count = 0, just 4 bytes header
+            + FIXED_BETWEEN_PROJ_AND_REGIONS
+            + 4 // regions count = 0, just 4 bytes header
+            + FIXED_AFTER_REGIONS
+            + PRE_EVENT_FLAGS_GAP;
+
+        // Create slot data large enough
+        let total_needed = expected_ef + EVENT_FLAGS_SIZE;
+        let slot_data = vec![0u8; total_needed];
+
+        let result = compute_structural_ef_offset(&slot_data);
+        assert!(result.is_some(), "Structural computation should succeed");
+        assert_eq!(result.unwrap(), expected_ef);
+    }
+
+    #[test]
+    fn test_structural_ef_offset_with_projectiles_and_regions() {
+        // Same as above but with proj_count=5 and regions_count=10
+        let header_size = 4 + 4 + 0x18;
+        let ga_items_size = GA_ITEMS_MAX * 8;
+        let ga_end = header_size + ga_items_size;
+
+        let proj_count: i32 = 5;
+        let regions_count: u32 = 10;
+
+        let expected_ef = ga_end + FIXED_BEFORE_PROJECTILE
+            + 4 + (proj_count as usize) * 8
+            + FIXED_BETWEEN_PROJ_AND_REGIONS
+            + 4 + (regions_count as usize) * 4
+            + FIXED_AFTER_REGIONS
+            + PRE_EVENT_FLAGS_GAP;
+
+        let total_needed = expected_ef + EVENT_FLAGS_SIZE;
+        let mut slot_data = vec![0u8; total_needed];
+
+        // Write proj_count at the EquipProjectileData position
+        let proj_pos = ga_end + FIXED_BEFORE_PROJECTILE;
+        slot_data[proj_pos..proj_pos + 4].copy_from_slice(&proj_count.to_le_bytes());
+
+        // Write regions_count at the Regions position
+        let regions_pos = proj_pos + 4 + (proj_count as usize) * 8
+            + FIXED_BETWEEN_PROJ_AND_REGIONS;
+        slot_data[regions_pos..regions_pos + 4].copy_from_slice(&regions_count.to_le_bytes());
+
+        let result = compute_structural_ef_offset(&slot_data);
+        assert!(result.is_some(), "Structural computation should succeed");
+        assert_eq!(result.unwrap(), expected_ef);
+    }
+
+    #[test]
+    fn test_detect_ef_structural_primary() {
+        // Verify that detect_event_flags_offset_impl uses structural path
+        // when structural computation succeeds.
+        let header_size = 4 + 4 + 0x18;
+        let ga_items_size = GA_ITEMS_MAX * 8;
+        let ga_end = header_size + ga_items_size;
+
+        let expected_ef = ga_end + FIXED_BEFORE_PROJECTILE
+            + 4 + FIXED_BETWEEN_PROJ_AND_REGIONS
+            + 4 + FIXED_AFTER_REGIONS + PRE_EVENT_FLAGS_GAP;
+
+        let total_needed = expected_ef + EVENT_FLAGS_SIZE;
+        let slot_data = vec![0u8; total_needed];
+
+        let result = detect_event_flags_offset_impl(&slot_data);
+        // Should use structural path and be confident
+        assert_eq!(result.offset, expected_ef);
+        assert!(result.confident, "Structural detection should be confident");
+    }
+
+    #[test]
+    fn test_validate_at_offset() {
+        let mut data = vec![0u8; 10000];
+        // Set Cave of Knowledge flag at offset 100: byte 100+2725=2825, bit 7
+        data[2825] = 0x80; // bit 7
+        // Set Stranded Graveyard flag: byte 100+2725=2825, bit 6
+        data[2825] |= 0x40; // bit 6
+
+        let (tier1, pos, neg) = validate_at_offset(&data, 100);
+        assert_eq!(tier1, 2); // Cave of Knowledge + Stranded Graveyard
+        assert_eq!(pos, 2);
+        // Negative flags should all be "unset" since data is zeros
+        assert_eq!(neg, NEGATIVE_VALIDATION_FLAGS.len());
+    }
+
 }

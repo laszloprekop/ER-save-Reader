@@ -72,8 +72,8 @@ Variable  | 1,833,375 | EventFlags (offset around 0x36000-0x37000)
 **Critical**:
 1. Slot offsets are **NOT at fixed intervals** - they must be read from BND4 entries
 2. Each slot has a 16-byte MD5 checksum header before the actual data
-3. EventFlags offset **VARIES** per slot (around 0x36000-0x37000, ~222K-225K) due to variable-size GaItems section and intermediate structures that grow during gameplay
-4. Use validation flag pattern detection to locate EventFlags reliably (search must start above 0x30000 to avoid false positives in inventory data at ~76K)
+3. EventFlags offset **VARIES** per slot (around 0x36000-0x37000, ~222K-225K) due to variable-size GaItems section and intermediate structures
+4. **Structural detection** (v0.16.0): Sequential section parsing from GaItems through TutorialData + constant 29-byte gap computes the exact offset deterministically. Content-based grace flag search is retained only as a fallback for corrupted data
 
 ### Event Flags Section
 
@@ -240,7 +240,7 @@ See [EVENT-FLAG-GEOGRAPHY.md](EVENT-FLAG-GEOGRAPHY.md#row-id-tracking-for-world-
 | Dungeon Area 32 | Tunnels | **VERIFIED** | 4 boss flags matched (base=31577) |
 | Dungeon (Legacy) | Stormveil, Academy, etc. | UNVERIFIED | Base offsets need discovery |
 
-**Note on EventFlags offset**: The Rust ER-Save-Editor uses a fixed offset of 0x1a104, but this is incorrect for our test saves. The actual offset varies per slot (0x12B00-0x13800) depending on GaItems count. Use validation flag detection to find the correct offset.
+**Note on EventFlags offset**: The EventFlags offset varies per slot (~0x36000-0x37000) depending on GaItems count and two variable-size sections (EquipProjectileData, Regions). Since v0.16.0, **structural detection** computes the exact offset by sequential section parsing. The pre-EventFlags gap is a constant 29 bytes (0x1D), verified across 898 slot measurements.
 
 ### Verification Methodology
 
@@ -334,6 +334,13 @@ To improve the ground truth:
 
 ## Changelog
 
+### 2026-02-15
+- **Structural EventFlags detection** (v0.16.0): Sequential section parsing replaces content-based search
+- Pre-EventFlags gap verified as constant 29 bytes (0x1D) across 898 slot measurements
+- Section chain: GaItems → PlayerGameData → ... → TutorialData → 29-byte gap → EventFlags
+- Two variable-size sections parsed: EquipProjectileData (4 + count×8), Regions (4 + count×4)
+- Content-based search retained as fallback only
+
 ### 2026-01-25
 - **REVERT** tile formula base_offset: 489981 → **485330** (reverted to original)
 - The 2026-01-20 "correction" to 489981 was WRONG - offset 857482 showed no change during pickup
@@ -364,4 +371,4 @@ To improve the ground truth:
 
 ---
 
-*Last updated: 2026-02-08*
+*Last updated: 2026-02-15*

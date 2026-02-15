@@ -4,6 +4,51 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.0 - Structural EventFlags Detection
+
+### Features
+- **Structural offset computation** replaces content-based search as the primary EventFlags detection method
+- Sequential section parsing from GaItems through TutorialData deterministically computes the EventFlags offset without searching for grace flag patterns
+- Handles two variable-size sections: EquipProjectileData (4 + count×8) and Regions (4 + count×4)
+- Pre-EventFlags gap empirically verified as constant 29 bytes (0x1D) across 898 slot measurements
+- Content-based search retained as fallback only for corrupted/unknown formats
+- Works for brand-new characters with zero graces (content-based cannot)
+
+### Implementation
+- Added 30+ section size constants to WASM module mirroring `save_slot.rs` parsing chain
+- `compute_structural_ef_offset()`: deterministic offset from sequential section sizes
+- `validate_at_offset()`: extracted grace flag validation as reusable helper
+- `detect_event_flags_content_based()`: legacy search isolated as fallback
+- Native wrapper trusts `confident: true` from structural detection
+- New WASM export: `compute_structural_event_flags_offset()`
+- 7 new tests for structural detection
+
+### Verification
+- `scripts/verification/measure_pre_ef_gap.py`: empirical gap measurement across all save data
+- `scripts/verification/verify_captures.py`: capture pair verification framework
+- `scripts/verification/verify_pickups.py`: pickup verification framework
+- `scripts/verification/verify_timeline.py`: timeline verification framework
+- Improved Python EF detection: 0xFF padding rejection, better candidate ranking
+
+### Key Findings
+- The pre-EventFlags gap is constant at 29 bytes regardless of character progression
+- Content-based detection produced false positives for mid-game and test characters
+- Structural detection eliminates all false positives by computing the exact offset
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: structural computation, section constants, 7 new tests
+- `src/save/common/event_flags_detection.rs`: updated fallback logic, docstrings
+- `docs/DATA-SOURCES.md`: documented capture pairs and timeline data sources
+- `scripts/verification/save_parser.py`: 0xFF rejection, improved candidate ranking
+- `scripts/verification/utils.py`: 0xFF rejection, robust detection function
+- `scripts/verification/ground_truth_loader.py`: None guard in block offset calculation
+- `scripts/verification/measure_pre_ef_gap.py`: new empirical measurement script
+- `scripts/verification/verify_captures.py`: new capture verification framework
+- `scripts/verification/verify_pickups.py`: new pickup verification framework
+- `scripts/verification/verify_timeline.py`: new timeline verification framework
+
+---
+
 ## v0.15.1 - Fix EventFlags Detection False Positives
 
 ### Bug Fixes
