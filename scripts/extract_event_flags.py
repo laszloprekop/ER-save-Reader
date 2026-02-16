@@ -1420,36 +1420,38 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
         row_id = int(row.get("id", 0))
         get_item_flag_id = int(row.get("getItemFlagId", 0))
 
-        # CRITICAL DISCOVERY (2026-01-23): For tile-based world pickups, the game stores
-        # the ROW ID as the actual event flag, NOT getItemFlagId.
+        # CORRECTED (2026-02-16): Always use getItemFlagId when available.
         #
-        # ItemLotParam has getItemFlagId = row_id + 7000, which places the local_id
-        # in the 7000+ range. But tile slots only allocate 875 bytes (7000 flags),
-        # so local_id >= 7000 has NO storage.
+        # Previous assumption (2026-01-23) that the game stores the row_id as the
+        # event flag was WRONG — it was "verified" using the incorrect tile base
+        # offset (485330, later corrected to 337375).
         #
-        # Save file diff analysis confirmed: when picking up item lot 1044360310,
-        # flag 1044360310 (row_id, local_id 310) is SET, not 1044367310 (getItemFlagId).
+        # Empirical verification (2026-02-16) with Axe Talisman (row_id 1045371000,
+        # getItemFlagId 1045377100) confirmed:
+        #   - row_id local_id=1000 → CLEAR in save file
+        #   - getItemFlagId converted local_id=100 → SET in save file
         #
-        # IMPORTANT EXCEPTION (2026-02-02): Some tile-based items have a SPECIAL OVERRIDE
-        # where getItemFlagId is a completely different block-based flag (e.g., 60130 for
-        # Whetstone Knife, 62010 for Map: Limgrave West). These use getItemFlagId, not row_id.
+        # The game stores tile pickups at the CONVERTED getItemFlagId position:
+        #   getItemFlagId (local_id 7100) - 7000 → local_id 100 in tile slot.
+        # The detection code handles this via convertToRowId + tile formula.
         #
-        # Detection: if row_id is tile-based but getItemFlagId is NOT tile-based,
-        # then getItemFlagId is a special override and should be used.
+        # Special cases:
+        #   - getItemFlagId is a non-tile block-based flag (e.g., 60130 for Whetstone
+        #     Knife): use getItemFlagId directly (detected via block-based routing)
+        #   - getItemFlagId == 0: fall back to row_id (item may be untrackable)
+        #
+        # NOTE: Consumable/stackable items (Golden Runes, Smithing Stones) do NOT
+        # set any event flag regardless of which ID is used. See
+        # docs/EVENT-FLAG-TREASURE-DISCREPANCY.md for details.
         is_tile_based_row = 1_000_000_000 <= row_id < 3_000_000_000
-        is_tile_based_flag = 1_000_000_000 <= get_item_flag_id < 3_000_000_000
 
-        if is_tile_based_row:
-            if is_tile_based_flag or get_item_flag_id == 0:
-                # Normal tile pickup: use row_id (the stored flag)
-                flag_id = row_id
-            else:
-                # SPECIAL OVERRIDE: getItemFlagId is a block-based flag (e.g., 60130)
-                # These items use getItemFlagId for tracking, not the tile system
-                flag_id = get_item_flag_id
-        else:
-            # For non-tile pickups (dungeons, etc.), use getItemFlagId
+        if get_item_flag_id != 0:
             flag_id = get_item_flag_id
+        elif is_tile_based_row:
+            # No getItemFlagId — include with row_id but likely untrackable
+            flag_id = row_id
+        else:
+            continue  # Non-tile pickup with no getItemFlagId — skip
 
         if flag_id == 0:
             continue

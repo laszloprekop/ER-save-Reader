@@ -41,10 +41,11 @@ pub const TILE_BYTES_PER_SLOT: u32 = 875;
 pub const TILE_SLOTS_PER_ROW: u32 = 40;
 pub const TILE_MAX_LOCAL_ID: u32 = 6999;
 
-/// World pickup row_id tracking (for getItemFlagId with local_id >= 7000)
-/// DISCOVERY (2026-02-02): Pickups with getItemFlagId local_id >= 7000 are NOT
-/// stored in tile region. They're tracked by ItemLotParam row_id in a separate
-/// bitfield region. Verified via before/after save capture of Golden Rune pickup.
+/// World pickup row_id base (DEPRECATED — kept for backward compatibility)
+/// CORRECTED (2026-02-16): The row_id formula is NOT how the game stores tile
+/// pickup flags. Pickups with getItemFlagId local_id >= 7000 are stored in the
+/// TILE region at converted local_id (flagId - 7000). See
+/// calculate_tile_flag_offset_unified() for the correct routing.
 pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
 
 /// Dungeon section size
@@ -758,14 +759,23 @@ fn get_flag_offset_with_tile_base(flag_id: u32, tile_base: u32) -> FlagOffset {
     FlagOffset::invalid()
 }
 
-/// Calculate tile flag offset with row_id conversion for local_id >= 7000
+/// Calculate tile flag offset with getItemFlagId conversion for local_id >= 7000
+///
+/// CORRECTED (2026-02-16): getItemFlagId (local_id >= 7000) is stored in the TILE
+/// region at a converted local_id, NOT in the row_id bitfield region.
+///
+/// Empirically verified with Axe Talisman (getItemFlagId 1045377100, local_id 7100):
+///   - Subtracting 7000 gives 1045370100 (local_id 100)
+///   - Flag IS SET at tile (45,37) local_id=100 in the save file
+///   - Flag is NOT SET at row_id formula offset 999597
 fn calculate_tile_flag_offset_unified(flag_id: u32, tile_base: u32) -> FlagOffset {
     let local_id = flag_id % 10000;
 
-    // LocalId >= 7000 uses row_id-based formula (not tile storage)
+    // getItemFlagId (local_id >= 7000): convert to tile-storable local_id
+    // by subtracting 7000, then use standard tile formula
     if local_id > MAX_TILE_LOCAL_ID {
-        let row_id = flag_id - 7000;
-        return calculate_world_pickup_offset_by_row_id_impl(row_id);
+        let converted = flag_id - 7000;
+        return calculate_tile_pickup_offset_with_base(converted, tile_base);
     }
 
     // Standard tile formula
@@ -1941,11 +1951,11 @@ mod tests {
 
     #[test]
     fn test_get_flag_offset_block_cookbook() {
-        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=1764
-        // byte = 1764 + 0/8 = 1764, bit = 7 - (67000%8) = 7-0 = 7
+        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=1765
+        // byte = 1765 + 0/8 = 1765, bit = 7 - (67000%8) = 7-0 = 7
         let result = get_flag_offset(67000);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 1764);
+        assert_eq!(result.byte_offset, 1765);
         assert_eq!(result.bit_position, 7);
     }
 
@@ -2002,13 +2012,14 @@ mod tests {
 
     #[test]
     fn test_get_flag_offset_tile_row_id() {
-        // Flag with localId >= 7000 → row_id formula
-        // 1042377300 → row_id = 1042370300
-        // bit_offset = 1042370300 - 1037373320 = 4996980
-        // byte = 4996980/8 = 624622, bit = 7-(4996980%8) = 3
+        // CORRECTED (2026-02-16): getItemFlagId with local_id >= 7000 routes
+        // through tile formula with converted local_id, NOT row_id formula.
+        // 1042377300 → converted = 1042370300, local_id=300
+        // row=42, col=37, slot=(42-33)*40+(37-30)=367
+        // byte = 337375 + 367*875 + 300/8 = 658500 + 37 = 658537, bit = 3
         let result = get_flag_offset(1042377300);
         assert!(result.valid);
-        assert_eq!(result.byte_offset, 624622);
+        assert_eq!(result.byte_offset, 658537);
         assert_eq!(result.bit_position, 3);
     }
 
@@ -2110,6 +2121,29 @@ mod tests {
         assert!(result.valid);
         assert_eq!(result.byte_offset, 727667); // 727625 + 42
         assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_get_item_flag_id_tile_routing() {
+        // CORRECTED (2026-02-16): getItemFlagId with local_id >= 7000 should route
+        // through tile formula with converted local_id, NOT row_id formula.
+        //
+        // Axe Talisman: getItemFlagId=1045377100, local_id=7100
+        // Converted: 1045377100 - 7000 = 1045370100, local_id=100
+        // Tile: row=45, col=37, slot=(45-33)*40+(37-30)=487
+        // slot_offset = 337375 + 487*875 = 763500
+        // byte = 763500 + 100/8 = 763512, bit = 7-(100%8) = 3
+        let tile_base = 337375;
+        let result = get_flag_offset_calibrated(1045377100, tile_base);
+        assert!(result.valid, "getItemFlagId 1045377100 should be valid via tile formula");
+        assert_eq!(result.byte_offset, 763512);
+        assert_eq!(result.bit_position, 3);
+
+        // Verify the converted flag gives the same result through standard path
+        let result_direct = get_flag_offset_calibrated(1045370100, tile_base);
+        assert!(result_direct.valid);
+        assert_eq!(result_direct.byte_offset, result.byte_offset);
+        assert_eq!(result_direct.bit_position, result.bit_position);
     }
 
     #[test]

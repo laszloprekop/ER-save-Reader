@@ -4,6 +4,37 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.4 - Fix world pickup getItemFlagId routing
+
+### Bug Fixes
+- **Use getItemFlagId instead of row_id for tile-based world pickups** — The extraction
+  script was using ItemLotParam row IDs (e.g., 1045371000, local_id=1000) as event flag IDs.
+  The game actually stores flags at the getItemFlagId position (e.g., 1045377100, local_id=7100),
+  which converts to tile local_id=100 after subtracting 7000.
+- **Route getItemFlagId through tile formula instead of row_id formula** — The WASM
+  `calculate_tile_flag_offset_unified()` was sending converted flags to
+  `calculate_world_pickup_offset_by_row_id_impl()` (byte ~999K in EF), but the game stores
+  them in the tile region via the standard tile formula (byte ~763K). Same fix applied to
+  the elden-map server's `getAllSetFlags()`.
+
+### Key Finding
+- Unique items (talismans, weapons, armor) from chests DO set event flags via getItemFlagId.
+  Consumable/stackable items (Golden Runes, Smithing Stones) still do NOT set any event flag,
+  confirming the finding in `EVENT-FLAG-TREASURE-DISCREPANCY.md`.
+- Empirically verified with Axe Talisman (getItemFlagId 1045377100): SET at tile (45,37)
+  local_id=100 in the save file; CLEAR at the row_id formula offset.
+
+### Files Modified
+- `scripts/extract_event_flags.py`: use getItemFlagId for tile-based pickups
+- `scripts/extracted_event_flags.json`: regenerated with correct flagIds
+- `scripts/extracted_event_flags.md`: regenerated
+- `src/db/world_pickups.rs`: regenerated via extract_world_pickups.py
+- `crates/wasm-event-flags/src/lib.rs`: route getItemFlagId to tile formula, update tests
+- `../elden-map/server/src/eventFlagService.ts`: route converted flags to calibrated tile formula
+- `../elden-map/wasm-event-flags/`: rebuilt WASM binary
+
+---
+
 ## v0.16.3 - Correct tile base offset for world pickup detection
 
 ### Bug Fix
