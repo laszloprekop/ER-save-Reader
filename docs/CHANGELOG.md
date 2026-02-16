@@ -4,6 +4,27 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.16.5 - Stats and Equipment views use shared components
+
+### Refactor
+- **Stats view** — Replaced monospace `display_stat_row` rendering with `ExportToolbar` + `UnifiedTable`.
+  Sortable Stat/Value columns, export to JSON/CSV/Markdown, double-click row copy.
+- **Equipment view** — Replaced monospace `display_equipment_row` rendering with `FilterBar` (search) +
+  `ExportToolbar` + `UnifiedTable`. Five sortable columns (Category, Slot, Item Name, Item ID, GA Handle),
+  empty/unarmed slots shown in dark gray, fuzzy search across all 30 equipment slots, export support.
+- Added `table_state`, `export_format` to `StatsViewModel` and `table_state`, `filter_state`,
+  `export_format` to `EquipmentViewModel` for UI state management.
+
+### Files Modified
+- `src/vm/stats.rs`: added TableState and ExportFormat fields
+- `src/vm/equipment.rs`: added TableState, FilterBarState, ExportFormat fields
+- `src/ui/stats.rs`: full rewrite using ExportToolbar + UnifiedTable
+- `src/ui/equipment.rs`: full rewrite using FilterBar + ExportToolbar + UnifiedTable
+- `docs/CHANGELOG.md`: version 0.16.5
+- `Cargo.toml`: bumped to 0.16.5
+
+---
+
 ## v0.16.4 - Fix world pickup getItemFlagId routing
 
 ### Bug Fixes

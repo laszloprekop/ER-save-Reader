@@ -1,8 +1,17 @@
 pub mod stats_view_model {
-    use crate::{db::classes::classes::ArcheType, save::common::save_slot::SaveSlot};
+    use crate::{
+        db::classes::classes::ArcheType,
+        save::common::save_slot::SaveSlot,
+        ui::components::{
+            table::TableState,
+            export::ExportFormat,
+        },
+    };
 
     #[derive(Clone)]
     pub struct StatsViewModel {
+        pub table_state: TableState,
+        pub export_format: ExportFormat,
         pub arche_type: ArcheType,
         pub vigor: u32,
         pub mind: u32,
@@ -29,6 +38,8 @@ pub mod stats_view_model {
     impl Default for StatsViewModel {
         fn default() -> Self {
             Self {
+                table_state: TableState::default(),
+                export_format: ExportFormat::default(),
                 arche_type: ArcheType::Unknown,
                 vigor: Default::default(),
                 mind: Default::default(),
@@ -101,6 +112,7 @@ pub mod stats_view_model {
                 max_fp,
                 stamina,
                 max_stamina,
+                ..Default::default()
             }
         }
     }

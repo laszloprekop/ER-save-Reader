@@ -2,7 +2,16 @@
 pub mod equipment_view_model {
     use std::collections::HashMap;
 
-    use crate::{save::common::save_slot::{GaItem, SaveSlot}, util::{params::params::Row, regulation::Regulation}, vm::inventory::InventoryGaitemType};
+    use crate::{
+        save::common::save_slot::{GaItem, SaveSlot},
+        util::{params::params::Row, regulation::Regulation},
+        vm::inventory::InventoryGaitemType,
+        ui::components::{
+            table::TableState,
+            filter::FilterBarState,
+            export::ExportFormat,
+        },
+    };
 
     #[derive(Default, Clone)]
     pub struct EquipmentItemViewModel {
@@ -33,6 +42,10 @@ pub mod equipment_view_model {
         pub current_index: usize,
 
         pub changed: bool,
+
+        pub table_state: TableState,
+        pub filter_state: FilterBarState,
+        pub export_format: ExportFormat,
     }
 
     impl EquipmentViewModel {
