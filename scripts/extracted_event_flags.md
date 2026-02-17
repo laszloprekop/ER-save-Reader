@@ -2785,18 +2785,18 @@ Total unique flags: 8993
 | 520800 | Bloodfiend Hexer's Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 520810 | Dragon-Hunter's Great Katana | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530100 | Golden Halberd | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530110 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530120 | Aspects of the Crucible: Tail | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530130 | Bloodhound's Fang | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530110 | Dragon Heart | Boss Drop | Limgrave | m60_43_36 | -73.9, 65.0, 65.1 | 10934.1, 9281.1 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
+| 530120 | Aspects of the Crucible: Tail | Boss Drop | Limgrave | m60_42_37 | -82.5, 160.5, 64.5 | 10669.5, 9536.5 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 530130 | Bloodhound's Fang | Boss Drop | Weeping Peninsula | m60_44_35 | -17.2, 105.6, -137.8 | 11246.8, 8822.2 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 530170 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530210 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530210 | Dragon Heart | Boss Drop | Liurnia of the Lakes | m60_34_45 | -51.0, 237.9, 41.3 | 8653.0, 11561.3 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 530225 | Crucible Knot Talisman | Boss Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 530240 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530245 | Flame of the Fell God | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530250 | Greatblade Phalanx | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530255 | Meteorite | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530245 | Flame of the Fell God | Boss Drop | Liurnia of the Lakes | m60_38_41 | 3.3, 257.4, -124.1 | 9731.3, 10371.9 | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
+| 530250 | Greatblade Phalanx | Boss Drop | Liurnia of the Lakes | m60_33_45 | -51.8, 245.0, -29.6 | 8396.2, 11490.4 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
+| 530255 | Meteorite | Boss Drop | Liurnia of the Lakes | m60_36_50 | 121.1, 379.6, 10.9 | 9337.1, 12810.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 530260 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530265 | Black Knife Tiche | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530265 | Black Knife Tiche | Boss Drop | Liurnia of the Lakes | m60_33_42 | -40.6, 346.7, 86.3 | 8407.4, 10838.3 | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
 | 530300 | Lansseax's Glaive | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530310 | Somber Smithing Stone [5] | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 530315 | Dragon Greatclaw | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -2805,16 +2805,16 @@ Total unique flags: 8993
 | 530350 | Black Knife | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 530375 | Somber Smithing Stone [6] | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 530385 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530390 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530400 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530390 | Dragon Heart | Boss Drop | Mt. Gelmir | m60_35_53 | 1.8, 823.7, -80.4 | 8961.8, 13487.6 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
+| 530400 | Dragon Heart | Boss Drop | Caelid | m60_48_37 | -48.1, 115.0, -42.7 | 12239.9, 9429.3 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 530405 | Commander's Standard | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530420 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530425 | Gargoyle's Blackblade | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530505 | Gargoyle's Black Blades | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530510 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530515 | Vyke's Dragonbolt | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530510 | Dragon Heart | Boss Drop | World (13,14) | m60_13_14 | 1.7, 1620.4, -230.3 | 3329.7, 3353.7 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
+| 530515 | Vyke's Dragonbolt | Boss Drop | Mountaintops of the Giants | m60_53_56 | -52.5, 1668.4, -116.3 | 13515.5, 14219.7 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 530530 | Death Ritual Spear | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530550 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530550 | Dragon Heart | Boss Drop | Mountaintops of the Giants | m60_50_56 | 12.1, 1255.1, 12.4 | 12812.1, 14348.4 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 530600 | Dragonscale Blade | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530620 | Dragon Halberd | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530800 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -2840,124 +2840,124 @@ Total unique flags: 8993
 | 530960 | Gravitational Missile | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 530965 | Ash of War: Aspects of the Crucible: Wings | Boss Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 530995 | Rimed Rowa | Boss Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540100 | Ash of War: Storm Wall | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540104 | Ash of War: Wild Strikes | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540108 | Ash of War: Determination | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540112 | Ash of War: Unsheathe | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540116 | Ash of War: Ground Slam | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540118 | Ash of War: Sacred Blade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540120 | Ash of War: Stamp (Sweep) | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540132 | Divine Fortification | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540136 | Lightning Strike | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540138 | Poison Mist | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540140 | Ash of War: Mighty Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540142 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540144 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540146 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540170 | Ash of War: Storm Assault | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540172 | Ash of War: Stormcaller | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540174 | Rancorcall | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540200 | Ash of War: Chilling Mist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540202 | Ash of War: Charge Forth | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540204 | Ash of War: Hoarfrost Stomp | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540206 | Ash of War: Thops's Barrier | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540208 | Ash of War: Vow of the Indomitable | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540210 | Ash of War: Shield Bash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540218 | Bloodflame Blade | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540220 | Carian Piercer | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540224 | Ash of War: Barbaric Roar | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540236 | Frenzied Burst | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540238 | Ash of War: Sword Dance | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540250 | Frozen Armament | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540252 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540254 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540256 | Somber Smithing Stone [3] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540258 | Somber Smithing Stone [3] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540260 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540262 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540264 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540272 | Ash of War: Spectral Lance | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540290 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540300 | Ash of War: Sacred Order | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540302 | Ash of War: Shield Crash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540304 | Ash of War: Earthshaker | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540306 | Ash of War: Blood Blade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540308 | Ash of War: Golden Slam | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540310 | Ash of War: Lightning Ram | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540312 | Protection of the Erdtree | Ash of War Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 540314 | Ash of War: Prayerful Strike | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540316 | Ash of War: Golden Parry | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540318 | Ash of War: Lightning Slash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540320 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540332 | Ash of War: Barrage | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540334 | Ash of War: Through and Through | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540370 | Barrier of Gold | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540372 | Ash of War: Thunderbolt | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540400 | Whirl, O Flame! | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540402 | Ash of War: Lifesteal Fist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540404 | Ash of War: Sacred Ring of Light | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540406 | Ash of War: Poisonous Mist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540408 | Ash of War: Flaming Strike | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540410 | Ash of War: Flame of the Redmanes | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540412 | Ash of War: Sky Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540414 | Ash of War: Cragblade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540416 | Poison Armament | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540418 | Ash of War: Double Slash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540420 | Bestial Constitution | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540422 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540424 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540426 | Somber Smithing Stone [8] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540428 | Somber Smithing Stone [9] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540100 | Ash of War: Storm Wall | Ash of War Drop | World (40,39) | m60_40_39 | 33.7, 234.8, 34.1 | 10273.7, 10018.1 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540104 | Ash of War: Wild Strikes | Ash of War Drop | Limgrave | m60_41_38 | -70.0, 248.1, 109.0 | 10426.0, 9837.0 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540108 | Ash of War: Determination | Ash of War Drop | Limgrave | m60_43_37 | 53.8, 90.6, -91.2 | 11061.8, 9380.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540112 | Ash of War: Unsheathe | Ash of War Drop | Limgrave | m60_44_36 | -96.0, 64.7, -126.1 | 11168.0, 9089.9 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540116 | Ash of War: Ground Slam | Ash of War Drop | Caelid | m60_45_37 | 10.8, 30.5, -56.6 | 11530.9, 9415.4 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540118 | Ash of War: Sacred Blade | Ash of War Drop | Caelid | m60_46_39 | -107.9, 17.0, -80.8 | 11668.1, 9903.2 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540120 | Ash of War: Stamp (Sweep) | Ash of War Drop | Limgrave | m60_41_37 | -50.5, 1.0, -63.1 | 10445.5, 9408.9 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540132 | Divine Fortification | Ash of War Drop | World (42,33) | m60_42_33 | -46.4, 39.2, 120.0 | 10705.6, 8568.0 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540136 | Lightning Strike | Ash of War Drop | Weeping Peninsula | m60_43_33 | 44.5, 46.0, -83.1 | 11052.5, 8364.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540138 | Poison Mist | Ash of War Drop | Weeping Peninsula | m60_44_32 | 113.6, 24.0, -45.6 | 11377.6, 8146.4 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540140 | Ash of War: Mighty Shot | Ash of War Drop | Weeping Peninsula | m60_44_33 | 74.2, 24.1, -3.2 | 11338.2, 8444.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540142 | Somber Smithing Stone [1] | Ash of War Drop | Limgrave | m60_44_38 | -92.0, 102.4, -57.9 | 11172.0, 9670.1 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540144 | Somber Smithing Stone [1] | Ash of War Drop | World (41,35) | m60_41_35 | -78.3, 20.0, -122.4 | 10417.7, 8837.6 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540146 | Somber Smithing Stone [1] | Ash of War Drop | Limgrave | m60_42_39 | 93.1, 226.3, 33.4 | 10845.1, 10017.4 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540170 | Ash of War: Storm Assault | Ash of War Drop | Stormveil Castle | m10_00_00 | -306.4, -26.7, 168.6 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540172 | Ash of War: Stormcaller | Ash of War Drop | Stormveil Castle | m10_00_00 | -228.5, 83.2, 281.2 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540174 | Rancorcall | Ash of War Drop | Stormveil Castle | m10_00_00 | -285.7, 23.8, 182.5 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540200 | Ash of War: Chilling Mist | Ash of War Drop | Liurnia of the Lakes | m60_34_50 | 115.3, 439.6, 123.5 | 8819.3, 12923.5 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540202 | Ash of War: Charge Forth | Ash of War Drop | Liurnia of the Lakes | m60_36_44 | -86.0, 249.3, 6.5 | 9130.0, 11270.5 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540204 | Ash of War: Hoarfrost Stomp | Ash of War Drop | Liurnia of the Lakes | m60_36_49 | -90.8, 300.0, 37.5 | 9125.2, 12581.5 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540206 | Ash of War: Thops's Barrier | Ash of War Drop | World (39,39) | m60_39_39 | -31.7, 320.0, 112.8 | 9952.3, 10096.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540208 | Ash of War: Vow of the Indomitable | Ash of War Drop | Liurnia of the Lakes | m60_35_42 | 87.8, 238.2, -53.6 | 9047.8, 10698.4 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540210 | Ash of War: Shield Bash | Ash of War Drop | Liurnia of the Lakes | m60_35_47 | 63.1, 244.4, -70.8 | 9023.1, 11961.2 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540218 | Bloodflame Blade | Ash of War Drop | Liurnia of the Lakes | m60_34_44 | 110.2, 237.6, -68.7 | 8814.2, 11195.3 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540220 | Carian Piercer | Ash of War Drop | Liurnia of the Lakes | m60_35_50 | 52.4, 318.5, -43.1 | 9012.4, 12756.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540224 | Ash of War: Barbaric Roar | Ash of War Drop | Mt. Gelmir | m60_37_51 | 108.3, 237.6, -110.7 | 9580.3, 12945.3 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540236 | Frenzied Burst | Ash of War Drop | Liurnia of the Lakes | m60_37_48 | 117.8, 459.7, 89.3 | 9589.8, 12377.3 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540238 | Ash of War: Sword Dance | Ash of War Drop | Liurnia of the Lakes | m60_33_43 | -25.2, 256.3, 98.0 | 8422.8, 11106.0 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540250 | Frozen Armament | Ash of War Drop | Liurnia of the Lakes | m60_35_50 | 98.5, 407.7, 105.5 | 9058.5, 12905.5 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540252 | Somber Smithing Stone [2] | Ash of War Drop | Liurnia of the Lakes | m60_39_43 | -62.7, 248.4, -38.1 | 9921.3, 10969.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540254 | Somber Smithing Stone [2] | Ash of War Drop | Liurnia of the Lakes | m60_37_48 | -62.0, 409.1, -17.1 | 9410.0, 12270.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540256 | Somber Smithing Stone [3] | Ash of War Drop | Liurnia of the Lakes | m60_38_50 | -96.4, 354.2, 5.9 | 9631.6, 12805.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540258 | Somber Smithing Stone [3] | Ash of War Drop | Liurnia of the Lakes | m60_39_45 | -97.3, 248.5, -113.0 | 9886.7, 11407.0 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540260 | Somber Smithing Stone [2] | Ash of War Drop | Liurnia of the Lakes | m60_34_43 | 68.5, 256.9, -97.7 | 8772.5, 10910.3 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540262 | Somber Smithing Stone [2] | Ash of War Drop | Liurnia of the Lakes | m60_37_44 | -117.9, 237.6, 117.9 | 9354.1, 11381.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540264 | Somber Smithing Stone [2] | Ash of War Drop | Liurnia of the Lakes | m60_33_45 | 100.3, 248.0, -8.1 | 8548.3, 11511.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540272 | Ash of War: Spectral Lance | Ash of War Drop | Academy of Raya Lucaria | m14_00_00 | 102.9, 46.2, -69.3 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540290 | Somber Smithing Stone [4] | Ash of War Drop | Elden Throne | m39_20_00 | 112.3, 233.2, -1332.2 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540300 | Ash of War: Sacred Order | Ash of War Drop | Mt. Gelmir | m60_37_51 | -136.2, 660.8, 54.6 | 9335.8, 13110.6 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540302 | Ash of War: Shield Crash | Ash of War Drop | Altus Plateau | m60_38_51 | -46.1, 783.5, 40.7 | 9681.9, 13096.7 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540304 | Ash of War: Earthshaker | Ash of War Drop | Altus Plateau | m60_39_51 | 117.2, 755.5, -46.7 | 10101.2, 13009.3 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540306 | Ash of War: Blood Blade | Ash of War Drop | Altus Plateau | m60_39_52 | -128.1, 727.8, -66.5 | 9855.9, 13245.5 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540308 | Ash of War: Golden Slam | Ash of War Drop | Altus Plateau | m60_41_53 | -49.5, 788.9, 68.4 | 10446.5, 13636.4 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540310 | Ash of War: Lightning Ram | Ash of War Drop | Altus Plateau | m60_40_51 | 116.5, 875.1, 165.8 | 10356.5, 13221.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540312 | Protection of the Erdtree | Ash of War Drop | Altus Plateau | m60_40_54 | 122.8, 830.8, 36.6 | 10362.8, 13860.6 | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
+| 540314 | Ash of War: Prayerful Strike | Ash of War Drop | Altus Plateau | m60_43_51 | -100.3, 807.8, -30.6 | 10907.7, 13025.4 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540316 | Ash of War: Golden Parry | Ash of War Drop | Altus Plateau | m60_43_52 | -47.0, 928.4, -60.4 | 10961.0, 13251.6 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540318 | Ash of War: Lightning Slash | Ash of War Drop | Altus Plateau | m60_43_53 | -120.8, 965.3, 121.6 | 10887.2, 13689.6 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540320 | Somber Smithing Stone [5] | Ash of War Drop | Altus Plateau | m60_40_53 | -32.8, 745.3, -119.6 | 10207.2, 13448.4 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540332 | Ash of War: Barrage | Ash of War Drop | Mt. Gelmir | m60_37_53 | 61.0, 792.9, -144.1 | 9533.0, 13423.9 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540334 | Ash of War: Through and Through | Ash of War Drop | Mt. Gelmir | m60_36_54 | -60.6, 997.8, -44.7 | 9155.4, 13779.3 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540370 | Barrier of Gold | Ash of War Drop | Leyndell | m11_00_00 | -161.3, -20.9, -299.8 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540372 | Ash of War: Thunderbolt | Ash of War Drop | Leyndell | m11_00_00 | -247.2, -64.7, -170.1 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540400 | Whirl, O Flame! | Ash of War Drop | Caelid | m60_47_40 | -4.2, 166.7, 41.0 | 12027.8, 10281.0 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540402 | Ash of War: Lifesteal Fist | Ash of War Drop | Caelid | m60_48_38 | -121.0, 104.4, 55.1 | 12167.0, 9783.1 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540404 | Ash of War: Sacred Ring of Light | Ash of War Drop | Caelid | m60_49_38 | 25.0, 70.9, 36.8 | 12569.0, 9764.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540406 | Ash of War: Poisonous Mist | Ash of War Drop | Caelid | m60_48_37 | 87.7, 65.4, 165.1 | 12375.7, 9637.1 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540408 | Ash of War: Flaming Strike | Ash of War Drop | World (51,35) | m60_51_35 | 53.3, 81.3, 112.1 | 13109.3, 9072.1 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540410 | Ash of War: Flame of the Redmanes | Ash of War Drop | Caelid | m60_47_39 | -72.4, 122.1, -50.4 | 11959.6, 9933.6 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540412 | Ash of War: Sky Shot | Ash of War Drop | Caelid | m60_48_41 | -131.2, 220.7, -70.0 | 12156.8, 10426.0 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540414 | Ash of War: Cragblade | Ash of War Drop | Caelid | m60_49_36 | 91.3, 53.8, -85.9 | 12635.3, 9130.1 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540416 | Poison Armament | Ash of War Drop | Caelid | m60_49_39 | -10.8, 65.8, 1.4 | 12533.2, 9985.4 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540418 | Ash of War: Double Slash | Ash of War Drop | Caelid | m60_49_39 | 106.0, 92.4, -59.2 | 12650.0, 9924.8 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540420 | Bestial Constitution | Ash of War Drop | Caelid | m60_51_41 | 114.5, 231.8, -22.3 | 13170.5, 10473.7 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540422 | Somber Smithing Stone [4] | Ash of War Drop | Caelid | m60_47_39 | -88.7, 150.9, 81.9 | 11943.3, 10065.9 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540424 | Somber Smithing Stone [4] | Ash of War Drop | Caelid | m60_49_36 | -93.6, 53.6, 40.5 | 12450.4, 9256.5 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540426 | Somber Smithing Stone [8] | Ash of War Drop | Caelid | m60_49_41 | -5.4, 207.3, -110.6 | 12538.6, 10385.4 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540428 | Somber Smithing Stone [9] | Ash of War Drop | Caelid | m60_51_42 | 46.3, 249.1, 18.2 | 13102.3, 10770.2 | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540500 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540502 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540504 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540506 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540508 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540510 | Ash of War: Seppuku | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540510 | Ash of War: Seppuku | Ash of War Drop | Mountaintops of the Giants | m60_53_57 | 18.8, 1620.2, 72.6 | 13586.8, 14664.6 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
 | 540512 | Ash of War: Troll's Roar | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 540514 | Flame, Protect Me | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540516 | Ash of War: Prelate's Charge | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540516 | Ash of War: Prelate's Charge | Ash of War Drop | Mountaintops of the Giants | m60_52_55 | -34.1, 1704.0, -6.5 | 13277.9, 14073.5 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
 | 540520 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540522 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540524 | Ash of War: White Shadow's Lure | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540524 | Ash of War: White Shadow's Lure | Ash of War Drop | World (24,28) | m60_24_28 | -114.3, 1261.4, -117.8 | 6029.7, 7050.2 | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
 | 540526 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540528 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
 | 540570 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540572 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540574 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540576 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540590 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540592 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540600 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540602 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540610 | Great Oracular Bubble | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540590 | Somber Smithing Stone [5] | Ash of War Drop | Volcano Manor | m16_00_00 | -127.1, -23.5, -104.5 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540592 | Somber Smithing Stone [5] | Ash of War Drop | Volcano Manor | m16_00_00 | 37.1, 33.8, -138.6 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540600 | Somber Smithing Stone [6] | Ash of War Drop | Underground | m12_01_00 | -295.0, -317.1, -436.2 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540602 | Somber Smithing Stone [6] | Ash of War Drop | Underground | m12_01_00 | -204.4, -111.0, 276.7 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540610 | Great Oracular Bubble | Ash of War Drop | Underground | m12_02_00 | 1232.0, -748.5, 1535.1 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540612 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540614 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540616 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540618 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540630 | Ash of War: Square Off | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540630 | Ash of War: Square Off | Ash of War Drop | Underground | m12_02_00 | 1385.7, -796.8, 1677.7 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
 | 540632 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540634 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540636 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540638 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540640 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540642 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540642 | Somber Smithing Stone [5] | Ash of War Drop | Underground | m12_02_00 | 1055.9, -612.0, 1214.7 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540644 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540646 | Ash of War: Enchanted Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540648 | Order Healing | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540646 | Ash of War: Enchanted Shot | Ash of War Drop | Underground | m12_02_00 | 1005.4, -585.3, 1705.7 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540648 | Order Healing | Ash of War Drop | Underground | m12_02_00 | 1293.2, -631.2, 1724.6 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540650 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540652 | Oracle Bubbles | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540660 | Ash of War: Golden Land | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540652 | Oracle Bubbles | Ash of War Drop | Underground | m12_07_00 | 857.8, -897.0, 1223.6 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540660 | Ash of War: Golden Land | Ash of War Drop | Underground | m12_03_00 | -182.6, 98.8, -724.2 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
 | 540662 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540664 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540666 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540668 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540670 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540668 | Somber Smithing Stone [6] | Ash of War Drop | Underground | m12_03_00 | -807.2, 102.0, -264.9 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 540670 | Somber Smithing Stone [6] | Ash of War Drop | Underground | m12_03_00 | -565.0, 91.6, -374.1 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540680 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540682 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 540684 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540686 | Ash of War: Blood Tax | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540772 | Golden Lightning Fortification | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540686 | Ash of War: Blood Tax | Ash of War Drop | Underground | m12_05_00 | 1917.1, -621.8, 1280.4 | - | enemy_drop | - | emevd_enemy | - | ItemLotParam_map |
+| 540772 | Golden Lightning Fortification | Ash of War Drop | Crumbling Farum Azula | m13_00_00 | -51.5, 4.3, 375.4 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 540900 | Ash of War: Carian Sovereignty | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 540902 | Ash of War: Piercing Throw | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 540904 | Ash of War: Rolling Sparks | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
@@ -3092,7 +3092,7 @@ Total unique flags: 8993
 | 10007050 | Gold-Pickled Fowl Foot | Dungeon Pickup | Stormveil Castle | m10_00_00 | -229.2, 75.9, 68.7 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007060 | Festering Bloody Finger | Dungeon Pickup | Stormveil Castle | m10_00_00 | -181.8, 63.9, 118.6 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 10007080 | Arrow | Dungeon Pickup | Stormveil Castle | m10_00_00 | -180.3, 59.0, 70.9 | - | corpse | 0 | high | - | ItemLotParam_map |
-| 10007085 | Somber Smithing Stone [1] | Dungeon Pickup | Stormveil Castle | m10_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 10007085 | Somber Smithing Stone [1] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -110.5, 37.0, 85.9 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 10007090 | Manor Towershield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -289.9, 89.6, 269.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007100 | Marred Leather Shield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -214.9, 43.9, 13.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007110 | Golden Rune [1] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -123.8, 21.9, -1.5 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -3104,7 +3104,7 @@ Total unique flags: 8993
 | 10007170 | Golden Rune [2] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -239.2, 50.8, 43.9 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 10007180 | Hookclaws | Dungeon Pickup | Stormveil Castle | m10_00_00 | -252.5, 51.4, 86.9 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007190 | Throwing Dagger | Dungeon Pickup | Stormveil Castle | m10_00_00 | -249.3, 59.3, 95.7 | - | corpse | 0 | high | - | ItemLotParam_map |
-| 10007195 | Golden Seed | Dungeon Pickup | Stormveil Castle | m10_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 10007195 | Golden Seed | Dungeon Pickup | Stormveil Castle | m10_00_00 | -258.6, 13.8, 147.0 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 10007200 | St. Trina's Arrow | Dungeon Pickup | Stormveil Castle | m10_00_00 | -249.1, 62.7, 72.8 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007210 | Smoldering Butterfly | Dungeon Pickup | Stormveil Castle | m10_00_00 | -239.1, 61.4, 60.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 10007220 | Fire Grease | Dungeon Pickup | Stormveil Castle | m10_00_00 | -229.0, 73.9, 57.9 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -3115,7 +3115,7 @@ Total unique flags: 8993
 | 10007270 | Mushroom | Dungeon Pickup | Stormveil Castle | m10_00_00 | -288.0, 79.1, 84.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 10007280 | Drawstring Fire Grease | Dungeon Pickup | Stormveil Castle | m10_00_00 | -274.6, 98.5, 81.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 10007290 | Golden Rune [2] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -254.7, 109.5, 105.9 | - | corpse | 0 | high | - | ItemLotParam_map |
-| 10007295 | Aspects of the Crucible: Horns | Dungeon Pickup | Stormveil Castle | m10_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 10007295 | Aspects of the Crucible: Horns | Dungeon Pickup | Stormveil Castle | m10_00_00 | -296.6, -24.8, 97.9 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 10007300 | Somber Smithing Stone [2] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -268.1, -22.1, 133.9 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007310 | Smithing Stone [2] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -297.4, 94.5, 208.6 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007320 | Marred Wooden Shield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -308.7, 68.0, 189.6 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -3381,15 +3381,15 @@ Total unique flags: 8993
 | 11007970 | Coded Sword | Dungeon Pickup | Leyndell | m11_00_00 | -357.6, -18.0, -328.0 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11007980 | Stonesword Key | Dungeon Pickup | Leyndell | m11_00_00 | -194.0, -66.9, -175.3 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11007985 | Raging Wolf Helm | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
-| 11007987 | Gargoyle's Halberd | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 11007987 | Gargoyle's Halberd | Dungeon Pickup | Leyndell | m11_00_00 | -214.6, -17.5, -321.8 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 11007990 | Golden Seed | Dungeon Pickup | Leyndell | m11_00_00 | -203.6, -16.0, -324.9 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 11007991 | Blessing of the Erdtree | Dungeon Pickup | Leyndell | m11_00_00 | -47.4, 48.7, -304.7 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
-| 11007993 | Golden Seed | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 11007993 | Golden Seed | Dungeon Pickup | Leyndell | m11_00_00 | -205.0, -68.0, -122.0 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 11007994 | Blessed Dew Talisman | Dungeon Pickup | Leyndell | m11_00_00 | -485.3, 32.1, -292.3 | - | chest | - | high | - | ItemLotParam_map |
 | 11007995 | Somber Smithing Stone [7] | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 11007996 | Ritual Shield Talisman | Dungeon Pickup | Leyndell | m11_00_00 | -341.1, 27.5, -396.4 | - | corpse | - | high | - | ItemLotParam_map |
 | 11007997 | Bolt of Gransax | Dungeon Pickup | Leyndell | m11_00_00 | -163.6, -26.6, -258.9 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
-| 11007998 | Lord's Rune | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
+| 11007998 | Lord's Rune | Dungeon Pickup | Leyndell | m11_00_00 | -160.6, -45.5, -203.0 | - | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
 | 11008542 | Map Event Flag (11008542) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11008544 | Map Event Flag (11008544) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11008556 | Map Event Flag (11008556) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
@@ -3665,8 +3665,8 @@ Total unique flags: 8993
 | 12017970 | Ant's Skull Plate | Dungeon Pickup | Underground | m12_01_00 | -29.4, -155.0, 67.5 | - | chest | 2 | high | Y | ItemLotParam_map |
 | 12017980 | Ghost-Glovewort Picker's Bell Bearing [2] | Dungeon Pickup | Underground | m12_01_00 | -57.9, -137.0, 74.5 | - | chest | 2 | high | Y | ItemLotParam_map |
 | 12017990 | Nightmaiden & Swordstress Puppets | Dungeon Pickup | Underground | m12_01_00 | -73.6, -129.0, 125.6 | - | chest | 2 | high | Y | ItemLotParam_map |
-| 12017995 | Somber Smithing Stone [7] | Dungeon Pickup | Underground | m12_01_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
-| 12017997 | Golden Seed | Dungeon Pickup | Underground | m12_01_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
+| 12017995 | Somber Smithing Stone [7] | Dungeon Pickup | Underground | m12_01_00 | 279.5, -80.7, 112.6 | - | enemy_drop | 1 | emevd_enemy | Y | ItemLotParam_map |
+| 12017997 | Golden Seed | Dungeon Pickup | Underground | m12_01_00 | -417.3, -373.6, -475.7 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
 | 12019270 | Map Event Flag (12019270) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12019272 | Map Event Flag (12019272) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12019280 | Map Event Flag (12019280) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
@@ -3903,16 +3903,16 @@ Total unique flags: 8993
 | 12037570 | Golden Rune [1] | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12037580 | Golden Rune [1] | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12037590 | Golden Rune [1] | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
-| 12037800 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037810 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037820 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037830 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037840 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037850 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
+| 12037800 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -317.9, 91.6, -481.3 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
+| 12037810 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -323.0, 91.5, -486.6 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
+| 12037820 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -309.0, 91.6, -484.1 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
+| 12037830 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -312.8, 91.8, -494.4 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
+| 12037840 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -279.2, 101.3, -503.7 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
+| 12037850 | Numen's Rune | Dungeon Pickup | Underground | m12_03_00 | -199.9, 243.3, -565.5 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
 | 12037900 | Bastard Sword | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
 | 12037910 | Golden Rune [1] | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12037950 | Siluria's Tree | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
-| 12037960 | Staff of the Avatar | Dungeon Pickup | Underground | m12_03_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
+| 12037960 | Staff of the Avatar | Dungeon Pickup | Underground | m12_03_00 | -188.2, 92.6, -678.2 | - | enemy_drop | 2 | emevd_enemy | Y | ItemLotParam_map |
 | 12040800 | Astel, Naturalborn of the Void | Great Boss Defeat | Underground | m12_04_00 | -98.8, -106.1, -134.4 | - | - | - | - | - | MSB Enemy |
 | 12042506 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -90.9, -104.2, -330.3 | - | - | - | - | - | MSB SpawnPoint |
 | 12042508 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -94.5, -104.1, -334.3 | - | - | - | - | - | MSB SpawnPoint |
@@ -4220,9 +4220,9 @@ Total unique flags: 8993
 | 13007950 | Old Lord's Talisman | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 144.6, -80.3, 553.3 | - | chest | 3 | high | - | ItemLotParam_map |
 | 13007980 | Golden Seed | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 150.8, -122.2, 513.2 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 13007990 | Golden Seed | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | -16.7, 8.5, 414.3 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
-| 13007991 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
-| 13007993 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
-| 13007995 | Malformed Dragon Helm | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 13007991 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | -17.8, 39.3, 192.3 | - | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
+| 13007993 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 142.4, -126.1, 456.4 | - | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
+| 13007995 | Malformed Dragon Helm | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 120.4, -32.7, 399.7 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 13009254 | Map Event Flag (13009254) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13009259 | Map Event Flag (13009259) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m60_52_53_00.emevd |
 | 13009300 | Map Event Flag (13009300) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
@@ -4359,12 +4359,12 @@ Total unique flags: 8993
 | 15000801 | Malenia, Blade of Miquella | Great Boss Defeat | Caria Manor | m15_00_00 | -25.9, 51.6, 480.5 | - | - | - | - | - | MSB Enemy |
 | 15000850 | Loretta, Knight of the Haligtree | Field Boss Defeat | Caria Manor | m15_00_00 | 174.4, 431.7, 307.9 | - | - | - | - | - | MSB Enemy |
 | 15000851 | Map Event Flag (15000851) | EMEVD Literal Flag | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
-| 15001200 | Golden Seed | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 15001200 | Golden Seed | Dungeon Pickup | Caria Manor | m15_00_00 | 22.2, 179.8, 438.0 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 15001210 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 15001250 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 15001260 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
-| 15001270 | Lord's Rune | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
-| 15001280 | Rotten Staff | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 15001270 | Lord's Rune | Dungeon Pickup | Caria Manor | m15_00_00 | -6.7, 211.4, 606.3 | - | enemy_drop | 3 | emevd_enemy | - | ItemLotParam_map |
+| 15001280 | Rotten Staff | Dungeon Pickup | Caria Manor | m15_00_00 | 132.0, 213.0, 520.5 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 15001290 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 15002141 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | 7.2, 185.5, 456.9 | - | - | - | - | - | MSB SpawnPoint |
 | 15002142 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | 32.0, 181.2, 463.9 | - | - | - | - | - | MSB SpawnPoint |
@@ -4576,7 +4576,7 @@ Total unique flags: 8993
 | 16007950 | Aspects of the Crucible: Breath | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 16007991 | Golden Rune [1] | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 16007992 | Golden Rune [1] | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
-| 16007999 | Dragon Heart | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 16007999 | Dragon Heart | Dungeon Pickup | Volcano Manor | m16_00_00 | 18.0, -54.5, -180.6 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 16008540 | Map Event Flag (16008540) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
 | 16009208 | [Knight Bernahl] Ash of War: Eruption - Unlocked | Shop Unlock | Volcano Manor | - | - | - | - | - | - | - | ShopLineupParam |
 | 16009264 | Map Event Flag (16009264) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
@@ -5861,13 +5861,13 @@ Total unique flags: 8993
 | 34117110 | Holyproof Dried Liver | Dungeon Pickup | Divine Tower | m34_11_00 | -18.1, -212.1, -9.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34117120 | Glintstone Firefly | Dungeon Pickup | Divine Tower | m34_11_00 | 2.4, -212.1, 7.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34117200 | Carian Glintstone Staff | Dungeon Pickup | Divine Tower | m34_11_00 | 5.5, -122.3, -30.9 | - | ground_pickup | 1 | high | - | ItemLotParam_map |
-| 34117400 | Godskin Noble Hood | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 34117400 | Godskin Noble Hood | Dungeon Pickup | Divine Tower | m34_11_00 | 207.7, -5.3, 36.5 | - | enemy_drop | 2 | emevd_enemy | - | ItemLotParam_map |
 | 34117401 | Godskin Noble Hood | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 34117402 | Godskin Noble Hood | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 34117403 | Godskin Noble Hood | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 34117500 | Cursemark of Death | Dungeon Pickup | Divine Tower | m34_11_00 | 428.2, 297.3, 75.7 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
-| 34117700 | Magic Downpour | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 1 | none | - | ItemLotParam_map |
-| 34117710 | Lucidity | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 34117700 | Magic Downpour | Dungeon Pickup | Divine Tower | m34_11_00 | 25.0, -133.4, 20.8 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
+| 34117710 | Lucidity | Dungeon Pickup | Divine Tower | m34_11_00 | 0.1, -170.5, -0.2 | - | enemy_drop | 1 | emevd_enemy | - | ItemLotParam_map |
 | 34120510 | Door Unlock (34120510) | Door Unlock | Divine Tower | m34_12_00 | -148.0, 767.0, -31.2 | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
 | 34120650 | EMEVD Treasure (34120650) | EMEVD Treasure | Divine Tower | m34_12_00 | -111.0, 741.5, -80.0 | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
 | 34120800 | Alabaster Lord | Boss Defeat | Divine Tower | m34_12_00 | -49.5, 711.4, -195.9 | - | - | - | - | - | MSB Enemy |
@@ -6020,8 +6020,8 @@ Total unique flags: 8993
 | 35007940 | Crucible Scale Talisman | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -170.7, -134.6, -398.6 | - | ground_pickup | - | high | Y | ItemLotParam_map |
 | 35007950 | Haligdrake Talisman +1 | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -162.9, -113.7, -274.4 | - | corpse | - | high | Y | ItemLotParam_map |
 | 35007960 | Rune Arc | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -162.9, -113.7, -294.4 | - | corpse | 2 | high | Y | ItemLotParam_map |
-| 35007970 | Somber Smithing Stone [6] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
-| 35007980 | Somber Smithing Stone [7] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
+| 35007970 | Somber Smithing Stone [6] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -54.0, -108.2, -136.0 | - | enemy_drop | 1 | emevd_enemy | Y | ItemLotParam_map |
+| 35007980 | Somber Smithing Stone [7] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -113.2, -138.4, -223.9 | - | enemy_drop | 1 | emevd_enemy | Y | ItemLotParam_map |
 | 35008540 | Map Event Flag (35008540) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35009211 | Map Event Flag (35009211) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35009250 | Map Event Flag (35009250) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
@@ -6311,8 +6311,8 @@ Total unique flags: 8993
 | 1033417000 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | 36.6, 305.5, -16.8 | 8484.6, 10479.2 | chest | 1 | high | N | ItemLotParam_map |
 | 1033417010 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_33_41 | 17.5, 308.7, -30.4 | 8465.5, 10465.6 | chest | 1 | high | N | ItemLotParam_map |
 | 1033417020 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | -3.9, 305.5, -20.7 | 8444.1, 10475.3 | chest | 1 | high | N | ItemLotParam_map |
-| 1033417400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1033417410 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1033417400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | 99.1, 355.6, 113.2 | 8547.1, 10609.2 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
+| 1033417410 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | 118.4, 348.3, 59.4 | 8566.4, 10555.4 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1033420610 | Enemy Defeat (1033420610) | Enemy Defeat | Liurnia of the Lakes | m60_33_42 | 42.1, 389.9, 12.3 | 8490.1, 10764.3 | - | - | - | - | EMEVD:m60_33_42_00.emevd |
 | 1033420800 | Alecto Black Knife Ringleader | Boss Arena | Liurnia - Moonlight Altar | m60_33_42 | -40.6, 346.7, 86.2 | -40.6, 86.2 | - | - | - | - | GameAreaParam |
 | 1033422805 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -31.9, 345.3, 67.8 | 8416.1, 10819.8 | - | - | - | - | MSB SpawnPoint |
@@ -6359,7 +6359,7 @@ Total unique flags: 8993
 | 1034427050 | Crystal Sword | World Pickup | Liurnia of the Lakes | m60_34_42 | 73.9, 260.9, 28.8 | 8777.9, 10780.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1034427060 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_34_42 | 88.6, 268.6, -74.0 | 8792.6, 10678.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1034427100 | Somber Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_34_42 | 51.5, 391.6, 13.1 | 8755.5, 10765.1 | chest | 1 | high | N | ItemLotParam_map |
-| 1034427400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1034427400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | -106.6, 362.5, -122.3 | 8597.4, 10629.7 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1034430310 | Enemy Defeat (1034430310) | Enemy Defeat | Liurnia of the Lakes | m60_34_43 | 68.5, 256.9, -97.7 | 8772.5, 10910.3 | - | - | - | - | EMEVD:m60_34_43_00.emevd |
 | 1034432616 | Map Event Flag (1034432616) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_43 | - | - | - | - | - | - | EMEVD:m60_33_40_00.emevd |
 | 1034437000 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_43 | -84.8, 267.6, -63.9 | 8619.2, 10944.1 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6478,7 +6478,7 @@ Total unique flags: 8993
 | 1035432220 | NPC Defeat (1035432220) | NPC Defeat | Liurnia of the Lakes | m60_35_43 | 117.8, 237.6, 31.8 | 9077.8, 11039.8 | - | - | - | - | EMEVD:m60_35_43_00.emevd |
 | 1035432270 | NPC Defeat (1035432270) | NPC Defeat | Weeping Peninsula | m60_44_35 | 16.4, 86.5, 36.6 | 11280.4, 8996.6 | - | - | - | - | EMEVD:m60_44_35_00.emevd |
 | 1035437010 | Somber Smithing Stone [1] | World Pickup | Liurnia of the Lakes | m60_35_43 | -87.5, 237.6, -19.2 | 8872.5, 10988.8 | corpse | 1 | high | N | ItemLotParam_map |
-| 1035437100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1035437100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | 89.5, 237.6, 47.9 | 9049.5, 11055.9 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1035442950 | Stake of Marika (m60_35_44) | Stake of Marika | Liurnia of the Lakes | m60_35_44 | -91.4, 251.4, -88.5 | 8868.6, 11175.5 | - | - | - | - | MSB SpawnPoint |
 | 1035447000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_35_44 | 120.6, 258.0, 59.6 | 9080.6, 11323.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035447010 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_44 | 41.0, 237.3, 77.2 | 9001.0, 11341.2 | corpse | 0 | high | N | ItemLotParam_map |
@@ -7245,7 +7245,7 @@ Total unique flags: 8993
 | 1042332806 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -112.0, 18.6, 103.2 | 10640.0, 8551.2 | - | - | - | - | MSB SpawnPoint |
 | 1042332807 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -126.2, 19.2, 116.7 | 10625.8, 8564.7 | - | - | - | - | MSB SpawnPoint |
 | 1042337000 | Eclipse Crest Heater Shield | World Pickup | World (42,33) | m60_42_33 | 109.3, 59.4, 52.6 | 10861.3, 8500.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1042337100 | Radagon's Scarseal | World Pickup | World (42,33) | m60_42_33 | - | - | - | - | none | N | ItemLotParam_map |
+| 1042337100 | Radagon's Scarseal | World Pickup | World (42,33) | m60_42_33 | -127.4, 19.9, 109.1 | 10624.6, 8557.1 | enemy_drop | - | emevd_enemy | N | ItemLotParam_map |
 | 1042337200 | Golden Rune [1] | World Pickup | World (42,33) | m60_42_33 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1042347000 | Blood Grease | World Pickup | World (42,34) | m60_42_34 | 118.3, 88.8, 99.2 | 10870.3, 8803.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1042347010 | Beast Liver | World Pickup | World (42,34) | m60_42_34 | -10.3, 24.9, -109.9 | 10741.7, 8594.1 | corpse | 0 | high | N | ItemLotParam_map |
@@ -7329,12 +7329,12 @@ Total unique flags: 8993
 | 1042399710 | Map Event Flag (1042399710) | EMEVD Literal Flag | Limgrave | m60_42_39 | - | - | - | - | - | - | EMEVD:m60_42_39_00.emevd |
 | 1042500300 | Enemy Defeat (1042500300) | Enemy Defeat | Altus Plateau | m60_42_50 | -36.1, 865.5, 60.4 | 10715.9, 12860.4 | - | - | - | - | EMEVD:m60_42_50_00.emevd |
 | 1042507000 | Giant-Crusher | World Pickup | Altus Plateau | m60_42_50 | 84.3, 867.9, 179.7 | 10836.3, 12979.7 | cart | 1 | low | N | ItemLotParam_map |
-| 1042507020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042507020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | -36.1, 865.5, 60.4 | 10715.9, 12860.4 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1042510300 | Enemy Defeat (1042510300) | Enemy Defeat | Altus Plateau | m60_42_51 | 37.1, 880.3, 85.3 | 10789.1, 13141.3 | - | - | - | - | EMEVD:m60_42_51_00.emevd |
 | 1042517000 | Holy Grease | World Pickup | Altus Plateau | m60_42_51 | 36.4, 859.3, -98.5 | 10788.4, 12957.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042517400 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -48.9, 850.2, -41.7 | 10703.1, 13014.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1042517410 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -47.6, 850.2, -40.7 | 10704.4, 13015.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1042517900 | Gargoyle's Great Axe | World Pickup | Altus Plateau | m60_42_51 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1042517900 | Gargoyle's Great Axe | World Pickup | Altus Plateau | m60_42_51 | 37.1, 880.3, 85.3 | 10789.1, 13141.3 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1042527000 | Old Fang | World Pickup | Altus Plateau | m60_42_52 | -3.0, 942.0, -1.6 | 10749.0, 13310.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042527010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_42_52 | -44.3, 931.8, -6.4 | 10707.7, 13305.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042527020 | Rainbow Stone | World Pickup | Altus Plateau | m60_42_52 | -21.9, 931.4, -6.1 | 10730.1, 13305.9 | corpse | 0 | high | N | ItemLotParam_map |
@@ -7409,7 +7409,7 @@ Total unique flags: 8993
 | 1043347040 | Gold-Tinged Excrement | World Pickup | Weeping Peninsula | m60_43_34 | 84.8, 7.4, -115.7 | 11092.8, 8588.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043347050 | String | World Pickup | Weeping Peninsula | m60_43_34 | 87.1, 6.2, -123.0 | 11095.1, 8581.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043347100 | Shield of the Guilty | World Pickup | Weeping Peninsula | m60_43_34 | 14.5, -4.0, -56.2 | 11022.5, 8647.8 | chest | 2 | high | Y | ItemLotParam_map |
-| 1043347400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1043347400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | 26.3, 13.0, -2.5 | 11034.3, 8701.5 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1043350710 | Yura, Hunter of Bloody Fingers | NPC | Weeping Peninsula | m60_43_35 | 37.6, 72.0, 69.6 | 11045.6, 9029.6 | - | - | - | - | MSB NPC |
 | 1043352270 | Map Event Flag (1043352270) | EMEVD Literal Flag | Weeping Peninsula | m60_43_35 | - | - | - | - | - | - | EMEVD:m60_43_35_00.emevd |
 | 1043357000 | Crab Eggs | World Pickup | Weeping Peninsula | m60_43_35 | 16.6, 39.0, -82.7 | 11024.6, 8877.3 | corpse | 0 | high | N | ItemLotParam_map |
@@ -7483,7 +7483,7 @@ Total unique flags: 8993
 | 1043527030 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_52 | 5.4, 954.8, 64.0 | 11013.4, 13376.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1043527400 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.8, 907.5, -33.9 | 10881.2, 13278.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1043527410 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.2, 907.5, -33.0 | 10881.8, 13279.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1043527500 | Viridian Amber Medallion +1 | World Pickup | Altus Plateau | m60_43_52 | - | - | - | - | none | N | ItemLotParam_map |
+| 1043527500 | Viridian Amber Medallion +1 | World Pickup | Altus Plateau | m60_43_52 | -97.4, 922.8, 89.3 | 10910.6, 13401.3 | enemy_drop | - | emevd_enemy | N | ItemLotParam_map |
 | 1043530500 | Enemy Defeat (1043530500) | Enemy Defeat | Altus Plateau | m60_43_53 | -120.8, 965.3, 121.6 | 10887.2, 13689.6 | - | - | - | - | EMEVD:m60_43_53_00.emevd |
 | 1043530700 | Hermit Merchant | Merchant | Altus Plateau | m60_43_53 | -21.2, 993.3, 1.3 | 10986.8, 13569.3 | - | - | - | - | MSB NPC |
 | 1043530800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_43_53 | -22.3, 993.3, 0.5 | 10985.7, 13568.5 | - | - | - | - | MSB Enemy |
@@ -7498,7 +7498,7 @@ Total unique flags: 8993
 | 1043537050 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_53 | 112.5, 1013.8, 69.0 | 11120.5, 13637.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043537060 | Golden Rune [7] | World Pickup | Altus Plateau | m60_43_53 | -14.9, 951.0, -67.3 | 10993.1, 13500.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043537070 | Mushroom | World Pickup | Altus Plateau | m60_43_53 | 48.2, 955.3, -70.4 | 11056.2, 13497.6 | corpse | 0 | high | N | ItemLotParam_map |
-| 1043537100 | Larval Tear | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1043537100 | Larval Tear | World Pickup | Altus Plateau | m60_42_53 | -86.2, 895.5, -30.9 | 10665.8, 13537.1 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1043537400 | Medicine Peddler's Bell Bearing | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1044310200 | Mechanism Unlock (1044310200) | Mechanism Unlock | Weeping Peninsula | m60_44_31 | - | - | - | - | - | - | EMEVD:m60_44_31_00.emevd |
 | 1044310350 | Enemy Defeat (1044310350) | Enemy Defeat | World (11,7) | m60_11_07 | -492.5, 4.2, 431.6 | 2323.5, 2223.6 | - | - | - | - | EMEVD:m60_44_31_00.emevd |
@@ -7563,7 +7563,7 @@ Total unique flags: 8993
 | 1044357050 | Flame Sling | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1044357060 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_35 | 81.7, 104.5, 21.9 | 11345.7, 8981.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044357070 | Starlight Shards | World Pickup | Weeping Peninsula | m60_44_35 | 119.2, 117.4, -37.6 | 11383.2, 8922.4 | chest | 2 | high | N | ItemLotParam_map |
-| 1044357100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1044357100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | 31.4, 93.1, 45.8 | 11295.4, 9005.8 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1044357900 | Great Épée | World Pickup | Weeping Peninsula | m60_44_35 | 82.1, 101.3, 43.5 | 11346.1, 9003.5 | chest | 1 | high | N | ItemLotParam_map |
 | 1044360220 | Enemy Defeat (1044360220) | Enemy Defeat | Limgrave | m60_44_36 | -96.0, 64.7, -126.1 | 11168.0, 9089.9 | - | - | - | - | EMEVD:m60_44_36_00.emevd |
 | 1044360700 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 18.0, 80.8, 19.1 | 11282.0, 9235.1 | - | - | - | - | MSB NPC |
@@ -7751,7 +7751,7 @@ Total unique flags: 8993
 | 1047387110 | Mushroom | World Pickup | Caelid | m60_47_38 | -116.4, 170.4, 7.1 | 11915.6, 9735.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1047387120 | Flame, Grant Me Strength | World Pickup | Caelid | m60_47_38 | -110.3, 154.4, -33.8 | 11921.7, 9694.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047387130 | Explosive Greatbolt | World Pickup | Caelid | m60_47_38 | -125.1, 136.9, 84.0 | 11906.9, 9812.0 | corpse | 1 | high | N | ItemLotParam_map |
-| 1047387700 | Ash of War: Lion's Claw | World Pickup | Caelid | m60_47_38 | - | - | - | - | none | N | ItemLotParam_map |
+| 1047387700 | Ash of War: Lion's Claw | World Pickup | Caelid | m60_47_38 | -119.5, 162.3, -15.2 | 11912.5, 9712.8 | enemy_drop | - | emevd_enemy | N | ItemLotParam_map |
 | 1047387900 | Starscourge Heirloom | World Pickup | Caelid | m60_47_38 | -89.3, 179.1, 2.2 | 11942.7, 9730.2 | chest | - | high | N | ItemLotParam_map |
 | 1047387910 | Meteoric Ore Blade | World Pickup | Caelid | m60_47_38 | -5.8, 78.7, -27.6 | 12026.2, 9700.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1047387920 | Katar | World Pickup | Caelid | m60_47_38 | -104.5, 167.1, -1.6 | 11927.5, 9726.4 | chest | 1 | high | N | ItemLotParam_map |
@@ -7877,10 +7877,10 @@ Total unique flags: 8993
 | 1048577700 | Explosive Ghostflame | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1048577800 | Golden Seed | World Pickup | Mountaintops of the Giants | m60_48_57 | -88.9, 1264.0, -61.7 | 12199.1, 14530.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1048577810 | Black Knife Hood | World Pickup | Mountaintops of the Giants | m60_48_57 | 80.6, 1290.5, 34.0 | 12368.6, 14626.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 1048577900 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577910 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1048577930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1048577900 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | 2.7, 1285.9, 23.4 | 12290.7, 14615.4 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1048577910 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | 76.8, 1287.3, -65.8 | 12364.8, 14526.2 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1048577920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | 79.6, 1290.3, 33.9 | 12367.6, 14625.9 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1048577930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | 61.7, 1290.8, -21.3 | 12349.7, 14570.7 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1048587300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_58 | -100.6, 1274.5, -26.8 | 12187.4, 14821.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049360290 | Enemy Defeat (1049360290) | Enemy Defeat | Caelid | m60_49_36 | 91.3, 53.8, -85.9 | 12635.3, 9130.1 | - | - | - | - | EMEVD:m60_49_36_00.emevd |
 | 1049360291 | Enemy Defeat (1049360291) | Enemy Defeat | Caelid | m60_49_36 | -93.6, 53.6, 40.5 | 12450.4, 9256.5 | - | - | - | - | EMEVD:m60_49_36_00.emevd |
@@ -7899,7 +7899,7 @@ Total unique flags: 8993
 | 1049377070 | Golden Rune [2] | World Pickup | Caelid | m60_49_37 | 84.0, 93.9, 108.6 | 12628.0, 9580.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049377100 | Ash of War: Poison Moth Flight | World Pickup | Caelid | m60_49_37 | - | - | - | - | none | N | ItemLotParam_map |
 | 1049377110 | Death's Poker | World Pickup | Caelid | m60_49_37 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049377700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049377700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | 87.2, 79.2, -71.3 | 12631.2, 9400.7 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1049380290 | Enemy Defeat (1049380290) | Enemy Defeat | Caelid | m60_49_38 | 25.0, 70.9, 36.8 | 12569.0, 9764.8 | - | - | - | - | EMEVD:m60_49_38_00.emevd |
 | 1049380560 | Mechanism Unlock (1049380560) | Mechanism Unlock | Caelid | m60_49_38 | 54.3, 146.2, 51.1 | 12598.3, 9779.1 | - | - | - | - | EMEVD:m60_49_38_00.emevd |
 | 1049380800 | Commander Niall | Boss Defeat | Caelid | m60_49_38 | -25.2, 65.9, 50.6 | 12518.8, 9778.6 | - | - | - | - | MSB Enemy |
@@ -7929,7 +7929,7 @@ Total unique flags: 8993
 | 1049397030 | Staff of Loss | World Pickup | Caelid | m60_49_39 | 115.8, 84.5, -22.0 | 12659.8, 9962.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049397040 | Rotten Stray Ashes | World Pickup | Caelid | m60_49_39 | 83.6, 66.1, 7.0 | 12627.6, 9991.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049397800 | Nox Flowing Sword | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1049397850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1049397850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | -87.9, 164.0, -8.4 | 12456.1, 9975.6 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1049397900 | Lusat's Glintstone Staff | World Pickup | Caelid | m60_49_39 | 96.6, 86.4, 104.0 | 12640.6, 10088.0 | chest | 2 | high | N | ItemLotParam_map |
 | 1049397910 | Spelldrake Talisman +1 | World Pickup | Caelid | m60_49_39 | 118.0, 78.8, -22.8 | 12662.0, 9961.2 | chest | - | high | N | ItemLotParam_map |
 | 1049400560 | Mechanism Unlock (1049400560) | Mechanism Unlock | Caelid | m60_49_40 | - | - | - | - | - | - | EMEVD:m60_49_40_00.emevd |
@@ -7965,7 +7965,7 @@ Total unique flags: 8993
 | 1049540710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_54 | -106.1, 1332.3, -88.3 | 12437.9, 13735.7 | - | - | - | - | MSB NPC |
 | 1049547300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_49_54 | -57.0, 1344.0, -72.8 | 12487.0, 13751.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049547310 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_54 | -44.8, 1355.1, -81.1 | 12499.2, 13742.9 | corpse | 1 | high | N | ItemLotParam_map |
-| 1049547700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049547700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | -33.6, 1322.1, 57.6 | 12510.4, 13881.6 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1049547900 | St. Trina's Torch | World Pickup | Mountaintops of the Giants | m60_49_54 | -206.3, 1316.6, 168.2 | 12337.7, 13992.2 | cart | 2 | low | N | ItemLotParam_map |
 | 1049549200 | Map Event Flag (1049549200) | EMEVD Literal Flag | Mountaintops of the Giants | m60_49_54 | - | - | - | - | - | - | EMEVD:m60_49_54_00.emevd |
 | 1049550710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_55 | 29.3, 1313.6, -40.5 | 12573.3, 14039.5 | - | - | - | - | MSB NPC |
@@ -7986,9 +7986,9 @@ Total unique flags: 8993
 | 1049570300 | Enemy Defeat (1049570300) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 7.9, 1336.5, -115.7 | 12551.9, 14476.3 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
 | 1049570310 | Enemy Defeat (1049570310) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 16.4, 1329.8, -146.4 | 12560.4, 14445.6 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
 | 1049570320 | Enemy Defeat (1049570320) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 35.6, 1355.0, -127.6 | 12579.6, 14464.4 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
-| 1049577700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1049577710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1049577720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049577700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | 16.4, 1329.8, -146.4 | 12560.4, 14445.6 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1049577710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | 7.9, 1336.5, -115.7 | 12551.9, 14476.3 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1049577720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | 35.6, 1355.0, -127.6 | 12579.6, 14464.4 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1050362400 | Map Event Flag (1050362400) | EMEVD Literal Flag | Caelid | m60_50_36 | - | - | - | - | - | - | EMEVD:m60_50_36_00.emevd |
 | 1050362690 | Stake of Marika (m60_50_36) | Stake of Marika | Caelid | m60_50_36 | -46.8, 38.0, -76.3 | 12753.2, 9139.7 | - | - | - | - | MSB SpawnPoint |
 | 1050367000 | Mushroom | World Pickup | Caelid | m60_50_36 | -65.1, 38.5, -59.2 | 12734.9, 9156.8 | corpse | 0 | high | N | ItemLotParam_map |
@@ -8025,11 +8025,11 @@ Total unique flags: 8993
 | 1050400599 | Map Event Flag (1050400599) | EMEVD Literal Flag | Caelid | m60_50_40 | - | - | - | - | - | - | EMEVD:m60_50_40_00.emevd |
 | 1050400800 | [Dragon Communion] Greyoll's Roar - Unlocked | Shop Unlock | Caelid | - | - | - | - | - | - | - | ShopLineupParam |
 | 1050402599 | Map Event Flag (1050402599) | EMEVD Literal Flag | Caelid | m60_50_40 | - | - | - | - | - | - | EMEVD:m60_50_40_00.emevd |
-| 1050407800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050407800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | 81.9, 234.1, -65.9 | 12881.9, 10174.1 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1050530210 | Enemy Defeat (1050530210) | Enemy Defeat | World (50,53) | m60_50_53 | -55.7, 1580.6, 1.0 | 12744.3, 13569.0 | - | - | - | - | EMEVD:m60_50_53_00.emevd |
 | 1050537000 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | 70.2, 1651.8, 62.6 | 12870.2, 13630.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1050537300 | Smoldering Butterfly | World Pickup | World (50,53) | m60_50_53 | 8.3, 1598.8, 73.7 | 12808.3, 13641.7 | corpse | 0 | high | N | ItemLotParam_map |
-| 1050537700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1050537700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | -55.7, 1580.6, 1.0 | 12744.3, 13569.0 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1050547000 | Lost Ashes of War | World Pickup | Mountaintops of the Giants | m60_50_54 | 37.0, 1543.0, 87.1 | 12837.0, 13911.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1050547800 | Arteria Leaf | World Pickup | Mountaintops of the Giants | m60_50_54 | 2.8, 1577.7, -86.2 | 12802.8, 13737.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1050547810 | Briars of Punishment | World Pickup | Mountaintops of the Giants | m60_50_54 | -14.6, 1579.8, -72.3 | 12785.4, 13751.7 | ground_pickup | 2 | high | N | ItemLotParam_map |
@@ -8093,8 +8093,8 @@ Total unique flags: 8993
 | 1051367100 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 44.4, 101.2, 125.2 | 13100.4, 9341.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051367110 | Somber Smithing Stone [5] | World Pickup | Caelid | m60_51_36 | 89.7, 94.8, 98.7 | 13145.7, 9314.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051367130 | Flamberge | World Pickup | Caelid | m60_51_36 | 90.2, 106.0, -108.4 | 13146.2, 9107.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051367700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051367800 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051367700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 17.2, 82.7, -54.2 | 13073.2, 9161.8 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1051367800 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_51_36 | 24.5, 83.0, -50.2 | 13080.5, 9165.8 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1051367910 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | 97.6, 105.8, -51.0 | 13153.6, 9165.0 | chest | 1 | high | N | ItemLotParam_map |
 | 1051382020 | Stake of Marika (m60_51_38) | Stake of Marika | Caelid | m60_51_38 | 20.6, 13.2, -110.2 | 13076.6, 9617.8 | - | - | - | - | MSB SpawnPoint |
 | 1051387000 | Radahn's Spear | World Pickup | Caelid | m60_51_38 | 75.4, 16.9, -85.6 | 13131.4, 9642.4 | corpse | 1 | high | N | ItemLotParam_map |
@@ -8125,7 +8125,7 @@ Total unique flags: 8993
 | 1051537300 | Drawstring Holy Grease | World Pickup | World (51,53) | m60_51_53 | -101.5, 1673.2, 106.1 | 12954.5, 13674.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051537500 | Rivers of Blood | World Pickup | World (51,53) | m60_51_53 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051537600 | Ash of War: Troll's Roar | World Pickup | World (51,53) | m60_51_53 | 0.5, 1865.0, -125.4 | 13056.5, 13442.6 | corpse | - | high | N | ItemLotParam_map |
-| 1051537700 | Somber Smithing Stone [8] | World Pickup | World (51,53) | m60_51_53 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051537700 | Somber Smithing Stone [8] | World Pickup | World (51,53) | m60_51_53 | 90.4, 1820.5, -9.8 | 13146.4, 13558.2 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1051537800 | Sacred Tear | World Pickup | World (51,53) | m60_51_53 | -61.2, 1803.0, -71.0 | 12994.8, 13497.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1051537810 | Warming Stone | World Pickup | World (51,53) | m60_51_53 | 69.0, 1752.4, 123.8 | 13125.0, 13691.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1051540210 | Enemy Defeat (1051540210) | Enemy Defeat | Mountaintops of the Giants | m60_51_54 | - | - | - | - | - | - | EMEVD:m60_51_54_00.emevd |
@@ -8151,7 +8151,7 @@ Total unique flags: 8993
 | 1051567300 | Formic Rock | World Pickup | Mountaintops of the Giants | m60_51_56 | 70.2, 1609.1, -109.8 | 13126.2, 14226.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051567310 | Soft Cotton | World Pickup | Mountaintops of the Giants | m60_51_56 | 21.9, 1574.8, -119.9 | 13077.9, 14216.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051567320 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_56 | 84.9, 1667.1, -97.4 | 13140.9, 14238.6 | corpse | 1 | high | N | ItemLotParam_map |
-| 1051567700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051567700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_51_56 | -23.4, 1573.6, -118.8 | 13032.6, 14217.2 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1051567800 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051567810 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051567900 | Primal Glintstone Blade | World Pickup | Mountaintops of the Giants | m60_51_56 | 22.0, 1648.1, 62.8 | 13078.0, 14398.8 | chest | - | high | Y | ItemLotParam_map |
@@ -8195,9 +8195,9 @@ Total unique flags: 8993
 | 1051577230 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 24.2, 1673.7, -49.7 | 13080.2, 14542.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051577300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_51_57 | 19.7, 1626.7, 190.7 | 13075.7, 14782.7 | corpse | 2 | high | N | ItemLotParam_map |
 | 1051577600 | Eclipse Shotel | World Pickup | Mountaintops of the Giants | m60_51_57 | 73.1, 1616.9, 84.9 | 13129.1, 14676.9 | corpse | 3 | high | N | ItemLotParam_map |
-| 1051577720 | Helphen's Steeple | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 2 | none | N | ItemLotParam_map |
-| 1051577800 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
-| 1051577810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051577720 | Helphen's Steeple | World Pickup | Mountaintops of the Giants | m60_51_57 | -17.6, 1658.0, -12.8 | 13038.4, 14579.2 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
+| 1051577800 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | 6.6, 1599.0, 92.2 | 13062.6, 14684.2 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
+| 1051577810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | 22.6, 1600.5, 55.6 | 13078.6, 14647.6 | enemy_drop | 1 | emevd_enemy | N | ItemLotParam_map |
 | 1051580510 | Door Unlock (1051580510) | Door Unlock | Mountaintops of the Giants | m60_51_58 | 78.1, 1636.0, -1.2 | 13134.1, 14846.8 | - | - | - | - | EMEVD:m60_51_58_00.emevd |
 | 1051580700 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_58 | 86.1, 1664.2, 22.3 | 13142.1, 14870.3 | - | - | - | - | MSB NPC |
 | 1051587800 | Haligtree Secret Medallion (Left) | World Pickup | Mountaintops of the Giants | m60_51_58 | 87.6, 1664.3, 21.2 | 13143.6, 14869.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
@@ -8259,7 +8259,7 @@ Total unique flags: 8993
 | 1052557040 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -49.8, 1699.1, 37.1 | 13262.2, 14117.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052557300 | Golden Rune [8] | World Pickup | Mountaintops of the Giants | m60_52_55 | -21.7, 1688.6, 30.5 | 13290.3, 14110.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052557310 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_52_55 | 3.5, 1686.4, 39.8 | 13315.5, 14119.8 | corpse | 2 | high | N | ItemLotParam_map |
-| 1052557700 | One-Eyed Shield | World Pickup | Mountaintops of the Giants | m60_52_55 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1052557700 | One-Eyed Shield | World Pickup | Mountaintops of the Giants | m60_52_55 | -61.5, 1712.3, 18.0 | 13250.5, 14098.0 | enemy_drop | 2 | emevd_enemy | N | ItemLotParam_map |
 | 1052557800 | Gravel Stone | World Pickup | Mountaintops of the Giants | m60_52_55 | -39.0, 1706.9, 95.3 | 13273.0, 14175.4 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1052557900 | Giant's Prayerbook | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.3, 1731.2, 4.4 | 13252.7, 14084.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1052560800 | Erdtree Avatar | Great Boss Defeat | Mountaintops of the Giants | m60_52_56 | -44.0, 1674.3, 69.7 | 13268.0, 14405.7 | - | - | - | - | MSB Enemy |

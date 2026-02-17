@@ -20,7 +20,7 @@ import json
 import re
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 
 # Base paths
 GAME_FILES = Path("/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files")
@@ -3348,13 +3348,17 @@ def extract_emevd_templates(
     msb_assets: Dict[int, Dict],
     world_map_points: Dict[int, Dict],
     existing_flag_ids: set,
-) -> List[EventFlag]:
+) -> Tuple[List[EventFlag], Dict[int, Dict]]:
     """
     Extract event flags from EMEVD template instantiations in map-specific event files.
 
     Parses $InitializeCommonEvent(slot, template_id, params...) calls across all
     map EMEVD files and matches them against EMEVD_TEMPLATES to extract flag IDs,
     entity IDs, and resolve coordinates via MSB cross-referencing.
+
+    Returns:
+        Tuple of (flags, item_lot_positions) where item_lot_positions maps
+        item_lot_id -> position data for backfilling positionless ItemLotParam flags.
 
     Args:
         msb_enemies: Filtered enemy entity index (with names) for chr lookups
@@ -3364,6 +3368,7 @@ def extract_emevd_templates(
         existing_flag_ids: Set of already-extracted flag IDs to deduplicate against
     """
     flags = []
+    item_lot_positions = {}  # {item_lot_id: position_data}
 
     if not EVENT_DIR.exists():
         print(f"  Warning: Event directory not found: {EVENT_DIR}")
@@ -3411,15 +3416,8 @@ def extract_emevd_templates(
             if flag_id <= 0:
                 continue  # Invalid or variable reference
 
-            # Skip if already extracted from another source
-            if flag_id in existing_flag_ids:
-                skipped_dup += 1
-                continue
-
-            category = tmpl["category"]
-            template_counts[category] = template_counts.get(category, 0) + 1
-
-            # Try to resolve coordinates from entity ID
+            # Resolve entity data BEFORE dedup check so we can capture
+            # item_lot positions even for deduplicated flags
             entity_data = None
             entity_id = None
             entity_type = tmpl.get("entity_type")
@@ -3462,6 +3460,30 @@ def extract_emevd_templates(
             pos_x = entity_data.get("pos_x") if entity_data else None
             pos_y = entity_data.get("pos_y") if entity_data else None
             pos_z = entity_data.get("pos_z") if entity_data else None
+
+            # Collect item_lot → position mapping for backfilling positionless ItemLotParam flags
+            if "item_lot_idx" in tmpl and entity_data and pos_x is not None:
+                ilt_idx = tmpl["item_lot_idx"]
+                if ilt_idx < len(params) and params[ilt_idx] > 0:
+                    ilt_id = params[ilt_idx]
+                    if ilt_id not in item_lot_positions:
+                        item_lot_positions[ilt_id] = {
+                            "pos_x": pos_x, "pos_y": pos_y, "pos_z": pos_z,
+                            "area_no": area_no, "grid_x": grid_x, "grid_z": grid_z,
+                            "entity_id": entity_id,
+                            "model_name": entity_data.get("model_name", ""),
+                            "msb_dir": entity_data.get("msb_dir", ""),
+                            "source_emevd": source_name,
+                            "template_id": template_id,
+                        }
+
+            # Skip if already extracted from another source
+            if flag_id in existing_flag_ids:
+                skipped_dup += 1
+                continue
+
+            category = tmpl["category"]
+            template_counts[category] = template_counts.get(category, 0) + 1
 
             # If no entity data, try to derive location from flag ID format
             if area_no is None:
@@ -3580,7 +3602,7 @@ def extract_emevd_templates(
         print(f"    {cat}: {count}")
     print(f"  Skipped {skipped_dup} flags already extracted from other sources")
 
-    return flags
+    return flags, item_lot_positions
 
 
 def extract_map_literal_flags(existing_flag_ids: set) -> List[EventFlag]:
@@ -3863,8 +3885,9 @@ def main():
     print("-" * 40)
 
     print("\nExtracting EMEVD template instantiations...")
-    template_flags = extract_emevd_templates(msb_enemies, msb_enemy_positions, msb_assets, world_map_points, existing_flag_ids)
+    template_flags, item_lot_positions = extract_emevd_templates(msb_enemies, msb_enemy_positions, msb_assets, world_map_points, existing_flag_ids)
     print(f"  Found {len(template_flags)} new flags from templates")
+    print(f"  Item lot positions resolved: {len(item_lot_positions)}")
 
     print("\nExtracting literal flag calls from map EMEVD files...")
     literal_flags = extract_map_literal_flags(existing_flag_ids)
@@ -3896,6 +3919,45 @@ def main():
                 f.dungeon_type = dt
                 dungeon_type_count += 1
     print(f"Dungeon type assigned: {dungeon_type_count} flags")
+
+    # Post-processing: backfill positions from EMEVD enemy entity lookups
+    emevd_backfill_count = 0
+    for f in unique_flags:
+        if f.pos_x is None and f.source_row_id is not None:
+            pos_data = item_lot_positions.get(f.source_row_id)
+            if pos_data:
+                f.pos_x = pos_data["pos_x"]
+                f.pos_y = pos_data["pos_y"]
+                f.pos_z = pos_data["pos_z"]
+                if pos_data.get("area_no") is not None:
+                    f.area_no = pos_data["area_no"]
+                    f.grid_x = pos_data["grid_x"]
+                    f.grid_z = pos_data["grid_z"]
+                    f.map_tile = format_map_tile(f.area_no, f.grid_x, f.grid_z)
+                f.is_overworld = is_overworld_area(f.area_no) if f.area_no else False
+                f.world_x, f.world_z = compute_world_coords(
+                    f.area_no, f.grid_x, f.grid_z, f.pos_x, f.pos_z
+                )
+                f.area_type = get_area_type(f.area_no)
+                f.is_dlc = not is_base_game_area(f.area_no) if f.area_no else False
+                f.position_confidence = "emevd_enemy"
+                f.treasure_type = "enemy_drop"
+                # Update region
+                if f.is_dlc:
+                    f.region = "Shadow of the Erdtree"
+                elif f.area_no and f.area_no != 60:
+                    f.region = get_dungeon_region(f.area_no)
+                elif f.grid_x and f.grid_z:
+                    f.region = get_tile_region(f.grid_x, f.grid_z)
+                # Track provenance
+                f.raw_data["position_source"] = "EMEVD_Enemy"
+                f.raw_data["enemy_entity_id"] = pos_data["entity_id"]
+                f.raw_data["enemy_model"] = pos_data.get("model_name", "")
+                f.raw_data["source_emevd"] = pos_data.get("source_emevd", "")
+                if "EMEVD" not in f.backed_by:
+                    f.backed_by.append("EMEVD")
+                emevd_backfill_count += 1
+    print(f"EMEVD enemy positions backfilled: {emevd_backfill_count} flags")
 
     # Category summary
     print(f"\n{'=' * 40}")

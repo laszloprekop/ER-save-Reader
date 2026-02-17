@@ -4,6 +4,31 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.2 - MSB enemy position resolution for item drops
+
+### Features
+- **EMEVD→ItemLotParam position backfill**: 158 flags that previously lacked coordinates now inherit positions from their drop source enemy's MSB entity data
+- **item_lot_positions map**: `extract_emevd_templates()` now collects a mapping of item_lot_id → position data during template processing, resolving 173 unique item lot positions
+- **Relationship graph extension**: new `enemy_drops_item` edge type in `extract_flag_relationships.py` linking defeat flags to item acquisition flags (245 relationships)
+
+### Implementation
+- Restructured EMEVD template loop to resolve entity data BEFORE dedup check, ensuring positions are captured even for deduplicated flags
+- Post-processing pass matches positionless ItemLotParam flags by `source_row_id` against the item_lot_positions map
+- Backfilled flags receive full spatial enrichment: local coords, world coords, map tile, region, area type, DLC classification
+- Provenance tracked via `position_source: "EMEVD_Enemy"`, `enemy_entity_id`, `enemy_model`, `source_emevd`
+
+### Impact
+- Spatial coverage: local coords 4,405→4,563 (49%→50%), new `enemy_drop` treasure type (158 flags)
+- Categories resolved: Ash of War Drop (129), Spirit Ash Drop (59), Boss Drop (56), Crystal Tear DLC (8)
+- Flag relationship graph: 2,796→3,041 total relationships (+245 enemy_drops_item)
+
+### Files Modified
+- `scripts/extract_event_flags.py`: restructure `extract_emevd_templates()` return type and flow; add backfill post-processing in `main()`
+- `scripts/extract_flag_relationships.py`: add `extract_emevd_enemy_item_relationships()` function and wire into `main()`
+- `scripts/extracted_event_flags.json`: regenerated with backfilled positions
+- `scripts/extracted_event_flags.md`: regenerated
+- `scripts/flag_relationships.json`: regenerated with enemy_drops_item edges
+
 ## v0.17.1 - Classify Unknown flags by acquisition method
 
 ### Database

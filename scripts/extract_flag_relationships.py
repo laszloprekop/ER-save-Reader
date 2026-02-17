@@ -207,6 +207,76 @@ def extract_event_script_relationships() -> List[FlagRelationship]:
 
     return relationships
 
+def extract_emevd_enemy_item_relationships() -> List[FlagRelationship]:
+    """Extract enemy defeat → item acquisition relationships from map EMEVD files."""
+    relationships = []
+
+    # Load ItemLotParam row_id → getItemFlagId mapping
+    itemlot_flags = {}
+    rows = parse_xml_param(REG_BIN / "ItemLotParam_map.param.xml")
+    for row in rows:
+        row_id = int(row.get('id', 0))
+        flag_id = int(row.get('getItemFlagId', 0))
+        if flag_id > 0:
+            itemlot_flags[row_id] = flag_id
+
+    # Templates that link enemy entities to item lots
+    TEMPLATES_WITH_ITEMS = {
+        90005300: {"flag_idx": 0, "item_lot_idx": 2},
+        90005301: {"flag_idx": 0, "item_lot_idx": 2},
+        90005390: {"flag_idx": 0, "item_lot_idx": 5},
+        90005861: {"flag_idx": 0, "item_lot_idx": 4},
+        90005880: {"flag_idx": 0, "item_lot_idx": 4},
+        90005555: {"flag_idx": 0, "item_lot_idx": 1},
+    }
+
+    pattern = re.compile(
+        r'\$InitializeCommonEvent\(\s*\d+\s*,\s*(\d+)\s*,\s*([^)]+)\)'
+    )
+
+    for js_file in sorted(EVENT_DIR.glob("m*.emevd.js")):
+        try:
+            content = js_file.read_text(encoding='utf-8', errors='ignore')
+        except Exception:
+            continue
+
+        for match in pattern.finditer(content):
+            template_id = int(match.group(1))
+            if template_id not in TEMPLATES_WITH_ITEMS:
+                continue
+
+            tmpl = TEMPLATES_WITH_ITEMS[template_id]
+            params = []
+            for p in match.group(2).split(','):
+                p = p.strip()
+                try:
+                    params.append(int(p))
+                except ValueError:
+                    params.append(0)
+
+            flag_idx = tmpl["flag_idx"]
+            ilt_idx = tmpl["item_lot_idx"]
+            if flag_idx >= len(params) or ilt_idx >= len(params):
+                continue
+
+            defeat_flag = params[flag_idx]
+            item_lot_id = params[ilt_idx]
+            if defeat_flag <= 0 or item_lot_id <= 0:
+                continue
+
+            item_flag = itemlot_flags.get(item_lot_id)
+            if item_flag and item_flag != defeat_flag:
+                relationships.append(FlagRelationship(
+                    source_flag=defeat_flag,
+                    target_flag=item_flag,
+                    relationship_type="enemy_drops_item",
+                    source_file=js_file.name,
+                    notes=f"Enemy defeat {defeat_flag} drops item lot {item_lot_id} -> flag {item_flag}"
+                ))
+
+    return relationships
+
+
 def build_flag_graph(relationships: List[FlagRelationship]) -> Dict:
     """Build a graph representation of flag relationships"""
     graph = {
@@ -291,7 +361,12 @@ def main():
     all_relationships.extend(event_rels)
     print(f"   Found {len(event_rels)} relationships")
 
-    print("\n5. Building flag relationship graph...")
+    print("\n5. Processing map EMEVD files (enemy→item relationships)...")
+    emevd_item_rels = extract_emevd_enemy_item_relationships()
+    all_relationships.extend(emevd_item_rels)
+    print(f"   Found {len(emevd_item_rels)} relationships")
+
+    print("\n6. Building flag relationship graph...")
     graph = build_flag_graph(all_relationships)
 
     print(f"\n=== Statistics ===")
