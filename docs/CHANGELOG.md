@@ -4,6 +4,32 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.1 - Classify Unknown flags by acquisition method
+
+### Database
+- **7 new extraction categories** for 582 previously "Unknown" ItemLotParam flags:
+  - Quest Reward (238): NPC quest items, bell bearings, event rewards (400K block)
+  - Ash of War Drop (129): boss/quest ashes of war (540K block)
+  - Spirit Ash Drop (59): spirit ash summons from events (520K block)
+  - Boss Drop (56): boss weapon/item drops (530K block)
+  - Boss Reward (49): remembrances and boss rewards (510K block)
+  - Tutorial (30): info/tutorial popup items (550K block)
+  - Painting (21): collectible paintings (580K block)
+- Only 11 flags remain as "Unknown" (misc edge cases)
+
+### elden-map
+- Registered 7 new category colors and filter group assignments
+- Added `inferMarkerType()` mappings for new categories
+
+### Files Modified
+- `scripts/extract_event_flags.py`: block-range rules in `categorize_flag()`
+- `scripts/extracted_event_flags.json`: regenerated
+- `scripts/extracted_event_flags.md`: regenerated
+
+### elden-map Files Modified
+- `src/types/eventFlag.ts`: 7 category colors, group assignments
+- `src/utils/categoryMapping.ts`: inferMarkerType mappings
+
 ## v0.17.0 - Extractor enrichment & elden-map schema alignment
 
 ### Features

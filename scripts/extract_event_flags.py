@@ -1547,6 +1547,22 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
     elif flag_id >= 10_000_000:
         return "Dungeon Pickup"
 
+    # Block-based event item ranges (non-tile ItemLotParam entries)
+    if 580_000 <= flag_id <= 580_999:
+        return "Painting"
+    elif 550_000 <= flag_id <= 559_999:
+        return "Tutorial"
+    elif 540_000 <= flag_id <= 549_999:
+        return "Ash of War Drop"
+    elif 530_000 <= flag_id <= 539_999:
+        return "Boss Drop"
+    elif 520_000 <= flag_id <= 529_999:
+        return "Spirit Ash Drop"
+    elif 510_000 <= flag_id <= 519_999:
+        return "Boss Reward"
+    elif 400_000 <= flag_id <= 409_999:
+        return "Quest Reward"
+
     return "Unknown"
 
 

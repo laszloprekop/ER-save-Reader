@@ -2435,591 +2435,591 @@ Total unique flags: 8993
 | 380250 | Remembrance of the Mother of Fingers - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 380260 | Remembrance of Putrescence - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 400000 | Forked Greatsword - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 400001 | Rold Medallion | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400010 | Good_8100 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400020 | Neutralizing Boluses | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400021 | Good_8101 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400030 | Festering Bloody Finger | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400031 | Lord of Blood's Favor | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400032 | Pureblood Knight's Medal | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400033 | Lord of Blood's Favor | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400036 | Festering Bloody Finger | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400037 | Varré's Bouquet | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400040 | Good_125 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400041 | Perfume Bottle | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400042 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400049 | Kalé's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400050 | Grace Mimic | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400051 | Gostoc's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400060 | Sacrificial Twig | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400061 | Shabriri Grape | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400069 | Item_5000 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400070 | Tonic of Forgetfulness | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400071 | Consort's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400072 | Drawing-Room Key | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400073 | Letter from Volcano Manor | Unknown | Various | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | 2 | - | N | ItemLotParam_map |
-| 400074 | Letter from Volcano Manor | Unknown | Various | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | 2 | - | N | ItemLotParam_map |
-| 400075 | Red Letter | Unknown | Various | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | - | 2 | - | N | ItemLotParam_map |
-| 400076 | Magma Shot | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400077 | Serpentbone Blade | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400078 | Taker's Cameo | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400079 | Aspects of the Crucible: Breath | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400080 | Irina's Letter | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400081 | [ERROR]Rya's Necklace | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400089 | Frenzied Flame Seal | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400090 | Volcano Manor Invitation | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400091 | Zorayas's Letter | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400100 | Sellen's Primal Glintstone | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400101 | Glintstone Kris | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400102 | Sellian Sealbreaker | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400103 | Starlight Shards | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400104 | Comet Azur | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400105 | Stars of Ruin | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400106 | Sellen's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400107 | Twinsage Glintstone Crown | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400108 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400109 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400120 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400121 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400130 | Haligtree Secret Medallion (Right) | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400140 | Seluvis's Potion | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400141 | Magic Scorpion Charm | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400142 | Good_8165 | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400143 | Seluvis's Introduction | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400144 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400145 | Amber Draught | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400148 | Seluvis's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400149 | Pidia's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400150 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400158 | Royal Greatsword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400159 | Discarded Palace Key | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400161 | Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400162 | Eleonora's Poleblade | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400163 | Item_5030 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400164 | Iron Kasa | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400170 | Exalted Flesh | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400171 | Exalted Flesh | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400172 | Jar | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400173 | Alexander's Innards | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400174 | Shard of Alexander | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400175 | Warrior Jar Shard | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400180 | Letter to Patches | Unknown | Various | m39_20_00 | -88.0, 353.1, -1332.3 | - | - | 2 | - | - | ItemLotParam_map |
-| 400181 | Dancer's Castanets | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400182 | Magma Whip Candlestick | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400183 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400184 | Spear | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400189 | Patches' Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400190 | Spirit Jellyfish Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400191 | Golden Seed | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400209 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400210 | Whetstone Knife | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400220 | Golden Seed | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400221 | Erdsteel Dagger | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400230 | Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400231 | Gurranq's Beast Claw | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400232 | Beastclaw Greathammer | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400233 | Stone of Gurranq | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400234 | Beast Claw | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400235 | Ash of War: Beast's Roar | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400236 | Bestial Vitality | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400237 | Bestial Sling | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400238 | Clawmark Seal | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400239 | Beast Eye | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400240 | Iji's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400241 | Nox Mirrorhelm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400260 | Glowstone | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400271 | Mushroom | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400280 | Haligtree Secret Medallion (Left) | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400281 | Good_8178 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400282 | Black Flame's Protection | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400283 | Lord's Divine Fortification | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400284 | All-Knowing Helm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400285 | Law of Causality | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400290 | Letter to Bernahl | Unknown | Various | m11_00_00 | -272.4, -32.6, -278.9 | - | - | 2 | - | - | ItemLotParam_map |
-| 400291 | Gelmir's Fury | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400292 | Blasphemous Claw | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400293 | Devourer's Scepter | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400294 | Beast Champion Helm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400295 | Gelmir's Fury | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400299 | Bernahl's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400300 | Rya's Necklace | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400308 | Seedbed Curse | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400309 | Item_5040 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400310 | Unalloyed Gold Needle | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400311 | Sellia's Secret | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400312 | Flock's Canvas Talisman | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400320 | Prosthesis-Wearer Heirloom | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400321 | Unalloyed Gold Needle | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400323 | Millicent's Prosthesis | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400324 | Miquella's Needle | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400325 | Somber Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400331 | Weathered Dagger | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400332 | Sacrificial Twig | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400333 | Radiant Baldachin's Blessing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400334 | Knifeprint Clue | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400339 | Fia's Hood | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400348 | Inseparable Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400349 | D's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400356 | Rogier's Letter | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400357 | Black Knifeprint | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400358 | Item_5010 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400359 | Rogier's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400360 | Thops's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400361 | Academy Glintstone Staff | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400362 | Thops's Barrier | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400370 | Corhyn's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400380 | Sewer-Gaol Key | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400381 | Sword of Milos | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400382 | Omen Helm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400390 | Lone Wolf Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400391 | Carian Inverted Statue | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400392 | Cursemark of Death | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400393 | Dark Moon Greatsword | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400394 | Miniature Ranni | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400395 | Fingerslayer Blade | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400400 | Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400401 | Eccentric's Hood | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400410 | Latenna the Albinauric | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400411 | Somber Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400412 | Blue Silver Mail Hood | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400420 | Arsenal Charm | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400421 | Stormhawk Axe | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400422 | Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400430 | Stars of Ruin | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400431 | Lusat's Glintstone Crown | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400440 | Comet Azur | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400441 | Lusat's Glintstone Crown | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400451 | Hoslow's Petal Whip | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400452 | Numen's Rune | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400460 | Companion Jar | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400470 | Great-Jar's Arsenal | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400480 | Rotten Winged Sword Insignia | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400490 | Royal Remains Helm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400500 | Radiant Gold Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400510 | Great Stars | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400590 | Lacerating Crossed-Tree | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400592 | Retaliatory Crossed-Tree | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400594 | Ash of War: Swift Slash | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400595 | Ansbach's Longbow | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400596 | Leda's Rune | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400598 | Oathseeker Knight Helm | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400600 | Golden Lion Shield | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400602 | Freyja's Greatsword | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400610 | Cross Map | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400611 | New Cross Map | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400612 | Furnace Visage | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400614 | Falx | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400620 | Letter for Freyja | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400622 | Wise Man's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400623 | Ansbach's Longbow | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400624 | Wise Man's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400625 | Wise Man's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400627 | Wise Man's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400630 | Thiollier's Concoction | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400632 | St. Trina's Smile | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400634 | Thiollier's Hidden Needle | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400636 | Thiollier's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400642 | Black Syrup | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400644 | Moore's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400645 | Verdigris Greatshield | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400660 | Hole-Laden Necklace | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400661 | Ruins Map (2nd) | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400662 | Ruins Map (3rd) | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400664 | Ymir's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400666 | Cherishing Fingers | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400670 | Swordhand of Night Jolán | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400671 | Sword of Night | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400672 | Claws of Night | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400690 | Fire Knight Queelign | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400692 | Queelign's Greatsword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400694 | Crusade Insignia | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400696 | Ash of War: Flame Skewer | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400700 | Ancient Dragon Florissax | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400702 | Dragonbolt of Florissax | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400704 | Priestess Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400710 | Igon's Furled Finger | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400711 | Igon's Greatbow | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400712 | Item_4548045 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400714 | Igon's Greatbow | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400720 | Scorpion Stew | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400721 | Watchful Spirit | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400722 | Gourmet Scorpion Stew | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400723 | Gourmet Scorpion Stew | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400730 | Item_4401055 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 400732 | Dane's Footwork | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400740 | St. Trina's Blossom | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 400750 | Glintslab Firefly | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400751 | Pearlescent Scale | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 400752 | Dewgem | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400753 | Black Pyrefly | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400754 | Yellow Fulgurbloom | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400755 | Shadow Sunflower | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 400901 | Nomadic Merchant's Bell Bearing [1] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400902 | Nomadic Merchant's Bell Bearing [2] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400903 | Nomadic Merchant's Bell Bearing [3] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400904 | Nomadic Merchant's Bell Bearing [4] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400905 | Nomadic Merchant's Bell Bearing [5] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400906 | Isolated Merchant's Bell Bearing [1] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400907 | Isolated Merchant's Bell Bearing [2] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400908 | Nomadic Merchant's Bell Bearing [6] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400909 | Hermit Merchant's Bell Bearing [1] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400910 | Nomadic Merchant's Bell Bearing [7] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400911 | Nomadic Merchant's Bell Bearing [8] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400912 | Nomadic Merchant's Bell Bearing [9] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400913 | Nomadic Merchant's Bell Bearing [10] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400914 | [ERROR]Nomadic Merchant's Bell Bearing [11] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400915 | Isolated Merchant's Bell Bearing [3] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400916 | Hermit Merchant's Bell Bearing [2] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400917 | Abandoned Merchant's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400918 | Hermit Merchant's Bell Bearing [3] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 400919 | Imprisoned Merchant's Bell Bearing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400001 | Rold Medallion | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400010 | Good_8100 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400020 | Neutralizing Boluses | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400021 | Good_8101 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400030 | Festering Bloody Finger | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400031 | Lord of Blood's Favor | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400032 | Pureblood Knight's Medal | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400033 | Lord of Blood's Favor | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400036 | Festering Bloody Finger | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400037 | Varré's Bouquet | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400040 | Good_125 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400041 | Perfume Bottle | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400042 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400049 | Kalé's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400050 | Grace Mimic | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400051 | Gostoc's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400060 | Sacrificial Twig | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400061 | Shabriri Grape | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400069 | Item_5000 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400070 | Tonic of Forgetfulness | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400071 | Consort's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400072 | Drawing-Room Key | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400073 | Letter from Volcano Manor | Quest Reward | Various | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | 2 | - | N | ItemLotParam_map |
+| 400074 | Letter from Volcano Manor | Quest Reward | Various | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | 2 | - | N | ItemLotParam_map |
+| 400075 | Red Letter | Quest Reward | Various | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | - | 2 | - | N | ItemLotParam_map |
+| 400076 | Magma Shot | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400077 | Serpentbone Blade | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400078 | Taker's Cameo | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400079 | Aspects of the Crucible: Breath | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400080 | Irina's Letter | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400081 | [ERROR]Rya's Necklace | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400089 | Frenzied Flame Seal | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400090 | Volcano Manor Invitation | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400091 | Zorayas's Letter | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400100 | Sellen's Primal Glintstone | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400101 | Glintstone Kris | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400102 | Sellian Sealbreaker | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400103 | Starlight Shards | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400104 | Comet Azur | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400105 | Stars of Ruin | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400106 | Sellen's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400107 | Twinsage Glintstone Crown | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400108 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400109 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400120 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400121 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400130 | Haligtree Secret Medallion (Right) | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400140 | Seluvis's Potion | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400141 | Magic Scorpion Charm | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400142 | Good_8165 | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400143 | Seluvis's Introduction | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400144 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400145 | Amber Draught | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400148 | Seluvis's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400149 | Pidia's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400150 | Somber Smithing Stone [2] | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400158 | Royal Greatsword | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400159 | Discarded Palace Key | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400161 | Smithing Stone [5] | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400162 | Eleonora's Poleblade | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400163 | Item_5030 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400164 | Iron Kasa | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400170 | Exalted Flesh | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400171 | Exalted Flesh | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400172 | Jar | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400173 | Alexander's Innards | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400174 | Shard of Alexander | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400175 | Warrior Jar Shard | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400180 | Letter to Patches | Quest Reward | Various | m39_20_00 | -88.0, 353.1, -1332.3 | - | - | 2 | - | - | ItemLotParam_map |
+| 400181 | Dancer's Castanets | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400182 | Magma Whip Candlestick | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400183 | Golden Rune [1] | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400184 | Spear | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400189 | Patches' Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400190 | Spirit Jellyfish Ashes | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400191 | Golden Seed | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400209 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400210 | Whetstone Knife | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400220 | Golden Seed | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400221 | Erdsteel Dagger | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400230 | Ancient Dragon Smithing Stone | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400231 | Gurranq's Beast Claw | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400232 | Beastclaw Greathammer | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400233 | Stone of Gurranq | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400234 | Beast Claw | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400235 | Ash of War: Beast's Roar | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400236 | Bestial Vitality | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400237 | Bestial Sling | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400238 | Clawmark Seal | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400239 | Beast Eye | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400240 | Iji's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400241 | Nox Mirrorhelm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400260 | Glowstone | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400271 | Mushroom | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400280 | Haligtree Secret Medallion (Left) | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400281 | Good_8178 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400282 | Black Flame's Protection | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400283 | Lord's Divine Fortification | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400284 | All-Knowing Helm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400285 | Law of Causality | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400290 | Letter to Bernahl | Quest Reward | Various | m11_00_00 | -272.4, -32.6, -278.9 | - | - | 2 | - | - | ItemLotParam_map |
+| 400291 | Gelmir's Fury | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400292 | Blasphemous Claw | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400293 | Devourer's Scepter | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400294 | Beast Champion Helm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400295 | Gelmir's Fury | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400299 | Bernahl's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400300 | Rya's Necklace | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400308 | Seedbed Curse | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400309 | Item_5040 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400310 | Unalloyed Gold Needle | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400311 | Sellia's Secret | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400312 | Flock's Canvas Talisman | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400320 | Prosthesis-Wearer Heirloom | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400321 | Unalloyed Gold Needle | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400323 | Millicent's Prosthesis | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400324 | Miquella's Needle | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400325 | Somber Ancient Dragon Smithing Stone | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400331 | Weathered Dagger | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400332 | Sacrificial Twig | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400333 | Radiant Baldachin's Blessing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400334 | Knifeprint Clue | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400339 | Fia's Hood | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400348 | Inseparable Sword | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400349 | D's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400356 | Rogier's Letter | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400357 | Black Knifeprint | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400358 | Item_5010 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400359 | Rogier's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400360 | Thops's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400361 | Academy Glintstone Staff | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400362 | Thops's Barrier | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400370 | Corhyn's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400380 | Sewer-Gaol Key | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400381 | Sword of Milos | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400382 | Omen Helm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400390 | Lone Wolf Ashes | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400391 | Carian Inverted Statue | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400392 | Cursemark of Death | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400393 | Dark Moon Greatsword | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400394 | Miniature Ranni | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400395 | Fingerslayer Blade | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400400 | Ancient Dragon Smithing Stone | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400401 | Eccentric's Hood | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400410 | Latenna the Albinauric | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400411 | Somber Ancient Dragon Smithing Stone | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400412 | Blue Silver Mail Hood | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400420 | Arsenal Charm | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400421 | Stormhawk Axe | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400422 | Ancient Dragon Smithing Stone | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400430 | Stars of Ruin | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400431 | Lusat's Glintstone Crown | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400440 | Comet Azur | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400441 | Lusat's Glintstone Crown | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400451 | Hoslow's Petal Whip | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400452 | Numen's Rune | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400460 | Companion Jar | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400470 | Great-Jar's Arsenal | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400480 | Rotten Winged Sword Insignia | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400490 | Royal Remains Helm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400500 | Radiant Gold Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400510 | Great Stars | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400590 | Lacerating Crossed-Tree | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400592 | Retaliatory Crossed-Tree | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400594 | Ash of War: Swift Slash | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400595 | Ansbach's Longbow | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400596 | Leda's Rune | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400598 | Oathseeker Knight Helm | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400600 | Golden Lion Shield | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400602 | Freyja's Greatsword | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400610 | Cross Map | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400611 | New Cross Map | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400612 | Furnace Visage | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400614 | Falx | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400620 | Letter for Freyja | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400622 | Wise Man's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400623 | Ansbach's Longbow | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400624 | Wise Man's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400625 | Wise Man's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400627 | Wise Man's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400630 | Thiollier's Concoction | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400632 | St. Trina's Smile | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400634 | Thiollier's Hidden Needle | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400636 | Thiollier's Mask | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400642 | Black Syrup | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400644 | Moore's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400645 | Verdigris Greatshield | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400660 | Hole-Laden Necklace | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400661 | Ruins Map (2nd) | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400662 | Ruins Map (3rd) | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400664 | Ymir's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400666 | Cherishing Fingers | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400670 | Swordhand of Night Jolán | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400671 | Sword of Night | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400672 | Claws of Night | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400690 | Fire Knight Queelign | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400692 | Queelign's Greatsword | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400694 | Crusade Insignia | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400696 | Ash of War: Flame Skewer | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400700 | Ancient Dragon Florissax | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400702 | Dragonbolt of Florissax | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400704 | Priestess Heart | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400710 | Igon's Furled Finger | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400711 | Igon's Greatbow | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400712 | Item_4548045 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400714 | Igon's Greatbow | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400720 | Scorpion Stew | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400721 | Watchful Spirit | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400722 | Gourmet Scorpion Stew | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400723 | Gourmet Scorpion Stew | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400730 | Item_4401055 | Quest Reward | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 400732 | Dane's Footwork | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400740 | St. Trina's Blossom | Quest Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 400750 | Glintslab Firefly | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400751 | Pearlescent Scale | Quest Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 400752 | Dewgem | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400753 | Black Pyrefly | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400754 | Yellow Fulgurbloom | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400755 | Shadow Sunflower | Quest Reward | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 400901 | Nomadic Merchant's Bell Bearing [1] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400902 | Nomadic Merchant's Bell Bearing [2] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400903 | Nomadic Merchant's Bell Bearing [3] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400904 | Nomadic Merchant's Bell Bearing [4] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400905 | Nomadic Merchant's Bell Bearing [5] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400906 | Isolated Merchant's Bell Bearing [1] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400907 | Isolated Merchant's Bell Bearing [2] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400908 | Nomadic Merchant's Bell Bearing [6] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400909 | Hermit Merchant's Bell Bearing [1] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400910 | Nomadic Merchant's Bell Bearing [7] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400911 | Nomadic Merchant's Bell Bearing [8] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400912 | Nomadic Merchant's Bell Bearing [9] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400913 | Nomadic Merchant's Bell Bearing [10] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400914 | [ERROR]Nomadic Merchant's Bell Bearing [11] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400915 | Isolated Merchant's Bell Bearing [3] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400916 | Hermit Merchant's Bell Bearing [2] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400917 | Abandoned Merchant's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400918 | Hermit Merchant's Bell Bearing [3] | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 400919 | Imprisoned Merchant's Bell Bearing | Quest Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 500010 | Roped Fire Pot | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 500020 | Good_12 | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
 | 500520 | Good_12 | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 510010 | Remembrance of the Grafted | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510030 | Ornamental Straight Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510040 | Remembrance of the Omen King | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510060 | Scepter of the All-Knowing | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510070 | Remembrance of Hoarah Loux | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510080 | Remembrance of the Naturalborn | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510090 | Frozen Lightning Spear | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510100 | Gargoyle's Greatsword | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510110 | Remembrance of the Lichdragon | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510120 | Remembrance of the Blood Lord | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510140 | Smithing-Stone Miner's Bell Bearing [4] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510150 | Remembrance of the Dragonlord | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510160 | Remembrance of the Black Blade | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510190 | Loretta's Mastery | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510200 | Remembrance of the Rot Goddess | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510210 | Godskin Stitcher | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510220 | Remembrance of the Blasphemous | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510230 | Elden Remembrance | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510250 | Bloodflame Talons | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510260 | Magma Wyrm's Scalesword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510280 | Golden Seed | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510290 | Inquisitor's Girandole | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510300 | Remembrance of the Starscourge | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510310 | Remembrance of the Fire Giant | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510320 | Ancestral Follower Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510330 | Remembrance of the Regal Ancestor | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510340 | Larval Tear | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510350 | Fia's Mist | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510400 | Remembrance of the Dancing Lion | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510420 | Leda's Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510430 | Remembrance of a God and a Lord | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510440 | Aspects of the Crucible: Thorns | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 510460 | Remembrance of the Impaler | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510480 | Remembrance of Putrescence | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510550 | Remembrance of the Mother of Fingers | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510560 | Remembrance of the Lord of Frenzied Flame | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510600 | Remembrance of the Saint of the Bud | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510610 | Barbed Staff-Spear | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510620 | Remembrance of the Shadow Sunflower | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510630 | Heart of Bayle | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510640 | Remembrance of the Wild Boar Rider | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510730 | Godskin Apostle Hood | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510740 | Omenkiller Rollo | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510800 | Grafted Blade Greatsword | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510810 | Loretta's Greatbow | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510820 | Marais Executioner's Sword | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510830 | Ruins Greatsword | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 510840 | Veteran's Prosthesis | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 510900 | Remembrance of the Twin Moon Knight | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520000 | Lhutel the Headless | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520010 | Demi-Human Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520020 | Noble Sorcerer Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520030 | Assassin's Crimson Dagger | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520040 | Banished Knight Engvall | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520050 | Twinsage Sorcerer Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520060 | Glintstone Sorcerer Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520070 | Kaiden Sellsword Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520080 | Ancient Dragon Knight Kristoff | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520090 | Bloodhound Knight Floh | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520100 | Ordovis's Greatsword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520110 | Perfumer Tricia | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520120 | Glovewort Picker's Bell Bearing [1] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520130 | Soldjars of Fortune Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520140 | Mad Pumpkin Head Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520150 | Kindred of Rot Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520160 | Redmane Knight Ogha | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520170 | Zamor Curved Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520180 | Golden Seed | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520190 | Great Grave Glovewort | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520200 | Blackflame Monk Amon | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520210 | Assassin's Cerulean Dagger | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520220 | Lord of Blood's Exultation | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520300 | Viridian Amber Medallion | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520310 | Spelldrake Talisman | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520330 | Flamedrake Talisman | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520340 | Sewing Needle | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520350 | Blue Dancer Charm | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520360 | Winged Sword Insignia | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520370 | Cerulean Amber Medallion | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520380 | Crystal Release | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520390 | Kindred of Rot's Exultation | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520400 | Jar Cannon | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520410 | Great Omenkiller Cleaver | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520420 | Concealing Veil | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520430 | Putrid Corpse Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520440 | Flamedrake Talisman +2 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520450 | Gold Scarab | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520460 | Crystal Torrent | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520470 | Golden Order Greatsword | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 520480 | Godskin Swaddling Cloth | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520490 | Family Heads | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520600 | Rusted Anchor | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520610 | Roar Medallion | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520620 | Smithing-Stone Miner's Bell Bearing [1] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520630 | Great Club | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520640 | Onyx Lord's Greatsword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520650 | Somberstone Miner's Bell Bearing [2] | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520660 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520670 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520680 | Meteorite of Astel | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520700 | Death Knight's Twin Axes | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520710 | Death Knight's Longhaft Axe | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520711 | Cerulean Amber Medallion +3 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 520750 | Demi-Human Swordsman Yosh | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520760 | Curseblade Meera | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520770 | Lamenter's Mask | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 520800 | Bloodfiend Hexer's Ashes | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 520810 | Dragon-Hunter's Great Katana | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530100 | Golden Halberd | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530110 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530120 | Aspects of the Crucible: Tail | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530130 | Bloodhound's Fang | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530170 | Deathroot | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530210 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530225 | Crucible Knot Talisman | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 530240 | Deathroot | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530245 | Flame of the Fell God | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530250 | Greatblade Phalanx | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530255 | Meteorite | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530260 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530265 | Black Knife Tiche | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530300 | Lansseax's Glaive | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530310 | Somber Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530315 | Dragon Greatclaw | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530325 | Godskin Peeler | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530335 | Erdtree Greatshield | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530350 | Black Knife | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530375 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530385 | Deathroot | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530390 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530400 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530405 | Commander's Standard | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530420 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530425 | Gargoyle's Blackblade | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530505 | Gargoyle's Black Blades | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530510 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530515 | Vyke's Dragonbolt | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530530 | Death Ritual Spear | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530550 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530600 | Dragonscale Blade | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530620 | Dragon Halberd | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530800 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530805 | Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530810 | Dancing Blade of Ranah | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530820 | Greatsword of Solitude | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530830 | Rakshasa's Great Katana | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530840 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530845 | Star-Lined Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530850 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530855 | Ash of War: Ghostflame Call | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 530860 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530861 | Somber Ancient Dragon Smithing Stone | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530865 | Moonrithyll's Knight Sword | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530900 | Red Bear's Claw | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530905 | Roar of Rugalea | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530930 | Pelt of Ralva | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530935 | Blessing of Marika | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530940 | Divine Beast Tornado | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530945 | Dragon Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530950 | Blessing of Marika | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 530955 | Black Steel Greatshield | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 530960 | Gravitational Missile | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 530965 | Ash of War: Aspects of the Crucible: Wings | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 530995 | Rimed Rowa | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540100 | Ash of War: Storm Wall | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540104 | Ash of War: Wild Strikes | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540108 | Ash of War: Determination | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540112 | Ash of War: Unsheathe | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540116 | Ash of War: Ground Slam | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540118 | Ash of War: Sacred Blade | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540120 | Ash of War: Stamp (Sweep) | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540132 | Divine Fortification | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540136 | Lightning Strike | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540138 | Poison Mist | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540140 | Ash of War: Mighty Shot | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540142 | Somber Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540144 | Somber Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540146 | Somber Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540170 | Ash of War: Storm Assault | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540172 | Ash of War: Stormcaller | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540174 | Rancorcall | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540200 | Ash of War: Chilling Mist | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540202 | Ash of War: Charge Forth | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540204 | Ash of War: Hoarfrost Stomp | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540206 | Ash of War: Thops's Barrier | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540208 | Ash of War: Vow of the Indomitable | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540210 | Ash of War: Shield Bash | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540218 | Bloodflame Blade | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540220 | Carian Piercer | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540224 | Ash of War: Barbaric Roar | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540236 | Frenzied Burst | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540238 | Ash of War: Sword Dance | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540250 | Frozen Armament | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540252 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540254 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540256 | Somber Smithing Stone [3] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540258 | Somber Smithing Stone [3] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540260 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540262 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540264 | Somber Smithing Stone [2] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540272 | Ash of War: Spectral Lance | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540290 | Somber Smithing Stone [4] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540300 | Ash of War: Sacred Order | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540302 | Ash of War: Shield Crash | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540304 | Ash of War: Earthshaker | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540306 | Ash of War: Blood Blade | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540308 | Ash of War: Golden Slam | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540310 | Ash of War: Lightning Ram | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540312 | Protection of the Erdtree | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 540314 | Ash of War: Prayerful Strike | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540316 | Ash of War: Golden Parry | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540318 | Ash of War: Lightning Slash | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540320 | Somber Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540332 | Ash of War: Barrage | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540334 | Ash of War: Through and Through | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540370 | Barrier of Gold | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540372 | Ash of War: Thunderbolt | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540400 | Whirl, O Flame! | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540402 | Ash of War: Lifesteal Fist | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540404 | Ash of War: Sacred Ring of Light | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540406 | Ash of War: Poisonous Mist | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540408 | Ash of War: Flaming Strike | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540410 | Ash of War: Flame of the Redmanes | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540412 | Ash of War: Sky Shot | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540414 | Ash of War: Cragblade | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540416 | Poison Armament | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540418 | Ash of War: Double Slash | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540420 | Bestial Constitution | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540422 | Somber Smithing Stone [4] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540424 | Somber Smithing Stone [4] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540426 | Somber Smithing Stone [8] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540428 | Somber Smithing Stone [9] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540500 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540502 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540504 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540506 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540508 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540510 | Ash of War: Seppuku | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540512 | Ash of War: Troll's Roar | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540514 | Flame, Protect Me | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540516 | Ash of War: Prelate's Charge | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540520 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540522 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540524 | Ash of War: White Shadow's Lure | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540526 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540528 | Smithing Stone [1] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540570 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540572 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540574 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540576 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540590 | Somber Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540592 | Somber Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540600 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540602 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540610 | Great Oracular Bubble | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540612 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540614 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540616 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540618 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540630 | Ash of War: Square Off | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540632 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540634 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540636 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540638 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540640 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540642 | Somber Smithing Stone [5] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540644 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540646 | Ash of War: Enchanted Shot | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540648 | Order Healing | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540650 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540652 | Oracle Bubbles | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540660 | Ash of War: Golden Land | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540662 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540664 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540666 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540668 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540670 | Somber Smithing Stone [6] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540680 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540682 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540684 | Golden Rune [1] | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 540686 | Ash of War: Blood Tax | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540772 | Golden Lightning Fortification | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540900 | Ash of War: Carian Sovereignty | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540902 | Ash of War: Piercing Throw | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540904 | Ash of War: Rolling Sparks | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540906 | Ash of War: Raging Beast | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540910 | Ash of War: Scattershot Throw | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540912 | Somber Smithing Stone [9] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540914 | Somber Smithing Stone [7] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540916 | Ash of War: The Poison Flower Blooms Twice | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 540920 | Somber Smithing Stone [8] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540922 | Somber Smithing Stone [8] | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 540998 | Rimed Rowa | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550000 | About Sites of Grace | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550010 | About Sorceries and Incantations | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550020 | About Bows | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550030 | About Crouching | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550040 | About Stance-Breaking | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550050 | About Stakes of Marika | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550060 | About Guard Counters | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550070 | About the Map | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550080 | About Guidance of Grace | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550090 | About Horseback Riding | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550100 | About Death | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550110 | About Summoning Spirits | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550120 | About Guarding | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550130 | About Item Crafting | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550140 | Good_9114 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
-| 550150 | About Flask of Wondrous Physick | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550160 | About Adding Skills | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550170 | About Birdseye Telescopes | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550180 | About Spiritspring Jumping | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550190 | About Vanquishing Enemy Groups | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550200 | About Teardrop Scarabs | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550210 | About Summoning Other Players | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550220 | About Cooperative Multiplayer | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550230 | About Competitive Multiplayer | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550240 | About Invasion Multiplayer | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550250 | About Hunter Multiplayer | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550260 | About Summoning Pools | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550270 | About Monument Icon | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550280 | About Requesting Help from Hunters | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 550290 | About Skills | Unknown | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
-| 580000 | "Homing Instinct" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580010 | "Resurrection" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580020 | "Champion's Song" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580030 | "Sorcerer" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580040 | "Prophecy" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580050 | "Flightless Bird" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580060 | "Redmane" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580100 | "Incursion" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580110 | "The Sacred Tower" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580120 | "Domain of Dragons" Painting | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580300 | Ash-of-War Scarab | Unknown | Various | m60_43_36 | -94.8, 66.2, -101.5 | 10913.2, 9114.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 580310 | Juvenile Scholar Cap | Unknown | Various | m60_36_50 | -42.0, 380.8, -67.7 | 9174.0, 12732.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 580320 | Harp Bow | Unknown | Various | m60_41_52 | 33.5, 927.2, -7.2 | 10529.5, 13304.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 580330 | Greathood | Unknown | Various | m60_50_56 | 115.4, 1648.0, 96.3 | 12915.4, 14432.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 580340 | Warhawk Ashes | Unknown | Various | m60_42_35 | 134.8, 85.0, -82.4 | 10886.8, 8877.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
-| 580350 | Fire's Deadly Sin | Unknown | Various | m60_42_54 | 10.3, 955.0, 74.6 | 10762.3, 13898.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
-| 580360 | Ash of War: Rain of Arrows | Unknown | Various | m60_51_40 | 40.9, 112.5, -45.4 | 13096.9, 10194.6 | ground_pickup | - | high | N | ItemLotParam_map |
-| 580400 | Serpent Crest Shield | Unknown | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
-| 580410 | Spiraltree Seal | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580420 | Rock Heart | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
-| 580600 | Message from Leda | Unknown | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510010 | Remembrance of the Grafted | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510030 | Ornamental Straight Sword | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510040 | Remembrance of the Omen King | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510060 | Scepter of the All-Knowing | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510070 | Remembrance of Hoarah Loux | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510080 | Remembrance of the Naturalborn | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510090 | Frozen Lightning Spear | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510100 | Gargoyle's Greatsword | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510110 | Remembrance of the Lichdragon | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510120 | Remembrance of the Blood Lord | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510140 | Smithing-Stone Miner's Bell Bearing [4] | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510150 | Remembrance of the Dragonlord | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510160 | Remembrance of the Black Blade | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510190 | Loretta's Mastery | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510200 | Remembrance of the Rot Goddess | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510210 | Godskin Stitcher | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510220 | Remembrance of the Blasphemous | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510230 | Elden Remembrance | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510250 | Bloodflame Talons | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510260 | Magma Wyrm's Scalesword | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510280 | Golden Seed | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510290 | Inquisitor's Girandole | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510300 | Remembrance of the Starscourge | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510310 | Remembrance of the Fire Giant | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510320 | Ancestral Follower Ashes | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510330 | Remembrance of the Regal Ancestor | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510340 | Larval Tear | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510350 | Fia's Mist | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510400 | Remembrance of the Dancing Lion | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510420 | Leda's Sword | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510430 | Remembrance of a God and a Lord | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510440 | Aspects of the Crucible: Thorns | Boss Reward | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 510460 | Remembrance of the Impaler | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510480 | Remembrance of Putrescence | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510550 | Remembrance of the Mother of Fingers | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510560 | Remembrance of the Lord of Frenzied Flame | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510600 | Remembrance of the Saint of the Bud | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510610 | Barbed Staff-Spear | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510620 | Remembrance of the Shadow Sunflower | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510630 | Heart of Bayle | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510640 | Remembrance of the Wild Boar Rider | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510730 | Godskin Apostle Hood | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510740 | Omenkiller Rollo | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510800 | Grafted Blade Greatsword | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510810 | Loretta's Greatbow | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510820 | Marais Executioner's Sword | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510830 | Ruins Greatsword | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 510840 | Veteran's Prosthesis | Boss Reward | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 510900 | Remembrance of the Twin Moon Knight | Boss Reward | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520000 | Lhutel the Headless | Spirit Ash Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520010 | Demi-Human Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520020 | Noble Sorcerer Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520030 | Assassin's Crimson Dagger | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520040 | Banished Knight Engvall | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520050 | Twinsage Sorcerer Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520060 | Glintstone Sorcerer Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520070 | Kaiden Sellsword Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520080 | Ancient Dragon Knight Kristoff | Spirit Ash Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520090 | Bloodhound Knight Floh | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520100 | Ordovis's Greatsword | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520110 | Perfumer Tricia | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520120 | Glovewort Picker's Bell Bearing [1] | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520130 | Soldjars of Fortune Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520140 | Mad Pumpkin Head Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520150 | Kindred of Rot Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520160 | Redmane Knight Ogha | Spirit Ash Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520170 | Zamor Curved Sword | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520180 | Golden Seed | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520190 | Great Grave Glovewort | Spirit Ash Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520200 | Blackflame Monk Amon | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520210 | Assassin's Cerulean Dagger | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520220 | Lord of Blood's Exultation | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520300 | Viridian Amber Medallion | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520310 | Spelldrake Talisman | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520330 | Flamedrake Talisman | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520340 | Sewing Needle | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520350 | Blue Dancer Charm | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520360 | Winged Sword Insignia | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520370 | Cerulean Amber Medallion | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520380 | Crystal Release | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520390 | Kindred of Rot's Exultation | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520400 | Jar Cannon | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520410 | Great Omenkiller Cleaver | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520420 | Concealing Veil | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520430 | Putrid Corpse Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520440 | Flamedrake Talisman +2 | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520450 | Gold Scarab | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520460 | Crystal Torrent | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520470 | Golden Order Greatsword | Spirit Ash Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 520480 | Godskin Swaddling Cloth | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520490 | Family Heads | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520600 | Rusted Anchor | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520610 | Roar Medallion | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520620 | Smithing-Stone Miner's Bell Bearing [1] | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520630 | Great Club | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520640 | Onyx Lord's Greatsword | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520650 | Somberstone Miner's Bell Bearing [2] | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520660 | Dragon Heart | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520670 | Somber Smithing Stone [6] | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520680 | Meteorite of Astel | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520700 | Death Knight's Twin Axes | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520710 | Death Knight's Longhaft Axe | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520711 | Cerulean Amber Medallion +3 | Spirit Ash Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 520750 | Demi-Human Swordsman Yosh | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520760 | Curseblade Meera | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520770 | Lamenter's Mask | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 520800 | Bloodfiend Hexer's Ashes | Spirit Ash Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 520810 | Dragon-Hunter's Great Katana | Spirit Ash Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530100 | Golden Halberd | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530110 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530120 | Aspects of the Crucible: Tail | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530130 | Bloodhound's Fang | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530170 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530210 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530225 | Crucible Knot Talisman | Boss Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 530240 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530245 | Flame of the Fell God | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530250 | Greatblade Phalanx | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530255 | Meteorite | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530260 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530265 | Black Knife Tiche | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530300 | Lansseax's Glaive | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530310 | Somber Smithing Stone [5] | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530315 | Dragon Greatclaw | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530325 | Godskin Peeler | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530335 | Erdtree Greatshield | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530350 | Black Knife | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530375 | Somber Smithing Stone [6] | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530385 | Deathroot | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530390 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530400 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530405 | Commander's Standard | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530420 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530425 | Gargoyle's Blackblade | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530505 | Gargoyle's Black Blades | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530510 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530515 | Vyke's Dragonbolt | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530530 | Death Ritual Spear | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530550 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530600 | Dragonscale Blade | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530620 | Dragon Halberd | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530800 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530805 | Ancient Dragon Smithing Stone | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530810 | Dancing Blade of Ranah | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530820 | Greatsword of Solitude | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530830 | Rakshasa's Great Katana | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530840 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530845 | Star-Lined Sword | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530850 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530855 | Ash of War: Ghostflame Call | Boss Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 530860 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530861 | Somber Ancient Dragon Smithing Stone | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530865 | Moonrithyll's Knight Sword | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530900 | Red Bear's Claw | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530905 | Roar of Rugalea | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530930 | Pelt of Ralva | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530935 | Blessing of Marika | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530940 | Divine Beast Tornado | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530945 | Dragon Heart | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530950 | Blessing of Marika | Boss Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 530955 | Black Steel Greatshield | Boss Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 530960 | Gravitational Missile | Boss Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 530965 | Ash of War: Aspects of the Crucible: Wings | Boss Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 530995 | Rimed Rowa | Boss Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540100 | Ash of War: Storm Wall | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540104 | Ash of War: Wild Strikes | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540108 | Ash of War: Determination | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540112 | Ash of War: Unsheathe | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540116 | Ash of War: Ground Slam | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540118 | Ash of War: Sacred Blade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540120 | Ash of War: Stamp (Sweep) | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540132 | Divine Fortification | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540136 | Lightning Strike | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540138 | Poison Mist | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540140 | Ash of War: Mighty Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540142 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540144 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540146 | Somber Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540170 | Ash of War: Storm Assault | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540172 | Ash of War: Stormcaller | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540174 | Rancorcall | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540200 | Ash of War: Chilling Mist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540202 | Ash of War: Charge Forth | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540204 | Ash of War: Hoarfrost Stomp | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540206 | Ash of War: Thops's Barrier | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540208 | Ash of War: Vow of the Indomitable | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540210 | Ash of War: Shield Bash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540218 | Bloodflame Blade | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540220 | Carian Piercer | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540224 | Ash of War: Barbaric Roar | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540236 | Frenzied Burst | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540238 | Ash of War: Sword Dance | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540250 | Frozen Armament | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540252 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540254 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540256 | Somber Smithing Stone [3] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540258 | Somber Smithing Stone [3] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540260 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540262 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540264 | Somber Smithing Stone [2] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540272 | Ash of War: Spectral Lance | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540290 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540300 | Ash of War: Sacred Order | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540302 | Ash of War: Shield Crash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540304 | Ash of War: Earthshaker | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540306 | Ash of War: Blood Blade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540308 | Ash of War: Golden Slam | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540310 | Ash of War: Lightning Ram | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540312 | Protection of the Erdtree | Ash of War Drop | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 540314 | Ash of War: Prayerful Strike | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540316 | Ash of War: Golden Parry | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540318 | Ash of War: Lightning Slash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540320 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540332 | Ash of War: Barrage | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540334 | Ash of War: Through and Through | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540370 | Barrier of Gold | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540372 | Ash of War: Thunderbolt | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540400 | Whirl, O Flame! | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540402 | Ash of War: Lifesteal Fist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540404 | Ash of War: Sacred Ring of Light | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540406 | Ash of War: Poisonous Mist | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540408 | Ash of War: Flaming Strike | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540410 | Ash of War: Flame of the Redmanes | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540412 | Ash of War: Sky Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540414 | Ash of War: Cragblade | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540416 | Poison Armament | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540418 | Ash of War: Double Slash | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540420 | Bestial Constitution | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540422 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540424 | Somber Smithing Stone [4] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540426 | Somber Smithing Stone [8] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540428 | Somber Smithing Stone [9] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540500 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540502 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540504 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540506 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540508 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540510 | Ash of War: Seppuku | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540512 | Ash of War: Troll's Roar | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540514 | Flame, Protect Me | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540516 | Ash of War: Prelate's Charge | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540520 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540522 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540524 | Ash of War: White Shadow's Lure | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540526 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540528 | Smithing Stone [1] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540570 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540572 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540574 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540576 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540590 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540592 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540600 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540602 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540610 | Great Oracular Bubble | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540612 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540614 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540616 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540618 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540630 | Ash of War: Square Off | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540632 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540634 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540636 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540638 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540640 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540642 | Somber Smithing Stone [5] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540644 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540646 | Ash of War: Enchanted Shot | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540648 | Order Healing | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540650 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540652 | Oracle Bubbles | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540660 | Ash of War: Golden Land | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540662 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540664 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540666 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540668 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540670 | Somber Smithing Stone [6] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540680 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540682 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540684 | Golden Rune [1] | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 540686 | Ash of War: Blood Tax | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540772 | Golden Lightning Fortification | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540900 | Ash of War: Carian Sovereignty | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540902 | Ash of War: Piercing Throw | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540904 | Ash of War: Rolling Sparks | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540906 | Ash of War: Raging Beast | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540910 | Ash of War: Scattershot Throw | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540912 | Somber Smithing Stone [9] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540914 | Somber Smithing Stone [7] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540916 | Ash of War: The Poison Flower Blooms Twice | Ash of War Drop | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 540920 | Somber Smithing Stone [8] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540922 | Somber Smithing Stone [8] | Ash of War Drop | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 540998 | Rimed Rowa | Ash of War Drop | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550000 | About Sites of Grace | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550010 | About Sorceries and Incantations | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550020 | About Bows | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550030 | About Crouching | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550040 | About Stance-Breaking | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550050 | About Stakes of Marika | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550060 | About Guard Counters | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550070 | About the Map | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550080 | About Guidance of Grace | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550090 | About Horseback Riding | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550100 | About Death | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550110 | About Summoning Spirits | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550120 | About Guarding | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550130 | About Item Crafting | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550140 | Good_9114 | Tutorial | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 550150 | About Flask of Wondrous Physick | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550160 | About Adding Skills | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550170 | About Birdseye Telescopes | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550180 | About Spiritspring Jumping | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550190 | About Vanquishing Enemy Groups | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550200 | About Teardrop Scarabs | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550210 | About Summoning Other Players | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550220 | About Cooperative Multiplayer | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550230 | About Competitive Multiplayer | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550240 | About Invasion Multiplayer | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550250 | About Hunter Multiplayer | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550260 | About Summoning Pools | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550270 | About Monument Icon | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550280 | About Requesting Help from Hunters | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 550290 | About Skills | Tutorial | Various | - | - | - | - | 0 | none | - | ItemLotParam_map |
+| 580000 | "Homing Instinct" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580010 | "Resurrection" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580020 | "Champion's Song" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580030 | "Sorcerer" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580040 | "Prophecy" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580050 | "Flightless Bird" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580060 | "Redmane" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580100 | "Incursion" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580110 | "The Sacred Tower" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580120 | "Domain of Dragons" Painting | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580300 | Ash-of-War Scarab | Painting | Various | m60_43_36 | -94.8, 66.2, -101.5 | 10913.2, 9114.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 580310 | Juvenile Scholar Cap | Painting | Various | m60_36_50 | -42.0, 380.8, -67.7 | 9174.0, 12732.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 580320 | Harp Bow | Painting | Various | m60_41_52 | 33.5, 927.2, -7.2 | 10529.5, 13304.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 580330 | Greathood | Painting | Various | m60_50_56 | 115.4, 1648.0, 96.3 | 12915.4, 14432.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 580340 | Warhawk Ashes | Painting | Various | m60_42_35 | 134.8, 85.0, -82.4 | 10886.8, 8877.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 580350 | Fire's Deadly Sin | Painting | Various | m60_42_54 | 10.3, 955.0, 74.6 | 10762.3, 13898.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 580360 | Ash of War: Rain of Arrows | Painting | Various | m60_51_40 | 40.9, 112.5, -45.4 | 13096.9, 10194.6 | ground_pickup | - | high | N | ItemLotParam_map |
+| 580400 | Serpent Crest Shield | Painting | Various | - | - | - | - | 1 | none | - | ItemLotParam_map |
+| 580410 | Spiraltree Seal | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580420 | Rock Heart | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 580600 | Message from Leda | Painting | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 590000 | Good_9700 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 590200 | Good_9800 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 590210 | Good_9801 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
