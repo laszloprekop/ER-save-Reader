@@ -110,6 +110,96 @@ NPC_NAME_LOOKUP: dict[int, str] = {
     1052380950: "Iron Fist Alexander",
 }
 
+# EMEVD Template Parameter Mappings
+# Maps template_id -> parameter position metadata for $InitializeCommonEvent parsing.
+# Parameter indices are 0-based from the args AFTER template_id in the call:
+#   $InitializeCommonEvent(slot, template_id, param0, param1, param2, ...)
+#
+# Keys:
+#   flag_idx:     Index of the main eventFlagId that gets SET
+#   flag2_idx:    Secondary flag also SET (if any)
+#   flag3_idx:    Tertiary flag also SET (if any)
+#   entity_idx:   Index of chrEntityId or assetEntityId (for MSB coordinate lookup)
+#   entity_type:  "chr" for Enemy entities, "asset" for Asset entities
+#   item_lot_idx: Index of itemLotId (if any)
+#   category:     Category label for extracted flags
+#   wmp_idx:      Index of worldMapPointParamId (for WorldMapPointParam coordinate lookup)
+#
+# Verified against common_func.emevd.js template definitions.
+EMEVD_TEMPLATES = {
+    # Enemy defeats - SetEventFlagID(eventFlagId, ON) when chrEntityId dies
+    90005300: {"flag_idx": 0, "entity_idx": 1, "entity_type": "chr", "item_lot_idx": 2, "category": "Enemy Defeat"},
+    90005301: {"flag_idx": 0, "entity_idx": 1, "entity_type": "chr", "item_lot_idx": 2, "category": "Enemy Defeat"},
+
+    # NPC defeats - SetNetworkconnectedEventFlagID(eventFlagId, ON)
+    90005390: {"flag_idx": 0, "entity_idx": 3, "entity_type": "chr", "item_lot_idx": 5, "category": "NPC Defeat"},
+    # 90005391: flag_idx=1 (sets eventFlagId2), entity_idx=2 - two-phase NPC defeat
+    90005391: {"flag_idx": 1, "entity_idx": 2, "entity_type": "chr", "category": "NPC Defeat"},
+
+    # Additional boss defeats
+    # 90005861: boss with message banner - sets both flag_idx 0 and 1
+    90005861: {"flag_idx": 0, "flag2_idx": 1, "entity_idx": 2, "entity_type": "chr", "item_lot_idx": 4, "category": "Boss Defeat"},
+    # 90005880: invasion boss (evergaol) - sets flag_idx 0 and 2
+    90005880: {"flag_idx": 0, "flag3_idx": 2, "entity_idx": 3, "entity_type": "chr", "item_lot_idx": 4, "category": "Boss Defeat"},
+
+    # Door/mechanism unlocks
+    # 90005500: lever door (toggle) - flag ON/OFF, assetEntityId at idx 3
+    90005500: {"flag_idx": 0, "entity_idx": 3, "entity_type": "asset", "category": "Door Unlock"},
+    90005502: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Door Unlock"},
+    90005510: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Mechanism Unlock"},
+    90005511: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Mechanism Unlock"},
+    90005513: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Mechanism Unlock"},
+    90005540: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Mechanism Unlock"},
+    90005550: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "Mechanism Unlock"},
+
+    # Treasure (EMEVD-specific)
+    # 90005555: special treasure - flag implicit via item lot system
+    90005555: {"flag_idx": 0, "entity_idx": 2, "entity_type": "asset", "item_lot_idx": 1, "category": "EMEVD Treasure"},
+    # 90005560: destructible treasure - SetNetworkconnectedEventFlagID on asset destroy
+    90005560: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "EMEVD Treasure"},
+
+    # Gesture unlock - SetEventFlagID(eventFlagId, ON) on asset interaction
+    90005570: {"flag_idx": 0, "entity_idx": 2, "entity_type": "asset", "category": "Gesture Unlock"},
+
+    # Quest/NPC state
+    # 90005767: quest completion - sets flag_idx 0 and 4
+    90005767: {"flag_idx": 0, "flag2_idx": 4, "entity_idx": 3, "entity_type": "chr", "category": "Quest Completion"},
+    # 90005769: NPC death quest - unusual: chrEntityId at idx 0, flag SET at idx 4
+    90005769: {"flag_idx": 4, "entity_idx": 0, "entity_type": "chr", "category": "NPC Death Quest"},
+    # 90005778: multi-flag quest state - SetEventFlagID(eventFlagId, ON)
+    90005778: {"flag_idx": 0, "entity_idx": 3, "entity_type": "chr", "category": "Quest State"},
+
+    # Map point discovery - reactive (waits for flag), worldMapPointParamId at idx 0
+    # The flag at idx 1 is set by the map discovery engine, not by this template
+    90005775: {"flag_idx": 1, "wmp_idx": 0, "category": "Map Point Discovery"},
+}
+
+
+# Item category names for structured item data
+ITEM_CATEGORY_NAMES = {0: "None", 1: "Goods", 2: "Weapon", 3: "Armor", 4: "Accessory", 5: "Ash of War"}
+
+# Shop equipType to display name mapping
+EQUIP_TYPE_NAMES = {0: "Weapon", 1: "Armor", 3: "Goods", 4: "Ash of War"}
+
+# Dungeon type classification by area_no
+DUNGEON_TYPE_MAP = {
+    30: "catacombs", 31: "cave", 32: "tunnel",
+    39: "precipice", 40: "hero_grave",
+    10: "legacy_dungeon", 11: "legacy_dungeon", 12: "legacy_dungeon",
+    13: "legacy_dungeon", 14: "legacy_dungeon", 15: "legacy_dungeon",
+    16: "legacy_dungeon", 18: "legacy_dungeon", 19: "legacy_dungeon",
+    20: "divine_tower", 34: "underground",
+    35: "underground", 41: "dlc_gaol", 42: "dlc_forge", 43: "dlc_cave",
+}
+
+
+def get_dungeon_type(area_no: Optional[int]) -> Optional[str]:
+    """Derive dungeon type from area_no. Returns None for overworld (60/61)."""
+    if area_no is None or area_no in (60, 61):
+        return None
+    return DUNGEON_TYPE_MAP.get(area_no)
+
+
 @dataclass
 class EventFlag:
     """Event flag data structure preserving all game file information."""
@@ -142,10 +232,25 @@ class EventFlag:
     item_rarity: Optional[int] = None    # 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
     position_confidence: Optional[str] = None  # high (chest/corpse), low (cart), none (no position)
     is_underground: Optional[bool] = None  # True/False when confident, None when uncertain
+    # Structured item data (replaces single item_id/item_category for multi-slot lots)
+    items: Optional[List[Dict[str, Any]]] = None  # [{id, category, category_name, name, quantity}]
     # Verification status for capture workflow
     verification_status: str = "unknown"  # capture-ready, needs-emevd, needs-calibration, not-a-pickup, unknown
     backed_by: List[str] = field(default_factory=list)  # Data sources: ItemLotParam, MSB, EMEVD, BonfireWarpParam, etc.
     raw_data: Dict[str, Any] = field(default_factory=dict)
+    # Enrichment fields (consumed by elden-map adapter)
+    boss_type: Optional[str] = None          # 'defeat' or 'found'
+    boss_location: Optional[str] = None      # region/location name
+    rune_reward: Optional[int] = None        # souls_single from GameAreaParam
+    shop_flag_type: Optional[str] = None     # 'stock' or 'release'
+    merchant: Optional[str] = None           # parsed from paramdexName [brackets]
+    shop_item_name: Optional[str] = None     # item name without merchant prefix
+    equip_type: Optional[str] = None         # Weapon/Armor/Goods/Ash of War
+    price: Optional[int] = None              # shop price in runes
+    sell_quantity: Optional[int] = None       # -1=infinite
+    dungeon_type: Optional[str] = None       # catacombs/cave/tunnel/hero_grave/etc.
+    spirit_ash_name: Optional[str] = None    # spirit ash name if item is a summon
+    in_chest: Optional[bool] = None          # True when treasure_type == 'chest'
 
 def load_name_lookup(fmg_path: Path) -> Dict[int, str]:
     """Load name lookup from FMG XML file."""
@@ -234,15 +339,18 @@ def load_world_map_points() -> Dict[int, Dict]:
     return points
 
 
-def load_item_rarities() -> Dict[tuple, int]:
+def load_item_rarities() -> tuple:
     """
-    Load item rarities from EquipParam files.
+    Load item rarities and spirit ash IDs from EquipParam files.
 
-    Returns dict keyed by (item_category, item_id) -> rarity:
-    - item_category (from ItemLotParam): 1=Goods, 2=Weapon, 3=Protector, 4=Accessory, 5=Ash of War
-    - rarity: 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
+    Returns (rarities, spirit_ashes):
+    - rarities: dict keyed by (item_category, item_id) -> rarity
+      - item_category (from ItemLotParam): 1=Goods, 2=Weapon, 3=Protector, 4=Accessory, 5=Ash of War
+      - rarity: 0=consumable, 1=common, 2=rare/unique (purple), 3=legendary (orange)
+    - spirit_ashes: set of item_ids that are spirit ash summons (goodsType=8)
     """
     rarities = {}
+    spirit_ashes = set()
 
     # Map ItemLotParam item_category to param file
     # ItemLotParam categories: 1=Goods, 2=Weapon, 3=Protector, 4=Accessory, 5=Ash of War
@@ -270,11 +378,17 @@ def load_item_rarities() -> Dict[tuple, int]:
                 if item_id and rarity is not None:
                     rarities[(category, item_id)] = int(rarity)
                     count += 1
+                # Detect spirit ashes (goodsType=8 in EquipParamGoods)
+                if category == 1:
+                    goods_type = int(row.get("goodsType", 0))
+                    if goods_type == 8 and item_id:
+                        spirit_ashes.add(item_id)
         except Exception as e:
             print(f"  Warning: Error parsing {filename}: {e}")
 
     print(f"  Loaded {len(rarities)} item rarities from EquipParam files")
-    return rarities
+    print(f"  Detected {len(spirit_ashes)} spirit ash items")
+    return rarities, spirit_ashes
 
 
 def parse_msb_dir_name(msb_dir_name: str) -> Optional[Dict]:
@@ -921,6 +1035,162 @@ def load_msb_treasure_positions() -> Dict[int, Dict]:
     return positions
 
 
+def load_msb_asset_entities() -> Dict[int, Dict]:
+    """
+    Load Asset entity positions from MSB files, indexed by EntityID.
+
+    Used for coordinate resolution of door/mechanism/treasure/gesture flags
+    extracted from EMEVD templates. Only includes assets with non-zero EntityID.
+
+    Returns dict keyed by EntityID:
+    {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                 "area_no": int, "grid_x": int, "grid_z": int,
+                 "model_name": str, "msb_dir": str}}
+    """
+    assets = {}
+
+    if not MSB_DIR.exists():
+        print(f"  Warning: MSB directory not found: {MSB_DIR}")
+        return assets
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+    print(f"  Scanning {len(msb_dirs)} MSB directories for asset entities...")
+
+    for msb_dir in msb_dirs:
+        msb_location = parse_msb_dir_name(msb_dir.name)
+        asset_dir = msb_dir / "Part" / "Asset"
+
+        if not asset_dir.exists():
+            continue
+
+        for asset_file in asset_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(asset_file)
+                root = tree.getroot()
+
+                entity_elem = root.find(".//EntityID")
+                if entity_elem is None:
+                    continue
+                entity_id = int(entity_elem.text or 0)
+                if entity_id == 0:
+                    continue
+
+                model_elem = root.find(".//ModelName")
+                model_name = model_elem.text if model_elem is not None else ""
+
+                pos_elem = root.find(".//Position")
+                pos_x, pos_y, pos_z = 0.0, 0.0, 0.0
+                if pos_elem is not None:
+                    x_elem = pos_elem.find("X")
+                    y_elem = pos_elem.find("Y")
+                    z_elem = pos_elem.find("Z")
+                    if x_elem is not None:
+                        pos_x = float(x_elem.text or 0)
+                    if y_elem is not None:
+                        pos_y = float(y_elem.text or 0)
+                    if z_elem is not None:
+                        pos_z = float(z_elem.text or 0)
+
+                entry = {
+                    "pos_x": pos_x,
+                    "pos_y": pos_y,
+                    "pos_z": pos_z,
+                    "model_name": model_name,
+                    "msb_dir": msb_dir.name,
+                }
+
+                if msb_location:
+                    entry["area_no"] = msb_location["area_no"]
+                    entry["grid_x"] = msb_location["grid_x"]
+                    entry["grid_z"] = msb_location["grid_z"]
+
+                if entity_id not in assets:
+                    assets[entity_id] = entry
+
+            except Exception:
+                continue
+
+    print(f"  Loaded {len(assets)} unique asset entities with EntityIDs")
+    return assets
+
+
+def load_msb_enemy_positions() -> Dict[int, Dict]:
+    """
+    Load ALL MSB enemy positions indexed by EntityID (unfiltered).
+
+    Unlike load_msb_enemy_data() which filters by tracked defeat flags,
+    this returns positions for all enemies with non-zero EntityID.
+    Used for coordinate resolution of EMEVD template entity references.
+
+    Returns dict: {entity_id: {"pos_x": float, "pos_y": float, "pos_z": float,
+                                "area_no": int, "grid_x": int, "grid_z": int,
+                                "model_name": str, "msb_dir": str}}
+    """
+    positions = {}
+
+    if not MSB_DIR.exists():
+        return positions
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+
+    for msb_dir in msb_dirs:
+        msb_location = parse_msb_dir_name(msb_dir.name)
+        enemy_dir = msb_dir / "Part" / "Enemy"
+
+        if not enemy_dir.exists():
+            continue
+
+        for enemy_file in enemy_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(enemy_file)
+                root = tree.getroot()
+
+                entity_elem = root.find(".//EntityID")
+                if entity_elem is None:
+                    continue
+                entity_id = int(entity_elem.text or 0)
+                if entity_id == 0:
+                    continue
+
+                model_elem = root.find(".//ModelName")
+                model_name = model_elem.text if model_elem is not None else ""
+
+                pos_elem = root.find(".//Position")
+                pos_x, pos_y, pos_z = 0.0, 0.0, 0.0
+                if pos_elem is not None:
+                    x_elem = pos_elem.find("X")
+                    y_elem = pos_elem.find("Y")
+                    z_elem = pos_elem.find("Z")
+                    if x_elem is not None:
+                        pos_x = float(x_elem.text or 0)
+                    if y_elem is not None:
+                        pos_y = float(y_elem.text or 0)
+                    if z_elem is not None:
+                        pos_z = float(z_elem.text or 0)
+
+                entry = {
+                    "pos_x": pos_x,
+                    "pos_y": pos_y,
+                    "pos_z": pos_z,
+                    "model_name": model_name,
+                    "msb_dir": msb_dir.name,
+                }
+
+                if msb_location:
+                    entry["area_no"] = msb_location["area_no"]
+                    entry["grid_x"] = msb_location["grid_x"]
+                    entry["grid_z"] = msb_location["grid_z"]
+
+                if entity_id not in positions:
+                    positions[entity_id] = entry
+
+            except Exception:
+                continue
+
+    print(f"  Loaded {len(positions)} total enemy positions (unfiltered)")
+    return positions
+
+
 def format_map_tile(area_no: int, grid_x: int, grid_z: int) -> str:
     """Format map tile string from area and grid coordinates."""
     if area_no == 0 and grid_x == 0 and grid_z == 0:
@@ -1324,7 +1594,11 @@ def categorize_verification_status(
         "Boss Discovery", "Boss Arena", "Dungeon Cleared",
         "NPC Event", "Character Event",
         "Invasion Defeat", "Elite Enemy Defeat", "Enemy Defeat",
+        "NPC Defeat", "NPC Death Quest",
+        "Door Unlock", "Mechanism Unlock",
+        "Quest Completion", "Quest State",
         "Stake of Marika", "Spirit Spring",
+        "EMEVD Literal Flag",
     }
     if category in not_pickup_categories:
         return ("not-a-pickup", backed_by)
@@ -1378,8 +1652,14 @@ def categorize_verification_status(
         if category in special_collectible_categories:
             return ("needs-emevd", backed_by)
 
-    # Landmark/POI discovery flags
-    if category in {"Landmark", "Map Fragment"}:
+    # Landmark/POI/Map discovery flags
+    if category in {"Landmark", "Map Fragment", "Map Point Discovery"}:
+        if pos_x is not None:
+            return ("capture-ready", backed_by)
+        return ("unknown", backed_by)
+
+    # EMEVD Treasure and Gesture Unlocks (have asset-based coordinates)
+    if category in {"EMEVD Treasure", "Gesture Unlock"}:
         if pos_x is not None:
             return ("capture-ready", backed_by)
         return ("unknown", backed_by)
@@ -1402,7 +1682,7 @@ def categorize_verification_status(
     return ("unknown", backed_by)
 
 
-def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict], item_rarities: Dict[tuple, int]) -> List[EventFlag]:
+def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb_positions: Dict[int, Dict], item_rarities: Dict[tuple, int], spirit_ashes: set = None) -> List[EventFlag]:
     """Extract event flags from ItemLotParam_map with spatial data from multiple sources."""
     flags = []
     xml_path = REGULATION_BIN / "ItemLotParam_map.param.xml"
@@ -1526,6 +1806,26 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
                 grid_z = msb_data["grid_z"]
                 map_tile = format_map_tile(area_no, grid_x, grid_z)
 
+        # Build structured items array from all 8 slots
+        items_list = []
+        spirit_ash_name = None
+        for i in range(1, 9):
+            lot_id = int(row.get(f"lotItemId0{i}", 0))
+            lot_cat = int(row.get(f"lotItemCategory0{i}", 0))
+            lot_num = int(row.get(f"lotItemNum0{i}", 1))
+            if lot_id != 0 and lot_cat != 0:
+                item_entry = {
+                    "id": lot_id,
+                    "category": lot_cat,
+                    "category_name": ITEM_CATEGORY_NAMES.get(lot_cat, f"Unknown_{lot_cat}"),
+                    "name": get_item_name(lot_id, lot_cat, lookups),
+                    "quantity": lot_num,
+                }
+                items_list.append(item_entry)
+                # Detect spirit ashes (goodsType=8 items in Goods category)
+                if spirit_ashes and lot_cat == 1 and lot_id in spirit_ashes:
+                    spirit_ash_name = get_item_name(lot_id, 1, lookups)
+
         # Preserve raw data from XML
         raw_data = {
             "lotItemId01": item_id,
@@ -1620,9 +1920,12 @@ def extract_item_lot_param(lookups: Dict, world_map_points: Dict[int, Dict], msb
             item_rarity=item_rarity,
             position_confidence=position_confidence,
             is_underground=is_underground,
+            items=items_list if items_list else None,
             verification_status=verification_status,
             backed_by=backed_by,
-            raw_data=raw_data
+            raw_data=raw_data,
+            spirit_ash_name=spirit_ash_name,
+            in_chest=True if treasure_type == 'chest' else (False if treasure_type else None),
         ))
 
     if msb_hits > 0:
@@ -1744,6 +2047,17 @@ def extract_shop_lineup_param(lookups: Dict) -> List[EventFlag]:
         else:
             name = get_item_name(equip_id, type_map.get(equip_type, 1), lookups)
 
+        # Parse merchant name from [brackets] in paramdexName
+        merchant_name = None
+        shop_item_name = None
+        if paramdex_name:
+            bracket_match = re.match(r'\[(.+?)\]\s*(.*)', paramdex_name)
+            if bracket_match:
+                merchant_name = bracket_match.group(1)
+                shop_item_name = bracket_match.group(2) or name
+
+        equip_type_name = EQUIP_TYPE_NAMES.get(equip_type)
+
         # Raw data for both stock and release flags
         raw_data = {
             "equipId": equip_id,
@@ -1771,7 +2085,13 @@ def extract_shop_lineup_param(lookups: Dict) -> List[EventFlag]:
                 item_category=type_map.get(equip_type, 1),
                 verification_status=stock_vs,
                 backed_by=stock_backed,
-                raw_data=raw_data
+                raw_data=raw_data,
+                shop_flag_type='stock',
+                merchant=merchant_name,
+                shop_item_name=shop_item_name,
+                equip_type=equip_type_name,
+                price=price if price > 0 else None,
+                sell_quantity=quantity,
             ))
 
         if release_flag != 0:
@@ -1790,7 +2110,13 @@ def extract_shop_lineup_param(lookups: Dict) -> List[EventFlag]:
                 item_category=type_map.get(equip_type, 1),
                 verification_status=release_vs,
                 backed_by=release_backed,
-                raw_data=raw_data
+                raw_data=raw_data,
+                shop_flag_type='release',
+                merchant=merchant_name,
+                shop_item_name=shop_item_name,
+                equip_type=equip_type_name,
+                price=price if price > 0 else None,
+                sell_quantity=quantity,
             ))
 
     return flags
@@ -2641,7 +2967,10 @@ def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
                 is_dlc=is_dlc,
                 verification_status=defeat_vs,
                 backed_by=defeat_backed,
-                raw_data=raw_data
+                raw_data=raw_data,
+                boss_type='defeat',
+                boss_location=region,
+                rune_reward=souls_single if souls_single > 0 else None,
             ))
 
             # Also create flag for boss discovery if different from defeat
@@ -2670,7 +2999,9 @@ def extract_game_area_param(region_names: Dict[int, str]) -> List[EventFlag]:
                     is_dlc=is_dlc,
                     verification_status=discovery_vs,
                     backed_by=discovery_backed,
-                    raw_data=raw_data
+                    raw_data=raw_data,
+                    boss_type='found',
+                    boss_location=region,
                 ))
 
     except Exception as e:
@@ -2995,6 +3326,349 @@ def extract_msb_spirit_springs() -> List[EventFlag]:
     return flags
 
 
+def extract_emevd_templates(
+    msb_enemies: Dict[int, Dict],
+    msb_enemy_positions: Dict[int, Dict],
+    msb_assets: Dict[int, Dict],
+    world_map_points: Dict[int, Dict],
+    existing_flag_ids: set,
+) -> List[EventFlag]:
+    """
+    Extract event flags from EMEVD template instantiations in map-specific event files.
+
+    Parses $InitializeCommonEvent(slot, template_id, params...) calls across all
+    map EMEVD files and matches them against EMEVD_TEMPLATES to extract flag IDs,
+    entity IDs, and resolve coordinates via MSB cross-referencing.
+
+    Args:
+        msb_enemies: Filtered enemy entity index (with names) for chr lookups
+        msb_enemy_positions: Unfiltered enemy position index for chr coordinate fallback
+        msb_assets: Asset entity index {entity_id: {pos, area, ...}} for asset lookups
+        world_map_points: WorldMapPointParam data for map discovery coordinate lookups
+        existing_flag_ids: Set of already-extracted flag IDs to deduplicate against
+    """
+    flags = []
+
+    if not EVENT_DIR.exists():
+        print(f"  Warning: Event directory not found: {EVENT_DIR}")
+        return flags
+
+    # Regex to match: $InitializeCommonEvent(slot, template_id, param0, param1, ...)
+    pattern = re.compile(
+        r'\$InitializeCommonEvent\(\s*(\d+)\s*,\s*(\d+)\s*,\s*([^)]+)\)'
+    )
+
+    template_counts = {}
+    skipped_dup = 0
+
+    for js_file in sorted(EVENT_DIR.glob("m*.emevd.js")):
+        # Derive source map from filename (e.g., m60_42_37_00.emevd.js)
+        source_name = js_file.stem  # e.g., m60_42_37_00.emevd
+
+        try:
+            with open(js_file, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+
+        for match in pattern.finditer(content):
+            template_id = int(match.group(2))
+            if template_id not in EMEVD_TEMPLATES:
+                continue
+
+            tmpl = EMEVD_TEMPLATES[template_id]
+            # Parse parameters (comma-separated, may include negatives)
+            params_str = match.group(3).strip()
+            params = []
+            for p in params_str.split(","):
+                p = p.strip()
+                try:
+                    params.append(int(p))
+                except ValueError:
+                    params.append(0)  # Variable name or expression - can't resolve
+
+            # Extract flag ID
+            flag_idx = tmpl["flag_idx"]
+            if flag_idx >= len(params):
+                continue
+            flag_id = params[flag_idx]
+            if flag_id <= 0:
+                continue  # Invalid or variable reference
+
+            # Skip if already extracted from another source
+            if flag_id in existing_flag_ids:
+                skipped_dup += 1
+                continue
+
+            category = tmpl["category"]
+            template_counts[category] = template_counts.get(category, 0) + 1
+
+            # Try to resolve coordinates from entity ID
+            entity_data = None
+            entity_id = None
+            entity_type = tmpl.get("entity_type")
+
+            if "entity_idx" in tmpl:
+                eidx = tmpl["entity_idx"]
+                if eidx < len(params):
+                    entity_id = params[eidx]
+                    if entity_id > 0:
+                        if entity_type == "chr":
+                            # Prefer filtered enemies (have names), fall back to positions
+                            if entity_id in msb_enemies:
+                                entity_data = msb_enemies[entity_id]
+                            elif entity_id in msb_enemy_positions:
+                                entity_data = msb_enemy_positions[entity_id]
+                        elif entity_type == "asset" and entity_id in msb_assets:
+                            entity_data = msb_assets[entity_id]
+
+            # For map point discovery, try WorldMapPointParam
+            if "wmp_idx" in tmpl:
+                wmp_idx = tmpl["wmp_idx"]
+                if wmp_idx < len(params):
+                    wmp_id = params[wmp_idx]
+                    if wmp_id > 0 and wmp_id in world_map_points:
+                        wmp = world_map_points[wmp_id]
+                        entity_data = {
+                            "pos_x": wmp["pos_x"],
+                            "pos_y": wmp["pos_y"],
+                            "pos_z": wmp["pos_z"],
+                            "area_no": wmp["area_no"],
+                            "grid_x": wmp["grid_x"],
+                            "grid_z": wmp["grid_z"],
+                            "msb_dir": "WorldMapPointParam",
+                        }
+
+            # Build spatial data from entity lookup
+            area_no = entity_data.get("area_no") if entity_data else None
+            grid_x = entity_data.get("grid_x") if entity_data else None
+            grid_z = entity_data.get("grid_z") if entity_data else None
+            pos_x = entity_data.get("pos_x") if entity_data else None
+            pos_y = entity_data.get("pos_y") if entity_data else None
+            pos_z = entity_data.get("pos_z") if entity_data else None
+
+            # If no entity data, try to derive location from flag ID format
+            if area_no is None:
+                flag_loc = parse_flag_id_location(flag_id)
+                if flag_loc:
+                    area_no = flag_loc["area_no"]
+                    grid_x = flag_loc["grid_x"]
+                    grid_z = flag_loc["grid_z"]
+
+            # Compute derived fields
+            overworld = is_overworld_area(area_no) if area_no else False
+            world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+            area_type = get_area_type(area_no)
+            is_dlc = not is_base_game_area(area_no) if area_no else False
+            map_tile = format_map_tile(area_no, grid_x, grid_z) if area_no else None
+
+            # Derive region
+            if is_dlc:
+                region = "Shadow of the Erdtree"
+            elif area_no and area_no != 60:
+                region = get_dungeon_region(area_no)
+            elif grid_x and grid_z:
+                region = get_tile_region(grid_x, grid_z)
+            else:
+                region = get_region_from_flag(flag_id)
+
+            # Build flag name
+            name = f"{category} ({flag_id})"
+            if entity_data:
+                ename = entity_data.get("name")
+                if ename:
+                    name = f"{ename} - {category}"
+
+            # Raw data
+            raw_data = {
+                "template_id": template_id,
+                "source_emevd": source_name,
+                "entity_id": entity_id,
+                "entity_type": entity_type,
+            }
+            if entity_data:
+                raw_data["position_source"] = "MSB" if entity_data.get("msb_dir", "").endswith("-msb-dcx") else entity_data.get("msb_dir", "")
+            if "item_lot_idx" in tmpl:
+                ilt_idx = tmpl["item_lot_idx"]
+                if ilt_idx < len(params) and params[ilt_idx] > 0:
+                    raw_data["item_lot_id"] = params[ilt_idx]
+
+            # Verification status
+            vs, backed = categorize_verification_status(
+                category, f"EMEVD:{source_name}", None, pos_x, flag_id
+            )
+            backed.append("EMEVD")
+
+            existing_flag_ids.add(flag_id)
+
+            flags.append(EventFlag(
+                flag_id=flag_id,
+                name=name,
+                category=category,
+                region=region,
+                source_file=f"EMEVD:{source_name}",
+                area_no=area_no,
+                grid_x=grid_x,
+                grid_z=grid_z,
+                pos_x=pos_x,
+                pos_y=pos_y,
+                pos_z=pos_z,
+                map_tile=map_tile,
+                is_overworld=overworld,
+                world_x=world_x,
+                world_z=world_z,
+                area_type=area_type,
+                is_dlc=is_dlc,
+                verification_status=vs,
+                backed_by=backed,
+                raw_data=raw_data,
+            ))
+
+            # Also extract secondary/tertiary flags if present
+            for extra_key in ("flag2_idx", "flag3_idx"):
+                if extra_key in tmpl:
+                    eidx2 = tmpl[extra_key]
+                    if eidx2 < len(params):
+                        extra_flag = params[eidx2]
+                        if extra_flag > 0 and extra_flag != flag_id and extra_flag not in existing_flag_ids:
+                            existing_flag_ids.add(extra_flag)
+                            flags.append(EventFlag(
+                                flag_id=extra_flag,
+                                name=f"{category} Secondary ({extra_flag})",
+                                category=category,
+                                region=region,
+                                source_file=f"EMEVD:{source_name}",
+                                area_no=area_no,
+                                grid_x=grid_x,
+                                grid_z=grid_z,
+                                pos_x=pos_x,
+                                pos_y=pos_y,
+                                pos_z=pos_z,
+                                map_tile=map_tile,
+                                is_overworld=overworld,
+                                world_x=world_x,
+                                world_z=world_z,
+                                area_type=area_type,
+                                is_dlc=is_dlc,
+                                verification_status=vs,
+                                backed_by=list(backed),
+                                raw_data={
+                                    "template_id": template_id,
+                                    "source_emevd": source_name,
+                                    "primary_flag": flag_id,
+                                },
+                            ))
+
+    print(f"  Template extraction summary:")
+    for cat, count in sorted(template_counts.items(), key=lambda x: -x[1]):
+        print(f"    {cat}: {count}")
+    print(f"  Skipped {skipped_dup} flags already extracted from other sources")
+
+    return flags
+
+
+def extract_map_literal_flags(existing_flag_ids: set) -> List[EventFlag]:
+    """
+    Extract literal SetEventFlagID and SetNetworkconnectedEventFlagID calls
+    from map-specific EMEVD files.
+
+    Only captures calls with literal numeric IDs (not variable references).
+    Deduplicates against already-extracted flags from params and templates.
+    """
+    flags = []
+
+    if not EVENT_DIR.exists():
+        print(f"  Warning: Event directory not found: {EVENT_DIR}")
+        return flags
+
+    # Patterns for literal flag-setting calls
+    patterns = [
+        re.compile(r'SetEventFlagID\((\d+),\s*ON\)'),
+        re.compile(r'SetNetworkconnectedEventFlagID\((\d+),\s*ON\)'),
+    ]
+
+    total_matches = 0
+    skipped_dup = 0
+
+    for js_file in sorted(EVENT_DIR.glob("m*.emevd.js")):
+        source_name = js_file.stem
+
+        try:
+            with open(js_file, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+
+        for pattern in patterns:
+            for match in pattern.finditer(content):
+                flag_id = int(match.group(1))
+                total_matches += 1
+
+                if flag_id <= 0 or flag_id in existing_flag_ids:
+                    skipped_dup += 1
+                    continue
+
+                # Derive location from flag ID format
+                area_no, grid_x, grid_z = None, None, None
+                flag_loc = parse_flag_id_location(flag_id)
+                if flag_loc:
+                    area_no = flag_loc["area_no"]
+                    grid_x = flag_loc["grid_x"]
+                    grid_z = flag_loc["grid_z"]
+
+                # Compute derived fields
+                overworld = is_overworld_area(area_no) if area_no else False
+                area_type = get_area_type(area_no)
+                is_dlc = not is_base_game_area(area_no) if area_no else False
+                map_tile = format_map_tile(area_no, grid_x, grid_z) if area_no else None
+
+                # Categorize based on flag ID range
+                category = categorize_flag(flag_id, "EMEVD Literal")
+                # Override generic categories for literal flags
+                if category in ("World Pickup", "DLC Pickup", "Dungeon Pickup"):
+                    category = "EMEVD Literal Flag"
+                elif category == "Unknown":
+                    category = "EMEVD Literal Flag"
+
+                # Derive region
+                region = get_region_from_flag(flag_id)
+
+                # Verification status
+                vs, backed = categorize_verification_status(
+                    category, f"EMEVD:{source_name}", None, None, flag_id
+                )
+                backed.append("EMEVD")
+
+                existing_flag_ids.add(flag_id)
+
+                flags.append(EventFlag(
+                    flag_id=flag_id,
+                    name=f"Map Event Flag ({flag_id})",
+                    category=category,
+                    region=region,
+                    source_file=f"EMEVD:{source_name}",
+                    area_no=area_no,
+                    grid_x=grid_x,
+                    grid_z=grid_z,
+                    map_tile=map_tile,
+                    is_overworld=overworld,
+                    area_type=area_type,
+                    is_dlc=is_dlc,
+                    verification_status=vs,
+                    backed_by=backed,
+                    raw_data={
+                        "source_emevd": source_name,
+                        "extraction_method": "literal_flag_call",
+                    },
+                ))
+
+    print(f"  Total literal flag calls: {total_matches}")
+    print(f"  Skipped {skipped_dup} (already extracted or zero)")
+    print(f"  New unique flags: {len(flags)}")
+
+    return flags
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
     """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
@@ -3087,8 +3761,8 @@ def main():
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
 
-    print("\nLoading item rarities...")
-    item_rarities = load_item_rarities()
+    print("\nLoading item rarities and spirit ash data...")
+    item_rarities, spirit_ashes = load_item_rarities()
 
     print("\nExtracting tracked defeat flags from event scripts...")
     tracked_defeat_flags = extract_tracked_defeat_flags()
@@ -3097,12 +3771,18 @@ def main():
     print("\nLoading MSB enemy data (filtered by tracked flags)...")
     msb_enemies = load_msb_enemy_data(npc_params, lookups["npcs"], boss_names, chr_model_names, tracked_defeat_flags)
 
+    print("\nLoading MSB asset entities (for EMEVD coordinate resolution)...")
+    msb_assets = load_msb_asset_entities()
+
+    print("\nLoading MSB enemy positions (unfiltered, for EMEVD coordinate resolution)...")
+    msb_enemy_positions = load_msb_enemy_positions()
+
     print("\n" + "-" * 40)
     print("Extracting from game param files...")
     print("-" * 40)
 
     print("\nExtracting from ItemLotParam_map...")
-    item_lot_flags = extract_item_lot_param(lookups, world_map_points, msb_positions, item_rarities)
+    item_lot_flags = extract_item_lot_param(lookups, world_map_points, msb_positions, item_rarities, spirit_ashes)
     print(f"  Found {len(item_lot_flags)} flags")
 
     print("\nExtracting from BonfireWarpParam...")
@@ -3154,9 +3834,29 @@ def main():
     spring_flags = extract_msb_spirit_springs()
     print(f"  Found {len(spring_flags)} flags")
 
+    # Build set of already-extracted flag IDs for deduplication
+    existing_flag_ids = set()
+    for f_list in [item_lot_flags, bonfire_flags, shop_flags, emevd_flags, poi_flags,
+                   enemy_flags, npc_flags, boss_arena_flags, dungeon_flags,
+                   stake_flags, spring_flags]:
+        for f in f_list:
+            existing_flag_ids.add(f.flag_id)
+
+    print("\n" + "-" * 40)
+    print("Extracting from EMEVD map event files...")
+    print("-" * 40)
+
+    print("\nExtracting EMEVD template instantiations...")
+    template_flags = extract_emevd_templates(msb_enemies, msb_enemy_positions, msb_assets, world_map_points, existing_flag_ids)
+    print(f"  Found {len(template_flags)} new flags from templates")
+
+    print("\nExtracting literal flag calls from map EMEVD files...")
+    literal_flags = extract_map_literal_flags(existing_flag_ids)
+    print(f"  Found {len(literal_flags)} new unique literal flags")
+
     all_flags = (item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags +
                  enemy_flags + npc_flags + boss_arena_flags + dungeon_flags +
-                 stake_flags + spring_flags)
+                 stake_flags + spring_flags + template_flags + literal_flags)
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")
@@ -3170,6 +3870,16 @@ def main():
             unique_flags.append(f)
 
     print(f"Unique flags: {len(unique_flags)}")
+
+    # Post-processing pass: set dungeon_type on all flags with area_no
+    dungeon_type_count = 0
+    for f in unique_flags:
+        if f.dungeon_type is None and f.area_no is not None:
+            dt = get_dungeon_type(f.area_no)
+            if dt:
+                f.dungeon_type = dt
+                dungeon_type_count += 1
+    print(f"Dungeon type assigned: {dungeon_type_count} flags")
 
     # Category summary
     print(f"\n{'=' * 40}")
@@ -3298,7 +4008,10 @@ def main():
                 "WorldMapPointParam.param.xml",
                 "NpcParam.param.xml",
                 "MSB files (map/mapstudio/m*-msb-dcx/Event/Treasure/)",
-                "MSB files (map/mapstudio/m*-msb-dcx/Part/Enemy/)"
+                "MSB files (map/mapstudio/m*-msb-dcx/Part/Enemy/)",
+                "MSB files (map/mapstudio/m*-msb-dcx/Part/Asset/)",
+                "EMEVD map files (event/m*.emevd.js) - template instantiations",
+                "EMEVD map files (event/m*.emevd.js) - literal flag calls",
             ],
             "category_counts": category_counts,
             "verification_status_counts": verification_status_counts

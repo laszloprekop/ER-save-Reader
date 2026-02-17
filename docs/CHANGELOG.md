@@ -4,6 +4,48 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.0 - Extractor enrichment & elden-map schema alignment
+
+### Features
+- **Structured items array** — `extract_item_lot_param()` now builds an `items` list from all 8
+  ItemLot slots with `{id, category, category_name, name, quantity}` per entry (4,382 flags).
+- **Boss enrichment** — `extract_game_area_param()` populates `boss_type`, `boss_location`, and
+  `rune_reward` on Boss Arena/Discovery flags (61 flags).
+- **Shop enrichment** — `extract_shop_lineup_param()` parses merchant name from `[brackets]` in
+  paramdexName and populates `shop_flag_type`, `merchant`, `shop_item_name`, `equip_type`, `price`,
+  `sell_quantity`.
+- **Dungeon type derivation** — Post-processing pass assigns `dungeon_type` from `area_no` via
+  `DUNGEON_TYPE_MAP` (11 types: catacombs, cave, tunnel, hero_grave, legacy_dungeon, etc.).
+- **Spirit ash detection** — `load_item_rarities()` now detects `goodsType=8` items from
+  EquipParamGoods and sets `spirit_ash_name` on matching ItemLot flags.
+- **Chest indicator** — `in_chest` field derived from `treasure_type == 'chest'` (201 flags).
+- **10 new EMEVD categories** — Door Unlock, Mechanism Unlock, EMEVD Treasure, Gesture Unlock,
+  Quest Completion, Quest State, NPC Death Quest, NPC Defeat, Map Point Discovery, EMEVD Literal
+  Flag registered with colors and category groups in elden-map.
+- **Adapter wiring** — `worldX`, `worldZ`, `areaType`, `isOverworld` fields added to
+  `GameFileEventFlag` and wired through `adaptExtractedFlag()`.
+- **DRY coordinate transforms** — Extracted `SCALE_X/Z`, `OFFSET_X/Z` to
+  `src/utils/coordConstants.ts`; replaced hardcoded constants in 6 files across scripts and
+  components.
+
+### Files Modified
+- `scripts/extract_event_flags.py`: 12 new EventFlag fields, items array builder, boss/shop/dungeon
+  enrichment, spirit ash detection, `get_dungeon_type()` helper
+- `scripts/extracted_event_flags.json`: regenerated with enrichment data
+- `scripts/extracted_event_flags.md`: regenerated
+
+### elden-map Files Modified
+- `src/types/eventFlag.ts`: 4 new GameFileEventFlag fields, 10 category colors, 2 new groups
+- `src/services/data/eventFlagAdapter.ts`: world coords and area classification wiring
+- `src/utils/coordConstants.ts`: new single source of truth for transform constants
+- `src/utils/measurementUtils.ts`: imports from coordConstants
+- `scripts/build-game-pois.ts`: uses coordConstants import
+- `scripts/merge-poi-databases.ts`: uses coordConstants import
+- `scripts/build-event-flag-mappings.ts`: uses coordConstants import
+- `src/pages/GameMapPage.tsx`: uses coordConstants import
+- `src/components/game-map/GameMap.tsx`: uses coordConstants import
+- `src/components/measurement/SnappingStatsPanel.tsx`: uses coordConstants import
+
 ## v0.16.5 - Stats and Equipment views use shared components
 
 ### Refactor

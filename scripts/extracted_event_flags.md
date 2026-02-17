@@ -1,6 +1,6 @@
 # Extracted Event Flags
 
-Total unique flags: 7034
+Total unique flags: 8993
 
 | Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | T.Type | Rarity | Pos.Conf | UG | Source |
 |---------|------|----------|--------|----------|-------------------|-------------|--------|--------|----------|----|----- --|
@@ -11,7 +11,23 @@ Total unique flags: 7034
 | 13 | Spirit Spring (m60_36_54) | Spirit Spring | Mt. Gelmir | m60_36_54 | 98.0, 1010.9, 20.7 | 9314.0, 13844.7 | - | - | - | - | MSB MountJump |
 | 16 | Spirit Spring (m60_39_53) | Spirit Spring | Altus Plateau | m60_39_53 | 49.8, 757.4, -68.4 | 10033.8, 13499.6 | - | - | - | - | MSB MountJump |
 | 17 | Spirit Spring (m60_39_53) | Spirit Spring | Altus Plateau | m60_39_53 | 7.5, 790.4, -43.2 | 9991.5, 13524.8 | - | - | - | - | MSB MountJump |
+| 20 | Map Event Flag (20) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_71_00_00.emevd |
+| 21 | Map Event Flag (21) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 22 | Map Event Flag (22) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 30 | Map Event Flag (30) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 100 | Map Event Flag (100) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 101 | Map Event Flag (101) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 102 | Map Event Flag (102) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 105 | Map Event Flag (105) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 108 | Map Event Flag (108) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 109 | Map Event Flag (109) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 114 | Dark Moon Ring | Unknown | Various | m14_00_00 | 38.4, 154.1, -11.3 | - | chest | 3 | high | - | ItemLotParam_map |
+| 119 | Map Event Flag (119) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 120 | Map Event Flag (120) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_71_00_00.emevd |
+| 121 | Map Event Flag (121) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 124 | Map Event Flag (124) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 128 | Map Event Flag (128) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 130 | Map Event Flag (130) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
 | 160 | Godrick's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
 | 161 | Radahn's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
 | 162 | Morgott's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
@@ -42,8 +58,222 @@ Total unique flags: 7034
 | 196 | Malenia's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 197 | Remembrance of the Full Moon Queen | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 200 | Grace_211200 | Grace | Various | m10_00_00 | 0.4, -9.7, -14.0 | - | - | - | - | - | BonfireWarpParam |
+| 370 | Map Event Flag (370) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 3100 | Map Event Flag (3100) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3118 | Map Event Flag (3118) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3120 | Map Event Flag (3120) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3138 | Map Event Flag (3138) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3158 | Map Event Flag (3158) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3160 | Map Event Flag (3160) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3178 | Map Event Flag (3178) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3180 | Map Event Flag (3180) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3198 | Map Event Flag (3198) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3218 | Map Event Flag (3218) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3220 | Map Event Flag (3220) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3238 | Map Event Flag (3238) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3240 | Map Event Flag (3240) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3258 | Map Event Flag (3258) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3260 | Map Event Flag (3260) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3278 | Map Event Flag (3278) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 3280 | Map Event Flag (3280) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3298 | Map Event Flag (3298) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3300 | Map Event Flag (3300) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3318 | Map Event Flag (3318) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3338 | Map Event Flag (3338) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3358 | Map Event Flag (3358) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3360 | Map Event Flag (3360) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3378 | Map Event Flag (3378) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3380 | Map Event Flag (3380) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3398 | Map Event Flag (3398) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3400 | Map Event Flag (3400) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3418 | Map Event Flag (3418) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3420 | Map Event Flag (3420) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3438 | Map Event Flag (3438) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3440 | Map Event Flag (3440) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3442 | Map Event Flag (3442) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 3443 | Map Event Flag (3443) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 3458 | Map Event Flag (3458) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_44_00.emevd |
+| 3460 | Map Event Flag (3460) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 3478 | Map Event Flag (3478) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3480 | Map Event Flag (3480) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3498 | Map Event Flag (3498) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3500 | Map Event Flag (3500) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3518 | Map Event Flag (3518) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3520 | Map Event Flag (3520) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3538 | Map Event Flag (3538) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3540 | Map Event Flag (3540) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3543 | Map Event Flag (3543) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
+| 3558 | Map Event Flag (3558) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3560 | Map Event Flag (3560) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3578 | Map Event Flag (3578) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 3580 | Map Event Flag (3580) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3598 | Map Event Flag (3598) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3600 | Map Event Flag (3600) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3618 | Map Event Flag (3618) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 3620 | Map Event Flag (3620) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3623 | Map Event Flag (3623) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 3638 | Map Event Flag (3638) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3640 | Map Event Flag (3640) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_43_00.emevd |
+| 3642 | Map Event Flag (3642) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_43_00.emevd |
+| 3658 | Map Event Flag (3658) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3660 | Map Event Flag (3660) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 3662 | Map Event Flag (3662) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 3663 | Map Event Flag (3663) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 3678 | Map Event Flag (3678) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 3680 | Map Event Flag (3680) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3682 | Map Event Flag (3682) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 3683 | Map Event Flag (3683) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3698 | Map Event Flag (3698) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3700 | Map Event Flag (3700) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3718 | Map Event Flag (3718) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3720 | Map Event Flag (3720) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3738 | Map Event Flag (3738) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3740 | Map Event Flag (3740) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3758 | Map Event Flag (3758) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 3760 | Map Event Flag (3760) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3778 | Map Event Flag (3778) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 3780 | Map Event Flag (3780) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3798 | Map Event Flag (3798) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3800 | Map Event Flag (3800) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3818 | Map Event Flag (3818) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3820 | Map Event Flag (3820) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3822 | Map Event Flag (3822) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 3838 | Map Event Flag (3838) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3840 | Map Event Flag (3840) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 3858 | Map Event Flag (3858) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3860 | Map Event Flag (3860) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3878 | Map Event Flag (3878) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3880 | Map Event Flag (3880) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3898 | Map Event Flag (3898) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 3900 | Map Event Flag (3900) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3918 | Map Event Flag (3918) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 3920 | Map Event Flag (3920) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3938 | Map Event Flag (3938) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3940 | Map Event Flag (3940) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3954 | Map Event Flag (3954) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_40_00.emevd |
+| 3955 | Map Event Flag (3955) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_36_48_00.emevd |
+| 3956 | Map Event Flag (3956) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_51_00.emevd |
+| 3957 | Map Event Flag (3957) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 3958 | Map Event Flag (3958) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3960 | Map Event Flag (3960) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3978 | Map Event Flag (3978) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3980 | Map Event Flag (3980) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 3998 | Map Event Flag (3998) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4000 | Map Event Flag (4000) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4018 | Map Event Flag (4018) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4020 | Map Event Flag (4020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4038 | Map Event Flag (4038) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4040 | Map Event Flag (4040) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4058 | Map Event Flag (4058) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 4060 | Map Event Flag (4060) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4078 | Map Event Flag (4078) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 4080 | Map Event Flag (4080) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4098 | Map Event Flag (4098) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4100 | Map Event Flag (4100) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4118 | Map Event Flag (4118) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4120 | Map Event Flag (4120) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 4130 | Map Event Flag (4130) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 4138 | Map Event Flag (4138) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 4140 | Map Event Flag (4140) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4143 | Map Event Flag (4143) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_44_52_00.emevd |
+| 4158 | Map Event Flag (4158) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4160 | Map Event Flag (4160) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4163 | Map Event Flag (4163) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
+| 4178 | Map Event Flag (4178) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 4180 | Map Event Flag (4180) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4197 | Map Event Flag (4197) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_38_51_00.emevd |
+| 4198 | Map Event Flag (4198) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 4200 | Map Event Flag (4200) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4218 | Map Event Flag (4218) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4220 | Map Event Flag (4220) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4238 | Map Event Flag (4238) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4240 | Map Event Flag (4240) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4243 | Map Event Flag (4243) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 4258 | Map Event Flag (4258) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 4260 | Map Event Flag (4260) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4278 | Map Event Flag (4278) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4280 | Map Event Flag (4280) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4298 | Map Event Flag (4298) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4300 | Map Event Flag (4300) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4318 | Map Event Flag (4318) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4320 | Map Event Flag (4320) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4338 | Map Event Flag (4338) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4340 | Map Event Flag (4340) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4358 | Map Event Flag (4358) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4360 | Map Event Flag (4360) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4378 | Map Event Flag (4378) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4380 | Map Event Flag (4380) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4398 | Map Event Flag (4398) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4400 | Map Event Flag (4400) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4418 | Map Event Flag (4418) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4420 | Map Event Flag (4420) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4438 | Map Event Flag (4438) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4440 | Map Event Flag (4440) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4458 | Map Event Flag (4458) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4460 | Map Event Flag (4460) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4478 | Map Event Flag (4478) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4480 | Map Event Flag (4480) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4498 | Map Event Flag (4498) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4500 | Map Event Flag (4500) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4518 | Map Event Flag (4518) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4520 | Map Event Flag (4520) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4538 | Map Event Flag (4538) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4540 | Map Event Flag (4540) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4558 | Map Event Flag (4558) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4560 | Map Event Flag (4560) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4578 | Map Event Flag (4578) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4580 | Map Event Flag (4580) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4598 | Map Event Flag (4598) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4700 | Map Event Flag (4700) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4718 | Map Event Flag (4718) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 4720 | Map Event Flag (4720) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4725 | Map Event Flag (4725) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4730 | Map Event Flag (4730) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4735 | Map Event Flag (4735) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4740 | Map Event Flag (4740) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4745 | Map Event Flag (4745) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4750 | Map Event Flag (4750) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4755 | Map Event Flag (4755) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4760 | Map Event Flag (4760) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4765 | Map Event Flag (4765) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4770 | Map Event Flag (4770) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4775 | Map Event Flag (4775) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4780 | Map Event Flag (4780) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4785 | Map Event Flag (4785) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4790 | Map Event Flag (4790) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4795 | Map Event Flag (4795) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4800 | Map Event Flag (4800) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4805 | Map Event Flag (4805) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4810 | Map Event Flag (4810) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 4890 | Map Event Flag (4890) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4891 | Map Event Flag (4891) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4892 | Map Event Flag (4892) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4895 | Map Event Flag (4895) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4901 | Quest Completion Secondary (4901) | Quest Completion | Shadow of the Erdtree | m61_45_42 | - | - | - | - | - | - | EMEVD:m61_45_41_00.emevd |
+| 4908 | Map Event Flag (4908) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 4923 | Map Event Flag (4923) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 4925 | Map Event Flag (4925) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 4927 | Map Event Flag (4927) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_48_46_00.emevd |
 | 6001 | Jagged Peak: Foot of the Jagged Peak - Igon | Landmark | Jagged Peak | m61_52_40 | -6.4, 298.9, -73.2 | 13305.6, 10166.8 | - | - | - | - | WorldMapPointParam |
+| 6010 | Map Event Flag (6010) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_71_00_00.emevd |
+| 6080 | Map Event Flag (6080) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 6700 | Flask of Wondrous Physick | Unknown | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
+| 7500 | Map Event Flag (7500) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 7630 | Map Event Flag (7630) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7631 | Map Event Flag (7631) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7632 | Map Event Flag (7632) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7640 | Map Event Flag (7640) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7641 | Map Event Flag (7641) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7642 | Map Event Flag (7642) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7643 | Map Event Flag (7643) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7644 | Map Event Flag (7644) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7645 | Map Event Flag (7645) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7646 | Map Event Flag (7646) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7647 | Map Event Flag (7647) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7648 | Map Event Flag (7648) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 7649 | Map Event Flag (7649) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 9021 | Map Event Flag (9021) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 9080 | Map Event Flag (9080) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 9100 | Remembrance of the Grafted | Remembrance | Various | - | - | - | - | - | - | - | common |
 | 9101 | [Enia - Forging] Remembrance of the Grafted - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9102 | Omen King's Remembrance | Remembrance | Various | - | - | - | - | - | - | - | common |
@@ -61,29 +291,113 @@ Total unique flags: 7034
 | 9114 | Remembrance of the Black Blade | Remembrance | Various | - | - | - | - | - | - | - | common |
 | 9115 | [Enia - Forging] Remembrance of the Dragonlord - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9116 | [Enia - Maliketh] Maliketh's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9117 | Map Event Flag (9117) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 9118 | [Enia - Rennala] Queen's Crescent Crown - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9119 | [Enia - Royal Knight Loretta] Royal Knight Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9120 | [Enia - Malenia] Malenia's Winged Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9121 | Map Event Flag (9121) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 9122 | [Enia - Forging] Remembrance of the Blasphemous - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9123 | [Enia - Forging] Elden Remembrance - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9125 | Map Event Flag (9125) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 9126 | Map Event Flag (9126) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 9128 | Map Event Flag (9128) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 9129 | Map Event Flag (9129) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 9130 | [Enia - Radahn] Radahn's Redmane Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9131 | [Enia - Forging] Remembrance of the Fire Giant - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9132 | Map Event Flag (9132) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_08_00_00.emevd |
 | 9133 | [Enia - Forging] Remembrance of the Regal Ancestor - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9134 | Map Event Flag (9134) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 9135 | Map Event Flag (9135) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 9140 | Remembrance of the Dancing Lion - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9143 | [Enia - Radahn, Consort of Miquella] Young Lion's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9144 | Map Event Flag (9144) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
 | 9146 | [Enia - Messmer the Impaler] Messmer's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9148 | Remembrance of Putrescence - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9155 | Remembrance of the Mother of Fingers - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9156 | Remembrance of the Lord of Frenzied Flame - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9160 | Remembrance of the Saint of the Bud - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9161 | Map Event Flag (9161) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
 | 9162 | Remembrance of the Shadow Sunflower - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9163 | Map Event Flag (9163) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
 | 9164 | [Enia - Commander Gaius] Gaius's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9173 | Map Event Flag (9173) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m34_13_00_00.emevd |
+| 9174 | Map Event Flag (9174) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
+| 9180 | Map Event Flag (9180) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_43_30_00.emevd |
+| 9181 | Map Event Flag (9181) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
 | 9182 | [Enia - Elemer of the Briar] Briar Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9183 | Map Event Flag (9183) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
 | 9184 | [Enia - Commander Niall] Veteran's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9190 | [Enia - Rellana, Twin Moon Knight] Rellana's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9200 | First Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
 | 9201 | Second Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
 | 9202 | Third Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
+| 9203 | Map Event Flag (9203) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_11_00_00.emevd |
+| 9204 | Map Event Flag (9204) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
+| 9205 | Map Event Flag (9205) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 9206 | Map Event Flag (9206) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 9207 | Map Event Flag (9207) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
+| 9208 | Map Event Flag (9208) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 9209 | Map Event Flag (9209) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
+| 9210 | Map Event Flag (9210) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 9211 | Map Event Flag (9211) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
+| 9212 | Map Event Flag (9212) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
+| 9213 | Map Event Flag (9213) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
+| 9214 | Map Event Flag (9214) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
+| 9215 | Map Event Flag (9215) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_15_00_00.emevd |
+| 9216 | Map Event Flag (9216) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
+| 9217 | Map Event Flag (9217) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 9218 | Map Event Flag (9218) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 9219 | Map Event Flag (9219) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
+| 9220 | Map Event Flag (9220) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
+| 9221 | Map Event Flag (9221) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 9222 | Map Event Flag (9222) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 9230 | Map Event Flag (9230) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_02_00_00.emevd |
+| 9231 | Map Event Flag (9231) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
+| 9232 | Map Event Flag (9232) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 9233 | Map Event Flag (9233) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_03_00_00.emevd |
+| 9234 | Map Event Flag (9234) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
+| 9235 | Map Event Flag (9235) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
+| 9236 | Map Event Flag (9236) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_04_00_00.emevd |
+| 9237 | Map Event Flag (9237) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
+| 9238 | Map Event Flag (9238) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
+| 9239 | Map Event Flag (9239) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_07_00_00.emevd |
+| 9240 | Map Event Flag (9240) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_09_00_00.emevd |
+| 9241 | Map Event Flag (9241) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
+| 9242 | Map Event Flag (9242) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 9243 | Map Event Flag (9243) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 9244 | Map Event Flag (9244) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
+| 9245 | Map Event Flag (9245) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_20_00_00.emevd |
+| 9246 | Map Event Flag (9246) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
+| 9247 | Map Event Flag (9247) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_12_00_00.emevd |
+| 9248 | Map Event Flag (9248) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
+| 9249 | Map Event Flag (9249) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 9260 | Map Event Flag (9260) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
+| 9261 | Map Event Flag (9261) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 9262 | Map Event Flag (9262) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 9263 | Map Event Flag (9263) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
+| 9264 | Map Event Flag (9264) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
+| 9265 | Map Event Flag (9265) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
+| 9266 | Map Event Flag (9266) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 9267 | Map Event Flag (9267) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
+| 9268 | Map Event Flag (9268) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
+| 9270 | Map Event Flag (9270) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 9271 | Map Event Flag (9271) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
+| 9275 | Map Event Flag (9275) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
+| 9276 | Map Event Flag (9276) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 9277 | Map Event Flag (9277) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 9280 | Map Event Flag (9280) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
+| 9281 | Map Event Flag (9281) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
+| 9290 | Map Event Flag (9290) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
+| 9291 | Map Event Flag (9291) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
+| 9295 | Map Event Flag (9295) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_39_50_00.emevd |
+| 9404 | Map Event Flag (9404) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 9405 | Map Event Flag (9405) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 9406 | Map Event Flag (9406) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 9407 | Map Event Flag (9407) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 9411 | Map Event Flag (9411) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 9412 | Map Event Flag (9412) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 9430 | Map Event Flag (9430) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 9431 | Map Event Flag (9431) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 9440 | [Sorcery] Fleeting Microcosm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9500 | Mending Rune of Perfect Order | Mending Rune | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 9501 | Mending Rune of Perfect Order | Mending Rune | Various | - | - | - | - | - | - | - | common |
@@ -91,6 +405,7 @@ Total unique flags: 7034
 | 9504 | Mending Rune of the Fell Curse | Mending Rune | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 9800 | Good_12302 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 9810 | Good_12307 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 10740 | Map Event Flag (10740) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 60000 | Flask of Crimson Tears | Progression | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 60020 | Flask of Wondrous Physick | Progression | Various | m60_46_38 | -80.2, 4.5, 71.1 | 11695.8, 9799.1 | ground_pickup | 3 | high | N | ItemLotParam_map |
 | 60100 | Spectral Steed Whistle | Progression | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
@@ -110,6 +425,9 @@ Total unique flags: 7034
 | 60290 | [Twin Maiden Husks] Blue Cipher Ring - Purchased | Progression | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 60300 | Taunter's Tongue | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60310 | Finger Severer | Progression | Various | m18_00_00 | -129.0, 14.0, 7.7 | - | corpse | 2 | high | - | ItemLotParam_map |
+| 60350 | Map Event Flag (60350) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 60360 | Map Event Flag (60360) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m60_42_40_00.emevd |
+| 60370 | Map Event Flag (60370) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m60_47_42_00.emevd |
 | 60400 | Memory Stone | Progression | Various | m60_45_33 | -66.2, 117.2, -59.2 | 11453.8, 8388.8 | chest | 2 | high | N | ItemLotParam_map |
 | 60410 | Memory Stone | Progression | Various | m60_34_43 | -86.2, 291.2, -73.2 | 8617.8, 10934.8 | chest | 2 | high | N | ItemLotParam_map |
 | 60420 | Memory Stone | Progression | Various | m60_35_47 | -86.3, 282.0, 75.3 | 8873.7, 12107.3 | chest | 2 | high | N | ItemLotParam_map |
@@ -121,6 +439,128 @@ Total unique flags: 7034
 | 60500 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60510 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 60520 | Talisman Pouch | Progression | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 60801 | Map Event Flag (60801) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 60809 | Gesture Unlock (60809) | Gesture Unlock | Roundtable Hold | m18_00_00 | -72.3, 13.6, 33.5 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 60819 | Map Event Flag (60819) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 60822 | Gesture Unlock (60822) | Gesture Unlock | Leyndell | m11_00_00 | -284.8, -21.6, -328.4 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 60824 | Gesture Unlock (60824) | Gesture Unlock | Liurnia of the Lakes | m60_36_41 | 69.3, 246.4, 54.4 | 9285.3, 10550.4 | - | - | - | - | EMEVD:m60_36_41_00.emevd |
+| 60826 | Map Event Flag (60826) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
+| 60829 | Map Event Flag (60829) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 60832 | Map Event Flag (60832) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 60833 | Gesture Unlock (60833) | Gesture Unlock | Limgrave | m60_41_37 | 55.9, 168.1, 9.9 | 10551.9, 9481.9 | - | - | - | - | EMEVD:m60_41_37_00.emevd |
+| 60836 | Gesture Unlock (60836) | Gesture Unlock | Stormveil Castle | m10_00_00 | -198.0, 93.4, 118.3 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 60843 | Map Event Flag (60843) | Progression | Various | - | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 60861 | Gesture Unlock (60861) | Gesture Unlock | Various | - | - | - | - | - | - | - | EMEVD:m61_53_48_00.emevd |
+| 60864 | Gesture Unlock (60864) | Gesture Unlock | Various | - | - | - | - | - | - | - | EMEVD:m61_50_45_00.emevd |
+| 61100 | Map Event Flag (61100) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 61101 | Map Event Flag (61101) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 61103 | Map Event Flag (61103) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 61104 | Map Event Flag (61104) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 61105 | Map Event Flag (61105) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 61106 | Map Event Flag (61106) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 61107 | Map Event Flag (61107) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 61108 | Map Event Flag (61108) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_04_00_00.emevd |
+| 61109 | Map Event Flag (61109) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 61110 | Map Event Flag (61110) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 61111 | Map Event Flag (61111) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 61112 | Map Event Flag (61112) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 61114 | Map Event Flag (61114) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 61115 | Map Event Flag (61115) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 61116 | Map Event Flag (61116) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 61117 | Map Event Flag (61117) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 61118 | Map Event Flag (61118) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 61119 | Map Event Flag (61119) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 61120 | Map Event Flag (61120) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 61121 | Map Event Flag (61121) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 61122 | Map Event Flag (61122) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 61123 | Map Event Flag (61123) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 61125 | Map Event Flag (61125) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 61126 | Map Event Flag (61126) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 61128 | Map Event Flag (61128) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 61129 | Map Event Flag (61129) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 61130 | Map Event Flag (61130) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 61131 | Map Event Flag (61131) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 61132 | Map Event Flag (61132) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_08_00_00.emevd |
+| 61135 | Map Event Flag (61135) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 61140 | Map Event Flag (61140) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 61143 | Map Event Flag (61143) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 61144 | Map Event Flag (61144) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 61146 | Map Event Flag (61146) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 61148 | Map Event Flag (61148) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 61155 | Map Event Flag (61155) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 61156 | Map Event Flag (61156) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 61160 | Map Event Flag (61160) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_44_45_00.emevd |
+| 61161 | Map Event Flag (61161) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 61162 | Map Event Flag (61162) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_50_48_00.emevd |
+| 61163 | Map Event Flag (61163) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 61164 | Map Event Flag (61164) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_49_48_00.emevd |
+| 61173 | Map Event Flag (61173) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m34_13_00_00.emevd |
+| 61180 | Map Event Flag (61180) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_43_30_00.emevd |
+| 61181 | Map Event Flag (61181) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 61182 | Map Event Flag (61182) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_39_54_00.emevd |
+| 61183 | Map Event Flag (61183) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 61184 | Map Event Flag (61184) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 61190 | Map Event Flag (61190) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 61200 | Map Event Flag (61200) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 61201 | Map Event Flag (61201) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_01_00_00.emevd |
+| 61202 | Map Event Flag (61202) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
+| 61203 | Map Event Flag (61203) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_11_00_00.emevd |
+| 61204 | Map Event Flag (61204) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
+| 61205 | Map Event Flag (61205) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 61206 | Map Event Flag (61206) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 61207 | Map Event Flag (61207) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
+| 61208 | Map Event Flag (61208) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 61209 | Map Event Flag (61209) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
+| 61210 | Map Event Flag (61210) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 61211 | Map Event Flag (61211) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
+| 61212 | Map Event Flag (61212) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
+| 61213 | Map Event Flag (61213) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
+| 61214 | Map Event Flag (61214) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
+| 61215 | Map Event Flag (61215) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_15_00_00.emevd |
+| 61216 | Map Event Flag (61216) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
+| 61217 | Map Event Flag (61217) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 61218 | Map Event Flag (61218) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 61219 | Map Event Flag (61219) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
+| 61220 | Map Event Flag (61220) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
+| 61221 | Map Event Flag (61221) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 61222 | Map Event Flag (61222) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 61230 | Map Event Flag (61230) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_02_00_00.emevd |
+| 61231 | Map Event Flag (61231) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
+| 61232 | Map Event Flag (61232) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 61233 | Map Event Flag (61233) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_03_00_00.emevd |
+| 61234 | Map Event Flag (61234) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
+| 61235 | Map Event Flag (61235) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
+| 61236 | Map Event Flag (61236) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_04_00_00.emevd |
+| 61237 | Map Event Flag (61237) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
+| 61238 | Map Event Flag (61238) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
+| 61239 | Map Event Flag (61239) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_07_00_00.emevd |
+| 61240 | Map Event Flag (61240) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_09_00_00.emevd |
+| 61241 | Map Event Flag (61241) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
+| 61242 | Map Event Flag (61242) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 61243 | Map Event Flag (61243) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 61244 | Map Event Flag (61244) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
+| 61245 | Map Event Flag (61245) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_20_00_00.emevd |
+| 61246 | Map Event Flag (61246) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
+| 61247 | Map Event Flag (61247) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_12_00_00.emevd |
+| 61248 | Map Event Flag (61248) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
+| 61249 | Map Event Flag (61249) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 61260 | Map Event Flag (61260) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
+| 61261 | Map Event Flag (61261) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 61262 | Map Event Flag (61262) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 61263 | Map Event Flag (61263) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
+| 61264 | Map Event Flag (61264) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
+| 61265 | Map Event Flag (61265) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
+| 61266 | Map Event Flag (61266) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 61267 | Map Event Flag (61267) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
+| 61268 | Map Event Flag (61268) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
+| 61270 | Map Event Flag (61270) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 61271 | Map Event Flag (61271) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
+| 61275 | Map Event Flag (61275) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
+| 61276 | Map Event Flag (61276) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 61277 | Map Event Flag (61277) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 61280 | Map Event Flag (61280) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m43_00_00_00.emevd |
+| 61281 | Map Event Flag (61281) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
+| 62002 | Map Event Flag (62002) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
 | 62010 | Map: Limgrave, West | Map Fragment | Various | m60_42_37 | 73.4, 98.6, 87.2 | 10825.4, 9559.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 62011 | Map: Weeping Peninsula | Map Fragment | Various | m60_44_32 | 18.1, 27.0, 22.4 | 11282.1, 8214.4 | chest | 2 | high | N | ItemLotParam_map |
 | 62012 | Map: Limgrave, East | Map Fragment | Various | m60_45_37 | 40.4, 20.0, 19.1 | 11560.4, 9491.1 | chest | 2 | high | N | ItemLotParam_map |
@@ -747,6 +1187,10 @@ Total unique flags: 7034
 | 68930 | Battlefield Priest's Cookbook [4] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68940 | Grave Keeper's Cookbook [1] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
 | 68950 | St. Trina Disciple's Cookbook [2] | Cookbook | Various | - | - | - | - | 2 | none | - | ItemLotParam_map |
+| 69450 | Map Event Flag (69450) | Mausoleum Duplication | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 69460 | Map Event Flag (69460) | Mausoleum Duplication | Various | - | - | - | - | - | - | - | EMEVD:m60_42_40_00.emevd |
+| 69470 | Map Event Flag (69470) | Mausoleum Duplication | Various | - | - | - | - | - | - | - | EMEVD:m60_47_42_00.emevd |
+| 69480 | Map Event Flag (69480) | Mausoleum Duplication | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 69600 | [Isolated Merchant - Dragonbarrow] Note: Hidden Cave - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69610 | [Merchant - Altus Plateau] Note: Imp Shades - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 69620 | [Merchant Kale] Note: Flask of Wondrous Physick - Purchased | Mausoleum Duplication | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -1273,6 +1717,9 @@ Total unique flags: 7034
 | 78904 | Guidance of Grace: Ancient Ruins of Rauh - Rauh Ancient Ruins, West | Grace | Ancient Ruins of Rauh | m61_45_45 | -19.2, 556.0, 75.1 | 11500.8, 11595.1 | - | - | - | - | WorldMapPointParam |
 | 78905 | Guidance of Grace: Ancient Ruins of Rauh - Church of the Bud, Main Entrance | Grace | Ancient Ruins of Rauh | m61_44_46 | -47.5, 625.5, -56.7 | 11216.5, 11719.3 | - | - | - | - | WorldMapPointParam |
 | 78906 | Guidance of Grace: Ancient Ruins of Rauh - Ancient Ruins, Grand Stairway | Grace | Ancient Ruins of Rauh | m61_44_45 | -56.4, 625.0, 124.2 | 11207.6, 11644.2 | - | - | - | - | WorldMapPointParam |
+| 82002 | Map Event Flag (82002) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 91133 | Map Event Flag (91133) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_09_00_00.emevd |
+| 91134 | Map Event Flag (91134) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 100000 | [Gatekeeper Gostoc] Festering Bloody Finger - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 100020 | [Gatekeeper Gostoc] Ruin Fragment - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 100040 | [Gatekeeper Gostoc] Buckler - Purchased | Shop Stock | Various | - | - | - | - | - | - | - | ShopLineupParam |
@@ -2577,6 +3024,37 @@ Total unique flags: 7034
 | 590200 | Good_9800 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 590210 | Good_9801 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
 | 590220 | Good_9802 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
+| 700690 | Map Event Flag (700690) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
+| 710000 | Map Event Flag (710000) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 710820 | Map Event Flag (710820) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 710850 | Map Event Flag (710850) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 710860 | Map Event Flag (710860) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_42_40_00.emevd |
+| 710870 | Map Event Flag (710870) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_47_42_00.emevd |
+| 780000 | Map Event Flag (780000) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
+| 780001 | Map Event Flag (780001) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
+| 780020 | Map Event Flag (780020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 780021 | Map Event Flag (780021) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 780030 | Map Event Flag (780030) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 780031 | Map Event Flag (780031) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 10000280 | Enemy Defeat (10000280) | Enemy Defeat | Stormveil Castle | m10_00_00 | -200.7, 67.7, 112.6 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000289 | Enemy Defeat (10000289) | Enemy Defeat | Stormveil Castle | m10_00_00 | -110.5, 37.0, 85.9 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000291 | Enemy Defeat (10000291) | Enemy Defeat | Stormveil Castle | m10_00_00 | -258.6, 13.8, 147.0 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000495 | Enemy Defeat (10000495) | Enemy Defeat | Stormveil Castle | m10_00_00 | -306.4, -26.7, 168.6 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000496 | Enemy Defeat (10000496) | Enemy Defeat | Stormveil Castle | m10_00_00 | -228.5, 83.2, 281.2 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000497 | Enemy Defeat (10000497) | Enemy Defeat | Stormveil Castle | m10_00_00 | -285.7, 23.8, 182.5 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000498 | Enemy Defeat (10000498) | Enemy Defeat | Stormveil Castle | m10_00_00 | -296.6, -24.8, 97.9 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000500 | Map Event Flag (10000500) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000501 | Map Event Flag (10000501) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000510 | Door Unlock (10000510) | Door Unlock | Stormveil Castle | m10_00_00 | -236.5, 67.4, 93.1 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000514 | Door Unlock (10000514) | Door Unlock | Stormveil Castle | m10_00_00 | -242.7, 98.5, 92.0 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000515 | Door Unlock (10000515) | Door Unlock | Stormveil Castle | m10_00_00 | -258.8, 60.9, 248.3 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000520 | Door Unlock (10000520) | Door Unlock | Stormveil Castle | m10_00_00 | -268.5, -16.9, 85.7 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000524 | Door Unlock (10000524) | Door Unlock | Stormveil Castle | m10_00_00 | -265.0, 98.5, 90.6 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000560 | Mechanism Unlock (10000560) | Mechanism Unlock | Stormveil Castle | m10_00_00 | -285.0, 71.6, 243.4 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000562 | Mechanism Unlock (10000562) | Mechanism Unlock | Stormveil Castle | m10_00_00 | -232.2, 67.1, 69.3 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000564 | Mechanism Unlock (10000564) | Mechanism Unlock | Stormveil Castle | m10_00_00 | -250.3, 59.3, 89.5 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000566 | Mechanism Unlock (10000566) | Mechanism Unlock | Stormveil Castle | m10_00_00 | -195.9, 75.5, 94.3 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10000698 | EMEVD Treasure (10000698) | EMEVD Treasure | Stormveil Castle | m10_00_00 | -242.4, 66.4, 210.3 | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
 | 10000700 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -122.2, 21.6, 16.8 | - | - | - | - | - | MSB NPC |
 | 10000701 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -189.5, 37.4, -30.3 | - | - | - | - | - | MSB NPC |
 | 10000702 | Gatekeeper Gostoc | NPC | Stormveil Castle | m10_00_00 | -242.2, 51.5, 66.5 | - | - | - | - | - | MSB NPC |
@@ -2592,8 +3070,18 @@ Total unique flags: 7034
 | 10000735 | Commoner | NPC | Stormveil Castle | m10_00_00 | -296.4, 64.3, 425.8 | - | - | - | - | - | MSB NPC |
 | 10000800 | Godrick the Grafted | Great Boss Defeat | Stormveil Castle | m10_00_00 | -235.6, 73.8, 348.3 | - | - | - | - | - | MSB Enemy |
 | 10000801 | Godrick the Grafted (discovered) | Boss Discovery | Stormveil Castle | m10_00_00 | -233.6, 73.7, 349.6 | - | - | - | - | - | GameAreaParam |
+| 10000802 | Map Event Flag (10000802) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
 | 10000850 | Margit, the Fell Omen | Field Boss Defeat | Stormveil Castle | m10_00_00 | -18.6, -2.6, -17.4 | - | - | - | - | - | MSB Enemy |
 | 10000851 | Margit the Fell Omen (discovered) | Boss Discovery | Stormveil Castle | m10_00_00 | -16.9, -2.8, -17.6 | - | - | - | - | - | GameAreaParam |
+| 10002681 | Map Event Flag (10002681) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002721 | Map Event Flag (10002721) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002722 | Map Event Flag (10002722) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002765 | Map Event Flag (10002765) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002769 | Map Event Flag (10002769) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002784 | Map Event Flag (10002784) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002786 | Map Event Flag (10002786) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002802 | Map Event Flag (10002802) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10002852 | Map Event Flag (10002852) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
 | 10003900 | Stake of Marika (m10_00_00) | Stake of Marika | Stormveil Castle | m10_00_00 | -314.2, 89.7, 279.2 | - | - | - | - | - | MSB SpawnPoint |
 | 10007005 | Wooden Greatshield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -216.7, 72.6, 214.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 10007015 | Hawk Crest Wooden Shield | Dungeon Pickup | Stormveil Castle | m10_00_00 | -251.7, 65.8, 110.6 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -2697,25 +3185,80 @@ Total unique flags: 7034
 | 10007975 | Curved Sword Talisman | Dungeon Pickup | Stormveil Castle | m10_00_00 | -225.5, 67.1, 90.2 | - | chest | - | high | - | ItemLotParam_map |
 | 10007980 | Somber Smithing Stone [2] | Dungeon Pickup | Stormveil Castle | m10_00_00 | -214.5, 67.4, 129.0 | - | chest | 1 | high | - | ItemLotParam_map |
 | 10007990 | Godskin Prayerbook | Dungeon Pickup | Stormveil Castle | m10_00_00 | -206.5, 52.4, 77.5 | - | chest | 2 | high | - | ItemLotParam_map |
+| 10009354 | Map Event Flag (10009354) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009355 | Map Event Flag (10009355) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009356 | Map Event Flag (10009356) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009370 | Map Event Flag (10009370) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009374 | Map Event Flag (10009374) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009377 | Map Event Flag (10009377) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009390 | Map Event Flag (10009390) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009391 | Map Event Flag (10009391) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009500 | Map Event Flag (10009500) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009502 | Map Event Flag (10009502) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
 | 10009516 | [Gatekeeper Gostoc] Ancient Dragon Smithing Stone - Unlocked | Shop Unlock | Stormveil Castle | - | - | - | - | - | - | - | ShopLineupParam |
+| 10009610 | Map Event Flag (10009610) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009707 | Map Event Flag (10009707) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009720 | Map Event Flag (10009720) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009721 | Map Event Flag (10009721) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10009722 | Map Event Flag (10009722) | EMEVD Literal Flag | Stormveil Castle | m10_00_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 10010500 | Map Event Flag (10010500) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 10010502 | Map Event Flag (10010502) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
 | 10010800 | Grafted Scion | Great Boss Defeat | Stormveil Castle | m10_01_00 | -41.7, 21.3, -39.5 | - | - | - | - | - | MSB Enemy |
+| 10010801 | Map Event Flag (10010801) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
 | 10012020 | Stake of Marika (m10_01_00) | Stake of Marika | Stormveil Castle | m10_01_00 | -33.5, 39.1, -179.3 | - | - | - | - | - | MSB SpawnPoint |
 | 10012690 | Stake of Marika (m10_01_00) | Stake of Marika | Stormveil Castle | m10_01_00 | 22.8, 13.2, 2.3 | - | - | - | - | - | MSB SpawnPoint |
+| 10012802 | Map Event Flag (10012802) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
 | 10017010 | The Stormhawk King | Dungeon Pickup | Stormveil Castle | m10_01_00 | -40.8, 43.5, -159.3 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 10017900 | Stormhawk Deenh | Dungeon Pickup | Stormveil Castle | m10_01_00 | -40.4, 45.5, -177.7 | - | chest | 2 | high | - | ItemLotParam_map |
+| 10018560 | Map Event Flag (10018560) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 10019200 | Map Event Flag (10019200) | EMEVD Literal Flag | Stormveil Castle | m10_01_00 | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 11000299 | Enemy Defeat (11000299) | Enemy Defeat | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000389 | Enemy Defeat (11000389) | Enemy Defeat | Leyndell | m11_00_00 | -160.6, -45.5, -203.0 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000393 | Enemy Defeat (11000393) | Enemy Defeat | Leyndell | m11_00_00 | -214.6, -17.5, -321.8 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000399 | Enemy Defeat (11000399) | Enemy Defeat | Leyndell | m11_00_00 | -184.1, -36.5, -324.1 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000484 | Enemy Defeat (11000484) | Enemy Defeat | Leyndell | m11_00_00 | -81.5, 45.5, -316.2 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000495 | Enemy Defeat (11000495) | Enemy Defeat | Leyndell | m11_00_00 | -71.2, -48.4, -100.0 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000496 | Enemy Defeat (11000496) | Enemy Defeat | Leyndell | m11_00_00 | -116.6, -15.0, -270.0 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000497 | Enemy Defeat (11000497) | Enemy Defeat | Leyndell | m11_00_00 | -205.0, -68.0, -122.0 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000498 | Enemy Defeat (11000498) | Enemy Defeat | Leyndell | m11_00_00 | -464.4, 29.9, -316.7 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000499 | Enemy Defeat (11000499) | Enemy Defeat | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000500 | Map Event Flag (11000500) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000501 | Map Event Flag (11000501) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000510 | Door Unlock (11000510) | Door Unlock | Leyndell | m11_00_00 | -40.3, -34.9, -220.9 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000515 | Door Unlock (11000515) | Door Unlock | Leyndell | m11_00_00 | -70.5, -48.4, -77.6 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000520 | Door Unlock (11000520) | Door Unlock | Leyndell | m11_00_00 | -129.5, -56.6, -119.3 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000525 | Door Unlock (11000525) | Door Unlock | Leyndell | m11_00_00 | -201.3, -1.9, -359.9 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000530 | Map Event Flag (11000530) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000540 | Mechanism Unlock (11000540) | Mechanism Unlock | Leyndell | m11_00_00 | -227.8, -35.2, -252.8 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000546 | Map Event Flag (11000546) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000560 | Mechanism Unlock (11000560) | Mechanism Unlock | Leyndell | m11_00_00 | -63.6, 1.0, -83.2 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000562 | Mechanism Unlock (11000562) | Mechanism Unlock | Leyndell | m11_00_00 | -186.8, -57.5, -182.3 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000564 | Mechanism Unlock (11000564) | Mechanism Unlock | Leyndell | m11_00_00 | -191.9, -66.9, -178.6 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000600 | Map Event Flag (11000600) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 11000601 | Map Event Flag (11000601) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m60_42_32_00.emevd |
+| 11000603 | Map Event Flag (11000603) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 11000610 | Door Unlock (11000610) | Door Unlock | Leyndell | m11_00_00 | -48.1, -55.7, 25.9 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000665 | Enemy Defeat (11000665) | Enemy Defeat | Leyndell | m11_00_00 | -161.3, -20.9, -299.8 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000666 | Enemy Defeat (11000666) | Enemy Defeat | Leyndell | m11_00_00 | -247.2, -64.7, -170.1 | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11000667 | Enemy Defeat (11000667) | Enemy Defeat | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11000710 | Boc the Seamster | NPC | Leyndell | m11_00_00 | -39.2, 8.0, -83.6 | - | - | - | - | - | MSB NPC |
 | 11000715 | The Noble Goldmask | NPC | Leyndell | m11_00_00 | -245.8, 29.0, -460.7 | - | - | - | - | - | MSB NPC |
 | 11000720 | Morgott (Dead) | NPC | Leyndell | m11_00_00 | 51.4, 65.1, -428.4 | - | - | - | - | - | MSB NPC |
 | 11000725 | Scribe Corhyn | NPC | Leyndell | m11_00_00 | -251.0, 27.0, -460.6 | - | - | - | - | - | MSB NPC |
 | 11000735 | Recusant Bernahl | NPC | Leyndell | m11_00_00 | -269.9, -32.6, -279.5 | - | - | - | - | - | MSB NPC |
 | 11000800 | Margit, the Fell Omen | Great Boss Defeat | Leyndell | m11_00_00 | 41.8, 65.0, -421.9 | - | - | - | - | - | MSB Enemy |
+| 11000801 | Map Event Flag (11000801) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11000850 | Godfrey, First Elden Lord | Field Boss Defeat | Leyndell | m11_00_00 | -131.6, 31.0, -386.4 | - | - | - | - | - | MSB Enemy |
+| 11000851 | Map Event Flag (11000851) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11002020 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | 34.6, 65.0, -412.6 | - | - | - | - | - | MSB SpawnPoint |
 | 11002141 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | -272.4, -32.6, -278.9 | - | - | - | - | - | MSB SpawnPoint |
 | 11002500 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | 0.0, 1.0, 2.2 | - | - | - | - | - | MSB SpawnPoint |
 | 11002697 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | -377.2, 21.3, -266.3 | - | - | - | - | - | MSB SpawnPoint |
 | 11002730 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | -272.4, -32.6, -278.9 | - | - | - | - | - | MSB SpawnPoint |
 | 11002731 | Stake of Marika (m11_00_00) | Stake of Marika | Leyndell | m11_00_00 | -272.4, -32.6, -278.9 | - | - | - | - | - | MSB SpawnPoint |
+| 11002733 | Map Event Flag (11002733) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11002802 | Map Event Flag (11002802) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11002852 | Map Event Flag (11002852) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11007000 | Magic Grease | Dungeon Pickup | Leyndell | m11_00_00 | -29.7, 1.0, 4.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 11007005 | Alberich's Pointed Hat | Dungeon Pickup | Leyndell | m11_00_00 | -293.3, -32.6, -290.9 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 11007010 | Furlcalling Finger Remedy | Dungeon Pickup | Leyndell | m11_00_00 | -0.0, 2.9, 6.3 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -2847,7 +3390,19 @@ Total unique flags: 7034
 | 11007996 | Ritual Shield Talisman | Dungeon Pickup | Leyndell | m11_00_00 | -341.1, 27.5, -396.4 | - | corpse | - | high | - | ItemLotParam_map |
 | 11007997 | Bolt of Gransax | Dungeon Pickup | Leyndell | m11_00_00 | -163.6, -26.6, -258.9 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
 | 11007998 | Lord's Rune | Dungeon Pickup | Leyndell | m11_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
+| 11008542 | Map Event Flag (11008542) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11008544 | Map Event Flag (11008544) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11008556 | Map Event Flag (11008556) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
 | 11009455 | [Brother Corhyn - Erdtree Sanctuary] Immutable Shield - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
+| 11009468 | Map Event Flag (11009468) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11009469 | Map Event Flag (11009469) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11009500 | Map Event Flag (11009500) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11009554 | Map Event Flag (11009554) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11009556 | Map Event Flag (11009556) | EMEVD Literal Flag | Leyndell | m11_00_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11050500 | Map Event Flag (11050500) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11050525 | Door Unlock (11050525) | Door Unlock | Leyndell | m11_05_00 | -201.3, -1.9, -359.9 | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11050560 | Mechanism Unlock (11050560) | Mechanism Unlock | Leyndell | m11_05_00 | -63.6, 1.0, -83.2 | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11050610 | Door Unlock (11050610) | Door Unlock | Leyndell | m11_05_00 | -48.1, -55.7, 25.9 | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
 | 11050705 | The Noble Goldmask | NPC | Leyndell | m11_05_00 | -231.7, -24.0, -439.2 | - | - | - | - | - | MSB NPC |
 | 11050710 | Scribe Corhyn | NPC | Leyndell | m11_05_00 | -162.8, -23.1, -271.3 | - | - | - | - | - | MSB NPC |
 | 11050720 | Commoner | NPC | Leyndell | m11_05_00 | -135.4, -29.4, -164.4 | - | - | - | - | - | MSB NPC |
@@ -2859,6 +3414,8 @@ Total unique flags: 7034
 | 11050851 | Sir Gideon Ofnir, the All-Knowing | Field Boss Defeat | Leyndell | m11_05_00 | -175.2, 40.0, -386.9 | - | - | - | - | - | MSB Enemy |
 | 11050854 | Sir Gideon Ofnir, the All-Knowing | Invasion Defeat | Leyndell | m11_05_00 | -175.2, 40.0, -386.9 | - | - | - | - | - | MSB Enemy |
 | 11052680 | Stake of Marika (m11_05_00) | Stake of Marika | Leyndell | m11_05_00 | -377.1, 21.3, -266.2 | - | - | - | - | - | MSB SpawnPoint |
+| 11052802 | Map Event Flag (11052802) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11052852 | Map Event Flag (11052852) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
 | 11057000 | Erdtree Heal | Dungeon Pickup | Leyndell | m11_05_00 | -47.0, 48.8, -304.8 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 11057010 | Somber Ancient Dragon Smithing Stone | Dungeon Pickup | Leyndell | m11_05_00 | -256.3, -25.9, -268.2 | - | corpse | 3 | high | - | ItemLotParam_map |
 | 11057020 | Tarnished Golden Sunflower | Dungeon Pickup | Leyndell | m11_05_00 | -178.7, -44.6, -204.4 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -2866,6 +3423,11 @@ Total unique flags: 7034
 | 11057040 | Golden Sunflower | Dungeon Pickup | Leyndell | m11_05_00 | -192.1, -28.3, -253.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 11057050 | Hero's Rune [4] | Dungeon Pickup | Leyndell | m11_05_00 | -144.9, -7.5, -295.1 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 11057100 | Erdtree's Favor +2 | Dungeon Pickup | Leyndell | m11_05_00 | 10.3, -41.4, -240.1 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
+| 11058556 | Map Event Flag (11058556) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 11059206 | Map Event Flag (11059206) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11059304 | Map Event Flag (11059304) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11059305 | Map Event Flag (11059305) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 11059350 | Map Event Flag (11059350) | EMEVD Literal Flag | Leyndell | m11_05_00 | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
 | 11100700 | Twin Maiden Husks | NPC | Leyndell | m11_10_00 | -298.3, -22.6, -275.4 | - | - | - | - | - | MSB NPC |
 | 11100705 | Finger Reader Enia | Finger Reader | Leyndell | m11_10_00 | -348.2, -20.2, -328.2 | - | - | - | - | - | MSB NPC |
 | 11100710 | Roderika | NPC | Leyndell | m11_10_00 | -317.4, -22.0, -314.9 | - | - | - | - | - | MSB NPC |
@@ -2892,10 +3454,25 @@ Total unique flags: 7034
 | 11102020 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -330.9, -22.0, -305.7 | - | - | - | - | - | MSB SpawnPoint |
 | 11102620 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -305.2, -19.9, -297.8 | - | - | - | - | - | MSB SpawnPoint |
 | 11102691 | Stake of Marika (m11_10_00) | Stake of Marika | Leyndell | m11_10_00 | -320.3, -22.0, -315.7 | - | - | - | - | - | MSB SpawnPoint |
+| 11102704 | Map Event Flag (11102704) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11102708 | Map Event Flag (11102708) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11102719 | Map Event Flag (11102719) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11102790 | Map Event Flag (11102790) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
 | 11107000 | Cipher Pata | Dungeon Pickup | Leyndell | m11_10_00 | -315.1, -31.6, -262.9 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 11107700 | Assassin's Prayerbook | Dungeon Pickup | Leyndell | m11_10_00 | -284.7, -32.6, -327.7 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11107710 | Crepus's Black-Key Crossbow | Dungeon Pickup | Leyndell | m11_10_00 | -295.3, -32.6, -318.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 11107900 | Clinging Bone | Dungeon Pickup | Leyndell | m11_10_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 11108548 | Map Event Flag (11108548) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109306 | Map Event Flag (11109306) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 11109340 | Map Event Flag (11109340) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109528 | Map Event Flag (11109528) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 11109529 | Map Event Flag (11109529) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109558 | Map Event Flag (11109558) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109559 | Map Event Flag (11109559) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109560 | Map Event Flag (11109560) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109561 | Map Event Flag (11109561) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m60_49_53_00.emevd |
+| 11109609 | Map Event Flag (11109609) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
+| 11109656 | Map Event Flag (11109656) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
 | 11109687 | Divine Tower of East Altus - The Rold Route | Landmark | Leyndell | m34_14_00 | 131.8, 17.9, -199.8 | - | - | - | - | - | WorldMapPointParam |
 | 11109745 | [Twin Maiden Husks] Thin Beast Bones - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109746 | [Twin Maiden Husks] Sliver of Meat - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
@@ -2925,6 +3502,7 @@ Total unique flags: 7034
 | 11109776 | [Twin Maiden Husks] Whetstone Knife - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109777 | [Twin Maiden Husks] Talisman Pouch - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109781 | [Twin Maiden Husks] Glintstone Scrap - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
+| 11109785 | Map Event Flag (11109785) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
 | 11109792 | [Twin Maiden Husks] Rada Fruit - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109793 | [Twin Maiden Husks] Redflesh Mushroom - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109794 | [Twin Maiden Husks] Whiteflesh Mushroom - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
@@ -2933,6 +3511,7 @@ Total unique flags: 7034
 | 11109797 | [Twin Maiden Husks] Igon's Harpoon - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109798 | [Twin Maiden Husks] Rabbath's Greatbolt - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109799 | [Twin Maiden Husks] String - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
+| 11109819 | Map Event Flag (11109819) | EMEVD Literal Flag | Leyndell | m11_10_00 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 11109874 | [Brother Corhyn - Fire Monks' Prayerbook] O Flame! - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109875 | [Brother Corhyn - Giant's Prayerbook] Giantsflame Take Thee - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109876 | [Brother Corhyn - Godskin Prayerbook] Black Flame - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
@@ -2943,12 +3522,51 @@ Total unique flags: 7034
 | 11109884 | [Brother Corhyn - Ancient Dragon Prayerbook] Ancient Dragons' Lightning Spear - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11109919 | [Preceptor Seluvis - Ranni Quest] Dolores the Sleeping Arrow Puppet - Unlocked | Shop Unlock | Leyndell | - | - | - | - | - | - | - | ShopLineupParam |
 | 11712500 | Stake of Marika (m11_71_00) | Stake of Marika | Leyndell | m11_71_00 | 17.4, 60.0, -390.4 | - | - | - | - | - | MSB SpawnPoint |
+| 12010240 | Enemy Defeat (12010240) | Enemy Defeat | Underground | m12_01_00 | 225.1, -179.3, -223.4 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010400 | Enemy Defeat (12010400) | Enemy Defeat | Underground | m12_01_00 | 15.0, -182.7, -57.6 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010401 | Enemy Defeat (12010401) | Enemy Defeat | Underground | m12_01_00 | 279.5, -80.7, 112.6 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010403 | Enemy Defeat (12010403) | Enemy Defeat | Underground | m12_01_00 | -295.0, -317.1, -436.2 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010404 | Enemy Defeat (12010404) | Enemy Defeat | Underground | m12_01_00 | -204.4, -111.0, 276.7 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010420 | Enemy Defeat (12010420) | Enemy Defeat | Underground | m12_01_00 | -417.3, -373.6, -475.7 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010421 | Enemy Defeat (12010421) | Enemy Defeat | Underground | m12_01_00 | -365.1, -292.9, -308.4 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010510 | Door Unlock (12010510) | Door Unlock | Underground | m12_01_00 | 190.1, -295.3, -189.9 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010515 | Door Unlock (12010515) | Door Unlock | Underground | m12_01_00 | -312.7, -402.0, -45.4 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010520 | Door Unlock (12010520) | Door Unlock | Underground | m12_01_00 | -239.2, -290.5, 173.0 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010525 | Door Unlock (12010525) | Door Unlock | Underground | m12_01_00 | -263.1, -149.3, 231.5 | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010590 | Map Event Flag (12010590) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010591 | Map Event Flag (12010591) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010593 | Map Event Flag (12010593) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010594 | Map Event Flag (12010594) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12010595 | Map Event Flag (12010595) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12010705 | Hermit Merchant | Merchant | Underground | m12_01_00 | -15.0, -203.7, -34.9 | - | - | - | - | - | MSB NPC |
 | 12010800 | Dragonkin Soldier of Nokstella | Great Boss Defeat | Underground | m12_01_00 | -49.6, -224.3, 84.3 | - | - | - | - | - | MSB Enemy |
 | 12010801 | Dragonkin Soldier of Nokstella | Great Boss Defeat | Underground | m12_01_00 | -147.2, -224.5, 114.0 | - | - | - | - | - | MSB Enemy |
+| 12010840 | Map Event Flag (12010840) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12010850 | Dragonkin Soldier of Nokstella | Field Boss Defeat | Underground | m12_01_00 | -217.4, -317.1, -317.7 | - | - | - | - | - | MSB Enemy |
+| 12012230 | Map Event Flag (12012230) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012240 | Map Event Flag (12012240) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012241 | Map Event Flag (12012241) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012242 | Map Event Flag (12012242) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012243 | Map Event Flag (12012243) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012244 | Map Event Flag (12012244) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012245 | Map Event Flag (12012245) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012246 | Map Event Flag (12012246) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012247 | Map Event Flag (12012247) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012249 | Map Event Flag (12012249) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012256 | Map Event Flag (12012256) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012257 | Map Event Flag (12012257) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012301 | Map Event Flag (12012301) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12012480 | Stake of Marika (m12_01_00) | Stake of Marika | Underground | m12_01_00 | 317.4, -78.3, 316.6 | - | - | - | - | - | MSB SpawnPoint |
 | 12012504 | Stake of Marika (m12_01_00) | Stake of Marika | Underground | m12_01_00 | 329.6, -80.0, 353.7 | - | - | - | - | - | MSB SpawnPoint |
+| 12012710 | Map Event Flag (12012710) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012711 | Map Event Flag (12012711) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012712 | Map Event Flag (12012712) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012713 | Map Event Flag (12012713) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 12012715 | Map Event Flag (12012715) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012716 | Map Event Flag (12012716) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012802 | Map Event Flag (12012802) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012803 | Map Event Flag (12012803) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12012811 | Map Event Flag (12012811) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
 | 12017030 | Somber Smithing Stone [8] | Dungeon Pickup | Underground | m12_01_00 | -104.7, -308.6, -419.2 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12017040 | Golden Rune [1] | Dungeon Pickup | Underground | m12_01_00 | 194.4, -205.8, -147.8 | - | corpse | 0 | high | Y | ItemLotParam_map |
 | 12017050 | Golden Rune [2] | Dungeon Pickup | Underground | m12_01_00 | 154.7, -205.6, -162.7 | - | corpse | 0 | high | Y | ItemLotParam_map |
@@ -3049,7 +3667,25 @@ Total unique flags: 7034
 | 12017990 | Nightmaiden & Swordstress Puppets | Dungeon Pickup | Underground | m12_01_00 | -73.6, -129.0, 125.6 | - | chest | 2 | high | Y | ItemLotParam_map |
 | 12017995 | Somber Smithing Stone [7] | Dungeon Pickup | Underground | m12_01_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
 | 12017997 | Golden Seed | Dungeon Pickup | Underground | m12_01_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
+| 12019270 | Map Event Flag (12019270) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12019272 | Map Event Flag (12019272) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12019280 | Map Event Flag (12019280) | EMEVD Literal Flag | Underground | m12_01_00 | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 12020221 | Enemy Defeat (12020221) | Enemy Defeat | Underground | m12_02_00 | 989.2, -594.9, 1611.5 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 12020390 | Crucible Knight | Boss Arena | Deeproot Depths | m12_03_00 | -884.2, 96.7, -320.7 | - | - | - | - | - | GameAreaParam |
+| 12020430 | Enemy Defeat (12020430) | Enemy Defeat | Underground | m12_02_00 | 1222.7, -631.3, 1747.3 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020431 | Enemy Defeat (12020431) | Enemy Defeat | Underground | m12_02_00 | 1299.3, -627.0, 1775.6 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020434 | Enemy Defeat (12020434) | Enemy Defeat | Underground | m12_02_00 | 1607.9, -758.2, 1195.5 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020470 | Enemy Defeat (12020470) | Enemy Defeat | Underground | m12_02_00 | 1293.2, -631.2, 1724.6 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020472 | Enemy Defeat (12020472) | Enemy Defeat | Underground | m12_02_00 | 1385.7, -796.8, 1677.7 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020474 | Enemy Defeat (12020474) | Enemy Defeat | Underground | m12_02_00 | 1232.0, -748.5, 1535.1 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020477 | Enemy Defeat (12020477) | Enemy Defeat | Underground | m12_02_00 | 1055.9, -612.0, 1214.7 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020479 | Enemy Defeat (12020479) | Enemy Defeat | Underground | m12_02_00 | 1005.4, -585.3, 1705.7 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020502 | Map Event Flag (12020502) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020520 | Door Unlock (12020520) | Door Unlock | Underground | m12_02_00 | 1549.9, -754.0, 1910.8 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020525 | Door Unlock (12020525) | Door Unlock | Underground | m12_02_00 | 736.1, -526.8, 1164.4 | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020530 | Map Event Flag (12020530) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020609 | Map Event Flag (12020609) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12020629 | Map Event Flag (12020629) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 12020705 | Abandoned Merchant | Merchant | Underground | m12_02_00 | 1263.4, -811.7, 1524.3 | - | - | - | - | - | MSB NPC |
 | 12020710 | D, Beholder of Death | NPC | Underground | m12_02_00 | 1340.1, -626.7, 1850.2 | - | - | - | - | - | MSB NPC |
 | 12020720 | Blaidd the Half-Wolf | Quest NPC | Underground | m12_02_00 | 1338.5, -806.3, 1260.1 | - | - | - | - | - | MSB NPC |
@@ -3058,6 +3694,7 @@ Total unique flags: 7034
 | 12020801 | Valiant Gargoyle | Great Boss Defeat | Underground | m12_02_00 | 1213.2, -619.7, 1934.4 | - | - | - | - | - | MSB Enemy |
 | 12020830 | Dragonkin Soldier of Nokstella | Boss Defeat | Underground | m12_02_00 | 1240.1, -748.4, 1738.2 | - | - | - | - | - | MSB Enemy |
 | 12020850 | NPC Invader | Field Boss Defeat | Underground | m12_02_00 | 1029.6, -641.3, 1174.0 | - | - | - | - | - | MSB Enemy |
+| 12020851 | Map Event Flag (12020851) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 12022200 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1258.5, -809.2, 1150.5 | - | - | - | - | - | MSB SpawnPoint |
 | 12022201 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1182.5, -611.7, 1620.2 | - | - | - | - | - | MSB SpawnPoint |
 | 12022202 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1258.5, -809.2, 1150.5 | - | - | - | - | - | MSB SpawnPoint |
@@ -3066,9 +3703,13 @@ Total unique flags: 7034
 | 12022205 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1378.3, -747.6, 1609.8 | - | - | - | - | - | MSB SpawnPoint |
 | 12022209 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1182.5, -611.7, 1620.2 | - | - | - | - | - | MSB SpawnPoint |
 | 12022210 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1623.8, -691.9, 1076.2 | - | - | - | - | - | MSB SpawnPoint |
+| 12022610 | Map Event Flag (12022610) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12022630 | Map Event Flag (12022630) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 12022656 | Spirit Spring (m12_02_00) | Spirit Spring | Underground | m12_02_00 | 1361.6, -814.6, 1266.0 | - | - | - | - | - | MSB MountJump |
 | 12022670 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1014.9, -606.8, 1469.7 | - | - | - | - | - | MSB SpawnPoint |
 | 12022671 | Stake of Marika (m12_02_00) | Stake of Marika | Underground | m12_02_00 | 1017.1, -605.6, 1466.2 | - | - | - | - | - | MSB SpawnPoint |
+| 12022820 | Map Event Flag (12022820) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 12022858 | Map Event Flag (12022858) | EMEVD Literal Flag | Underground | m12_02_00 | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 12027000 | Mottled Necklace | Dungeon Pickup | Underground | m12_02_00 | 1549.4, -758.2, 1157.6 | - | corpse | - | high | Y | ItemLotParam_map |
 | 12027030 | Arteria Leaf | Dungeon Pickup | Underground | m12_02_00 | 1062.4, -800.8, 1211.9 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 12027040 | Golden Seed | Dungeon Pickup | Underground | m12_02_00 | 1383.9, -777.9, 1764.7 | - | ground_pickup | 2 | high | Y | ItemLotParam_map |
@@ -3167,18 +3808,42 @@ Total unique flags: 7034
 | 12027970 | Slumbering Egg | Dungeon Pickup | Underground | m12_02_00 | 1273.1, -747.6, 1513.3 | - | corpse | 0 | high | Y | ItemLotParam_map |
 | 12027980 | Golden Rune [7] | Dungeon Pickup | Underground | m12_02_00 | 1183.1, -745.2, 1521.9 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12027990 | Golden Rune [7] | Dungeon Pickup | Underground | m12_02_00 | 1289.0, -763.0, 1666.1 | - | corpse | 1 | high | Y | ItemLotParam_map |
+| 12030201 | Enemy Defeat (12030201) | Enemy Defeat | Underground | m12_03_00 | -199.9, 243.3, -565.5 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030240 | Enemy Defeat (12030240) | Enemy Defeat | Underground | m12_03_00 | -317.9, 91.6, -481.3 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030241 | Enemy Defeat (12030241) | Enemy Defeat | Underground | m12_03_00 | -323.0, 91.5, -486.6 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030256 | Enemy Defeat (12030256) | Enemy Defeat | Underground | m12_03_00 | -309.0, 91.6, -484.1 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030257 | Enemy Defeat (12030257) | Enemy Defeat | Underground | m12_03_00 | -312.8, 91.8, -494.4 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030297 | Enemy Defeat (12030297) | Enemy Defeat | Underground | m12_03_00 | -279.2, 101.3, -503.7 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030350 | Enemy Defeat (12030350) | Enemy Defeat | Underground | m12_03_00 | -182.6, 98.8, -724.2 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030354 | Enemy Defeat (12030354) | Enemy Defeat | Underground | m12_03_00 | -807.2, 102.0, -264.9 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12030355 | Enemy Defeat (12030355) | Enemy Defeat | Underground | m12_03_00 | -565.0, 91.6, -374.1 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12030390 | Crucible Knight Ordovis | Enemy Defeat | Underground | m12_03_00 | -884.2, 96.7, -320.7 | - | - | - | - | - | MSB Enemy |
+| 12030391 | Enemy Defeat (12030391) | Enemy Defeat | Underground | m12_03_00 | -188.2, 92.6, -678.2 | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12030400 | Walking Mausoleum | NPC | Underground | m12_03_00 | -663.6, 75.8, -198.1 | - | - | - | - | - | MSB NPC |
+| 12030401 | Map Event Flag (12030401) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12030700 | Fia, Deathbed Companion | NPC | Underground | m12_03_00 | -358.6, 150.4, -191.5 | - | - | - | - | - | MSB NPC |
 | 12030702 | Fia, Deathbed Companion | NPC | Underground | m12_03_00 | -358.9, 149.9, -191.8 | - | - | - | - | - | MSB NPC |
 | 12030710 | D, Beholder of Death | NPC | Underground | m12_03_00 | -361.4, 149.6, -193.5 | - | - | - | - | - | MSB NPC |
 | 12030725 | Godwyn's Wet Nurse | Finger Reader | Underground | m12_03_00 | -605.2, 98.6, -609.4 | - | - | - | - | - | MSB NPC |
 | 12030800 | NPC Invader | Boss Defeat | Underground | m12_03_00 | -370.1, 149.5, -203.4 | - | - | - | - | - | MSB Enemy |
+| 12030801 | Map Event Flag (12030801) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12030850 | Lichdragon Fortissax | Field Boss Defeat | Underground | m12_03_00 | -448.8, 149.3, -273.1 | - | - | - | - | - | MSB Enemy |
+| 12030852 | Map Event Flag (12030852) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032240 | Map Event Flag (12032240) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12032502 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -168.6, 91.6, -592.9 | - | - | - | - | - | MSB SpawnPoint |
+| 12032503 | Map Event Flag (12032503) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032504 | Map Event Flag (12032504) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032721 | Map Event Flag (12032721) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032724 | Map Event Flag (12032724) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032803 | Map Event Flag (12032803) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12032806 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -397.8, 149.4, -221.5 | - | - | - | - | - | MSB SpawnPoint |
+| 12032810 | Map Event Flag (12032810) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032811 | Map Event Flag (12032811) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032852 | Map Event Flag (12032852) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12032858 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -372.7, 149.4, -207.3 | - | - | - | - | - | MSB SpawnPoint |
 | 12032859 | Stake of Marika (m12_03_00) | Stake of Marika | Underground | m12_03_00 | -472.5, 149.4, -323.5 | - | - | - | - | - | MSB SpawnPoint |
+| 12032860 | Map Event Flag (12032860) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
+| 12032870 | Map Event Flag (12032870) | EMEVD Literal Flag | Underground | m12_03_00 | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
 | 12037010 | Stonesword Key | Dungeon Pickup | Underground | m12_03_00 | -813.4, 113.0, -354.6 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 12037020 | Formic Rock | Dungeon Pickup | Underground | m12_03_00 | -128.1, 207.8, -598.3 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12037030 | Golden Rune [5] | Dungeon Pickup | Underground | m12_03_00 | -168.9, 158.8, -660.7 | - | corpse | 0 | high | Y | ItemLotParam_map |
@@ -3255,16 +3920,25 @@ Total unique flags: 7034
 | 12042512 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -91.4, -104.2, -335.5 | - | - | - | - | - | MSB SpawnPoint |
 | 12042513 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -90.2, -104.3, -338.3 | - | - | - | - | - | MSB SpawnPoint |
 | 12042514 | Stake of Marika (m12_04_00) | Stake of Marika | Underground | m12_04_00 | -88.8, -104.3, -336.3 | - | - | - | - | - | MSB SpawnPoint |
+| 12050400 | Enemy Defeat (12050400) | Enemy Defeat | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050401 | Enemy Defeat (12050401) | Enemy Defeat | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050402 | Enemy Defeat (12050402) | Enemy Defeat | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050403 | Enemy Defeat (12050403) | Enemy Defeat | Underground | m12_05_00 | 1917.1, -621.8, 1280.4 | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050510 | Door Unlock (12050510) | Door Unlock | Underground | m12_05_00 | 1628.4, -540.4, 1199.1 | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
 | 12050702 | White Mask Varré | NPC | Underground | m12_05_00 | 1614.7, -561.9, 1237.6 | - | - | - | - | - | MSB NPC |
 | 12050705 | White Mask Varré | NPC | Underground | m12_05_00 | 1577.1, -572.0, 1182.7 | - | - | - | - | - | MSB NPC |
 | 12050710 | Imprisoned Merchant | Merchant | Underground | m12_05_00 | 1570.8, -572.4, 1144.0 | - | - | - | - | - | MSB NPC |
 | 12050750 | Needle Knight Leda | NPC | Underground | m12_05_00 | 1527.0, -500.7, 1243.4 | - | - | - | - | - | MSB NPC |
 | 12050800 | Mohg, Lord of Blood | Great Boss Defeat | Underground | m12_05_00 | 1528.3, -501.0, 1245.3 | - | - | - | - | - | MSB Enemy |
+| 12050801 | Map Event Flag (12050801) | EMEVD Literal Flag | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050802 | Map Event Flag (12050802) | EMEVD Literal Flag | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 12050803 | Map Event Flag (12050803) | EMEVD Literal Flag | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
 | 12052020 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 2019.6, -556.8, 1184.0 | - | - | - | - | - | MSB SpawnPoint |
 | 12052021 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1700.6, -620.4, 1345.2 | - | - | - | - | - | MSB SpawnPoint |
 | 12052141 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1620.0, -561.9, 1241.1 | - | - | - | - | - | MSB SpawnPoint |
 | 12052701 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1620.0, -561.9, 1241.1 | - | - | - | - | - | MSB SpawnPoint |
 | 12052702 | Stake of Marika (m12_05_00) | Stake of Marika | Underground | m12_05_00 | 1620.0, -561.9, 1241.1 | - | - | - | - | - | MSB SpawnPoint |
+| 12052802 | Map Event Flag (12052802) | EMEVD Literal Flag | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
 | 12057010 | Golden Seed | Dungeon Pickup | Underground | m12_05_00 | 1822.8, -616.1, 1176.0 | - | ground_pickup | 2 | high | Y | ItemLotParam_map |
 | 12057020 | Golden Rune [11] | Dungeon Pickup | Underground | m12_05_00 | 1919.5, -603.6, 1145.1 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12057030 | Smithing Stone [6] | Dungeon Pickup | Underground | m12_05_00 | 1897.9, -612.1, 1200.3 | - | corpse | 1 | high | Y | ItemLotParam_map |
@@ -3340,6 +4014,10 @@ Total unique flags: 7034
 | 12057740 | Golden Rune [1] | Dungeon Pickup | Underground | m12_05_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12057900 | Somber Ancient Dragon Smithing Stone | Dungeon Pickup | Underground | m12_05_00 | 1672.7, -555.4, 1179.5 | - | chest | 3 | high | Y | ItemLotParam_map |
 | 12057950 | White Mask | Dungeon Pickup | Underground | m12_05_00 | - | - | - | 2 | none | Y | ItemLotParam_map |
+| 12059262 | Map Event Flag (12059262) | EMEVD Literal Flag | Underground | m12_05_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 12070402 | Enemy Defeat (12070402) | Enemy Defeat | Underground | m12_07_00 | 857.8, -897.0, 1223.6 | - | - | - | - | - | EMEVD:m12_07_00_00.emevd |
+| 12070515 | Door Unlock (12070515) | Door Unlock | Underground | m12_07_00 | 921.7, -967.2, 1283.8 | - | - | - | - | - | EMEVD:m12_07_00_00.emevd |
+| 12070525 | Door Unlock (12070525) | Door Unlock | Underground | m12_07_00 | 736.1, -526.8, 1164.4 | - | - | - | - | - | EMEVD:m12_07_00_00.emevd |
 | 12077000 | Furlcalling Finger Remedy | Dungeon Pickup | Underground | m12_07_00 | 803.4, -922.0, 1143.1 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12077010 | Silver Firefly | Dungeon Pickup | Underground | m12_07_00 | 870.7, -909.9, 1188.7 | - | corpse | 1 | high | Y | ItemLotParam_map |
 | 12077020 | Golden Rune [3] | Dungeon Pickup | Underground | m12_07_00 | 783.4, -920.8, 1192.1 | - | corpse | 0 | high | Y | ItemLotParam_map |
@@ -3395,13 +4073,38 @@ Total unique flags: 7034
 | 12077520 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12077530 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
 | 12077540 | Golden Rune [1] | Dungeon Pickup | Underground | m12_07_00 | - | - | - | 0 | none | Y | ItemLotParam_map |
+| 12079005 | Map Event Flag (12079005) | EMEVD Literal Flag | Underground | m12_07_00 | - | - | - | - | - | - | EMEVD:m12_07_00_00.emevd |
+| 12079007 | Map Event Flag (12079007) | EMEVD Literal Flag | Underground | m12_07_00 | - | - | - | - | - | - | EMEVD:m12_07_00_00.emevd |
 | 12080800 | Ancestor Spirit | Great Boss Defeat | Underground | m12_08_00 | 1546.1, -1736.0, 1053.3 | - | - | - | - | - | MSB Enemy |
 | 12082400 | Stake of Marika (m12_08_00) | Stake of Marika | Underground | m12_08_00 | 1402.8, -1735.3, 1059.8 | - | - | - | - | - | MSB SpawnPoint |
 | 12082401 | Stake of Marika (m12_08_00) | Stake of Marika | Underground | m12_08_00 | 1399.7, -1735.2, 1062.4 | - | - | - | - | - | MSB SpawnPoint |
 | 12090800 | Ancestor Spirit | Great Boss Defeat | Underground | m12_09_00 | 1183.8, -1538.4, 1911.8 | - | - | - | - | - | MSB Enemy |
 | 12092400 | Stake of Marika (m12_09_00) | Stake of Marika | Underground | m12_09_00 | 1219.1, -1537.9, 1785.5 | - | - | - | - | - | MSB SpawnPoint |
 | 12092401 | Stake of Marika (m12_09_00) | Stake of Marika | Underground | m12_09_00 | 1217.0, -1537.5, 1781.5 | - | - | - | - | - | MSB SpawnPoint |
+| 12092802 | Map Event Flag (12092802) | EMEVD Literal Flag | Underground | m12_09_00 | - | - | - | - | - | - | EMEVD:m12_09_00_00.emevd |
+| 12092907 | Map Event Flag (12092907) | EMEVD Literal Flag | Underground | m12_09_00 | - | - | - | - | - | - | EMEVD:m12_09_00_00.emevd |
+| 12092908 | Map Event Flag (12092908) | EMEVD Literal Flag | Underground | m12_09_00 | - | - | - | - | - | - | EMEVD:m12_09_00_00.emevd |
+| 12092909 | Map Event Flag (12092909) | EMEVD Literal Flag | Underground | m12_09_00 | - | - | - | - | - | - | EMEVD:m12_09_00_00.emevd |
+| 13000295 | Enemy Defeat (13000295) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | 57.7, -80.5, 622.3 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000296 | Enemy Defeat (13000296) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | 109.5, -131.0, 538.1 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000340 | Enemy Defeat (13000340) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000341 | Enemy Defeat (13000341) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -51.5, 4.3, 375.4 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000342 | Enemy Defeat (13000342) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000343 | Enemy Defeat (13000343) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000369 | Enemy Defeat (13000369) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -70.7, -68.3, 97.2 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000490 | Enemy Defeat (13000490) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -17.8, 39.3, 192.3 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000494 | Enemy Defeat (13000494) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -176.1, -50.1, 263.0 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000495 | Enemy Defeat (13000495) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | 142.4, -126.1, 456.4 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000496 | Enemy Defeat (13000496) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | 120.4, -32.7, 399.7 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000500 | Map Event Flag (13000500) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000510 | Door Unlock (13000510) | Door Unlock | Crumbling Farum Azula | m13_00_00 | -169.7, -44.0, 207.5 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000515 | Door Unlock (13000515) | Door Unlock | Crumbling Farum Azula | m13_00_00 | -71.3, -50.0, 507.1 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000520 | Door Unlock (13000520) | Door Unlock | Crumbling Farum Azula | m13_00_00 | 117.8, -125.0, 620.8 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000525 | Door Unlock (13000525) | Door Unlock | Crumbling Farum Azula | m13_00_00 | 179.6, -182.6, 523.6 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000530 | Door Unlock (13000530) | Door Unlock | Crumbling Farum Azula | m13_00_00 | 72.5, -101.8, 497.5 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13000700 | Alexander, Warrior Jar | NPC | Crumbling Farum Azula | m13_00_00 | -131.7, 16.0, 393.7 | - | - | - | - | - | MSB NPC |
+| 13000701 | Enemy Defeat (13000701) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -131.9, 16.2, 393.8 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13000702 | Enemy Defeat (13000702) | Enemy Defeat | Crumbling Farum Azula | m13_00_00 | -131.9, 16.2, 393.8 | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13000710 | Recusant Bernahl | NPC | Crumbling Farum Azula | m13_00_00 | 129.1, -80.5, 557.7 | - | - | - | - | - | MSB NPC |
 | 13000800 | Beast Clergyman | Great Boss Defeat | Crumbling Farum Azula | m13_00_00 | 198.0, -62.5, 374.2 | - | - | - | - | - | MSB Enemy |
 | 13000801 | Beast Clergyman | Great Boss Defeat | Crumbling Farum Azula | m13_00_00 | 197.2, -32.5, 374.8 | - | - | - | - | - | MSB Enemy |
@@ -3411,12 +4114,25 @@ Total unique flags: 7034
 | 13002020 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 180.6, -32.6, 380.1 | - | - | - | - | - | MSB SpawnPoint |
 | 13002500 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 258.8, 83.5, 96.2 | - | - | - | - | - | MSB SpawnPoint |
 | 13002509 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | -448.8, 159.7, 436.5 | - | - | - | - | - | MSB SpawnPoint |
+| 13002710 | Map Event Flag (13002710) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002712 | Map Event Flag (13002712) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002720 | Map Event Flag (13002720) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002721 | Map Event Flag (13002721) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002802 | Map Event Flag (13002802) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002803 | Map Event Flag (13002803) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13002820 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 188.9, -32.6, 361.1 | - | - | - | - | - | MSB SpawnPoint |
 | 13002821 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 184.7, -32.6, 358.1 | - | - | - | - | - | MSB SpawnPoint |
 | 13002825 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | 198.0, -32.5, 374.2 | - | - | - | - | - | MSB SpawnPoint |
+| 13002826 | Map Event Flag (13002826) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002832 | Map Event Flag (13002832) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13002833 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | -45.8, 1009.4, 314.2 | - | - | - | - | - | MSB SpawnPoint |
 | 13002834 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | -95.4, 1009.3, 295.8 | - | - | - | - | - | MSB SpawnPoint |
+| 13002835 | Map Event Flag (13002835) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13002836 | Stake of Marika (m13_00_00) | Stake of Marika | Crumbling Farum Azula | m13_00_00 | -98.1, 1009.6, 291.3 | - | - | - | - | - | MSB SpawnPoint |
+| 13002852 | Map Event Flag (13002852) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002854 | Map Event Flag (13002854) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002873 | Map Event Flag (13002873) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13002874 | Map Event Flag (13002874) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
 | 13002950 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -122.0, 353.3, -1297.2 | - | - | - | - | - | MSB SpawnPoint |
 | 13007000 | Smithing Stone [8] | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 212.5, 83.4, 169.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 13007005 | Somber Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | 171.6, -121.7, 428.9 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
@@ -3507,6 +4223,22 @@ Total unique flags: 7034
 | 13007991 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
 | 13007993 | Ancient Dragon Smithing Stone | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 3 | none | - | ItemLotParam_map |
 | 13007995 | Malformed Dragon Helm | Dungeon Pickup | Crumbling Farum Azula | m13_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 13009254 | Map Event Flag (13009254) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 13009259 | Map Event Flag (13009259) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m60_52_53_00.emevd |
+| 13009300 | Map Event Flag (13009300) | EMEVD Literal Flag | Crumbling Farum Azula | m13_00_00 | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 14000276 | Enemy Defeat (14000276) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | 154.0, 138.5, -66.9 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000277 | Enemy Defeat (14000277) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | 149.3, 138.4, -73.2 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000486 | Enemy Defeat (14000486) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | 102.9, 46.2, -69.3 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000499 | Enemy Defeat (14000499) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | 118.7, 129.1, -55.4 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000510 | Door Unlock (14000510) | Door Unlock | Academy of Raya Lucaria | m14_00_00 | 0.8, 11.0, 1.1 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000515 | Door Unlock (14000515) | Door Unlock | Academy of Raya Lucaria | m14_00_00 | 105.8, 130.1, -50.3 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000520 | Door Unlock (14000520) | Door Unlock | Academy of Raya Lucaria | m14_00_00 | 60.0, -92.4, -90.5 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000560 | Mechanism Unlock (14000560) | Mechanism Unlock | Academy of Raya Lucaria | m14_00_00 | 118.4, 112.5, -135.3 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000562 | Mechanism Unlock (14000562) | Mechanism Unlock | Academy of Raya Lucaria | m14_00_00 | 108.3, 125.1, -131.2 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000633 | Enemy Defeat (14000633) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | -16.3, 74.0, -129.5 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000634 | Enemy Defeat (14000634) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000637 | Enemy Defeat (14000637) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | -24.4, 96.4, -145.8 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000638 | Enemy Defeat (14000638) | Enemy Defeat | Academy of Raya Lucaria | m14_00_00 | 75.3, 109.9, -145.5 | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14000700 | Rennala, Queen of the Full Moon | NPC | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.2, -23.8 | - | - | - | - | - | MSB NPC |
 | 14000701 | Rennala, Queen of the Full Moon | NPC | Academy of Raya Lucaria | m14_00_00 | 39.7, 154.1, -0.4 | - | - | - | - | - | MSB NPC |
 | 14000710 | Sorceress Sellen | NPC | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.2, -23.5 | - | - | - | - | - | MSB NPC |
@@ -3521,13 +4253,25 @@ Total unique flags: 7034
 | 14000740 | Sorcerer Thops | NPC | Academy of Raya Lucaria | m14_00_00 | 125.0, 90.0, -174.1 | - | - | - | - | - | MSB NPC |
 | 14000800 | Rennala | Great Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 70.7, -838.7, -23.3 | - | - | - | - | - | MSB Enemy |
 | 14000801 | Rennala, Queen of the Full Moon | Great Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 41.8, 154.1, -24.1 | - | - | - | - | - | MSB Enemy |
+| 14000804 | Map Event Flag (14000804) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14000850 | Red Wolf of Radagon | Field Boss Defeat | Academy of Raya Lucaria | m14_00_00 | 149.2, 110.2, -222.8 | - | - | - | - | - | MSB Enemy |
+| 14000851 | Map Event Flag (14000851) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14000899 | Map Event Flag (14000899) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14002141 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 38.3, 154.2, -19.8 | - | - | - | - | - | MSB SpawnPoint |
 | 14002151 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 82.2, 154.1, -42.0 | - | - | - | - | - | MSB SpawnPoint |
+| 14002595 | Map Event Flag (14002595) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14002705 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 82.2, 154.1, -42.0 | - | - | - | - | - | MSB SpawnPoint |
 | 14002706 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 63.5, 154.1, -32.7 | - | - | - | - | - | MSB SpawnPoint |
+| 14002707 | Map Event Flag (14002707) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14002710 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 38.3, 154.2, -19.8 | - | - | - | - | - | MSB SpawnPoint |
 | 14002711 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 63.5, 154.1, -32.7 | - | - | - | - | - | MSB SpawnPoint |
+| 14002713 | Map Event Flag (14002713) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14002720 | Map Event Flag (14002720) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14002722 | Map Event Flag (14002722) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14002802 | Map Event Flag (14002802) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14002803 | Map Event Flag (14002803) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14003806 | Map Event Flag (14003806) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 14003816 | Map Event Flag (14003816) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
 | 14003900 | Stake of Marika (m14_00_00) | Stake of Marika | Academy of Raya Lucaria | m14_00_00 | 54.6, 154.1, -29.1 | - | - | - | - | - | MSB SpawnPoint |
 | 14007000 | Magic Grease | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | -46.6, 48.8, -53.0 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 14007005 | Twinsage Glintstone Crown | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | -46.6, 48.8, -63.0 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -3595,6 +4339,18 @@ Total unique flags: 7034
 | 14007980 | Carian Knight's Shield | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | -4.0, 145.3, -216.6 | - | chest | 2 | high | - | ItemLotParam_map |
 | 14007990 | Golden Seed | Dungeon Pickup | Academy of Raya Lucaria | m14_00_00 | 97.2, 113.4, -104.8 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
 | 14009267 | [Sorceress Sellen - Quest] Shard Spiral - Unlocked | Shop Unlock | Academy of Raya Lucaria | - | - | - | - | - | - | - | ShopLineupParam |
+| 14009300 | Map Event Flag (14009300) | EMEVD Literal Flag | Academy of Raya Lucaria | m14_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 15000390 | Enemy Defeat (15000390) | Enemy Defeat | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000391 | Enemy Defeat (15000391) | Enemy Defeat | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000392 | Enemy Defeat (15000392) | Enemy Defeat | Caria Manor | m15_00_00 | -6.7, 211.4, 606.3 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000393 | Enemy Defeat (15000393) | Enemy Defeat | Caria Manor | m15_00_00 | 132.0, 213.0, 520.5 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000394 | Enemy Defeat (15000394) | Enemy Defeat | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000398 | Enemy Defeat (15000398) | Enemy Defeat | Caria Manor | m15_00_00 | 22.2, 179.8, 438.0 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000520 | Door Unlock (15000520) | Door Unlock | Caria Manor | m15_00_00 | 119.7, 67.7, 501.0 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000525 | Door Unlock (15000525) | Door Unlock | Caria Manor | m15_00_00 | 112.5, 60.7, 563.0 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000620 | Door Unlock (15000620) | Door Unlock | Caria Manor | m15_00_00 | 91.5, 437.5, 216.2 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000623 | Door Unlock (15000623) | Door Unlock | Caria Manor | m15_00_00 | 88.6, 503.6, 219.4 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15000625 | Door Unlock (15000625) | Door Unlock | Caria Manor | m15_00_00 | 149.4, 250.0, 367.5 | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
 | 15000700 | Millicent | NPC | Caria Manor | m15_00_00 | 78.9, 247.0, 426.3 | - | - | - | - | - | MSB NPC |
 | 15000701 | Millicent | NPC | Caria Manor | m15_00_00 | 30.1, 181.8, 467.6 | - | - | - | - | - | MSB NPC |
 | 15000702 | Millicent | NPC | Caria Manor | m15_00_00 | 37.8, 185.7, 441.4 | - | - | - | - | - | MSB NPC |
@@ -3602,6 +4358,7 @@ Total unique flags: 7034
 | 15000800 | Malenia, Blade of Miquella | Great Boss Defeat | Caria Manor | m15_00_00 | -19.0, 52.3, 466.3 | - | - | - | - | - | MSB Enemy |
 | 15000801 | Malenia, Blade of Miquella | Great Boss Defeat | Caria Manor | m15_00_00 | -25.9, 51.6, 480.5 | - | - | - | - | - | MSB Enemy |
 | 15000850 | Loretta, Knight of the Haligtree | Field Boss Defeat | Caria Manor | m15_00_00 | 174.4, 431.7, 307.9 | - | - | - | - | - | MSB Enemy |
+| 15000851 | Map Event Flag (15000851) | EMEVD Literal Flag | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
 | 15001200 | Golden Seed | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 15001210 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 15001250 | Item_2900 | Dungeon Pickup | Caria Manor | m15_00_00 | - | - | - | - | none | - | ItemLotParam_map |
@@ -3613,6 +4370,7 @@ Total unique flags: 7034
 | 15002142 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | 32.0, 181.2, 463.9 | - | - | - | - | - | MSB SpawnPoint |
 | 15002151 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | 2.5, 185.6, 458.9 | - | - | - | - | - | MSB SpawnPoint |
 | 15002600 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | -1.4, 630.2, 18.4 | - | - | - | - | - | MSB SpawnPoint |
+| 15002802 | Map Event Flag (15002802) | EMEVD Literal Flag | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
 | 15002815 | Stake of Marika (m15_00_00) | Stake of Marika | Caria Manor | m15_00_00 | -6.5, 50.8, 496.0 | - | - | - | - | - | MSB SpawnPoint |
 | 15007000 | Stonesword Key | Dungeon Pickup | Caria Manor | m15_00_00 | -2.1, 628.5, 17.1 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 15007010 | Sacramental Bud | Dungeon Pickup | Caria Manor | m15_00_00 | -4.1, 619.5, 23.4 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -3714,7 +4472,23 @@ Total unique flags: 7034
 | 15007970 | Numen's Rune | Dungeon Pickup | Caria Manor | m15_00_00 | 90.5, 111.7, 609.0 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 15007980 | Traveler's Clothes | Dungeon Pickup | Caria Manor | m15_00_00 | 112.6, 60.7, 536.9 | - | ground_pickup | 1 | high | - | ItemLotParam_map |
 | 15007990 | Miquella's Needle | Dungeon Pickup | Caria Manor | m15_00_00 | 112.6, 60.7, 516.9 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
+| 15009212 | Map Event Flag (15009212) | EMEVD Literal Flag | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 15009213 | Map Event Flag (15009213) | EMEVD Literal Flag | Caria Manor | m15_00_00 | - | - | - | - | - | - | EMEVD:m15_00_00_00.emevd |
+| 16000420 | Enemy Defeat (16000420) | Enemy Defeat | Volcano Manor | m16_00_00 | -127.1, -23.5, -104.5 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000421 | Enemy Defeat (16000421) | Enemy Defeat | Volcano Manor | m16_00_00 | 37.1, 33.8, -138.6 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16000500 | Omenkiller | Boss Defeat | Volcano Manor | m16_00_00 | -117.9, -34.6, -114.3 | - | - | - | - | - | MSB Enemy |
+| 16000510 | Door Unlock (16000510) | Door Unlock | Volcano Manor | m16_00_00 | 39.1, 6.7, -166.1 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000512 | Enemy Defeat (16000512) | Enemy Defeat | Volcano Manor | m16_00_00 | 18.0, -54.5, -180.6 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000514 | Door Unlock (16000514) | Door Unlock | Volcano Manor | m16_00_00 | 39.2, 6.7, -169.5 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000515 | Map Event Flag (16000515) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000520 | Door Unlock (16000520) | Door Unlock | Volcano Manor | m16_00_00 | 54.7, 6.8, -218.3 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000525 | Map Event Flag (16000525) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000540 | Map Event Flag (16000540) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
+| 16000552 | Mechanism Unlock (16000552) | Mechanism Unlock | Volcano Manor | m16_00_00 | 19.4, 4.1, -61.7 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000560 | Mechanism Unlock (16000560) | Mechanism Unlock | Volcano Manor | m16_00_00 | 13.4, 4.1, -74.3 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000562 | Mechanism Unlock (16000562) | Mechanism Unlock | Volcano Manor | m16_00_00 | 3.5, 4.1, -81.0 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000564 | Mechanism Unlock (16000564) | Mechanism Unlock | Volcano Manor | m16_00_00 | 9.5, 4.1, -68.4 | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16000640 | Map Event Flag (16000640) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16000700 | Tanith, Volcano Manor Proprietress | NPC | Volcano Manor | m16_00_00 | 39.4, 5.4, -71.3 | - | - | - | - | - | MSB NPC |
 | 16000701 | Tanith, Volcano Manor Proprietress | NPC | Volcano Manor | m16_00_00 | 94.0, -439.5, -130.6 | - | - | - | - | - | MSB NPC |
 | 16000710 | Patches | NPC | Volcano Manor | m16_00_00 | 27.8, 5.0, -33.1 | - | - | - | - | - | MSB NPC |
@@ -3728,11 +4502,21 @@ Total unique flags: 7034
 | 16000800 | God-Devouring Serpent | Great Boss Defeat | Volcano Manor | m16_00_00 | 94.3, -439.5, -116.5 | - | - | - | - | - | MSB Enemy |
 | 16000801 | God-Devouring Serpent | Great Boss Defeat | Volcano Manor | m16_00_00 | 93.7, -438.9, -118.4 | - | - | - | - | - | MSB Enemy |
 | 16000850 | Godskin Noble | Field Boss Defeat | Volcano Manor | m16_00_00 | 58.5, 7.0, -209.4 | - | - | - | - | - | MSB Enemy |
+| 16000851 | Map Event Flag (16000851) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16000860 | Abductor Virgin (Swinging Sickle) | Boss Defeat | Volcano Manor | m16_00_00 | 236.1, -132.9, -263.6 | - | - | - | - | - | MSB Enemy |
+| 16001520 | Map Event Flag (16001520) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16002080 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | -44.7, -34.3, -134.3 | - | - | - | - | - | MSB SpawnPoint |
 | 16002400 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | -85.4, -32.2, -92.2 | - | - | - | - | - | MSB SpawnPoint |
 | 16002570 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | 97.1, -432.8, -10.0 | - | - | - | - | - | MSB SpawnPoint |
+| 16002578 | Map Event Flag (16002578) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002696 | Map Event Flag (16002696) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16002701 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | 27.3, 5.0, -52.8 | - | - | - | - | - | MSB SpawnPoint |
+| 16002750 | Map Event Flag (16002750) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002756 | Map Event Flag (16002756) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002757 | Map Event Flag (16002757) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002801 | Map Event Flag (16002801) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002802 | Map Event Flag (16002802) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16002803 | Map Event Flag (16002803) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
 | 16002840 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | 98.3, -432.8, -10.0 | - | - | - | - | - | MSB SpawnPoint |
 | 16003110 | Stake of Marika (m16_00_00) | Stake of Marika | Volcano Manor | m16_00_00 | 87.3, -439.1, -65.3 | - | - | - | - | - | MSB SpawnPoint |
 | 16007000 | Smithing Stone [6] | Dungeon Pickup | Volcano Manor | m16_00_00 | 21.2, 16.4, -31.1 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -3793,7 +4577,31 @@ Total unique flags: 7034
 | 16007991 | Golden Rune [1] | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 16007992 | Golden Rune [1] | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 16007999 | Dragon Heart | Dungeon Pickup | Volcano Manor | m16_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 16008540 | Map Event Flag (16008540) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
 | 16009208 | [Knight Bernahl] Ash of War: Eruption - Unlocked | Shop Unlock | Volcano Manor | - | - | - | - | - | - | - | ShopLineupParam |
+| 16009264 | Map Event Flag (16009264) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009265 | Map Event Flag (16009265) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009266 | Map Event Flag (16009266) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009267 | Map Event Flag (16009267) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009268 | Map Event Flag (16009268) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009269 | Map Event Flag (16009269) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009309 | Map Event Flag (16009309) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009316 | Map Event Flag (16009316) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009329 | Map Event Flag (16009329) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009337 | Map Event Flag (16009337) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009338 | Map Event Flag (16009338) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009463 | Map Event Flag (16009463) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009508 | Map Event Flag (16009508) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009509 | Map Event Flag (16009509) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009510 | Map Event Flag (16009510) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 16009511 | Map Event Flag (16009511) | EMEVD Literal Flag | Volcano Manor | m16_00_00 | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
+| 18000350 | Enemy Defeat (18000350) | Enemy Defeat | Roundtable Hold | m18_00_00 | 54.5, -48.1, 157.3 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000351 | Enemy Defeat (18000351) | Enemy Defeat | Roundtable Hold | m18_00_00 | 23.7, -48.0, 141.7 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000400 | Map Event Flag (18000400) | EMEVD Literal Flag | Roundtable Hold | m18_00_00 | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000510 | Door Unlock (18000510) | Door Unlock | Roundtable Hold | m18_00_00 | -142.1, 14.9, -0.9 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000515 | Door Unlock (18000515) | Door Unlock | Roundtable Hold | m18_00_00 | 4.8, -96.0, 139.3 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000530 | Map Event Flag (18000530) | EMEVD Literal Flag | Roundtable Hold | m18_00_00 | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
+| 18000542 | Mechanism Unlock (18000542) | Mechanism Unlock | Roundtable Hold | m18_00_00 | -92.1, 11.9, 24.0 | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
 | 18000701 | Commoner | NPC | Roundtable Hold | m18_00_00 | -64.7, 6.1, 27.4 | - | - | - | - | - | MSB NPC |
 | 18000800 | Ulcerated Tree Spirit | Great Boss Defeat | Roundtable Hold | m18_00_00 | 29.5, -111.6, 53.5 | - | - | - | - | - | MSB Enemy |
 | 18000850 | Soldier of Godrick | Field Boss Defeat | Roundtable Hold | m18_00_00 | -40.9, 10.5, 41.1 | - | - | - | - | - | MSB Enemy |
@@ -3809,9 +4617,32 @@ Total unique flags: 7034
 | 18007060 | Grave Glovewort [1] | Dungeon Pickup | Roundtable Hold | m18_00_00 | -55.6, -88.8, 78.3 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 18007070 | Haligdrake Talisman | Dungeon Pickup | Roundtable Hold | m18_00_00 | -29.7, 12.5, 19.9 | - | corpse | - | high | - | ItemLotParam_map |
 | 18007900 | Erdtree Greatbow | Dungeon Pickup | Roundtable Hold | m18_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 19000100 | Map Event Flag (19000100) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
 | 19000800 | Elden Beast | Great Boss Defeat | Chapel of Anticipation | m19_00_00 | 213.9, -720.0, -686.7 | - | - | - | - | - | MSB Enemy |
+| 19000801 | Map Event Flag (19000801) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19000802 | Map Event Flag (19000802) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19000804 | Map Event Flag (19000804) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19001100 | Map Event Flag (19001100) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002100 | Map Event Flag (19002100) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002500 | Map Event Flag (19002500) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002801 | Map Event Flag (19002801) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002802 | Map Event Flag (19002802) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002803 | Map Event Flag (19002803) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
+| 19002806 | Map Event Flag (19002806) | EMEVD Literal Flag | Chapel of Anticipation | m19_00_00 | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
 | 19002814 | Stake of Marika (m19_00_00) | Stake of Marika | Chapel of Anticipation | m19_00_00 | 187.3, 102.4, -617.6 | - | - | - | - | - | MSB SpawnPoint |
+| 20000403 | Enemy Defeat (20000403) | Enemy Defeat | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20000410 | Enemy Defeat (20000410) | Enemy Defeat | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20000510 | Door Unlock (20000510) | Door Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20000515 | Door Unlock (20000515) | Door Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20000520 | Door Unlock (20000520) | Door Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20000525 | Door Unlock (20000525) | Door Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
 | 20000800 | Divine Beast Dancing Lion | Boss Arena | Belurat, Tower Settlement | m20_00_00 | -43.0, 118.5, 336.6 | - | - | - | - | - | GameAreaParam |
+| 20000801 | Map Event Flag (20000801) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20002802 | Map Event Flag (20002802) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20003820 | Map Event Flag (20003820) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20003821 | Map Event Flag (20003821) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20003822 | Map Event Flag (20003822) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20003823 | Map Event Flag (20003823) | EMEVD Literal Flag | Stranded Graveyard | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
 | 20007000 | Shadow Realm Rune [1] | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 20007010 | Fireproof Dried Liver | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 20007020 | Black Pyrefly | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -3897,7 +4728,62 @@ Total unique flags: 7034
 | 20007830 | Tower of Shadow Message | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 20007991 | Immunizing Horn Charm +2 | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 20007993 | Horned Warrior's Sword | Dungeon Pickup | Stranded Graveyard | m20_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 20008560 | Mechanism Unlock (20008560) | Mechanism Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20008564 | Mechanism Unlock (20008564) | Mechanism Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20008566 | Mechanism Unlock (20008566) | Mechanism Unlock | Shadow of the Erdtree | m20_00_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20010197 | Map Event Flag (20010197) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010199 | Map Event Flag (20010199) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010455 | Enemy Defeat (20010455) | Enemy Defeat | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010500 | Map Event Flag (20010500) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_00_00_00.emevd |
+| 20010510 | Door Unlock (20010510) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010515 | Door Unlock (20010515) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010520 | Door Unlock (20010520) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010525 | Door Unlock (20010525) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010530 | Door Unlock (20010530) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010535 | Door Unlock (20010535) | Door Unlock | Shadow of the Erdtree | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
 | 20010800 | Promised Consort Radahn | Boss Arena | Enir-Ilim | m20_01_00 | -287.2, 299.7, -141.2 | - | - | - | - | - | GameAreaParam |
+| 20010801 | Map Event Flag (20010801) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010850 | Map Event Flag (20010850) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20010851 | Map Event Flag (20010851) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012148 | Map Event Flag (20012148) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012149 | Map Event Flag (20012149) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012168 | Map Event Flag (20012168) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012172 | Map Event Flag (20012172) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012176 | Map Event Flag (20012176) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012190 | Map Event Flag (20012190) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012191 | Map Event Flag (20012191) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012199 | Map Event Flag (20012199) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012717 | Map Event Flag (20012717) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012718 | Map Event Flag (20012718) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012720 | Map Event Flag (20012720) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012721 | Map Event Flag (20012721) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012722 | Map Event Flag (20012722) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012723 | Map Event Flag (20012723) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012730 | Map Event Flag (20012730) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012731 | Map Event Flag (20012731) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012732 | Map Event Flag (20012732) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012733 | Map Event Flag (20012733) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012734 | Map Event Flag (20012734) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012735 | Map Event Flag (20012735) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012740 | Map Event Flag (20012740) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012743 | Map Event Flag (20012743) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012744 | Map Event Flag (20012744) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012750 | Map Event Flag (20012750) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012751 | Map Event Flag (20012751) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012752 | Map Event Flag (20012752) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012760 | Map Event Flag (20012760) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012783 | Map Event Flag (20012783) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012784 | Map Event Flag (20012784) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012785 | Map Event Flag (20012785) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012786 | Map Event Flag (20012786) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012787 | Map Event Flag (20012787) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012788 | Map Event Flag (20012788) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012789 | Map Event Flag (20012789) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012790 | Map Event Flag (20012790) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012791 | Map Event Flag (20012791) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012802 | Map Event Flag (20012802) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012820 | Map Event Flag (20012820) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20012841 | Map Event Flag (20012841) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
 | 20017000 | Somber Smithing Stone [9] | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 20017010 | Rada Fruit | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 20017020 | Rada Fruit | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -3970,7 +4856,32 @@ Total unique flags: 7034
 | 20017690 | Rada Fruit | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 20017981 | Young Lion's Helm | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 3 | none | - | ItemLotParam_map |
 | 20017991 | Horned Warrior's Greatsword | Dungeon Pickup | Stranded Graveyard | m20_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 20019235 | Map Event Flag (20019235) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019236 | Map Event Flag (20019236) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019237 | Map Event Flag (20019237) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019238 | Map Event Flag (20019238) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019239 | Map Event Flag (20019239) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019280 | Map Event Flag (20019280) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019281 | Map Event Flag (20019281) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019282 | Map Event Flag (20019282) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019283 | Map Event Flag (20019283) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 20019403 | Map Event Flag (20019403) | EMEVD Literal Flag | Stranded Graveyard | m20_01_00 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 21000453 | Enemy Defeat (21000453) | Enemy Defeat | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000470 | Enemy Defeat (21000470) | Enemy Defeat | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000471 | Enemy Defeat (21000471) | Enemy Defeat | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000500 | Map Event Flag (21000500) | EMEVD Literal Flag | Miquella's Haligtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000510 | Door Unlock (21000510) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000515 | Door Unlock (21000515) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000520 | Door Unlock (21000520) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000525 | Door Unlock (21000525) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000530 | Door Unlock (21000530) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000535 | Door Unlock (21000535) | Door Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21000560 | Mechanism Unlock (21000560) | Mechanism Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
 | 21000850 | Golden Hippopotamus | Boss Arena | Miquella's Haligtree | m15_00_00 | -25.9, 52.0, 477.4 | - | - | - | - | - | GameAreaParam |
+| 21000851 | Map Event Flag (21000851) | EMEVD Literal Flag | Miquella's Haligtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21002729 | NPC Death Quest (21002729) | NPC Death Quest | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21002739 | NPC Death Quest (21002739) | NPC Death Quest | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21002852 | Map Event Flag (21002852) | EMEVD Literal Flag | Miquella's Haligtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
 | 21007000 | Festive Grease | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 21007010 | Smithing Stone [1] | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 21007020 | Main-gauche | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
@@ -4072,7 +4983,20 @@ Total unique flags: 7034
 | 21007991 | Mantle of Thorns | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 21007993 | Iris of Occultation | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 21007995 | Fire Knight Helm | Dungeon Pickup | Miquella's Haligtree | m21_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 21008562 | Mechanism Unlock (21008562) | Mechanism Unlock | Shadow of the Erdtree | m21_00_00 | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
+| 21010459 | Enemy Defeat (21010459) | Enemy Defeat | Shadow of the Erdtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010500 | Map Event Flag (21010500) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010501 | Map Event Flag (21010501) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010510 | Door Unlock (21010510) | Door Unlock | Shadow of the Erdtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010515 | Door Unlock (21010515) | Door Unlock | Shadow of the Erdtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010572 | Map Event Flag (21010572) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21010576 | Map Event Flag (21010576) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
 | 21010800 | Messmer the Impaler | Boss Arena | Miquella's Haligtree | m15_00_00 | 174.4, 431.7, 307.9 | - | - | - | - | - | GameAreaParam |
+| 21010801 | Map Event Flag (21010801) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21012749 | NPC Death Quest (21012749) | NPC Death Quest | Shadow of the Erdtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21012759 | NPC Death Quest (21012759) | NPC Death Quest | Shadow of the Erdtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21012802 | Map Event Flag (21012802) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
+| 21013820 | Map Event Flag (21013820) | EMEVD Literal Flag | Miquella's Haligtree | m21_01_00 | - | - | - | - | - | - | EMEVD:m21_01_00_00.emevd |
 | 21017000 | Fireproof Pickled Liver | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21017010 | Rune Arc | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 21017020 | Revered Spirit Ash | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -4173,6 +5097,9 @@ Total unique flags: 7034
 | 21017980 | Rada Fruit | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21017990 | Rada Fruit | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21017991 | Fire Knight Helm | Dungeon Pickup | Miquella's Haligtree | m21_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 21020450 | Enemy Defeat (21020450) | Enemy Defeat | Shadow of the Erdtree | m21_02_00 | - | - | - | - | - | - | EMEVD:m21_02_00_00.emevd |
+| 21020510 | Door Unlock (21020510) | Door Unlock | Shadow of the Erdtree | m21_02_00 | - | - | - | - | - | - | EMEVD:m21_02_00_00.emevd |
+| 21020560 | Mechanism Unlock (21020560) | Mechanism Unlock | Shadow of the Erdtree | m21_02_00 | - | - | - | - | - | - | EMEVD:m21_02_00_00.emevd |
 | 21027000 | Rada Fruit | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21027010 | Gold-Pickled Fowl Foot | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 21027020 | Ash of War: Wall of Sparks | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | - | none | - | ItemLotParam_map |
@@ -4213,8 +5140,18 @@ Total unique flags: 7034
 | 21027390 | Rada Fruit | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21027400 | Rada Fruit | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 21027991 | Fire Knight Helm | Dungeon Pickup | Miquella's Haligtree | m21_02_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 22000460 | Enemy Defeat (22000460) | Enemy Defeat | Shadow of the Erdtree | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22000496 | Map Event Flag (22000496) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22000500 | Map Event Flag (22000500) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
 | 22000800 | Putrescent Knight | Boss Arena | Stone Coffin Fissure | m22_00_00 | -70.1, -295.0, 104.3 | - | - | - | - | - | GameAreaParam |
 | 22000801 | Putrescent Knight (discovered) | Boss Discovery | Stone Coffin Fissure | m22_00_00 | -70.1, -295.0, 104.3 | - | - | - | - | - | GameAreaParam |
+| 22000802 | Map Event Flag (22000802) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002481 | Map Event Flag (22002481) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002488 | Map Event Flag (22002488) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002708 | Map Event Flag (22002708) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002801 | Map Event Flag (22002801) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002802 | Map Event Flag (22002802) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
+| 22002815 | Map Event Flag (22002815) | EMEVD Literal Flag | Castle Sol | m22_00_00 | - | - | - | - | - | - | EMEVD:m22_00_00_00.emevd |
 | 22007000 | Scadutree Fragment | Dungeon Pickup | Castle Sol | m22_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 22007100 | Congealed Putrescence | Dungeon Pickup | Castle Sol | m22_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 22007110 | St. Trina's Arrow | Dungeon Pickup | Castle Sol | m22_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
@@ -4232,8 +5169,37 @@ Total unique flags: 7034
 | 22007240 | Grave Glovewort [6] | Dungeon Pickup | Castle Sol | m22_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 22007900 | Multilayered Ring of Light | Dungeon Pickup | Castle Sol | m22_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 25000800 | Metyr, Mother of Fingers | Boss Arena | Finger Birthing Grounds | m25_00_00 | 4.3, 0.0, -2.3 | - | - | - | - | - | GameAreaParam |
+| 25000801 | Map Event Flag (25000801) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002801 | Map Event Flag (25002801) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002802 | Map Event Flag (25002802) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002803 | Map Event Flag (25002803) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002806 | Map Event Flag (25002806) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 25002820 | Map Event Flag (25002820) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002821 | Map Event Flag (25002821) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002822 | Map Event Flag (25002822) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002823 | Map Event Flag (25002823) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002824 | Map Event Flag (25002824) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002825 | Map Event Flag (25002825) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002826 | Map Event Flag (25002826) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002827 | Map Event Flag (25002827) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002828 | Map Event Flag (25002828) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002829 | Map Event Flag (25002829) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002830 | Map Event Flag (25002830) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002831 | Map Event Flag (25002831) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002832 | Map Event Flag (25002832) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002833 | Map Event Flag (25002833) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 25002834 | Map Event Flag (25002834) | EMEVD Literal Flag | Dungeon_25 | m25_00_00 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
 | 28000800 | Midra, Lord of Frenzied Flame | Boss Arena | Midra's Manse | m28_00_00 | -11.7, 16.0, -92.4 | - | - | - | - | - | GameAreaParam |
 | 28000801 | Midra, Lord of Frenzied Flame (discovered) | Boss Discovery | Midra's Manse | m28_00_00 | -11.7, 16.0, -92.4 | - | - | - | - | - | GameAreaParam |
+| 28000814 | Map Event Flag (28000814) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002700 | Map Event Flag (28002700) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002705 | Map Event Flag (28002705) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002708 | Map Event Flag (28002708) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002801 | Map Event Flag (28002801) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002802 | Map Event Flag (28002802) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002820 | Map Event Flag (28002820) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28002823 | Map Event Flag (28002823) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28003811 | Map Event Flag (28003811) | EMEVD Literal Flag | Dungeon_28 | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
 | 28007000 | Swollen Grape | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 28007010 | Torn Diary Page | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 28007020 | Swollen Grape | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
@@ -4245,26 +5211,57 @@ Total unique flags: 7034
 | 28007090 | Swollen Grape | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 28007100 | Nanaya's Torch | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 28007110 | Revered Spirit Ash | Dungeon Pickup | Dungeon_28 | m28_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 28008500 | Mechanism Unlock (28008500) | Mechanism Unlock | Shadow of the Erdtree | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 28008502 | Mechanism Unlock (28008502) | Mechanism Unlock | Shadow of the Erdtree | m28_00_00 | - | - | - | - | - | - | EMEVD:m28_00_00_00.emevd |
+| 30000500 | Map Event Flag (30000500) | EMEVD Literal Flag | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 30000620 | Mechanism Unlock (30000620) | Mechanism Unlock | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 30000621 | Mechanism Unlock (30000621) | Mechanism Unlock | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 30000622 | Mechanism Unlock (30000622) | Mechanism Unlock | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 30000623 | Mechanism Unlock (30000623) | Mechanism Unlock | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
 | 30000800 | Cemetery Shade | Boss Defeat | Catacombs | m30_00_00 | 1.9, 46.7, 65.6 | - | - | - | - | - | MSB Enemy |
+| 30002802 | Map Event Flag (30002802) | EMEVD Literal Flag | Catacombs | m30_00_00 | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
 | 30002840 | Stake of Marika (m30_00_00) | Stake of Marika | Catacombs | m30_00_00 | -95.7, 66.2, 103.2 | - | - | - | - | - | MSB SpawnPoint |
 | 30007010 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_00_00 | -20.3, 46.2, -20.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30007020 | Golden Rune [2] | Dungeon Pickup | Catacombs | m30_00_00 | -21.4, 51.0, -39.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30007040 | Prattling Pate "Thank you" | Dungeon Pickup | Catacombs | m30_00_00 | 4.2, 46.2, -41.4 | - | corpse | 1 | high | - | ItemLotParam_map |
+| 30010500 | Map Event Flag (30010500) | EMEVD Literal Flag | Catacombs | m30_01_00 | - | - | - | - | - | - | EMEVD:m30_01_00_00.emevd |
 | 30010800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_01_00 | -34.6, 23.1, -155.7 | - | - | - | - | - | MSB Enemy |
+| 30012802 | Map Event Flag (30012802) | EMEVD Literal Flag | Catacombs | m30_01_00 | - | - | - | - | - | - | EMEVD:m30_01_00_00.emevd |
 | 30012840 | Stake of Marika (m30_01_00) | Stake of Marika | Catacombs | m30_01_00 | -29.8, 50.4, -52.3 | - | - | - | - | - | MSB SpawnPoint |
 | 30017010 | Root Resin | Dungeon Pickup | Catacombs | m30_01_00 | -4.7, 18.4, -161.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30017020 | Prattling Pate "Please help" | Dungeon Pickup | Catacombs | m30_01_00 | 14.5, 18.5, -137.4 | - | corpse | 1 | high | - | ItemLotParam_map |
+| 30020500 | Map Event Flag (30020500) | EMEVD Literal Flag | Catacombs | m30_02_00 | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
+| 30020505 | Map Event Flag (30020505) | EMEVD Literal Flag | Catacombs | m30_02_00 | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
+| 30020680 | Mechanism Unlock (30020680) | Mechanism Unlock | Catacombs | m30_02_00 | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
 | 30020700 | Commoner | NPC | Catacombs | m30_02_00 | 26.8, 105.2, 20.0 | - | - | - | - | - | MSB NPC |
 | 30020800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_02_00 | 102.3, 94.7, 73.4 | - | - | - | - | - | MSB Enemy |
 | 30020801 | Morgott- the Omen King (discovered) | Boss Discovery | Leyndell, Royal Capital | m11_00_00 | 67.4, 79.0, -455.2 | - | - | - | - | - | GameAreaParam |
+| 30022802 | Map Event Flag (30022802) | EMEVD Literal Flag | Catacombs | m30_02_00 | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
 | 30022840 | Stake of Marika (m30_02_00) | Stake of Marika | Catacombs | m30_02_00 | 41.1, 115.0, -8.2 | - | - | - | - | - | MSB SpawnPoint |
 | 30027000 | Root Resin | Dungeon Pickup | Catacombs | m30_02_00 | 13.5, 104.8, 39.6 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30027010 | Smoldering Butterfly | Dungeon Pickup | Catacombs | m30_02_00 | 59.1, 95.0, 67.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30027020 | Wandering Noble Ashes | Dungeon Pickup | Catacombs | m30_02_00 | 3.0, 105.0, 57.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30027030 | Prattling Pate "Hello" | Dungeon Pickup | Catacombs | m30_02_00 | 53.3, 95.0, 114.4 | - | corpse | 1 | high | - | ItemLotParam_map |
+| 30030500 | Map Event Flag (30030500) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
 | 30030800 | Spiritcaller Snail | Great Boss Defeat | Catacombs | m30_03_00 | 89.2, 194.4, 36.1 | - | - | - | - | - | MSB Enemy |
 | 30030801 | Black Knife Assassin (discovered) | Boss Discovery | Deathtouched Catacombs | m30_11_00 | -208.8, 177.5, 23.7 | - | - | - | - | - | GameAreaParam |
+| 30032812 | Map Event Flag (30032812) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032813 | Map Event Flag (30032813) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032814 | Map Event Flag (30032814) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032815 | Map Event Flag (30032815) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032816 | Map Event Flag (30032816) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032817 | Map Event Flag (30032817) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032822 | Map Event Flag (30032822) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032834 | Map Event Flag (30032834) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032839 | Map Event Flag (30032839) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
 | 30032840 | Stake of Marika (m30_03_00) | Stake of Marika | Catacombs | m30_03_00 | -8.8, 223.8, -24.1 | - | - | - | - | - | MSB SpawnPoint |
+| 30032860 | Map Event Flag (30032860) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032882 | Map Event Flag (30032882) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032883 | Map Event Flag (30032883) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032884 | Map Event Flag (30032884) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032885 | Map Event Flag (30032885) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032886 | Map Event Flag (30032886) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 30032887 | Map Event Flag (30032887) | EMEVD Literal Flag | Catacombs | m30_03_00 | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
 | 30037000 | Root Resin | Dungeon Pickup | Catacombs | m30_03_00 | 70.3, 203.8, -52.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30037010 | Raya Lucaria Soldier Ashes | Dungeon Pickup | Catacombs | m30_03_00 | 135.4, 203.7, -64.1 | - | chest | 1 | high | - | ItemLotParam_map |
 | 30037020 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_03_00 | 38.1, 203.8, -67.0 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4272,16 +5269,23 @@ Total unique flags: 7034
 | 30037040 | Watchdog's Staff | Dungeon Pickup | Catacombs | m30_03_00 | 34.8, 204.0, -67.3 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30040800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_04_00 | -16.8, 46.1, 92.3 | - | - | - | - | - | MSB Enemy |
 | 30040801 | Grave Warden Duelist (discovered) | Boss Discovery | Murkwater Catacombs | m30_04_00 | -20.4, 46.1, 98.5 | - | - | - | - | - | GameAreaParam |
+| 30042802 | Map Event Flag (30042802) | EMEVD Literal Flag | Catacombs | m30_04_00 | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
 | 30042840 | Stake of Marika (m30_04_00) | Stake of Marika | Catacombs | m30_04_00 | 85.6, 66.4, 62.2 | - | - | - | - | - | MSB SpawnPoint |
 | 30047000 | Root Resin | Dungeon Pickup | Catacombs | m30_04_00 | 17.2, 53.7, 10.9 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 30050542 | Mechanism Unlock (30050542) | Mechanism Unlock | Catacombs | m30_05_00 | -197.4, 396.6, 36.7 | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
 | 30050800 | Cemetery Shade | Boss Defeat | Catacombs | m30_05_00 | -188.2, 406.2, 120.6 | - | - | - | - | - | MSB Enemy |
 | 30050850 | Black Knife Assassin | Field Boss Defeat | Catacombs | m30_05_00 | -240.8, 411.5, 16.7 | - | - | - | - | - | MSB Enemy |
+| 30050880 | Map Event Flag (30050880) | EMEVD Literal Flag | Catacombs | m30_05_00 | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 30052802 | Map Event Flag (30052802) | EMEVD Literal Flag | Catacombs | m30_05_00 | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
 | 30052840 | Stake of Marika (m30_05_00) | Stake of Marika | Catacombs | m30_05_00 | -73.3, 426.5, 112.0 | - | - | - | - | - | MSB SpawnPoint |
+| 30052852 | Map Event Flag (30052852) | EMEVD Literal Flag | Catacombs | m30_05_00 | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
 | 30057000 | Rosus' Axe | Dungeon Pickup | Catacombs | m30_05_00 | -118.2, 406.5, 90.3 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30057010 | Rune Arc | Dungeon Pickup | Catacombs | m30_05_00 | -229.0, 396.5, 47.9 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30057030 | Deathroot | Dungeon Pickup | Catacombs | m30_05_00 | -200.4, 407.0, 124.3 | - | chest | 2 | high | - | ItemLotParam_map |
 | 30057040 | Spellproof Dried Liver | Dungeon Pickup | Catacombs | m30_05_00 | -159.9, 406.4, 72.8 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 30060510 | Door Unlock (30060510) | Door Unlock | Catacombs | m30_06_00 | 37.2, 204.6, 66.4 | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
 | 30060800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_06_00 | 20.9, 194.3, -18.7 | - | - | - | - | - | MSB Enemy |
+| 30062802 | Map Event Flag (30062802) | EMEVD Literal Flag | Catacombs | m30_06_00 | - | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
 | 30062840 | Stake of Marika (m30_06_00) | Stake of Marika | Catacombs | m30_06_00 | 74.8, 239.6, 69.7 | - | - | - | - | - | MSB SpawnPoint |
 | 30067000 | Root Resin | Dungeon Pickup | Catacombs | m30_06_00 | 6.0, 204.4, 63.0 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30067010 | Nox Mirrorhelm | Dungeon Pickup | Catacombs | m30_06_00 | -62.3, 198.6, -46.7 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -4292,13 +5296,24 @@ Total unique flags: 7034
 | 30067060 | Hefty Beast Bone | Dungeon Pickup | Catacombs | m30_06_00 | -4.8, 183.6, -12.0 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30067070 | Scythe | Dungeon Pickup | Catacombs | m30_06_00 | -6.6, 203.4, 22.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30067080 | Prattling Pate "Wonderful" | Dungeon Pickup | Catacombs | m30_06_00 | -4.5, 183.5, 11.0 | - | corpse | 1 | high | - | ItemLotParam_map |
+| 30070510 | Map Event Flag (30070510) | EMEVD Literal Flag | Catacombs | m30_07_00 | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
+| 30070515 | Door Unlock (30070515) | Door Unlock | Catacombs | m30_07_00 | -110.5, 775.8, 171.0 | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
+| 30070542 | Mechanism Unlock (30070542) | Mechanism Unlock | Catacombs | m30_07_00 | -47.0, 765.7, 79.1 | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
 | 30070800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_07_00 | -127.2, 820.6, 225.6 | - | - | - | - | - | MSB Enemy |
+| 30072802 | Map Event Flag (30072802) | EMEVD Literal Flag | Catacombs | m30_07_00 | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
 | 30072840 | Stake of Marika (m30_07_00) | Stake of Marika | Catacombs | m30_07_00 | -127.0, 835.8, 122.3 | - | - | - | - | - | MSB SpawnPoint |
 | 30077010 | Golden Rune [5] | Dungeon Pickup | Catacombs | m30_07_00 | -47.8, 765.9, 65.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30077020 | Magic Grease | Dungeon Pickup | Catacombs | m30_07_00 | -50.7, 765.9, 68.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30077600 | Lightning Scorpion Charm | Dungeon Pickup | Catacombs | m30_07_00 | -115.9, 776.1, 90.9 | - | corpse | - | high | - | ItemLotParam_map |
 | 30077900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_07_00 | - | - | - | 0 | none | - | ItemLotParam_map |
+| 30080400 | Map Event Flag (30080400) | EMEVD Literal Flag | Catacombs | m30_08_00 | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 30080450 | Enemy Defeat (30080450) | Enemy Defeat | Catacombs | m30_08_00 | 121.4, 776.9, 17.9 | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 30080510 | Door Unlock (30080510) | Door Unlock | Catacombs | m30_08_00 | 28.9, 802.3, 10.3 | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 30080542 | Mechanism Unlock (30080542) | Mechanism Unlock | Catacombs | m30_08_00 | 174.4, 767.0, -50.6 | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
 | 30080800 | Ancient Hero of Zamor | Boss Defeat | Catacombs | m30_08_00 | 330.5, 742.2, 14.2 | - | - | - | - | - | MSB Enemy |
+| 30082501 | Map Event Flag (30082501) | EMEVD Literal Flag | Catacombs | m30_08_00 | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 30082550 | Map Event Flag (30082550) | EMEVD Literal Flag | Catacombs | m30_08_00 | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 30082802 | Map Event Flag (30082802) | EMEVD Literal Flag | Catacombs | m30_08_00 | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
 | 30082840 | Stake of Marika (m30_08_00) | Stake of Marika | Catacombs | m30_08_00 | 44.3, 884.0, 8.4 | - | - | - | - | - | MSB SpawnPoint |
 | 30087010 | Crimson Seed Talisman | Dungeon Pickup | Catacombs | m30_08_00 | 25.8, 800.0, -44.5 | - | corpse | - | high | - | ItemLotParam_map |
 | 30087020 | Leyndell Soldier Ashes | Dungeon Pickup | Catacombs | m30_08_00 | 177.7, 777.2, -59.0 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4306,7 +5321,10 @@ Total unique flags: 7034
 | 30087040 | Root Resin | Dungeon Pickup | Catacombs | m30_08_00 | 179.7, 772.0, 6.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30087050 | Prattling Pate "Let's get to it" | Dungeon Pickup | Catacombs | m30_08_00 | 150.4, 777.0, 14.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30087060 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_08_00 | 214.8, 772.0, 6.8 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 30090500 | Map Event Flag (30090500) | EMEVD Literal Flag | Catacombs | m30_09_00 | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
+| 30090510 | Door Unlock (30090510) | Door Unlock | Catacombs | m30_09_00 | 122.8, 769.7, 17.8 | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
 | 30090800 | Red Wolf of Radagon | Boss Defeat | Catacombs | m30_09_00 | -146.7, 646.2, 104.8 | - | - | - | - | - | MSB Enemy |
+| 30092802 | Map Event Flag (30092802) | EMEVD Literal Flag | Catacombs | m30_09_00 | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
 | 30092840 | Stake of Marika (m30_09_00) | Stake of Marika | Catacombs | m30_09_00 | 107.4, 902.6, 16.0 | - | - | - | - | - | MSB SpawnPoint |
 | 30097000 | Deathroot | Dungeon Pickup | Catacombs | m30_09_00 | -149.7, 647.0, 111.8 | - | chest | 2 | high | - | ItemLotParam_map |
 | 30097010 | Ringed Finger | Dungeon Pickup | Catacombs | m30_09_00 | -127.2, 686.0, -92.9 | - | chest | 2 | high | - | ItemLotParam_map |
@@ -4316,7 +5334,15 @@ Total unique flags: 7034
 | 30097050 | Gelmir Knight Helm | Dungeon Pickup | Catacombs | m30_09_00 | -29.8, 693.5, 9.3 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30097060 | Root Resin | Dungeon Pickup | Catacombs | m30_09_00 | -31.3, 708.1, -16.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30097070 | Beast Blood | Dungeon Pickup | Catacombs | m30_09_00 | -118.3, 661.5, -27.4 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 30100465 | Map Event Flag (30100465) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30100510 | Door Unlock (30100510) | Door Unlock | Catacombs | m30_10_00 | 63.2, 835.8, 119.3 | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30100515 | Door Unlock (30100515) | Door Unlock | Catacombs | m30_10_00 | -81.2, 741.7, 118.9 | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
 | 30100800 | Crucible Knight Ordovis | Great Boss Defeat | Catacombs | m30_10_00 | -107.9, 761.4, 355.9 | - | - | - | - | - | MSB Enemy |
+| 30102445 | Map Event Flag (30102445) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30102450 | Map Event Flag (30102450) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30102455 | Map Event Flag (30102455) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30102460 | Map Event Flag (30102460) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 30102802 | Map Event Flag (30102802) | EMEVD Literal Flag | Catacombs | m30_10_00 | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
 | 30102840 | Stake of Marika (m30_10_00) | Stake of Marika | Catacombs | m30_10_00 | 62.7, 952.8, 135.2 | - | - | - | - | - | MSB SpawnPoint |
 | 30107010 | Holy Grease | Dungeon Pickup | Catacombs | m30_10_00 | -116.2, 759.0, 210.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30107020 | Fan Daggers | Dungeon Pickup | Catacombs | m30_10_00 | -57.9, 806.8, 85.9 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4328,23 +5354,31 @@ Total unique flags: 7034
 | 30107080 | Vulgar Militia Ashes | Dungeon Pickup | Catacombs | m30_10_00 | -77.7, 751.8, 212.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30107100 | Ash of War: Holy Ground | Dungeon Pickup | Catacombs | m30_10_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 30110800 | Black Knife Assassin | Great Boss Defeat | Catacombs | m30_11_00 | -210.3, 177.5, 21.4 | - | - | - | - | - | MSB Enemy |
+| 30112802 | Map Event Flag (30112802) | EMEVD Literal Flag | Catacombs | m30_11_00 | - | - | - | - | - | - | EMEVD:m30_11_00_00.emevd |
 | 30112840 | Stake of Marika (m30_11_00) | Stake of Marika | Catacombs | m30_11_00 | -89.1, 192.8, 29.9 | - | - | - | - | - | MSB SpawnPoint |
 | 30117000 | Deathroot | Dungeon Pickup | Catacombs | m30_11_00 | -217.2, 178.3, 19.6 | - | chest | 2 | high | - | ItemLotParam_map |
 | 30117010 | Bloodrose | Dungeon Pickup | Catacombs | m30_11_00 | -211.2, 167.9, -24.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30117020 | Uchigatana | Dungeon Pickup | Catacombs | m30_11_00 | -178.5, 172.8, -26.2 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30120800 | Misbegotten Warrior | Boss Defeat | Catacombs | m30_12_00 | 8.1, 618.3, 242.8 | - | - | - | - | - | MSB Enemy |
+| 30122502 | Map Event Flag (30122502) | EMEVD Literal Flag | Catacombs | m30_12_00 | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
+| 30122802 | Map Event Flag (30122802) | EMEVD Literal Flag | Catacombs | m30_12_00 | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
 | 30122840 | Stake of Marika (m30_12_00) | Stake of Marika | Catacombs | m30_12_00 | -39.1, 653.6, 104.7 | - | - | - | - | - | MSB SpawnPoint |
 | 30127000 | Holy Grease | Dungeon Pickup | Catacombs | m30_12_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 30127010 | Winged Misbegotten Ashes | Dungeon Pickup | Catacombs | m30_12_00 | 15.5, 623.2, 133.8 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30127020 | Rune Arc | Dungeon Pickup | Catacombs | m30_12_00 | -5.1, 628.5, 158.4 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30127030 | Prattling Pate "Apologies" | Dungeon Pickup | Catacombs | m30_12_00 | -9.8, 628.4, 164.6 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30127900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_12_00 | - | - | - | 0 | none | - | ItemLotParam_map |
+| 30130510 | Door Unlock (30130510) | Door Unlock | Catacombs | m30_13_00 | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
 | 30130800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_13_00 | 4.3, 954.4, 79.0 | - | - | - | - | - | MSB Enemy |
+| 30130810 | Map Event Flag (30130810) | EMEVD Literal Flag | Catacombs | m30_13_00 | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
+| 30132802 | Map Event Flag (30132802) | EMEVD Literal Flag | Catacombs | m30_13_00 | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
 | 30132840 | Stake of Marika (m30_13_00) | Stake of Marika | Catacombs | m30_13_00 | 101.7, 969.7, 26.3 | - | - | - | - | - | MSB SpawnPoint |
 | 30137020 | Golden Rune [7] | Dungeon Pickup | Catacombs | m30_13_00 | 0.7, 925.8, 58.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30137030 | Smithing Stone [5] | Dungeon Pickup | Catacombs | m30_13_00 | 24.6, 944.7, 109.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30137040 | Root Resin | Dungeon Pickup | Catacombs | m30_13_00 | 8.4, 934.7, 145.0 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 30140510 | Door Unlock (30140510) | Door Unlock | Catacombs | m30_14_00 | -71.0, 93.4, 44.3 | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
 | 30140800 | Erdtree Burial Watchdog | Great Boss Defeat | Catacombs | m30_14_00 | -123.4, 73.3, -34.0 | - | - | - | - | - | MSB Enemy |
+| 30142802 | Map Event Flag (30142802) | EMEVD Literal Flag | Catacombs | m30_14_00 | - | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
 | 30142840 | Stake of Marika (m30_14_00) | Stake of Marika | Catacombs | m30_14_00 | -54.6, 128.4, 84.7 | - | - | - | - | - | MSB SpawnPoint |
 | 30147000 | Imp Head (Cat) | Dungeon Pickup | Catacombs | m30_14_00 | -46.3, 99.4, 88.1 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30147010 | Grave Violet | Dungeon Pickup | Catacombs | m30_14_00 | -114.9, 78.7, 40.1 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4353,16 +5387,30 @@ Total unique flags: 7034
 | 30147040 | Golden Rune [4] | Dungeon Pickup | Catacombs | m30_14_00 | -106.5, 83.2, 97.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30147900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_14_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 30150800 | Cemetery Shade | Boss Defeat | Catacombs | m30_15_00 | 125.7, 24.2, 258.0 | - | - | - | - | - | MSB Enemy |
+| 30152802 | Map Event Flag (30152802) | EMEVD Literal Flag | Catacombs | m30_15_00 | - | - | - | - | - | - | EMEVD:m30_15_00_00.emevd |
 | 30152840 | Stake of Marika (m30_15_00) | Stake of Marika | Catacombs | m30_15_00 | 89.1, 54.5, 70.0 | - | - | - | - | - | MSB SpawnPoint |
 | 30157000 | Miranda Sprout Ashes | Dungeon Pickup | Catacombs | m30_15_00 | 60.1, 34.4, 146.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30160800 | Ulcerated Tree Spirit | Great Boss Defeat | Catacombs | m30_16_00 | -130.9, -25.2, -89.2 | - | - | - | - | - | MSB Enemy |
+| 30162802 | Map Event Flag (30162802) | EMEVD Literal Flag | Catacombs | m30_16_00 | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
+| 30162803 | Map Event Flag (30162803) | EMEVD Literal Flag | Catacombs | m30_16_00 | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
 | 30162840 | Stake of Marika (m30_16_00) | Stake of Marika | Catacombs | m30_16_00 | 37.7, 5.0, -138.5 | - | - | - | - | - | MSB SpawnPoint |
 | 30167000 | Golden Rune [6] | Dungeon Pickup | Catacombs | m30_16_00 | -17.0, -20.0, -81.8 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30167010 | Magic Grease | Dungeon Pickup | Catacombs | m30_16_00 | -30.5, -14.9, -89.6 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30167020 | Radahn Soldier Ashes | Dungeon Pickup | Catacombs | m30_16_00 | 9.9, -10.0, -91.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30167030 | Silver-Pickled Fowl Foot | Dungeon Pickup | Catacombs | m30_16_00 | -6.9, -19.9, -106.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30167040 | Collapsing Stars | Dungeon Pickup | Catacombs | m30_16_00 | -38.9, -19.9, -89.5 | - | chest | 2 | high | - | ItemLotParam_map |
+| 30170400 | Enemy Defeat (30170400) | Enemy Defeat | Catacombs | m30_17_00 | -124.1, 1471.9, -35.9 | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170500 | Map Event Flag (30170500) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170504 | Map Event Flag (30170504) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170510 | Door Unlock (30170510) | Door Unlock | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170515 | Door Unlock (30170515) | Door Unlock | Catacombs | m30_17_00 | -196.1, 1452.0, -24.5 | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170521 | Map Event Flag (30170521) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170522 | Map Event Flag (30170522) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170526 | Map Event Flag (30170526) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170530 | Door Unlock (30170530) | Door Unlock | Catacombs | m30_17_00 | -96.1, 1513.0, 120.0 | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 30170542 | Mechanism Unlock (30170542) | Mechanism Unlock | Catacombs | m30_17_00 | -184.5, 1477.0, -35.7 | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
 | 30170800 | Ancient Hero of Zamor | Boss Defeat | Catacombs | m30_17_00 | -7.1, 1451.7, -35.8 | - | - | - | - | - | MSB Enemy |
+| 30172802 | Map Event Flag (30172802) | EMEVD Literal Flag | Catacombs | m30_17_00 | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
 | 30172840 | Stake of Marika (m30_17_00) | Stake of Marika | Catacombs | m30_17_00 | -78.5, 1654.0, 120.1 | - | - | - | - | - | MSB SpawnPoint |
 | 30177000 | Cranial Vessel Candlestand | Dungeon Pickup | Catacombs | m30_17_00 | -195.8, 1507.0, 77.2 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30177010 | Flame, Protect Me | Dungeon Pickup | Catacombs | m30_17_00 | -149.3, 1510.0, 116.5 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4371,7 +5419,17 @@ Total unique flags: 7034
 | 30177040 | Freezing Grease | Dungeon Pickup | Catacombs | m30_17_00 | -194.2, 1506.7, 14.2 | - | ground_pickup | 0 | high | - | ItemLotParam_map |
 | 30177050 | Golden Rune [11] | Dungeon Pickup | Catacombs | m30_17_00 | -166.1, 1507.8, 74.3 | - | ground_pickup | 1 | high | - | ItemLotParam_map |
 | 30177060 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_17_00 | -166.1, 1507.8, 54.3 | - | ground_pickup | 0 | high | - | ItemLotParam_map |
+| 30180500 | Map Event Flag (30180500) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30180505 | Map Event Flag (30180505) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30180510 | Door Unlock (30180510) | Door Unlock | Catacombs | m30_18_00 | -46.4, 1402.7, 157.7 | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30180515 | Door Unlock (30180515) | Door Unlock | Catacombs | m30_18_00 | -69.9, 1452.7, 97.2 | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30180520 | Door Unlock (30180520) | Door Unlock | Catacombs | m30_18_00 | -69.9, 1467.7, 77.2 | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30180530 | Mechanism Unlock (30180530) | Mechanism Unlock | Catacombs | m30_18_00 | -5.9, 1392.7, 253.7 | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
 | 30180800 | Ulcerated Tree Spirit | Great Boss Defeat | Catacombs | m30_18_00 | -139.2, 1477.4, 158.0 | - | - | - | - | - | MSB Enemy |
+| 30180801 | Map Event Flag (30180801) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30182220 | Map Event Flag (30182220) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30182802 | Map Event Flag (30182802) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 30182803 | Map Event Flag (30182803) | EMEVD Literal Flag | Catacombs | m30_18_00 | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
 | 30182840 | Stake of Marika (m30_18_00) | Stake of Marika | Catacombs | m30_18_00 | 26.1, 1577.7, 107.8 | - | - | - | - | - | MSB SpawnPoint |
 | 30187000 | Golden Rune [10] | Dungeon Pickup | Catacombs | m30_18_00 | -66.8, 1457.5, 48.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30187010 | Stimulating Boluses | Dungeon Pickup | Catacombs | m30_18_00 | -54.6, 1477.7, 51.6 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4379,15 +5437,21 @@ Total unique flags: 7034
 | 30187030 | Root Resin | Dungeon Pickup | Catacombs | m30_18_00 | -69.8, 1493.5, 135.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30187070 | Fire Monk Ashes | Dungeon Pickup | Catacombs | m30_18_00 | -6.1, 1392.4, 250.7 | - | chest | 1 | high | - | ItemLotParam_map |
 | 30187900 | Deathroot | Dungeon Pickup | Catacombs | m30_18_00 | -159.1, 1478.2, 156.1 | - | chest | 2 | high | - | ItemLotParam_map |
+| 30190500 | Map Event Flag (30190500) | EMEVD Literal Flag | Catacombs | m30_19_00 | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
+| 30190503 | Map Event Flag (30190503) | EMEVD Literal Flag | Catacombs | m30_19_00 | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
+| 30190505 | Map Event Flag (30190505) | EMEVD Literal Flag | Catacombs | m30_19_00 | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
 | 30190800 | Grave Warden Duelist | Boss Defeat | Catacombs | m30_19_00 | 70.9, 1374.7, -161.3 | - | - | - | - | - | MSB Enemy |
+| 30192802 | Map Event Flag (30192802) | EMEVD Literal Flag | Catacombs | m30_19_00 | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
 | 30197000 | Golden Rune [12] | Dungeon Pickup | Catacombs | m30_19_00 | 2.1, 1395.0, -207.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30197010 | Rejuvenating Boluses | Dungeon Pickup | Catacombs | m30_19_00 | -14.4, 1385.1, -157.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30197020 | Root Resin | Dungeon Pickup | Catacombs | m30_19_00 | 5.6, 1384.9, -195.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30197030 | Human Bone Shard | Dungeon Pickup | Catacombs | m30_19_00 | -45.3, 1390.1, -236.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 30197040 | Imp Head (Cat) | Dungeon Pickup | Catacombs | m30_19_00 | -43.8, 1389.8, -251.5 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 30197900 | Golden Rune [1] | Dungeon Pickup | Catacombs | m30_19_00 | - | - | - | 0 | none | - | ItemLotParam_map |
+| 30200510 | Door Unlock (30200510) | Door Unlock | Catacombs | m30_20_00 | -105.0, 1288.6, -180.2 | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
 | 30200800 | NPC Invader | Boss Defeat | Catacombs | m30_20_00 | -88.7, 1276.8, -299.6 | - | - | - | - | - | MSB Enemy |
 | 30200810 | Stray Mimic Tear | Boss Arena | Hidden Path to the Haligtree | m30_20_00 | -89.7, 1278.3, -264.4 | - | - | - | - | - | GameAreaParam |
+| 30202802 | Map Event Flag (30202802) | EMEVD Literal Flag | Catacombs | m30_20_00 | - | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
 | 30202840 | Stake of Marika (m30_20_00) | Stake of Marika | Catacombs | m30_20_00 | -105.1, 1338.6, -122.3 | - | - | - | - | - | MSB SpawnPoint |
 | 30207000 | Warming Stone | Dungeon Pickup | Catacombs | m30_20_00 | -19.8, 1314.4, -107.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 30207010 | Sacramental Bud | Dungeon Pickup | Catacombs | m30_20_00 | -47.5, 1308.7, -134.7 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -4401,12 +5465,34 @@ Total unique flags: 7034
 | 31000701 | Patches | NPC | Cave | m31_00_00 | 40.6, 46.0, 69.3 | - | - | - | - | - | MSB NPC |
 | 31000703 | Patches | NPC | Cave | m31_00_00 | 40.6, 46.0, 69.3 | - | - | - | - | - | MSB NPC |
 | 31000800 | Patches | Boss Defeat | Cave | m31_00_00 | 24.8, 53.0, 54.0 | - | - | - | - | - | MSB Enemy |
+| 31000811 | Map Event Flag (31000811) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31000845 | Map Event Flag (31000845) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
 | 31000850 | Patches | Field Boss Defeat | Cave | m31_00_00 | 24.8, 53.0, 54.0 | - | - | - | - | - | MSB Enemy |
+| 31000861 | Map Event Flag (31000861) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002704 | Map Event Flag (31002704) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002713 | Map Event Flag (31002713) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002714 | Map Event Flag (31002714) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002715 | Map Event Flag (31002715) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002721 | Map Event Flag (31002721) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002722 | Map Event Flag (31002722) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002723 | Map Event Flag (31002723) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31002728 | Map Event Flag (31002728) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
 | 31002840 | Stake of Marika (m31_00_00) | Stake of Marika | Cave | m31_00_00 | 73.1, 62.5, 61.0 | - | - | - | - | - | MSB SpawnPoint |
 | 31007000 | Mushroom | Dungeon Pickup | Cave | m31_00_00 | -25.6, 41.7, 27.0 | - | chest | 0 | high | - | ItemLotParam_map |
 | 31007010 | Guilty Hood | Dungeon Pickup | Cave | m31_00_00 | 46.1, 45.7, 71.0 | - | chest | 1 | high | - | ItemLotParam_map |
 | 31007030 | Glass Shard | Dungeon Pickup | Cave | m31_00_00 | 46.1, 45.7, 71.0 | - | chest | 0 | high | - | ItemLotParam_map |
+| 31008820 | Map Event Flag (31008820) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31008821 | Map Event Flag (31008821) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31008870 | Map Event Flag (31008870) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31008871 | Map Event Flag (31008871) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31009215 | Map Event Flag (31009215) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31009810 | Map Event Flag (31009810) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31009811 | Map Event Flag (31009811) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31009889 | Map Event Flag (31009889) | EMEVD Literal Flag | Cave | m31_00_00 | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 31010500 | Map Event Flag (31010500) | EMEVD Literal Flag | Cave | m31_01_00 | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
 | 31010800 | Runebear | Great Boss Defeat | Cave | m31_01_00 | -146.9, -39.9, -144.9 | - | - | - | - | - | MSB Enemy |
+| 31010801 | Map Event Flag (31010801) | EMEVD Literal Flag | Cave | m31_01_00 | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
+| 31012802 | Map Event Flag (31012802) | EMEVD Literal Flag | Cave | m31_01_00 | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
 | 31012840 | Stake of Marika (m31_01_00) | Stake of Marika | Cave | m31_01_00 | -104.6, -1.2, -41.1 | - | - | - | - | - | MSB SpawnPoint |
 | 31017000 | Golden Rune [1] | Dungeon Pickup | Cave | m31_01_00 | -170.4, -15.8, -84.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31017010 | Glowstone | Dungeon Pickup | Cave | m31_01_00 | -124.2, -21.6, -94.0 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4416,6 +5502,7 @@ Total unique flags: 7034
 | 31017060 | Pickled Turtle Neck | Dungeon Pickup | Cave | m31_01_00 | -132.7, -4.7, -66.8 | - | chest | 0 | high | - | ItemLotParam_map |
 | 31020800 | Miranda Blossom | Great Boss Defeat | Cave | m31_02_00 | -311.1, -28.9, -27.2 | - | - | - | - | - | MSB Enemy |
 | 31020801 | Miranda the Blighted Bloom (discovered) | Boss Discovery | Tombsward Cave | m31_02_00 | -117.2, 29.5, 0.9 | - | - | - | - | - | GameAreaParam |
+| 31022802 | Map Event Flag (31022802) | EMEVD Literal Flag | Cave | m31_02_00 | - | - | - | - | - | - | EMEVD:m31_02_00_00.emevd |
 | 31022840 | Stake of Marika (m31_02_00) | Stake of Marika | Cave | m31_02_00 | -116.4, 6.2, 31.3 | - | - | - | - | - | MSB SpawnPoint |
 | 31027000 | Golden Rune [2] | Dungeon Pickup | Cave | m31_02_00 | -224.7, -22.7, 13.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31027010 | Furlcalling Finger Remedy | Dungeon Pickup | Cave | m31_02_00 | -269.3, -22.3, 3.2 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4424,10 +5511,12 @@ Total unique flags: 7034
 | 31027050 | Immunizing White Cured Meat | Dungeon Pickup | Cave | m31_02_00 | -227.5, -26.8, 65.6 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31030800 | Azula Beastman | Boss Defeat | Cave | m31_03_00 | -120.8, 88.2, 80.8 | - | - | - | - | - | MSB Enemy |
 | 31030801 | Beastman of Farum Azula (discovered) | Boss Discovery | Groveside Cave | m31_03_00 | -120.8, 88.3, 80.8 | - | - | - | - | - | GameAreaParam |
+| 31032802 | Map Event Flag (31032802) | EMEVD Literal Flag | Cave | m31_03_00 | - | - | - | - | - | - | EMEVD:m31_03_00_00.emevd |
 | 31032840 | Stake of Marika (m31_03_00) | Stake of Marika | Cave | m31_03_00 | -61.9, 111.0, -7.4 | - | - | - | - | - | MSB SpawnPoint |
 | 31037000 | Golden Rune [1] | Dungeon Pickup | Cave | m31_03_00 | -128.1, 93.6, 29.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31037010 | Glowstone | Dungeon Pickup | Cave | m31_03_00 | -121.8, 93.9, 25.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31040800 | Cleanrot Knight | Boss Defeat | Cave | m31_04_00 | 98.0, 199.8, -166.7 | - | - | - | - | - | MSB Enemy |
+| 31042802 | Map Event Flag (31042802) | EMEVD Literal Flag | Cave | m31_04_00 | - | - | - | - | - | - | EMEVD:m31_04_00_00.emevd |
 | 31042840 | Stake of Marika (m31_04_00) | Stake of Marika | Cave | m31_04_00 | 14.8, 237.4, -38.2 | - | - | - | - | - | MSB SpawnPoint |
 | 31047000 | Golden Rune [3] | Dungeon Pickup | Cave | m31_04_00 | 5.9, 223.8, -53.3 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31047010 | Golden Rune [4] | Dungeon Pickup | Cave | m31_04_00 | 1.5, 214.9, -94.7 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4437,6 +5526,8 @@ Total unique flags: 7034
 | 31047050 | Poison Grease | Dungeon Pickup | Cave | m31_04_00 | 53.4, 200.6, -173.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31047060 | Sage Hood | Dungeon Pickup | Cave | m31_04_00 | 26.2, 213.8, -89.3 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31050800 | Bloodhound Knight | Great Boss Defeat | Cave | m31_05_00 | -169.3, 161.0, -23.0 | - | - | - | - | - | MSB Enemy |
+| 31050801 | Map Event Flag (31050801) | EMEVD Literal Flag | Cave | m31_05_00 | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
+| 31052802 | Map Event Flag (31052802) | EMEVD Literal Flag | Cave | m31_05_00 | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
 | 31057000 | Hefty Beast Bone | Dungeon Pickup | Cave | m31_05_00 | -161.1, 227.1, -2.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31057010 | Throwing Dagger | Dungeon Pickup | Cave | m31_05_00 | -103.5, 182.6, 20.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31057020 | Golden Rune [5] | Dungeon Pickup | Cave | m31_05_00 | -116.7, 179.3, 45.5 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4446,9 +5537,11 @@ Total unique flags: 7034
 | 31057060 | Lump of Flesh | Dungeon Pickup | Cave | m31_05_00 | -130.7, 155.1, 13.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31057070 | Arteria Leaf | Dungeon Pickup | Cave | m31_05_00 | -114.7, 225.6, -1.3 | - | chest | 2 | high | - | ItemLotParam_map |
 | 31057100 | Spear Talisman | Dungeon Pickup | Cave | m31_05_00 | -175.2, 209.9, 57.6 | - | chest | - | high | - | ItemLotParam_map |
+| 31060540 | Mechanism Unlock (31060540) | Mechanism Unlock | Cave | m31_06_00 | 149.4, 218.8, 71.2 | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
 | 31060800 | Crystalian | Boss Defeat | Cave | m31_06_00 | 191.2, 216.6, 104.4 | - | - | - | - | - | MSB Enemy |
 | 31060801 | Crystalian | Boss Defeat | Cave | m31_06_00 | 191.2, 216.6, 101.6 | - | - | - | - | - | MSB Enemy |
 | 31062840 | Stake of Marika (m31_06_00) | Stake of Marika | Cave | m31_06_00 | 74.3, 236.2, 120.4 | - | - | - | - | - | MSB SpawnPoint |
+| 31062842 | Map Event Flag (31062842) | EMEVD Literal Flag | Cave | m31_06_00 | - | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
 | 31067000 | Cuckoo Glintstone | Dungeon Pickup | Cave | m31_06_00 | 138.0, 216.3, 33.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31067010 | Stonesword Key | Dungeon Pickup | Cave | m31_06_00 | 102.2, 210.8, 113.5 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 31067030 | Crystal Staff | Dungeon Pickup | Cave | m31_06_00 | 133.7, 225.2, 101.2 | - | chest | 2 | high | - | ItemLotParam_map |
@@ -4456,6 +5549,7 @@ Total unique flags: 7034
 | 31070800 | Kindred of Rot | Boss Defeat | Cave | m31_07_00 | -122.6, 719.6, 256.0 | - | - | - | - | - | MSB Enemy |
 | 31070801 | Kindred of Rot | Boss Defeat | Cave | m31_07_00 | -136.3, 719.9, 270.1 | - | - | - | - | - | MSB Enemy |
 | 31072840 | Stake of Marika (m31_07_00) | Stake of Marika | Cave | m31_07_00 | -9.2, 799.5, 143.4 | - | - | - | - | - | MSB SpawnPoint |
+| 31072842 | Map Event Flag (31072842) | EMEVD Literal Flag | Cave | m31_07_00 | - | - | - | - | - | - | EMEVD:m31_07_00_00.emevd |
 | 31077000 | Poison Grease | Dungeon Pickup | Cave | m31_07_00 | -60.4, 765.4, 242.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31077010 | Lump of Flesh | Dungeon Pickup | Cave | m31_07_00 | -72.3, 771.1, 201.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31077020 | Preserving Boluses | Dungeon Pickup | Cave | m31_07_00 | -106.3, 765.9, 179.7 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4466,6 +5560,7 @@ Total unique flags: 7034
 | 31077070 | Immunizing Cured Meat | Dungeon Pickup | Cave | m31_07_00 | -83.0, 770.5, 170.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31080800 | Area 31_08 (fast travel unlocked) | Dungeon Cleared | Cave | m31_08_00 | - | - | - | - | - | - | MapDefaultInfoParam |
 | 31090800 | Demi-Human Queen Maggie | Great Boss Defeat | Cave | m31_09_00 | -63.9, 1013.0, -75.1 | - | - | - | - | - | MSB Enemy |
+| 31092802 | Map Event Flag (31092802) | EMEVD Literal Flag | Cave | m31_09_00 | - | - | - | - | - | - | EMEVD:m31_09_00_00.emevd |
 | 31092840 | Stake of Marika (m31_09_00) | Stake of Marika | Cave | m31_09_00 | -69.2, 1032.8, -60.5 | - | - | - | - | - | MSB SpawnPoint |
 | 31097000 | Golden Rune [6] | Dungeon Pickup | Cave | m31_09_00 | -120.1, 1025.3, -76.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31097010 | Sliver of Meat | Dungeon Pickup | Cave | m31_09_00 | -146.8, 1012.5, -42.6 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4474,7 +5569,10 @@ Total unique flags: 7034
 | 31097040 | Coil Shield | Dungeon Pickup | Cave | m31_09_00 | -142.2, 1012.5, -43.6 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 31100800 | Azula Beastman | Boss Defeat | Cave | m31_10_00 | 36.1, 104.7, 21.2 | - | - | - | - | - | MSB Enemy |
 | 31100801 | Azula Beastman | Boss Defeat | Cave | m31_10_00 | 36.2, 104.7, 12.3 | - | - | - | - | - | MSB Enemy |
+| 31102805 | Map Event Flag (31102805) | EMEVD Literal Flag | Cave | m31_10_00 | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
 | 31102840 | Stake of Marika (m31_10_00) | Stake of Marika | Cave | m31_10_00 | 2.9, 159.4, 83.1 | - | - | - | - | - | MSB SpawnPoint |
+| 31102842 | Map Event Flag (31102842) | EMEVD Literal Flag | Cave | m31_10_00 | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
+| 31102865 | Map Event Flag (31102865) | EMEVD Literal Flag | Cave | m31_10_00 | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
 | 31107000 | Warming Stone | Dungeon Pickup | Cave | m31_10_00 | -6.1, 148.5, 43.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31107010 | Golden Rune [12] | Dungeon Pickup | Cave | m31_10_00 | -3.1, 148.6, 43.8 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31107050 | Bull-Goat's Talisman | Dungeon Pickup | Cave | m31_10_00 | -4.3, 141.5, -12.4 | - | corpse | - | high | - | ItemLotParam_map |
@@ -4483,6 +5581,7 @@ Total unique flags: 7034
 | 31110700 | Primeval Sorcerer Lusat | NPC | Cave | m31_11_00 | 19.8, 150.5, 169.5 | - | - | - | - | - | MSB NPC |
 | 31110800 | Crystalian | Boss Defeat | Cave | m31_11_00 | -144.1, 127.1, 138.6 | - | - | - | - | - | MSB Enemy |
 | 31112840 | Stake of Marika (m31_11_00) | Stake of Marika | Cave | m31_11_00 | 127.2, 207.5, 64.1 | - | - | - | - | - | MSB SpawnPoint |
+| 31112842 | Map Event Flag (31112842) | EMEVD Literal Flag | Cave | m31_11_00 | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
 | 31117000 | Golden Rune [3] | Dungeon Pickup | Cave | m31_11_00 | 64.0, 177.8, 58.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31117010 | Lost Ashes of War | Dungeon Pickup | Cave | m31_11_00 | 28.1, 157.4, 85.8 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31117020 | Golden Rune [5] | Dungeon Pickup | Cave | m31_11_00 | 29.8, 157.4, 91.4 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4495,7 +5594,9 @@ Total unique flags: 7034
 | 31117200 | Crystal Spear | Dungeon Pickup | Cave | m31_11_00 | -58.3, 155.7, 236.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 31117220 | Crystalian Ashes | Dungeon Pickup | Cave | m31_11_00 | -55.1, 140.0, 182.7 | - | chest | 1 | high | - | ItemLotParam_map |
 | 31117300 | Smithing Stone [1] | Dungeon Pickup | Cave | m31_11_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 31118700 | Map Event Flag (31118700) | EMEVD Literal Flag | Cave | m31_11_00 | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
 | 31120800 | Misbegotten Warrior | Boss Defeat | Cave | m31_12_00 | -24.4, 1193.4, 121.9 | - | - | - | - | - | MSB Enemy |
+| 31122802 | Map Event Flag (31122802) | EMEVD Literal Flag | Cave | m31_12_00 | - | - | - | - | - | - | EMEVD:m31_12_00_00.emevd |
 | 31122840 | Stake of Marika (m31_12_00) | Stake of Marika | Cave | m31_12_00 | -54.5, 1254.8, 44.7 | - | - | - | - | - | MSB SpawnPoint |
 | 31127000 | Golden Rune [7] | Dungeon Pickup | Cave | m31_12_00 | -33.5, 1245.8, 75.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31127010 | Freezing Grease | Dungeon Pickup | Cave | m31_12_00 | 29.8, 1245.8, 110.7 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4515,11 +5616,18 @@ Total unique flags: 7034
 | 31150700 | Demi-Human Boc | NPC | Cave | m31_15_00 | 42.6, -9.1, -18.4 | - | - | - | - | - | MSB NPC |
 | 31150800 | Demi-Human Chief | Great Boss Defeat | Cave | m31_15_00 | 30.9, -29.3, -99.9 | - | - | - | - | - | MSB Enemy |
 | 31150801 | Demi-Human Chief (discovered) | Boss Discovery | Coastal Cave | m31_15_00 | 30.9, -29.3, -99.8 | - | - | - | - | - | GameAreaParam |
+| 31150815 | Map Event Flag (31150815) | EMEVD Literal Flag | Cave | m31_15_00 | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
+| 31152805 | Map Event Flag (31152805) | EMEVD Literal Flag | Cave | m31_15_00 | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
+| 31152815 | Map Event Flag (31152815) | EMEVD Literal Flag | Cave | m31_15_00 | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
 | 31152840 | Stake of Marika (m31_15_00) | Stake of Marika | Cave | m31_15_00 | 48.7, -0.5, -40.1 | - | - | - | - | - | MSB SpawnPoint |
+| 31152842 | Map Event Flag (31152842) | EMEVD Literal Flag | Cave | m31_15_00 | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
 | 31157010 | Land Octopus Ovary | Dungeon Pickup | Cave | m31_15_00 | 20.0, -25.9, -68.0 | - | corpse | 0 | high | Y | ItemLotParam_map |
 | 31157020 | Smoldering Butterfly | Dungeon Pickup | Cave | m31_15_00 | -1.5, -15.7, -203.8 | - | corpse | 0 | high | Y | ItemLotParam_map |
+| 31159250 | Map Event Flag (31159250) | EMEVD Literal Flag | Cave | m31_15_00 | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
 | 31170800 | Guardian Golem | Great Boss Defeat | Cave | m31_17_00 | 74.4, -9.9, 148.7 | - | - | - | - | - | MSB Enemy |
 | 31170801 | Guardian Golem (discovered) | Boss Discovery | Highroad Cave | m31_17_00 | 74.4, -9.7, 148.7 | - | - | - | - | - | GameAreaParam |
+| 31172499 | Map Event Flag (31172499) | EMEVD Literal Flag | Cave | m31_17_00 | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
+| 31172802 | Map Event Flag (31172802) | EMEVD Literal Flag | Cave | m31_17_00 | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
 | 31172840 | Stake of Marika (m31_17_00) | Stake of Marika | Cave | m31_17_00 | 68.0, 99.7, 94.4 | - | - | - | - | - | MSB SpawnPoint |
 | 31177010 | Golden Rune [1] | Dungeon Pickup | Cave | m31_17_00 | 80.1, 65.0, 184.3 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31177020 | Arteria Leaf | Dungeon Pickup | Cave | m31_17_00 | 40.5, 26.9, 218.6 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -4529,8 +5637,10 @@ Total unique flags: 7034
 | 31177060 | Fire Grease | Dungeon Pickup | Cave | m31_17_00 | 47.1, 18.9, 223.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31177070 | Furlcalling Finger Remedy | Dungeon Pickup | Cave | m31_17_00 | 91.5, 0.5, 240.9 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31177080 | Shamshir | Dungeon Pickup | Cave | m31_17_00 | 81.6, -3.7, 257.7 | - | corpse | 1 | high | - | ItemLotParam_map |
+| 31180400 | Enemy Defeat (31180400) | Enemy Defeat | Cave | m31_18_00 | -3.8, 796.3, 184.7 | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
 | 31180800 | Miranda Blossom | Great Boss Defeat | Cave | m31_18_00 | -85.2, 790.6, 183.1 | - | - | - | - | - | MSB Enemy |
 | 31182840 | Stake of Marika (m31_18_00) | Stake of Marika | Cave | m31_18_00 | 49.2, 838.1, 26.5 | - | - | - | - | - | MSB SpawnPoint |
+| 31182842 | Map Event Flag (31182842) | EMEVD Literal Flag | Cave | m31_18_00 | - | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
 | 31187020 | Living Jar Shard | Dungeon Pickup | Cave | m31_18_00 | 1.8, 801.1, 130.9 | - | chest | 1 | high | - | ItemLotParam_map |
 | 31187030 | Living Jar Shard | Dungeon Pickup | Cave | m31_18_00 | -6.3, 809.1, 83.2 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31187040 | Arteria Leaf | Dungeon Pickup | Cave | m31_18_00 | -8.2, 796.5, 180.7 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -4540,7 +5650,13 @@ Total unique flags: 7034
 | 31187080 | Golden Rune [5] | Dungeon Pickup | Cave | m31_18_00 | -62.4, 790.8, 189.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31190800 | Black Knife Assassin | Great Boss Defeat | Cave | m31_19_00 | 131.0, 623.5, -12.7 | - | - | - | - | - | MSB Enemy |
 | 31190850 | Necromancer Garris | Field Boss Defeat | Cave | m31_19_00 | 108.3, 627.3, -45.2 | - | - | - | - | - | MSB Enemy |
+| 31190890 | Map Event Flag (31190890) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 31192802 | Map Event Flag (31192802) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
 | 31192840 | Stake of Marika (m31_19_00) | Stake of Marika | Cave | m31_19_00 | 103.0, 654.8, -55.2 | - | - | - | - | - | MSB SpawnPoint |
+| 31192852 | Map Event Flag (31192852) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 31192870 | Map Event Flag (31192870) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 31192871 | Map Event Flag (31192871) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 31192875 | Map Event Flag (31192875) | EMEVD Literal Flag | Cave | m31_19_00 | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
 | 31197000 | Rejuvenating Boluses | Dungeon Pickup | Cave | m31_19_00 | 119.6, 642.9, -74.7 | - | chest | 1 | high | - | ItemLotParam_map |
 | 31197010 | Lost Ashes of War | Dungeon Pickup | Cave | m31_19_00 | 119.7, 642.9, -71.8 | - | chest | 1 | high | - | ItemLotParam_map |
 | 31197030 | Candletree Wooden Shield | Dungeon Pickup | Cave | m31_19_00 | 141.1, 638.7, -85.6 | - | chest | 1 | high | - | ItemLotParam_map |
@@ -4557,12 +5673,19 @@ Total unique flags: 7034
 | 31197210 | Golden Rune [5] | Dungeon Pickup | Cave | m31_19_00 | 119.0, 636.7, -94.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31200800 | Cleanrot Knight | Boss Defeat | Cave | m31_20_00 | 173.7, 87.0, 147.6 | - | - | - | - | - | MSB Enemy |
 | 31202840 | Stake of Marika (m31_20_00) | Stake of Marika | Cave | m31_20_00 | 139.3, 127.3, 42.1 | - | - | - | - | - | MSB SpawnPoint |
+| 31202842 | Map Event Flag (31202842) | EMEVD Literal Flag | Cave | m31_20_00 | - | - | - | - | - | - | EMEVD:m31_20_00_00.emevd |
 | 31207000 | Dragonwound Grease | Dungeon Pickup | Cave | m31_20_00 | 200.7, 108.1, 62.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31207010 | Venomous Fang | Dungeon Pickup | Cave | m31_20_00 | 131.7, 90.4, 70.6 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31207020 | Serpent Bow | Dungeon Pickup | Cave | m31_20_00 | 189.1, 97.6, 91.3 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 31207030 | Fire Grease | Dungeon Pickup | Cave | m31_20_00 | 157.1, 93.8, 20.6 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 31210500 | Map Event Flag (31210500) | EMEVD Literal Flag | Cave | m31_21_00 | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 31210560 | Mechanism Unlock (31210560) | Mechanism Unlock | Cave | m31_21_00 | -80.2, 55.9, 163.5 | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
 | 31210800 | Grave Warden Duelist | Boss Defeat | Cave | m31_21_00 | -166.7, 13.0, 48.6 | - | - | - | - | - | MSB Enemy |
+| 31210801 | Map Event Flag (31210801) | EMEVD Literal Flag | Cave | m31_21_00 | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
 | 31212190 | Stake of Marika (m31_21_00) | Stake of Marika | Cave | m31_21_00 | -64.2, 87.7, 34.0 | - | - | - | - | - | MSB SpawnPoint |
+| 31212805 | Map Event Flag (31212805) | EMEVD Literal Flag | Cave | m31_21_00 | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 31212852 | Map Event Flag (31212852) | EMEVD Literal Flag | Cave | m31_21_00 | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 31212865 | Map Event Flag (31212865) | EMEVD Literal Flag | Cave | m31_21_00 | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
 | 31217000 | Golden Rune [2] | Dungeon Pickup | Cave | m31_21_00 | -52.0, 79.0, 81.6 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31217030 | Golden Rune [2] | Dungeon Pickup | Cave | m31_21_00 | -65.2, 56.8, 182.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31217040 | Old Fang | Dungeon Pickup | Cave | m31_21_00 | -75.3, 54.0, 187.7 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4580,8 +5703,13 @@ Total unique flags: 7034
 | 31217210 | Pillory Shield | Dungeon Pickup | Cave | m31_21_00 | -76.8, 54.4, 190.9 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31217350 | Regalia of Eochaid | Dungeon Pickup | Cave | m31_21_00 | -196.6, 11.8, 36.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 31217400 | Rune Arc | Dungeon Pickup | Cave | m31_21_00 | -80.2, 80.3, 68.5 | - | chest | 2 | high | - | ItemLotParam_map |
+| 31220500 | Map Event Flag (31220500) | EMEVD Literal Flag | Cave | m31_22_00 | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
 | 31220800 | Spiritcaller Snail | Great Boss Defeat | Cave | m31_22_00 | -47.5, 1579.2, -113.6 | - | - | - | - | - | MSB Enemy |
+| 31222301 | Map Event Flag (31222301) | EMEVD Literal Flag | Cave | m31_22_00 | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
+| 31222820 | Map Event Flag (31222820) | EMEVD Literal Flag | Cave | m31_22_00 | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
+| 31222821 | Map Event Flag (31222821) | EMEVD Literal Flag | Cave | m31_22_00 | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
 | 31222840 | Stake of Marika (m31_22_00) | Stake of Marika | Cave | m31_22_00 | -38.0, 1624.9, 108.9 | - | - | - | - | - | MSB SpawnPoint |
+| 31222842 | Map Event Flag (31222842) | EMEVD Literal Flag | Cave | m31_22_00 | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
 | 31227000 | Land of Reeds Helm | Dungeon Pickup | Cave | m31_22_00 | -85.5, 1582.1, -50.9 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 31227010 | Golden Rune [6] | Dungeon Pickup | Cave | m31_22_00 | -79.9, 1582.0, -65.0 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 31227020 | Golden Rune [12] | Dungeon Pickup | Cave | m31_22_00 | -61.9, 1582.5, 21.8 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4591,7 +5719,10 @@ Total unique flags: 7034
 | 31227060 | Rune Arc | Dungeon Pickup | Cave | m31_22_00 | -52.5, 1608.1, -18.8 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 31227070 | Invigorating White Cured Meat | Dungeon Pickup | Cave | m31_22_00 | -68.7, 1582.1, -45.5 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 31227080 | Arteria Leaf | Dungeon Pickup | Cave | m31_22_00 | -9.9, 1607.5, 14.4 | - | corpse | 2 | high | - | ItemLotParam_map |
+| 32000510 | Door Unlock (32000510) | Door Unlock | Tunnel | m32_00_00 | 36.0, -8.0, -78.3 | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
 | 32000800 | Scaly Misbegotten | Boss Defeat | Tunnel | m32_00_00 | 83.3, -24.5, -25.4 | - | - | - | - | - | MSB Enemy |
+| 32000801 | Map Event Flag (32000801) | EMEVD Literal Flag | Tunnel | m32_00_00 | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
+| 32002802 | Map Event Flag (32002802) | EMEVD Literal Flag | Tunnel | m32_00_00 | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
 | 32002840 | Stake of Marika (m32_00_00) | Stake of Marika | Tunnel | m32_00_00 | 36.1, 27.9, -69.6 | - | - | - | - | - | MSB SpawnPoint |
 | 32007000 | Golden Rune [2] | Dungeon Pickup | Tunnel | m32_00_00 | 107.4, -12.0, -134.8 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32007010 | Golden Rune [4] | Dungeon Pickup | Tunnel | m32_00_00 | 117.4, -14.4, -180.8 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4600,15 +5731,27 @@ Total unique flags: 7034
 | 32007060 | Soft Cotton | Dungeon Pickup | Tunnel | m32_00_00 | 33.4, -22.1, -105.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32007070 | Arteria Leaf | Dungeon Pickup | Tunnel | m32_00_00 | 76.0, -20.1, -103.3 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 32007900 | Exalted Flesh | Dungeon Pickup | Tunnel | m32_00_00 | 115.4, -14.4, -178.1 | - | chest | 1 | high | - | ItemLotParam_map |
+| 32009203 | Map Event Flag (32009203) | EMEVD Literal Flag | Tunnel | m32_00_00 | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 32010510 | Door Unlock (32010510) | Door Unlock | Tunnel | m32_01_00 | 113.5, 33.2, 10.9 | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 32010515 | Door Unlock (32010515) | Door Unlock | Tunnel | m32_01_00 | 100.4, -6.8, 99.4 | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 32010519 | Map Event Flag (32010519) | EMEVD Literal Flag | Tunnel | m32_01_00 | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 32010520 | Door Unlock (32010520) | Door Unlock | Tunnel | m32_01_00 | 74.6, -29.8, 34.6 | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
 | 32010800 | Stonedigger Troll | Great Boss Defeat | Tunnel | m32_01_00 | 27.7, -30.4, -0.8 | - | - | - | - | - | MSB Enemy |
 | 32010801 | Scaly Misbegotten (discovered) | Boss Discovery | Morne Tunnel | m32_00_00 | 83.3, -24.5, -24.2 | - | - | - | - | - | GameAreaParam |
+| 32012802 | Map Event Flag (32012802) | EMEVD Literal Flag | Tunnel | m32_01_00 | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
 | 32012840 | Stake of Marika (m32_01_00) | Stake of Marika | Tunnel | m32_01_00 | 119.4, 69.0, 2.6 | - | - | - | - | - | MSB SpawnPoint |
 | 32017000 | Smithing Stone [1] | Dungeon Pickup | Tunnel | m32_01_00 | 67.9, 27.2, 33.6 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32017010 | Golden Rune [4] | Dungeon Pickup | Tunnel | m32_01_00 | 96.9, 55.3, 30.9 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32017020 | Large Glintstone Scrap | Dungeon Pickup | Tunnel | m32_01_00 | 98.7, -5.2, 147.3 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32017030 | Golden Rune [1] | Dungeon Pickup | Tunnel | m32_01_00 | 68.6, -14.5, 38.0 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32017040 | Glintstone Scrap | Dungeon Pickup | Tunnel | m32_01_00 | 75.6, 10.0, 79.9 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 32020510 | Door Unlock (32020510) | Door Unlock | Tunnel | m32_02_00 | -91.7, 207.2, 26.0 | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 32020514 | Door Unlock (32020514) | Door Unlock | Tunnel | m32_02_00 | 15.4, 196.7, -11.9 | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 32020515 | Door Unlock (32020515) | Door Unlock | Tunnel | m32_02_00 | 12.3, 155.0, -7.8 | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 32020520 | Door Unlock (32020520) | Door Unlock | Tunnel | m32_02_00 | 55.0, 153.1, -3.7 | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 32020525 | Door Unlock (32020525) | Door Unlock | Tunnel | m32_02_00 | 23.0, 112.2, -34.7 | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
 | 32020800 | Crystalian | Boss Defeat | Tunnel | m32_02_00 | 13.1, 110.8, 21.9 | - | - | - | - | - | MSB Enemy |
+| 32022802 | Map Event Flag (32022802) | EMEVD Literal Flag | Tunnel | m32_02_00 | - | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
 | 32022840 | Stake of Marika (m32_02_00) | Stake of Marika | Tunnel | m32_02_00 | -101.1, 243.1, 26.0 | - | - | - | - | - | MSB SpawnPoint |
 | 32027000 | Somber Smithing Stone [2] | Dungeon Pickup | Tunnel | m32_02_00 | -60.1, 209.7, -11.6 | - | chest | 1 | high | - | ItemLotParam_map |
 | 32027010 | Somber Smithing Stone [3] | Dungeon Pickup | Tunnel | m32_02_00 | 15.7, 204.6, 19.2 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4619,7 +5762,9 @@ Total unique flags: 7034
 | 32027070 | Shatter Earth | Dungeon Pickup | Tunnel | m32_02_00 | -8.9, 146.3, -28.7 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32027900 | Crystal Knife | Dungeon Pickup | Tunnel | m32_02_00 | -51.3, 152.8, 1.6 | - | chest | 1 | high | - | ItemLotParam_map |
 | 32030800 | Area 32_03 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_03_00 | - | - | - | - | - | - | MapDefaultInfoParam |
+| 32040510 | Door Unlock (32040510) | Door Unlock | Tunnel | m32_04_00 | -189.6, 696.5, -98.3 | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
 | 32040800 | Stonedigger Troll | Great Boss Defeat | Tunnel | m32_04_00 | -298.1, 677.5, -147.7 | - | - | - | - | - | MSB Enemy |
+| 32042802 | Map Event Flag (32042802) | EMEVD Literal Flag | Tunnel | m32_04_00 | - | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
 | 32042840 | Stake of Marika (m32_04_00) | Stake of Marika | Tunnel | m32_04_00 | -180.6, 732.4, -100.8 | - | - | - | - | - | MSB SpawnPoint |
 | 32047000 | Golden Rune [6] | Dungeon Pickup | Tunnel | m32_04_00 | -257.9, 690.4, -121.9 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32047010 | Stanching Boluses | Dungeon Pickup | Tunnel | m32_04_00 | -282.3, 695.5, -89.8 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4627,8 +5772,10 @@ Total unique flags: 7034
 | 32047030 | Explosive Stone Clump | Dungeon Pickup | Tunnel | m32_04_00 | -181.6, 732.5, -97.6 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32047040 | Boltdrake Talisman +1 | Dungeon Pickup | Tunnel | m32_04_00 | -277.0, 697.3, -95.7 | - | corpse | - | high | - | ItemLotParam_map |
 | 32047050 | Troll's Hammer | Dungeon Pickup | Tunnel | m32_04_00 | -259.0, 679.1, -122.0 | - | corpse | 2 | high | - | ItemLotParam_map |
+| 32050510 | Door Unlock (32050510) | Door Unlock | Tunnel | m32_05_00 | -52.3, 778.2, 24.5 | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
 | 32050800 | Crystalian | Boss Defeat | Tunnel | m32_05_00 | 62.1, 777.6, -41.3 | - | - | - | - | - | MSB Enemy |
 | 32050801 | Crystalian | Boss Defeat | Tunnel | m32_05_00 | 56.0, 777.5, -42.5 | - | - | - | - | - | MSB Enemy |
+| 32052802 | Map Event Flag (32052802) | EMEVD Literal Flag | Tunnel | m32_05_00 | - | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
 | 32052840 | Stake of Marika (m32_05_00) | Stake of Marika | Tunnel | m32_05_00 | -52.4, 814.0, 31.5 | - | - | - | - | - | MSB SpawnPoint |
 | 32057000 | Crystal Dart | Dungeon Pickup | Tunnel | m32_05_00 | -45.2, 778.6, -24.7 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32057010 | Arteria Leaf | Dungeon Pickup | Tunnel | m32_05_00 | -5.0, 782.2, -31.1 | - | corpse | 2 | high | - | ItemLotParam_map |
@@ -4638,8 +5785,11 @@ Total unique flags: 7034
 | 32057900 | Item_3050 | Dungeon Pickup | Tunnel | m32_05_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 32057910 | Rune Arc | Dungeon Pickup | Tunnel | m32_05_00 | -59.9, 778.3, -13.5 | - | chest | 2 | high | - | ItemLotParam_map |
 | 32060800 | Area 32_06 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_06_00 | - | - | - | - | - | - | MapDefaultInfoParam |
+| 32070560 | Mechanism Unlock (32070560) | Mechanism Unlock | Tunnel | m32_07_00 | -19.1, 90.8, 121.9 | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
 | 32070700 | Alexander, Warrior Jar | NPC | Tunnel | m32_07_00 | -23.3, 90.5, 117.1 | - | - | - | - | - | MSB NPC |
 | 32070800 | Magma Wyrm Makar | Great Boss Defeat | Tunnel | m32_07_00 | -20.5, 89.6, 158.7 | - | - | - | - | - | MSB Enemy |
+| 32070801 | Map Event Flag (32070801) | EMEVD Literal Flag | Tunnel | m32_07_00 | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 32072802 | Map Event Flag (32072802) | EMEVD Literal Flag | Tunnel | m32_07_00 | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
 | 32072840 | Stake of Marika (m32_07_00) | Stake of Marika | Tunnel | m32_07_00 | 62.3, 150.6, 48.6 | - | - | - | - | - | MSB SpawnPoint |
 | 32077000 | Somber Smithing Stone [2] | Dungeon Pickup | Tunnel | m32_07_00 | 57.3, 130.7, 102.1 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32077010 | Golden Rune [5] | Dungeon Pickup | Tunnel | m32_07_00 | 55.6, 102.8, 139.2 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4647,8 +5797,11 @@ Total unique flags: 7034
 | 32077030 | Gold-Pickled Fowl Foot | Dungeon Pickup | Tunnel | m32_07_00 | 62.4, 98.7, 117.4 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32077060 | Large Glintstone Scrap | Dungeon Pickup | Tunnel | m32_07_00 | 24.8, 90.3, 156.9 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32077070 | Grace Mimic | Dungeon Pickup | Tunnel | m32_07_00 | 21.3, 90.3, 153.9 | - | corpse | 0 | high | - | ItemLotParam_map |
+| 32080650 | Map Event Flag (32080650) | EMEVD Literal Flag | Tunnel | m32_08_00 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
 | 32080800 | Fallingstar Beast | Great Boss Defeat | Tunnel | m32_08_00 | -65.2, 123.9, 239.8 | - | - | - | - | - | MSB Enemy |
+| 32080801 | Map Event Flag (32080801) | EMEVD Literal Flag | Tunnel | m32_08_00 | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
 | 32082650 | Stake of Marika (m32_08_00) | Stake of Marika | Tunnel | m32_08_00 | 38.1, 112.2, 203.9 | - | - | - | - | - | MSB SpawnPoint |
+| 32082802 | Map Event Flag (32082802) | EMEVD Literal Flag | Tunnel | m32_08_00 | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
 | 32082840 | Stake of Marika (m32_08_00) | Stake of Marika | Tunnel | m32_08_00 | 16.0, 86.4, 136.8 | - | - | - | - | - | MSB SpawnPoint |
 | 32087000 | Rot Grease | Dungeon Pickup | Tunnel | m32_08_00 | -0.0, 87.8, 149.3 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 32087020 | Golden Rune [5] | Dungeon Pickup | Tunnel | m32_08_00 | 18.4, 104.2, 206.8 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4663,8 +5816,11 @@ Total unique flags: 7034
 | 32087910 | Rock Blaster | Dungeon Pickup | Tunnel | m32_08_00 | 42.1, 122.2, 220.2 | - | chest | 1 | high | - | ItemLotParam_map |
 | 32090800 | Area 32_09 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_09_00 | - | - | - | - | - | - | MapDefaultInfoParam |
 | 32100800 | Area 32_10 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_10_00 | - | - | - | - | - | - | MapDefaultInfoParam |
+| 32110510 | Door Unlock (32110510) | Door Unlock | Tunnel | m32_11_00 | 46.0, 1223.0, -23.7 | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
+| 32110560 | Mechanism Unlock (32110560) | Mechanism Unlock | Tunnel | m32_11_00 | 50.0, 1210.8, 54.2 | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
 | 32110800 | Astel, Naturalborn of the Void | Great Boss Defeat | Tunnel | m32_11_00 | 51.8, 1207.5, 149.5 | - | - | - | - | - | MSB Enemy |
 | 32110801 | Astel, Naturalborn of the Void | Great Boss Defeat | Tunnel | m32_11_00 | 51.2, 1207.5, 96.9 | - | - | - | - | - | MSB Enemy |
+| 32112802 | Map Event Flag (32112802) | EMEVD Literal Flag | Tunnel | m32_11_00 | - | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
 | 32112840 | Stake of Marika (m32_11_00) | Stake of Marika | Tunnel | m32_11_00 | 45.9, 1258.8, -47.1 | - | - | - | - | - | MSB SpawnPoint |
 | 32117000 | Freezing Grease | Dungeon Pickup | Tunnel | m32_11_00 | 50.8, 1195.0, 27.9 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32117020 | Golden Rune [10] | Dungeon Pickup | Tunnel | m32_11_00 | 94.8, 1186.7, 4.8 | - | corpse | 1 | high | - | ItemLotParam_map |
@@ -4673,6 +5829,9 @@ Total unique flags: 7034
 | 32117060 | Explosive Stone Clump | Dungeon Pickup | Tunnel | m32_11_00 | 101.4, 1187.9, 41.4 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 32117080 | Hero's Rune [5] | Dungeon Pickup | Tunnel | m32_11_00 | 81.5, 1210.5, 58.5 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 32120800 | Area 32_12 (fast travel unlocked) | Dungeon Cleared | Tunnel | m32_12_00 | - | - | - | - | - | - | MapDefaultInfoParam |
+| 34100300 | Enemy Defeat (34100300) | Enemy Defeat | Divine Tower | m34_10_00 | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
+| 34100800 | Map Event Flag (34100800) | EMEVD Literal Flag | Divine Tower | m34_10_00 | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
+| 34100801 | Map Event Flag (34100801) | EMEVD Literal Flag | Divine Tower | m34_10_00 | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
 | 34102600 | Stake of Marika (m34_10_00) | Stake of Marika | Divine Tower | m34_10_00 | 845.3, 47.1, 562.9 | - | - | - | - | - | MSB SpawnPoint |
 | 34107000 | Warming Stone | Dungeon Pickup | Divine Tower | m34_10_00 | 159.6, 37.1, 208.7 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 34107010 | Soft Cotton | Dungeon Pickup | Divine Tower | m34_10_00 | 238.3, 19.3, 261.7 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4681,8 +5840,19 @@ Total unique flags: 7034
 | 34107090 | Golden Rune [2] | Dungeon Pickup | Divine Tower | m34_10_00 | 780.5, 49.3, 519.9 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34107100 | Boltdrake Talisman | Dungeon Pickup | Divine Tower | m34_10_00 | -23.6, 46.3, 152.8 | - | corpse | - | high | - | ItemLotParam_map |
 | 34107110 | Ash-of-War Scarab | Dungeon Pickup | Divine Tower | m34_10_00 | 236.5, 16.8, 274.9 | - | corpse | 2 | high | - | ItemLotParam_map |
+| 34110280 | Enemy Defeat (34110280) | Enemy Defeat | Divine Tower | m34_11_00 | 207.7, -5.3, 36.5 | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34110515 | Door Unlock (34110515) | Door Unlock | Divine Tower | m34_11_00 | 8.7, -123.7, -39.1 | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34110520 | Map Event Flag (34110520) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
 | 34110700 | Wandering Noble | NPC | Divine Tower | m34_11_00 | -9.0, -158.0, 73.8 | - | - | - | - | - | MSB NPC |
+| 34110710 | Enemy Defeat (34110710) | Enemy Defeat | Divine Tower | m34_11_00 | 25.0, -133.4, 20.8 | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34110711 | Enemy Defeat (34110711) | Enemy Defeat | Divine Tower | m34_11_00 | 0.1, -170.5, -0.2 | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34110800 | Map Event Flag (34110800) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34112155 | Map Event Flag (34112155) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
 | 34112160 | Stake of Marika (m34_11_00) | Stake of Marika | Divine Tower | m34_11_00 | 43.2, -3.2, 7.7 | - | - | - | - | - | MSB SpawnPoint |
+| 34112485 | Map Event Flag (34112485) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34112486 | Map Event Flag (34112486) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34112487 | Map Event Flag (34112487) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
+| 34112488 | Map Event Flag (34112488) | EMEVD Literal Flag | Divine Tower | m34_11_00 | - | - | - | - | - | - | EMEVD:m34_11_00_00.emevd |
 | 34112920 | Stake of Marika (m34_11_00) | Stake of Marika | Divine Tower | m34_11_00 | 32.5, -1.0, 5.7 | - | - | - | - | - | MSB SpawnPoint |
 | 34117010 | Golden Rune [3] | Dungeon Pickup | Divine Tower | m34_11_00 | -31.3, -141.6, 7.2 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34117060 | Golden Rune [4] | Dungeon Pickup | Divine Tower | m34_11_00 | 30.0, -107.6, 8.7 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4698,7 +5868,11 @@ Total unique flags: 7034
 | 34117500 | Cursemark of Death | Dungeon Pickup | Divine Tower | m34_11_00 | 428.2, 297.3, 75.7 | - | ground_pickup | 3 | high | - | ItemLotParam_map |
 | 34117700 | Magic Downpour | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 34117710 | Lucidity | Dungeon Pickup | Divine Tower | m34_11_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 34120510 | Door Unlock (34120510) | Door Unlock | Divine Tower | m34_12_00 | -148.0, 767.0, -31.2 | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
+| 34120650 | EMEVD Treasure (34120650) | EMEVD Treasure | Divine Tower | m34_12_00 | -111.0, 741.5, -80.0 | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
 | 34120800 | Alabaster Lord | Boss Defeat | Divine Tower | m34_12_00 | -49.5, 711.4, -195.9 | - | - | - | - | - | MSB Enemy |
+| 34120801 | Map Event Flag (34120801) | EMEVD Literal Flag | Divine Tower | m34_12_00 | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
+| 34122802 | Map Event Flag (34122802) | EMEVD Literal Flag | Divine Tower | m34_12_00 | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
 | 34122840 | Stake of Marika (m34_12_00) | Stake of Marika | Divine Tower | m34_12_00 | -68.4, 808.7, 46.1 | - | - | - | - | - | MSB SpawnPoint |
 | 34127010 | Golden Rune [5] | Dungeon Pickup | Divine Tower | m34_12_00 | -127.8, 808.9, -9.0 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34127020 | Golden Rune [5] | Dungeon Pickup | Divine Tower | m34_12_00 | -147.5, 761.1, -63.0 | - | corpse | 0 | high | - | ItemLotParam_map |
@@ -4715,28 +5889,63 @@ Total unique flags: 7034
 | 34127150 | Lightning Grease | Dungeon Pickup | Divine Tower | m34_12_00 | -55.0, 730.9, -118.3 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34127160 | Golden Rune [9] | Dungeon Pickup | Divine Tower | m34_12_00 | -51.9, 712.0, -120.2 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 34127900 | Smithing-Stone Miner's Bell Bearing [2] | Dungeon Pickup | Divine Tower | m34_12_00 | -136.8, 802.8, -11.9 | - | chest | 2 | high | - | ItemLotParam_map |
+| 34130520 | Map Event Flag (34130520) | EMEVD Literal Flag | Divine Tower | m34_13_00 | - | - | - | - | - | - | EMEVD:m34_13_00_00.emevd |
+| 34130560 | Mechanism Unlock (34130560) | Mechanism Unlock | Divine Tower | m34_13_00 | 92.2, 242.3, -63.2 | - | - | - | - | - | EMEVD:m34_13_00_00.emevd |
 | 34130800 | Godskin Apostle | Boss Defeat | Divine Tower | m34_13_00 | 77.1, 36.3, -95.7 | - | - | - | - | - | MSB Enemy |
 | 34137000 | Stonesword Key | Dungeon Pickup | Divine Tower | m34_13_00 | 66.1, 211.3, -76.2 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 34137010 | Rune Arc | Dungeon Pickup | Divine Tower | m34_13_00 | 107.0, 209.8, -29.0 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 34137020 | Golden Rune [12] | Dungeon Pickup | Divine Tower | m34_13_00 | 100.2, 191.3, -36.6 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 34137900 | Godslayer's Greatsword | Dungeon Pickup | Divine Tower | m34_13_00 | 77.0, 33.9, -141.1 | - | chest | 3 | high | - | ItemLotParam_map |
+| 34140510 | Door Unlock (34140510) | Door Unlock | Divine Tower | m34_14_00 | 443.0, -80.9, -200.0 | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
+| 34140550 | Map Event Flag (34140550) | EMEVD Literal Flag | Divine Tower | m34_14_00 | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 34140850 | Fell Twin | Field Boss Defeat | Divine Tower | m34_14_00 | 584.4, -373.5, -326.9 | - | - | - | - | - | MSB Enemy |
 | 34140851 | Fell Twin | Field Boss Defeat | Divine Tower | m34_14_00 | 598.0, -373.5, -341.2 | - | - | - | - | - | MSB Enemy |
+| 34140865 | Map Event Flag (34140865) | EMEVD Literal Flag | Divine Tower | m34_14_00 | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 34142110 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 639.4, 319.3, -540.3 | - | - | - | - | - | MSB SpawnPoint |
 | 34142111 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 633.4, 30.5, -528.8 | - | - | - | - | - | MSB SpawnPoint |
+| 34142550 | Map Event Flag (34142550) | EMEVD Literal Flag | Divine Tower | m34_14_00 | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 34142852 | Stake of Marika (m34_14_00) | Stake of Marika | Divine Tower | m34_14_00 | 591.8, 26.1, -457.7 | - | - | - | - | - | MSB SpawnPoint |
+| 34142855 | Map Event Flag (34142855) | EMEVD Literal Flag | Divine Tower | m34_14_00 | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 34147000 | Invigorating White Cured Meat | Dungeon Pickup | Divine Tower | m34_14_00 | 243.0, 26.1, -202.1 | - | corpse | 0 | high | - | ItemLotParam_map |
 | 34147010 | Consort's Mask | Dungeon Pickup | Divine Tower | m34_14_00 | 428.7, -66.5, -209.5 | - | corpse | 1 | high | - | ItemLotParam_map |
 | 34147020 | Flamedrake Talisman +1 | Dungeon Pickup | Divine Tower | m34_14_00 | 200.7, 25.3, -194.5 | - | corpse | - | high | - | ItemLotParam_map |
 | 34147720 | Somber Smithing Stone [6] | Dungeon Pickup | Divine Tower | m34_14_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 34147800 | Golden Rune [9] | Dungeon Pickup | Divine Tower | m34_14_00 | 549.8, -373.3, -357.2 | - | ground_pickup | 1 | high | - | ItemLotParam_map |
 | 34147810 | Blade of Calling | Dungeon Pickup | Divine Tower | m34_14_00 | 418.2, -65.6, -213.8 | - | ground_pickup | 2 | high | - | ItemLotParam_map |
+| 34149200 | Map Event Flag (34149200) | EMEVD Literal Flag | Divine Tower | m34_14_00 | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
+| 34150800 | Map Event Flag (34150800) | EMEVD Literal Flag | Divine Tower | m34_15_00 | - | - | - | - | - | - | EMEVD:m34_15_00_00.emevd |
 | 34152500 | Stake of Marika (m34_15_00) | Stake of Marika | Divine Tower | m34_15_00 | 5.0, 0.0, 28.9 | - | - | - | - | - | MSB SpawnPoint |
+| 35000350 | Map Event Flag (35000350) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000490 | Enemy Defeat (35000490) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -129.1, -108.2, -241.1 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000491 | Enemy Defeat (35000491) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -145.0, -108.2, -219.8 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000492 | Enemy Defeat (35000492) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -115.9, -110.3, -196.7 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000493 | Enemy Defeat (35000493) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -120.6, -96.8, -233.1 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000494 | Enemy Defeat (35000494) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -140.8, -101.9, -256.2 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000495 | Enemy Defeat (35000495) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -54.0, -108.2, -136.0 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000496 | Enemy Defeat (35000496) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | -113.2, -138.4, -223.9 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000497 | Enemy Defeat (35000497) | Enemy Defeat | Mohgwyn Palace | m35_00_00 | 144.1, -408.7, -113.0 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000500 | Map Event Flag (35000500) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000501 | Map Event Flag (35000501) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000504 | Map Event Flag (35000504) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000506 | Map Event Flag (35000506) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000510 | Door Unlock (35000510) | Door Unlock | Mohgwyn Palace | m35_00_00 | -63.6, -278.8, -161.4 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000515 | Door Unlock (35000515) | Door Unlock | Mohgwyn Palace | m35_00_00 | -130.1, -138.6, -267.5 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000530 | Mechanism Unlock (35000530) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -184.2, -98.5, -225.4 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000560 | Mechanism Unlock (35000560) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -137.6, -108.5, -48.7 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000562 | Mechanism Unlock (35000562) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -58.5, -118.2, -215.4 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000564 | Mechanism Unlock (35000564) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -192.1, -88.5, -128.4 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000565 | Mechanism Unlock (35000565) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -164.4, -98.5, -205.6 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000566 | Mechanism Unlock (35000566) | Mechanism Unlock | Mohgwyn Palace | m35_00_00 | -84.8, -98.5, -128.6 | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000670 | Map Event Flag (35000670) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35000700 | Finger Maiden Hyetta | NPC | Mohgwyn Palace | m35_00_00 | 137.6, -408.5, -77.8 | - | - | - | - | - | MSB NPC |
 | 35000715 | Dung Eater | NPC | Mohgwyn Palace | m35_00_00 | -197.4, -88.5, -125.2 | - | - | - | - | - | MSB NPC |
 | 35000716 | Dung Eater | NPC | Mohgwyn Palace | m35_00_00 | -201.9, -88.5, -118.2 | - | - | - | - | - | MSB NPC |
 | 35000800 | Mohg, Lord of Blood | Great Boss Defeat | Mohgwyn Palace | m35_00_00 | 74.0, -298.6, -80.9 | - | - | - | - | - | MSB Enemy |
+| 35000801 | Map Event Flag (35000801) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35000820 | Map Event Flag (35000820) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35000850 | NPC Invader | Field Boss Defeat | Mohgwyn Palace | m35_00_00 | -203.8, -153.8, -306.9 | - | - | - | - | - | MSB Enemy |
+| 35002504 | Map Event Flag (35002504) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35002802 | Map Event Flag (35002802) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35002840 | Stake of Marika (m35_00_00) | Stake of Marika | Mohgwyn Palace | m35_00_00 | -135.6, -143.6, -245.7 | - | - | - | - | - | MSB SpawnPoint |
 | 35007000 | Poisonbone Dart | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -167.0, -88.2, -180.0 | - | corpse | 0 | high | Y | ItemLotParam_map |
 | 35007010 | Glass Shard | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -167.0, -88.2, -200.0 | - | corpse | 0 | high | Y | ItemLotParam_map |
@@ -4813,9 +6022,26 @@ Total unique flags: 7034
 | 35007960 | Rune Arc | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | -162.9, -113.7, -294.4 | - | corpse | 2 | high | Y | ItemLotParam_map |
 | 35007970 | Somber Smithing Stone [6] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
 | 35007980 | Somber Smithing Stone [7] | Dungeon Pickup | Mohgwyn Palace | m35_00_00 | - | - | - | 1 | none | Y | ItemLotParam_map |
+| 35008540 | Map Event Flag (35008540) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009211 | Map Event Flag (35009211) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009250 | Map Event Flag (35009250) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009261 | Map Event Flag (35009261) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009315 | Map Event Flag (35009315) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m60_44_52_00.emevd |
+| 35009323 | Map Event Flag (35009323) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 35009326 | [Preceptor Seluvis - Dung Eater Quest] Dung Eater Puppet - Unlocked | Shop Unlock | Mohgwyn Palace | - | - | - | - | - | - | - | ShopLineupParam |
+| 35009333 | Map Event Flag (35009333) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009336 | Map Event Flag (35009336) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 35009337 | Map Event Flag (35009337) | EMEVD Literal Flag | Mohgwyn Palace | m35_00_00 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 39200290 | Enemy Defeat (39200290) | Enemy Defeat | Elden Throne | m39_20_00 | 112.3, 233.2, -1332.2 | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39200510 | Door Unlock (39200510) | Door Unlock | Elden Throne | m39_20_00 | 95.4, 238.6, -1302.9 | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39200514 | Door Unlock (39200514) | Door Unlock | Mt. Gelmir | m60_37_51 | -85.2, 648.7, -98.3 | 9386.8, 12957.7 | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39200515 | Door Unlock (39200515) | Door Unlock | Elden Throne | m39_20_00 | -5.1, 315.5, -1336.1 | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39200520 | Door Unlock (39200520) | Door Unlock | Mt. Gelmir | m60_37_51 | -87.0, 523.7, -103.0 | 9385.0, 12953.0 | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39200525 | Door Unlock (39200525) | Door Unlock | Elden Throne | m39_20_00 | 170.1, 116.4, -1347.7 | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
 | 39200705 | Millicent | NPC | Elden Throne | m39_20_00 | -42.4, 351.3, -1348.4 | - | - | - | - | - | MSB NPC |
 | 39200800 | Magma Wyrm Makar | Great Boss Defeat | Elden Throne | m39_20_00 | -102.7, 353.0, -1299.2 | - | - | - | - | - | MSB Enemy |
+| 39200801 | Map Event Flag (39200801) | EMEVD Literal Flag | Elden Throne | m39_20_00 | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39202104 | Map Event Flag (39202104) | EMEVD Literal Flag | Elden Throne | m39_20_00 | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
 | 39202141 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | - | - | - | - | MSB SpawnPoint |
 | 39202710 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | - | - | - | - | MSB SpawnPoint |
 | 39202711 | Stake of Marika (m39_20_00) | Stake of Marika | Elden Throne | m39_20_00 | -118.0, 353.1, -1302.3 | - | - | - | - | - | MSB SpawnPoint |
@@ -4841,8 +6067,18 @@ Total unique flags: 7034
 | 39207170 | Sacred Tear | Dungeon Pickup | Elden Throne | m39_20_00 | 130.2, 232.2, -1376.1 | - | corpse | 2 | high | - | ItemLotParam_map |
 | 39207200 | Smithing Stone [1] | Dungeon Pickup | Elden Throne | m39_20_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 39207500 | Bull-Goat Helm | Dungeon Pickup | Elden Throne | m39_20_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 39209200 | Map Event Flag (39209200) | EMEVD Literal Flag | Elden Throne | m39_20_00 | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39209201 | Map Event Flag (39209201) | EMEVD Literal Flag | Elden Throne | m39_20_00 | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 39209250 | Map Event Flag (39209250) | EMEVD Literal Flag | Elden Throne | m39_20_00 | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
+| 40000510 | Door Unlock (40000510) | Door Unlock | Shadow of the Erdtree | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 40000515 | Door Unlock (40000515) | Door Unlock | Shadow of the Erdtree | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 40000520 | Door Unlock (40000520) | Door Unlock | Shadow of the Erdtree | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 40000690 | Map Event Flag (40000690) | EMEVD Literal Flag | Hero's Grave | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
 | 40000800 | Death Knight | Boss Arena | Fog Rift Catacombs | m40_00_00 | -426.6, 113.7, -34.0 | - | - | - | - | - | GameAreaParam |
 | 40000801 | Death Knight (discovered) | Boss Discovery | Fog Rift Catacombs | m40_00_00 | -426.6, 113.7, -34.0 | - | - | - | - | - | GameAreaParam |
+| 40002697 | Map Event Flag (40002697) | EMEVD Literal Flag | Hero's Grave | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 40002698 | Map Event Flag (40002698) | EMEVD Literal Flag | Hero's Grave | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 40002802 | Map Event Flag (40002802) | EMEVD Literal Flag | Hero's Grave | m40_00_00 | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
 | 40007000 | Grave Glovewort [1] | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40007020 | Knot Resin | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 40007040 | Dragonbolt Grease | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -4858,8 +6094,12 @@ Total unique flags: 7034
 | 40007810 | Black Knight Commander Andreas | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 40007820 | Shadow Realm Rune [3] | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 40007900 | Ash of War: Blinkbolt | Dungeon Pickup | Hero's Grave | m40_00_00 | - | - | - | - | none | - | ItemLotParam_map |
+| 40010510 | Door Unlock (40010510) | Door Unlock | Shadow of the Erdtree | m40_01_00 | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
+| 40010515 | Door Unlock (40010515) | Door Unlock | Shadow of the Erdtree | m40_01_00 | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
+| 40010520 | Door Unlock (40010520) | Door Unlock | Shadow of the Erdtree | m40_01_00 | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
 | 40010800 | Death Knight | Boss Arena | Scorpion River Catacombs | m40_01_00 | 186.6, 149.7, -139.0 | - | - | - | - | - | GameAreaParam |
 | 40010801 | Death Knight (discovered) | Boss Discovery | Scorpion River Catacombs | m40_01_00 | 186.6, 149.7, -139.0 | - | - | - | - | - | GameAreaParam |
+| 40012802 | Map Event Flag (40012802) | EMEVD Literal Flag | Hero's Grave | m40_01_00 | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
 | 40017000 | Rejuvenating Boluses | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40017010 | Grave Glovewort [3] | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40017020 | Redflesh Mushroom | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -4876,6 +6116,14 @@ Total unique flags: 7034
 | 40017130 | Ghost Glovewort [8] | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40017140 | Shadow Realm Rune [4] | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 40017150 | Broken Rune | Dungeon Pickup | Hero's Grave | m40_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
+| 40020400 | Map Event Flag (40020400) | EMEVD Literal Flag | Hero's Grave | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40020460 | Map Event Flag (40020460) | EMEVD Literal Flag | Hero's Grave | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40020510 | Door Unlock (40020510) | Door Unlock | Shadow of the Erdtree | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40020515 | Door Unlock (40020515) | Door Unlock | Shadow of the Erdtree | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40020520 | Door Unlock (40020520) | Door Unlock | Shadow of the Erdtree | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40020525 | Door Unlock (40020525) | Door Unlock | Shadow of the Erdtree | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40022464 | Map Event Flag (40022464) | EMEVD Literal Flag | Hero's Grave | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
+| 40022466 | Map Event Flag (40022466) | EMEVD Literal Flag | Hero's Grave | m40_02_00 | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
 | 40027000 | Grave Glovewort [5] | Dungeon Pickup | Hero's Grave | m40_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40027010 | Grave Glovewort [1] | Dungeon Pickup | Hero's Grave | m40_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 40027020 | Viridian Amber Medallion +3 | Dungeon Pickup | Hero's Grave | m40_02_00 | - | - | - | - | none | - | ItemLotParam_map |
@@ -4889,6 +6137,8 @@ Total unique flags: 7034
 | 40027220 | Bigmouth Imp Ashes | Dungeon Pickup | Hero's Grave | m40_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 41000800 | Demi-Human Swordmaster Onze | Boss Arena | Belurat Gaol | m41_00_00 | -178.7, 78.6, -198.6 | - | - | - | - | - | GameAreaParam |
 | 41000801 | Demi-Human Swordmaster Onze (discovered) | Boss Discovery | Belurat Gaol | m41_00_00 | -178.7, 78.6, -198.6 | - | - | - | - | - | GameAreaParam |
+| 41002601 | Map Event Flag (41002601) | EMEVD Literal Flag | Minor Dungeon | m41_00_00 | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
+| 41002802 | Map Event Flag (41002802) | EMEVD Literal Flag | Minor Dungeon | m41_00_00 | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
 | 41007000 | Frozen Maggot | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 41007010 | Silver Horn Tender | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 41007020 | Frozen Maggot | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -4901,7 +6151,11 @@ Total unique flags: 7034
 | 41007250 | Greatjar | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 41007260 | Smithing Stone [3] | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 41007270 | Lost Ashes of War | Dungeon Pickup | Minor Dungeon | m41_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 41010610 | Map Event Flag (41010610) | EMEVD Literal Flag | Minor Dungeon | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
 | 41010800 | Curseblade Labirith | Boss Arena | Bonny Gaol | m41_01_00 | -194.1, 190.6, 89.8 | - | - | - | - | - | GameAreaParam |
+| 41012601 | Map Event Flag (41012601) | EMEVD Literal Flag | Minor Dungeon | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 41012602 | Map Event Flag (41012602) | EMEVD Literal Flag | Minor Dungeon | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 41012802 | Map Event Flag (41012802) | EMEVD Literal Flag | Minor Dungeon | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
 | 41017010 | Bolt | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 41017020 | Stalwart Horn Charm +2 | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 41017030 | Frozen Maggot | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
@@ -4916,7 +6170,29 @@ Total unique flags: 7034
 | 41017240 | Raw Meat Dumpling | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 41017300 | Helm of Night | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 41017310 | Silver Horn Tender | Dungeon Pickup | Minor Dungeon | m41_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
+| 41018560 | Mechanism Unlock (41018560) | Mechanism Unlock | Shadow of the Erdtree | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 41018562 | Mechanism Unlock (41018562) | Mechanism Unlock | Shadow of the Erdtree | m41_01_00 | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
 | 41020800 | Lamenter | Boss Arena | Lamenter's Gaol | m41_02_00 | 152.6, 19.8, -15.0 | - | - | - | - | - | GameAreaParam |
+| 41020801 | Map Event Flag (41020801) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022802 | Map Event Flag (41022802) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022820 | Map Event Flag (41022820) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022821 | Map Event Flag (41022821) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022822 | Map Event Flag (41022822) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022823 | Map Event Flag (41022823) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022824 | Map Event Flag (41022824) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022825 | Map Event Flag (41022825) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022826 | Map Event Flag (41022826) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022827 | Map Event Flag (41022827) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022832 | Map Event Flag (41022832) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022852 | Map Event Flag (41022852) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022880 | Map Event Flag (41022880) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022881 | Map Event Flag (41022881) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022882 | Map Event Flag (41022882) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022883 | Map Event Flag (41022883) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022884 | Map Event Flag (41022884) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022885 | Map Event Flag (41022885) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022886 | Map Event Flag (41022886) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41022887 | Map Event Flag (41022887) | EMEVD Literal Flag | Minor Dungeon | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
 | 41027000 | Gaol Upper Level Key | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 41027010 | Prattling Pate "Lamentation" | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 41027100 | Chilling Perfume Bottle | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
@@ -4927,6 +6203,11 @@ Total unique flags: 7034
 | 41027210 | Clarifying Horn Charm +2 | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 41027300 | Living Jar Shard | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 41027320 | Gaol Lower Level Key | Dungeon Pickup | Minor Dungeon | m41_02_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 41028560 | Mechanism Unlock (41028560) | Mechanism Unlock | Shadow of the Erdtree | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41028562 | Mechanism Unlock (41028562) | Mechanism Unlock | Shadow of the Erdtree | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 41028564 | Mechanism Unlock (41028564) | Mechanism Unlock | Shadow of the Erdtree | m41_02_00 | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 42000630 | Map Event Flag (42000630) | EMEVD Literal Flag | Dungeon_42 | m42_00_00 | - | - | - | - | - | - | EMEVD:m42_00_00_00.emevd |
+| 42000641 | Map Event Flag (42000641) | EMEVD Literal Flag | Dungeon_42 | m42_00_00 | - | - | - | - | - | - | EMEVD:m42_00_00_00.emevd |
 | 42007000 | Anvil Hammer | Dungeon Pickup | Dungeon_42 | m42_00_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 42007100 | Smithing Stone [5] | Dungeon Pickup | Dungeon_42 | m42_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 42007110 | Smithing Stone [2] | Dungeon Pickup | Dungeon_42 | m42_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
@@ -4946,6 +6227,15 @@ Total unique flags: 7034
 | 42027060 | Smithscript Cirque | Dungeon Pickup | Dungeon_42 | m42_02_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 42027070 | Smithing Stone [3] | Dungeon Pickup | Dungeon_42 | m42_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 42027080 | Smithing Stone [8] | Dungeon Pickup | Dungeon_42 | m42_02_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 42030631 | Map Event Flag (42030631) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42030632 | Map Event Flag (42030632) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032245 | Map Event Flag (42032245) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032246 | Map Event Flag (42032246) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032247 | Map Event Flag (42032247) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032248 | Map Event Flag (42032248) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032249 | Map Event Flag (42032249) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032305 | Map Event Flag (42032305) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
+| 42032631 | Map Event Flag (42032631) | EMEVD Literal Flag | Dungeon_42 | m42_03_00 | - | - | - | - | - | - | EMEVD:m42_03_00_00.emevd |
 | 42037000 | Taylew the Golem Smith | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 3 | none | - | ItemLotParam_map |
 | 42037100 | Smithscript Axe | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 42037110 | Ancient Dragon Smithing Stone | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 3 | none | - | ItemLotParam_map |
@@ -4956,22 +6246,30 @@ Total unique flags: 7034
 | 42037160 | Smithscript Greathammer | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 42037170 | Smithing Stone [4] | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 42037180 | Smithing Stone [8] | Dungeon Pickup | Dungeon_42 | m42_03_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 43000500 | Map Event Flag (43000500) | EMEVD Literal Flag | Dungeon_43 | m43_00_00 | - | - | - | - | - | - | EMEVD:m43_00_00_00.emevd |
 | 43000800 | Chief Bloodfiend | Boss Arena | Rivermouth Cave | m43_00_00 | 134.5, 116.3, 138.7 | - | - | - | - | - | GameAreaParam |
 | 43000801 | Chief Bloodfiend (discovered) | Boss Discovery | Rivermouth Cave | m43_00_00 | 134.5, 116.3, 138.7 | - | - | - | - | - | GameAreaParam |
+| 43002802 | Map Event Flag (43002802) | EMEVD Literal Flag | Dungeon_43 | m43_00_00 | - | - | - | - | - | - | EMEVD:m43_00_00_00.emevd |
 | 43007000 | Sliver of Meat | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 43007010 | Hefty Beast Bone | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 43007020 | Shadow Realm Rune [1] | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43007030 | Sanguine Amaryllis | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43007040 | Sacred Bloody Flesh | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43007050 | Sacred Bloody Flesh | Dungeon Pickup | Dungeon_43 | m43_00_00 | - | - | - | 1 | none | - | ItemLotParam_map |
+| 43010350 | Enemy Defeat (43010350) | Enemy Defeat | Shadow of the Erdtree | m43_01_00 | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
+| 43010500 | Map Event Flag (43010500) | EMEVD Literal Flag | Dungeon_43 | m43_01_00 | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
 | 43010800 | Ancient Dragon-man | Boss Arena | Dragon's Pit | m43_01_00 | 37.6, 94.0, 4.2 | - | - | - | - | - | GameAreaParam |
 | 43010801 | Ancient Dragon-man (discovered) | Boss Discovery | Dragon's Pit | m43_01_00 | 37.6, 94.0, 4.2 | - | - | - | - | - | GameAreaParam |
+| 43012802 | Map Event Flag (43012802) | EMEVD Literal Flag | Dungeon_43 | m43_01_00 | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
 | 43017000 | Smithing Stone [1] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43017010 | Shadow Realm Rune [2] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43017020 | Knot Resin | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 0 | none | - | ItemLotParam_map |
 | 43017030 | Smithing Stone [5] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43017040 | Smithing Stone [4] | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 1 | none | - | ItemLotParam_map |
 | 43017900 | Dragon Heart | Dungeon Pickup | Dungeon_43 | m43_01_00 | - | - | - | 2 | none | - | ItemLotParam_map |
+| 45000110 | Map Event Flag (45000110) | EMEVD Literal Flag | Dungeon_45 | m45_00_00 | - | - | - | - | - | - | EMEVD:m45_00_00_00.emevd |
+| 45010110 | Map Event Flag (45010110) | EMEVD Literal Flag | Dungeon_45 | m45_01_00 | - | - | - | - | - | - | EMEVD:m45_01_00_00.emevd |
+| 45020110 | Map Event Flag (45020110) | EMEVD Literal Flag | Dungeon_45 | m45_02_00 | - | - | - | - | - | - | EMEVD:m45_02_00_00.emevd |
 | 59930000 | Veteran's Helm | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | - | 2 | none | - | ItemLotParam_map |
 | 59930001 | Weapon_205000 | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | - | - | none | - | ItemLotParam_map |
 | 59930010 | Good_404 | Dungeon Pickup | Dungeon_59 | m59_93_00 | - | - | - | - | none | - | ItemLotParam_map |
@@ -5004,31 +6302,41 @@ Total unique flags: 7034
 | 900000017 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | -9.3, 14.1, 131.8 | 10998.7, 8579.8 | - | - | - | - | MSB MountJump |
 | 900000018 | Spirit Spring (m60_43_33) | Spirit Spring | Weeping Peninsula | m60_43_33 | 70.0, 13.3, 32.4 | 11078.0, 8480.4 | - | - | - | - | MSB MountJump |
 | 900000019 | Spirit Spring (m12_03_00) | Spirit Spring | Underground | m12_03_00 | -843.4, 75.8, -350.7 | - | - | - | - | - | MSB MountJump |
+| 1033400510 | Door Unlock (1033400510) | Door Unlock | Liurnia of the Lakes | m60_33_40 | -2.6, 252.3, 26.7 | 8445.4, 10266.7 | - | - | - | - | EMEVD:m60_33_40_00.emevd |
+| 1033400610 | Enemy Defeat (1033400610) | Enemy Defeat | World (8,10) | m60_08_10 | -167.6, 224.8, -359.9 | 1880.4, 2200.1 | - | - | - | - | EMEVD:m60_33_40_00.emevd |
 | 1033407100 | Ranni's Dark Moon | World Pickup | Liurnia of the Lakes | m60_33_40 | -4.5, 279.6, 27.5 | 8443.5, 10267.5 | chest | 3 | high | N | ItemLotParam_map |
+| 1033410340 | Enemy Defeat (1033410340) | Enemy Defeat | Liurnia of the Lakes | m60_33_41 | 14.8, 303.9, 7.6 | 8462.8, 10503.6 | - | - | - | - | EMEVD:m60_33_41_00.emevd |
+| 1033410350 | Enemy Defeat (1033410350) | Enemy Defeat | Liurnia of the Lakes | m60_33_41 | 99.1, 355.6, 113.2 | 8547.1, 10609.2 | - | - | - | - | EMEVD:m60_33_41_00.emevd |
+| 1033410351 | Enemy Defeat (1033410351) | Enemy Defeat | Liurnia of the Lakes | m60_33_41 | 118.4, 348.3, 59.4 | 8566.4, 10555.4 | - | - | - | - | EMEVD:m60_33_41_00.emevd |
 | 1033417000 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | 36.6, 305.5, -16.8 | 8484.6, 10479.2 | chest | 1 | high | N | ItemLotParam_map |
 | 1033417010 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_33_41 | 17.5, 308.7, -30.4 | 8465.5, 10465.6 | chest | 1 | high | N | ItemLotParam_map |
 | 1033417020 | Smithing Stone [7] | World Pickup | Liurnia of the Lakes | m60_33_41 | -3.9, 305.5, -20.7 | 8444.1, 10475.3 | chest | 1 | high | N | ItemLotParam_map |
 | 1033417400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1033417410 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_33_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1033420610 | Enemy Defeat (1033420610) | Enemy Defeat | Liurnia of the Lakes | m60_33_42 | 42.1, 389.9, 12.3 | 8490.1, 10764.3 | - | - | - | - | EMEVD:m60_33_42_00.emevd |
 | 1033420800 | Alecto Black Knife Ringleader | Boss Arena | Liurnia - Moonlight Altar | m60_33_42 | -40.6, 346.7, 86.2 | -40.6, 86.2 | - | - | - | - | GameAreaParam |
 | 1033422805 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -31.9, 345.3, 67.8 | 8416.1, 10819.8 | - | - | - | - | MSB SpawnPoint |
 | 1033422806 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -34.6, 345.2, 66.3 | 8413.4, 10818.3 | - | - | - | - | MSB SpawnPoint |
 | 1033422807 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | - | - | - | - | MSB SpawnPoint |
 | 1033422808 | Stake of Marika (m60_33_42) | Stake of Marika | Liurnia of the Lakes | m60_33_42 | -44.3, 346.6, 83.5 | 8403.7, 10835.5 | - | - | - | - | MSB SpawnPoint |
+| 1033430200 | Enemy Defeat (1033430200) | Enemy Defeat | Liurnia of the Lakes | m60_33_43 | -25.2, 256.3, 98.0 | 8422.8, 11106.0 | - | - | - | - | EMEVD:m60_33_43_00.emevd |
 | 1033430800 | Erdtree Avatar | Great Boss Defeat | Liurnia of the Lakes | m60_33_43 | 42.5, 291.7, 31.1 | 8490.5, 11039.1 | - | - | - | - | MSB Enemy |
 | 1033447000 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 16.8, 256.9, 26.3 | 8464.8, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033447010 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 17.9, 256.9, 30.8 | 8465.9, 11294.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033447020 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.0, 256.9, 28.6 | 8467.0, 11292.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033447030 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 19.3, 256.9, 26.3 | 8467.3, 11290.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033447040 | Raw Meat Dumpling | World Pickup | Liurnia of the Lakes | m60_33_44 | 15.2, 256.9, 29.7 | 8463.2, 11293.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1033450200 | Enemy Defeat (1033450200) | Enemy Defeat | Liurnia of the Lakes | m60_33_45 | 100.3, 248.0, -8.1 | 8548.3, 11511.9 | - | - | - | - | EMEVD:m60_33_45_00.emevd |
 | 1033450800 | Bols Carian Knight | Boss Arena | Liurnia - Cuckoo's Evergaol | m60_33_45 | -52.3, 245.1, -29.6 | -52.3, -29.6 | - | - | - | - | GameAreaParam |
 | 1033452805 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -29.9, 243.2, -38.1 | 8418.1, 11481.9 | - | - | - | - | MSB SpawnPoint |
 | 1033452806 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -30.2, 243.2, -41.2 | 8417.8, 11478.8 | - | - | - | - | MSB SpawnPoint |
 | 1033452807 | Stake of Marika (m60_33_45) | Stake of Marika | Liurnia of the Lakes | m60_33_45 | -52.9, 245.1, -33.9 | 8395.1, 11486.1 | - | - | - | - | MSB SpawnPoint |
 | 1033457100 | Dragonscale Blade | World Pickup | Liurnia of the Lakes | m60_33_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1033460610 | Map Event Flag (1033460610) | EMEVD Literal Flag | Liurnia of the Lakes | m60_33_46 | - | - | - | - | - | - | EMEVD:m60_33_46_00.emevd |
 | 1033467000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_33_46 | 86.8, 238.5, -61.7 | 8534.8, 11714.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033467030 | Blood Grease | World Pickup | Liurnia of the Lakes | m60_33_46 | -59.3, 269.9, 67.9 | 8388.7, 11843.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1033467040 | Jellyfish Shield | World Pickup | Liurnia of the Lakes | m60_33_46 | -63.1, 269.6, 70.2 | 8384.9, 11846.2 | corpse | 2 | high | N | ItemLotParam_map |
+| 1033470610 | Map Event Flag (1033470610) | EMEVD Literal Flag | Liurnia of the Lakes | m60_33_47 | - | - | - | - | - | - | EMEVD:m60_33_47_00.emevd |
 | 1033477000 | Somber Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_33_47 | 135.2, 266.4, -44.4 | 8583.2, 11987.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1033477010 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_33_47 | 25.8, 299.0, -91.8 | 8473.8, 11940.2 | chest | 1 | high | N | ItemLotParam_map |
 | 1033477020 | Imbued Sword Key | World Pickup | Liurnia of the Lakes | m60_33_47 | 66.5, 379.2, -76.3 | 8514.5, 11955.7 | chest | 2 | high | N | ItemLotParam_map |
@@ -5036,10 +6344,13 @@ Total unique flags: 7034
 | 1033477200 | Carian Knight's Sword | World Pickup | Liurnia of the Lakes | m60_33_47 | -126.5, 272.4, 357.5 | 8321.5, 12389.5 | cart | 2 | low | N | ItemLotParam_map |
 | 1033477900 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_33_47 | 21.9, 298.8, -96.6 | 8469.9, 11935.4 | chest | 1 | high | N | ItemLotParam_map |
 | 1033477910 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_33_47 | -17.1, 277.1, -64.1 | 8430.9, 11967.9 | chest | 0 | high | N | ItemLotParam_map |
+| 1034410510 | Door Unlock (1034410510) | Door Unlock | World (17,20) | m60_17_20 | -149.2, -95.6, 155.0 | 4202.8, 5275.0 | - | - | - | - | EMEVD:m60_34_41_00.emevd |
 | 1034417000 | Gravel Stone | World Pickup | Liurnia of the Lakes | m60_34_41 | -113.6, 359.0, 115.4 | 8590.4, 10611.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1034420340 | Enemy Defeat (1034420340) | Enemy Defeat | Liurnia of the Lakes | m60_34_42 | -106.6, 362.5, -122.3 | 8597.4, 10629.7 | - | - | - | - | EMEVD:m60_34_42_00.emevd |
 | 1034420700 | Nepheli Loux, Warrior | NPC | Liurnia of the Lakes | m60_34_42 | 118.8, 264.0, -87.5 | 8822.8, 10664.5 | - | - | - | - | MSB NPC |
 | 1034420710 | Commoner | NPC | Liurnia of the Lakes | m60_34_42 | 71.2, 269.9, -93.7 | 8775.2, 10658.3 | - | - | - | - | MSB NPC |
 | 1034420800 | Glintstone Dragon Smarag | Great Boss Defeat | Liurnia of the Lakes | m60_34_42 | 128.2, 401.8, -29.9 | 8832.2, 10722.1 | - | - | - | - | MSB Enemy |
+| 1034422800 | Map Event Flag (1034422800) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_42 | - | - | - | - | - | - | EMEVD:m60_34_42_00.emevd |
 | 1034427000 | Golden Rune [9] | World Pickup | Liurnia of the Lakes | m60_34_42 | -5.3, 399.1, -47.2 | 8698.7, 10704.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1034427010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_42 | -12.9, 403.4, -7.3 | 8691.1, 10744.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034427020 | Albinauric Bloodclot | World Pickup | Liurnia of the Lakes | m60_34_42 | 44.2, 267.8, 3.1 | 8748.2, 10755.1 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5049,9 +6360,12 @@ Total unique flags: 7034
 | 1034427060 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_34_42 | 88.6, 268.6, -74.0 | 8792.6, 10678.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1034427100 | Somber Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_34_42 | 51.5, 391.6, 13.1 | 8755.5, 10765.1 | chest | 1 | high | N | ItemLotParam_map |
 | 1034427400 | Dragon Heart | World Pickup | Liurnia of the Lakes | m60_34_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1034430310 | Enemy Defeat (1034430310) | Enemy Defeat | Liurnia of the Lakes | m60_34_43 | 68.5, 256.9, -97.7 | 8772.5, 10910.3 | - | - | - | - | EMEVD:m60_34_43_00.emevd |
+| 1034432616 | Map Event Flag (1034432616) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_43 | - | - | - | - | - | - | EMEVD:m60_33_40_00.emevd |
 | 1034437000 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_34_43 | -84.8, 267.6, -63.9 | 8619.2, 10944.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034437200 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_34_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1034437300 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_34_43 | -80.6, 269.7, -73.5 | 8623.4, 10934.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1034440220 | Enemy Defeat (1034440220) | Enemy Defeat | Liurnia of the Lakes | m60_34_44 | 110.2, 237.6, -68.7 | 8814.2, 11195.3 | - | - | - | - | EMEVD:m60_34_44_00.emevd |
 | 1034440700 | Commoner | NPC | Liurnia of the Lakes | m60_34_44 | -106.2, 237.6, -29.2 | 8597.8, 11234.8 | - | - | - | - | MSB NPC |
 | 1034447000 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_34_44 | 48.7, 237.6, 73.6 | 8752.7, 11337.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1034447010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_34_44 | -31.5, 239.8, -111.1 | 8672.5, 11152.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
@@ -5061,6 +6375,7 @@ Total unique flags: 7034
 | 1034457020 | Kukri | World Pickup | Liurnia of the Lakes | m60_34_45 | -50.0, 237.8, 57.8 | 8654.0, 11577.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034457100 | Academy Glintstone Key | World Pickup | Liurnia of the Lakes | m60_34_45 | -55.7, 238.4, 64.3 | 8648.3, 11584.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1034467100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_34_46 | 0.7, 239.8, 9.3 | 8704.7, 11785.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1034470610 | Map Event Flag (1034470610) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_47 | - | - | - | - | - | - | EMEVD:m60_34_47_00.emevd |
 | 1034477000 | Throwing Dagger | World Pickup | Liurnia of the Lakes | m60_34_47 | -117.0, 242.8, -2.1 | 8587.0, 12029.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034477110 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_34_47 | -12.5, 237.4, -82.2 | 8691.5, 11949.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034477120 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_47 | -15.4, 237.4, -86.6 | 8688.6, 11945.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5088,6 +6403,7 @@ Total unique flags: 7034
 | 1034490700 | Smithing Master Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.7, -50.5 | 8744.7, 12493.5 | - | - | - | - | MSB NPC |
 | 1034490711 | War Counselor Iji | Smith | Liurnia of the Lakes | m60_34_49 | 40.7, 275.9, -50.6 | 8744.7, 12493.4 | - | - | - | - | MSB NPC |
 | 1034497010 | Good_310 | World Pickup | Liurnia of the Lakes | m60_34_49 | 31.7, 265.6, -106.8 | 8735.7, 12437.2 | corpse | - | high | N | ItemLotParam_map |
+| 1034500510 | Door Unlock (1034500510) | Door Unlock | Liurnia of the Lakes | m60_34_50 | -55.7, 484.4, 24.5 | 8648.3, 12824.5 | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1034500700 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | -55.2, 471.9, 29.4 | 8648.8, 12829.4 | - | - | - | - | MSB NPC |
 | 1034500701 | Preceptor Seluvis | NPC | Liurnia of the Lakes | m60_34_50 | 69.1, 417.1, -88.8 | 8773.1, 12711.2 | - | - | - | - | MSB NPC |
 | 1034500703 | Preceptor Seluvis | Invasion Defeat | Liurnia of the Lakes | m60_34_50 | 67.8, 417.1, -89.6 | 8771.8, 12710.4 | - | - | - | - | MSB Enemy |
@@ -5095,12 +6411,19 @@ Total unique flags: 7034
 | 1034500710 | Ranni the Witch | Quest NPC | Liurnia of the Lakes | m60_34_50 | -52.7, 511.7, 25.6 | 8651.3, 12825.6 | - | - | - | - | MSB NPC |
 | 1034500711 | Ranni the Witch | NPC | Liurnia of the Lakes | m60_34_50 | -56.8, 511.6, 24.1 | 8647.2, 12824.1 | - | - | - | - | MSB NPC |
 | 1034500720 | War Counselor Iji | Smith | Liurnia of the Lakes | m60_34_50 | -92.0, 476.0, 16.5 | 8612.0, 12816.5 | - | - | - | - | MSB NPC |
+| 1034500736 | Map Event Flag (1034500736) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034500738 | Map Event Flag (1034500738) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034500739 | Map Event Flag (1034500739) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1034500740 | Blaidd the Half-Wolf | Quest NPC | Liurnia of the Lakes | m60_34_50 | -61.5, 472.1, 5.8 | 8642.5, 12805.8 | - | - | - | - | MSB NPC |
 | 1034500741 | Blaidd the Half-Wolf | Quest NPC | Liurnia of the Lakes | m60_34_50 | -32.2, 467.6, 31.9 | 8671.8, 12831.9 | - | - | - | - | MSB NPC |
 | 1034500800 | Glintstone Dragon Smarag | Great Boss Defeat | Liurnia of the Lakes | m60_34_50 | 22.1, 453.1, 59.6 | 8726.1, 12859.6 | - | - | - | - | MSB Enemy |
 | 1034500950 | Ranni the Witch | NPC | Liurnia of the Lakes | m60_34_50 | -85.3, 476.0, 13.8 | 8618.7, 12813.8 | - | - | - | - | MSB NPC |
 | 1034500951 | Ranni the Witch | NPC | Liurnia of the Lakes | m60_34_50 | -56.5, 511.6, 24.2 | 8647.5, 12824.2 | - | - | - | - | MSB NPC |
 | 1034502610 | Stake of Marika (m60_34_50) | Stake of Marika | Liurnia of the Lakes | m60_34_50 | -59.7, 511.7, 23.0 | 8644.3, 12823.0 | - | - | - | - | MSB SpawnPoint |
+| 1034502700 | Map Event Flag (1034502700) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034502726 | Map Event Flag (1034502726) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034502745 | Map Event Flag (1034502745) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034502748 | Map Event Flag (1034502748) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1034507010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -36.4, 328.3, -68.0 | 8667.6, 12732.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034507020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_34_50 | -44.5, 326.3, -81.4 | 8659.5, 12718.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034507030 | Golden Rune [5] | World Pickup | Liurnia of the Lakes | m60_34_50 | -47.1, 325.7, -85.8 | 8656.9, 12714.2 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5111,19 +6434,30 @@ Total unique flags: 7034
 | 1034507080 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_34_50 | -35.6, 324.7, -93.1 | 8668.4, 12706.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1034507090 | Black Wolf Mask | World Pickup | Liurnia of the Lakes | m60_34_50 | 73.5, 425.9, -102.5 | 8777.5, 12697.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1034507200 | Good_8165 | World Pickup | Liurnia of the Lakes | m60_34_50 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1034509258 | Map Event Flag (1034509258) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034509345 | Map Event Flag (1034509345) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1034509360 | [Iji] Carian Filigreed Crest - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1034509412 | Map Event Flag (1034509412) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034509416 | Map Event Flag (1034509416) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034509417 | Map Event Flag (1034509417) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
+| 1034509419 | Map Event Flag (1034509419) | EMEVD Literal Flag | Liurnia of the Lakes | m60_34_50 | - | - | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1034509450 | [Preceptor Seluvis] Glintstone Cometshard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034509451 | [Preceptor Seluvis] Glintblade Phalanx - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034509455 | [Preceptor Seluvis] Great Glintstone Shard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1034517900 | Snow Witch Hat | World Pickup | Mt. Gelmir | m60_34_51 | 95.3, 471.1, -61.7 | 8799.3, 12994.3 | chest | 2 | high | N | ItemLotParam_map |
+| 1035410610 | Enemy Defeat (1035410610) | Enemy Defeat | Liurnia of the Lakes | m60_35_41 | 78.0, 279.5, -94.2 | 9038.0, 10401.8 | - | - | - | - | EMEVD:m60_35_41_00.emevd |
 | 1035417000 | Golden Rune [10] | World Pickup | Liurnia of the Lakes | m60_35_41 | -35.8, 348.0, 75.7 | 8924.2, 10571.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035417010 | Glintstone Firefly | World Pickup | Liurnia of the Lakes | m60_35_41 | -69.4, 358.0, 109.4 | 8890.6, 10605.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035417100 | Cerulean Amber Medallion +2 | World Pickup | Liurnia of the Lakes | m60_35_41 | -56.1, 339.7, 119.5 | 8903.9, 10615.5 | chest | - | high | N | ItemLotParam_map |
 | 1035417110 | Smithing Stone [8] | World Pickup | Liurnia of the Lakes | m60_35_41 | 136.9, 327.7, 110.8 | 9096.9, 10606.8 | chest | 1 | high | N | ItemLotParam_map |
 | 1035420100 | Nepheli Loux | NPC | Liurnia of the Lakes | m60_35_42 | -97.4, 282.5, -25.2 | 8862.6, 10726.8 | - | - | - | - | MSB NPC |
+| 1035420150 | Map Event Flag (1035420150) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_42 | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
+| 1035420220 | Enemy Defeat (1035420220) | Enemy Defeat | Liurnia of the Lakes | m60_35_42 | 87.8, 238.2, -53.6 | 9047.8, 10698.4 | - | - | - | - | EMEVD:m60_35_42_00.emevd |
 | 1035420700 | Old Albus | NPC | Liurnia of the Lakes | m60_35_42 | -102.3, 285.9, -117.4 | 8857.7, 10634.6 | - | - | - | - | MSB NPC |
+| 1035420701 | Map Event Flag (1035420701) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_42 | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
 | 1035420706 | Ranni the Witch | Quest NPC | Liurnia of the Lakes | m60_35_42 | 32.7, 373.2, 5.2 | 8992.7, 10757.2 | - | - | - | - | MSB NPC |
 | 1035420800 | Omenkiller | Great Boss Defeat | Liurnia of the Lakes | m60_35_42 | -37.5, 269.2, -17.7 | 8922.5, 10734.3 | - | - | - | - | MSB Enemy |
+| 1035422714 | Map Event Flag (1035422714) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_42 | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
 | 1035427010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_42 | 15.7, 237.6, 82.7 | 8975.7, 10834.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035427030 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_42 | -87.3, 263.8, -49.2 | 8872.7, 10702.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1035427040 | Ivory Sickle | World Pickup | Liurnia of the Lakes | m60_35_42 | -99.6, 285.7, -111.4 | 8860.4, 10640.6 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5138,6 +6472,11 @@ Total unique flags: 7034
 | 1035427180 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -21.0, 407.8, -19.2 | 8939.0, 10732.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035427190 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -28.6, 407.9, -16.2 | 8931.4, 10735.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035427200 | Starlight Shards | World Pickup | Liurnia of the Lakes | m60_35_42 | -30.2, 405.0, 31.3 | 8929.8, 10783.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1035429255 | Map Event Flag (1035429255) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_42 | - | - | - | - | - | - | EMEVD:m60_35_42_00.emevd |
+| 1035430220 | NPC Defeat (1035430220) | NPC Defeat | Liurnia of the Lakes | m60_35_43 | 89.5, 237.6, 47.9 | 9049.5, 11055.9 | - | - | - | - | EMEVD:m60_35_43_00.emevd |
+| 1035430270 | NPC Defeat (1035430270) | NPC Defeat | Weeping Peninsula | m60_44_35 | 31.4, 93.1, 45.8 | 11295.4, 9005.8 | - | - | - | - | EMEVD:m60_44_35_00.emevd |
+| 1035432220 | NPC Defeat (1035432220) | NPC Defeat | Liurnia of the Lakes | m60_35_43 | 117.8, 237.6, 31.8 | 9077.8, 11039.8 | - | - | - | - | EMEVD:m60_35_43_00.emevd |
+| 1035432270 | NPC Defeat (1035432270) | NPC Defeat | Weeping Peninsula | m60_44_35 | 16.4, 86.5, 36.6 | 11280.4, 8996.6 | - | - | - | - | EMEVD:m60_44_35_00.emevd |
 | 1035437010 | Somber Smithing Stone [1] | World Pickup | Liurnia of the Lakes | m60_35_43 | -87.5, 237.6, -19.2 | 8872.5, 10988.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035437100 | Larval Tear | World Pickup | Liurnia of the Lakes | m60_35_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1035442950 | Stake of Marika (m60_35_44) | Stake of Marika | Liurnia of the Lakes | m60_35_44 | -91.4, 251.4, -88.5 | 8868.6, 11175.5 | - | - | - | - | MSB SpawnPoint |
@@ -5171,6 +6510,15 @@ Total unique flags: 7034
 | 1035467020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_46 | 28.4, 260.6, -107.5 | 8988.4, 11668.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1035467100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_46 | 11.6, 312.6, 121.0 | 8971.6, 11897.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035467700 | Ash of War: Raptor of the Mists | World Pickup | Liurnia of the Lakes | m60_35_46 | - | - | - | - | none | N | ItemLotParam_map |
+| 1035469205 | Map Event Flag (1035469205) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_46 | - | - | - | - | - | - | EMEVD:m60_35_46_00.emevd |
+| 1035469209 | Map Event Flag (1035469209) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_46 | - | - | - | - | - | - | EMEVD:m60_49_53_00.emevd |
+| 1035470200 | Enemy Defeat (1035470200) | Enemy Defeat | Liurnia of the Lakes | m60_35_47 | -61.9, 269.4, 75.7 | 8898.1, 12107.7 | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035470201 | Enemy Defeat (1035470201) | Enemy Defeat | Liurnia of the Lakes | m60_35_47 | -82.8, 246.6, 36.7 | 8877.2, 12068.7 | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035470202 | Enemy Defeat (1035470202) | Enemy Defeat | Liurnia of the Lakes | m60_35_47 | -97.8, 258.3, 113.2 | 8862.2, 12145.2 | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035470215 | Map Event Flag (1035470215) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_47 | - | - | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035470220 | Enemy Defeat (1035470220) | Enemy Defeat | Liurnia of the Lakes | m60_35_47 | -62.4, 262.8, 76.6 | 8897.6, 12108.6 | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035470260 | Enemy Defeat (1035470260) | Enemy Defeat | Liurnia of the Lakes | m60_35_47 | 63.1, 244.4, -70.8 | 9023.1, 11961.2 | - | - | - | - | EMEVD:m60_35_47_00.emevd |
+| 1035472211 | Map Event Flag (1035472211) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_47 | - | - | - | - | - | - | EMEVD:m60_35_47_00.emevd |
 | 1035477000 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_35_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1035477010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_35_47 | -55.7, 239.8, -69.1 | 8904.3, 11962.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1035487010 | Old Fang | World Pickup | Liurnia of the Lakes | m60_35_48 | -66.4, 238.5, -2.9 | 8893.6, 12285.1 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5179,10 +6527,27 @@ Total unique flags: 7034
 | 1035487100 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_35_48 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1035497020 | Somber Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_35_49 | 101.8, 240.4, -23.3 | 9061.8, 12520.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035500102 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -77.6, 340.7, -1.0 | 8882.4, 12799.0 | - | - | - | - | MSB NPC |
+| 1035500320 | Enemy Defeat (1035500320) | Enemy Defeat | Liurnia of the Lakes | m60_35_50 | 98.5, 407.7, 105.5 | 9058.5, 12905.5 | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035500322 | Enemy Defeat (1035500322) | Enemy Defeat | Liurnia of the Lakes | m60_35_50 | 52.4, 318.5, -43.1 | 9012.4, 12756.9 | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035500510 | Door Unlock (1035500510) | Door Unlock | Liurnia of the Lakes | m60_35_50 | 88.2, 359.2, -66.5 | 9048.2, 12733.5 | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035500514 | Map Event Flag (1035500514) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035500560 | Mechanism Unlock (1035500560) | Mechanism Unlock | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
 | 1035500700 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -107.7, 357.5, -21.7 | 8852.3, 12778.3 | - | - | - | - | MSB NPC |
 | 1035500701 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -101.1, 357.5, -18.9 | 8858.9, 12781.1 | - | - | - | - | MSB NPC |
 | 1035500800 | Loretta, Knight of the Haligtree | Boss Defeat | Liurnia of the Lakes | m60_35_50 | -31.9, 430.9, 100.6 | 8928.1, 12900.6 | - | - | - | - | MSB Enemy |
+| 1035500801 | Map Event Flag (1035500801) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
 | 1035500951 | Pidia, Carian Servant | NPC | Liurnia of the Lakes | m60_35_50 | -76.3, 350.0, -36.5 | 8883.7, 12763.5 | - | - | - | - | MSB NPC |
+| 1035502499 | Map Event Flag (1035502499) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502700 | Map Event Flag (1035502700) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502701 | Map Event Flag (1035502701) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502702 | Map Event Flag (1035502702) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502821 | Map Event Flag (1035502821) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502822 | Map Event Flag (1035502822) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502823 | Map Event Flag (1035502823) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502824 | Map Event Flag (1035502824) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502825 | Map Event Flag (1035502825) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502826 | Map Event Flag (1035502826) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035502839 | Map Event Flag (1035502839) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
 | 1035507000 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_35_50 | 48.8, 349.2, -69.7 | 9008.8, 12730.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 1035507010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_35_50 | 10.6, 316.2, -45.5 | 8970.6, 12754.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035507020 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_35_50 | -35.4, 328.2, -120.7 | 8924.6, 12679.3 | corpse | 2 | high | N | ItemLotParam_map |
@@ -5212,10 +6577,13 @@ Total unique flags: 7034
 | 1035507280 | Rimed Crystal Bud | World Pickup | Liurnia of the Lakes | m60_35_50 | 46.2, 316.7, -80.6 | 9006.2, 12719.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035507300 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_35_50 | 63.9, 398.0, -18.7 | 9023.9, 12781.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1035507900 | Sword of Night and Flame | World Pickup | Liurnia of the Lakes | m60_35_50 | 38.1, 317.8, -43.4 | 8998.1, 12756.6 | chest | 3 | high | N | ItemLotParam_map |
+| 1035509208 | Map Event Flag (1035509208) | EMEVD Literal Flag | Liurnia of the Lakes | m60_35_50 | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
+| 1035510200 | Enemy Defeat (1035510200) | Enemy Defeat | Liurnia of the Lakes | m60_34_50 | 115.3, 439.6, 123.5 | 8819.3, 12923.5 | - | - | - | - | EMEVD:m60_34_50_00.emevd |
 | 1035527010 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 108.7, 833.6, 47.4 | 9068.7, 13359.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1035527020 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_35_52 | 98.0, 831.2, 44.5 | 9058.0, 13356.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1035527030 | Golden Rune [2] | World Pickup | Mt. Gelmir | m60_35_52 | 95.4, 831.0, 40.5 | 9055.4, 13352.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1035527040 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_35_52 | 95.1, 830.5, 34.5 | 9055.1, 13346.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1035530340 | Map Event Flag (1035530340) | EMEVD Literal Flag | Mt. Gelmir | m60_35_53 | - | - | - | - | - | - | EMEVD:m60_35_53_00.emevd |
 | 1035530700 | Alexander, Warrior Jar | NPC | Mt. Gelmir | m60_35_53 | 55.5, 831.5, -91.6 | 9015.5, 13476.4 | - | - | - | - | MSB NPC |
 | 1035530800 | [Dragon Communion] Magma Breath - Unlocked | Shop Unlock | Mt. Gelmir | - | - | - | - | - | - | - | ShopLineupParam |
 | 1035537000 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 15.1, 816.7, 118.9 | 8975.1, 13686.9 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5224,7 +6592,13 @@ Total unique flags: 7034
 | 1035537030 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | -1.7, 823.6, -102.6 | 8958.3, 13465.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035537040 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_35_53 | 22.3, 824.8, -56.8 | 8982.3, 13511.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035537050 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_35_53 | 41.2, 831.5, -91.6 | 9001.2, 13476.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1035539204 | Map Event Flag (1035539204) | EMEVD Literal Flag | Mt. Gelmir | m60_35_53 | - | - | - | - | - | - | EMEVD:m60_35_53_00.emevd |
+| 1035539206 | Map Event Flag (1035539206) | EMEVD Literal Flag | Mt. Gelmir | m60_35_53 | - | - | - | - | - | - | EMEVD:m60_35_53_00.emevd |
+| 1035539207 | Map Event Flag (1035539207) | EMEVD Literal Flag | Mt. Gelmir | m60_35_53 | - | - | - | - | - | - | EMEVD:m60_35_53_00.emevd |
+| 1035540500 | Mechanism Unlock (1035540500) | Mechanism Unlock | Mt. Gelmir | m60_35_54 | -14.9, 844.0, -194.2 | 8945.1, 13629.8 | - | - | - | - | EMEVD:m60_35_54_00.emevd |
+| 1035540560 | Mechanism Unlock (1035540560) | Mechanism Unlock | Mt. Gelmir | m60_35_54 | -15.1, 830.8, -167.9 | 8944.9, 13656.1 | - | - | - | - | EMEVD:m60_35_54_00.emevd |
 | 1035540700 | Wandering Noble | NPC | Mt. Gelmir | m60_35_54 | -30.0, 842.6, -169.2 | 8930.0, 13654.8 | - | - | - | - | MSB NPC |
+| 1035542201 | Map Event Flag (1035542201) | EMEVD Literal Flag | Mt. Gelmir | m60_35_54 | - | - | - | - | - | - | EMEVD:m60_35_54_00.emevd |
 | 1035547000 | Dragonwound Grease | World Pickup | Mt. Gelmir | m60_35_54 | 171.6, 962.3, -70.9 | 9131.6, 13753.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1035547010 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_35_54 | 102.8, 974.9, -40.7 | 9062.8, 13783.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1035547020 | Stonesword Key | World Pickup | Mt. Gelmir | m60_35_54 | 36.3, 823.9, -37.1 | 8996.3, 13786.9 | corpse | 2 | high | N | ItemLotParam_map |
@@ -5237,12 +6611,15 @@ Total unique flags: 7034
 | 1036417000 | Fire Monks' Prayerbook | World Pickup | Liurnia of the Lakes | m60_36_41 | 60.1, 246.2, 53.5 | 9276.1, 10549.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1036417010 | Dappled Cured Meat | World Pickup | Liurnia of the Lakes | m60_36_41 | 76.0, 247.4, 47.0 | 9292.0, 10543.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1036417020 | Rune Arc | World Pickup | Liurnia of the Lakes | m60_36_41 | 142.2, 153.0, -73.2 | 9358.2, 10422.8 | corpse | 2 | high | Y | ItemLotParam_map |
+| 1036419215 | Map Event Flag (1036419215) | EMEVD Literal Flag | Liurnia of the Lakes | m60_36_41 | - | - | - | - | - | - | EMEVD:m60_36_41_00.emevd |
 | 1036430700 | Blackguard | NPC | Liurnia of the Lakes | m60_36_43 | 85.7, 237.7, -57.0 | 9301.7, 10951.0 | - | - | - | - | MSB NPC |
 | 1036437000 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, 11.3 | 9111.7, 11019.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1036437010 | Confessor Hood | World Pickup | Liurnia of the Lakes | m60_36_43 | -104.3, 239.8, -8.7 | 9111.7, 10999.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1036437020 | Tarnished Golden Sunflower | World Pickup | Liurnia of the Lakes | m60_36_43 | -12.0, 253.0, 116.5 | 9204.0, 11124.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036437030 | Rainbow Stone | World Pickup | Liurnia of the Lakes | m60_36_43 | 106.0, 250.0, 105.8 | 9322.0, 11113.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036439209 | [Blackguard Big Boggart] Boiled Prawn - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1036440250 | Enemy Defeat (1036440250) | Enemy Defeat | Liurnia of the Lakes | m60_36_44 | -86.0, 249.3, 6.5 | 9130.0, 11270.5 | - | - | - | - | EMEVD:m60_36_44_00.emevd |
+| 1036440260 | Enemy Defeat (1036440260) | Enemy Defeat | Liurnia of the Lakes | m60_36_44 | - | - | - | - | - | - | EMEVD:m60_36_44_00.emevd |
 | 1036440700 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_44 | -38.3, 257.8, -14.4 | 9177.7, 11249.6 | - | - | - | - | MSB NPC |
 | 1036447000 | Crystal Bud | World Pickup | Liurnia of the Lakes | m60_36_44 | 91.9, 238.4, 49.0 | 9307.9, 11313.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036447010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_36_44 | 121.8, 244.6, 12.1 | 9337.8, 11276.1 | corpse | 2 | high | N | ItemLotParam_map |
@@ -5261,15 +6638,19 @@ Total unique flags: 7034
 | 1036480340 | Night's Cavalry | Boss Arena | Bellum Highway - East Raya Lucaria Gate | m60_36_48 | 21.8, 321.6, 28.8 | 21.8, 28.8 | - | - | - | - | GameAreaParam |
 | 1036480700 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_36_48 | -84.9, 321.1, -90.6 | 9131.1, 12197.4 | - | - | - | - | MSB NPC |
 | 1036480710 | Finger Reader Crone | Finger Reader | Liurnia of the Lakes | m60_36_48 | -52.4, 321.5, -107.3 | 9163.6, 12180.7 | - | - | - | - | MSB NPC |
+| 1036480800 | Enemy Defeat (1036480800) | Enemy Defeat | Liurnia of the Lakes | m60_36_48 | 21.8, 321.5, 28.8 | 9237.8, 12316.8 | - | - | - | - | EMEVD:m60_36_48_00.emevd |
 | 1036480950 | Melina | NPC | Liurnia of the Lakes | m60_36_48 | -87.2, 321.0, -98.5 | 9128.8, 12189.5 | - | - | - | - | MSB NPC |
 | 1036487000 | Sanctuary Stone | World Pickup | Liurnia of the Lakes | m60_36_48 | 55.8, 321.5, 73.5 | 9271.8, 12361.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1036487100 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1036487400 | Ash of War: Giant Hunt | World Pickup | Liurnia of the Lakes | m60_36_48 | - | - | - | - | none | N | ItemLotParam_map |
 | 1036489208 | [Alteration] Elden Lord Armor (Altered) - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
+| 1036489213 | Map Event Flag (1036489213) | EMEVD Literal Flag | Liurnia of the Lakes | m60_36_48 | - | - | - | - | - | - | EMEVD:m60_36_48_00.emevd |
+| 1036490200 | Enemy Defeat (1036490200) | Enemy Defeat | Liurnia of the Lakes | m60_36_49 | -90.8, 300.0, 37.5 | 9125.2, 12581.5 | - | - | - | - | EMEVD:m60_36_49_00.emevd |
 | 1036490700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 17.2, 322.3, -80.3 | 9233.2, 12463.7 | - | - | - | - | MSB NPC |
 | 1036490705 | Nomadic Merchant | Merchant | Liurnia of the Lakes | m60_36_49 | 17.5, 297.0, -10.7 | 9233.5, 12533.3 | - | - | - | - | MSB NPC |
 | 1036490950 | Hyetta | NPC | Liurnia of the Lakes | m60_36_49 | 8.3, 322.0, -92.0 | 9224.3, 12452.0 | - | - | - | - | MSB NPC |
 | 1036497000 | Sacred Tear | World Pickup | Liurnia of the Lakes | m60_36_49 | 12.1, 322.0, -64.7 | 9228.1, 12479.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1036500340 | Enemy Defeat (1036500340) | Enemy Defeat | Liurnia of the Lakes | m60_36_50 | 54.5, 354.4, -93.2 | 9270.5, 12706.8 | - | - | - | - | EMEVD:m60_36_50_00.emevd |
 | 1036500800 | Onyx Lord | Boss Arena | Liurnia - Royal Grave Evergaol | m60_36_50 | 121.1, 379.6, 10.9 | 121.1, 10.9 | - | - | - | - | GameAreaParam |
 | 1036502805 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 99.9, 378.2, 16.0 | 9315.9, 12816.0 | - | - | - | - | MSB SpawnPoint |
 | 1036502806 | Stake of Marika (m60_36_50) | Stake of Marika | Liurnia of the Lakes | m60_36_50 | 101.3, 378.1, 19.7 | 9317.3, 12819.7 | - | - | - | - | MSB SpawnPoint |
@@ -5278,6 +6659,7 @@ Total unique flags: 7034
 | 1036507020 | Thawfrost Boluses | World Pickup | Liurnia of the Lakes | m60_36_50 | 22.2, 386.0, -11.3 | 9238.2, 12788.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036507030 | Albinauric Ashes | World Pickup | Liurnia of the Lakes | m60_36_50 | -51.2, 380.6, -76.7 | 9164.8, 12723.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1036517000 | Golden Rune [5] | World Pickup | Mt. Gelmir | m60_36_51 | -23.5, 672.0, 106.7 | 9192.5, 13162.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1036520205 | EMEVD Treasure (1036520205) | EMEVD Treasure | Mt. Gelmir | m60_36_52 | -114.6, 835.6, -8.2 | 9101.4, 13303.8 | - | - | - | - | EMEVD:m60_36_52_00.emevd |
 | 1036527000 | Smithing Stone [6] | World Pickup | Mt. Gelmir | m60_36_52 | -114.6, 835.6, -8.2 | 9101.4, 13303.8 | chest | 1 | high | N | ItemLotParam_map |
 | 1036527010 | Perfumer's Talisman | World Pickup | Mt. Gelmir | m60_36_52 | -50.4, 663.5, -84.8 | 9165.6, 13227.2 | chest | - | high | N | ItemLotParam_map |
 | 1036527020 | Budding Cave Moss | World Pickup | Mt. Gelmir | m60_36_52 | -2.0, 673.6, -113.6 | 9214.0, 13198.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5286,8 +6668,12 @@ Total unique flags: 7034
 | 1036527050 | Roiling Magma | World Pickup | Mt. Gelmir | m60_36_52 | -118.5, 846.2, 30.5 | 9097.5, 13342.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1036527060 | Pulley Crossbow | World Pickup | Mt. Gelmir | m60_36_52 | 90.5, 881.0, -26.7 | 9306.5, 13285.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 1036537000 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_36_53 | -78.5, 792.4, 120.0 | 9137.5, 13688.0 | corpse | 1 | high | N | ItemLotParam_map |
+| 1036540498 | Enemy Defeat (1036540498) | Enemy Defeat | Mt. Gelmir | m60_36_54 | -60.6, 997.8, -44.7 | 9155.4, 13779.3 | - | - | - | - | EMEVD:m60_36_54_00.emevd |
 | 1036540701 | Wandering Noble | NPC | Mt. Gelmir | m60_36_54 | -42.8, 937.1, -91.0 | 9173.2, 13733.0 | - | - | - | - | MSB NPC |
 | 1036540800 | Fallingstar Beast | Great Boss Defeat | Mt. Gelmir | m60_36_54 | 94.8, 1047.5, -36.2 | 9310.8, 13787.8 | - | - | - | - | MSB Enemy |
+| 1036540801 | Map Event Flag (1036540801) | EMEVD Literal Flag | Mt. Gelmir | m60_36_54 | - | - | - | - | - | - | EMEVD:m60_36_54_00.emevd |
+| 1036540805 | Map Event Flag (1036540805) | EMEVD Literal Flag | Mt. Gelmir | m60_36_54 | - | - | - | - | - | - | EMEVD:m60_36_54_00.emevd |
+| 1036542350 | NPC Defeat (1036542350) | NPC Defeat | Mt. Gelmir | m60_36_54 | 67.6, 912.9, -56.3 | 9283.6, 13767.7 | - | - | - | - | EMEVD:m60_36_54_00.emevd |
 | 1036542950 | Stake of Marika (m60_36_54) | Stake of Marika | Mt. Gelmir | m60_36_54 | 112.4, 1062.5, -45.5 | 9328.4, 13778.5 | - | - | - | - | MSB SpawnPoint |
 | 1036547000 | Golden Rune [3] | World Pickup | Mt. Gelmir | m60_36_54 | 7.0, 1029.3, -18.7 | 9223.0, 13805.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1036547010 | Smoldering Butterfly | World Pickup | Mt. Gelmir | m60_36_54 | -71.3, 1008.5, 16.4 | 9144.7, 13840.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5302,6 +6688,9 @@ Total unique flags: 7034
 | 1037420700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_37_42 | 49.4, 239.8, 43.8 | 9521.4, 10795.8 | - | - | - | - | MSB NPC |
 | 1037420720 | Patches | NPC | Liurnia of the Lakes | m60_37_42 | -91.8, 248.4, 32.0 | 9380.2, 10784.0 | - | - | - | - | MSB NPC |
 | 1037420950 | Patches | NPC | Liurnia of the Lakes | m60_37_42 | -98.2, 249.6, 25.0 | 9373.8, 10777.0 | - | - | - | - | MSB NPC |
+| 1037422702 | Map Event Flag (1037422702) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_42 | - | - | - | - | - | - | EMEVD:m60_37_42_00.emevd |
+| 1037422706 | Map Event Flag (1037422706) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_42 | - | - | - | - | - | - | EMEVD:m60_37_42_00.emevd |
+| 1037422708 | Map Event Flag (1037422708) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_42 | - | - | - | - | - | - | EMEVD:m60_37_42_00.emevd |
 | 1037427000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 123.5, 238.1, -85.3 | 9595.5, 10666.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037427010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_42 | 97.9, 237.6, -114.2 | 9569.9, 10637.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037427030 | Glass Shard | World Pickup | Liurnia of the Lakes | m60_37_42 | -85.2, 239.2, -93.8 | 9386.8, 10658.2 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5309,7 +6698,9 @@ Total unique flags: 7034
 | 1037427900 | Wraith Calling Bell | World Pickup | Liurnia of the Lakes | m60_37_42 | 62.0, 225.7, -128.3 | 9534.0, 10623.7 | chest | 2 | high | Y | ItemLotParam_map |
 | 1037437000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 95.6, 241.0, 104.1 | 9567.6, 11112.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037437010 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_43 | 71.0, 239.8, 40.4 | 9543.0, 11048.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1037440210 | Enemy Defeat (1037440210) | Enemy Defeat | Liurnia of the Lakes | m60_37_44 | -117.9, 237.6, 117.9 | 9354.1, 11381.9 | - | - | - | - | EMEVD:m60_37_44_00.emevd |
 | 1037440700 | Knight Diallos | NPC | Liurnia of the Lakes | m60_37_44 | -61.3, 239.3, 56.7 | 9410.7, 11320.7 | - | - | - | - | MSB NPC |
+| 1037442701 | Map Event Flag (1037442701) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_44 | - | - | - | - | - | - | EMEVD:m60_37_44_00.emevd |
 | 1037447000 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_37_44 | 82.1, 238.5, -82.2 | 9554.1, 11181.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037447010 | Magic Grease | World Pickup | Liurnia of the Lakes | m60_37_44 | -6.4, 242.4, 41.7 | 9465.6, 11305.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037457100 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_37_45 | 55.6, 239.8, 21.0 | 9527.6, 11541.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
@@ -5318,9 +6709,12 @@ Total unique flags: 7034
 | 1037460800 | Elemer of the Briar | Boss Defeat | Liurnia of the Lakes | m60_37_46 | -48.5, 398.3, 9.8 | 9423.5, 11785.8 | - | - | - | - | MSB Enemy |
 | 1037460950 | Miriel, Pastor of Vows | NPC | Liurnia of the Lakes | m60_37_46 | -9.9, 396.4, 23.0 | 9462.1, 11799.0 | - | - | - | - | MSB NPC |
 | 1037462650 | Stake of Marika (m60_37_46) | Stake of Marika | Liurnia of the Lakes | m60_37_46 | -22.8, 397.7, 15.3 | 9449.2, 11791.4 | - | - | - | - | MSB SpawnPoint |
+| 1037462716 | Map Event Flag (1037462716) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_46 | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
+| 1037462717 | Map Event Flag (1037462717) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_46 | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
 | 1037467000 | Gold Sewing Needle | World Pickup | Liurnia of the Lakes | m60_37_46 | -62.1, 398.8, 18.4 | 9409.9, 11794.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1037467010 | Stormhawk Feather | World Pickup | Liurnia of the Lakes | m60_37_46 | -110.9, 401.6, -5.1 | 9361.1, 11770.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037467400 | Meat Peddler's Bell Bearing | World Pickup | Liurnia of the Lakes | m60_37_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1037469277 | Map Event Flag (1037469277) | EMEVD Literal Flag | Liurnia of the Lakes | m60_37_46 | - | - | - | - | - | - | EMEVD:m60_37_46_00.emevd |
 | 1037469300 | [Miriel - Conspectus Scroll] Glintstone Cometshard - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469301 | [Miriel] Glintblade Phalanx - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1037469305 | [Miriel - Fire Monks' Prayerbook] O Flame! - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
@@ -5336,6 +6730,8 @@ Total unique flags: 7034
 | 1037477010 | Arteria Leaf | World Pickup | Liurnia of the Lakes | m60_37_47 | -55.2, 362.4, 2.9 | 9416.8, 12034.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1037477020 | Stalwart Horn Charm | World Pickup | Liurnia of the Lakes | m60_37_47 | -13.9, 388.8, 70.8 | 9458.1, 12102.8 | corpse | - | high | N | ItemLotParam_map |
 | 1037477030 | Spiralhorn Shield | World Pickup | Liurnia of the Lakes | m60_37_47 | 86.1, 384.4, 19.8 | 9558.1, 12051.8 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037480200 | Enemy Defeat (1037480200) | Enemy Defeat | Liurnia of the Lakes | m60_37_48 | 117.8, 459.7, 89.3 | 9589.8, 12377.3 | - | - | - | - | EMEVD:m60_37_48_00.emevd |
+| 1037480210 | Enemy Defeat (1037480210) | Enemy Defeat | Liurnia of the Lakes | m60_37_48 | -62.0, 409.1, -17.1 | 9410.0, 12270.9 | - | - | - | - | EMEVD:m60_37_48_00.emevd |
 | 1037480400 | Walking Mausoleum | NPC | World (9,12) | m60_09_12 | -44.6, 414.5, -390.6 | 2259.4, 2681.4 | - | - | - | - | MSB NPC |
 | 1037487000 | Slumbering Egg | World Pickup | Liurnia of the Lakes | m60_37_48 | -80.9, 359.6, 88.3 | 9391.1, 12376.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037487010 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_37_48 | -11.6, 433.0, 18.9 | 9460.4, 12306.9 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5356,10 +6752,14 @@ Total unique flags: 7034
 | 1037497300 | Fingerprint Grape | World Pickup | Liurnia of the Lakes | m60_37_49 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 1037507000 | Neutralizing Boluses | World Pickup | Liurnia of the Lakes | m60_37_50 | 103.3, 237.6, 102.8 | 9575.3, 12902.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037507100 | Golden Seed | World Pickup | Liurnia of the Lakes | m60_37_50 | 56.3, 237.9, 52.7 | 9528.3, 12852.7 | ground_pickup | 2 | high | Y | ItemLotParam_map |
+| 1037510210 | Enemy Defeat (1037510210) | Enemy Defeat | Mt. Gelmir | m60_37_51 | 108.3, 237.6, -110.7 | 9580.3, 12945.3 | - | - | - | - | EMEVD:m60_37_51_00.emevd |
+| 1037510500 | Enemy Defeat (1037510500) | Enemy Defeat | Mt. Gelmir | m60_37_51 | -136.2, 660.8, 54.6 | 9335.8, 13110.6 | - | - | - | - | EMEVD:m60_37_51_00.emevd |
 | 1037510800 | Lichdragon Fortissax | Great Boss Defeat | Mt. Gelmir | m60_37_51 | 110.8, 712.6, 49.4 | 9582.8, 13105.4 | - | - | - | - | MSB Enemy |
+| 1037510810 | Map Event Flag (1037510810) | EMEVD Literal Flag | Mt. Gelmir | m60_37_51 | - | - | - | - | - | - | EMEVD:m60_37_51_00.emevd |
 | 1037517000 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_51 | -26.1, 658.6, -47.5 | 9445.9, 13008.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037517010 | Fulgurbloom | World Pickup | Mt. Gelmir | m60_37_51 | 20.2, 674.4, -46.5 | 9492.2, 13009.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037517020 | Consort's Mask | World Pickup | Mt. Gelmir | m60_37_51 | 46.8, 683.8, -11.7 | 9518.8, 13044.3 | corpse | 2 | high | N | ItemLotParam_map |
+| 1037520355 | Enemy Defeat (1037520355) | Enemy Defeat | Mt. Gelmir | m60_37_52 | - | - | - | - | - | - | EMEVD:m60_37_52_00.emevd |
 | 1037522690 | Stake of Marika (m60_37_52) | Stake of Marika | Mt. Gelmir | m60_37_52 | 92.4, 656.9, -59.7 | 9564.4, 13252.3 | - | - | - | - | MSB SpawnPoint |
 | 1037527020 | Arrow | World Pickup | Mt. Gelmir | m60_37_52 | 87.8, 797.6, 86.9 | 9559.8, 13398.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037527030 | Sacramental Bud | World Pickup | Mt. Gelmir | m60_37_52 | -65.1, 896.6, 49.8 | 9406.9, 13361.8 | corpse | 2 | high | N | ItemLotParam_map |
@@ -5370,6 +6770,7 @@ Total unique flags: 7034
 | 1037527080 | Starlight Shards | World Pickup | Mt. Gelmir | m60_37_52 | 44.0, 908.5, 84.3 | 9516.0, 13396.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1037527090 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -1.5, 905.7, 72.4 | 9470.5, 13384.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 1037527100 | Hierodas Glintstone Crown | World Pickup | Mt. Gelmir | m60_37_52 | -11.2, 905.1, 105.4 | 9460.8, 13417.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037530400 | Enemy Defeat (1037530400) | Enemy Defeat | Mt. Gelmir | m60_37_53 | 61.0, 792.9, -144.1 | 9533.0, 13423.9 | - | - | - | - | EMEVD:m60_37_53_00.emevd |
 | 1037530700 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.0, 903.3, -69.5 | 9477.0, 13498.5 | - | - | - | - | MSB NPC |
 | 1037530800 | Demi-Human Queen Maggie | Great Boss Defeat | Mt. Gelmir | m60_37_53 | 11.7, 901.4, -90.8 | 9483.7, 13477.2 | - | - | - | - | MSB Enemy |
 | 1037530950 | Primeval Sorcerer Azur | NPC | Mt. Gelmir | m60_37_53 | 5.2, 904.2, -54.8 | 9477.2, 13513.2 | - | - | - | - | MSB NPC |
@@ -5377,11 +6778,14 @@ Total unique flags: 7034
 | 1037537010 | Golden Rune [6] | World Pickup | Mt. Gelmir | m60_37_53 | 59.8, 914.4, 10.6 | 9531.8, 13578.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037537020 | Smithing Stone [5] | World Pickup | Mt. Gelmir | m60_37_53 | 26.0, 792.5, 67.6 | 9498.0, 13635.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1037537400 | Golden Seed | World Pickup | Mt. Gelmir | m60_37_53 | 28.2, 792.8, -10.4 | 9500.2, 13557.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1037540341 | Enemy Defeat (1037540341) | Enemy Defeat | Mt. Gelmir | m60_37_54 | 74.1, 932.0, 72.8 | 9546.1, 13896.8 | - | - | - | - | EMEVD:m60_37_54_00.emevd |
 | 1037540700 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | - | - | - | - | MSB NPC |
 | 1037540701 | Patches | NPC | Mt. Gelmir | m60_37_54 | 99.6, 886.8, -84.2 | 9571.6, 13739.8 | - | - | - | - | MSB NPC |
 | 1037540705 | Nomadic Merchant | Merchant | Mt. Gelmir | m60_37_54 | 18.6, 965.0, 55.7 | 9490.6, 13879.7 | - | - | - | - | MSB NPC |
 | 1037540810 | Ulcerated Tree Spirit | Boss Defeat | Mt. Gelmir | m60_37_54 | -33.4, 856.7, -73.1 | 9438.6, 13750.9 | - | - | - | - | MSB Enemy |
 | 1037542690 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | -3.9, 801.7, -120.3 | 9468.1, 13703.7 | - | - | - | - | MSB SpawnPoint |
+| 1037542705 | Map Event Flag (1037542705) | EMEVD Literal Flag | Mt. Gelmir | m60_37_54 | - | - | - | - | - | - | EMEVD:m60_37_54_00.emevd |
+| 1037542810 | Map Event Flag (1037542810) | EMEVD Literal Flag | Mt. Gelmir | m60_37_54 | - | - | - | - | - | - | EMEVD:m60_37_54_00.emevd |
 | 1037547000 | Beast Blood | World Pickup | Mt. Gelmir | m60_37_54 | 62.3, 833.8, -23.5 | 9534.3, 13800.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1037547010 | Stonesword Key | World Pickup | Mt. Gelmir | m60_37_54 | 90.1, 817.0, -10.0 | 9562.1, 13814.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1037547020 | Soporific Grease | World Pickup | Mt. Gelmir | m60_37_54 | 76.1, 904.2, 53.5 | 9548.1, 13877.5 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5398,6 +6802,9 @@ Total unique flags: 7034
 | 1037547130 | Drawstring Fire Grease | World Pickup | Mt. Gelmir | m60_37_54 | -3.5, 853.3, -0.5 | 9468.5, 13823.5 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1037547140 | Golden Rune [4] | World Pickup | Mt. Gelmir | m60_37_54 | -55.4, 864.2, -59.8 | 9416.6, 13764.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1037547150 | Scavenger's Curved Sword | World Pickup | Mt. Gelmir | m60_37_54 | 73.5, 904.5, 61.3 | 9545.5, 13885.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1037549210 | Map Event Flag (1037549210) | EMEVD Literal Flag | Mt. Gelmir | m60_37_54 | - | - | - | - | - | - | EMEVD:m60_37_54_00.emevd |
+| 1037549211 | Map Event Flag (1037549211) | EMEVD Literal Flag | Mt. Gelmir | m60_37_54 | - | - | - | - | - | - | EMEVD:m60_37_54_00.emevd |
+| 1037549212 | Map Event Flag (1037549212) | EMEVD Literal Flag | Mt. Gelmir | m60_37_54 | - | - | - | - | - | - | EMEVD:m60_37_54_00.emevd |
 | 1037552690 | Stake of Marika (m60_37_55) | Stake of Marika | Mt. Gelmir | m60_37_55 | -60.2, 1035.2, -57.9 | 9411.8, 14022.1 | - | - | - | - | MSB SpawnPoint |
 | 1037557000 | Poison Grease | World Pickup | Mt. Gelmir | m60_37_55 | -24.6, 1029.0, -85.5 | 9447.4, 13994.5 | corpse | 0 | high | Y | ItemLotParam_map |
 | 1038397000 | Warming Stone | World Pickup | World (38,39) | m60_38_39 | 95.7, 328.4, 118.5 | 9823.7, 10102.5 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5412,6 +6819,7 @@ Total unique flags: 7034
 | 1038412807 | Stake of Marika (m60_38_41) | Stake of Marika | Liurnia of the Lakes | m60_38_41 | -0.2, 257.5, -125.0 | 9727.8, 10371.0 | - | - | - | - | MSB SpawnPoint |
 | 1038417010 | Sacrificial Twig | World Pickup | Liurnia of the Lakes | m60_38_41 | 28.1, 246.4, -124.4 | 9756.1, 10371.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038417100 | AshOfWar_1007 | World Pickup | Liurnia of the Lakes | m60_38_41 | - | - | - | - | none | N | ItemLotParam_map |
+| 1038419254 | Map Event Flag (1038419254) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_41 | - | - | - | - | - | - | EMEVD:m60_37_42_00.emevd |
 | 1038419270 | [Patches] Fan Daggers - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1038419271 | [Patches] Festering Bloody Finger - Unlocked | Shop Unlock | Liurnia of the Lakes | - | - | - | - | - | - | - | ShopLineupParam |
 | 1038422260 | Spirit Spring (m60_38_42) | Spirit Spring | Liurnia of the Lakes | m60_38_42 | 51.5, 238.0, 39.4 | 9779.5, 10791.4 | - | - | - | - | MSB MountJump |
@@ -5419,6 +6827,7 @@ Total unique flags: 7034
 | 1038427010 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_38_42 | 105.9, 293.7, 111.5 | 9833.9, 10863.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038427020 | Carian Glintblade Staff | World Pickup | Liurnia of the Lakes | m60_38_42 | 125.3, 313.2, 120.1 | 9853.3, 10872.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038430700 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_38_43 | 67.2, 257.7, 57.1 | 9795.2, 11065.1 | - | - | - | - | MSB NPC |
+| 1038432709 | Map Event Flag (1038432709) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_43 | - | - | - | - | - | - | EMEVD:m60_38_43_00.emevd |
 | 1038437000 | Strip of White Flesh | World Pickup | Liurnia of the Lakes | m60_38_43 | 48.8, 237.6, 31.4 | 9776.8, 11039.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038437010 | Sliver of Meat | World Pickup | Liurnia of the Lakes | m60_38_43 | 27.8, 255.5, -91.8 | 9755.8, 10916.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038437020 | Silver-Pickled Fowl Foot | World Pickup | Liurnia of the Lakes | m60_38_43 | -16.3, 237.9, 106.7 | 9711.7, 11114.7 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5429,6 +6838,9 @@ Total unique flags: 7034
 | 1038457000 | Smoldering Butterfly | World Pickup | Liurnia of the Lakes | m60_38_45 | -12.6, 305.1, 127.4 | 9715.4, 11647.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038457010 | Flame, Cleanse Me | World Pickup | Liurnia of the Lakes | m60_38_45 | -16.6, 306.7, 108.5 | 9711.4, 11628.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038457020 | Smithing Stone [4] | World Pickup | Liurnia of the Lakes | m60_38_45 | 128.6, 314.7, -84.5 | 9856.6, 11435.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038460340 | Enemy Defeat (1038460340) | Enemy Defeat | Liurnia of the Lakes | m60_38_46 | 106.8, 246.2, 51.5 | 9834.8, 11827.5 | - | - | - | - | EMEVD:m60_38_46_00.emevd |
+| 1038460560 | Mechanism Unlock (1038460560) | Mechanism Unlock | Liurnia of the Lakes | m60_38_46 | - | - | - | - | - | - | EMEVD:m60_38_46_00.emevd |
+| 1038460650 | Door Unlock (1038460650) | Door Unlock | World (19,23) | m60_19_23 | -39.0, 125.6, -51.3 | 4825.0, 5836.7 | - | - | - | - | EMEVD:m60_38_46_00.emevd |
 | 1038467000 | Immunizing White Cured Meat | World Pickup | Liurnia of the Lakes | m60_38_46 | -13.2, 315.1, 28.8 | 9714.8, 11804.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038467400 | Golden Rune [1] | World Pickup | Liurnia of the Lakes | m60_38_46 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 1038470400 | Walking Mausoleum | NPC | World (9,11) | m60_09_11 | -12.6, 374.8, 474.2 | 2291.4, 3290.2 | - | - | - | - | MSB NPC |
@@ -5445,21 +6857,36 @@ Total unique flags: 7034
 | 1038490201 | Commoner | Elite Enemy Defeat | Liurnia of the Lakes | m60_38_49 | -11.4, 466.0, -86.6 | 9716.6, 12457.4 | - | - | - | - | MSB Enemy |
 | 1038490700 | Commoner | NPC | Liurnia of the Lakes | m60_38_49 | -114.7, 470.5, -113.1 | 9613.3, 12430.9 | - | - | - | - | MSB NPC |
 | 1038491201 | Spirit Spring (m60_38_49) | Spirit Spring | Liurnia of the Lakes | m60_38_49 | 27.5, 422.2, -72.7 | 9755.5, 12471.3 | - | - | - | - | MSB MountJump |
+| 1038492206 | Map Event Flag (1038492206) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
+| 1038492207 | Map Event Flag (1038492207) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
+| 1038492208 | Map Event Flag (1038492208) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
+| 1038492209 | Map Event Flag (1038492209) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
+| 1038492210 | Map Event Flag (1038492210) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
+| 1038492212 | Map Event Flag (1038492212) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_49 | - | - | - | - | - | - | EMEVD:m60_38_49_00.emevd |
 | 1038497000 | Yellow Ember | World Pickup | Liurnia of the Lakes | m60_38_49 | -59.8, 413.3, -46.1 | 9668.2, 12497.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038497010 | Smithing Stone [2] | World Pickup | Liurnia of the Lakes | m60_38_49 | -54.0, 408.9, -36.9 | 9674.0, 12507.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038497030 | Burred Bolt | World Pickup | Liurnia of the Lakes | m60_38_49 | -19.1, 440.9, -117.5 | 9708.9, 12426.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038497040 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_38_49 | -35.3, 417.2, -50.8 | 9692.7, 12493.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038497900 | Howl of Shabriri | World Pickup | Liurnia of the Lakes | m60_38_49 | -7.3, 460.1, -85.0 | 9720.7, 12459.0 | chest | 2 | high | N | ItemLotParam_map |
+| 1038500210 | Enemy Defeat (1038500210) | Enemy Defeat | Liurnia of the Lakes | m60_38_50 | -96.4, 354.2, 5.9 | 9631.6, 12805.9 | - | - | - | - | EMEVD:m60_38_50_00.emevd |
+| 1038500500 | Map Event Flag (1038500500) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_50 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
 | 1038500700 | Rya the Scout | NPC | Liurnia of the Lakes | m60_38_50 | 66.4, 759.1, -4.7 | 9794.4, 12795.3 | - | - | - | - | MSB NPC |
 | 1038500710 | Wandering Noble | NPC | Liurnia of the Lakes | m60_38_50 | -28.9, 367.2, -38.2 | 9699.1, 12761.8 | - | - | - | - | MSB NPC |
 | 1038502500 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 34.2, 759.5, -28.3 | 9762.2, 12771.7 | - | - | - | - | MSB SpawnPoint |
 | 1038502502 | Stake of Marika (m60_38_50) | Stake of Marika | Liurnia of the Lakes | m60_38_50 | 55.5, 374.7, -20.6 | 9783.5, 12779.4 | - | - | - | - | MSB SpawnPoint |
+| 1038502700 | Map Event Flag (1038502700) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_50 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
 | 1038507000 | Smithing Stone [5] | World Pickup | Liurnia of the Lakes | m60_38_50 | -138.6, 238.1, 81.1 | 9589.4, 12881.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038507010 | Dragonwound Grease | World Pickup | Liurnia of the Lakes | m60_38_50 | -100.1, 356.4, -62.4 | 9627.9, 12737.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038509205 | Map Event Flag (1038509205) | EMEVD Literal Flag | Liurnia of the Lakes | m60_38_50 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
+| 1038510500 | Enemy Defeat (1038510500) | Enemy Defeat | Altus Plateau | m60_38_51 | -46.1, 783.5, 40.7 | 9681.9, 13096.7 | - | - | - | - | EMEVD:m60_38_51_00.emevd |
 | 1038510700 | Rya the Scout | NPC | Altus Plateau | m60_38_51 | -17.2, 766.3, 34.0 | 9710.8, 13090.0 | - | - | - | - | MSB NPC |
 | 1038510705 | Millicent | NPC | Altus Plateau | m60_38_51 | 3.8, 767.5, 114.2 | 9731.8, 13170.2 | - | - | - | - | MSB NPC |
 | 1038510800 | Demi-Human Queen Maggie | Great Boss Defeat | Altus Plateau | m60_38_51 | -32.5, 770.8, 0.5 | 9695.5, 13056.5 | - | - | - | - | MSB Enemy |
 | 1038510950 | Rya | NPC | Altus Plateau | m60_38_51 | -17.4, 759.3, 66.9 | 9710.6, 13122.9 | - | - | - | - | MSB NPC |
+| 1038512700 | Map Event Flag (1038512700) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
+| 1038512702 | Map Event Flag (1038512702) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
+| 1038512704 | Map Event Flag (1038512704) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_50_00.emevd |
+| 1038512720 | Map Event Flag (1038512720) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_51_00.emevd |
 | 1038517000 | Nascent Butterfly | World Pickup | Altus Plateau | m60_38_51 | -102.0, 710.4, -54.0 | 9626.0, 13002.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1038517010 | String | World Pickup | Altus Plateau | m60_38_51 | 78.9, 753.4, -101.9 | 9806.9, 12954.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038517020 | Lightningproof Dried Liver | World Pickup | Altus Plateau | m60_38_51 | 13.2, 763.7, -114.0 | 9741.2, 12942.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
@@ -5471,9 +6898,12 @@ Total unique flags: 7034
 | 1038517080 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_51 | -34.8, 789.2, 22.1 | 9693.2, 13078.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1038517090 | Troll's Golden Sword | World Pickup | Altus Plateau | m60_38_51 | 268.0, 732.8, 384.8 | 9996.0, 13440.8 | cart | 1 | low | N | ItemLotParam_map |
 | 1038517400 | Golden Seed | World Pickup | Altus Plateau | m60_38_51 | 7.4, 756.0, 76.2 | 9735.4, 13132.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1038519207 | Map Event Flag (1038519207) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_51_00.emevd |
+| 1038519255 | Map Event Flag (1038519255) | EMEVD Literal Flag | Altus Plateau | m60_38_51 | - | - | - | - | - | - | EMEVD:m60_38_51_00.emevd |
 | 1038519257 | [Gowry] Pest Threads - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
 | 1038520340 | Tibia Mariner | Boss Defeat | Altus Plateau | m60_38_52 | -40.2, 792.9, -24.9 | 9687.8, 13287.1 | - | - | - | - | MSB Enemy |
 | 1038520800 | Tibia Mariner | Boss Arena | Altus Plateau - Wyndham Ruins | m60_38_52 | -127.2, 823.4, 71.6 | -127.2, 71.6 | - | - | - | - | GameAreaParam |
+| 1038522230 | Map Event Flag (1038522230) | EMEVD Literal Flag | Altus Plateau | m60_38_52 | - | - | - | - | - | - | EMEVD:m60_38_52_00.emevd |
 | 1038527000 | Pearldrake Talisman +1 | World Pickup | Altus Plateau | m60_38_52 | -90.4, 806.1, 46.5 | 9637.6, 13358.5 | chest | - | high | Y | ItemLotParam_map |
 | 1038527010 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_38_52 | -123.2, 793.0, -72.9 | 9604.8, 13239.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038527020 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_52 | -52.9, 795.4, -37.1 | 9675.1, 13274.9 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5488,6 +6918,7 @@ Total unique flags: 7034
 | 1038537030 | Golden Rune [7] | World Pickup | Altus Plateau | m60_38_53 | 52.8, 867.2, 109.3 | 9780.8, 13677.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1038537040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_38_53 | 46.4, 865.3, 117.0 | 9774.4, 13685.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1038537050 | Somber Smithing Stone [6] | World Pickup | Altus Plateau | m60_38_53 | 75.0, 877.0, 82.5 | 9803.0, 13650.5 | corpse | 1 | high | N | ItemLotParam_map |
+| 1038540400 | Enemy Defeat (1038540400) | Enemy Defeat | Altus Plateau | m60_38_54 | 28.4, 730.4, 44.9 | 9756.4, 13868.9 | - | - | - | - | EMEVD:m60_38_54_00.emevd |
 | 1038547000 | Bloodrose | World Pickup | Altus Plateau | m60_38_54 | 71.4, 811.5, -108.6 | 9799.4, 13715.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038547010 | Explosive Greatbolt | World Pickup | Altus Plateau | m60_38_54 | 33.0, 808.0, -63.3 | 9761.0, 13760.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1038547020 | Golden Rune [8] | World Pickup | Altus Plateau | m60_38_54 | 32.6, 808.2, -71.4 | 9760.6, 13752.6 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5500,13 +6931,17 @@ Total unique flags: 7034
 | 1038547100 | Antspur Rapier | World Pickup | Altus Plateau | m60_38_54 | -5.8, 740.6, 46.8 | 9722.2, 13870.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1038547110 | Pulley Bow | World Pickup | Altus Plateau | m60_38_54 | -97.6, 907.3, -82.3 | 9630.4, 13741.7 | corpse | 2 | high | N | ItemLotParam_map |
 | 1038547700 | Butchering Knife | World Pickup | Altus Plateau | m60_38_54 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1039390200 | Enemy Defeat (1039390200) | Enemy Defeat | World (39,39) | m60_39_39 | -31.7, 320.0, 112.8 | 9952.3, 10096.8 | - | - | - | - | EMEVD:m60_39_39_00.emevd |
 | 1039390700 | Sorcerer Thops | NPC | World (39,39) | m60_39_39 | -34.0, 320.0, 96.4 | 9950.0, 10080.4 | - | - | - | - | MSB NPC |
 | 1039397000 | Sacred Tear | World Pickup | World (39,39) | m60_39_39 | -27.4, 320.1, 95.3 | 9956.6, 10079.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039399218 | Map Event Flag (1039399218) | EMEVD Literal Flag | World (39,39) | m60_39_39 | - | - | - | - | - | - | EMEVD:m60_39_39_00.emevd |
 | 1039400701 | Lightseeker Hyetta | NPC | Liurnia of the Lakes | m60_39_40 | 9.3, 336.9, -61.4 | 9993.3, 10178.6 | - | - | - | - | MSB NPC |
 | 1039400710 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_39_40 | 12.2, 337.1, -74.0 | 9996.2, 10166.0 | - | - | - | - | MSB NPC |
 | 1039400950 | Boc the Seamster | NPC | Liurnia of the Lakes | m60_39_40 | 16.2, 337.5, -70.9 | 10000.2, 10169.1 | - | - | - | - | MSB NPC |
 | 1039402690 | Stake of Marika (m60_39_40) | Stake of Marika | Liurnia of the Lakes | m60_39_40 | 7.9, 239.3, -33.1 | 9991.9, 10206.9 | - | - | - | - | MSB SpawnPoint |
+| 1039402710 | Map Event Flag (1039402710) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_40 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 1039407000 | Academy Scroll | World Pickup | Liurnia of the Lakes | m60_39_40 | -105.9, 315.9, -79.5 | 9878.1, 10160.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1039409264 | Map Event Flag (1039409264) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_40 | - | - | - | - | - | - | EMEVD:m60_39_40_00.emevd |
 | 1039410710 | Commoner | NPC | Liurnia of the Lakes | m60_39_41 | -112.8, 248.5, 107.6 | 9871.2, 10603.6 | - | - | - | - | MSB NPC |
 | 1039417000 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_41 | -117.6, 249.2, 80.1 | 9866.4, 10576.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039417010 | Cuckoo Glintstone | World Pickup | Liurnia of the Lakes | m60_39_41 | -83.2, 255.5, 98.5 | 9900.8, 10594.5 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5517,14 +6952,17 @@ Total unique flags: 7034
 | 1039417300 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1039417310 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1039420700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_39_42 | -9.0, 271.4, -11.3 | 9975.0, 10740.7 | - | - | - | - | MSB NPC |
+| 1039422200 | Map Event Flag (1039422200) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_42 | - | - | - | - | - | - | EMEVD:m60_39_42_00.emevd |
 | 1039427000 | Mushroom | World Pickup | Liurnia of the Lakes | m60_39_42 | -145.2, 249.0, -79.5 | 9838.8, 10672.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039427010 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_42 | -65.4, 253.0, 102.7 | 9918.6, 10854.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039427020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_42 | -55.8, 255.4, 90.5 | 9928.2, 10842.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1039427030 | Golden Rune [3] | World Pickup | Liurnia of the Lakes | m60_39_42 | -54.1, 257.5, 77.2 | 9929.9, 10829.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039427040 | Beast Blood | World Pickup | Liurnia of the Lakes | m60_39_42 | 46.6, 288.6, 88.0 | 10030.6, 10840.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039427050 | Lucerne | World Pickup | Liurnia of the Lakes | m60_39_42 | -38.4, 259.8, 74.3 | 9945.6, 10826.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039430310 | Enemy Defeat (1039430310) | Enemy Defeat | Liurnia of the Lakes | m60_39_43 | -62.7, 248.4, -38.1 | 9921.3, 10969.9 | - | - | - | - | EMEVD:m60_39_43_00.emevd |
 | 1039430340 | Night's Cavalry | Boss Arena | Liurnia - Liurnia Highway Far North | m60_39_43 | -125.3, 253.1, -8.1 | -125.3, -8.1 | - | - | - | - | GameAreaParam |
 | 1039430700 | Wandering Noble | NPC | Liurnia of the Lakes | m60_39_43 | -104.1, 250.3, -22.9 | 9879.9, 10985.1 | - | - | - | - | MSB NPC |
+| 1039430800 | Enemy Defeat (1039430800) | Enemy Defeat | Liurnia of the Lakes | m60_39_43 | -125.3, 253.1, -8.1 | 9858.7, 10999.9 | - | - | - | - | EMEVD:m60_39_43_00.emevd |
 | 1039432210 | Spirit Spring (m60_39_43) | Spirit Spring | Liurnia of the Lakes | m60_39_43 | -76.9, 253.0, 30.3 | 9907.1, 11038.3 | - | - | - | - | MSB MountJump |
 | 1039437010 | Golden Rune [2] | World Pickup | Liurnia of the Lakes | m60_39_43 | 52.4, 217.1, 126.0 | 10036.4, 11134.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039437020 | Golden Rune [6] | World Pickup | Liurnia of the Lakes | m60_39_43 | 58.4, 217.2, 118.9 | 10042.4, 11126.9 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5541,12 +6979,34 @@ Total unique flags: 7034
 | 1039440708 | Jar-Bairn | NPC | Liurnia of the Lakes | m60_39_44 | 21.4, 224.8, -27.0 | 10005.4, 11237.0 | - | - | - | - | MSB NPC |
 | 1039440710 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 52.4, 212.8, 24.1 | 10036.4, 11288.1 | - | - | - | - | MSB NPC |
 | 1039440711 | Potentate Diallos | NPC | Liurnia of the Lakes | m60_39_44 | 43.3, 212.2, 4.8 | 10027.3, 11268.8 | - | - | - | - | MSB NPC |
+| 1039440735 | Map Event Flag (1039440735) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440737 | Map Event Flag (1039440737) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440745 | Map Event Flag (1039440745) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440747 | Map Event Flag (1039440747) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440749 | Map Event Flag (1039440749) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440751 | Map Event Flag (1039440751) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039440753 | Map Event Flag (1039440753) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
 | 1039440800 | Tibia Mariner | Great Boss Defeat | Liurnia of the Lakes | m60_39_44 | -81.6, 294.8, -41.4 | 9902.4, 11222.6 | - | - | - | - | MSB Enemy |
+| 1039442702 | Map Event Flag (1039442702) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039442715 | Map Event Flag (1039442715) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039442716 | Map Event Flag (1039442716) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
 | 1039447000 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | -62.3, 294.8, -55.0 | 9921.7, 11209.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1039447010 | Great Dragonfly Head | World Pickup | Liurnia of the Lakes | m60_39_44 | -104.2, 302.5, 68.3 | 9879.8, 11332.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039447020 | Trina's Lily | World Pickup | Liurnia of the Lakes | m60_39_44 | -76.5, 294.8, -67.6 | 9907.5, 11196.4 | corpse | 2 | high | N | ItemLotParam_map |
 | 1039447030 | Smithing Stone [3] | World Pickup | Liurnia of the Lakes | m60_39_44 | 21.9, 231.0, -27.1 | 10005.9, 11236.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1039447040 | Living Jar Shard | World Pickup | Liurnia of the Lakes | m60_39_44 | 55.1, 212.8, 23.8 | 10039.1, 11287.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1039449207 | Map Event Flag (1039449207) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449251 | Map Event Flag (1039449251) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449274 | Map Event Flag (1039449274) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449275 | Map Event Flag (1039449275) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449276 | Map Event Flag (1039449276) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449277 | Map Event Flag (1039449277) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449278 | Map Event Flag (1039449278) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039449301 | Map Event Flag (1039449301) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_44 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1039450210 | Enemy Defeat (1039450210) | Enemy Defeat | Liurnia of the Lakes | m60_39_45 | -97.3, 248.5, -113.0 | 9886.7, 11407.0 | - | - | - | - | EMEVD:m60_39_45_00.emevd |
+| 1039480340 | Enemy Defeat (1039480340) | Enemy Defeat | Liurnia of the Lakes | m60_39_48 | -35.7, 454.6, 126.8 | 9948.3, 12414.8 | - | - | - | - | EMEVD:m60_39_48_00.emevd |
+| 1039480510 | Door Unlock (1039480510) | Door Unlock | Liurnia of the Lakes | m60_39_48 | -24.8, 478.8, 51.5 | 9959.2, 12339.5 | - | - | - | - | EMEVD:m60_39_48_00.emevd |
+| 1039480610 | Map Event Flag (1039480610) | EMEVD Literal Flag | Liurnia of the Lakes | m60_39_48 | - | - | - | - | - | - | EMEVD:m60_39_48_00.emevd |
 | 1039487000 | Crystal Dart | World Pickup | Liurnia of the Lakes | m60_39_48 | -37.4, 457.1, 33.9 | 9946.6, 12321.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039487100 | Cannon of Haima | World Pickup | Liurnia of the Lakes | m60_39_48 | -24.8, 506.1, 51.6 | 9959.2, 12339.6 | chest | 2 | high | N | ItemLotParam_map |
 | 1039500800 | Godrick the Reskinned | Boss Arena | Altus Plateau - Golden Lineage Evergaol | m60_39_50 | -45.6, 709.6, -86.1 | -45.6, -86.1 | - | - | - | - | GameAreaParam |
@@ -5557,6 +7017,7 @@ Total unique flags: 7034
 | 1039507010 | Stonesword Key | World Pickup | Liurnia of the Lakes | m60_39_50 | -4.7, 755.2, 41.8 | 9979.3, 12841.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1039507020 | Golden Rune [4] | World Pickup | Liurnia of the Lakes | m60_39_50 | 41.0, 763.2, 76.8 | 10025.0, 12876.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039507100 | Godfrey Icon | World Pickup | Liurnia of the Lakes | m60_39_50 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1039510500 | Enemy Defeat (1039510500) | Enemy Defeat | Altus Plateau | m60_39_51 | 117.2, 755.5, -46.7 | 10101.2, 13009.3 | - | - | - | - | EMEVD:m60_39_51_00.emevd |
 | 1039510700 | Boc the Seamster | NPC | Altus Plateau | m60_39_51 | 95.4, 760.8, 5.2 | 10079.4, 13061.2 | - | - | - | - | MSB NPC |
 | 1039510800 | Night's Cavalry | Boss Defeat | Altus Plateau | m60_39_51 | -16.9, 757.0, -110.7 | 9967.1, 12945.3 | - | - | - | - | MSB Enemy |
 | 1039510950 | Boc the Seamster | NPC | Altus Plateau | m60_39_51 | 92.6, 760.5, -0.2 | 10076.6, 13055.8 | - | - | - | - | MSB NPC |
@@ -5566,11 +7027,23 @@ Total unique flags: 7034
 | 1039517040 | Turtle Neck Meat | World Pickup | Altus Plateau | m60_39_51 | 9.2, 762.0, 116.8 | 9993.2, 13172.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039517200 | Ash of War: Shared Order | World Pickup | Altus Plateau | m60_39_51 | - | - | - | - | none | N | ItemLotParam_map |
 | 1039517400 | Golden Seed | World Pickup | Altus Plateau | m60_39_51 | 90.6, 770.1, 82.9 | 10074.6, 13138.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1039519209 | Map Event Flag (1039519209) | EMEVD Literal Flag | Altus Plateau | m60_39_51 | - | - | - | - | - | - | EMEVD:m60_39_51_00.emevd |
+| 1039520400 | Enemy Defeat (1039520400) | Enemy Defeat | Altus Plateau | m60_39_52 | 28.7, 771.8, 56.2 | 10012.7, 13368.2 | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039520500 | Enemy Defeat (1039520500) | Enemy Defeat | Altus Plateau | m60_39_52 | -128.1, 727.8, -66.5 | 9855.9, 13245.5 | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039520502 | Map Event Flag (1039520502) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039520655 | Map Event Flag (1039520655) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
 | 1039520701 | Yura, Hunter of Bloody Fingers | NPC | Altus Plateau | m60_39_52 | 28.3, 771.8, 54.4 | 10012.3, 13366.4 | - | - | - | - | MSB NPC |
+| 1039522701 | Map Event Flag (1039522701) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
 | 1039527000 | Human Bone Shard | World Pickup | Altus Plateau | m60_39_52 | 7.6, 771.7, 69.6 | 9991.6, 13381.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039527020 | Magic Grease | World Pickup | Altus Plateau | m60_39_52 | -2.5, 767.0, 120.4 | 9981.5, 13432.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039527400 | Sacred Tear | World Pickup | Altus Plateau | m60_39_52 | 22.4, 771.8, 58.6 | 10006.4, 13370.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039527700 | Eleonora's Poleblade | World Pickup | Altus Plateau | m60_39_52 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1039529207 | Map Event Flag (1039529207) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039529208 | Map Event Flag (1039529208) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039529209 | Map Event Flag (1039529209) | EMEVD Literal Flag | Altus Plateau | m60_39_52 | - | - | - | - | - | - | EMEVD:m60_39_52_00.emevd |
+| 1039530505 | Map Event Flag (1039530505) | EMEVD Literal Flag | Altus Plateau | m60_39_53 | - | - | - | - | - | - | EMEVD:m60_39_53_00.emevd |
+| 1039530510 | Map Event Flag (1039530510) | EMEVD Literal Flag | Altus Plateau | m60_39_53 | - | - | - | - | - | - | EMEVD:m60_39_53_00.emevd |
+| 1039530655 | Map Event Flag (1039530655) | EMEVD Literal Flag | Altus Plateau | m60_39_53 | - | - | - | - | - | - | EMEVD:m60_39_53_00.emevd |
 | 1039532141 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | - | - | - | MSB SpawnPoint |
 | 1039532705 | Stake of Marika (m60_39_53) | Stake of Marika | Altus Plateau | m60_39_53 | -70.4, 757.0, -37.7 | 9913.6, 13530.3 | - | - | - | - | MSB SpawnPoint |
 | 1039537000 | Golden Rune [4] | World Pickup | Altus Plateau | m60_39_53 | 20.5, 827.6, 96.5 | 10004.5, 13664.5 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5583,9 +7056,12 @@ Total unique flags: 7034
 | 1039537070 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -112.1 | 10113.8, 13455.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039537080 | Mirage Riddle | World Pickup | Altus Plateau | m60_39_53 | 129.8, 747.9, -132.1 | 10113.8, 13435.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1039537700 | Crepus's Vial | World Pickup | Altus Plateau | m60_39_53 | - | - | - | - | none | N | ItemLotParam_map |
+| 1039539200 | Map Event Flag (1039539200) | EMEVD Literal Flag | Altus Plateau | m60_39_53 | - | - | - | - | - | - | EMEVD:m60_39_53_00.emevd |
+| 1039540510 | Door Unlock (1039540510) | Door Unlock | Altus Plateau | m60_39_54 | 8.2, 748.2, 56.3 | 9992.2, 13880.3 | - | - | - | - | EMEVD:m60_39_54_00.emevd |
 | 1039540700 | Patches | NPC | Altus Plateau | m60_39_54 | -13.4, 768.3, 53.5 | 9970.6, 13877.5 | - | - | - | - | MSB NPC |
 | 1039540701 | Wandering Noble | NPC | Altus Plateau | m60_39_54 | -34.3, 734.7, 73.9 | 9949.7, 13897.9 | - | - | - | - | MSB NPC |
 | 1039540800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_39_54 | -53.7, 768.3, 56.5 | 9930.3, 13880.5 | - | - | - | - | MSB Enemy |
+| 1039542802 | Map Event Flag (1039542802) | EMEVD Literal Flag | Altus Plateau | m60_39_54 | - | - | - | - | - | - | EMEVD:m60_39_54_00.emevd |
 | 1039547010 | Golden Rune [3] | World Pickup | Altus Plateau | m60_39_54 | -37.3, 717.3, -78.7 | 9946.7, 13745.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1039547020 | Smithing Stone [5] | World Pickup | Altus Plateau | m60_39_54 | -19.5, 723.6, -86.9 | 9964.5, 13737.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1039547030 | Poisonbloom | World Pickup | Altus Plateau | m60_39_54 | 0.2, 722.3, -76.9 | 9984.2, 13747.1 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5614,8 +7090,10 @@ Total unique flags: 7034
 | 1039547350 | Starlight Shards | World Pickup | Altus Plateau | m60_39_54 | -62.6, 723.8, 123.8 | 9921.4, 13947.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1039570000 | Rot Grease | World Pickup | World (39,57) | m60_39_57 | -16.1, 731.4, 77.1 | 9967.9, 14669.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1040387000 | Smithing Stone [1] | World Pickup | World (40,38) | m60_40_38 | 43.0, 194.5, -54.9 | 10283.0, 9673.1 | corpse | 1 | high | N | ItemLotParam_map |
+| 1040390200 | Enemy Defeat (1040390200) | Enemy Defeat | World (40,39) | m60_40_39 | 33.7, 234.8, 34.1 | 10273.7, 10018.1 | - | - | - | - | EMEVD:m60_40_39_00.emevd |
 | 1040407000 | Treespear | World Pickup | Liurnia of the Lakes | m60_40_40 | -413.6, 255.6, -462.8 | 9826.4, 9777.2 | cart | 2 | low | N | ItemLotParam_map |
 | 1040507000 | Gravity Stone Fan | World Pickup | Liurnia of the Lakes | m60_40_50 | 83.5, 783.5, 108.9 | 10323.5, 12908.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040510500 | Enemy Defeat (1040510500) | Enemy Defeat | Altus Plateau | m60_40_51 | 116.5, 875.1, 165.8 | 10356.5, 13221.8 | - | - | - | - | EMEVD:m60_40_51_00.emevd |
 | 1040510700 | Commoner | NPC | Altus Plateau | m60_40_51 | -102.4, 781.5, 55.2 | 10137.6, 13111.2 | - | - | - | - | MSB NPC |
 | 1040517000 | Celestial Dew | World Pickup | Altus Plateau | m60_40_51 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1040517010 | Old Fang | World Pickup | Altus Plateau | m60_40_51 | -114.5, 768.6, 17.9 | 10125.5, 13073.9 | corpse | 1 | high | N | ItemLotParam_map |
@@ -5634,8 +7112,13 @@ Total unique flags: 7034
 | 1040527030 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 55.4, 868.2, -63.0 | 10295.4, 13249.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1040527040 | Golden Rune [3] | World Pickup | Altus Plateau | m60_40_52 | 68.4, 868.6, -70.1 | 10308.4, 13241.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1040527050 | Golden Rune [4] | World Pickup | Altus Plateau | m60_40_52 | 66.4, 866.1, -85.9 | 10306.4, 13226.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1040529207 | Map Event Flag (1040529207) | EMEVD Literal Flag | Altus Plateau | m60_40_52 | - | - | - | - | - | - | EMEVD:m60_40_52_00.emevd |
 | 1040529255 | [Brother Corhyn - Altus Plateau] Great Heal - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1040530500 | Enemy Defeat (1040530500) | Enemy Defeat | Altus Plateau | m60_40_53 | -32.8, 745.3, -119.6 | 10207.2, 13448.4 | - | - | - | - | EMEVD:m60_40_53_00.emevd |
+| 1040530655 | Map Event Flag (1040530655) | EMEVD Literal Flag | Altus Plateau | m60_40_53 | - | - | - | - | - | - | EMEVD:m60_40_53_00.emevd |
+| 1040530680 | Map Event Flag (1040530680) | EMEVD Literal Flag | Altus Plateau | m60_40_53 | - | - | - | - | - | - | EMEVD:m60_40_53_00.emevd |
 | 1040530800 | Sanguine Noble | Boss Defeat | Altus Plateau | m60_40_53 | -92.9, 802.3, 71.0 | 10147.1, 13639.0 | - | - | - | - | MSB Enemy |
+| 1040532140 | Map Event Flag (1040532140) | EMEVD Literal Flag | Altus Plateau | m60_40_53 | - | - | - | - | - | - | EMEVD:m60_40_53_00.emevd |
 | 1040532700 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | - | - | - | - | MSB SpawnPoint |
 | 1040532701 | Stake of Marika (m60_40_53) | Stake of Marika | Altus Plateau | m60_40_53 | -45.3, 810.7, 93.2 | 10194.7, 13661.2 | - | - | - | - | MSB SpawnPoint |
 | 1040537000 | Golden Rune [5] | World Pickup | Altus Plateau | m60_40_53 | -108.1, 816.6, 35.5 | 10131.9, 13603.5 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5645,18 +7128,25 @@ Total unique flags: 7034
 | 1040537040 | Golden Arrow | World Pickup | Altus Plateau | m60_40_53 | 109.1, 814.8, -87.5 | 10349.1, 13480.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1040537050 | Lump of Flesh | World Pickup | Altus Plateau | m60_40_53 | 87.0, 783.2, 78.5 | 10327.0, 13646.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1040537060 | Hefty Beast Bone | World Pickup | Altus Plateau | m60_40_53 | 101.2, 768.6, -32.9 | 10341.2, 13535.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1040540500 | Enemy Defeat (1040540500) | Enemy Defeat | Altus Plateau | m60_40_54 | 122.8, 830.8, 36.6 | 10362.8, 13860.6 | - | - | - | - | EMEVD:m60_40_54_00.emevd |
 | 1040540700 | The Noble Goldmask | NPC | Altus Plateau | m60_40_54 | 73.2, 844.2, 28.7 | 10313.2, 13852.7 | - | - | - | - | MSB NPC |
 | 1040540705 | Scribe Corhyn | NPC | Altus Plateau | m60_40_54 | 73.9, 844.2, 31.5 | 10313.9, 13855.5 | - | - | - | - | MSB NPC |
+| 1040542201 | Map Event Flag (1040542201) | EMEVD Literal Flag | Altus Plateau | m60_40_54 | - | - | - | - | - | - | EMEVD:m60_40_54_00.emevd |
+| 1040542210 | Map Event Flag (1040542210) | EMEVD Literal Flag | Altus Plateau | m60_40_54 | - | - | - | - | - | - | EMEVD:m60_40_54_00.emevd |
+| 1040542710 | Map Event Flag (1040542710) | EMEVD Literal Flag | Altus Plateau | m60_40_54 | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
 | 1040547000 | Great Stars | World Pickup | Altus Plateau | m60_40_54 | -343.1, 817.4, 193.0 | 9896.9, 14017.0 | cart | 2 | low | N | ItemLotParam_map |
 | 1040547010 | Gravel Stone | World Pickup | Altus Plateau | m60_40_54 | -124.6, 799.5, 18.2 | 10115.4, 13842.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1040547030 | Stimulating Boluses | World Pickup | Altus Plateau | m60_40_54 | 55.9, 821.5, -43.3 | 10295.9, 13780.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1040547050 | Dragonwound Grease | World Pickup | Altus Plateau | m60_40_54 | -309.0, 843.8, 150.4 | 9931.0, 13974.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1040547090 | Radiant Gold Mask | World Pickup | Altus Plateau | m60_40_54 | 57.2, 800.5, -86.7 | 10297.2, 13737.3 | corpse | 2 | high | N | ItemLotParam_map |
 | 1040549205 | [Brother Corhyn - Goldmask] Discus of Light - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1040549254 | Map Event Flag (1040549254) | EMEVD Literal Flag | Altus Plateau | m60_40_54 | - | - | - | - | - | - | EMEVD:m60_40_54_00.emevd |
 | 1040552650 | Stake of Marika (m60_40_55) | Stake of Marika | Altus Plateau | m60_40_55 | 63.7, 844.4, -111.5 | 10303.7, 13968.5 | - | - | - | - | MSB SpawnPoint |
 | 1040557000 | Giant Rat Ashes | World Pickup | Altus Plateau | m60_40_55 | -78.5, 854.4, -104.2 | 10161.5, 13975.8 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041320321 | Map Event Flag (1041320321) | EMEVD Literal Flag | World (41,32) | m60_41_32 | - | - | - | - | - | - | EMEVD:m60_41_32_00.emevd |
 | 1041320700 | Isolated Merchant | Merchant | World (41,32) | m60_41_32 | 6.9, 0.6, 100.1 | 10502.9, 8292.1 | - | - | - | - | MSB NPC |
 | 1041320950 | Isolated Merchant | NPC | World (41,32) | m60_41_32 | 2.6, 0.7, 109.9 | 10498.6, 8301.9 | - | - | - | - | MSB NPC |
+| 1041322320 | Map Event Flag (1041322320) | EMEVD Literal Flag | World (41,32) | m60_41_32 | - | - | - | - | - | - | EMEVD:m60_41_32_00.emevd |
 | 1041327000 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 131.7, 27.5, -38.3 | 10627.7, 8153.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041327010 | Golden Rune [1] | World Pickup | World (41,32) | m60_41_32 | 117.2, 26.7, -40.1 | 10613.2, 8151.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041327020 | Golden Rune [2] | World Pickup | World (41,32) | m60_41_32 | 125.1, 26.7, -40.5 | 10621.1, 8151.5 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5667,6 +7157,7 @@ Total unique flags: 7034
 | 1041330701 | Sorceress Sellen | NPC | World (41,33) | m60_41_33 | 47.6, -0.8, -7.6 | 10543.6, 8440.4 | - | - | - | - | MSB NPC |
 | 1041330710 | Castellan Jerren | NPC | World (41,33) | m60_41_33 | 49.4, -0.8, -5.3 | 10545.4, 8442.7 | - | - | - | - | MSB NPC |
 | 1041330720 | Wandering Noble | NPC | World (41,33) | m60_41_33 | 95.8, 27.2, 5.7 | 10591.8, 8453.7 | - | - | - | - | MSB NPC |
+| 1041330800 | Map Event Flag (1041330800) | EMEVD Literal Flag | World (41,33) | m60_41_33 | - | - | - | - | - | - | EMEVD:m60_41_33_00.emevd |
 | 1041330950 | Witch-Hunter Jerren | NPC | World (41,33) | m60_41_33 | 53.7, 32.2, 65.6 | 10549.7, 8513.6 | - | - | - | - | MSB NPC |
 | 1041332950 | Stake of Marika (m60_41_33) | Stake of Marika | World (41,33) | m60_41_33 | 55.1, 32.5, 66.6 | 10551.1, 8514.6 | - | - | - | - | MSB SpawnPoint |
 | 1041337000 | Golden Rune [1] | World Pickup | World (41,33) | m60_41_33 | -84.4, 0.5, 14.4 | 10411.6, 8462.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5674,33 +7165,51 @@ Total unique flags: 7034
 | 1041337030 | Great Dragonfly Head | World Pickup | World (41,33) | m60_41_33 | 54.5, 11.2, -9.1 | 10550.5, 8438.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041337100 | Ambush Shard | World Pickup | World (41,33) | m60_41_33 | 52.5, -0.8, -2.9 | 10548.5, 8445.1 | corpse | 1 | high | Y | ItemLotParam_map |
 | 1041337200 | Sacred Tear | World Pickup | World (41,33) | m60_41_33 | 45.5, 32.5, 60.2 | 10541.5, 8508.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1041350210 | Enemy Defeat (1041350210) | Enemy Defeat | World (41,35) | m60_41_35 | -78.3, 20.0, -122.4 | 10417.7, 8837.6 | - | - | - | - | EMEVD:m60_41_35_00.emevd |
 | 1041350700 | Church of Dragon Communion | NPC | World (41,35) | m60_41_35 | -75.8, 27.6, -44.8 | 10420.1, 8915.2 | - | - | - | - | MSB NPC |
 | 1041357000 | Great Dragonfly Head | World Pickup | World (41,35) | m60_41_35 | -130.4, 33.4, -43.4 | 10365.6, 8916.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041357010 | Smithing Stone [2] | World Pickup | World (41,35) | m60_41_35 | -29.1, 5.8, -124.2 | 10466.9, 8835.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041357020 | Exalted Flesh | World Pickup | World (41,35) | m60_41_35 | -73.2, 44.6, -94.6 | 10422.8, 8865.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1041359950 | Map Event Flag (1041359950) | EMEVD Literal Flag | World (41,35) | m60_41_35 | - | - | - | - | - | - | EMEVD:m60_41_35_00.emevd |
 | 1041360700 | Nomadic Merchant | Merchant | Limgrave | m60_41_36 | 109.2, 3.0, -99.5 | 10605.2, 9116.5 | - | - | - | - | MSB NPC |
+| 1041362708 | Map Event Flag (1041362708) | EMEVD Literal Flag | Limgrave | m60_41_36 | - | - | - | - | - | - | EMEVD:m60_41_36_00.emevd |
 | 1041367000 | Land Octopus Ovary | World Pickup | Limgrave | m60_41_36 | -58.7, 0.0, 69.4 | 10437.3, 9285.4 | corpse | 0 | high | N | ItemLotParam_map |
+| 1041370200 | Enemy Defeat (1041370200) | Enemy Defeat | Limgrave | m60_41_37 | -50.5, 1.0, -63.1 | 10445.5, 9408.9 | - | - | - | - | EMEVD:m60_41_37_00.emevd |
+| 1041370340 | Enemy Defeat (1041370340) | Enemy Defeat | Limgrave | m60_41_37 | 46.9, 156.0, 62.4 | 10542.9, 9534.4 | - | - | - | - | EMEVD:m60_41_37_00.emevd |
+| 1041370670 | Map Event Flag (1041370670) | EMEVD Literal Flag | Limgrave | m60_41_37 | - | - | - | - | - | - | EMEVD:m60_41_37_00.emevd |
 | 1041377000 | Strip of White Flesh | World Pickup | Limgrave | m60_41_37 | -87.0, 0.7, 51.6 | 10409.0, 9523.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041377020 | Starlight Shards | World Pickup | Limgrave | m60_41_37 | -21.8, 144.5, -41.8 | 10474.2, 9430.2 | chest | 2 | high | N | ItemLotParam_map |
+| 1041380230 | Enemy Defeat (1041380230) | Enemy Defeat | Limgrave | m60_41_38 | -70.0, 248.1, 109.0 | 10426.0, 9837.0 | - | - | - | - | EMEVD:m60_41_38_00.emevd |
 | 1041380720 | Heartbroken Maiden | NPC | Limgrave | m60_41_38 | 36.1, 204.6, 9.8 | 10532.1, 9737.8 | - | - | - | - | MSB NPC |
 | 1041380950 | Roderika | NPC | Limgrave | m60_41_38 | 16.9, 204.1, 17.0 | 10512.9, 9745.0 | - | - | - | - | MSB NPC |
+| 1041382200 | Map Event Flag (1041382200) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1041382736 | Map Event Flag (1041382736) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_41_38_00.emevd |
+| 1041382737 | Map Event Flag (1041382737) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_41_38_00.emevd |
+| 1041382738 | Map Event Flag (1041382738) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_41_38_00.emevd |
 | 1041387010 | Magic Grease | World Pickup | Limgrave | m60_41_38 | -53.1, 188.5, -107.8 | 10442.9, 9620.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041387030 | Smithing Stone [1] | World Pickup | Limgrave | m60_41_38 | 106.8, 181.4, -49.2 | 10602.8, 9678.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041387040 | Stonesword Key | World Pickup | Limgrave | m60_41_38 | 24.6, 206.6, 5.8 | 10520.6, 9733.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1041387050 | Godrick Soldier Ashes | World Pickup | Limgrave | m60_41_38 | -53.6, 186.3, -117.4 | 10442.4, 9610.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041387100 | Golden Seed | World Pickup | Limgrave | m60_41_38 | 44.8, 179.2, -78.9 | 10540.8, 9649.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1041387200 | Bloodrose | World Pickup | Limgrave | m60_41_38 | -52.1, 185.0, -127.0 | 10443.9, 9601.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1041389334 | Map Event Flag (1041389334) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_38_43_00.emevd |
+| 1041389414 | Map Event Flag (1041389414) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m60_41_38_00.emevd |
+| 1041389416 | Map Event Flag (1041389416) | EMEVD Literal Flag | Limgrave | m60_41_38 | - | - | - | - | - | - | EMEVD:m11_10_00_00.emevd |
 | 1041390700 | Finger Reader Crone | Finger Reader | Limgrave | m60_41_39 | -104.4, 253.5, 21.2 | 10391.6, 10005.2 | - | - | - | - | MSB NPC |
 | 1041397000 | Lump of Flesh | World Pickup | Limgrave | m60_41_39 | -78.6, 261.0, -86.6 | 10417.4, 9897.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041500800 | Fallingstar Beast | Great Boss Defeat | Altus Plateau | m60_41_50 | 42.8, 834.1, 109.2 | 10538.8, 12909.2 | - | - | - | - | MSB Enemy |
+| 1041510410 | Enemy Defeat (1041510410) | Enemy Defeat | Altus Plateau | m60_41_51 | 50.0, 840.7, 11.8 | 10546.0, 13067.8 | - | - | - | - | EMEVD:m60_41_51_00.emevd |
 | 1041510800 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 91.1, 851.3, -31.3 | 10587.1, 13024.7 | - | - | - | - | MSB Enemy |
 | 1041510801 | Tree Sentinel | Boss Defeat | Altus Plateau | m60_41_51 | 93.7, 851.4, -52.4 | 10589.7, 13003.6 | - | - | - | - | MSB Enemy |
 | 1041512690 | Stake of Marika (m60_41_51) | Stake of Marika | Altus Plateau | m60_41_51 | 50.7, 840.6, 12.6 | 10546.7, 13068.6 | - | - | - | - | MSB SpawnPoint |
+| 1041512815 | Map Event Flag (1041512815) | EMEVD Literal Flag | Altus Plateau | m60_41_51 | - | - | - | - | - | - | EMEVD:m60_41_51_00.emevd |
 | 1041517000 | Golden Rune [3] | World Pickup | Altus Plateau | m60_41_51 | 20.4, 892.7, 54.4 | 10516.4, 13110.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041517010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_51 | 60.7, 896.6, 51.2 | 10556.7, 13107.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041517020 | Silver-Pickled Fowl Foot | World Pickup | Altus Plateau | m60_41_51 | 6.7, 884.6, 35.6 | 10502.7, 13091.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041517030 | Gravity Stone Chunk | World Pickup | Altus Plateau | m60_41_51 | -125.1, 794.7, -104.9 | 10370.9, 12951.1 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1041520800 | Lichdragon Fortissax | Great Boss Defeat | Altus Plateau | m60_41_52 | 46.6, 924.1, -88.4 | 10542.6, 13223.6 | - | - | - | - | MSB Enemy |
+| 1041520820 | Map Event Flag (1041520820) | EMEVD Literal Flag | Altus Plateau | m60_41_52 | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
+| 1041522810 | Map Event Flag (1041522810) | EMEVD Literal Flag | Altus Plateau | m60_41_52 | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
 | 1041527000 | Golden Rune [8] | World Pickup | Altus Plateau | m60_41_52 | 102.8, 876.6, 109.6 | 10598.8, 13421.6 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1041527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_41_52 | 83.8, 872.9, 108.5 | 10579.8, 13420.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1041527020 | Golden Rune [4] | World Pickup | Altus Plateau | m60_41_52 | 102.9, 876.3, 113.8 | 10598.9, 13425.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
@@ -5709,6 +7218,7 @@ Total unique flags: 7034
 | 1041527070 | Lump of Flesh | World Pickup | Altus Plateau | m60_41_52 | -113.0, 831.9, 87.9 | 10383.0, 13399.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041527080 | Land Octopus Ovary | World Pickup | Altus Plateau | m60_41_52 | 123.7, 905.7, -118.5 | 10619.7, 13193.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041527090 | Stonesword Key | World Pickup | Altus Plateau | m60_41_52 | -28.4, 905.0, -95.0 | 10467.6, 13217.0 | corpse | 2 | high | N | ItemLotParam_map |
+| 1041530500 | Enemy Defeat (1041530500) | Enemy Defeat | Altus Plateau | m60_41_53 | -49.5, 788.9, 68.4 | 10446.5, 13636.4 | - | - | - | - | EMEVD:m60_41_53_00.emevd |
 | 1041530800 | Wormface | Great Boss Defeat | Altus Plateau | m60_41_53 | -77.5, 785.2, 29.2 | 10418.5, 13597.2 | - | - | - | - | MSB Enemy |
 | 1041537010 | Poisonbone Dart | World Pickup | Altus Plateau | m60_41_53 | 32.1, 791.3, -63.8 | 10528.1, 13504.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041537020 | Wrath of Gold | World Pickup | Altus Plateau | m60_41_53 | 16.2, 783.7, -145.4 | 10512.2, 13422.6 | chest | 2 | high | Y | ItemLotParam_map |
@@ -5724,9 +7234,11 @@ Total unique flags: 7034
 | 1041557000 | Twinned Knight Swords | World Pickup | Altus Plateau | m60_41_55 | -119.2, 849.9, 19.9 | 10376.8, 14099.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1041557010 | Raw Meat Dumpling | World Pickup | Altus Plateau | m60_41_55 | 38.4, 877.0, -84.1 | 10534.4, 13995.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1041557020 | Crimson Hood | World Pickup | Altus Plateau | m60_41_55 | -119.0, 849.7, 18.5 | 10377.0, 14098.5 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042320400 | Map Event Flag (1042320400) | EMEVD Literal Flag | World (42,32) | m60_42_32 | - | - | - | - | - | - | EMEVD:m60_42_32_00.emevd |
 | 1042327000 | Great Dragonfly Head | World Pickup | World (42,32) | m60_42_32 | -4.4, 65.0, -6.4 | 10747.6, 8185.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1042327020 | Mushroom | World Pickup | World (42,32) | m60_42_32 | 27.9, 62.1, -36.3 | 10779.9, 8155.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042327100 | Composite Bow | World Pickup | World (42,32) | m60_42_32 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1042330220 | Enemy Defeat (1042330220) | Enemy Defeat | World (42,33) | m60_42_33 | -46.4, 39.2, 120.0 | 10705.6, 8568.0 | - | - | - | - | EMEVD:m60_42_33_00.emevd |
 | 1042330400 | Walking Mausoleum | NPC | World (10,8) | m60_10_08 | 34.9, 9.2, -200.1 | 2594.9, 1847.9 | - | - | - | - | MSB NPC |
 | 1042330800 | Ancient Hero of Zamor | Boss Arena | Weeping Peninsula - Weeping Evergaol | m60_42_33 | -126.4, 19.9, 108.8 | -126.4, 108.8 | - | - | - | - | GameAreaParam |
 | 1042332805 | Stake of Marika (m60_42_33) | Stake of Marika | World (42,33) | m60_42_33 | -109.7, 18.7, 105.9 | 10642.3, 8553.9 | - | - | - | - | MSB SpawnPoint |
@@ -5745,6 +7257,7 @@ Total unique flags: 7034
 | 1042357020 | Sliver of Meat | World Pickup | World (42,35) | m60_42_35 | 90.6, 55.7, -86.4 | 10842.6, 8873.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042357030 | Bewitching Branch | World Pickup | World (42,35) | m60_42_35 | 92.7, 55.5, -82.8 | 10844.7, 8877.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042360100 | White Mask Varré | NPC | Limgrave | m60_42_36 | 3.6, 81.5, 9.9 | 10755.6, 9225.9 | - | - | - | - | MSB NPC |
+| 1042360200 | Enemy Defeat (1042360200) | Enemy Defeat | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
 | 1042360700 | White Mask Varré | NPC | Limgrave | m60_42_36 | -17.0, 91.2, -47.9 | 10735.0, 9168.1 | - | - | - | - | MSB NPC |
 | 1042360710 | Merchant Kalé | Merchant | Limgrave | m60_42_36 | -57.0, 92.3, 91.6 | 10695.0, 9307.6 | - | - | - | - | MSB NPC |
 | 1042360730 | Renna the Witch | Quest NPC | Limgrave | m60_42_36 | -33.7, 92.9, 84.4 | 10718.3, 9300.4 | - | - | - | - | MSB NPC |
@@ -5752,13 +7265,21 @@ Total unique flags: 7034
 | 1042360800 | Tree Sentinel | Boss Defeat | Limgrave | m60_42_36 | -12.1, 89.0, 46.8 | 10739.9, 9262.8 | - | - | - | - | MSB Enemy |
 | 1042360950 | Merchant Kalé | NPC | Limgrave | m60_42_36 | -45.4, 91.7, 81.0 | 10706.6, 9297.0 | - | - | - | - | MSB NPC |
 | 1042362020 | Stake of Marika (m60_42_36) | Stake of Marika | Limgrave | m60_42_36 | -5.4, 93.9, -82.6 | 10746.6, 9133.4 | - | - | - | - | MSB SpawnPoint |
+| 1042362734 | Map Event Flag (1042362734) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
 | 1042367010 | Silver-Pickled Fowl Foot | World Pickup | Limgrave | m60_42_36 | 35.1, 79.7, -126.4 | 10787.1, 9089.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042367030 | Golden Rune [2] | World Pickup | Limgrave | m60_42_36 | -20.0, 91.4, 71.3 | 10732.0, 9287.3 | chest | 0 | high | N | ItemLotParam_map |
 | 1042367040 | Golden Rune [1] | World Pickup | Limgrave | m60_42_36 | 68.5, 96.8, 82.6 | 10820.5, 9298.6 | chest | 0 | high | N | ItemLotParam_map |
 | 1042367050 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | 99.3, 64.5, -85.7 | 10851.3, 9130.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042367060 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_36 | -62.0, 92.9, 87.4 | 10690.0, 9303.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1042369249 | Map Event Flag (1042369249) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
+| 1042369259 | Map Event Flag (1042369259) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m12_05_00_00.emevd |
+| 1042369410 | Map Event Flag (1042369410) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
+| 1042369411 | Map Event Flag (1042369411) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
+| 1042369413 | Map Event Flag (1042369413) | EMEVD Literal Flag | Limgrave | m60_42_36 | - | - | - | - | - | - | EMEVD:m60_42_36_00.emevd |
 | 1042369416 | [Twin Maiden Husks] Spirit Calling Bell - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
 | 1042370800 | Crucible Knight | Boss Arena | Limgrave - Stormhill Evergaol | m60_42_37 | -83.6, 160.6, 65.0 | -83.6, 65.0 | - | - | - | - | GameAreaParam |
+| 1042372701 | Map Event Flag (1042372701) | EMEVD Literal Flag | Limgrave | m60_42_37 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 1042372702 | Map Event Flag (1042372702) | EMEVD Literal Flag | Limgrave | m60_42_37 | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
 | 1042372805 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -66.1, 158.4, 44.2 | 10685.9, 9516.2 | - | - | - | - | MSB SpawnPoint |
 | 1042372806 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -68.6, 158.4, 40.9 | 10683.4, 9512.9 | - | - | - | - | MSB SpawnPoint |
 | 1042372807 | Stake of Marika (m60_42_37) | Stake of Marika | Limgrave | m60_42_37 | -86.6, 160.3, 62.0 | 10665.4, 9534.0 | - | - | - | - | MSB SpawnPoint |
@@ -5771,10 +7292,13 @@ Total unique flags: 7034
 | 1042377110 | Ash of War: Storm Stomp | World Pickup | Limgrave | m60_42_37 | 73.6, 84.0, 48.6 | 10825.6, 9520.6 | chest | - | high | N | ItemLotParam_map |
 | 1042377300 | Arrow's Reach Talisman | World Pickup | Limgrave | m60_42_37 | -4.8, 144.5, 116.3 | 10747.2, 9588.3 | chest | - | high | N | ItemLotParam_map |
 | 1042377700 | Reduvia | World Pickup | Limgrave | m60_42_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042380600 | EMEVD Treasure (1042380600) | EMEVD Treasure | Limgrave | m60_42_38 | 87.2, 166.1, -7.5 | 10839.2, 9720.5 | - | - | - | - | EMEVD:m60_42_38_00.emevd |
 | 1042380710 | Knight Bernahl | NPC | Limgrave | m60_42_38 | 12.3, 188.0, 89.6 | 10764.3, 9817.6 | - | - | - | - | MSB NPC |
 | 1042380800 | Death Rite Bird | Great Boss Defeat | Limgrave | m60_42_38 | 126.6, 183.1, 54.6 | 10878.6, 9782.6 | - | - | - | - | MSB Enemy |
 | 1042380850 | Elemer of the Briar | Field Boss Defeat | Limgrave | m60_42_38 | 11.6, 188.0, 90.5 | 10763.6, 9818.5 | - | - | - | - | MSB Enemy |
 | 1042380950 | Knight Bernahl | NPC | Limgrave | m60_42_38 | 8.3, 187.6, 99.3 | 10760.3, 9827.3 | - | - | - | - | MSB NPC |
+| 1042382718 | Map Event Flag (1042382718) | EMEVD Literal Flag | Limgrave | m60_42_38 | - | - | - | - | - | - | EMEVD:m60_42_38_00.emevd |
+| 1042382719 | Map Event Flag (1042382719) | EMEVD Literal Flag | Limgrave | m60_42_38 | - | - | - | - | - | - | EMEVD:m60_42_38_00.emevd |
 | 1042387000 | Beast Liver | World Pickup | Limgrave | m60_42_38 | 104.0, 175.0, 35.8 | 10856.0, 9763.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042387010 | Golden Rune [1] | World Pickup | Limgrave | m60_42_38 | -50.2, 126.0, -109.9 | 10701.8, 9618.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042387020 | Fire Arrow | World Pickup | Limgrave | m60_42_38 | -86.6, 194.3, 86.8 | 10665.4, 9814.8 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5792,6 +7316,7 @@ Total unique flags: 7034
 | 1042387400 | Blue-Feathered Branchsword | World Pickup | Limgrave | m60_42_38 | - | - | - | - | none | N | ItemLotParam_map |
 | 1042387410 | Bone Peddler's Bell Bearing | World Pickup | Limgrave | m60_42_38 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1042387600 | Smithing Stone [1] | World Pickup | Limgrave | m60_42_38 | 87.2, 166.1, -7.5 | 10839.2, 9720.5 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1042390310 | Enemy Defeat (1042390310) | Enemy Defeat | Limgrave | m60_42_39 | 93.1, 226.3, 33.4 | 10845.1, 10017.4 | - | - | - | - | EMEVD:m60_42_39_00.emevd |
 | 1042392141 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
 | 1042392720 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
 | 1042392721 | Stake of Marika (m60_42_39) | Stake of Marika | Limgrave | m60_42_39 | -74.5, 206.3, 60.6 | 10677.5, 10044.6 | - | - | - | - | MSB SpawnPoint |
@@ -5799,8 +7324,13 @@ Total unique flags: 7034
 | 1042397500 | Scaled Helm | World Pickup | Limgrave | m60_42_39 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1042397700 | Hammer Talisman | World Pickup | Limgrave | m60_42_39 | - | - | - | - | none | N | ItemLotParam_map |
 | 1042397900 | Beast Crest Heater Shield | World Pickup | Limgrave | m60_42_39 | 116.9, 190.1, -65.6 | 10868.9, 9918.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1042399250 | Map Event Flag (1042399250) | EMEVD Literal Flag | Limgrave | m60_42_39 | - | - | - | - | - | - | EMEVD:m60_42_39_00.emevd |
+| 1042399300 | Map Event Flag (1042399300) | EMEVD Literal Flag | Limgrave | m60_42_39 | - | - | - | - | - | - | EMEVD:m60_42_39_00.emevd |
+| 1042399710 | Map Event Flag (1042399710) | EMEVD Literal Flag | Limgrave | m60_42_39 | - | - | - | - | - | - | EMEVD:m60_42_39_00.emevd |
+| 1042500300 | Enemy Defeat (1042500300) | Enemy Defeat | Altus Plateau | m60_42_50 | -36.1, 865.5, 60.4 | 10715.9, 12860.4 | - | - | - | - | EMEVD:m60_42_50_00.emevd |
 | 1042507000 | Giant-Crusher | World Pickup | Altus Plateau | m60_42_50 | 84.3, 867.9, 179.7 | 10836.3, 12979.7 | cart | 1 | low | N | ItemLotParam_map |
 | 1042507020 | Golden Seed | World Pickup | Altus Plateau | m60_42_50 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1042510300 | Enemy Defeat (1042510300) | Enemy Defeat | Altus Plateau | m60_42_51 | 37.1, 880.3, 85.3 | 10789.1, 13141.3 | - | - | - | - | EMEVD:m60_42_51_00.emevd |
 | 1042517000 | Holy Grease | World Pickup | Altus Plateau | m60_42_51 | 36.4, 859.3, -98.5 | 10788.4, 12957.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042517400 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -48.9, 850.2, -41.7 | 10703.1, 13014.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1042517410 | Golden Seed | World Pickup | Altus Plateau | m60_42_51 | -47.6, 850.2, -40.7 | 10704.4, 13015.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
@@ -5810,6 +7340,9 @@ Total unique flags: 7034
 | 1042527020 | Rainbow Stone | World Pickup | Altus Plateau | m60_42_52 | -21.9, 931.4, -6.1 | 10730.1, 13305.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1042527030 | Golden Rune [10] | World Pickup | Altus Plateau | m60_42_52 | 24.7, 938.4, 42.1 | 10776.7, 13354.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042527040 | Arteria Leaf | World Pickup | Altus Plateau | m60_42_52 | 115.1, 932.4, 120.4 | 10867.1, 13432.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042530350 | NPC Defeat (1042530350) | NPC Defeat | Altus Plateau | m60_42_53 | -86.2, 895.5, -30.9 | 10665.8, 13537.1 | - | - | - | - | EMEVD:m60_42_53_00.emevd |
+| 1042530501 | Enemy Defeat (1042530501) | Enemy Defeat | Altus Plateau | m60_42_53 | - | - | - | - | - | - | EMEVD:m60_42_53_00.emevd |
+| 1042532350 | NPC Defeat (1042532350) | NPC Defeat | Altus Plateau | m60_42_53 | -87.6, 895.7, -36.5 | 10664.4, 13531.5 | - | - | - | - | EMEVD:m60_42_53_00.emevd |
 | 1042537000 | Lightning Greatbolt | World Pickup | Altus Plateau | m60_42_53 | -48.6, 906.7, -78.7 | 10703.4, 13489.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1042537010 | Somber Smithing Stone [5] | World Pickup | Altus Plateau | m60_42_53 | -133.3, 881.4, -0.7 | 10618.7, 13567.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1042547000 | Four-Toed Fowl Foot | World Pickup | Altus Plateau | m60_42_54 | -119.5, 888.9, -105.8 | 10632.5, 13718.2 | ground_pickup | 0 | high | N | ItemLotParam_map |
@@ -5830,12 +7363,16 @@ Total unique flags: 7034
 | 1042550800 | Godskin Apostle | Boss Defeat | Altus Plateau | m60_42_55 | -35.5, 968.2, -38.9 | 10716.5, 14041.1 | - | - | - | - | MSB Enemy |
 | 1042550950 | Millicent | NPC | Altus Plateau | m60_42_55 | -38.2, 968.4, -36.0 | 10713.8, 14044.0 | - | - | - | - | MSB NPC |
 | 1042557000 | Celebrant's Skull | World Pickup | Altus Plateau | m60_42_55 | -94.2, 898.8, -105.9 | 10657.8, 13974.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1042559204 | Map Event Flag (1042559204) | EMEVD Literal Flag | Altus Plateau | m60_42_55 | - | - | - | - | - | - | EMEVD:m60_42_55_00.emevd |
 | 1043300800 | Misbegotten Warrior | Boss Defeat | Weeping Peninsula | m60_43_30 | -30.5, 0.5, -7.4 | 10977.5, 7672.6 | - | - | - | - | MSB Enemy |
 | 1043307000 | Somber Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_30 | -41.3, -0.2, 65.2 | 10966.7, 7745.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043307010 | Fire Arrow | World Pickup | Weeping Peninsula | m60_43_30 | -17.7, -0.3, 149.2 | 10990.3, 7829.2 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043310510 | Door Unlock (1043310510) | Door Unlock | Weeping Peninsula | m60_43_31 | 88.0, 14.5, -15.3 | 11096.0, 7920.7 | - | - | - | - | EMEVD:m60_43_31_00.emevd |
 | 1043310700 | Wandering Noble | NPC | Weeping Peninsula | m60_43_31 | 4.5, 78.5, -100.9 | 11012.5, 7835.1 | - | - | - | - | MSB NPC |
 | 1043310705 | Castellan Edgar | NPC | Weeping Peninsula | m60_43_31 | 98.7, 119.0, -44.2 | 11106.7, 7891.8 | - | - | - | - | MSB NPC |
 | 1043310950 | Edgar | NPC | Weeping Peninsula | m60_43_31 | 104.4, 13.8, -2.9 | 11112.4, 7933.1 | - | - | - | - | MSB NPC |
+| 1043312223 | Map Event Flag (1043312223) | EMEVD Literal Flag | Weeping Peninsula | m60_43_31 | - | - | - | - | - | - | EMEVD:m60_43_31_00.emevd |
+| 1043312240 | Map Event Flag (1043312240) | EMEVD Literal Flag | Weeping Peninsula | m60_43_31 | - | - | - | - | - | - | EMEVD:m60_43_31_00.emevd |
 | 1043317000 | Fire Grease | World Pickup | Weeping Peninsula | m60_43_31 | 28.8, 102.6, -50.8 | 11036.8, 7885.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043317020 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_43_31 | 94.5, 98.3, -40.3 | 11102.5, 7895.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043317080 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_31 | 15.6, 116.0, -80.4 | 11023.6, 7855.6 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5855,11 +7392,18 @@ Total unique flags: 7034
 | 1043317500 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_43_31 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1043317900 | Twinblade Talisman | World Pickup | Weeping Peninsula | m60_43_31 | -55.3, 95.7, -64.7 | 10952.7, 7871.3 | chest | - | high | N | ItemLotParam_map |
 | 1043317910 | Claymore | World Pickup | Weeping Peninsula | m60_43_31 | 6.3, 104.0, -27.7 | 11014.3, 7908.3 | chest | 1 | high | N | ItemLotParam_map |
+| 1043319208 | Map Event Flag (1043319208) | EMEVD Literal Flag | Weeping Peninsula | m60_43_31 | - | - | - | - | - | - | EMEVD:m60_43_31_00.emevd |
+| 1043320500 | Mechanism Unlock (1043320500) | Mechanism Unlock | Weeping Peninsula | m60_43_32 | - | - | - | - | - | - | EMEVD:m60_43_32_00.emevd |
 | 1043327000 | Yellow Ember | World Pickup | Weeping Peninsula | m60_43_32 | 108.9, 72.5, 110.6 | 11116.9, 8302.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043327010 | Sliver of Meat | World Pickup | Weeping Peninsula | m60_43_32 | -62.9, 70.4, 117.1 | 10945.1, 8309.1 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043330221 | Enemy Defeat (1043330221) | Enemy Defeat | Weeping Peninsula | m60_43_33 | 44.5, 46.0, -83.1 | 11052.5, 8364.9 | - | - | - | - | EMEVD:m60_43_33_00.emevd |
+| 1043330530 | Mechanism Unlock (1043330530) | Mechanism Unlock | Weeping Peninsula | m60_43_33 | - | - | - | - | - | - | EMEVD:m60_43_33_00.emevd |
+| 1043330610 | Map Event Flag (1043330610) | EMEVD Literal Flag | Weeping Peninsula | m60_43_33 | - | - | - | - | - | - | EMEVD:m60_43_33_00.emevd |
+| 1043330650 | Door Unlock (1043330650) | Door Unlock | Weeping Peninsula | m60_43_33 | - | - | - | - | - | - | EMEVD:m60_43_33_00.emevd |
 | 1043330800 | Erdtree Avatar | Great Boss Defeat | Weeping Peninsula | m60_43_33 | -55.8, 83.1, 18.9 | 10952.2, 8466.9 | - | - | - | - | MSB Enemy |
 | 1043337000 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 101.4, 82.7, -12.8 | 11109.4, 8435.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043337010 | Golden Rune [2] | World Pickup | Weeping Peninsula | m60_43_33 | 78.3, 13.0, 58.5 | 11086.3, 8506.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1043340340 | Enemy Defeat (1043340340) | Enemy Defeat | Weeping Peninsula | m60_43_34 | 26.3, 13.0, -2.5 | 11034.3, 8701.5 | - | - | - | - | EMEVD:m60_43_34_00.emevd |
 | 1043340700 | Commoner | NPC | Weeping Peninsula | m60_43_34 | -114.7, 88.8, 96.5 | 10893.3, 8800.5 | - | - | - | - | MSB NPC |
 | 1043347000 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_43_34 | 21.6, 12.8, 2.2 | 11029.6, 8706.2 | corpse | 2 | high | N | ItemLotParam_map |
 | 1043347040 | Gold-Tinged Excrement | World Pickup | Weeping Peninsula | m60_43_34 | 84.8, 7.4, -115.7 | 11092.8, 8588.3 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5867,48 +7411,85 @@ Total unique flags: 7034
 | 1043347100 | Shield of the Guilty | World Pickup | Weeping Peninsula | m60_43_34 | 14.5, -4.0, -56.2 | 11022.5, 8647.8 | chest | 2 | high | Y | ItemLotParam_map |
 | 1043347400 | Demi-Human Queen's Staff | World Pickup | Weeping Peninsula | m60_43_34 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1043350710 | Yura, Hunter of Bloody Fingers | NPC | Weeping Peninsula | m60_43_35 | 37.6, 72.0, 69.6 | 11045.6, 9029.6 | - | - | - | - | MSB NPC |
+| 1043352270 | Map Event Flag (1043352270) | EMEVD Literal Flag | Weeping Peninsula | m60_43_35 | - | - | - | - | - | - | EMEVD:m60_43_35_00.emevd |
 | 1043357000 | Crab Eggs | World Pickup | Weeping Peninsula | m60_43_35 | 16.6, 39.0, -82.7 | 11024.6, 8877.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043357010 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_43_35 | -38.6, 76.2, 111.1 | 10969.4, 9071.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043357030 | Slumbering Egg | World Pickup | Weeping Peninsula | m60_43_35 | 50.9, 91.3, 81.1 | 11058.9, 9041.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043357100 | Sacred Tear | World Pickup | Weeping Peninsula | m60_43_35 | -110.8, 88.9, -123.9 | 10897.2, 8836.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1043359258 | Map Event Flag (1043359258) | EMEVD Literal Flag | Weeping Peninsula | m60_43_35 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
+| 1043359259 | Map Event Flag (1043359259) | EMEVD Literal Flag | Weeping Peninsula | m60_43_35 | - | - | - | - | - | - | EMEVD:m60_49_53_00.emevd |
+| 1043360340 | Map Event Flag (1043360340) | EMEVD Literal Flag | Limgrave | m60_43_36 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
+| 1043360380 | Map Event Flag (1043360380) | EMEVD Literal Flag | Limgrave | m60_43_36 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
 | 1043360800 | [Dragon Communion] Agheel's Flame - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
+| 1043362379 | Map Event Flag (1043362379) | EMEVD Literal Flag | Limgrave | m60_43_36 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
 | 1043367010 | Stonesword Key | World Pickup | Limgrave | m60_43_36 | -27.9, 65.3, -54.9 | 10980.1, 9161.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1043367020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_36 | -29.1, 65.4, -49.4 | 10978.9, 9166.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043367040 | Crab Eggs | World Pickup | Limgrave | m60_43_36 | -1.5, 64.6, -69.7 | 11006.5, 9146.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043367070 | Arteria Leaf | World Pickup | Limgrave | m60_43_36 | 29.8, 65.6, 9.1 | 11037.8, 9225.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1043367110 | Twinblade | World Pickup | Limgrave | m60_43_36 | 5.5, 52.5, -75.9 | 11013.5, 9140.1 | chest | 1 | high | Y | ItemLotParam_map |
+| 1043369200 | Map Event Flag (1043369200) | EMEVD Literal Flag | Limgrave | m60_43_36 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
+| 1043369201 | Map Event Flag (1043369201) | EMEVD Literal Flag | Limgrave | m60_43_36 | - | - | - | - | - | - | EMEVD:m60_43_36_00.emevd |
+| 1043370210 | Enemy Defeat (1043370210) | Enemy Defeat | Limgrave | m60_43_37 | 53.8, 90.6, -91.2 | 11061.8, 9380.8 | - | - | - | - | EMEVD:m60_43_37_00.emevd |
 | 1043370720 | Wandering Noble | NPC | Limgrave | m60_43_39 | -83.7, 192.7, 32.7 | 10924.3, 10016.7 | - | - | - | - | MSB NPC |
 | 1043370750 | Demi-Human Boc | NPC | Limgrave | m60_43_37 | 15.0, 86.8, -5.6 | 11023.0, 9466.4 | - | - | - | - | MSB NPC |
 | 1043370800 | Night's Cavalry | Boss Arena | Limgrave - Agheel Lake North | m60_43_37 | 72.5, 91.0, -94.7 | 72.5, -94.7 | - | - | - | - | GameAreaParam |
+| 1043372708 | Map Event Flag (1043372708) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372714 | Map Event Flag (1043372714) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372717 | Map Event Flag (1043372717) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_38_00.emevd |
+| 1043372718 | Map Event Flag (1043372718) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_38_00.emevd |
+| 1043372722 | Map Event Flag (1043372722) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372732 | Map Event Flag (1043372732) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372734 | Map Event Flag (1043372734) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372736 | Map Event Flag (1043372736) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372740 | Map Event Flag (1043372740) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043372741 | Map Event Flag (1043372741) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
 | 1043377000 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_37 | 82.7, 91.8, -108.4 | 11090.7, 9363.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043377010 | Fire Grease | World Pickup | Limgrave | m60_43_37 | 95.8, 64.7, -91.3 | 11103.8, 9380.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043377020 | Arteria Leaf | World Pickup | Limgrave | m60_43_37 | -0.4, 86.0, -22.2 | 11007.6, 9449.8 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1043377400 | Ash of War: Repeating Thrust | World Pickup | Limgrave | m60_43_37 | - | - | - | - | none | N | ItemLotParam_map |
+| 1043379229 | Map Event Flag (1043379229) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043379262 | Map Event Flag (1043379262) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043379263 | Map Event Flag (1043379263) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
+| 1043379357 | Map Event Flag (1043379357) | EMEVD Literal Flag | Limgrave | m60_43_37 | - | - | - | - | - | - | EMEVD:m60_43_37_00.emevd |
 | 1043380700 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_43_38 | 117.4, 64.7, -66.9 | 11125.4, 9661.1 | - | - | - | - | MSB NPC |
 | 1043382190 | Stake of Marika (m60_43_38) | Stake of Marika | Limgrave | m60_43_38 | 91.7, 66.2, 66.5 | 11099.7, 9794.5 | - | - | - | - | MSB SpawnPoint |
 | 1043387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_38 | -23.2, 146.6, 62.2 | 10984.8, 9790.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043387020 | Golden Rune [2] | World Pickup | Limgrave | m60_43_38 | 45.2, 105.5, -22.7 | 11053.2, 9705.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043390710 | Alexander, Warrior Jar | NPC | Limgrave | m60_43_39 | -17.6, 182.4, -15.5 | 10990.4, 9968.5 | - | - | - | - | MSB NPC |
 | 1043390950 | Iron Fist Alexander | NPC | Limgrave | m60_43_39 | 20.9, 156.6, 0.7 | 11028.9, 9984.7 | - | - | - | - | MSB NPC |
+| 1043392712 | Map Event Flag (1043392712) | EMEVD Literal Flag | Limgrave | m60_43_39 | - | - | - | - | - | - | EMEVD:m60_43_39_00.emevd |
 | 1043397010 | Exalted Flesh | World Pickup | Limgrave | m60_43_39 | -116.9, 190.2, -85.5 | 10891.1, 9898.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043397020 | Smithing Stone [1] | World Pickup | Limgrave | m60_43_39 | 107.7, 158.5, 2.6 | 11115.7, 9986.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043397030 | Turtle Neck Meat | World Pickup | Limgrave | m60_43_39 | 81.9, 116.7, 132.0 | 11089.9, 10116.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043397200 | Golden Rune [3] | World Pickup | Limgrave | m60_43_39 | 36.8, 202.6, 46.6 | 11044.8, 10030.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043399222 | Map Event Flag (1043399222) | EMEVD Literal Flag | Limgrave | m60_43_39 | - | - | - | - | - | - | EMEVD:m60_43_39_00.emevd |
+| 1043399229 | Map Event Flag (1043399229) | EMEVD Literal Flag | Limgrave | m60_43_39 | - | - | - | - | - | - | EMEVD:m60_43_39_00.emevd |
+| 1043399314 | Map Event Flag (1043399314) | EMEVD Literal Flag | Limgrave | m60_43_39 | - | - | - | - | - | - | EMEVD:m60_39_44_00.emevd |
+| 1043399356 | Map Event Flag (1043399356) | EMEVD Literal Flag | Limgrave | m60_43_39 | - | - | - | - | - | - | EMEVD:m60_43_39_00.emevd |
+| 1043400200 | Enemy Defeat (1043400200) | Enemy Defeat | World (43,40) | m60_43_40 | -18.7, 198.6, -37.3 | 10989.3, 10202.7 | - | - | - | - | EMEVD:m60_43_40_00.emevd |
 | 1043407000 | Soporific Grease | World Pickup | World (43,40) | m60_43_40 | -72.0, 227.1, -110.9 | 10936.0, 10129.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043407010 | Lance Talisman | World Pickup | World (43,40) | m60_43_40 | 15.2, 201.3, -17.8 | 11023.2, 10222.2 | corpse | - | high | N | ItemLotParam_map |
 | 1043507000 | Golden Order Seal | World Pickup | Altus Plateau | m60_43_50 | -113.3, 911.1, -68.0 | 10894.7, 12732.0 | corpse | 2 | high | N | ItemLotParam_map |
 | 1043507010 | Smoldering Butterfly | World Pickup | Altus Plateau | m60_43_50 | -2.0, 884.2, 26.6 | 11006.0, 12826.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1043510500 | Enemy Defeat (1043510500) | Enemy Defeat | Altus Plateau | m60_43_51 | -100.3, 807.8, -30.6 | 10907.7, 13025.4 | - | - | - | - | EMEVD:m60_43_51_00.emevd |
+| 1043520400 | Enemy Defeat (1043520400) | Enemy Defeat | Altus Plateau | m60_43_52 | -47.0, 928.4, -60.4 | 10961.0, 13251.6 | - | - | - | - | EMEVD:m60_43_52_00.emevd |
+| 1043520506 | Enemy Defeat (1043520506) | Enemy Defeat | Altus Plateau | m60_43_52 | -97.4, 922.8, 89.3 | 10910.6, 13401.3 | - | - | - | - | EMEVD:m60_43_52_00.emevd |
 | 1043520700 | Commoner | NPC | Altus Plateau | m60_43_52 | -97.3, 922.8, 89.3 | 10910.7, 13401.3 | - | - | - | - | MSB NPC |
 | 1043520701 | Margit, the Fell Omen | NPC | Altus Plateau | m60_43_52 | -97.4, 922.8, 89.3 | 10910.6, 13401.3 | - | - | - | - | MSB NPC |
 | 1043520710 | Finger Reader Crone | Finger Reader | Altus Plateau | m60_43_52 | -120.4, 907.6, -57.8 | 10887.6, 13254.2 | - | - | - | - | MSB NPC |
+| 1043522506 | Map Event Flag (1043522506) | EMEVD Literal Flag | Altus Plateau | m60_43_52 | - | - | - | - | - | - | EMEVD:m60_43_52_00.emevd |
+| 1043522700 | Map Event Flag (1043522700) | EMEVD Literal Flag | Altus Plateau | m60_43_52 | - | - | - | - | - | - | EMEVD:m60_43_52_00.emevd |
 | 1043527000 | Lost Ashes of War | World Pickup | Altus Plateau | m60_43_52 | 22.2, 938.6, -133.3 | 11030.2, 13178.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043527030 | Golden Rune [5] | World Pickup | Altus Plateau | m60_43_52 | 5.4, 954.8, 64.0 | 11013.4, 13376.0 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1043527400 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.8, 907.5, -33.9 | 10881.2, 13278.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1043527410 | Golden Seed | World Pickup | Altus Plateau | m60_43_52 | -126.2, 907.5, -33.0 | 10881.8, 13279.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1043527500 | Viridian Amber Medallion +1 | World Pickup | Altus Plateau | m60_43_52 | - | - | - | - | none | N | ItemLotParam_map |
+| 1043530500 | Enemy Defeat (1043530500) | Enemy Defeat | Altus Plateau | m60_43_53 | -120.8, 965.3, 121.6 | 10887.2, 13689.6 | - | - | - | - | EMEVD:m60_43_53_00.emevd |
 | 1043530700 | Hermit Merchant | Merchant | Altus Plateau | m60_43_53 | -21.2, 993.3, 1.3 | 10986.8, 13569.3 | - | - | - | - | MSB NPC |
 | 1043530800 | Elemer of the Briar | Boss Defeat | Altus Plateau | m60_43_53 | -22.3, 993.3, 0.5 | 10985.7, 13568.5 | - | - | - | - | MSB Enemy |
 | 1043530950 | Hermit Merchant | NPC | Altus Plateau | m60_43_53 | -3.2, 992.5, 10.6 | 11004.8, 13578.6 | - | - | - | - | MSB NPC |
+| 1043532708 | Map Event Flag (1043532708) | EMEVD Literal Flag | Altus Plateau | m60_43_53 | - | - | - | - | - | - | EMEVD:m60_43_53_00.emevd |
+| 1043532709 | Map Event Flag (1043532709) | EMEVD Literal Flag | Altus Plateau | m60_43_53 | - | - | - | - | - | - | EMEVD:m60_43_53_00.emevd |
 | 1043537000 | Golden Rune [9] | World Pickup | Altus Plateau | m60_43_53 | -111.1, 965.1, 38.7 | 10896.9, 13606.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043537010 | Golden Rune [10] | World Pickup | Altus Plateau | m60_43_53 | 124.1, 1022.0, -18.1 | 11132.1, 13549.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1043537020 | Grace Mimic | World Pickup | Altus Plateau | m60_43_53 | 123.9, 991.9, -71.4 | 11131.9, 13496.6 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5919,9 +7500,12 @@ Total unique flags: 7034
 | 1043537070 | Mushroom | World Pickup | Altus Plateau | m60_43_53 | 48.2, 955.3, -70.4 | 11056.2, 13497.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1043537100 | Larval Tear | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1043537400 | Medicine Peddler's Bell Bearing | World Pickup | Altus Plateau | m60_43_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1044310200 | Mechanism Unlock (1044310200) | Mechanism Unlock | Weeping Peninsula | m60_44_31 | - | - | - | - | - | - | EMEVD:m60_44_31_00.emevd |
+| 1044310350 | Enemy Defeat (1044310350) | Enemy Defeat | World (11,7) | m60_11_07 | -492.5, 4.2, 431.6 | 2323.5, 2223.6 | - | - | - | - | EMEVD:m60_44_31_00.emevd |
 | 1044317010 | Golden Rune [4] | World Pickup | Weeping Peninsula | m60_44_31 | 70.5, 25.5, 105.4 | 11334.5, 8041.4 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1044317020 | Arteria Leaf | World Pickup | Weeping Peninsula | m60_44_31 | 40.2, -0.6, -25.1 | 11304.2, 7910.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1044317030 | Somber Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_31 | 38.6, -0.3, -23.6 | 11302.6, 7912.4 | corpse | 1 | high | N | ItemLotParam_map |
+| 1044320200 | Enemy Defeat (1044320200) | Enemy Defeat | Weeping Peninsula | m60_44_32 | 113.6, 24.0, -45.6 | 11377.6, 8146.4 | - | - | - | - | EMEVD:m60_44_32_00.emevd |
 | 1044320340 | Death Rite Bird | Boss Defeat | Weeping Peninsula | m60_44_32 | -110.1, 43.0, 12.0 | 11153.9, 8204.0 | - | - | - | - | MSB Enemy |
 | 1044320800 | Death Rite Bird | Boss Arena | Weeping Peninsula - Castle Morne Approach North | m60_44_32 | -103.4, 41.2, 7.6 | -103.4, 7.6 | - | - | - | - | GameAreaParam |
 | 1044320850 | Night's Cavalry | Boss Arena | Weeping Peninsula - Castle Morne Approach North | m60_44_32 | 36.6, 42.8, 102.5 | 36.6, 102.5 | - | - | - | - | GameAreaParam |
@@ -5931,8 +7515,17 @@ Total unique flags: 7034
 | 1044327040 | Great Turtle Shell | World Pickup | Weeping Peninsula | m60_44_32 | 104.6, 106.0, 131.9 | 11368.6, 8323.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1044327400 | Sacrificial Axe | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1044327410 | Ash of War: Barricade Shield | World Pickup | Weeping Peninsula | m60_44_32 | - | - | - | - | none | N | ItemLotParam_map |
+| 1044330290 | Enemy Defeat (1044330290) | Enemy Defeat | Weeping Peninsula | m60_44_33 | 74.2, 24.1, -3.2 | 11338.2, 8444.8 | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044330300 | Map Event Flag (1044330300) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044330321 | Map Event Flag (1044330321) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044330500 | Mechanism Unlock (1044330500) | Mechanism Unlock | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044330540 | Mechanism Unlock (1044330540) | Mechanism Unlock | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
 | 1044330705 | Nomadic Merchant | Merchant | Weeping Peninsula | m60_44_33 | 74.5, 42.6, -110.6 | 11338.5, 8337.4 | - | - | - | - | MSB NPC |
 | 1044330950 | Nomadic Merchant | NPC | Weeping Peninsula | m60_44_33 | 81.2, 43.3, -94.8 | 11345.2, 8353.2 | - | - | - | - | MSB NPC |
+| 1044332320 | Map Event Flag (1044332320) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044332322 | Map Event Flag (1044332322) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044332330 | Map Event Flag (1044332330) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
+| 1044332331 | Map Event Flag (1044332331) | EMEVD Literal Flag | Weeping Peninsula | m60_44_33 | - | - | - | - | - | - | EMEVD:m60_44_33_00.emevd |
 | 1044337000 | Flame Crest Wooden Shield | World Pickup | Weeping Peninsula | m60_44_33 | -99.4, 84.6, 19.4 | 11164.6, 8467.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044337020 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_33 | 68.0, 45.3, 33.6 | 11332.0, 8481.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1044337030 | Strip of White Flesh | World Pickup | Weeping Peninsula | m60_44_33 | 69.6, 17.5, 106.7 | 11333.6, 8554.7 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5943,6 +7536,7 @@ Total unique flags: 7034
 | 1044337200 | Smithing Stone [2] | World Pickup | Weeping Peninsula | m60_44_33 | 78.9, 17.5, 63.6 | 11342.9, 8511.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044337210 | Morning Star | World Pickup | Weeping Peninsula | m60_44_33 | -296.5, 18.5, -40.5 | 10967.5, 8407.5 | cart | 1 | low | N | ItemLotParam_map |
 | 1044340710 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_34 | -26.6, 105.5, 125.7 | 11237.4, 8829.7 | - | - | - | - | MSB NPC |
+| 1044342300 | Map Event Flag (1044342300) | EMEVD Literal Flag | Weeping Peninsula | m60_44_34 | - | - | - | - | - | - | EMEVD:m60_43_34_00.emevd |
 | 1044347000 | Stonesword Key | World Pickup | Weeping Peninsula | m60_44_34 | 125.1, 44.7, 45.6 | 11389.1, 8749.6 | corpse | 2 | high | N | ItemLotParam_map |
 | 1044347010 | Smithing Stone [1] | World Pickup | Weeping Peninsula | m60_44_34 | 125.0, 45.1, 66.9 | 11389.0, 8770.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044347040 | Rainbow Stone | World Pickup | Weeping Peninsula | m60_44_34 | -46.0, 20.0, -76.4 | 11218.0, 8627.6 | corpse | 0 | high | N | ItemLotParam_map |
@@ -5951,8 +7545,13 @@ Total unique flags: 7034
 | 1044347070 | Golden Rune [1] | World Pickup | Weeping Peninsula | m60_44_34 | 33.4, 58.2, -73.9 | 11297.4, 8630.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044347080 | Large Club | World Pickup | Weeping Peninsula | m60_44_34 | -38.1, 68.2, 46.4 | 11225.9, 8750.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044347100 | Hand Ballista | World Pickup | Weeping Peninsula | m60_44_34 | 2.2, 83.1, -64.2 | 11266.2, 8639.8 | chest | 1 | high | N | ItemLotParam_map |
+| 1044349222 | Map Event Flag (1044349222) | EMEVD Literal Flag | Weeping Peninsula | m60_44_34 | - | - | - | - | - | - | EMEVD:m60_44_34_00.emevd |
+| 1044349229 | Map Event Flag (1044349229) | EMEVD Literal Flag | Weeping Peninsula | m60_44_34 | - | - | - | - | - | - | EMEVD:m60_44_34_00.emevd |
+| 1044349258 | Map Event Flag (1044349258) | EMEVD Literal Flag | Weeping Peninsula | m60_44_34 | - | - | - | - | - | - | EMEVD:m60_44_35_00.emevd |
 | 1044350700 | Blaidd the Half-Wolf | Quest NPC | Weeping Peninsula | m60_44_35 | -16.5, 104.5, -120.2 | 11247.5, 8839.8 | - | - | - | - | MSB NPC |
 | 1044350800 | Bloodhound Knight Darriwil | Boss Arena | Limgrave - Forlorn Hound Evergaol | m60_44_34 | -17.4, 105.7, 119.8 | -17.4, 119.8 | - | - | - | - | GameAreaParam |
+| 1044352715 | Map Event Flag (1044352715) | EMEVD Literal Flag | Weeping Peninsula | m60_44_35 | - | - | - | - | - | - | EMEVD:m60_44_35_00.emevd |
+| 1044352717 | Map Event Flag (1044352717) | EMEVD Literal Flag | Weeping Peninsula | m60_44_35 | - | - | - | - | - | - | EMEVD:m60_44_35_00.emevd |
 | 1044352805 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -17.4, 104.5, -115.1 | 11246.6, 8844.9 | - | - | - | - | MSB SpawnPoint |
 | 1044352806 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -14.0, 104.5, -115.2 | 11250.0, 8844.8 | - | - | - | - | MSB SpawnPoint |
 | 1044352807 | Stake of Marika (m60_44_35) | Stake of Marika | Weeping Peninsula | m60_44_35 | -13.0, 105.6, -137.9 | 11251.0, 8822.1 | - | - | - | - | MSB SpawnPoint |
@@ -5966,6 +7565,7 @@ Total unique flags: 7034
 | 1044357070 | Starlight Shards | World Pickup | Weeping Peninsula | m60_44_35 | 119.2, 117.4, -37.6 | 11383.2, 8922.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1044357100 | Larval Tear | World Pickup | Weeping Peninsula | m60_44_35 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1044357900 | Great Épée | World Pickup | Weeping Peninsula | m60_44_35 | 82.1, 101.3, 43.5 | 11346.1, 9003.5 | chest | 1 | high | N | ItemLotParam_map |
+| 1044360220 | Enemy Defeat (1044360220) | Enemy Defeat | Limgrave | m60_44_36 | -96.0, 64.7, -126.1 | 11168.0, 9089.9 | - | - | - | - | EMEVD:m60_44_36_00.emevd |
 | 1044360700 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 18.0, 80.8, 19.1 | 11282.0, 9235.1 | - | - | - | - | MSB NPC |
 | 1044360710 | Sorceress Sellen | NPC | Limgrave | m60_44_36 | 60.4, 85.7, 123.2 | 11324.4, 9339.2 | - | - | - | - | MSB NPC |
 | 1044360800 | Mad Pumpkin Head | Great Boss Defeat | Limgrave | m60_44_36 | 17.9, 80.8, 31.1 | 11281.9, 9247.1 | - | - | - | - | MSB Enemy |
@@ -5981,6 +7581,8 @@ Total unique flags: 7034
 | 1044367320 | Golden Rune [2] | World Pickup | Limgrave | m60_44_36 | 48.6, 93.1, -35.4 | 11312.6, 9180.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044367330 | Golden Rune [1] | World Pickup | Limgrave | m60_44_36 | 57.0, 91.8, -28.5 | 11321.0, 9187.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044367340 | Golden Rune [3] | World Pickup | Limgrave | m60_44_36 | 56.6, 92.1, -41.5 | 11320.6, 9174.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1044369235 | Map Event Flag (1044369235) | EMEVD Literal Flag | Limgrave | m60_44_36 | - | - | - | - | - | - | EMEVD:m60_44_36_00.emevd |
+| 1044369237 | Map Event Flag (1044369237) | EMEVD Literal Flag | Limgrave | m60_44_36 | - | - | - | - | - | - | EMEVD:m60_44_36_00.emevd |
 | 1044369244 | [Sorceress Sellen - Conspectus Scroll] Glintstone Cometshard - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
 | 1044369245 | [Sorceress Sellen] Glintblade Phalanx - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
 | 1044369250 | [Sorceress Sellen - Academy Scroll] Great Glintstone Shard - Unlocked | Shop Unlock | Limgrave | - | - | - | - | - | - | - | ShopLineupParam |
@@ -5988,27 +7590,43 @@ Total unique flags: 7034
 | 1044377010 | Golden Rune [1] | World Pickup | Limgrave | m60_44_37 | -7.2, 67.0, 12.8 | 11256.8, 9484.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044377020 | Sacrificial Twig | World Pickup | Limgrave | m60_44_37 | 128.8, 33.4, -125.7 | 11392.8, 9346.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044377200 | Gold-Pickled Fowl Foot | World Pickup | Limgrave | m60_44_37 | -32.0, 100.3, -124.9 | 11232.0, 9347.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1044379255 | Map Event Flag (1044379255) | EMEVD Literal Flag | Limgrave | m60_44_37 | - | - | - | - | - | - | EMEVD:m60_44_37_00.emevd |
+| 1044380210 | Enemy Defeat (1044380210) | Enemy Defeat | Limgrave | m60_44_38 | -92.0, 102.4, -57.9 | 11172.0, 9670.1 | - | - | - | - | EMEVD:m60_44_38_00.emevd |
+| 1044380220 | Map Event Flag (1044380220) | EMEVD Literal Flag | Limgrave | m60_44_38 | - | - | - | - | - | - | EMEVD:m60_44_38_00.emevd |
 | 1044380710 | Yura, Hunter of Bloody Fingers | NPC | Limgrave | m60_44_38 | -121.4, 64.7, -46.5 | 11142.6, 9681.5 | - | - | - | - | MSB NPC |
 | 1044387010 | Smithing Stone [1] | World Pickup | Limgrave | m60_44_38 | -16.2, 93.5, -9.0 | 11247.8, 9719.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044387040 | Poisonbloom | World Pickup | Limgrave | m60_44_38 | -92.7, 66.4, 1.9 | 11171.3, 9729.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044387100 | Golden Rune [1] | World Pickup | Limgrave | m60_44_38 | -116.4, 138.3, 101.8 | 11147.6, 9829.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1044389209 | Map Event Flag (1044389209) | EMEVD Literal Flag | Limgrave | m60_44_38 | - | - | - | - | - | - | EMEVD:m60_49_53_00.emevd |
 | 1044390700 | D, Hunter of the Dead | NPC | Limgrave | m60_44_39 | 5.2, 131.6, 17.9 | 11269.2, 10002.0 | - | - | - | - | MSB NPC |
 | 1044390710 | Nomadic Merchant | Merchant | Limgrave | m60_44_39 | -92.0, 152.2, -27.1 | 11172.0, 9956.9 | - | - | - | - | MSB NPC |
 | 1044397010 | Good_310 | World Pickup | Limgrave | m60_44_39 | - | - | - | - | none | N | ItemLotParam_map |
+| 1044399265 | Map Event Flag (1044399265) | EMEVD Literal Flag | Limgrave | m60_44_39 | - | - | - | - | - | - | EMEVD:m60_45_36_00.emevd |
 | 1044520700 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | - | - | - | - | MSB NPC |
 | 1044520701 | Blackguard | NPC | Altus Plateau | m60_44_52 | 52.4, 922.2, 62.1 | 11316.4, 13374.1 | - | - | - | - | MSB NPC |
+| 1044522701 | Map Event Flag (1044522701) | EMEVD Literal Flag | Altus Plateau | m60_44_52 | - | - | - | - | - | - | EMEVD:m60_44_52_00.emevd |
 | 1044527000 | Great Arrow | World Pickup | Altus Plateau | m60_44_52 | 103.8, 973.0, 123.1 | 11367.8, 13435.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044527010 | Golden Rune [6] | World Pickup | Altus Plateau | m60_44_52 | 49.4, 922.0, 39.2 | 11313.4, 13351.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1044527020 | Golden Rune [2] | World Pickup | Altus Plateau | m60_44_52 | -53.5, 1001.1, 88.6 | 11210.5, 13400.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044529255 | [Blackguard Big Boggart] Boiled Crab - Unlocked | Shop Unlock | Altus Plateau | - | - | - | - | - | - | - | ShopLineupParam |
+| 1044529272 | Map Event Flag (1044529272) | EMEVD Literal Flag | Altus Plateau | m60_44_52 | - | - | - | - | - | - | EMEVD:m60_44_52_00.emevd |
 | 1044530800 | Death Rite Bird | Great Boss Defeat | Altus Plateau | m60_44_53 | -25.3, 1026.1, 83.6 | 11238.7, 13651.6 | - | - | - | - | MSB Enemy |
 | 1044537010 | Golden Rune [4] | World Pickup | Altus Plateau | m60_44_53 | -51.4, 1015.9, -15.3 | 11212.6, 13552.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1044537300 | Twinbird Kite Shield | World Pickup | Altus Plateau | m60_44_53 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1045330200 | Enemy Defeat (1045330200) | Enemy Defeat | World (45,33) | m60_45_33 | -62.7, 86.8, -25.9 | 11457.3, 8422.1 | - | - | - | - | EMEVD:m60_45_33_00.emevd |
+| 1045330201 | Enemy Defeat (1045330201) | Enemy Defeat | World (45,33) | m60_45_33 | -60.0, 91.0, -45.6 | 11460.0, 8402.4 | - | - | - | - | EMEVD:m60_45_33_00.emevd |
+| 1045330202 | Enemy Defeat (1045330202) | Enemy Defeat | World (45,33) | m60_45_33 | -88.3, 89.0, -70.0 | 11431.7, 8378.0 | - | - | - | - | EMEVD:m60_45_33_00.emevd |
+| 1045330900 | Enemy Defeat (1045330900) | Enemy Defeat | World (45,33) | m60_45_33 | -48.5, 65.9, 105.4 | 11471.5, 8553.4 | - | - | - | - | EMEVD:m60_45_33_00.emevd |
+| 1045332621 | Map Event Flag (1045332621) | EMEVD Literal Flag | World (45,33) | m60_45_33 | - | - | - | - | - | - | EMEVD:m60_45_33_00.emevd |
+| 1045332901 | Map Event Flag (1045332901) | EMEVD Literal Flag | World (45,33) | m60_45_33 | - | - | - | - | - | - | EMEVD:m60_45_33_00.emevd |
 | 1045337000 | Starlight Shards | World Pickup | World (45,33) | m60_45_33 | 7.4, 109.9, -86.6 | 11527.4, 8361.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1045340700 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -104.0, 36.4, -39.1 | 11416.0, 8664.9 | - | - | - | - | MSB NPC |
 | 1045340701 | Irina of Morne | NPC | World (45,34) | m60_45_34 | -105.1, 36.2, -39.5 | 11414.9, 8664.5 | - | - | - | - | MSB NPC |
 | 1045340705 | Castellan Edgar | NPC | World (45,34) | m60_45_34 | -104.2, 36.4, -38.4 | 11415.8, 8665.6 | - | - | - | - | MSB NPC |
+| 1045342719 | Map Event Flag (1045342719) | EMEVD Literal Flag | World (45,34) | m60_45_34 | - | - | - | - | - | - | EMEVD:m60_45_34_00.emevd |
 | 1045347000 | Stonesword Key | World Pickup | World (45,34) | m60_45_34 | -46.0, 89.4, -19.9 | 11474.0, 8684.1 | corpse | 2 | high | N | ItemLotParam_map |
+| 1045349256 | Map Event Flag (1045349256) | EMEVD Literal Flag | World (45,34) | m60_45_34 | - | - | - | - | - | - | EMEVD:m60_45_34_00.emevd |
+| 1045349258 | Map Event Flag (1045349258) | EMEVD Literal Flag | World (45,34) | m60_45_34 | - | - | - | - | - | - | EMEVD:m60_45_34_00.emevd |
 | 1045357000 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | 28.5, 0.1, 118.2 | 11548.5, 9078.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045357020 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -52.5, 20.3, 105.1 | 11467.5, 9065.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045357030 | Golden Rune [4] | World Pickup | World (45,35) | m60_45_35 | -40.8, 18.6, 105.0 | 11479.2, 9065.0 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6018,10 +7636,16 @@ Total unique flags: 7034
 | 1045357070 | Golden Rune [2] | World Pickup | World (45,35) | m60_45_35 | -50.3, 19.1, 109.4 | 11469.7, 9069.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045357080 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -31.5, 13.5, 124.1 | 11488.5, 9084.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045357090 | Golden Rune [1] | World Pickup | World (45,35) | m60_45_35 | -40.9, 14.2, 128.5 | 11479.1, 9088.5 | corpse | 0 | high | N | ItemLotParam_map |
+| 1045360500 | Map Event Flag (1045360500) | EMEVD Literal Flag | Caelid | m60_45_36 | - | - | - | - | - | - | EMEVD:m60_45_36_00.emevd |
 | 1045360700 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.8, 112.6 | 11598.2, 9328.6 | - | - | - | - | MSB NPC |
 | 1045360702 | Nomadic Merchant | Merchant | Caelid | m60_45_36 | 78.2, 19.9, 112.6 | 11598.2, 9328.6 | - | - | - | - | MSB NPC |
 | 1045360710 | Wandering Noble | NPC | Caelid | m60_45_36 | 68.8, 13.8, 26.4 | 11588.8, 9242.4 | - | - | - | - | MSB NPC |
+| 1045369222 | Map Event Flag (1045369222) | EMEVD Literal Flag | Caelid | m60_45_36 | - | - | - | - | - | - | EMEVD:m60_45_36_00.emevd |
+| 1045369229 | Map Event Flag (1045369229) | EMEVD Literal Flag | Caelid | m60_45_36 | - | - | - | - | - | - | EMEVD:m60_45_36_00.emevd |
+| 1045370200 | Enemy Defeat (1045370200) | Enemy Defeat | Caelid | m60_45_37 | 10.8, 30.5, -56.6 | 11530.9, 9415.4 | - | - | - | - | EMEVD:m60_45_37_00.emevd |
+| 1045370560 | Mechanism Unlock (1045370560) | Mechanism Unlock | Caelid | m60_45_37 | 85.8, 27.0, 6.3 | 11605.8, 9478.3 | - | - | - | - | EMEVD:m60_45_37_00.emevd |
 | 1045370700 | Blaidd the Half-Wolf | Quest NPC | Caelid | m60_45_37 | -64.5, 23.9, -98.5 | 11455.5, 9373.5 | - | - | - | - | MSB NPC |
+| 1045372707 | Map Event Flag (1045372707) | EMEVD Literal Flag | Caelid | m60_45_37 | - | - | - | - | - | - | EMEVD:m60_45_37_00.emevd |
 | 1045372710 | Stake of Marika (m60_45_37) | Stake of Marika | Caelid | m60_45_37 | 4.9, 16.3, 28.7 | 11524.9, 9500.7 | - | - | - | - | MSB SpawnPoint |
 | 1045377000 | Golden Rune [2] | World Pickup | Caelid | m60_45_37 | -82.1, 23.3, -120.0 | 11437.9, 9352.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045377010 | Smithing Stone [2] | World Pickup | Caelid | m60_45_37 | -69.2, 23.5, -102.2 | 11450.8, 9369.8 | chest | 1 | high | N | ItemLotParam_map |
@@ -6032,6 +7656,8 @@ Total unique flags: 7034
 | 1045377080 | Throwing Dagger | World Pickup | Caelid | m60_45_37 | -36.6, 11.9, 63.5 | 11483.4, 9535.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045377090 | Golden Rune [5] | World Pickup | Caelid | m60_45_37 | -28.8, 11.6, 56.7 | 11491.2, 9528.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045377100 | Axe Talisman | World Pickup | Caelid | m60_45_37 | -87.4, 11.1, -117.9 | 11432.6, 9354.1 | chest | - | high | Y | ItemLotParam_map |
+| 1045379220 | Map Event Flag (1045379220) | EMEVD Literal Flag | Caelid | m60_45_37 | - | - | - | - | - | - | EMEVD:m60_45_37_00.emevd |
+| 1045379250 | Map Event Flag (1045379250) | EMEVD Literal Flag | Caelid | m60_45_37 | - | - | - | - | - | - | EMEVD:m60_45_37_00.emevd |
 | 1045380700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_45_38 | -88.6, 41.7, -29.2 | 11431.4, 9698.8 | - | - | - | - | MSB NPC |
 | 1045382950 | Stake of Marika (m60_45_38) | Stake of Marika | Caelid | m60_45_38 | 53.7, 18.5, -58.3 | 11573.7, 9669.7 | - | - | - | - | MSB SpawnPoint |
 | 1045387000 | Magic Grease | World Pickup | Caelid | m60_45_38 | -90.4, 18.7, -42.5 | 11429.6, 9685.5 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6044,6 +7670,7 @@ Total unique flags: 7034
 | 1045387080 | Golden Rune [6] | World Pickup | Caelid | m60_45_38 | -76.0, 48.1, 70.6 | 11444.0, 9798.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045390700 | D, Hunter of the Dead | NPC | Caelid | m60_45_39 | -77.7, 92.2, -13.1 | 11442.3, 9970.9 | - | - | - | - | MSB NPC |
 | 1045390800 | Tibia Mariner | Great Boss Defeat | Caelid | m60_45_39 | -35.0, 92.2, 1.3 | 11485.0, 9985.3 | - | - | - | - | MSB Enemy |
+| 1045392280 | Map Event Flag (1045392280) | EMEVD Literal Flag | Caelid | m60_45_39 | - | - | - | - | - | - | EMEVD:m60_45_39_00.emevd |
 | 1045397000 | Golden Rune [4] | World Pickup | Caelid | m60_45_39 | -5.7, 111.4, 118.6 | 11514.3, 10102.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045397020 | Mushroom | World Pickup | Caelid | m60_45_39 | -50.6, 95.6, 38.0 | 11469.4, 10022.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045397040 | Smithing Stone [2] | World Pickup | Caelid | m60_45_39 | -10.5, 3.3, -77.2 | 11509.5, 9906.8 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6057,14 +7684,27 @@ Total unique flags: 7034
 | 1045397120 | Green Turtle Talisman | World Pickup | Caelid | m60_45_39 | 10.8, 83.5, 64.7 | 11530.8, 10048.7 | chest | - | high | Y | ItemLotParam_map |
 | 1045397140 | Smithing Stone [1] | World Pickup | Caelid | m60_45_39 | -57.7, 92.2, 81.4 | 11462.3, 10065.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1045399206 | Limgrave: Rear Gael Tunnel Entrance - Sending Gate | Landmark | Caelid | m60_46_39 | -59.2, 2.2, -124.5 | 11716.8, 9859.5 | - | - | - | - | WorldMapPointParam |
+| 1045510620 | Map Event Flag (1045510620) | EMEVD Literal Flag | World (45,51) | m60_45_51 | - | - | - | - | - | - | EMEVD:m60_45_51_00.emevd |
+| 1045520200 | Enemy Defeat (1045520200) | Enemy Defeat | World (22,26) | m60_22_26 | 32.1, 975.2, -65.3 | 5664.1, 6590.7 | - | - | - | - | EMEVD:m60_45_52_00.emevd |
+| 1045520202 | Enemy Defeat (1045520202) | Enemy Defeat | World (22,26) | m60_22_26 | 103.9, 998.8, -15.9 | 5735.9, 6640.1 | - | - | - | - | EMEVD:m60_45_52_00.emevd |
+| 1045520500 | Map Event Flag (1045520500) | EMEVD Literal Flag | World (45,52) | m60_45_52 | - | - | - | - | - | - | EMEVD:m60_45_52_00.emevd |
+| 1045520600 | EMEVD Treasure (1045520600) | EMEVD Treasure | World (45,52) | m60_45_52 | 41.2, 947.2, -75.0 | 11561.2, 13237.0 | - | - | - | - | EMEVD:m60_45_52_00.emevd |
 | 1045520705 | Dung Eater | NPC | World (45,52) | m60_45_52 | -112.7, 924.7, 46.4 | 11407.3, 13358.4 | - | - | - | - | MSB NPC |
 | 1045520800 | Draconic Tree Sentinel | Boss Defeat | World (45,52) | m60_45_52 | 27.7, 1023.8, 43.9 | 11547.7, 13355.9 | - | - | - | - | MSB Enemy |
+| 1045522550 | Map Event Flag (1045522550) | EMEVD Literal Flag | World (45,52) | m60_45_52 | - | - | - | - | - | - | EMEVD:m60_45_52_00.emevd |
 | 1045522712 | Stake of Marika (m60_37_54) | Stake of Marika | Mt. Gelmir | m60_37_54 | 27.3, 809.7, -86.4 | 9499.3, 13737.6 | - | - | - | - | MSB SpawnPoint |
 | 1045527000 | Gravity Stone Fan | World Pickup | World (45,52) | m60_45_52 | -184.5, 966.7, -412.7 | 11335.5, 12899.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1045527010 | Gravel Stone | World Pickup | World (45,52) | m60_45_52 | -7.2, 1024.5, 43.9 | 11512.8, 13355.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1045527020 | Smithing Stone [6] | World Pickup | World (45,52) | m60_45_52 | 41.2, 947.2, -75.0 | 11561.2, 13237.0 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1045527030 | Smithing Stone [5] | World Pickup | World (45,52) | m60_45_52 | -100.3, 984.4, 140.9 | 11419.7, 13452.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1045529250 | Map Event Flag (1045529250) | EMEVD Literal Flag | World (45,52) | m60_45_52 | - | - | - | - | - | - | EMEVD:m60_45_52_00.emevd |
+| 1046360320 | Map Event Flag (1046360320) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
+| 1046360330 | Map Event Flag (1046360330) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
 | 1046360700 | Kenneth Haight, Limgrave Heir | NPC | Caelid | m60_46_36 | -9.7, 70.8, -2.1 | 11766.3, 9213.9 | - | - | - | - | MSB NPC |
+| 1046360705 | Map Event Flag (1046360705) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
+| 1046362260 | Map Event Flag (1046362260) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
+| 1046362320 | Map Event Flag (1046362320) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
+| 1046362330 | Map Event Flag (1046362330) | EMEVD Literal Flag | Caelid | m60_46_36 | - | - | - | - | - | - | EMEVD:m60_46_36_00.emevd |
 | 1046367000 | Smithing Stone [1] | World Pickup | Caelid | m60_46_36 | -16.7, 67.8, -39.4 | 11759.3, 9176.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1046367010 | Bloodrose | World Pickup | Caelid | m60_46_36 | 4.6, 70.8, 2.9 | 11780.6, 9218.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1046367030 | Bloodrose | World Pickup | Caelid | m60_46_36 | -18.1, 54.2, -24.0 | 11757.9, 9192.0 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6074,6 +7714,7 @@ Total unique flags: 7034
 | 1046377000 | Strip of White Flesh | World Pickup | Caelid | m60_46_37 | -79.3, 0.7, 32.4 | 11696.7, 9504.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1046387010 | Neutralizing Boluses | World Pickup | Caelid | m60_46_38 | 25.2, 45.5, 121.6 | 11801.2, 9849.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1046387100 | Sacred Tear | World Pickup | Caelid | m60_46_38 | -91.4, 3.3, 90.0 | 11684.6, 9818.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1046390210 | Enemy Defeat (1046390210) | Enemy Defeat | Caelid | m60_46_39 | -107.9, 17.0, -80.8 | 11668.1, 9903.2 | - | - | - | - | EMEVD:m60_46_39_00.emevd |
 | 1046392600 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -94.8, 21.8, -64.3 | 11681.2, 9919.7 | - | - | - | - | MSB MountJump |
 | 1046392610 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -93.7, 66.6, 19.2 | 11682.3, 10003.2 | - | - | - | - | MSB MountJump |
 | 1046392620 | Spirit Spring (m60_46_39) | Spirit Spring | Caelid | m60_46_39 | -104.2, 88.1, 39.8 | 11671.8, 10023.8 | - | - | - | - | MSB MountJump |
@@ -6087,8 +7728,10 @@ Total unique flags: 7034
 | 1046407040 | Preserving Boluses | World Pickup | Caelid | m60_46_40 | 80.8, 171.4, -93.5 | 11856.9, 10146.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1046407060 | Drawstring Lightning Grease | World Pickup | Caelid | m60_46_40 | 7.8, 161.0, -43.8 | 11783.8, 10196.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1046407700 | Sacred Scorpion Charm | World Pickup | Caelid | m60_46_40 | - | - | - | - | none | N | ItemLotParam_map |
+| 1046570500 | EMEVD Treasure (1046570500) | EMEVD Treasure | World (46,57) | m60_46_57 | 76.6, 1272.1, -65.1 | 11852.6, 14526.9 | - | - | - | - | EMEVD:m60_46_57_00.emevd |
 | 1046577300 | Golden Rune [1] | World Pickup | World (46,57) | m60_46_57 | 92.2, 1295.2, -83.6 | 11868.2, 14508.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1046577800 | Smithing Stone [7] | World Pickup | World (46,57) | m60_46_57 | 76.6, 1272.1, -65.1 | 11852.6, 14526.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1047372350 | NPC Defeat (1047372350) | NPC Defeat | Caelid | m60_47_37 | 105.9, 131.1, -102.4 | 12137.9, 9369.6 | - | - | - | - | EMEVD:m60_47_37_00.emevd |
 | 1047377000 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 123.9, 128.4, -92.2 | 12155.9, 9379.8 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1047377010 | Golden Rune [5] | World Pickup | Caelid | m60_47_37 | 110.1, 129.8, -97.1 | 12142.1, 9374.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
 | 1047377020 | Golden Rune [1] | World Pickup | Caelid | m60_47_37 | 122.2, 129.1, -103.1 | 12154.2, 9368.9 | ground_pickup | 0 | high | N | ItemLotParam_map |
@@ -6096,6 +7739,8 @@ Total unique flags: 7034
 | 1047377040 | Poisonbloom | World Pickup | Caelid | m60_47_37 | 47.3, 103.5, 95.8 | 12079.3, 9567.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1047377050 | Starlight Shards | World Pickup | Caelid | m60_47_37 | 66.4, 121.9, 14.6 | 12098.4, 9486.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1047377100 | Larval Tear | World Pickup | Caelid | m60_47_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1047380299 | Enemy Defeat (1047380299) | Enemy Defeat | Caelid | m60_47_38 | -119.5, 162.3, -15.2 | 11912.5, 9712.8 | - | - | - | - | EMEVD:m60_47_38_00.emevd |
+| 1047380540 | Mechanism Unlock (1047380540) | Mechanism Unlock | World (23,19) | m60_23_19 | -9.6, 161.8, -146.8 | 5878.4, 4717.2 | - | - | - | - | EMEVD:m60_47_38_00.emevd |
 | 1047380701 | Commoner | NPC | Caelid | m60_47_38 | -93.3, 179.1, -5.5 | 11938.7, 9722.5 | - | - | - | - | MSB NPC |
 | 1047387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_47_38 | 25.1, 111.0, 113.8 | 12057.1, 9841.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047387030 | Great Dragonfly Head | World Pickup | Caelid | m60_47_38 | 51.0, 98.5, -78.1 | 12083.0, 9649.9 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6110,9 +7755,12 @@ Total unique flags: 7034
 | 1047387900 | Starscourge Heirloom | World Pickup | Caelid | m60_47_38 | -89.3, 179.1, 2.2 | 11942.7, 9730.2 | chest | - | high | N | ItemLotParam_map |
 | 1047387910 | Meteoric Ore Blade | World Pickup | Caelid | m60_47_38 | -5.8, 78.7, -27.6 | 12026.2, 9700.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1047387920 | Katar | World Pickup | Caelid | m60_47_38 | -104.5, 167.1, -1.6 | 11927.5, 9726.4 | chest | 1 | high | N | ItemLotParam_map |
+| 1047390298 | Enemy Defeat (1047390298) | Enemy Defeat | Caelid | m60_47_39 | -88.7, 150.9, 81.9 | 11943.3, 10065.9 | - | - | - | - | EMEVD:m60_47_39_00.emevd |
+| 1047390299 | Enemy Defeat (1047390299) | Enemy Defeat | Caelid | m60_47_39 | -72.4, 122.1, -50.4 | 11959.6, 9933.6 | - | - | - | - | EMEVD:m60_47_39_00.emevd |
 | 1047397000 | Smithing Stone [5] | World Pickup | Caelid | m60_47_39 | -27.8, 155.4, 45.2 | 12004.2, 10029.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047397040 | Golden Rune [9] | World Pickup | Caelid | m60_47_39 | 92.0, 151.6, 46.9 | 12124.0, 10030.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047397080 | Slumbering Egg | World Pickup | Caelid | m60_47_39 | 78.1, 125.2, -81.4 | 12110.1, 9902.6 | chest | 0 | high | N | ItemLotParam_map |
+| 1047400290 | Enemy Defeat (1047400290) | Enemy Defeat | Caelid | m60_47_40 | -4.2, 166.7, 41.0 | 12027.8, 10281.0 | - | - | - | - | EMEVD:m60_47_40_00.emevd |
 | 1047400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_47_40 | -102.3, 126.1, 102.5 | 11929.7, 10342.5 | - | - | - | - | MSB Enemy |
 | 1047407000 | Golden Rune [5] | World Pickup | Caelid | m60_47_40 | -84.6, 149.3, -90.7 | 11947.4, 10149.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1047407020 | Smithing Stone [4] | World Pickup | Caelid | m60_47_40 | -103.0, 146.5, -102.0 | 11929.0, 10138.0 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6124,6 +7772,8 @@ Total unique flags: 7034
 | 1047407910 | Sword of St. Trina | World Pickup | Caelid | m60_47_40 | -85.0, 134.3, -96.1 | 11947.0, 10143.9 | chest | 2 | high | N | ItemLotParam_map |
 | 1047407920 | Greatsword | World Pickup | Caelid | m60_47_40 | 417.7, 169.1, -345.7 | 12449.7, 9894.3 | cart | 1 | low | N | ItemLotParam_map |
 | 1047410700 | Greatjar | NPC | World (23,20) | m60_23_20 | 118.6, 145.1, 249.1 | 6006.6, 5369.1 | - | - | - | - | MSB NPC |
+| 1047412350 | Map Event Flag (1047412350) | EMEVD Literal Flag | Caelid | m60_47_41 | - | - | - | - | - | - | EMEVD:m60_47_41_00.emevd |
+| 1047419201 | Map Event Flag (1047419201) | EMEVD Literal Flag | Caelid | m60_47_41 | - | - | - | - | - | - | EMEVD:m60_47_41_00.emevd |
 | 1047420700 | Great-Jar | NPC | Caelid | m60_47_42 | -4.6, 148.1, -85.6 | 12027.4, 10666.4 | - | - | - | - | MSB NPC |
 | 1047517000 | Drawstring Fire Grease | World Pickup | World (47,51) | m60_47_51 | -36.7, 1002.3, -29.1 | 11995.3, 13026.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1047517010 | Golden Rune [7] | World Pickup | World (47,51) | m60_47_51 | 94.2, 993.8, -13.4 | 12126.2, 13042.6 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6144,13 +7794,17 @@ Total unique flags: 7034
 | 1047577310 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_47_57 | 121.1, 1267.1, 105.0 | 12153.1, 14697.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047580705 | Latenna the Albinauric | NPC | Mountaintops of the Giants | m60_47_58 | 34.7, 1291.6, -9.7 | 12066.7, 14838.3 | - | - | - | - | MSB NPC |
 | 1047580950 | Latenna the Albinauric | NPC | Mountaintops of the Giants | m60_47_58 | 50.9, 1290.1, -32.3 | 12082.9, 14815.7 | - | - | - | - | MSB NPC |
+| 1047582700 | Map Event Flag (1047582700) | EMEVD Literal Flag | Mountaintops of the Giants | m60_47_58 | - | - | - | - | - | - | EMEVD:m60_47_58_00.emevd |
 | 1047587000 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_47_58 | 161.7, 1293.2, -5.0 | 12193.7, 14843.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1047587800 | Silver Mirrorshield | World Pickup | Mountaintops of the Giants | m60_47_58 | 36.3, 1291.6, -14.1 | 12068.3, 14833.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1047589210 | Map Event Flag (1047589210) | EMEVD Literal Flag | Mountaintops of the Giants | m60_47_58 | - | - | - | - | - | - | EMEVD:m60_47_58_00.emevd |
 | 1048360700 | Cathedral of Dragon Communion | NPC | Caelid | m60_48_36 | 26.5, 127.4, 92.1 | 12314.5, 9308.1 | - | - | - | - | MSB NPC |
+| 1048370299 | Enemy Defeat (1048370299) | Enemy Defeat | Caelid | m60_48_37 | 87.7, 65.4, 165.1 | 12375.7, 9637.1 | - | - | - | - | EMEVD:m60_48_37_00.emevd |
 | 1048370800 | [Dragon Communion] Ekzykes's Decay - Unlocked | Shop Unlock | Caelid | - | - | - | - | - | - | - | ShopLineupParam |
 | 1048377000 | Crab Eggs | World Pickup | Caelid | m60_48_37 | 105.6, 84.5, 59.6 | 12393.6, 9531.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1048377020 | Golden Rune [3] | World Pickup | Caelid | m60_48_37 | -7.1, 94.2, 60.9 | 12280.9, 9532.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1048377030 | Golden Rune [4] | World Pickup | Caelid | m60_48_37 | 21.1, 114.0, 96.6 | 12309.1, 9568.6 | corpse | 0 | high | N | ItemLotParam_map |
+| 1048380290 | Enemy Defeat (1048380290) | Enemy Defeat | Caelid | m60_48_38 | -121.0, 104.4, 55.1 | 12167.0, 9783.1 | - | - | - | - | EMEVD:m60_48_38_00.emevd |
 | 1048380701 | Wandering Noble | NPC | Caelid | m60_48_38 | 42.5, 64.4, -15.0 | 12330.5, 9713.0 | - | - | - | - | MSB NPC |
 | 1048380705 | Nomadic Merchant | Merchant | Caelid | m60_48_38 | -28.6, 84.4, 19.3 | 12259.4, 9747.3 | - | - | - | - | MSB NPC |
 | 1048387000 | Golden Rune [4] | World Pickup | Caelid | m60_48_38 | -13.8, 67.1, 58.4 | 12274.2, 9786.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6173,9 +7827,12 @@ Total unique flags: 7034
 | 1048407050 | Hefty Beast Bone | World Pickup | Caelid | m60_48_40 | -37.0, 151.2, -94.3 | 12251.0, 10145.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1048407060 | Spiked Palisade Shield | World Pickup | Caelid | m60_48_40 | -107.8, 121.4, 78.4 | 12180.2, 10318.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1048407900 | Visage Shield | World Pickup | Caelid | m60_48_40 | -113.3, 138.4, -75.9 | 12174.7, 10164.1 | chest | 2 | high | Y | ItemLotParam_map |
+| 1048410290 | Enemy Defeat (1048410290) | Enemy Defeat | Caelid | m60_48_41 | -131.2, 220.7, -70.0 | 12156.8, 10426.0 | - | - | - | - | EMEVD:m60_48_41_00.emevd |
 | 1048410700 | Isolated Merchant | Merchant | Caelid | m60_48_41 | -88.7, 226.2, -78.5 | 12199.3, 10417.5 | - | - | - | - | MSB NPC |
 | 1048410800 | Elemer of the Briar | Boss Defeat | Caelid | m60_48_41 | -86.8, 225.6, -69.8 | 12201.2, 10426.2 | - | - | - | - | MSB Enemy |
 | 1048410950 | Isolated Merchant | NPC | Caelid | m60_48_41 | -86.0, 225.8, -87.1 | 12202.0, 10408.9 | - | - | - | - | MSB NPC |
+| 1048412708 | Map Event Flag (1048412708) | EMEVD Literal Flag | Caelid | m60_48_41 | - | - | - | - | - | - | EMEVD:m60_48_41_00.emevd |
+| 1048412709 | Map Event Flag (1048412709) | EMEVD Literal Flag | Caelid | m60_48_41 | - | - | - | - | - | - | EMEVD:m60_48_41_00.emevd |
 | 1048417800 | Gravity Stone Peddler's Bell Bearing | World Pickup | Caelid | m60_48_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1048510800 | Night's Cavalry | Boss Arena | Mountaintops of the Giants - Forbidden Lands Midway | m60_48_51 | -93.2, 971.5, 47.7 | -93.2, 47.7 | - | - | - | - | GameAreaParam |
 | 1048517000 | Somber Smithing Stone [7] | World Pickup | World (48,51) | m60_48_51 | 156.8, 1010.9, 111.3 | 12444.8, 13167.3 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6185,6 +7842,7 @@ Total unique flags: 7034
 | 1048547820 | Golden Rune [6] | World Pickup | Mountaintops of the Giants | m60_48_54 | 61.8, 1311.8, 6.2 | 12349.8, 13830.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1048547830 | Golden Rune [9] | World Pickup | Mountaintops of the Giants | m60_48_54 | 76.2, 1311.7, 14.1 | 12364.2, 13838.1 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1048547840 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_48_54 | 80.5, 1312.8, 44.9 | 12368.5, 13868.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1048550200 | Enemy Defeat (1048550200) | Enemy Defeat | Mountaintops of the Giants | m60_48_55 | - | - | - | - | - | - | EMEVD:m60_48_55_00.emevd |
 | 1048557300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_55 | -49.6, 1267.9, -33.5 | 12238.4, 14046.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1048557600 | Stalwart Horn Charm +1 | World Pickup | Mountaintops of the Giants | m60_48_55 | -55.3, 1258.9, -81.7 | 12232.7, 13998.3 | corpse | - | high | N | ItemLotParam_map |
 | 1048557700 | Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_55 | - | - | - | 3 | none | N | ItemLotParam_map |
@@ -6192,9 +7850,18 @@ Total unique flags: 7034
 | 1048557900 | Flowing Curved Sword | World Pickup | Mountaintops of the Giants | m60_48_55 | -257.7, 1285.9, 354.6 | 12030.3, 14434.6 | cart | 2 | low | N | ItemLotParam_map |
 | 1048567300 | Stonesword Key | World Pickup | Mountaintops of the Giants | m60_48_56 | -53.3, 1271.8, -68.9 | 12234.7, 14267.1 | corpse | 2 | high | N | ItemLotParam_map |
 | 1048567800 | Somber Ancient Dragon Smithing Stone | World Pickup | Mountaintops of the Giants | m60_48_56 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 1048570200 | Enemy Defeat (1048570200) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | - | - | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048570250 | Enemy Defeat (1048570250) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 2.7, 1285.9, 23.4 | 12290.7, 14615.4 | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048570251 | Enemy Defeat (1048570251) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 76.8, 1287.3, -65.8 | 12364.8, 14526.2 | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048570252 | Enemy Defeat (1048570252) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 79.6, 1290.3, 33.9 | 12367.6, 14625.9 | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048570253 | Enemy Defeat (1048570253) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 61.7, 1290.8, -21.3 | 12349.7, 14570.7 | - | - | - | - | EMEVD:m60_48_57_00.emevd |
 | 1048570310 | Enemy (c0100) | Enemy Defeat | Mountaintops of the Giants | m60_48_57 | 41.2, 1295.5, 32.2 | 12329.2, 14624.2 | - | - | - | - | MSB Enemy |
+| 1048570350 | Map Event Flag (1048570350) | EMEVD Literal Flag | Mountaintops of the Giants | m60_48_57 | - | - | - | - | - | - | EMEVD:m60_48_57_00.emevd |
 | 1048570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_48_57 | -110.8, 1255.1, 109.7 | 12177.2, 14701.7 | - | - | - | - | MSB Enemy |
 | 1048572301 | Stake of Marika (m60_48_57) | Stake of Marika | Mountaintops of the Giants | m60_48_57 | 47.3, 1295.6, 30.1 | 12335.3, 14622.1 | - | - | - | - | MSB SpawnPoint |
+| 1048572305 | Map Event Flag (1048572305) | EMEVD Literal Flag | Mountaintops of the Giants | m60_48_57 | - | - | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048572308 | Map Event Flag (1048572308) | EMEVD Literal Flag | Mountaintops of the Giants | m60_48_57 | - | - | - | - | - | - | EMEVD:m60_48_57_00.emevd |
+| 1048572309 | Map Event Flag (1048572309) | EMEVD Literal Flag | Mountaintops of the Giants | m60_48_57 | - | - | - | - | - | - | EMEVD:m60_48_57_00.emevd |
 | 1048577000 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_48_57 | 88.9, 1296.6, -44.2 | 12376.9, 14547.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1048577010 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_57 | 23.3, 1296.4, 17.7 | 12311.3, 14609.7 | corpse | 1 | high | N | ItemLotParam_map |
 | 1048577020 | Hefty Beast Bone | World Pickup | Mountaintops of the Giants | m60_48_57 | 89.3, 1290.8, -38.2 | 12377.3, 14553.8 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6215,8 +7882,14 @@ Total unique flags: 7034
 | 1048577920 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1048577930 | Ghost Glovewort [9] | World Pickup | Mountaintops of the Giants | m60_48_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1048587300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_48_58 | -100.6, 1274.5, -26.8 | 12187.4, 14821.2 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049360290 | Enemy Defeat (1049360290) | Enemy Defeat | Caelid | m60_49_36 | 91.3, 53.8, -85.9 | 12635.3, 9130.1 | - | - | - | - | EMEVD:m60_49_36_00.emevd |
+| 1049360291 | Enemy Defeat (1049360291) | Enemy Defeat | Caelid | m60_49_36 | -93.6, 53.6, 40.5 | 12450.4, 9256.5 | - | - | - | - | EMEVD:m60_49_36_00.emevd |
+| 1049362310 | Map Event Flag (1049362310) | EMEVD Literal Flag | Caelid | m60_49_36 | - | - | - | - | - | - | EMEVD:m60_49_36_00.emevd |
+| 1049362400 | Map Event Flag (1049362400) | EMEVD Literal Flag | Caelid | m60_49_36 | - | - | - | - | - | - | EMEVD:m60_49_36_00.emevd |
+| 1049362410 | Map Event Flag (1049362410) | EMEVD Literal Flag | Caelid | m60_49_36 | - | - | - | - | - | - | EMEVD:m60_49_36_00.emevd |
 | 1049367000 | Smoldering Butterfly | World Pickup | Caelid | m60_49_36 | 117.5, 42.2, -27.1 | 12661.5, 9188.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049367010 | Fan Daggers | World Pickup | Caelid | m60_49_36 | -9.1, 70.5, 103.7 | 12534.9, 9319.7 | corpse | 0 | high | N | ItemLotParam_map |
+| 1049370299 | Enemy Defeat (1049370299) | Enemy Defeat | Caelid | m60_49_37 | 87.2, 79.2, -71.3 | 12631.2, 9400.7 | - | - | - | - | EMEVD:m60_49_37_00.emevd |
 | 1049370700 | Nomadic Merchant | Merchant | Caelid | m60_49_37 | -77.3, 97.7, -15.4 | 12466.7, 9456.6 | - | - | - | - | MSB NPC |
 | 1049370800 | Night's Cavalry | Boss Defeat | Caelid | m60_49_37 | -122.3, 102.5, -8.5 | 12421.7, 9463.5 | - | - | - | - | MSB Enemy |
 | 1049370850 | Death Rite Bird | Field Boss Defeat | Caelid | m60_49_37 | 112.2, 102.1, 15.5 | 12656.2, 9487.5 | - | - | - | - | MSB Enemy |
@@ -6227,7 +7900,11 @@ Total unique flags: 7034
 | 1049377100 | Ash of War: Poison Moth Flight | World Pickup | Caelid | m60_49_37 | - | - | - | - | none | N | ItemLotParam_map |
 | 1049377110 | Death's Poker | World Pickup | Caelid | m60_49_37 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1049377700 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_37 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1049380290 | Enemy Defeat (1049380290) | Enemy Defeat | Caelid | m60_49_38 | 25.0, 70.9, 36.8 | 12569.0, 9764.8 | - | - | - | - | EMEVD:m60_49_38_00.emevd |
+| 1049380560 | Mechanism Unlock (1049380560) | Mechanism Unlock | Caelid | m60_49_38 | 54.3, 146.2, 51.1 | 12598.3, 9779.1 | - | - | - | - | EMEVD:m60_49_38_00.emevd |
 | 1049380800 | Commander Niall | Boss Defeat | Caelid | m60_49_38 | -25.2, 65.9, 50.6 | 12518.8, 9778.6 | - | - | - | - | MSB Enemy |
+| 1049382300 | Map Event Flag (1049382300) | EMEVD Literal Flag | Caelid | m60_49_38 | - | - | - | - | - | - | EMEVD:m60_49_38_00.emevd |
+| 1049382301 | Map Event Flag (1049382301) | EMEVD Literal Flag | Caelid | m60_49_38 | - | - | - | - | - | - | EMEVD:m60_49_38_00.emevd |
 | 1049387010 | Somber Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | 10.8, 64.0, -23.0 | 12554.8, 9705.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049387020 | Aeonian Butterfly | World Pickup | Caelid | m60_49_38 | 6.5, 64.0, -33.4 | 12550.5, 9694.6 | corpse | 2 | high | N | ItemLotParam_map |
 | 1049387030 | Smithing Stone [4] | World Pickup | Caelid | m60_49_38 | -44.4, 69.6, -127.0 | 12499.6, 9601.0 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6238,6 +7915,8 @@ Total unique flags: 7034
 | 1049387110 | Golden Rune [5] | World Pickup | Caelid | m60_49_38 | 84.2, 93.8, -124.7 | 12628.2, 9603.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049387120 | Glass Shard | World Pickup | Caelid | m60_49_38 | 125.4, 96.4, -85.7 | 12669.4, 9642.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049387800 | Eternal Darkness | World Pickup | Caelid | m60_49_38 | 53.0, 146.2, 55.7 | 12597.0, 9783.7 | corpse | 2 | high | N | ItemLotParam_map |
+| 1049390298 | Enemy Defeat (1049390298) | Enemy Defeat | Caelid | m60_49_39 | -10.8, 65.8, 1.4 | 12533.2, 9985.4 | - | - | - | - | EMEVD:m60_49_39_00.emevd |
+| 1049390299 | Enemy Defeat (1049390299) | Enemy Defeat | Caelid | m60_49_39 | 106.0, 92.4, -59.2 | 12650.0, 9924.8 | - | - | - | - | EMEVD:m60_49_39_00.emevd |
 | 1049390800 | Nox Swordstress/Monk/Nightmaiden | Boss Defeat | Caelid | m60_49_39 | 94.0, 83.5, 86.5 | 12638.0, 10070.5 | - | - | - | - | MSB Enemy |
 | 1049390850 | Battlenage | Boss Arena | Caelid - West Sellia | m60_49_39 | -89.5, 164.0, -1.1 | -89.5, -1.1 | - | - | - | - | GameAreaParam |
 | 1049392855 | Stake of Marika (m60_49_39) | Stake of Marika | Caelid | m60_49_39 | -90.0, 162.9, 12.0 | 12454.0, 9996.0 | - | - | - | - | MSB SpawnPoint |
@@ -6253,10 +7932,13 @@ Total unique flags: 7034
 | 1049397850 | Battlemage Hugues | World Pickup | Caelid | m60_49_39 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1049397900 | Lusat's Glintstone Staff | World Pickup | Caelid | m60_49_39 | 96.6, 86.4, 104.0 | 12640.6, 10088.0 | chest | 2 | high | N | ItemLotParam_map |
 | 1049397910 | Spelldrake Talisman +1 | World Pickup | Caelid | m60_49_39 | 118.0, 78.8, -22.8 | 12662.0, 9961.2 | chest | - | high | N | ItemLotParam_map |
+| 1049400560 | Mechanism Unlock (1049400560) | Mechanism Unlock | Caelid | m60_49_40 | - | - | - | - | - | - | EMEVD:m60_49_40_00.emevd |
+| 1049400600 | EMEVD Treasure (1049400600) | EMEVD Treasure | Caelid | m60_49_40 | -62.7, 178.4, -80.6 | 12481.3, 10159.4 | - | - | - | - | EMEVD:m60_49_40_00.emevd |
 | 1049407000 | Golden Rune [5] | World Pickup | Caelid | m60_49_40 | 57.0, 180.7, 12.1 | 12601.0, 10252.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049407010 | Gravel Stone | World Pickup | Caelid | m60_49_40 | 36.1, 180.7, 10.2 | 12580.1, 10250.2 | corpse | 2 | high | N | ItemLotParam_map |
 | 1049407020 | Sliver of Meat | World Pickup | Caelid | m60_49_40 | 39.7, 180.7, 36.6 | 12583.7, 10276.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049407040 | Smithing Stone [5] | World Pickup | Caelid | m60_49_40 | -62.7, 178.4, -80.6 | 12481.3, 10159.4 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1049410299 | Enemy Defeat (1049410299) | Enemy Defeat | Caelid | m60_49_41 | -5.4, 207.3, -110.6 | 12538.6, 10385.4 | - | - | - | - | EMEVD:m60_49_41_00.emevd |
 | 1049417040 | Arteria Leaf | World Pickup | Caelid | m60_49_41 | 40.5, 155.0, -71.2 | 12584.5, 10424.8 | corpse | 2 | high | N | ItemLotParam_map |
 | 1049417070 | Dragonwound Grease | World Pickup | Caelid | m60_49_41 | 37.5, 155.0, -75.6 | 12581.5, 10420.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049417080 | Rune Arc | World Pickup | Caelid | m60_49_41 | 41.1, 155.0, -75.9 | 12585.1, 10420.1 | corpse | 2 | high | N | ItemLotParam_map |
@@ -6276,12 +7958,18 @@ Total unique flags: 7034
 | 1049537030 | Zamor Ice Storm | World Pickup | World (49,53) | m60_49_53 | 95.4, 1578.5, -71.1 | 12639.4, 13496.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1049537300 | Beast Blood | World Pickup | World (49,53) | m60_49_53 | -20.8, 1567.3, -58.4 | 12523.2, 13509.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1049537900 | Smithing-Stone Miner's Bell Bearing [3] | World Pickup | World (49,53) | m60_49_53 | 85.4, 1564.1, -79.4 | 12629.4, 13488.6 | chest | 2 | high | Y | ItemLotParam_map |
+| 1049539210 | Map Event Flag (1049539210) | EMEVD Literal Flag | World (49,53) | m60_49_53 | - | - | - | - | - | - | EMEVD:m60_49_53_00.emevd |
+| 1049539212 | Map Event Flag (1049539212) | EMEVD Literal Flag | World (49,53) | m60_49_53 | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 1049540200 | Enemy Defeat (1049540200) | Enemy Defeat | Mountaintops of the Giants | m60_49_54 | -33.6, 1322.1, 57.6 | 12510.4, 13881.6 | - | - | - | - | EMEVD:m60_49_54_00.emevd |
+| 1049540510 | Door Unlock (1049540510) | Door Unlock | Underground | m12_03_00 | 581.4, 811.0, 140.8 | - | - | - | - | - | EMEVD:m60_49_54_00.emevd |
 | 1049540710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_54 | -106.1, 1332.3, -88.3 | 12437.9, 13735.7 | - | - | - | - | MSB NPC |
 | 1049547300 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_49_54 | -57.0, 1344.0, -72.8 | 12487.0, 13751.2 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049547310 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_49_54 | -44.8, 1355.1, -81.1 | 12499.2, 13742.9 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049547700 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_54 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1049547900 | St. Trina's Torch | World Pickup | Mountaintops of the Giants | m60_49_54 | -206.3, 1316.6, 168.2 | 12337.7, 13992.2 | cart | 2 | low | N | ItemLotParam_map |
+| 1049549200 | Map Event Flag (1049549200) | EMEVD Literal Flag | Mountaintops of the Giants | m60_49_54 | - | - | - | - | - | - | EMEVD:m60_49_54_00.emevd |
 | 1049550710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_49_55 | 29.3, 1313.6, -40.5 | 12573.3, 14039.5 | - | - | - | - | MSB NPC |
+| 1049552200 | Map Event Flag (1049552200) | EMEVD Literal Flag | Mountaintops of the Giants | m60_49_55 | - | - | - | - | - | - | EMEVD:m60_49_55_00.emevd |
 | 1049557300 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_55 | -62.3, 1308.3, -45.0 | 12481.7, 14035.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049557310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_49_55 | 95.8, 1332.7, -101.0 | 12639.8, 13979.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049557320 | Fire Blossom | World Pickup | Mountaintops of the Giants | m60_49_55 | 115.9, 1328.9, 24.4 | 12659.9, 14104.4 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6295,21 +7983,32 @@ Total unique flags: 7034
 | 1049567330 | Dragonwound Grease | World Pickup | Mountaintops of the Giants | m60_49_56 | 62.3, 1344.3, 142.4 | 12606.3, 14478.4 | corpse | 1 | high | N | ItemLotParam_map |
 | 1049567340 | Nascent Butterfly | World Pickup | Mountaintops of the Giants | m60_49_56 | 57.9, 1316.1, 52.5 | 12601.9, 14388.5 | corpse | 2 | high | N | ItemLotParam_map |
 | 1049567350 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_56 | -127.2, 1277.0, 64.3 | 12416.8, 14400.3 | corpse | 1 | high | N | ItemLotParam_map |
+| 1049570300 | Enemy Defeat (1049570300) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 7.9, 1336.5, -115.7 | 12551.9, 14476.3 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
+| 1049570310 | Enemy Defeat (1049570310) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 16.4, 1329.8, -146.4 | 12560.4, 14445.6 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
+| 1049570320 | Enemy Defeat (1049570320) | Enemy Defeat | Mountaintops of the Giants | m60_49_57 | 35.6, 1355.0, -127.6 | 12579.6, 14464.4 | - | - | - | - | EMEVD:m60_49_57_00.emevd |
 | 1049577700 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1049577710 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1049577720 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_49_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1050362400 | Map Event Flag (1050362400) | EMEVD Literal Flag | Caelid | m60_50_36 | - | - | - | - | - | - | EMEVD:m60_50_36_00.emevd |
 | 1050362690 | Stake of Marika (m60_50_36) | Stake of Marika | Caelid | m60_50_36 | -46.8, 38.0, -76.3 | 12753.2, 9139.7 | - | - | - | - | MSB SpawnPoint |
 | 1050367000 | Mushroom | World Pickup | Caelid | m60_50_36 | -65.1, 38.5, -59.2 | 12734.9, 9156.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050367900 | Arrow's Sting Talisman | World Pickup | Caelid | m60_50_36 | -76.6, 65.9, -94.5 | 12723.4, 9121.5 | chest | - | high | N | ItemLotParam_map |
+| 1050370299 | Enemy Defeat (1050370299) | Enemy Defeat | Caelid | m60_50_37 | -132.4, 131.2, 109.1 | 12667.6, 9581.1 | - | - | - | - | EMEVD:m60_50_37_00.emevd |
 | 1050380700 | Sage Gowry | NPC | Caelid | m60_50_38 | -85.1, 94.9, 46.2 | 12714.9, 9774.2 | - | - | - | - | MSB NPC |
 | 1050380702 | Sage Gowry | NPC | Caelid | m60_50_38 | -85.1, 94.9, 46.2 | 12714.9, 9774.2 | - | - | - | - | MSB NPC |
 | 1050380705 | Millicent | NPC | Caelid | m60_50_38 | 17.5, 160.9, 118.5 | 12817.5, 9846.5 | - | - | - | - | MSB NPC |
 | 1050380706 | Millicent | NPC | Caelid | m60_50_38 | -86.9, 94.9, 47.0 | 12713.1, 9775.0 | - | - | - | - | MSB NPC |
 | 1050380710 | Millicent | NPC | Caelid | m60_50_38 | 17.7, 160.8, 118.7 | 12817.7, 9846.7 | - | - | - | - | MSB NPC |
 | 1050380950 | Millicent | NPC | Caelid | m60_50_38 | 19.9, 160.8, 127.0 | 12819.9, 9855.0 | - | - | - | - | MSB NPC |
+| 1050382713 | Map Event Flag (1050382713) | EMEVD Literal Flag | Caelid | m60_50_38 | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
+| 1050382717 | Map Event Flag (1050382717) | EMEVD Literal Flag | Caelid | m60_50_38 | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
 | 1050387000 | Golden Rune [5] | World Pickup | Caelid | m60_50_38 | -27.8, 144.2, -16.5 | 12772.2, 9711.5 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050387010 | Drawstring Poison Grease | World Pickup | Caelid | m60_50_38 | 2.7, 134.0, 86.2 | 12802.7, 9814.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050387020 | Sacred Tear | World Pickup | Caelid | m60_50_38 | 24.5, 160.9, 121.0 | 12824.5, 9849.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1050389228 | Map Event Flag (1050389228) | EMEVD Literal Flag | Caelid | m60_50_38 | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
+| 1050389238 | Map Event Flag (1050389238) | EMEVD Literal Flag | Caelid | m60_50_38 | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
+| 1050389265 | Map Event Flag (1050389265) | EMEVD Literal Flag | Caelid | m60_50_38 | - | - | - | - | - | - | EMEVD:m60_50_38_00.emevd |
+| 1050390200 | Map Event Flag (1050390200) | EMEVD Literal Flag | Caelid | m60_50_39 | - | - | - | - | - | - | EMEVD:m60_49_39_00.emevd |
 | 1050392499 | Spirit Spring (m60_50_39) | Spirit Spring | Caelid | m60_50_39 | 23.1, 209.9, 79.9 | 12823.1, 10063.9 | - | - | - | - | MSB MountJump |
 | 1050397000 | Poison Grease | World Pickup | Caelid | m60_50_39 | -96.7, 83.2, -61.1 | 12703.3, 9922.9 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050397010 | Toxic Mushroom | World Pickup | Caelid | m60_50_39 | -99.5, 88.1, -51.8 | 12700.5, 9932.2 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6323,8 +8022,11 @@ Total unique flags: 7034
 | 1050397100 | Golden Seed | World Pickup | Caelid | m60_50_39 | -115.5, 92.8, 12.5 | 12684.5, 9996.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1050397900 | Night Comet | World Pickup | Caelid | m60_50_39 | -120.6, 78.9, -51.2 | 12679.4, 9932.8 | chest | 1 | high | N | ItemLotParam_map |
 | 1050397910 | Imbued Sword Key | World Pickup | Caelid | m60_50_39 | -78.5, 83.3, -34.2 | 12721.5, 9949.8 | chest | 2 | high | N | ItemLotParam_map |
+| 1050400599 | Map Event Flag (1050400599) | EMEVD Literal Flag | Caelid | m60_50_40 | - | - | - | - | - | - | EMEVD:m60_50_40_00.emevd |
 | 1050400800 | [Dragon Communion] Greyoll's Roar - Unlocked | Shop Unlock | Caelid | - | - | - | - | - | - | - | ShopLineupParam |
+| 1050402599 | Map Event Flag (1050402599) | EMEVD Literal Flag | Caelid | m60_50_40 | - | - | - | - | - | - | EMEVD:m60_50_40_00.emevd |
 | 1050407800 | Dragon Heart | World Pickup | Caelid | m60_50_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 1050530210 | Enemy Defeat (1050530210) | Enemy Defeat | World (50,53) | m60_50_53 | -55.7, 1580.6, 1.0 | 12744.3, 13569.0 | - | - | - | - | EMEVD:m60_50_53_00.emevd |
 | 1050537000 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | 70.2, 1651.8, 62.6 | 12870.2, 13630.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1050537300 | Smoldering Butterfly | World Pickup | World (50,53) | m60_50_53 | 8.3, 1598.8, 73.7 | 12808.3, 13641.7 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050537700 | Somber Smithing Stone [7] | World Pickup | World (50,53) | m60_50_53 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6336,8 +8038,11 @@ Total unique flags: 7034
 | 1050557320 | Lump of Flesh | World Pickup | Mountaintops of the Giants | m60_50_55 | -97.5, 1353.1, -65.0 | 12702.5, 14015.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1050557800 | Somber Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_55 | -119.6, 1390.6, 86.3 | 12680.4, 14166.3 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1050557900 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_50_55 | -99.4, 1344.7, 150.1 | 12700.6, 14230.1 | chest | 2 | high | N | ItemLotParam_map |
+| 1050560300 | Enemy Defeat (1050560300) | Enemy Defeat | Mountaintops of the Giants | m60_50_56 | -37.8, 1368.5, -97.4 | 12762.2, 14238.6 | - | - | - | - | EMEVD:m60_50_56_00.emevd |
+| 1050560500 | EMEVD Treasure (1050560500) | EMEVD Treasure | Mountaintops of the Giants | m60_50_56 | -111.3, 1253.0, 4.2 | 12688.7, 14340.2 | - | - | - | - | EMEVD:m60_50_56_00.emevd |
 | 1050560800 | [Dragon Communion] Theodorix's Magma - Unlocked | Shop Unlock | Mountaintops of the Giants | - | - | - | - | - | - | - | ShopLineupParam |
 | 1050562141 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | 85.8, 1603.4, 93.5 | 12885.8, 14429.5 | - | - | - | - | MSB SpawnPoint |
+| 1050562200 | Map Event Flag (1050562200) | EMEVD Literal Flag | Mountaintops of the Giants | m60_50_56 | - | - | - | - | - | - | EMEVD:m60_35_53_00.emevd |
 | 1050562500 | Spirit Spring (m60_50_56) | Spirit Spring | Mountaintops of the Giants | m60_50_56 | 70.7, 1609.7, -10.3 | 12870.7, 14325.7 | - | - | - | - | MSB MountJump |
 | 1050562510 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | -42.7, 1392.5, 64.0 | 12757.3, 14400.0 | - | - | - | - | MSB SpawnPoint |
 | 1050562690 | Stake of Marika (m60_50_56) | Stake of Marika | Mountaintops of the Giants | m60_50_56 | -57.8, 1256.8, 36.1 | 12742.2, 14372.1 | - | - | - | - | MSB SpawnPoint |
@@ -6352,12 +8057,20 @@ Total unique flags: 7034
 | 1050567700 | Hoslow's Petal Whip | World Pickup | Mountaintops of the Giants | m60_50_56 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1050567800 | Smithing Stone [8] | World Pickup | Mountaintops of the Giants | m60_50_56 | -111.3, 1253.0, 4.2 | 12688.7, 14340.2 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1050567820 | Graven-Mass Talisman | World Pickup | Mountaintops of the Giants | m60_50_56 | -107.1, 1349.6, -84.1 | 12692.9, 14251.9 | ground_pickup | - | high | N | ItemLotParam_map |
+| 1050569000 | Map Event Flag (1050569000) | EMEVD Literal Flag | Mountaintops of the Giants | m60_50_56 | - | - | - | - | - | - | EMEVD:m60_50_56_00.emevd |
 | 1050570800 | Death Rite Bird | Great Boss Defeat | Mountaintops of the Giants | m60_50_57 | 51.2, 1630.4, -92.2 | 12851.2, 14499.8 | - | - | - | - | MSB Enemy |
 | 1050570850 | Putrid Avatar | Field Boss Defeat | Mountaintops of the Giants | m60_50_57 | -85.4, 1390.1, -56.4 | 12714.6, 14535.6 | - | - | - | - | MSB Enemy |
 | 1050577300 | Warming Stone | World Pickup | Mountaintops of the Giants | m60_50_57 | -144.2, 1374.2, -116.9 | 12655.8, 14475.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1050577800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_50_57 | 16.6, 1634.6, -47.7 | 12816.6, 14544.3 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051350290 | Enemy Defeat (1051350290) | Enemy Defeat | World (51,35) | m60_51_35 | 53.3, 81.3, 112.1 | 13109.3, 9072.1 | - | - | - | - | EMEVD:m60_51_35_00.emevd |
 | 1051357000 | Smoldering Butterfly | World Pickup | World (51,35) | m60_51_35 | 59.7, 81.2, 99.2 | 13115.7, 9059.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051360100 | Iron Fist Alexander | NPC | Caelid | m60_51_36 | 62.7, 91.7, 56.6 | 13118.7, 9272.6 | - | - | - | - | MSB NPC |
+| 1051360230 | Map Event Flag (1051360230) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051360291 | Enemy Defeat (1051360291) | Enemy Defeat | Caelid | m60_51_36 | 17.2, 82.7, -54.2 | 13073.2, 9161.8 | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051360292 | Enemy Defeat (1051360292) | Enemy Defeat | Caelid | m60_51_36 | 24.5, 83.0, -50.2 | 13080.5, 9165.8 | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051360510 | Door Unlock (1051360510) | Door Unlock | Caelid | m60_51_36 | 59.1, 15.2, 126.3 | 13115.1, 9342.3 | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051360514 | Map Event Flag (1051360514) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051360560 | Mechanism Unlock (1051360560) | Mechanism Unlock | Caelid | m60_51_36 | 28.3, 92.0, -139.8 | 13084.3, 9076.2 | - | - | - | - | EMEVD:m60_51_36_00.emevd |
 | 1051360700 | Castellan Jerren | NPC | Caelid | m60_51_36 | 53.6, 100.5, 103.5 | 13109.6, 9319.5 | - | - | - | - | MSB NPC |
 | 1051360701 | Castellan Jerren | NPC | Caelid | m60_51_36 | 75.9, 99.4, 50.4 | 13131.9, 9266.4 | - | - | - | - | MSB NPC |
 | 1051360705 | Alexander, Warrior Jar | NPC | Caelid | m60_51_36 | 73.1, 91.8, 34.8 | 13129.1, 9250.8 | - | - | - | - | MSB NPC |
@@ -6365,6 +8078,10 @@ Total unique flags: 7034
 | 1051360735 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 74.2, 91.8, 21.7 | 13130.2, 9237.7 | - | - | - | - | MSB NPC |
 | 1051360800 | Crucible Knight Ordovis | Great Boss Defeat | Caelid | m60_51_36 | 97.3, 105.5, 36.3 | 13153.4, 9252.3 | - | - | - | - | MSB Enemy |
 | 1051360950 | Finger Maiden Therolina | NPC | Caelid | m60_51_36 | 81.6, 91.3, 18.9 | 13137.6, 9234.9 | - | - | - | - | MSB NPC |
+| 1051362340 | Map Event Flag (1051362340) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051362700 | Map Event Flag (1051362700) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051362735 | Map Event Flag (1051362735) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
+| 1051362739 | Map Event Flag (1051362739) | EMEVD Literal Flag | Caelid | m60_51_36 | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
 | 1051367000 | Golden Rune [6] | World Pickup | Caelid | m60_51_36 | 13.6, 88.5, -108.9 | 13069.6, 9107.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051367020 | Smithing Stone [6] | World Pickup | Caelid | m60_51_36 | -68.8, 56.4, -60.2 | 12987.2, 9155.8 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051367030 | Smithing Stone [3] | World Pickup | Caelid | m60_51_36 | -53.4, 41.8, -58.5 | 13002.6, 9157.5 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6389,13 +8106,20 @@ Total unique flags: 7034
 | 1051397900 | Dectus Medallion (Right) | World Pickup | Caelid | m60_51_39 | -25.4, 285.6, 135.4 | 13030.6, 10119.4 | chest | 2 | high | N | ItemLotParam_map |
 | 1051400800 | Putrid Avatar | Great Boss Defeat | Caelid | m60_51_40 | 37.4, 209.4, 70.2 | 13093.4, 10310.2 | - | - | - | - | MSB Enemy |
 | 1051407040 | Rune Arc | World Pickup | Caelid | m60_51_40 | 9.6, 113.6, -55.1 | 13065.6, 10184.9 | corpse | 2 | high | N | ItemLotParam_map |
+| 1051410290 | Enemy Defeat (1051410290) | Enemy Defeat | Caelid | m60_51_41 | 114.5, 231.8, -22.3 | 13170.5, 10473.7 | - | - | - | - | EMEVD:m60_51_41_00.emevd |
 | 1051417000 | Soft Cotton | World Pickup | Caelid | m60_51_41 | -129.8, 234.1, 73.2 | 12926.2, 10569.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051417010 | Cinquedea | World Pickup | Caelid | m60_51_41 | -146.8, 191.9, 80.1 | 12909.2, 10576.1 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1051417030 | Dragoncrest Shield Talisman | World Pickup | Caelid | m60_51_41 | -84.3, 195.2, 100.1 | 12971.7, 10596.1 | corpse | - | high | N | ItemLotParam_map |
+| 1051420299 | Enemy Defeat (1051420299) | Enemy Defeat | Caelid | m60_51_42 | 46.3, 249.1, 18.2 | 13102.3, 10770.2 | - | - | - | - | EMEVD:m60_51_42_00.emevd |
+| 1051430210 | Map Event Flag (1051430210) | EMEVD Literal Flag | Caelid | m60_51_43 | - | - | - | - | - | - | EMEVD:m60_46_39_00.emevd |
 | 1051430700 | Gurranq, Beast Clergyman | NPC | Caelid | m60_51_43 | -72.5, 345.3, 30.4 | 12983.5, 11038.4 | - | - | - | - | MSB NPC |
 | 1051430800 | Valiant Gargoyle | Great Boss Defeat | Caelid | m60_51_43 | -12.9, 336.9, -19.2 | 13043.1, 10988.8 | - | - | - | - | MSB Enemy |
+| 1051432703 | Map Event Flag (1051432703) | EMEVD Literal Flag | Caelid | m60_51_43 | - | - | - | - | - | - | EMEVD:m60_51_43_00.emevd |
 | 1051437020 | Golden Seed | World Pickup | Caelid | m60_51_43 | 74.8, 296.1, -91.1 | 13130.8, 10916.9 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1051439212 | Map Event Flag (1051439212) | EMEVD Literal Flag | Caelid | m60_51_43 | - | - | - | - | - | - | EMEVD:m60_51_43_00.emevd |
 | 1051522500 | Spirit Spring (m60_51_52) | Spirit Spring | World (51,52) | m60_51_52 | -25.5, 1813.6, 107.8 | 13030.5, 13419.8 | - | - | - | - | MSB MountJump |
+| 1051530210 | Enemy Defeat (1051530210) | Enemy Defeat | World (51,53) | m60_51_53 | 90.4, 1820.5, -9.8 | 13146.4, 13558.2 | - | - | - | - | EMEVD:m60_51_53_00.emevd |
+| 1051530380 | Enemy Defeat (1051530380) | Enemy Defeat | World (51,53) | m60_51_53 | -20.4, 1801.2, -49.2 | 13035.6, 13518.8 | - | - | - | - | EMEVD:m60_51_53_00.emevd |
 | 1051537000 | Ancient Dragon Smithing Stone | World Pickup | World (51,53) | m60_51_53 | -7.8, 1824.9, -97.3 | 13048.2, 13470.7 | corpse | 3 | high | N | ItemLotParam_map |
 | 1051537010 | Smithing Stone [7] | World Pickup | World (51,53) | m60_51_53 | 153.1, 1795.9, -6.4 | 13209.1, 13561.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051537300 | Drawstring Holy Grease | World Pickup | World (51,53) | m60_51_53 | -101.5, 1673.2, 106.1 | 12954.5, 13674.1 | corpse | 0 | high | N | ItemLotParam_map |
@@ -6404,17 +8128,24 @@ Total unique flags: 7034
 | 1051537700 | Somber Smithing Stone [8] | World Pickup | World (51,53) | m60_51_53 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1051537800 | Sacred Tear | World Pickup | World (51,53) | m60_51_53 | -61.2, 1803.0, -71.0 | 12994.8, 13497.0 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1051537810 | Warming Stone | World Pickup | World (51,53) | m60_51_53 | 69.0, 1752.4, 123.8 | 13125.0, 13691.9 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1051540210 | Enemy Defeat (1051540210) | Enemy Defeat | Mountaintops of the Giants | m60_51_54 | - | - | - | - | - | - | EMEVD:m60_51_54_00.emevd |
 | 1051547000 | Invigorating White Cured Meat | World Pickup | Mountaintops of the Giants | m60_51_54 | -21.5, 1693.2, -79.2 | 13034.5, 13744.8 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051547800 | Fan Daggers | World Pickup | Mountaintops of the Giants | m60_51_54 | 69.6, 1746.4, -114.4 | 13125.6, 13709.6 | ground_pickup | 0 | high | N | ItemLotParam_map |
+| 1051550300 | Enemy Defeat (1051550300) | Enemy Defeat | World (12,13) | m60_12_13 | 285.6, 1566.2, 454.0 | 3357.6, 3782.0 | - | - | - | - | EMEVD:m60_51_55_00.emevd |
 | 1051557300 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_51_55 | -120.0, 1545.3, -46.7 | 12936.0, 14033.3 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051557310 | Drawstring Holy Grease | World Pickup | Mountaintops of the Giants | m60_51_55 | -117.4, 1542.4, -22.7 | 12938.6, 14057.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051557320 | Rainbow Stone | World Pickup | Mountaintops of the Giants | m60_51_55 | -115.9, 1541.9, -26.6 | 12940.1, 14053.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051557330 | Golden Rune [13] | World Pickup | Mountaintops of the Giants | m60_51_55 | -97.7, 1570.1, 84.9 | 12958.3, 14164.9 | corpse | 1 | high | N | ItemLotParam_map |
+| 1051560210 | Enemy Defeat (1051560210) | Enemy Defeat | Mountaintops of the Giants | m60_51_56 | -23.4, 1573.6, -118.8 | 13032.6, 14217.2 | - | - | - | - | EMEVD:m60_51_56_00.emevd |
 | 1051560700 | Spirit Jellyfish | NPC | Mountaintops of the Giants | m60_51_56 | -10.1, 1660.0, 47.7 | 13045.9, 14383.7 | - | - | - | - | MSB NPC |
 | 1051560705 | Millicent | NPC | Mountaintops of the Giants | m60_51_56 | -4.3, 1612.5, -39.3 | 13051.7, 14296.7 | - | - | - | - | MSB NPC |
 | 1051560710 | The Noble Goldmask | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.5, -43.7 | 13064.6, 14292.3 | - | - | - | - | MSB NPC |
 | 1051560720 | Scribe Corhyn | NPC | Mountaintops of the Giants | m60_51_56 | 8.6, 1674.7, -40.7 | 13064.6, 14295.3 | - | - | - | - | MSB NPC |
 | 1051560725 | Hermit Merchant | Merchant | Mountaintops of the Giants | m60_51_56 | -38.9, 1625.5, -61.4 | 13017.1, 14274.6 | - | - | - | - | MSB NPC |
+| 1051562702 | Map Event Flag (1051562702) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051562704 | Map Event Flag (1051562704) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051562706 | Map Event Flag (1051562706) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051562708 | Map Event Flag (1051562708) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
 | 1051567020 | Somber Smithing Stone [9] | World Pickup | Mountaintops of the Giants | m60_51_56 | 17.1, 1674.4, -46.5 | 13073.1, 14289.5 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051567030 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_56 | 29.1, 1664.7, 45.3 | 13085.1, 14381.3 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051567300 | Formic Rock | World Pickup | Mountaintops of the Giants | m60_51_56 | 70.2, 1609.1, -109.8 | 13126.2, 14226.2 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6424,9 +8155,20 @@ Total unique flags: 7034
 | 1051567800 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051567810 | Miquella's Lily | World Pickup | Mountaintops of the Giants | m60_51_56 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051567900 | Primal Glintstone Blade | World Pickup | Mountaintops of the Giants | m60_51_56 | 22.0, 1648.1, 62.8 | 13078.0, 14398.8 | chest | - | high | Y | ItemLotParam_map |
+| 1051569206 | Map Event Flag (1051569206) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051569300 | Map Event Flag (1051569300) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051569454 | Map Event Flag (1051569454) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_56 | - | - | - | - | - | - | EMEVD:m60_51_56_00.emevd |
+| 1051570310 | Enemy Defeat (1051570310) | Enemy Defeat | Mountaintops of the Giants | m60_51_57 | 6.6, 1599.0, 92.2 | 13062.6, 14684.2 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570311 | Enemy Defeat (1051570311) | Enemy Defeat | Mountaintops of the Giants | m60_51_57 | 22.6, 1600.5, 55.6 | 13078.6, 14647.6 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570315 | Enemy Defeat (1051570315) | Enemy Defeat | Mountaintops of the Giants | m60_51_57 | - | - | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570421 | Enemy Defeat (1051570421) | Enemy Defeat | Mountaintops of the Giants | m60_51_57 | -17.6, 1658.0, -12.8 | 13038.4, 14579.2 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570510 | Door Unlock (1051570510) | Door Unlock | Mountaintops of the Giants | m60_51_57 | 82.1, 1609.0, 154.6 | 13138.1, 14746.6 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570514 | Door Unlock (1051570514) | Door Unlock | Mountaintops of the Giants | m60_51_57 | 78.9, 1608.8, 150.0 | 13134.9, 14742.0 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
+| 1051570560 | Mechanism Unlock (1051570560) | Mechanism Unlock | Mountaintops of the Giants | m60_51_57 | 19.4, 1608.3, 117.6 | 13075.4, 14709.6 | - | - | - | - | EMEVD:m60_51_57_00.emevd |
 | 1051570710 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_57 | 71.3, 1616.4, 89.7 | 13127.3, 14681.7 | - | - | - | - | MSB NPC |
 | 1051570800 | Commander Niall | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 78.0, 1632.0, 210.2 | 13134.0, 14802.2 | - | - | - | - | MSB Enemy |
 | 1051570801 | Banished Knight | Boss Defeat | Mountaintops of the Giants | m60_51_57 | 74.6, 1632.0, 205.7 | 13130.6, 14797.7 | - | - | - | - | MSB Enemy |
+| 1051572802 | Map Event Flag (1051572802) | EMEVD Literal Flag | Mountaintops of the Giants | m60_51_57 | - | - | - | - | - | - | EMEVD:m60_51_57_00.emevd |
 | 1051577000 | Freezing Grease | World Pickup | Mountaintops of the Giants | m60_51_57 | 12.9, 1606.7, 111.4 | 13068.9, 14703.4 | corpse | 0 | high | N | ItemLotParam_map |
 | 1051577010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_51_57 | 28.2, 1600.9, 53.1 | 13084.2, 14645.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1051577020 | Smithing Stone [5] | World Pickup | Mountaintops of the Giants | m60_51_57 | 55.3, 1599.0, 88.1 | 13111.3, 14680.1 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6456,6 +8198,7 @@ Total unique flags: 7034
 | 1051577720 | Helphen's Steeple | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 1051577800 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1051577810 | Somber Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_51_57 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 1051580510 | Door Unlock (1051580510) | Door Unlock | Mountaintops of the Giants | m60_51_58 | 78.1, 1636.0, -1.2 | 13134.1, 14846.8 | - | - | - | - | EMEVD:m60_51_58_00.emevd |
 | 1051580700 | Wandering Noble | NPC | Mountaintops of the Giants | m60_51_58 | 86.1, 1664.2, 22.3 | 13142.1, 14870.3 | - | - | - | - | MSB NPC |
 | 1051587800 | Haligtree Secret Medallion (Left) | World Pickup | Mountaintops of the Giants | m60_51_58 | 87.6, 1664.3, 21.2 | 13143.6, 14869.2 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1052380706 | Alexander, Warrior Jar | NPC | Caelid | m60_52_38 | -39.1, 27.5, -68.0 | 13272.9, 9660.0 | - | - | - | - | MSB NPC |
@@ -6463,6 +8206,12 @@ Total unique flags: 7034
 | 1052380800 | Starscourge Radahn | Great Boss Defeat | World (13,9) | m60_13_09 | -433.7, 34.6, 106.3 | 2894.3, 2410.3 | - | - | - | - | MSB Enemy |
 | 1052380950 | Iron Fist Alexander | NPC | Caelid | m60_52_38 | -43.5, 34.3, -41.9 | 13268.5, 9686.1 | - | - | - | - | MSB NPC |
 | 1052382020 | Stake of Marika (m60_52_38) | Stake of Marika | Caelid | m60_52_38 | -44.2, 33.6, -44.1 | 13267.8, 9683.9 | - | - | - | - | MSB SpawnPoint |
+| 1052382602 | Map Event Flag (1052382602) | EMEVD Literal Flag | Caelid | m60_52_38 | - | - | - | - | - | - | EMEVD:m60_51_37_00.emevd |
+| 1052382805 | Map Event Flag (1052382805) | EMEVD Literal Flag | Caelid | m60_52_38 | - | - | - | - | - | - | EMEVD:m60_51_37_00.emevd |
+| 1052382806 | Map Event Flag (1052382806) | EMEVD Literal Flag | Caelid | m60_52_38 | - | - | - | - | - | - | EMEVD:m60_51_37_00.emevd |
+| 1052389200 | Map Event Flag (1052389200) | EMEVD Literal Flag | Caelid | m60_52_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1052389250 | Map Event Flag (1052389250) | EMEVD Literal Flag | Caelid | m60_52_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1052410510 | Door Unlock (1052410510) | Door Unlock | Caelid | m60_52_41 | 48.6, 236.9, -15.4 | 13360.6, 10480.6 | - | - | - | - | EMEVD:m60_52_41_00.emevd |
 | 1052410800 | Flying Dragon Agheel | Great Boss Defeat | Caelid | m60_52_41 | -113.6, 248.5, 137.5 | 13198.4, 10633.5 | - | - | - | - | MSB Enemy |
 | 1052410850 | Night's Cavalry | Field Boss Defeat | Caelid | m60_52_41 | 8.3, 221.4, 115.7 | 13320.3, 10611.7 | - | - | - | - | MSB Enemy |
 | 1052412499 | Spirit Spring (m60_52_41) | Spirit Spring | Caelid | m60_52_41 | 47.3, 221.0, -42.1 | 13359.3, 10453.9 | - | - | - | - | MSB MountJump |
@@ -6475,12 +8224,34 @@ Total unique flags: 7034
 | 1052520800 | Fire Giant | Great Boss Defeat | World (13,13) | m60_13_13 | -268.7, 1775.5, -293.7 | 3059.3, 3034.3 | - | - | - | - | MSB Enemy |
 | 1052522810 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.4, 1849.5, -312.8 | 3022.6, 3015.2 | - | - | - | - | MSB SpawnPoint |
 | 1052522811 | Stake of Marika (m60_13_13) | Stake of Marika | World (13,13) | m60_13_13 | -305.8, 1846.7, -303.2 | 3022.2, 3024.8 | - | - | - | - | MSB SpawnPoint |
+| 1052522820 | Map Event Flag (1052522820) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522822 | Map Event Flag (1052522822) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522823 | Map Event Flag (1052522823) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522824 | Map Event Flag (1052522824) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522825 | Map Event Flag (1052522825) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522826 | Map Event Flag (1052522826) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522827 | Map Event Flag (1052522827) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522828 | Map Event Flag (1052522828) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522830 | Map Event Flag (1052522830) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522831 | Map Event Flag (1052522831) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522832 | Map Event Flag (1052522832) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522833 | Map Event Flag (1052522833) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522834 | Map Event Flag (1052522834) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522835 | Map Event Flag (1052522835) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522836 | Map Event Flag (1052522836) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522837 | Map Event Flag (1052522837) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1052522838 | Map Event Flag (1052522838) | EMEVD Literal Flag | World (52,52) | m60_52_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
 | 1052537000 | Golden Rune [10] | World Pickup | World (52,53) | m60_52_53 | -72.5, 1800.7, 36.6 | 13239.5, 13604.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052537800 | Golden Seed | World Pickup | World (52,53) | m60_52_53 | 61.7, 1828.2, 118.5 | 13373.7, 13686.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052540491 | Enemy Defeat (1052540491) | Enemy Defeat | Mountaintops of the Giants | m60_52_54 | 7.3, 1832.0, -11.0 | 13319.3, 13813.0 | - | - | - | - | EMEVD:m60_52_54_00.emevd |
+| 1052540492 | Enemy Defeat (1052540492) | Enemy Defeat | Mountaintops of the Giants | m60_52_54 | 61.5, 1831.2, -83.6 | 13373.5, 13740.4 | - | - | - | - | EMEVD:m60_52_54_00.emevd |
+| 1052540494 | Enemy Defeat (1052540494) | Enemy Defeat | Mountaintops of the Giants | m60_52_54 | 38.5, 1831.0, -108.7 | 13350.5, 13715.3 | - | - | - | - | EMEVD:m60_52_54_00.emevd |
 | 1052547000 | Grace Mimic | World Pickup | Mountaintops of the Giants | m60_52_54 | 26.9, 1805.8, -85.4 | 13338.9, 13738.6 | corpse | 0 | high | N | ItemLotParam_map |
 | 1052547010 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | -11.7, 1817.2, -88.4 | 13300.3, 13735.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052547020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_54 | 56.9, 1797.8, -42.4 | 13368.9, 13781.6 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052547800 | Starlight Shards | World Pickup | Mountaintops of the Giants | m60_52_54 | 131.0, 1828.3, -71.5 | 13443.0, 13752.5 | ground_pickup | 2 | high | N | ItemLotParam_map |
+| 1052550300 | Enemy Defeat (1052550300) | Enemy Defeat | Mountaintops of the Giants | m60_52_55 | -34.1, 1704.0, -6.5 | 13277.9, 14073.5 | - | - | - | - | EMEVD:m60_52_55_00.emevd |
+| 1052550390 | Enemy Defeat (1052550390) | Enemy Defeat | Mountaintops of the Giants | m60_52_55 | -61.5, 1712.3, 18.0 | 13250.5, 14098.0 | - | - | - | - | EMEVD:m60_52_55_00.emevd |
 | 1052557000 | Smoldering Butterfly | World Pickup | Mountaintops of the Giants | m60_52_55 | -41.2, 1706.7, 47.0 | 13270.8, 14127.0 | corpse | 0 | high | N | ItemLotParam_map |
 | 1052557010 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_52_55 | -45.3, 1705.8, 91.1 | 13266.7, 14171.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052557020 | Golden Rune [10] | World Pickup | Mountaintops of the Giants | m60_52_55 | -59.6, 1693.7, 83.5 | 13252.4, 14163.5 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6494,6 +8265,9 @@ Total unique flags: 7034
 | 1052560800 | Erdtree Avatar | Great Boss Defeat | Mountaintops of the Giants | m60_52_56 | -44.0, 1674.3, 69.7 | 13268.0, 14405.7 | - | - | - | - | MSB Enemy |
 | 1052567300 | Explosive Greatbolt | World Pickup | Mountaintops of the Giants | m60_52_56 | 103.3, 1661.4, -22.0 | 13415.3, 14314.0 | corpse | 1 | high | N | ItemLotParam_map |
 | 1052567310 | Rune Arc | World Pickup | Mountaintops of the Giants | m60_52_56 | -127.5, 1667.7, 63.4 | 13184.5, 14399.4 | corpse | 2 | high | N | ItemLotParam_map |
+| 1052570210 | Map Event Flag (1052570210) | EMEVD Literal Flag | Mountaintops of the Giants | m60_52_57 | - | - | - | - | - | - | EMEVD:m60_52_57_00.emevd |
+| 1052570490 | EMEVD Treasure (1052570490) | EMEVD Treasure | Mountaintops of the Giants | m60_52_57 | 105.8, 1599.8, -10.0 | 13417.8, 14582.0 | - | - | - | - | EMEVD:m60_52_57_00.emevd |
+| 1052570510 | Door Unlock (1052570510) | Door Unlock | Mountaintops of the Giants | m60_52_57 | 101.6, 1693.4, -61.8 | 13413.6, 14530.2 | - | - | - | - | EMEVD:m60_52_57_00.emevd |
 | 1052577000 | Stimulating Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | -16.7, 1676.9, 40.1 | 13295.3, 14632.1 | corpse | 0 | high | N | ItemLotParam_map |
 | 1052577300 | Thawfrost Boluses | World Pickup | Mountaintops of the Giants | m60_52_57 | 57.0, 1665.4, -67.8 | 13369.0, 14524.2 | corpse | 0 | high | N | ItemLotParam_map |
 | 1052577310 | Old Fang | World Pickup | Mountaintops of the Giants | m60_52_57 | 82.6, 1679.5, -69.6 | 13394.6, 14522.4 | corpse | 1 | high | N | ItemLotParam_map |
@@ -6520,22 +8294,46 @@ Total unique flags: 7034
 | 1053567720 | Golden Rune [12] | World Pickup | Mountaintops of the Giants | m60_53_56 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 1053567800 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 19.5, 1643.2, -116.3 | 13587.5, 14219.7 | ground_pickup | 1 | high | N | ItemLotParam_map |
 | 1053567810 | Golden Rune [7] | World Pickup | Mountaintops of the Giants | m60_53_56 | 33.8, 1641.4, -109.2 | 13601.8, 14226.8 | ground_pickup | 1 | high | N | ItemLotParam_map |
+| 1053570210 | Enemy Defeat (1053570210) | Enemy Defeat | Mountaintops of the Giants | m60_53_57 | 18.8, 1620.2, 72.6 | 13586.8, 14664.6 | - | - | - | - | EMEVD:m60_53_57_00.emevd |
 | 1053577300 | Golden Rune [11] | World Pickup | Mountaintops of the Giants | m60_53_57 | 108.1, 1638.4, 86.6 | 13676.1, 14678.6 | corpse | 1 | high | N | ItemLotParam_map |
+| 1054530500 | Map Event Flag (1054530500) | EMEVD Literal Flag | World (54,53) | m60_54_53 | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
+| 1054532700 | Map Event Flag (1054532700) | EMEVD Literal Flag | World (54,53) | m60_54_53 | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
+| 1054532701 | Map Event Flag (1054532701) | EMEVD Literal Flag | World (54,53) | m60_54_53 | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
+| 1054532703 | Map Event Flag (1054532703) | EMEVD Literal Flag | World (54,53) | m60_54_53 | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
 | 1054557000 | Smithing Stone [7] | World Pickup | Mountaintops of the Giants | m60_54_55 | 9.5, 1641.5, 75.1 | 13833.5, 14155.1 | corpse | 1 | high | N | ItemLotParam_map |
 | 1054557310 | Somberstone Miner's Bell Bearing [3] | World Pickup | Mountaintops of the Giants | m60_54_55 | -37.2, 1621.7, 109.9 | 13786.8, 14189.9 | corpse | 2 | high | N | ItemLotParam_map |
 | 1054557800 | Sacred Tear | World Pickup | Mountaintops of the Giants | m60_54_55 | -30.6, 1625.5, 62.6 | 13793.4, 14142.6 | ground_pickup | 2 | high | N | ItemLotParam_map |
 | 1054560800 | Borealis the Freezing Fog | Great Boss Defeat | World (13,14) | m60_13_14 | 1.7, 1620.4, -230.3 | 3329.7, 3353.7 | - | - | - | - | MSB Enemy |
+| 1054562820 | Map Event Flag (1054562820) | EMEVD Literal Flag | Mountaintops of the Giants | m60_54_56 | - | - | - | - | - | - | EMEVD:m60_54_56_00.emevd |
+| 1099002100 | Map Event Flag (1099002100) | EMEVD Literal Flag | World (99,0) | m60_99_00 | - | - | - | - | - | - | EMEVD:m61_50_43_00.emevd |
+| 1148560200 | Enemy Defeat (1148560200) | Enemy Defeat | World (24,28) | m60_24_28 | -114.3, 1261.4, -117.8 | 6029.7, 7050.2 | - | - | - | - | EMEVD:m60_48_56_00.emevd |
 | 1247580400 | Walking Mausoleum | NPC | World (11,14) | m60_11_14 | 448.7, 1283.2, 24.8 | 3264.7, 3608.8 | - | - | - | - | MSB NPC |
+| 1247582350 | Map Event Flag (1247582350) | EMEVD Literal Flag | World (247,58) | m60_247_58 | - | - | - | - | - | - | EMEVD:m60_47_58_00.emevd |
 | 1248550800 | Night's Cavalry | Boss Arena | Southwest Mountaintops | m60_48_55 | 108.2, 1281.6, -33.1 | 108.2, -33.1 | - | - | - | - | GameAreaParam |
+| 1248552815 | Map Event Flag (1248552815) | EMEVD Literal Flag | World (248,55) | m60_248_55 | - | - | - | - | - | - | EMEVD:m60_48_55_00.emevd |
 | 1251570400 | Walking Mausoleum | NPC | World (12,14) | m60_12_14 | 335.8, 1596.9, -30.3 | 3407.8, 3553.7 | - | - | - | - | MSB NPC |
 | 1252380800 | Starscourge Radahn | Boss Arena | Southeast Caelid | m60_52_38 | -47.0, 35.1, -39.7 | -47.0, -39.7 | - | - | - | - | GameAreaParam |
+| 1252380801 | Map Event Flag (1252380801) | EMEVD Literal Flag | World (252,38) | m60_252_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1252382699 | Map Event Flag (1252382699) | EMEVD Literal Flag | World (252,38) | m60_252_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1252382815 | Map Event Flag (1252382815) | EMEVD Literal Flag | World (252,38) | m60_252_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1252382890 | Map Event Flag (1252382890) | EMEVD Literal Flag | World (252,38) | m60_252_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1252382895 | Map Event Flag (1252382895) | EMEVD Literal Flag | World (252,38) | m60_252_38 | - | - | - | - | - | - | EMEVD:m60_52_38_00.emevd |
+| 1252520800 | Map Event Flag (1252520800) | EMEVD Literal Flag | World (252,52) | m60_252_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1252520801 | Map Event Flag (1252520801) | EMEVD Literal Flag | World (252,52) | m60_252_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1252520804 | Map Event Flag (1252520804) | EMEVD Literal Flag | World (252,52) | m60_252_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
+| 1252522802 | Map Event Flag (1252522802) | EMEVD Literal Flag | World (252,52) | m60_252_52 | - | - | - | - | - | - | EMEVD:m60_52_52_00.emevd |
 | 1254560800 | [Dragon Communion] Borealis's Mist - Unlocked | Shop Unlock | World (254,56) | - | - | - | - | - | - | - | ShopLineupParam |
 | 2044417000 | Ghost Glovewort [4] | DLC Pickup | Shadow of the Erdtree | m61_44_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2044450510 | Door Unlock (2044450510) | Door Unlock | Shadow of the Erdtree | m61_44_45 | - | - | - | - | - | - | EMEVD:m61_44_45_00.emevd |
+| 2044450515 | Door Unlock (2044450515) | Door Unlock | Shadow of the Erdtree | m61_44_45 | - | - | - | - | - | - | EMEVD:m61_44_45_00.emevd |
 | 2044450800 | Romina, Saint of the Bud | Boss Arena | Ancient Ruins of Rauh | m61_44_45 | -61.2, 625.3, 110.6 | -61.2, 110.6 | - | - | - | - | GameAreaParam |
+| 2044452802 | Map Event Flag (2044452802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_44_45 | - | - | - | - | - | - | EMEVD:m61_44_45_00.emevd |
 | 2044457000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2044457010 | Four-Toed Fowl Foot | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2044457020 | Spiritgrave Stone | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2044457900 | Talisman of All Crucibles | DLC Pickup | Shadow of the Erdtree | m61_44_45 | - | - | - | - | none | N | ItemLotParam_map |
+| 2044460500 | Map Event Flag (2044460500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_44_46 | - | - | - | - | - | - | EMEVD:m61_44_46_00.emevd |
+| 2044460510 | Door Unlock (2044460510) | Door Unlock | Shadow of the Erdtree | m61_44_46 | - | - | - | - | - | - | EMEVD:m61_44_46_00.emevd |
 | 2044467000 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2044467010 | Dappled White Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044467020 | Immunizing Cured Meat | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6546,7 +8344,9 @@ Total unique flags: 7034
 | 2044467070 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2044467080 | Scarlet Bud | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044467110 | Divine Bird Feathers | DLC Pickup | Shadow of the Erdtree | m61_44_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2044470510 | Door Unlock (2044470510) | Door Unlock | Shadow of the Erdtree | m61_44_47 | - | - | - | - | - | - | EMEVD:m61_44_47_00.emevd |
 | 2044470800 | Rugalea the Great Red Bear | Boss Arena | Ancient Ruins of Rauh | m61_44_47 | -52.1, 321.7, 112.3 | -52.1, 112.3 | - | - | - | - | GameAreaParam |
+| 2044472802 | Map Event Flag (2044472802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_44_47 | - | - | - | - | - | - | EMEVD:m61_44_47_00.emevd |
 | 2044477000 | Ghost Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044477010 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044477020 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6554,6 +8354,7 @@ Total unique flags: 7034
 | 2044477040 | Throwing Dagger | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2044477050 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2044477900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_44_47 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045402700 | Quest State (2045402700) | Quest State | Shadow of the Erdtree | m61_45_40 | - | - | - | - | - | - | EMEVD:m61_45_41_00.emevd |
 | 2045417000 | Beast Blood | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2045417010 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2045417020 | Sanguine Amaryllis | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6566,6 +8367,7 @@ Total unique flags: 7034
 | 2045417900 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_45_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2045427000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2045427700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_45_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045429280 | Quest Completion (2045429280) | Quest Completion | Shadow of the Erdtree | m61_45_42 | - | - | - | - | - | - | EMEVD:m61_45_41_00.emevd |
 | 2045429330 | Deadly Poison Perfume Bottle - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
 | 2045429331 | Thiollier's Concoction - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
 | 2045437000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_45_43 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6577,6 +8379,8 @@ Total unique flags: 7034
 | 2045457000 | Kukri | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2045457010 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2045457020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_45_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2045460200 | Enemy Defeat (2045460200) | Enemy Defeat | Shadow of the Erdtree | m61_45_46 | - | - | - | - | - | - | EMEVD:m61_45_46_00.emevd |
+| 2045462350 | Map Event Flag (2045462350) | EMEVD Literal Flag | Shadow of the Erdtree | m61_45_46 | - | - | - | - | - | - | EMEVD:m61_45_46_00.emevd |
 | 2045467000 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2045467020 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2045467040 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6588,6 +8392,11 @@ Total unique flags: 7034
 | 2045467500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2045467900 | Mottled Necklace +2 | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | - | none | N | ItemLotParam_map |
 | 2045467910 | Beast Horn | DLC Pickup | Shadow of the Erdtree | m61_45_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2045470200 | Enemy Defeat (2045470200) | Enemy Defeat | Shadow of the Erdtree | m61_45_47 | - | - | - | - | - | - | EMEVD:m61_45_47_00.emevd |
+| 2045470350 | Enemy Defeat (2045470350) | Enemy Defeat | Shadow of the Erdtree | m61_45_47 | - | - | - | - | - | - | EMEVD:m61_45_47_00.emevd |
+| 2045470690 | Map Event Flag (2045470690) | EMEVD Literal Flag | Shadow of the Erdtree | m61_45_47 | - | - | - | - | - | - | EMEVD:m61_45_47_00.emevd |
+| 2045472697 | Map Event Flag (2045472697) | EMEVD Literal Flag | Shadow of the Erdtree | m61_45_47 | - | - | - | - | - | - | EMEVD:m61_45_47_00.emevd |
+| 2045472698 | Map Event Flag (2045472698) | EMEVD Literal Flag | Shadow of the Erdtree | m61_45_47 | - | - | - | - | - | - | EMEVD:m61_45_47_00.emevd |
 | 2045477010 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2045477020 | Flight Pinion | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2045477040 | Aspects of the Crucible: Bloom | DLC Pickup | Shadow of the Erdtree | m61_45_47 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6627,12 +8436,15 @@ Total unique flags: 7034
 | 2046387040 | Crab Eggs | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2046387050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046387070 | Perfumed Oil of Ranah | DLC Pickup | Shadow of the Erdtree | m61_46_38 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046390200 | Enemy Defeat (2046390200) | Enemy Defeat | Shadow of the Erdtree | m61_46_39 | - | - | - | - | - | - | EMEVD:m61_46_39_00.emevd |
 | 2046397000 | Grave Glovewort [2] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046397020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2046397030 | Fireproof Pickled Liver | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2046397040 | Gravebird Ashes | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046397050 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046397060 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_39 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2046400500 | Map Event Flag (2046400500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_40 | - | - | - | - | - | - | EMEVD:m61_46_40_00.emevd |
+| 2046400502 | Map Event Flag (2046400502) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_40 | - | - | - | - | - | - | EMEVD:m61_46_40_00.emevd |
 | 2046400800 | Demi-Human Queen Marigga | Boss Arena | Cerulean Coast | m61_46_40 | -71.8, 2.2, -12.5 | -71.8, -12.5 | - | - | - | - | GameAreaParam |
 | 2046407000 | Pata | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046407001 | Oathseeker Knight Helm | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6644,6 +8456,7 @@ Total unique flags: 7034
 | 2046407060 | Ghost Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2046407700 | Blessed Blue Dew Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_40 | - | - | - | - | none | N | ItemLotParam_map |
 | 2046410800 | Knight of the Solitary Gaol | Boss Arena | Gravesite Plain | m61_46_41 | -177.9, 317.7, 54.8 | -177.9, 54.8 | - | - | - | - | GameAreaParam |
+| 2046420300 | Enemy Defeat (2046420300) | Enemy Defeat | Shadow of the Erdtree | m61_46_42 | - | - | - | - | - | - | EMEVD:m61_46_42_00.emevd |
 | 2046427700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046427980 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_46_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046437000 | Ballista Bolt | DLC Pickup | Shadow of the Erdtree | m61_46_43 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6673,7 +8486,20 @@ Total unique flags: 7034
 | 2046457720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046457910 | Two-Handed Sword Talisman | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | - | none | N | ItemLotParam_map |
 | 2046457920 | Divine Bird Warrior Ornis | DLC Pickup | Shadow of the Erdtree | m61_46_45 | - | - | - | 3 | none | N | ItemLotParam_map |
+| 2046460290 | Enemy Defeat (2046460290) | Enemy Defeat | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046460500 | Map Event Flag (2046460500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
 | 2046460800 | Divine Beast Dancing Lion | Boss Arena | Gravesite Plain | m61_46_46 | -62.7, 536.0, -40.7 | -62.7, -40.7 | - | - | - | - | GameAreaParam |
+| 2046462802 | Map Event Flag (2046462802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462830 | Map Event Flag (2046462830) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462851 | Map Event Flag (2046462851) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462852 | Map Event Flag (2046462852) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462853 | Map Event Flag (2046462853) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462854 | Map Event Flag (2046462854) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462855 | Map Event Flag (2046462855) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462856 | Map Event Flag (2046462856) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462857 | Map Event Flag (2046462857) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462858 | Map Event Flag (2046462858) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
+| 2046462859 | Map Event Flag (2046462859) | EMEVD Literal Flag | Shadow of the Erdtree | m61_46_46 | - | - | - | - | - | - | EMEVD:m61_46_46_00.emevd |
 | 2046467000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046467010 | Redflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2046467020 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_46_46 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6696,12 +8522,16 @@ Total unique flags: 7034
 | 2046477750 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_46_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046487000 | Shadow Realm Rune [5] | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2046487010 | Bondstone | DLC Pickup | Shadow of the Erdtree | m61_46_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047350500 | Map Event Flag (2047350500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_47_35 | - | - | - | - | - | - | EMEVD:m61_47_35_00.emevd |
+| 2047352550 | Map Event Flag (2047352550) | EMEVD Literal Flag | Shadow of the Erdtree | m61_47_35 | - | - | - | - | - | - | EMEVD:m61_47_35_00.emevd |
 | 2047357000 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_47_35 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047367000 | Grave Glovewort [8] | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047367010 | Deep-Purple Lily | DLC Pickup | Shadow of the Erdtree | m61_47_36 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047370300 | Enemy Defeat (2047370300) | Enemy Defeat | Shadow of the Erdtree | m61_47_37 | - | - | - | - | - | - | EMEVD:m61_47_37_00.emevd |
 | 2047377000 | Whiteflesh Mushroom | DLC Pickup | Shadow of the Erdtree | m61_47_37 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047387000 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047387010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047390300 | Enemy Defeat (2047390300) | Enemy Defeat | Shadow of the Erdtree | m61_47_39 | - | - | - | - | - | - | EMEVD:m61_47_39_00.emevd |
 | 2047390800 | Death Rite Bird | Boss Arena | Cerulean Coast | m61_47_39 | 93.0, 85.0, 55.8 | 93.0, 55.8 | - | - | - | - | GameAreaParam |
 | 2047397000 | Spirit Sword | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2047397040 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6709,6 +8539,7 @@ Total unique flags: 7034
 | 2047397070 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2047397080 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047397090 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2047400499 | Enemy Defeat (2047400499) | Enemy Defeat | Shadow of the Erdtree | m61_47_40 | - | - | - | - | - | - | EMEVD:m61_47_40_00.emevd |
 | 2047407000 | Glass Shard | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047407010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047407020 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_47_40 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6730,6 +8561,9 @@ Total unique flags: 7034
 | 2047427030 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047427040 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047427700 | Item_4409058 | DLC Pickup | Shadow of the Erdtree | m61_47_42 | - | - | - | - | none | N | ItemLotParam_map |
+| 2047430300 | Enemy Defeat (2047430300) | Enemy Defeat | Shadow of the Erdtree | m61_47_43 | - | - | - | - | - | - | EMEVD:m61_47_43_00.emevd |
+| 2047432222 | Map Event Flag (2047432222) | EMEVD Literal Flag | Shadow of the Erdtree | m61_47_43 | - | - | - | - | - | - | EMEVD:m61_47_43_00.emevd |
+| 2047432240 | Map Event Flag (2047432240) | EMEVD Literal Flag | Shadow of the Erdtree | m61_47_43 | - | - | - | - | - | - | EMEVD:m61_47_43_00.emevd |
 | 2047437000 | Grave Glovewort [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047437010 | Spread Crossbow | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2047437020 | Smithing Stone [5] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6738,6 +8572,8 @@ Total unique flags: 7034
 | 2047437050 | Somber Smithing Stone [4] | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047437700 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2047437980 | Horned Bairn | DLC Pickup | Shadow of the Erdtree | m61_47_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047440310 | Enemy Defeat (2047440310) | Enemy Defeat | Shadow of the Erdtree | m61_47_44 | - | - | - | - | - | - | EMEVD:m61_47_44_00.emevd |
+| 2047440360 | Enemy Defeat (2047440360) | Enemy Defeat | Shadow of the Erdtree | m61_47_44 | - | - | - | - | - | - | EMEVD:m61_47_44_00.emevd |
 | 2047447010 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047447020 | Somber Smithing Stone [1] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047447030 | Broken Rune | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6772,6 +8608,7 @@ Total unique flags: 7034
 | 2047447840 | Firespark Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047447900 | Somber Smithing Stone [9] | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2047447901 | Royal Magic Grease | DLC Pickup | Shadow of the Erdtree | m61_47_44 | - | - | - | 0 | none | N | ItemLotParam_map |
+| 2047450380 | Enemy Defeat (2047450380) | Enemy Defeat | Shadow of the Erdtree | m61_47_45 | - | - | - | - | - | - | EMEVD:m61_47_45_00.emevd |
 | 2047450800 | Black Knight Garrew | Boss Arena | Scadu Altus | m61_47_44 | -27.7, 346.0, 117.3 | -27.7, 117.3 | - | - | - | - | GameAreaParam |
 | 2047457000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047457010 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_47_45 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6789,6 +8626,8 @@ Total unique flags: 7034
 | 2047467010 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047467030 | Rauh Burrow | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047467500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_47_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2047470510 | Door Unlock (2047470510) | Door Unlock | Shadow of the Erdtree | m61_47_47 | - | - | - | - | - | - | EMEVD:m61_47_47_00.emevd |
+| 2047472200 | Map Event Flag (2047472200) | EMEVD Literal Flag | Shadow of the Erdtree | m61_47_47 | - | - | - | - | - | - | EMEVD:m61_47_47_00.emevd |
 | 2047477000 | Ancient Ruins Cross Message | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2047477010 | Golden Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2047477020 | Spirit Calculus | DLC Pickup | Shadow of the Erdtree | m61_47_47 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6801,6 +8640,7 @@ Total unique flags: 7034
 | 2048377020 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2048377030 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048377050 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_37 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048380800 | Enemy Defeat (2048380800) | Enemy Defeat | Shadow of the Erdtree | m61_48_38 | - | - | - | - | - | - | EMEVD:m61_48_38_00.emevd |
 | 2048380850 | Ghostflame Dragon | Boss Arena | Cerulean Coast | m61_48_39 | -90.0, 32.3, -91.6 | -90.0, -91.6 | - | - | - | - | GameAreaParam |
 | 2048387000 | Grave Cricket | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2048387010 | Great Grave Glovewort | DLC Pickup | Shadow of the Erdtree | m61_48_38 | - | - | - | 3 | none | N | ItemLotParam_map |
@@ -6811,9 +8651,13 @@ Total unique flags: 7034
 | 2048397030 | Call of Tibia | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2048397040 | Grave Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048397050 | Rings of Spectral Light | DLC Pickup | Shadow of the Erdtree | m61_48_39 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048400200 | Enemy Defeat (2048400200) | Enemy Defeat | Shadow of the Erdtree | m61_48_40 | - | - | - | - | - | - | EMEVD:m61_48_40_00.emevd |
 | 2048407000 | Lightning Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048407010 | Spirit Glaive | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2048407020 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_40 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048410300 | Enemy Defeat (2048410300) | Enemy Defeat | Shadow of the Erdtree | m61_48_41 | - | - | - | - | - | - | EMEVD:m61_48_41_00.emevd |
+| 2048410510 | Door Unlock (2048410510) | Door Unlock | Shadow of the Erdtree | m61_48_41 | - | - | - | - | - | - | EMEVD:m61_48_41_00.emevd |
+| 2048412700 | Quest State (2048412700) | Quest State | Shadow of the Erdtree | m61_48_41 | - | - | - | - | - | - | EMEVD:m61_48_40_00.emevd |
 | 2048417000 | Fire Coil | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2048417010 | Blessing of Marika | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2048417030 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_48_41 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6828,7 +8672,13 @@ Total unique flags: 7034
 | 2048437020 | Shadow Realm Rune [1] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048437030 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048437700 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048440392 | Enemy Defeat (2048440392) | Enemy Defeat | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 2048440393 | Enemy Defeat (2048440393) | Enemy Defeat | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 2048440398 | Enemy Defeat (2048440398) | Enemy Defeat | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 2048440510 | Door Unlock (2048440510) | Door Unlock | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
 | 2048440800 | Rellana, Twin Moon Knight | Boss Arena | Gravesite Plain | m61_48_44 | -55.5, 427.0, 50.6 | -55.5, 50.6 | - | - | - | - | GameAreaParam |
+| 2048442720 | Quest State (2048442720) | Quest State | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
+| 2048442802 | Map Event Flag (2048442802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_48_44 | - | - | - | - | - | - | EMEVD:m61_48_44_00.emevd |
 | 2048447000 | Knot Resin | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2048447010 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048447020 | Hefty Beast Bone | DLC Pickup | Shadow of the Erdtree | m61_48_44 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6844,6 +8694,9 @@ Total unique flags: 7034
 | 2048457000 | Black Pyrefly | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2048457510 | Monk's Missive | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2048457520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2048459275 | Map Event Flag (2048459275) | EMEVD Literal Flag | Shadow of the Erdtree | m61_48_45 | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
+| 2048460301 | Enemy Defeat (2048460301) | Enemy Defeat | Shadow of the Erdtree | m61_48_46 | - | - | - | - | - | - | EMEVD:m61_48_46_00.emevd |
+| 2048460390 | Enemy Defeat (2048460390) | Enemy Defeat | Shadow of the Erdtree | m61_48_46 | - | - | - | - | - | - | EMEVD:m61_48_46_00.emevd |
 | 2048467010 | Golden Vow | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048467030 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2048467040 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6854,6 +8707,9 @@ Total unique flags: 7034
 | 2048467510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2048467701 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2048467710 | Black Steel Twinblade | DLC Pickup | Shadow of the Erdtree | m61_48_46 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2048470500 | Enemy Defeat (2048470500) | Enemy Defeat | Shadow of the Erdtree | m61_48_47 | - | - | - | - | - | - | EMEVD:m61_48_47_00.emevd |
+| 2048470501 | Enemy Defeat (2048470501) | Enemy Defeat | Shadow of the Erdtree | m61_48_47 | - | - | - | - | - | - | EMEVD:m61_48_47_00.emevd |
+| 2048470502 | Enemy Defeat (2048470502) | Enemy Defeat | Shadow of the Erdtree | m61_48_47 | - | - | - | - | - | - | EMEVD:m61_48_47_00.emevd |
 | 2049377000 | Arrow | DLC Pickup | Shadow of the Erdtree | m61_49_37 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2049387000 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049387010 | Dragon Communion Harpoon | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6862,12 +8718,16 @@ Total unique flags: 7034
 | 2049387060 | Smithing Stone [2] | DLC Pickup | Shadow of the Erdtree | m61_49_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049397000 | Red Fulgurbloom | DLC Pickup | Shadow of the Erdtree | m61_49_39 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049410800 | Jagged Peak Drake (Solo) | Boss Arena | Jagged Peak | m61_49_41 | 80.6, 65.8, -106.3 | 80.6, -106.3 | - | - | - | - | GameAreaParam |
+| 2049420200 | Enemy Defeat (2049420200) | Enemy Defeat | Shadow of the Erdtree | m61_49_42 | - | - | - | - | - | - | EMEVD:m61_49_42_00.emevd |
+| 2049420202 | Enemy Defeat (2049420202) | Enemy Defeat | Shadow of the Erdtree | m61_49_42 | - | - | - | - | - | - | EMEVD:m61_49_42_00.emevd |
 | 2049427000 | Talisman of the Dread | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | - | none | N | ItemLotParam_map |
 | 2049427010 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049427700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049427720 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_49_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049430800 | Ghostflame Dragon | Boss Arena | Moorth Highway | m61_49_43 | -8.8, 379.0, 116.9 | -8.8, 116.9 | - | - | - | - | GameAreaParam |
 | 2049430850 | Black Knight Edredd | Boss Arena | Scadu Altus | m61_49_43 | 68.9, 396.5, -95.7 | 68.9, -95.7 | - | - | - | - | GameAreaParam |
+| 2049432500 | Map Event Flag (2049432500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_43 | - | - | - | - | - | - | EMEVD:m61_49_43_00.emevd |
+| 2049432831 | Map Event Flag (2049432831) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_43 | - | - | - | - | - | - | EMEVD:m61_49_43_00.emevd |
 | 2049437000 | Repeating Crossbow | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049437200 | Rune Arc | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049437210 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6902,6 +8762,10 @@ Total unique flags: 7034
 | 2049437920 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049437930 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049437940 | Iris of Occultation | DLC Pickup | Shadow of the Erdtree | m61_49_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049440800 | Map Event Flag (2049440800) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_44 | - | - | - | - | - | - | EMEVD:m61_49_44_00.emevd |
+| 2049440801 | Map Event Flag (2049440801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_44 | - | - | - | - | - | - | EMEVD:m61_49_44_00.emevd |
+| 2049442805 | Map Event Flag (2049442805) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_44 | - | - | - | - | - | - | EMEVD:m61_49_44_00.emevd |
+| 2049442810 | Map Event Flag (2049442810) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_44 | - | - | - | - | - | - | EMEVD:m61_49_44_00.emevd |
 | 2049447020 | Shadow Sunflower | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2049447030 | String | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2049447040 | Shadow Realm Rune [3] | DLC Pickup | Shadow of the Erdtree | m61_49_44 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6919,6 +8783,7 @@ Total unique flags: 7034
 | 2049457200 | Leather Headband | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049457500 | Heal from Afar | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049457510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049462700 | Quest State (2049462700) | Quest State | Shadow of the Erdtree | m61_49_46 | - | - | - | - | - | - | EMEVD:m61_49_46_00.emevd |
 | 2049467010 | Gravebird Helm | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2049467510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049467520 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_46 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6935,7 +8800,10 @@ Total unique flags: 7034
 | 2049477500 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049477510 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_49_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049480800 | Commander Gaius | Boss Arena | Scadu Altus | m61_49_48 | 80.9, 580.0, 6.9 | 80.9, 6.9 | - | - | - | - | GameAreaParam |
+| 2049480801 | Map Event Flag (2049480801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_48 | - | - | - | - | - | - | EMEVD:m61_49_48_00.emevd |
+| 2049482802 | Map Event Flag (2049482802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_48 | - | - | - | - | - | - | EMEVD:m61_49_48_00.emevd |
 | 2049487000 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_48 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2049492500 | Map Event Flag (2049492500) | EMEVD Literal Flag | Shadow of the Erdtree | m61_49_49 | - | - | - | - | - | - | EMEVD:m61_49_49_00.emevd |
 | 2049497500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2049497510 | Sharpshot Talisman | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | - | none | N | ItemLotParam_map |
 | 2049497520 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -6944,16 +8812,30 @@ Total unique flags: 7034
 | 2049497550 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_49_49 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050387000 | Shadow Realm Rune [2] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050387010 | Grave Glovewort [9] | DLC Pickup | Shadow of the Erdtree | m61_50_38 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050392205 | Map Event Flag (2050392205) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050392206 | Map Event Flag (2050392206) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050392207 | Map Event Flag (2050392207) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050392208 | Map Event Flag (2050392208) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050392301 | Map Event Flag (2050392301) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050392303 | Map Event Flag (2050392303) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_39 | - | - | - | - | - | - | EMEVD:m61_50_39_00.emevd |
+| 2050400600 | Map Event Flag (2050400600) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_40 | - | - | - | - | - | - | EMEVD:m61_50_40_00.emevd |
 | 2050407000 | Crimson Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_50_40 | - | - | - | - | none | N | ItemLotParam_map |
+| 2050410200 | Enemy Defeat (2050410200) | Enemy Defeat | Shadow of the Erdtree | m61_50_41 | - | - | - | - | - | - | EMEVD:m61_50_41_00.emevd |
 | 2050417010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050417700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050420200 | Enemy Defeat (2050420200) | Enemy Defeat | Shadow of the Erdtree | m61_50_42 | - | - | - | - | - | - | EMEVD:m61_50_42_00.emevd |
 | 2050427700 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_50_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050430800 | Map Event Flag (2050430800) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_43 | - | - | - | - | - | - | EMEVD:m61_50_43_00.emevd |
+| 2050430801 | Map Event Flag (2050430801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_43 | - | - | - | - | - | - | EMEVD:m61_50_43_00.emevd |
+| 2050432805 | Map Event Flag (2050432805) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_43 | - | - | - | - | - | - | EMEVD:m61_50_43_00.emevd |
+| 2050432810 | Map Event Flag (2050432810) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_43 | - | - | - | - | - | - | EMEVD:m61_50_43_00.emevd |
 | 2050437000 | Silver Horn Tender | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2050437010 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050437040 | Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050437220 | Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050437500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050437720 | Revered Spirit Ash | DLC Pickup | Shadow of the Erdtree | m61_50_43 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050440340 | Enemy Defeat (2050440340) | Enemy Defeat | Shadow of the Erdtree | m61_50_44 | - | - | - | - | - | - | EMEVD:m61_50_44_00.emevd |
 | 2050447000 | Smithing Stone [3] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050447010 | Shadow Realm Rune [4] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050447020 | Living Jar Shard | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
@@ -6971,12 +8853,19 @@ Total unique flags: 7034
 | 2050447720 | Dane's Hat | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050447730 | Moldmonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050447740 | Somber Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_44 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2050450390 | Enemy Defeat (2050450390) | Enemy Defeat | Shadow of the Erdtree | m61_50_45 | - | - | - | - | - | - | EMEVD:m61_50_45_00.emevd |
 | 2050457000 | Thin Beast Bones | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2050457020 | Dryleaf Seal | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050457060 | Fly Mold | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2050457080 | Somber Smithing Stone [7] | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050457510 | O Mother | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2050457730 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_50_45 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050460300 | Enemy Defeat (2050460300) | Enemy Defeat | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2050460310 | Enemy Defeat (2050460310) | Enemy Defeat | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2050460690 | Map Event Flag (2050460690) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2050462696 | Map Event Flag (2050462696) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2050462697 | Map Event Flag (2050462697) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2050462698 | Map Event Flag (2050462698) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
 | 2050467000 | Smithing Stone [8] | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050467020 | Lost Ashes of War | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050467030 | Ember of Messmer | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 0 | none | N | ItemLotParam_map |
@@ -6990,15 +8879,24 @@ Total unique flags: 7034
 | 2050467800 | Larval Tear | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050467900 | Stone-Sheathed Sword | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050467910 | Giant Golden Arc | DLC Pickup | Shadow of the Erdtree | m61_50_46 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2050470400 | Map Event Flag (2050470400) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_47 | - | - | - | - | - | - | EMEVD:m61_50_47_00.emevd |
 | 2050470800 | Tree Sentinel - Torch | Boss Arena | Hinterland | m61_50_47 | 14.9, 559.4, 106.5 | 14.9, 106.5 | - | - | - | - | GameAreaParam |
+| 2050472700 | Quest State (2050472700) | Quest State | Shadow of the Erdtree | m61_50_47 | - | - | - | - | - | - | EMEVD:m61_50_47_00.emevd |
 | 2050477010 | Grave Glovewort [6] | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2050477020 | Blessed Bone Shard | DLC Pickup | Shadow of the Erdtree | m61_50_47 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2050480800 | Scadutree Avatar | Boss Arena | Scaduview | m61_50_48 | -50.7, 190.0, 86.7 | -50.7, 86.7 | - | - | - | - | GameAreaParam |
+| 2050480801 | Map Event Flag (2050480801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_48 | - | - | - | - | - | - | EMEVD:m61_50_48_00.emevd |
 | 2050480860 | Tree Sentinel | Boss Arena | Hinterland | m61_50_48 | 47.6, 541.5, -63.3 | 47.6, -63.3 | - | - | - | - | GameAreaParam |
+| 2050482802 | Map Event Flag (2050482802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_48 | - | - | - | - | - | - | EMEVD:m61_50_48_00.emevd |
+| 2050482803 | Map Event Flag (2050482803) | EMEVD Literal Flag | Shadow of the Erdtree | m61_50_48 | - | - | - | - | - | - | EMEVD:m61_50_48_00.emevd |
+| 2051410200 | Enemy Defeat (2051410200) | Enemy Defeat | Shadow of the Erdtree | m61_51_41 | - | - | - | - | - | - | EMEVD:m61_51_41_00.emevd |
+| 2051410201 | Enemy Defeat (2051410201) | Enemy Defeat | Shadow of the Erdtree | m61_51_41 | - | - | - | - | - | - | EMEVD:m61_51_41_00.emevd |
 | 2051417000 | Ghost Glovewort [7] | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2051417700 | Aged One's Exultation | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | - | none | N | ItemLotParam_map |
 | 2051417710 | Swollen Grape | DLC Pickup | Shadow of the Erdtree | m61_51_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051427000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_51_42 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051440300 | Enemy Defeat (2051440300) | Enemy Defeat | Shadow of the Erdtree | m61_51_44 | - | - | - | - | - | - | EMEVD:m61_51_44_00.emevd |
+| 2051440310 | Enemy Defeat (2051440310) | Enemy Defeat | Shadow of the Erdtree | m61_51_44 | - | - | - | - | - | - | EMEVD:m61_51_44_00.emevd |
 | 2051440800 | Rakshasa | Boss Arena | Scadu Altus | m61_51_44 | 5.1, 162.6, 94.2 | 5.1, 94.2 | - | - | - | - | GameAreaParam |
 | 2051447000 | Tooth Whip | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051447010 | Nascent Butterfly | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -7007,10 +8905,35 @@ Total unique flags: 7034
 | 2051447040 | Scorpion Liver | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2051447500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051447510 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_51_44 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2051450390 | Enemy Defeat (2051450390) | Enemy Defeat | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051450800 | Map Event Flag (2051450800) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051450839 | Map Event Flag (2051450839) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452300 | Map Event Flag (2051452300) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452301 | Map Event Flag (2051452301) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452302 | Map Event Flag (2051452302) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452303 | Map Event Flag (2051452303) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452304 | Map Event Flag (2051452304) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452305 | Map Event Flag (2051452305) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452306 | Map Event Flag (2051452306) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452307 | Map Event Flag (2051452307) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452308 | Map Event Flag (2051452308) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452309 | Map Event Flag (2051452309) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452424 | Map Event Flag (2051452424) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452602 | Map Event Flag (2051452602) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m25_00_00_00.emevd |
+| 2051452805 | Map Event Flag (2051452805) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452806 | Map Event Flag (2051452806) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452811 | Map Event Flag (2051452811) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452813 | Map Event Flag (2051452813) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051452820 | Map Event Flag (2051452820) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
 | 2051457000 | Glinting Nail | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 0 | none | N | ItemLotParam_map |
 | 2051457530 | Starlight Shards | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051457700 | Furnace Visage | DLC Pickup | Shadow of the Erdtree | m61_51_45 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051459206 | [Sorcery] Glintstone Nail - Unlocked | Shop Unlock | Shadow of the Erdtree | - | - | - | - | - | - | - | ShopLineupParam |
+| 2051459250 | Map Event Flag (2051459250) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
+| 2051459751 | Map Event Flag (2051459751) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_48_39_00.emevd |
+| 2051459752 | Map Event Flag (2051459752) | EMEVD Literal Flag | Shadow of the Erdtree | m61_51_45 | - | - | - | - | - | - | EMEVD:m61_50_47_00.emevd |
+| 2051460510 | Door Unlock (2051460510) | Door Unlock | Shadow of the Erdtree | m61_51_46 | - | - | - | - | - | - | EMEVD:m61_51_46_00.emevd |
+| 2051460514 | Door Unlock (2051460514) | Door Unlock | Shadow of the Erdtree | m61_51_46 | - | - | - | - | - | - | EMEVD:m61_51_46_00.emevd |
 | 2051467020 | Spellmachinist's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051467500 | Greasemonger's Bell Bearing | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2051467900 | Rabbath's Cannon | DLC Pickup | Shadow of the Erdtree | m61_51_46 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -7023,9 +8946,15 @@ Total unique flags: 7034
 | 2052407010 | Somber Smithing Stone [6] | DLC Pickup | Shadow of the Erdtree | m61_52_40 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2052417000 | Shadow Realm Rune [7] | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2052417010 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_52_41 | - | - | - | 1 | none | N | ItemLotParam_map |
+| 2052420300 | Enemy Defeat (2052420300) | Enemy Defeat | Shadow of the Erdtree | m61_52_42 | - | - | - | - | - | - | EMEVD:m61_52_42_00.emevd |
 | 2052427500 | Madding Hand | DLC Pickup | Shadow of the Erdtree | m61_52_42 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2052430800 | Jori, the Elder Inquisitor | Boss Arena | Abyssal Woods | m61_52_43 | -68.1, -512.2, 67.9 | -68.1, 67.9 | - | - | - | - | GameAreaParam |
+| 2052432801 | Map Event Flag (2052432801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_52_43 | - | - | - | - | - | - | EMEVD:m61_52_43_00.emevd |
+| 2052432802 | Map Event Flag (2052432802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_52_43 | - | - | - | - | - | - | EMEVD:m61_52_43_00.emevd |
+| 2052432848 | Map Event Flag (2052432848) | EMEVD Literal Flag | Shadow of the Erdtree | m61_52_43 | - | - | - | - | - | - | EMEVD:m61_52_43_00.emevd |
 | 2052480800 | Fallingstar Beast | Boss Arena | Finger Ruins | m61_52_48 | 39.2, 478.3, 117.0 | 39.2, 117.0 | - | - | - | - | GameAreaParam |
+| 2052482202 | Map Event Flag (2052482202) | EMEVD Literal Flag | Shadow of the Erdtree | m61_52_48 | - | - | - | - | - | - | EMEVD:m61_52_48_00.emevd |
+| 2053392300 | Map Event Flag (2053392300) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_39 | - | - | - | - | - | - | EMEVD:m61_53_39_00.emevd |
 | 2053397000 | Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2053397010 | Somber Ancient Dragon Smithing Stone | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 3 | none | N | ItemLotParam_map |
 | 2053397020 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_39 | - | - | - | 2 | none | N | ItemLotParam_map |
@@ -7033,8 +8962,38 @@ Total unique flags: 7034
 | 2053417000 | Frenzyflame Perfume Bottle | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2053417020 | Clarifying Boluses | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2053417500 | Scadutree Fragment | DLC Pickup | Shadow of the Erdtree | m61_53_41 | - | - | - | 2 | none | N | ItemLotParam_map |
+| 2053460600 | Map Event Flag (2053460600) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462201 | Map Event Flag (2053462201) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462202 | Map Event Flag (2053462202) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462203 | Map Event Flag (2053462203) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462204 | Map Event Flag (2053462204) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462205 | Map Event Flag (2053462205) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462206 | Map Event Flag (2053462206) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462207 | Map Event Flag (2053462207) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462208 | Map Event Flag (2053462208) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462301 | Map Event Flag (2053462301) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053462303 | Map Event Flag (2053462303) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_46 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
 | 2053467600 | Cerulean Seed Talisman +1 | DLC Pickup | Shadow of the Erdtree | m61_53_46 | - | - | - | - | none | N | ItemLotParam_map |
+| 2053472200 | Map Event Flag (2053472200) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472201 | Map Event Flag (2053472201) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472202 | Map Event Flag (2053472202) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472205 | Map Event Flag (2053472205) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472206 | Map Event Flag (2053472206) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472208 | Map Event Flag (2053472208) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
+| 2053472301 | Map Event Flag (2053472301) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_46_00.emevd |
+| 2053472303 | Map Event Flag (2053472303) | EMEVD Literal Flag | Shadow of the Erdtree | m61_53_47 | - | - | - | - | - | - | EMEVD:m61_53_47_00.emevd |
 | 2053487000 | Fingercreeper Ashes | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 1 | none | N | ItemLotParam_map |
 | 2053487010 | Shadow Realm Rune [6] | DLC Pickup | Shadow of the Erdtree | m61_53_48 | - | - | - | 2 | none | N | ItemLotParam_map |
 | 2054390800 | Bayle the Dread | Boss Arena | Jagged Peak | m61_54_39 | 112.0, 953.9, 26.0 | 112.0, 26.0 | - | - | - | - | GameAreaParam |
+| 2054390801 | Map Event Flag (2054390801) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
 | 2054390850 | Ancient Dragon Senessax | Boss Arena | Jagged Peak | m61_54_39 | -72.9, 512.0, 19.4 | -72.9, 19.4 | - | - | - | - | GameAreaParam |
+| 2054392481 | Map Event Flag (2054392481) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 2054392485 | Map Event Flag (2054392485) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 2054392486 | Map Event Flag (2054392486) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 2054392488 | Map Event Flag (2054392488) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 2054392802 | Map Event Flag (2054392802) | EMEVD Literal Flag | Shadow of the Erdtree | m61_54_39 | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
+| 2245462199 | Map Event Flag (2245462199) | EMEVD Literal Flag | Shadow of the Erdtree | m61_245_46 | - | - | - | - | - | - | EMEVD:m61_45_46_00.emevd |
+| 2248460291 | Enemy Defeat (2248460291) | Enemy Defeat | Shadow of the Erdtree | m61_248_46 | - | - | - | - | - | - | EMEVD:m61_48_46_00.emevd |
+| 2250460309 | Map Event Flag (2250460309) | EMEVD Literal Flag | Shadow of the Erdtree | m61_250_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2250462320 | Map Event Flag (2250462320) | EMEVD Literal Flag | Shadow of the Erdtree | m61_250_46 | - | - | - | - | - | - | EMEVD:m61_50_46_00.emevd |
+| 2251450280 | Enemy Defeat (2251450280) | Enemy Defeat | Shadow of the Erdtree | m61_251_45 | - | - | - | - | - | - | EMEVD:m61_51_45_00.emevd |
