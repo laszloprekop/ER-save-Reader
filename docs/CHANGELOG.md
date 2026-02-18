@@ -4,6 +4,27 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.5 - Regenerate merged POI database with AEG pickups
+
+### Database
+- **Regenerated `merged-pois.json`** with 20,456 game POIs (up from 4,563), incorporating 15,893 AEG pickups
+- **23,278 total merged locations** (was ~7,407): 2,764 merged + 17,671 game-only + 2,843 MapGenie-only
+- Match breakdown: 1,944 by event flag, 596 by title, 224 by coordinate, 12 enriched with event flags
+- 289 POIs now carry linked flags from causal graph
+
+### Key Findings
+- Previous merge was run on Feb 17 before AEG pickups were added on Feb 18, causing all AEG pickup POIs to appear as unmatched MapGenie-only entries
+- Re-running confirms merge logic correctly handles AEG pickups via title+coordinate matching (e.g., Miquella's Lily matched at distance 0.001416, well within 0.008 threshold)
+
+### Files Modified
+- `elden-map/public/data/merged-pois.json`: regenerated (23,278 locations)
+- `elden-map/server/data/game-pois/merge-report.json`: regenerated
+- `elden-map/server/data/flag-correlation-candidates.jsonl`: regenerated
+- `docs/CHANGELOG.md`: v0.17.5
+- `Cargo.toml`: bumped to 0.17.5
+
+---
+
 ## v0.17.4 - Raw Data pane for MapGenie-only POIs
 
 ### Features
