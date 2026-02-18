@@ -1114,6 +1114,286 @@ def load_msb_asset_entities() -> Dict[int, Dict]:
     return assets
 
 
+def load_aeg_param() -> Dict[int, Dict]:
+    """
+    Load AssetEnvironmentGeometryParam — maps AEG model suffix to item lot and behavior.
+
+    Returns dict keyed by param row_id (e.g., 99684 for AEG099_684):
+    {row_id: {"item_lot_id": int, "is_repick": bool, "is_break_on_pickup": bool,
+              "action_button_id": int, "replacement_flag": int}}
+    """
+    xml_path = REGULATION_BIN / "AssetEnvironmentGeometryParam.param.xml"
+    params = {}
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path} not found")
+        return params
+
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+
+    for row in root.findall(".//row"):
+        row_id = int(row.get("id", 0))
+        pickup_lot = int(row.get("pickUpItemLotParamId", -1))
+        if pickup_lot <= 0:
+            continue
+
+        is_repick = row.get("isEnableRepick", "0") == "1"
+        is_break = row.get("isBreakOnPickUp", "0") == "1"
+        is_hidden = row.get("isHiddenOnRepick", "0") == "1"
+
+        if is_repick:
+            behavior = "one_time_harvest"
+        elif is_break:
+            behavior = "breakable"
+        else:
+            behavior = "bush"
+
+        params[row_id] = {
+            "item_lot_id": pickup_lot,
+            "is_repick": is_repick,
+            "is_break_on_pickup": is_break,
+            "is_hidden_on_repick": is_hidden,
+            "aeg_behavior": behavior,
+            "renewable": not is_repick,
+            "action_button_id": int(row.get("pickUpActionButtonParamId", -1)),
+            "replacement_flag": int(row.get("pickUpReplacementEventFlag", 0)),
+        }
+
+    return params
+
+
+def extract_aeg_pickups(
+    aeg_params: Dict[int, Dict],
+    lookups: Dict,
+    item_rarities: Dict[tuple, int],
+    spirit_ashes: set,
+    msb_treasure_item_lots: set,
+) -> List[EventFlag]:
+    """
+    Extract positioned AEG pickup locations from MSB Part/Asset files.
+
+    Scans all MSB Asset files for AEG099_* models, resolves to items via
+    AssetEnvironmentGeometryParam -> ItemLotParam_map, and creates EventFlag
+    entries with synthetic flag_ids. Includes ALL AEG pickups (renewable and
+    one-time), with behavior metadata in raw_data:
+      - renewable=True, aeg_behavior="breakable"|"bush": respawning on grace rest
+      - renewable=False, aeg_behavior="one_time_harvest": permanently consumed
+    """
+    flags = []
+
+    if not MSB_DIR.exists():
+        print(f"  Warning: MSB directory not found: {MSB_DIR}")
+        return flags
+
+    # Step 1: Build item lot cache from ItemLotParam_map for AEG-referenced lots
+    aeg_lot_ids = {p["item_lot_id"] for p in aeg_params.values()}
+    item_lot_cache = {}  # lot_id -> {"items": [...], "name": str, "primary_id": int, ...}
+
+    item_lot_xml = REGULATION_BIN / "ItemLotParam_map.param.xml"
+    if item_lot_xml.exists():
+        tree = ET.parse(item_lot_xml)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            row_id = int(row.get("id", 0))
+            if row_id not in aeg_lot_ids:
+                continue
+
+            items_list = []
+            primary_id = 0
+            primary_cat = 0
+            for i in range(1, 9):
+                lot_id = int(row.get(f"lotItemId0{i}", 0))
+                lot_cat = int(row.get(f"lotItemCategory0{i}", 0))
+                lot_num = int(row.get(f"lotItemNum0{i}", 1))
+                if lot_id != 0 and lot_cat != 0:
+                    items_list.append({
+                        "id": lot_id,
+                        "category": lot_cat,
+                        "category_name": ITEM_CATEGORY_NAMES.get(lot_cat, f"Unknown_{lot_cat}"),
+                        "name": get_item_name(lot_id, lot_cat, lookups),
+                        "quantity": lot_num,
+                    })
+                    if primary_id == 0:
+                        primary_id = lot_id
+                        primary_cat = lot_cat
+
+            if items_list:
+                unique_names = set(item["name"] for item in items_list)
+                if len(unique_names) == 1:
+                    name = items_list[0]["name"]
+                elif len(items_list) > 1:
+                    name = items_list[0]["name"] + f" (+{len(items_list) - 1} more)"
+                else:
+                    name = items_list[0]["name"]
+                item_lot_cache[row_id] = {
+                    "items": items_list,
+                    "name": name,
+                    "primary_id": primary_id,
+                    "primary_cat": primary_cat,
+                }
+
+    # Step 2: Scan MSB Part/Asset dirs for AEG099_* models
+    aeg_pattern = re.compile(r"AEG099_(\d+)")
+    tile_instance_counters = {}  # (area_no, grid_x, grid_z) -> counter
+    skipped_no_param = 0
+    skipped_no_lot = 0
+    skipped_treasure_dup = 0
+
+    for msb_dir in sorted(MSB_DIR.glob("m*-msb-dcx")):
+        msb_location = parse_msb_dir_name(msb_dir.name)
+        if not msb_location:
+            continue
+
+        area_no = msb_location["area_no"]
+        grid_x = msb_location["grid_x"]
+        grid_z = msb_location["grid_z"]
+
+        asset_dir = msb_dir / "Part" / "Asset"
+        if not asset_dir.exists():
+            continue
+
+        for asset_file in sorted(asset_dir.glob("AEG099_*.xml")):
+            try:
+                tree = ET.parse(asset_file)
+                root = tree.getroot()
+
+                model_elem = root.find("ModelName")
+                if model_elem is None or model_elem.text is None:
+                    continue
+
+                model_name = model_elem.text
+                m = aeg_pattern.match(model_name)
+                if not m:
+                    continue
+
+                suffix = int(m.group(1))
+                param_row = 99000 + suffix
+
+                # Look up in AEG params
+                aeg_entry = aeg_params.get(param_row)
+                if aeg_entry is None:
+                    skipped_no_param += 1
+                    continue
+
+                item_lot_id = aeg_entry["item_lot_id"]
+
+                # Skip if already covered by Treasure event flags
+                if item_lot_id in msb_treasure_item_lots:
+                    skipped_treasure_dup += 1
+                    continue
+
+                # Resolve item lot
+                lot_data = item_lot_cache.get(item_lot_id)
+                if lot_data is None:
+                    skipped_no_lot += 1
+                    continue
+
+                # Parse position
+                pos_elem = root.find("Position")
+                pos_x, pos_y, pos_z = 0.0, 0.0, 0.0
+                if pos_elem is not None:
+                    pos_x = float(pos_elem.findtext("X", "0"))
+                    pos_y = float(pos_elem.findtext("Y", "0"))
+                    pos_z = float(pos_elem.findtext("Z", "0"))
+
+                # Synthetic flag_id
+                tile_key = (area_no, grid_x, grid_z)
+                instance_idx = tile_instance_counters.get(tile_key, 0)
+                tile_instance_counters[tile_key] = instance_idx + 1
+
+                flag_id = (3_000_000_000
+                           + area_no * 10_000_000
+                           + grid_x * 100_000
+                           + grid_z * 1_000
+                           + instance_idx)
+
+                # Area classification
+                area_type = get_area_type(area_no)
+                is_dlc = not is_base_game_area(area_no) if area_no else False
+                is_ow = is_overworld_area(area_no)
+                map_tile = format_map_tile(area_no, grid_x, grid_z)
+                world_x, world_z = compute_world_coords(area_no, grid_x, grid_z, pos_x, pos_z)
+
+                # Region
+                if is_dlc:
+                    region = "Shadow of the Erdtree"
+                elif area_no not in (60, 61):
+                    region = get_dungeon_region(area_no)
+                else:
+                    region = get_tile_region(grid_x, grid_z)
+
+                # Item rarity
+                item_rarity = item_rarities.get((lot_data["primary_cat"], lot_data["primary_id"]))
+
+                # Spirit ash detection
+                spirit_ash_name = None
+                for item in lot_data["items"]:
+                    if item["category"] == 1 and item["id"] in spirit_ashes:
+                        spirit_ash_name = item["name"]
+                        break
+
+                flags.append(EventFlag(
+                    flag_id=flag_id,
+                    name=lot_data["name"],
+                    category="AEG Pickup",
+                    region=region,
+                    source_file="AssetEnvironmentGeometryParam",
+                    source_row_id=item_lot_id,
+                    item_id=lot_data["primary_id"],
+                    item_category=lot_data["primary_cat"],
+                    area_no=area_no,
+                    grid_x=grid_x,
+                    grid_z=grid_z,
+                    pos_x=pos_x,
+                    pos_y=pos_y,
+                    pos_z=pos_z,
+                    map_tile=map_tile,
+                    is_overworld=is_ow,
+                    world_x=world_x,
+                    world_z=world_z,
+                    area_type=area_type,
+                    is_dlc=is_dlc,
+                    treasure_type="aeg_pickup",
+                    item_rarity=item_rarity,
+                    position_confidence="high",
+                    items=lot_data["items"],
+                    verification_status="not-a-pickup",
+                    backed_by=["MSB", "AssetEnvironmentGeometryParam", "ItemLotParam_map"],
+                    raw_data={
+                        "model_name": model_name,
+                        "aeg_row_id": param_row,
+                        "aeg_behavior": aeg_entry["aeg_behavior"],
+                        "renewable": aeg_entry["renewable"],
+                        "is_break_on_pickup": aeg_entry["is_break_on_pickup"],
+                        "is_repick": aeg_entry["is_repick"],
+                        "is_hidden_on_repick": aeg_entry["is_hidden_on_repick"],
+                        "item_lot_id": item_lot_id,
+                        "msb_dir": msb_dir.name,
+                        "asset_file": asset_file.name,
+                        "position_source": "MSB",
+                    },
+                    spirit_ash_name=spirit_ash_name,
+                ))
+
+            except Exception:
+                continue
+
+    # Count behavior types
+    behavior_counts = {}
+    for f in flags:
+        b = f.raw_data.get("aeg_behavior", "unknown")
+        behavior_counts[b] = behavior_counts.get(b, 0) + 1
+    renewable_count = sum(1 for f in flags if f.raw_data.get("renewable", False))
+    one_time_count = len(flags) - renewable_count
+
+    print(f"    AEG pickups extracted: {len(flags)} ({renewable_count} renewable, {one_time_count} one-time)")
+    print(f"    Behaviors: {behavior_counts}")
+    print(f"    Skipped: {skipped_no_param} no param, "
+          f"{skipped_no_lot} no item lot, {skipped_treasure_dup} treasure duplicates")
+    return flags
+
+
 def load_msb_enemy_positions() -> Dict[int, Dict]:
     """
     Load ALL MSB enemy positions indexed by EntityID (unfiltered).
@@ -1471,6 +1751,9 @@ def get_dungeon_region(map_area: int) -> str:
 
 def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
     """Categorize flag based on ID range, source, and item name."""
+    # Synthetic AEG Pickup IDs (3B+ range, no real event flag)
+    if flag_id >= 3_000_000_000:
+        return "AEG Pickup"
     # Great Runes (possession: 160-167, activation: 180-187)
     if 160 <= flag_id <= 167:
         return "Great Rune Possession"
@@ -3799,6 +4082,10 @@ def main():
     print("\nLoading MSB treasure positions...")
     msb_positions = load_msb_treasure_positions()
 
+    print("\nLoading AEG pickup parameters...")
+    aeg_params = load_aeg_param()
+    print(f"  AssetEnvironmentGeometryParam: {len(aeg_params)} pickup definitions")
+
     print("\nLoading item rarities and spirit ash data...")
     item_rarities, spirit_ashes = load_item_rarities()
 
@@ -3872,11 +4159,16 @@ def main():
     spring_flags = extract_msb_spirit_springs()
     print(f"  Found {len(spring_flags)} flags")
 
+    print("\nExtracting AEG pickup positions from MSB...")
+    msb_treasure_item_lots = set(msb_positions.keys())
+    aeg_flags = extract_aeg_pickups(aeg_params, lookups, item_rarities, spirit_ashes, msb_treasure_item_lots)
+    print(f"  Found {len(aeg_flags)} AEG pickup locations")
+
     # Build set of already-extracted flag IDs for deduplication
     existing_flag_ids = set()
     for f_list in [item_lot_flags, bonfire_flags, shop_flags, emevd_flags, poi_flags,
                    enemy_flags, npc_flags, boss_arena_flags, dungeon_flags,
-                   stake_flags, spring_flags]:
+                   stake_flags, spring_flags, aeg_flags]:
         for f in f_list:
             existing_flag_ids.add(f.flag_id)
 
@@ -3895,7 +4187,7 @@ def main():
 
     all_flags = (item_lot_flags + bonfire_flags + shop_flags + emevd_flags + poi_flags +
                  enemy_flags + npc_flags + boss_arena_flags + dungeon_flags +
-                 stake_flags + spring_flags + template_flags + literal_flags)
+                 stake_flags + spring_flags + aeg_flags + template_flags + literal_flags)
 
     print(f"\n{'=' * 40}")
     print(f"Total flags extracted: {len(all_flags)}")
@@ -4088,6 +4380,7 @@ def main():
                 "MSB files (map/mapstudio/m*-msb-dcx/Event/Treasure/)",
                 "MSB files (map/mapstudio/m*-msb-dcx/Part/Enemy/)",
                 "MSB files (map/mapstudio/m*-msb-dcx/Part/Asset/)",
+                "AssetEnvironmentGeometryParam.param.xml",
                 "EMEVD map files (event/m*.emevd.js) - template instantiations",
                 "EMEVD map files (event/m*.emevd.js) - literal flag calls",
             ],

@@ -4,6 +4,30 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.3 - AEG pickup extraction with renewability metadata
+
+### Database
+- **15,893 AEG (AssetEnvironmentGeometry) pickups extracted** from MSB Part/Asset files, up from 0
+  - 14,525 renewable (respawning on grace rest): Rowa Fruit, Erdleaf Flower, Mushroom, etc.
+  - 1,368 one-time harvest (permanently consumed): Smithing Stones, Gloveworts, Trina's/Miquella's Lily
+- **Behavior classification**: each AEG pickup tagged with `aeg_behavior` (bush/breakable/one_time_harvest) and `renewable` boolean
+- **Item naming fix**: same-item quantity variants no longer produce "Rowa Fruit (+3 more)" — shows just "Rowa Fruit" when all slots share the same name
+
+### Implementation
+- `load_aeg_param()`: new function parses AssetEnvironmentGeometryParam, classifying pickups by `isEnableRepick`, `isBreakOnPickUp`, `isHiddenOnRepick` flag combinations
+- `extract_aeg_pickups()`: scans MSB Part/Asset dirs for AEG099_* models, resolves items via ItemLotParam_map, generates synthetic flag IDs (`3B + area*10M + gridX*100K + gridZ*1K + instance`)
+- Deduplication: AEG pickups whose item lot already appears in Treasure event flags are skipped to avoid double-counting
+
+### Key Findings
+- `isEnableRepick=1` means NON-respawning (one-time harvest) — the repick mechanism tracks picked state persistently, `isHiddenOnRepick=1` hides the model permanently
+- `isEnableRepick=0` means RESPAWNING — no persistent state tracking, resets on grace rest
+- `isHiddenOnRepick` always equals `isEnableRepick` across all 324 param rows
+
+### Files Modified
+- `scripts/extract_event_flags.py`: add `load_aeg_param()` and `extract_aeg_pickups()` functions
+- `scripts/extracted_event_flags.json`: regenerated (4,563 → 20,456 positioned flags)
+- `scripts/extracted_event_flags.md`: regenerated
+
 ## v0.17.2 - MSB enemy position resolution for item drops
 
 ### Features
