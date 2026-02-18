@@ -4,6 +4,27 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.4 - Raw Data pane for MapGenie-only POIs
+
+### Features
+- **Raw Data JSON pane** added to MapGenie-only POI detail panel on `/character-game-data`
+  - Displays the full original `MapLocation` object (latitude, longitude, region, image, poiSource, etc.) that was previously discarded during POI construction
+  - Copy button with same gold/teal feedback styling as the flag detail panel
+  - Scrollable `<pre>` with 10px monospace font matching existing Raw Data pane
+
+### Implementation
+- Extended `MapGeniePOI` interface with optional `_sourceLocation` field to carry the full original `MapLocation`
+- `mapGenieOnlyPois` builder now preserves the source `MapLocation` via `_sourceLocation`
+- MapGenie-only panel looks up the original `MapGeniePOI` by ID to resolve source data, since the map component converts `MapGeniePOI` → synthetic `POI` for click callbacks
+
+### Files Modified
+- `elden-map/src/components/character-viewer/CharacterViewerMap.tsx`: extend `MapGeniePOI` interface
+- `elden-map/src/pages/CharacterGameDataPage.tsx`: pass source data + add Raw Data pane
+- `docs/CHANGELOG.md`: v0.17.4
+- `Cargo.toml`: bumped to 0.17.4
+
+---
+
 ## v0.17.3 - AEG pickup extraction with renewability metadata
 
 ### Database
