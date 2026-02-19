@@ -2147,6 +2147,18 @@
               "date": "2026-02-02",
               "source": "src/save/common/event_flags_detection.rs",
               "summary": "Validation-based offset detection shared between ER-save-Editor and elden-map WASM"
+            },
+            {
+              "type": "hex_dump",
+              "date": "2026-02-19",
+              "source": "elden-map/shared/wasm-loader.ts:computeStructuralEfOffset",
+              "summary": "Structural section chain verified empirically: GaItems→FIXED_BEFORE_PROJECTILE(0x94CC)→EquipProjectileData(var)→FIXED_BETWEEN(0x62E7)→Regions(var)→FIXED_AFTER(0x1CA41)→PRE_EF_GAP(0x1D)→EventFlags. Bee slot 5 EF offset validated at 0x36CB5 with 4 grace flags confirmed."
+            },
+            {
+              "type": "struct_parsing",
+              "date": "2026-02-19",
+              "source": "elden-map/src/lib/character-explorer-parser.ts:loadSlot",
+              "summary": "Browser hex explorer now initializes WASM via initEventFlagsWasm() for accurate EF detection. Previously relied on content-based TS fallback which produced false positives (e.g. labeling GaItemData as EventFlags). TS fallback upgraded to 4-strategy cascade: structural parsing→nearby search→content-based from minimum offset→legacy."
             }
           ]
         },

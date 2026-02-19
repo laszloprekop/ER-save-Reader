@@ -4,6 +4,20 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.8 - EF geography: simple flags, item acquisition tables, structural chain evidence
+
+### Ground Truth Expansion
+- **Simple flags (flag_id < 60,000)** — ML clustering on 799 timeline diffs identified 132 active byte offsets in EF+1040-1259 (flag IDs 8320-10079). Cross-referenced with EMEVD/param data to document 133 known flags across 5 categories: Remembrance (56), Talisman Pouch (63), EMEVD/Shop (9), Mending Rune (4), Unknown (2).
+- **EF layout map** — New `ef_layout_map` section in ground_truth_offsets.json documents non-bitfield regions within the EventFlags array (item acquisition tables, structured data zones).
+
+### Event Flag Geography Documentation
+- **Simple flag formula**: `byte_offset = flag_id / 8, bit = 7 - (flag_id % 8)` for flags < 60,000
+- **Item acquisition tables**: Two sorted 8-byte record tables within the EF array (EF+2208 and EF+32640) tracking items the character has ever obtained, using category prefixes (0x00=Weapon, 0x10=Armor, 0x20=Accessory, 0x40=Goods, 0x80=Custom).
+- **MOEG/FOEG system**: Documented the dense state tracking region following EventFlags.
+
+### Registry Updates
+- `system.event_flags_raw`: Added evidence for structural section chain verification (GaItems→EF validated at 0x36CB5 for Bee slot 5) and browser WASM initialization fix.
+
 ## v0.17.7 - PlayerGameData unknown byte discoveries
 
 ### Save Format Discoveries

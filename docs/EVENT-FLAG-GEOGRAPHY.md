@@ -83,6 +83,28 @@ World pickup flags use a tile-based coordinate system:
 
 **Source File**: `openmap.eventflagalloclist`
 
+### 1b. Simple Flags (flag_id < 60,000) — ML Discovery 2026-02-18
+
+Flags below 60,000 use a direct byte calculation with no block lookup:
+
+**Offset Formula**:
+```
+byte_offset = flag_id / 8
+bit_position = 7 - (flag_id % 8)
+```
+
+ML clustering on 799 timeline diffs identified 132 active offsets in EF+1040-1259 (flag IDs 8320-10079) with flag-like behavior. Cross-referencing with extracted EMEVD/param data confirmed 133 known flags:
+
+| Range | Category | Count | Examples |
+|-------|----------|-------|----------|
+| 9100-9190 | Remembrance | 56 | Boss remembrance obtained, Enia shop unlocks |
+| 9200-9295 | Talisman Pouch | 63 | Talisman slot expansion, related progression |
+| 9404-9440 | EMEVD / Shop | 9 | Ending-related flags, sorcery unlocks |
+| 9500-9504 | Mending Rune | 4 | Mending rune possession for endings |
+| 9800-9810 | Unknown | 2 | Good_12302, Good_12307 references |
+
+**Status**: Extracted from game files. Formula implemented in WASM. Not yet verified via multi-slot differential.
+
 ### 2. Block-Based Flags (5-6 digit flags)
 
 Flags in ranges 60000-99999 are organized into 1000-flag blocks that share a base byte offset:
@@ -698,6 +720,166 @@ print(f"Confidence: {cal.tile_base_confidence:.2f}")
 2. **Store calibration results** in the capture catalog with each snapshot
 3. **Use validation flags** to detect EF section offset
 4. **Cross-validate** using multiple anchor flags when possible
+
+---
+
+## Structured Data Tables Within the EF Array (CRITICAL DISCOVERY 2026-02-19)
+
+The 1,833,375-byte EventFlags array is NOT a pure bitfield. It contains **mixed data types**: boolean flag bitfields interspersed with sorted lookup tables and record structures. The simple formula `byte_offset = flag_id / 8` is WRONG for flag_ids whose byte offsets land in table regions.
+
+### Item Acquisition Tables
+
+Two sorted tables track items the character has ever obtained. Each entry is an 8-byte record:
+
+**Record Format**:
+```
+[u32 quantity] [u32 category_prefix | item_id]
+```
+
+**Category Prefixes** (high byte of second u32):
+
+| Prefix | Category | Example |
+|--------|----------|---------|
+| `0x00000000` | Weapons | Uchigatana (100000) |
+| `0x10000000` | Protector/Armor | — |
+| `0x20000000` | Accessory | — |
+| `0x40000000` | Goods | Miquella's Lily (20653 → `0x400050AD`) |
+| `0x80000000` | Custom/Reinforced | — |
+
+**Table Locations** (verified in Bee slot, L18 mid-game):
+
+| Zone | EF Offset Range | Size | Contents |
+|------|----------------|------|----------|
+| Small table | EF+2208 – EF+2832 | 624 bytes | ~78 records, Goods category dominant |
+| Large table | EF+32640 – EF+34464 | 1824 bytes | ~228 records, all 5 categories |
+
+**Key Evidence**:
+- Miquella's Lily (item_id 20653) found at EF+2616 as `[01 00 00 00][AD 50 00 40]` (qty=1, Goods prefix)
+- Tables are sorted by the combined `prefix|item_id` value
+- Tables are only populated in saves with progression (Bee); absent in backup saves (Confessor/Wretch slots show zeros or 0xFF template)
+- Entries appear for items the character has ever obtained, regardless of current inventory
+
+**Relationship to AEG Pickups**:
+- AEG pickups (e.g., Miquella's Lily from `AssetEnvironmentGeometryParam`) have `getItemFlagId=0` — no event flag assigned
+- The item acquisition table tracks item TYPES (has the player ever obtained this item?), not specific instances
+- Per-instance one-time tracking for AEG pickups may use a separate mechanism (MOEG/FOEG dense state records — see below)
+
+### MOEG/FOEG System (Post-EF Region)
+
+Beyond the EventFlags array, each character slot contains object state tracking structures near the end of the 2.6MB slot:
+
+**Structure Hierarchy** (starting at ~0x1F6661 in slot):
+```
+CHR header
+  └── CSBC: Visited tiles list
+  └── MOEG: Map Object Enable Group (currently loaded tiles)
+  └── FOEG: Far Object Enable Group (all visited tiles, superset of MOEG)
+  └── Dense State Records: 20-byte per-object state
+  └── Havok Data
+```
+
+**Dense State Records** (20 bytes each):
+```
+[u32 marker=0x0C] [f32 timer] [u32 status] [4-byte flags]
+```
+- `status=0`: Untouched
+- `status=10`: Interacted
+- Count correlates with progression (Bee: 239 records, Confessor: 146, Wretch: 0)
+
+**MOEG Object Filtering**: MOEG tracks MSB Part/Asset entries where `behaviorType != 1` in `AssetEnvironmentGeometryParam`. For tile m60_49_36_00: 93 of 325 total assets (88 with behaviorType=0 + 5 with behaviorType=2).
+
+**Note**: Timeline diff analysis showed 99.96% overlap between MOEG changes and non-AEG entity loading diffs, indicating MOEG records are primarily entity loading state, not pickup-specific persistence. The actual per-instance pickup tracking mechanism remains under investigation.
+
+---
+
+### Complete EF Layout Map
+
+Based on comprehensive hex scanning across 3 characters (Bee L18, Confessor L95, Wretch L1):
+
+```
+EF+0 ─────────── Simple flags bitfield (flag_id < 60,000)
+  │                 Active range: EF+1040-1259 (flags 8320-10079)
+  │
+EF+~1260 ──────── Block flags start (60000-69999, 91000-92999)
+  │
+EF+~2048 ──────── ┌─ STRUCTURED ZONE 1: Item acquisition tables ─┐
+  │                │  EF+2208-2832: Small item table (Goods)       │
+  │                └───────────────────────────────────────────────┘
+  │
+EF+~3072 ──────── Block flags continue (graces 76000-78999)
+  │
+EF+~3625 ──────── ┌─ EXCLUSION: Waypoint/Position table ──────────┐
+  │                │  16-byte records with float32 coordinates      │
+  │                └───────────────────────────────────────────────┘
+EF+4112 ───────── Dungeon flags bitfield (areas 10-43)
+  │
+EF+~27648 ─────── ┌─ STRUCTURED ZONE 2 ───────────────────────────┐
+  │                │  EF+27648-32640: Waypoint/sentinel records     │
+  │                │  EF+32640-34464: Large item manifest (5 cats)  │
+  │                └───────────────────────────────────────────────┘
+EF+~34560 ─────── Tile/world pickup bitfield
+  │                 tile_base = 337375
+  │
+EF+~214500 ────── ┌─ EXCLUSION: Map position cursor ──────────────┐
+  │                │  Single 0x08 byte tracks current map area      │
+  │                └───────────────────────────────────────────────┘
+  │
+EF+~1700000 ───── All zeros (unused tail)
+  │
+EF+1833375 ────── End of EF array
+```
+
+**Implications**:
+1. **Flag formula validation**: Any flag whose calculated `byte_offset` falls within a structured zone should be flagged as potentially invalid
+2. **AEG flag routing**: Synthetic AEG flags (3B+ range) route to tile formula → compute offsets that are either in the tile bitfield or out of bounds → return invalid. These flags are NOT stored in the EF array.
+3. **Mixed data detection**: The item acquisition tables can be distinguished from bitfield regions by the repeating `[u32][u32 with 0xX0000000 prefix]` pattern
+
+---
+
+## Non-Flag Regions Within the EF Array
+
+The 1,833,375-byte event flag array contains regions that are NOT event flags but still show activity in binary diffs. These must be excluded from flag detection to avoid false positives.
+
+### Map Position Cursor (EF+214,500 – EF+226,000)
+
+**Discovery**: ML clustering on timeline diffs (2026-02-18) identified a cluster of ~11,500 active offsets near EF+222,000. Investigation revealed this is a **map area cursor**, not event flags.
+
+**Behavior**:
+- Exactly **one byte** in this range is set to `0x08` at any time; all others are `0x00`
+- When the player moves between map areas, the `0x08` byte **shifts position** (old byte clears, new byte sets)
+- This produces alternating SET/CLEAR patterns — unlike permanent event flags which are SET-only
+
+**Why it's not flags**:
+- Flags are SET permanently; this region CLEARS bits when the player moves
+- The single-byte `0x08` pattern doesn't match any flag formula (block, tile, dungeon, or simple)
+- Co-occurrence with inventory pickups is spurious — both pickups and area changes happen during normal gameplay movement
+
+**Implications for detection**:
+- Offsets in range EF+214,500 to EF+226,000 should be **excluded** from flag candidate analysis
+- Any ML or heuristic pipeline should filter this region to avoid false positives
+
+### Waypoint/Position Table (EF+3,625 – EF+4,112)
+
+**Discovery**: ML clustering (2026-02-18) found 132 active offsets in this range. Multi-slot hex dump revealed it's a structured record table, not event flags.
+
+**Structure**: 16-byte records starting at EF+3,910:
+
+| Bytes | Field | Example |
+|-------|-------|---------|
+| 0-3 | Entry ID (LE u32) | `07 00 00 00` = 7 |
+| 4-7 | Float32 X coordinate | `ea a4 b7 44` = 1469.15 |
+| 8-11 | Float32 Y coordinate | `1e 34 8f 45` = 4582.51 |
+| 12-15 | Status / type | `00 02 00 00` |
+
+Empty slots use sentinel value `0xFFFFFFFF` for the ID with zero coordinates.
+
+**Multi-slot evidence**:
+- Slot 0 (Confessor, mid-game): 5 populated records with world coordinates, 35 empty
+- Slot 1 (Wretch, early game): All zeros — region not yet initialized
+- Slots 2-4 (V1/V2/V3, minimal progression): Uniform `0xFF/0x00` template pattern
+- The region sits between block 78000 (ends at EF+3,625) and dungeon area 10 (starts at EF+4,112)
+
+**Why it's not flags**: Contains float32 coordinate values, not bit-level boolean states. Changes are from record updates, not flag SETs.
 
 ---
 

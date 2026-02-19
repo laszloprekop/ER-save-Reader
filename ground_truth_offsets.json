@@ -4018,7 +4018,125 @@
         "status": "verified",
         "notes": "Evergaols item pickups - DISCOVERED 2026-02-02: Temporal diff shows slot0 (mid-game) has 12 pickups, slot1 (early-game) has 0 pickups. Items include Sliver of Meat, Hefty Beast Bone, Shadow Realm Rune [1]."
       }
+    },
+    "simple_flags": {
+      "description": "Simple flags (flag_id < 60000) use direct calculation: byte_offset = flag_id / 8, bit = 7 - (flag_id % 8). Already implemented in WASM. This section documents known active ranges discovered via ML clustering on timeline diffs (2026-02-18).",
+      "formula": "byte_offset = flag_id / 8, bit_position = 7 - (flag_id % 8)",
+      "active_ranges": {
+        "9021-9080": {
+          "byte_offsets": "1127-1135",
+          "category": "EMEVD Literal Flag",
+          "flag_count": 2,
+          "status": "extracted",
+          "notes": "Map event flags 9021 and 9080 found in common.emevd.js. Exact purpose unknown."
+        },
+        "9100-9190": {
+          "byte_offsets": "1137-1148",
+          "category": "Remembrance",
+          "flag_count": 56,
+          "status": "extracted",
+          "notes": "Boss remembrance tracking and Enia shop unlocks. Examples: 9100=Remembrance of the Grafted, 9102=Omen King's Remembrance, 9105=Remembrance of the Rot Goddess, 9106=Elden Remembrance. Also includes Enia armor unlocks (9104=Fell Omen Cloak, 9107=Elden Lord Crown, etc.)."
+        },
+        "9200-9295": {
+          "byte_offsets": "1150-1161",
+          "category": "Talisman Pouch",
+          "flag_count": 63,
+          "status": "extracted",
+          "notes": "Talisman slot expansion flags. 9200-9202 are the three talisman pouches. 9203-9295 appear to be related progression/unlock tracking for talisman-related features."
+        },
+        "9404-9440": {
+          "byte_offsets": "1175-1180",
+          "category": "EMEVD Literal Flag / Shop Unlock",
+          "flag_count": 9,
+          "status": "extracted",
+          "notes": "Mixed progression flags. 9404-9412 are EMEVD literal flags (possible ending tracking). 9430-9431 are EMEVD literal flags. 9440 unlocks Fleeting Microcosm sorcery."
+        },
+        "9500-9504": {
+          "byte_offsets": "1187-1188",
+          "category": "Mending Rune",
+          "flag_count": 4,
+          "status": "extracted",
+          "notes": "Mending Rune possession flags. 9500-9501=Perfect Order, 9502=Death-Prince, 9504=Fell Curse. Track which mending runes have been obtained for ending selection."
+        },
+        "9800-9810": {
+          "byte_offsets": "1225-1226",
+          "category": "Unknown",
+          "flag_count": 2,
+          "status": "extracted",
+          "notes": "Unknown flags referencing Good_12302 and Good_12307 from param files. Purpose unclear."
+        }
+      },
+      "ml_discovery_notes": "ML pipeline (Random Forest, ROC-AUC 0.858) identified 132 active offsets in EF+1040-1259 with flag-like behavior: single-bit changes, SET-only pattern, co-occurrence with gameplay events. The 133 extracted flags from EMEVD/params confirm these are legitimate simple flags. Range 8320-10079 covers byte offsets 1040-1259."
     }
+  },
+  "ef_layout_map": {
+    "description": "Complete layout of the 1,833,375-byte EventFlags array. CRITICAL: The EF array contains mixed data types — not just bitfield flags but also sorted lookup tables and record structures. Discovery date: 2026-02-19.",
+    "total_size": 1833375,
+    "regions": [
+      {
+        "name": "simple_flags_bitfield",
+        "ef_start": 0,
+        "ef_end": 1260,
+        "type": "bitfield",
+        "notes": "Simple flags (flag_id < 60000). Active range EF+1040-1259 (flags 8320-10079). Formula: byte = flag_id / 8, bit = 7 - (flag_id % 8)."
+      },
+      {
+        "name": "block_flags_lower",
+        "ef_start": 1260,
+        "ef_end": 2208,
+        "type": "bitfield",
+        "notes": "Block flags for ranges 60000-69999, 91000-92999. Per-block base offsets in formulas.block_bases."
+      },
+      {
+        "name": "item_acquisition_table_small",
+        "ef_start": 2208,
+        "ef_end": 2832,
+        "type": "structured_table",
+        "notes": "Sorted 8-byte item records [u32 qty][u32 prefix|item_id]. Goods-dominant. Only populated in saves with progression."
+      },
+      {
+        "name": "block_flags_upper",
+        "ef_start": 2832,
+        "ef_end": 3625,
+        "type": "bitfield",
+        "notes": "Block flags for graces (71000-78999), midrange flags (510000-710000). Includes verified and unreliable blocks."
+      },
+      {
+        "name": "waypoint_position_table",
+        "ef_start": 3625,
+        "ef_end": 4112,
+        "type": "structured_table",
+        "notes": "16-byte waypoint records [u32 ID][f32 X][f32 Y][u32 status]. Sentinel 0xFFFFFFFF for empty slots."
+      },
+      {
+        "name": "dungeon_flags_bitfield",
+        "ef_start": 4112,
+        "ef_end": 27648,
+        "type": "bitfield",
+        "notes": "Dungeon area flags (areas 10-43). Per-area bases in formulas.dungeon_formula. Section size 1125 bytes."
+      },
+      {
+        "name": "structured_zone_2",
+        "ef_start": 27648,
+        "ef_end": 34560,
+        "type": "structured_table",
+        "notes": "Mixed: waypoint/sentinel records (27648-32640) + large item manifest with 5 categories (32640-34464) + padding (34464-34560)."
+      },
+      {
+        "name": "tile_world_pickup_bitfield",
+        "ef_start": 34560,
+        "ef_end": 1700000,
+        "type": "bitfield",
+        "notes": "Tile-based world pickup flags. tile_base=337375. 875 bytes/tile, 40 tiles/row. Contains map position cursor exclusion zone at 214500-226000."
+      },
+      {
+        "name": "unused_tail",
+        "ef_start": 1700000,
+        "ef_end": 1833375,
+        "type": "unused",
+        "notes": "All zeros across all tested saves. No flags or structured data."
+      }
+    ]
   },
   "calibration_anchors": {
     "description": "Verified anchor flags for runtime calibration. Use these to validate formula correctness and detect save-dependent offset variations.",
@@ -4076,6 +4194,49 @@
         "local_id": 800,
         "notes": "Tombsward Catacombs boss defeat flag"
       }
+    }
+  },
+  "non_flag_exclusion_zones": {
+    "description": "EF byte ranges that are NOT event flags. These contain structured data tables, position tracking, or unused space. Exclude from flag detection and candidate analysis.",
+    "item_acquisition_table_small": {
+      "ef_start": 2208,
+      "ef_end": 2832,
+      "size_bytes": 624,
+      "structure": "Sorted 8-byte records: [u32 qty] [u32 category_prefix | item_id]. Categories: 0x00=Weapons, 0x10=Protector, 0x20=Accessory, 0x40=Goods, 0x80=Custom.",
+      "discovery_date": "2026-02-19",
+      "notes": "Small item acquisition table (Goods-dominant). Miquella's Lily (item 20653) found at EF+2616 as [01 00 00 00][AD 50 00 40]. Only populated in saves with progression; zeros/0xFF in early saves. Located between block flags and grace flags."
+    },
+    "waypoint_table": {
+      "ef_start": 3625,
+      "ef_end": 4112,
+      "size_bytes": 487,
+      "structure": "16-byte records: [u32 ID] [f32 X] [f32 Y] [u32 status]. Empty slots use 0xFFFFFFFF sentinel.",
+      "discovery_date": "2026-02-18",
+      "notes": "Position/waypoint tracking table between block 78000 (ends EF+3625) and dungeon area 10 (starts EF+4112). Contains world coordinates in mid-game saves, uninitialized 0xFF template in early saves, all zeros in minimal saves."
+    },
+    "structured_zone_2": {
+      "ef_start": 27648,
+      "ef_end": 34560,
+      "size_bytes": 6912,
+      "structure": "Mixed: waypoint/sentinel records (27648-32640) followed by large item manifest (32640-34464) with 5 category prefixes. Remaining bytes (34464-34560) are boundary padding.",
+      "discovery_date": "2026-02-19",
+      "notes": "Second structured zone between dungeon flags and tile/world pickup bitfield. Large item manifest contains ~228 records across all 5 item categories (Weapons, Protector, Accessory, Goods, Custom). Only populated in live saves with significant progression."
+    },
+    "map_position_cursor": {
+      "ef_start": 214500,
+      "ef_end": 226000,
+      "size_bytes": 11500,
+      "structure": "Single byte set to 0x08 indicating current map area. Moves as player changes areas.",
+      "discovery_date": "2026-02-18",
+      "notes": "Map area cursor. One active byte (0x08) at a time, all others 0x00. Produces SET/CLEAR patterns unlike permanent flags."
+    },
+    "unused_tail": {
+      "ef_start": 1700000,
+      "ef_end": 1833375,
+      "size_bytes": 133375,
+      "structure": "All zero bytes across all tested saves.",
+      "discovery_date": "2026-02-19",
+      "notes": "Unused tail of the EF array. No flags, no structured data. Safe to ignore in all analyses."
     }
   },
   "untrackable_categories": [],
