@@ -4,12 +4,34 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.11 - Fix extraction categorizer priority and wrong hardcoded names
+
+### Fixes
+- **Categorizer priority bug** — Source-based checks (`ShopLineupParam.release → "Shop Unlock"`) now run before 91xx-95xx ID-range checks. Previously, ~20 Enia shop unlock flags (9101, 9104, 9107, etc.) were misclassified as "Remembrance" because the overbroad `9100-9199` range check ran first.
+- **"Talisman Pouch" → "Boss Reward"** — The 9200-9299 range contains dungeon boss reward triggers (Cemetery Shade, Erdtree Burial Watchdog, etc.), not talisman pouches. Only 3 of ~60 flags in this range are actual talisman pouches. Renamed category throughout.
+- **Removed wrong hardcoded entries** from `extract_common_emevd()`:
+  - Remembrance (9100-9114): 6 of 15 names were wrong. These flags are now correctly sourced from ItemLotParam and ShopLineupParam.
+  - Talisman Pouch (9200-9202): Now sourced from EMEVD boss trace resolution.
+  - Mending Rune (9500-9502): 9500 was hardcoded as "Fell Curse" but is actually "Perfect Order" per ItemLotParam. 9504 was missing entirely.
+- **Great Rune milestone flags** (160-167, 180-187) — Renamed from per-rune names ("Godrick's Great Rune - Possessed") to threshold milestone names ("Boss Drop Milestone: N+ Remembrances Collected"). These use `CountEventFlags >= threshold` where threshold=0 is always true, so flags 160/180 are set for ALL characters regardless of progression.
+
+### Key Findings
+- The 91xx range is a MIX of boss reward triggers (from EMEVD Event 1100) and Enia shop unlock flags (from ShopLineupParam). Sequential hardcoding was fundamentally wrong.
+- EMEVD Events 720/730 use `CountEventFlags(range) >= threshold` — threshold=0 means the flag is always set, making flags 160 and 180 default-true for every character.
+
+### Files Modified
+- `scripts/extract_event_flags.py`: Fixed categorizer priority, renamed "Talisman Pouch" → "Boss Reward", removed hardcoded entries, fixed milestone names
+- `scripts/extracted_event_flags.json`: Regenerated with corrected categories and names
+- `scripts/extracted_event_flags.md`: Regenerated
+- `docs/CHANGELOG.md`: v0.17.11
+- `Cargo.toml`: bumped to 0.17.11
+
 ## v0.17.10 - EMEVD event context name resolution
 
 ### Extraction: EMEVD Name Resolution
 - **New post-processing step** — `resolve_emevd_literal_names()` traces EMEVD event chains to resolve cryptic "Map Event Flag (N)" names to descriptive labels.
 - **1,147 of 1,449 flags resolved** (79% coverage):
-  - **Talisman Pouch (55/59)**: Traced `HandleBossDefeatAndDisplayBanner` → boss name lookup. e.g. `Map Event Flag (9206)` → `Talisman Pouch (Spiritcaller Snail)`
+  - **Boss Reward (55/59)**: Traced `HandleBossDefeatAndDisplayBanner` → boss name lookup. e.g. `Map Event Flag (9206)` → `Boss Reward (Spiritcaller Snail)` _(category renamed from "Talisman Pouch" in v0.17.11)_
   - **Remembrance (17/17)**: Same boss-trace technique. e.g. `Map Event Flag (9163)` → `Remembrance (Bayle the Dread)`
   - **Progression (9/9)**: Context-dependent — boss defeats, gesture unlocks
   - **Mausoleum Duplication (4/4)**: Named by dungeon location

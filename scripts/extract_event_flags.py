@@ -1754,11 +1754,9 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
     # Synthetic AEG Pickup IDs (3B+ range, no real event flag)
     if flag_id >= 3_000_000_000:
         return "AEG Pickup"
-    # Great Runes (possession: 160-167, activation: 180-187)
-    if 160 <= flag_id <= 167:
-        return "Great Rune Possession"
-    elif 180 <= flag_id <= 187:
-        return "Great Rune Activation"
+    # Great Rune milestone flags (threshold counters, not per-rune)
+    if 160 <= flag_id <= 167 or 180 <= flag_id <= 187:
+        return "Great Rune Milestone"
 
     # Boss world drops (171-199)
     elif 171 <= flag_id <= 199:
@@ -1792,18 +1790,6 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
     elif 67000 <= flag_id <= 68999:
         return "Cookbook"
 
-    # Remembrances (9100-9199)
-    elif 9100 <= flag_id <= 9199:
-        return "Remembrance"
-
-    # Talisman Pouches (9200-9299)
-    elif 9200 <= flag_id <= 9299:
-        return "Talisman Pouch"
-
-    # Mending Runes (9500-9599)
-    elif 9500 <= flag_id <= 9599:
-        return "Mending Rune"
-
     # Mausoleum duplication (69000-69999)
     elif 69000 <= flag_id <= 69999:
         return "Mausoleum Duplication"
@@ -1812,7 +1798,8 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
     elif 60000 <= flag_id <= 60999:
         return "Progression"
 
-    # Source-based categories
+    # Source-based categories (checked BEFORE 91xx-95xx ID ranges to avoid
+    # overbroad range checks swallowing ShopLineupParam-sourced flags)
     if source == "BonfireWarpParam":
         return "Grace"
     elif source == "ShopLineupParam.stock":
@@ -1821,6 +1808,17 @@ def categorize_flag(flag_id: int, source: str, item_name: str = "") -> str:
         return "Shop Unlock"
     elif source == "common.emevd.js":
         return "Event Script"
+
+    # 91xx-95xx ranges: only reached when source is NOT a known param/EMEVD
+    # (i.e., flags from ItemLotParam that happen to fall in these ID ranges)
+    if 9100 <= flag_id <= 9199:
+        return "Remembrance"
+
+    elif 9200 <= flag_id <= 9299:
+        return "Boss Reward"
+
+    elif 9500 <= flag_id <= 9599:
+        return "Mending Rune"
 
     # Flag format based (large numbers)
     if flag_id >= 2_000_000_000:
@@ -1942,11 +1940,11 @@ def categorize_verification_status(
     if category in {"Shop Stock", "Shop Unlock"}:
         return ("not-a-pickup", backed_by)
 
-    # Special collectibles from EMEVD (Great Runes, Remembrances, etc.)
+    # Special collectibles from EMEVD (Great Runes, milestone counters, etc.)
     if source_file == "common.emevd.js":
         special_collectible_categories = {
-            "Great Rune Possession", "Great Rune Activation",
-            "Remembrance", "Talisman Pouch", "Mending Rune",
+            "Great Rune Milestone",
+            "Remembrance", "Boss Reward", "Mending Rune",
         }
         if category in special_collectible_categories:
             return ("needs-emevd", backed_by)
@@ -2432,134 +2430,73 @@ def extract_common_emevd(lookups: Dict) -> List[EventFlag]:
     with open(js_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Great Rune possession flags (Event 720)
-    # Pattern: Event(720, Default, function (X0_4, X4_4) { ... SetEventFlag(X0_4 + 160, ON); ...
-    great_runes = [
-        (160, "Godrick's Great Rune"),
-        (161, "Radahn's Great Rune"),
-        (162, "Morgott's Great Rune"),
-        (163, "Rykard's Great Rune"),
-        (164, "Mohg's Great Rune"),
-        (165, "Malenia's Great Rune"),
-        (166, "Miquella's Great Rune"),
-        (167, "Placidusax's Old Lord Talisman"),  # DLC related
+    # Great Rune collection milestone flags (Event 720)
+    # Event 720: SetEventFlagID(eventFlagId, ON) when CountEventFlags(190-199) >= threshold
+    # These are THRESHOLD MILESTONES, not per-rune flags.
+    # Flag 160 (threshold=0) is always set on character creation.
+    # Flag 161 (threshold=1) = "collected 1+ Remembrances from 190-199 range"
+    # Verified: all 5 test slots have flag 160 SET, only Confessor (2 boss kills) has 161.
+    great_rune_milestones = [
+        (160, 0), (161, 1), (162, 2), (163, 3),
+        (164, 4), (165, 5), (166, 6), (167, 7),
     ]
-    for flag_id, name in great_runes:
+    for flag_id, threshold in great_rune_milestones:
         vs, backed = categorize_verification_status(
-            "Great Rune Possession", "common.emevd.js", None, None, flag_id
+            "Great Rune Milestone", "common.emevd.js", None, None, flag_id
         )
-        flags.append(EventFlag(
-            flag_id=flag_id,
-            name=f"{name} - Possessed",
-            category="Great Rune Possession",
-            region="Various",
-            source_file="common.emevd.js",
-            verification_status=vs,
-            backed_by=backed,
-            raw_data={"event_id": 720, "description": "Set when Great Rune is obtained"}
-        ))
-
-    # Great Rune activation flags (Event 730)
-    great_rune_activation = [
-        (180, "Godrick's Great Rune"),
-        (181, "Radahn's Great Rune"),
-        (182, "Morgott's Great Rune"),
-        (183, "Rykard's Great Rune"),
-        (184, "Mohg's Great Rune"),
-        (185, "Malenia's Great Rune"),
-        (186, "Miquella's Great Rune"),
-        (187, "Unknown Great Rune"),
-    ]
-    for flag_id, name in great_rune_activation:
-        vs, backed = categorize_verification_status(
-            "Great Rune Activation", "common.emevd.js", None, None, flag_id
-        )
-        flags.append(EventFlag(
-            flag_id=flag_id,
-            name=f"{name} - Activated",
-            category="Great Rune Activation",
-            region="Divine Tower",
-            source_file="common.emevd.js",
-            verification_status=vs,
-            backed_by=backed,
-            raw_data={"event_id": 730, "description": "Set when Great Rune is activated at Divine Tower"}
-        ))
-
-    # Boss Remembrances (Event 1100 pattern)
-    # Pattern includes 91xx flags for remembrance possession
-    remembrances = [
-        (9100, "Remembrance of the Grafted"),
-        (9101, "Remembrance of the Starscourge"),
-        (9102, "Omen King's Remembrance"),
-        (9103, "Remembrance of the Blasphemous"),
-        (9104, "Remembrance of the Blood Lord"),
-        (9105, "Remembrance of the Rot Goddess"),
-        (9106, "Elden Remembrance"),
-        (9107, "Remembrance of the Lichdragon"),
-        (9108, "Remembrance of the Naturalborn"),
-        (9109, "Remembrance of the Regal Ancestor"),
-        (9110, "Remembrance of the Full Moon Queen"),
-        (9111, "Remembrance of the Dragonlord"),
-        (9112, "Remembrance of the Fire Giant"),
-        (9113, "Remembrance of Hoarah Loux"),
-        (9114, "Remembrance of the Black Blade"),
-    ]
-    for flag_id, name in remembrances:
-        vs, backed = categorize_verification_status(
-            "Remembrance", "common.emevd.js", None, None, flag_id
-        )
+        if threshold == 0:
+            name = "Boss Drop Milestone: Always Set (threshold=0)"
+            desc = "CountEventFlags(190-199) >= 0 is always true; set on character creation"
+        else:
+            name = f"Boss Drop Milestone: {threshold}+ Remembrances Collected"
+            desc = f"Set when CountEventFlags(190-199) >= {threshold}"
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
-            category="Remembrance",
+            category="Great Rune Milestone",
             region="Various",
             source_file="common.emevd.js",
             verification_status=vs,
             backed_by=backed,
-            raw_data={"event_id": 1100, "description": "Set when boss remembrance is obtained"}
+            raw_data={"event_id": 720, "description": desc}
         ))
 
-    # Talisman Pouch upgrades (Event 1200 - 92xx flags)
-    talisman_upgrades = [
-        (9200, "First Talisman Pouch"),
-        (9201, "Second Talisman Pouch"),
-        (9202, "Third Talisman Pouch"),
+    # Great Rune activation milestone flags (Event 730)
+    # Event 730: SetEventFlagID(eventFlagId, ON) when CountEventFlags(170-179) >= threshold
+    # Same threshold pattern. Flag 180 (threshold=0) is always set.
+    great_rune_activation_milestones = [
+        (180, 0), (181, 1), (182, 2), (183, 3),
+        (184, 4), (185, 5), (186, 6), (187, 7),
     ]
-    for flag_id, name in talisman_upgrades:
+    for flag_id, threshold in great_rune_activation_milestones:
         vs, backed = categorize_verification_status(
-            "Talisman Pouch", "common.emevd.js", None, None, flag_id
+            "Great Rune Milestone", "common.emevd.js", None, None, flag_id
         )
+        if threshold == 0:
+            name = "Rune Activation Milestone: Always Set (threshold=0)"
+            desc = "CountEventFlags(170-179) >= 0 is always true; set on character creation"
+        else:
+            name = f"Rune Activation Milestone: {threshold}+ Great Runes Activated"
+            desc = f"Set when CountEventFlags(170-179) >= {threshold}"
         flags.append(EventFlag(
             flag_id=flag_id,
             name=name,
-            category="Talisman Pouch",
+            category="Great Rune Milestone",
             region="Various",
             source_file="common.emevd.js",
             verification_status=vs,
             backed_by=backed,
-            raw_data={"event_id": 1200, "description": "Set when talisman pouch obtained"}
+            raw_data={"event_id": 730, "description": desc}
         ))
 
-    # Mending Runes (endings)
-    mending_runes = [
-        (9500, "Mending Rune of the Fell Curse"),
-        (9501, "Mending Rune of Perfect Order"),
-        (9502, "Mending Rune of the Death-Prince"),
-    ]
-    for flag_id, name in mending_runes:
-        vs, backed = categorize_verification_status(
-            "Mending Rune", "common.emevd.js", None, None, flag_id
-        )
-        flags.append(EventFlag(
-            flag_id=flag_id,
-            name=name,
-            category="Mending Rune",
-            region="Various",
-            source_file="common.emevd.js",
-            verification_status=vs,
-            backed_by=backed,
-            raw_data={"description": "Quest item for alternate ending"}
-        ))
+    # NOTE: Remembrances (91xx), Talisman Pouches (92xx), and Mending Runes (95xx)
+    # are NOT hardcoded here. They are extracted from their actual sources:
+    # - ItemLotParam_map (getItemFlagId → item names)
+    # - ShopLineupParam (shop unlock flags)
+    # - EMEVD literal flag resolution (boss context tracing)
+    # Hardcoding these was wrong — the 91xx range is a MIX of boss reward triggers
+    # and Enia shop unlock flags, not a sequential list of remembrances.
+    # See audit: flags 9101, 9104, 9107, 9108, 9111, 9112 are Enia shop unlocks.
 
     return flags
 
@@ -3994,7 +3931,7 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
     """
     Post-processing: resolve names for flags extracted via literal EMEVD calls.
 
-    For Talisman Pouch, Remembrance, Progression, and Mausoleum Duplication flags,
+    For Boss Reward, Remembrance, Progression, and Mausoleum Duplication flags,
     traces the EMEVD event context to find the associated boss defeat and uses that
     boss name in the flag's display name.
 
@@ -4008,7 +3945,7 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
         return 0
 
     # Categories eligible for boss-name resolution
-    resolvable_categories = {"Talisman Pouch", "Remembrance", "Progression", "Mausoleum Duplication"}
+    resolvable_categories = {"Boss Reward", "Remembrance", "Progression", "Mausoleum Duplication"}
     # Categories that get context classification
     context_categories = {"EMEVD Literal Flag"}
 
@@ -4121,11 +4058,11 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                     area_no = int(map_match.group(1))
                     dungeon_label = dungeon_region_names.get(area_no)
 
-                if f.category == "Talisman Pouch":
+                if f.category == "Boss Reward":
                     if boss_name:
-                        f.name = f"Talisman Pouch ({boss_name})"
+                        f.name = f"Boss Reward ({boss_name})"
                     elif dungeon_label:
-                        f.name = f"Talisman Pouch ({dungeon_label} {source.split('.')[0]})"
+                        f.name = f"Boss Reward ({dungeon_label} {source.split('.')[0]})"
                     f.raw_data["resolved_via"] = "emevd_boss_trace"
                     if boss_name:
                         f.raw_data["boss_name"] = boss_name

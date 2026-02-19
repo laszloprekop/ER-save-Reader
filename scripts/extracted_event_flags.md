@@ -1,6 +1,6 @@
 # Extracted Event Flags
 
-Total unique flags: 24886
+Total unique flags: 24883
 
 | Flag ID | Name | Category | Region | Map Tile | Local Pos (X,Y,Z) | World (X,Z) | T.Type | Rarity | Pos.Conf | UG | Source |
 |---------|------|----------|--------|----------|-------------------|-------------|--------|--------|----------|----|----- --|
@@ -28,28 +28,28 @@ Total unique flags: 24886
 | 124 | Cutscene Trigger (cutscene 21000020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
 | 128 | Cutscene Trigger (cutscene 20010020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
 | 130 | Map Event Flag (130) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m60_54_53_00.emevd |
-| 160 | Godrick's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 161 | Radahn's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 162 | Morgott's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 163 | Rykard's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 164 | Mohg's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 165 | Malenia's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 166 | Miquella's Great Rune - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
-| 167 | Placidusax's Old Lord Talisman - Possessed | Great Rune Possession | Various | - | - | - | - | - | - | - | common |
+| 160 | Boss Drop Milestone: Always Set (threshold=0) | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 161 | Boss Drop Milestone: 1+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 162 | Boss Drop Milestone: 2+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 163 | Boss Drop Milestone: 3+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 164 | Boss Drop Milestone: 4+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 165 | Boss Drop Milestone: 5+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 166 | Boss Drop Milestone: 6+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 167 | Boss Drop Milestone: 7+ Remembrances Collected | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
 | 171 | Godrick's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 172 | Radahn's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 173 | Morgott's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 174 | Rykard's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 175 | Mohg's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 176 | Malenia's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 180 | Godrick's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 181 | Radahn's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 182 | Morgott's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 183 | Rykard's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 184 | Mohg's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 185 | Malenia's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 186 | Miquella's Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
-| 187 | Unknown Great Rune - Activated | Great Rune Activation | Divine Tower | - | - | - | - | - | - | - | common |
+| 180 | Rune Activation Milestone: Always Set (threshold=0) | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 181 | Rune Activation Milestone: 1+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 182 | Rune Activation Milestone: 2+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 183 | Rune Activation Milestone: 3+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 184 | Rune Activation Milestone: 4+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 185 | Rune Activation Milestone: 5+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 186 | Rune Activation Milestone: 6+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
+| 187 | Rune Activation Milestone: 7+ Great Runes Activated | Great Rune Milestone | Various | - | - | - | - | - | - | - | common |
 | 191 | Godrick's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 192 | Radahn's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 193 | Morgott's Great Rune | Boss World Drop | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
@@ -274,122 +274,120 @@ Total unique flags: 24886
 | 7649 | Map Event Flag (7649) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m20_01_00_00.emevd |
 | 9021 | Cutscene Trigger (cutscene 10010000) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
 | 9080 | Map Event Flag (9080) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
-| 9100 | Remembrance of the Grafted | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9101 | [Enia - Forging] Remembrance of the Grafted - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9102 | Omen King's Remembrance | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9103 | Remembrance of the Blasphemous | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9104 | [Enia - Margit] Fell Omen Cloak - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9105 | Remembrance of the Rot Goddess | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9106 | Elden Remembrance | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9107 | [Enia - Godfrey] Elden Lord Crown - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9108 | [Enia - Forging] Remembrance of the Naturalborn - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9109 | Remembrance of the Regal Ancestor | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9110 | Remembrance of the Full Moon Queen | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9111 | [Enia - Forging] Remembrance of the Lichdragon - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9112 | [Enia - Mohg] Lord of Blood's Robe - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9113 | Remembrance of Hoarah Loux | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9114 | Remembrance of the Black Blade | Remembrance | Various | - | - | - | - | - | - | - | common |
-| 9115 | [Enia - Forging] Remembrance of the Dragonlord - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9116 | [Enia - Maliketh] Maliketh's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9100 | Remembrance (Margit, the Fell Omen) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m10_00_00_00.emevd |
+| 9101 | [Enia - Forging] Remembrance of the Grafted - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9103 | Remembrance (Grafted Scion) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m10_01_00_00.emevd |
+| 9104 | [Enia - Margit] Fell Omen Cloak - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9105 | Remembrance (Godfrey, First Elden Lord) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m11_00_00_00.emevd |
+| 9106 | Remembrance (Sir Gideon Ofnir, the All-Knowing) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m11_05_00_00.emevd |
+| 9107 | [Enia - Godfrey] Elden Lord Crown - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9108 | [Enia - Forging] Remembrance of the Naturalborn - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9109 | Remembrance (Dragonkin Soldier of Nokstella) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_01_00_00.emevd |
+| 9110 | Remembrance (Valiant Gargoyle) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
+| 9111 | [Enia - Forging] Remembrance of the Lichdragon - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9112 | [Enia - Mohg] Lord of Blood's Robe - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9114 | Remembrance (Godskin Apostle) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m13_00_00_00.emevd |
+| 9115 | [Enia - Forging] Remembrance of the Dragonlord - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9116 | [Enia - Maliketh] Maliketh's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9117 | Remembrance (Red Wolf of Radagon) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m14_00_00_00.emevd |
-| 9118 | [Enia - Rennala] Queen's Crescent Crown - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9119 | [Enia - Royal Knight Loretta] Royal Knight Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9120 | [Enia - Malenia] Malenia's Winged Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9118 | [Enia - Rennala] Queen's Crescent Crown - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9119 | [Enia - Royal Knight Loretta] Royal Knight Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9120 | [Enia - Malenia] Malenia's Winged Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9121 | Remembrance (Godskin Noble) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
-| 9122 | [Enia - Forging] Remembrance of the Blasphemous - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9123 | [Enia - Forging] Elden Remembrance - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9122 | [Enia - Forging] Remembrance of the Blasphemous - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9123 | [Enia - Forging] Elden Remembrance - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9125 | Remembrance (Mohg, Lord of Blood) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 9126 | Remembrance (Magma Wyrm Makar) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m39_20_00_00.emevd |
 | 9128 | Remembrance (Ulcerated Tree Spirit) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m18_00_00_00.emevd |
 | 9129 | Remembrance (Abductor Virgin (Swinging Sickle)) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m16_00_00_00.emevd |
-| 9130 | [Enia - Radahn] Radahn's Redmane Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9131 | [Enia - Forging] Remembrance of the Fire Giant - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9130 | [Enia - Radahn] Radahn's Redmane Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9131 | [Enia - Forging] Remembrance of the Fire Giant - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9132 | Remembrance (Ancestor Spirit) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_08_00_00.emevd |
-| 9133 | [Enia - Forging] Remembrance of the Regal Ancestor - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9133 | [Enia - Forging] Remembrance of the Regal Ancestor - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9134 | Remembrance (NPC Invader) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_02_00_00.emevd |
 | 9135 | Remembrance (NPC Invader) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m12_03_00_00.emevd |
-| 9140 | Remembrance of the Dancing Lion - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9143 | [Enia - Radahn, Consort of Miquella] Young Lion's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9140 | Remembrance of the Dancing Lion - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9143 | [Enia - Radahn, Consort of Miquella] Young Lion's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9144 | Remembrance (Golden Hippopotamus) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m21_00_00_00.emevd |
-| 9146 | [Enia - Messmer the Impaler] Messmer's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9148 | Remembrance of Putrescence - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9155 | Remembrance of the Mother of Fingers - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9156 | Remembrance of the Lord of Frenzied Flame - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9160 | Remembrance of the Saint of the Bud - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9146 | [Enia - Messmer the Impaler] Messmer's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9148 | Remembrance of Putrescence - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9155 | Remembrance of the Mother of Fingers - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9156 | Remembrance of the Lord of Frenzied Flame - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9160 | Remembrance of the Saint of the Bud - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9161 | Remembrance (Jori, the Elder Inquisitor) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m40_02_00_00.emevd |
-| 9162 | Remembrance of the Shadow Sunflower - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9162 | Remembrance of the Shadow Sunflower - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9163 | Remembrance (Bayle the Dread) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m61_54_39_00.emevd |
-| 9164 | [Enia - Commander Gaius] Gaius's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9164 | [Enia - Commander Gaius] Gaius's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9173 | Remembrance (Godskin Apostle) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m34_13_00_00.emevd |
 | 9174 | Remembrance (Fell Twin) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m34_14_00_00.emevd |
 | 9180 | Remembrance (Misbegotten Warrior) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_43_30_00.emevd |
 | 9181 | Remembrance (Loretta, Knight of the Haligtree) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_35_50_00.emevd |
-| 9182 | [Enia - Elemer of the Briar] Briar Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9182 | [Enia - Elemer of the Briar] Briar Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9183 | Remembrance (Crucible Knight Ordovis) | Remembrance | Various | - | - | - | - | - | - | - | EMEVD:m60_51_36_00.emevd |
-| 9184 | [Enia - Commander Niall] Veteran's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9190 | [Enia - Rellana, Twin Moon Knight] Rellana's Helm - Unlocked | Remembrance | Various | - | - | - | - | - | - | - | ShopLineupParam |
-| 9200 | First Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
-| 9201 | Second Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
-| 9202 | Third Talisman Pouch | Talisman Pouch | Various | - | - | - | - | - | - | - | common |
-| 9203 | Talisman Pouch (Black Knife Assassin) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_11_00_00.emevd |
-| 9204 | Talisman Pouch (Grave Warden Duelist) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
-| 9205 | Talisman Pouch (Cemetery Shade) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
-| 9206 | Talisman Pouch (Spiritcaller Snail) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
-| 9207 | Talisman Pouch (Erdtree Burial Watchdog) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
-| 9208 | Talisman Pouch (Ancient Hero of Zamor) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
-| 9209 | Talisman Pouch (Red Wolf of Radagon) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
-| 9210 | Talisman Pouch (Crucible Knight Ordovis) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
-| 9211 | Talisman Pouch (Misbegotten Warrior) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
-| 9212 | Talisman Pouch (Erdtree Burial Watchdog) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
-| 9213 | Talisman Pouch (Grave Warden Duelist) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
-| 9214 | Talisman Pouch (Erdtree Burial Watchdog) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
-| 9215 | Talisman Pouch (Cemetery Shade) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_15_00_00.emevd |
-| 9216 | Talisman Pouch (Ulcerated Tree Spirit) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
-| 9217 | Talisman Pouch (Ancient Hero of Zamor) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
-| 9218 | Talisman Pouch (Ulcerated Tree Spirit) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
-| 9219 | Talisman Pouch (Grave Warden Duelist) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
-| 9220 | Talisman Pouch (NPC Invader) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
-| 9221 | Talisman Pouch (Black Knife Assassin) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
-| 9222 | Talisman Pouch (NPC Invader) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
-| 9230 | Talisman Pouch (Miranda Blossom) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_02_00_00.emevd |
-| 9231 | Talisman Pouch (Runebear) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
-| 9232 | Talisman Pouch (Patches) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
-| 9233 | Talisman Pouch (Azula Beastman) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_03_00_00.emevd |
-| 9234 | Talisman Pouch (Demi-Human Chief) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
-| 9235 | Talisman Pouch (Guardian Golem) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
-| 9236 | Talisman Pouch (Cleanrot Knight) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_04_00_00.emevd |
-| 9237 | Talisman Pouch (Bloodhound Knight) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
-| 9238 | Talisman Pouch (Crystalian) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
-| 9239 | Talisman Pouch (Kindred of Rot) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_07_00_00.emevd |
-| 9240 | Talisman Pouch (Demi-Human Queen Maggie) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_09_00_00.emevd |
-| 9241 | Talisman Pouch (Miranda Blossom) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
-| 9242 | Talisman Pouch (Black Knife Assassin) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
-| 9243 | Talisman Pouch (Grave Warden Duelist) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
-| 9244 | Talisman Pouch (Azula Beastman) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
-| 9245 | Talisman Pouch (Cleanrot Knight) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_20_00_00.emevd |
-| 9246 | Talisman Pouch (Crystalian) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
-| 9247 | Talisman Pouch (Misbegotten Warrior) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_12_00_00.emevd |
-| 9248 | Talisman Pouch (Spiritcaller Snail) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
-| 9249 | Talisman Pouch (Necromancer Garris) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
-| 9260 | Talisman Pouch (Scaly Misbegotten) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
-| 9261 | Talisman Pouch (Stonedigger Troll) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
-| 9262 | Talisman Pouch (Crystalian) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
-| 9263 | Talisman Pouch (Stonedigger Troll) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
-| 9264 | Talisman Pouch (Alabaster Lord) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
-| 9265 | Talisman Pouch (Crystalian) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
-| 9266 | Talisman Pouch (Magma Wyrm Makar) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
-| 9267 | Talisman Pouch (Fallingstar Beast) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
-| 9268 | Talisman Pouch (Astel, Naturalborn of the Void) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
-| 9270 | Talisman Pouch (Death Knight) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
-| 9271 | Talisman Pouch (Death Knight) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
-| 9275 | Talisman Pouch (Demi-Human Swordmaster Onze) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
-| 9276 | Talisman Pouch (Curseblade Labirith) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
-| 9277 | Talisman Pouch (Lamenter) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
-| 9280 | Talisman Pouch (Map Event Flag (34100800)) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
-| 9281 | Talisman Pouch (Ancient Dragon-man) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
-| 9290 | Map Event Flag (9290) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
-| 9291 | Map Event Flag (9291) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
-| 9295 | Map Event Flag (9295) | Talisman Pouch | Various | - | - | - | - | - | - | - | EMEVD:m60_39_50_00.emevd |
+| 9184 | [Enia - Commander Niall] Veteran's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9190 | [Enia - Rellana, Twin Moon Knight] Rellana's Helm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
+| 9200 | Boss Reward (Cemetery Shade) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_00_00_00.emevd |
+| 9201 | Boss Reward (Erdtree Burial Watchdog) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_01_00_00.emevd |
+| 9202 | Boss Reward (Erdtree Burial Watchdog) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_02_00_00.emevd |
+| 9203 | Boss Reward (Black Knife Assassin) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_11_00_00.emevd |
+| 9204 | Boss Reward (Grave Warden Duelist) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_04_00_00.emevd |
+| 9205 | Boss Reward (Cemetery Shade) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 9206 | Boss Reward (Spiritcaller Snail) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_03_00_00.emevd |
+| 9207 | Boss Reward (Erdtree Burial Watchdog) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_06_00_00.emevd |
+| 9208 | Boss Reward (Ancient Hero of Zamor) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_08_00_00.emevd |
+| 9209 | Boss Reward (Red Wolf of Radagon) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_09_00_00.emevd |
+| 9210 | Boss Reward (Crucible Knight Ordovis) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_10_00_00.emevd |
+| 9211 | Boss Reward (Misbegotten Warrior) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_12_00_00.emevd |
+| 9212 | Boss Reward (Erdtree Burial Watchdog) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_07_00_00.emevd |
+| 9213 | Boss Reward (Grave Warden Duelist) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_13_00_00.emevd |
+| 9214 | Boss Reward (Erdtree Burial Watchdog) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_14_00_00.emevd |
+| 9215 | Boss Reward (Cemetery Shade) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_15_00_00.emevd |
+| 9216 | Boss Reward (Ulcerated Tree Spirit) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_16_00_00.emevd |
+| 9217 | Boss Reward (Ancient Hero of Zamor) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_17_00_00.emevd |
+| 9218 | Boss Reward (Ulcerated Tree Spirit) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_18_00_00.emevd |
+| 9219 | Boss Reward (Grave Warden Duelist) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_19_00_00.emevd |
+| 9220 | Boss Reward (NPC Invader) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_20_00_00.emevd |
+| 9221 | Boss Reward (Black Knife Assassin) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m30_05_00_00.emevd |
+| 9222 | Boss Reward (NPC Invader) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
+| 9230 | Boss Reward (Miranda Blossom) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_02_00_00.emevd |
+| 9231 | Boss Reward (Runebear) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_01_00_00.emevd |
+| 9232 | Boss Reward (Patches) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_00_00_00.emevd |
+| 9233 | Boss Reward (Azula Beastman) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_03_00_00.emevd |
+| 9234 | Boss Reward (Demi-Human Chief) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_15_00_00.emevd |
+| 9235 | Boss Reward (Guardian Golem) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_17_00_00.emevd |
+| 9236 | Boss Reward (Cleanrot Knight) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_04_00_00.emevd |
+| 9237 | Boss Reward (Bloodhound Knight) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_05_00_00.emevd |
+| 9238 | Boss Reward (Crystalian) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_06_00_00.emevd |
+| 9239 | Boss Reward (Kindred of Rot) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_07_00_00.emevd |
+| 9240 | Boss Reward (Demi-Human Queen Maggie) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_09_00_00.emevd |
+| 9241 | Boss Reward (Miranda Blossom) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_18_00_00.emevd |
+| 9242 | Boss Reward (Black Knife Assassin) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 9243 | Boss Reward (Grave Warden Duelist) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_21_00_00.emevd |
+| 9244 | Boss Reward (Azula Beastman) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_10_00_00.emevd |
+| 9245 | Boss Reward (Cleanrot Knight) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_20_00_00.emevd |
+| 9246 | Boss Reward (Crystalian) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_11_00_00.emevd |
+| 9247 | Boss Reward (Misbegotten Warrior) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_12_00_00.emevd |
+| 9248 | Boss Reward (Spiritcaller Snail) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_22_00_00.emevd |
+| 9249 | Boss Reward (Necromancer Garris) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m31_19_00_00.emevd |
+| 9260 | Boss Reward (Scaly Misbegotten) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_00_00_00.emevd |
+| 9261 | Boss Reward (Stonedigger Troll) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_01_00_00.emevd |
+| 9262 | Boss Reward (Crystalian) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_02_00_00.emevd |
+| 9263 | Boss Reward (Stonedigger Troll) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_04_00_00.emevd |
+| 9264 | Boss Reward (Alabaster Lord) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m34_12_00_00.emevd |
+| 9265 | Boss Reward (Crystalian) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_05_00_00.emevd |
+| 9266 | Boss Reward (Magma Wyrm Makar) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_07_00_00.emevd |
+| 9267 | Boss Reward (Fallingstar Beast) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_08_00_00.emevd |
+| 9268 | Boss Reward (Astel, Naturalborn of the Void) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m32_11_00_00.emevd |
+| 9270 | Boss Reward (Death Knight) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m40_00_00_00.emevd |
+| 9271 | Boss Reward (Death Knight) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m40_01_00_00.emevd |
+| 9275 | Boss Reward (Demi-Human Swordmaster Onze) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m41_00_00_00.emevd |
+| 9276 | Boss Reward (Curseblade Labirith) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m41_01_00_00.emevd |
+| 9277 | Boss Reward (Lamenter) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m41_02_00_00.emevd |
+| 9280 | Boss Reward (Map Event Flag (34100800)) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m34_10_00_00.emevd |
+| 9281 | Boss Reward (Ancient Dragon-man) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m43_01_00_00.emevd |
+| 9290 | Map Event Flag (9290) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
+| 9291 | Map Event Flag (9291) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m60_41_52_00.emevd |
+| 9295 | Map Event Flag (9295) | Boss Reward | Various | - | - | - | - | - | - | - | EMEVD:m60_39_50_00.emevd |
 | 9404 | Cutscene Trigger (cutscene 19000020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
 | 9405 | Cutscene Trigger (cutscene 19000020) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
 | 9406 | Cutscene Trigger (cutscene 19000030) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m19_00_00_00.emevd |
@@ -400,7 +398,6 @@ Total unique flags: 24886
 | 9431 | Cutscene Trigger (cutscene 35000000) | EMEVD Literal Flag | Various | - | - | - | - | - | - | - | EMEVD:m35_00_00_00.emevd |
 | 9440 | [Sorcery] Fleeting Microcosm - Unlocked | Shop Unlock | Various | - | - | - | - | - | - | - | ShopLineupParam |
 | 9500 | Mending Rune of Perfect Order | Mending Rune | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
-| 9501 | Mending Rune of Perfect Order | Mending Rune | Various | - | - | - | - | - | - | - | common |
 | 9502 | Mending Rune of the Death-Prince | Mending Rune | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 9504 | Mending Rune of the Fell Curse | Mending Rune | Various | - | - | - | - | 3 | none | - | ItemLotParam_map |
 | 9800 | Good_12302 | Unknown | Various | - | - | - | - | - | none | - | ItemLotParam_map |
