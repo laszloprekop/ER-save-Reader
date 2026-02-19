@@ -36,8 +36,10 @@ class FlagRelationship:
 
 # Pickup edges where the tile-side flag (source) is the row_id position which
 # the game never writes to. The actual tracking flag is a pre-assigned block flag
-# (target). Corroboration should not compare these two positions.
+# (target), or a getItemFlagId at a different tile local_id offset.
+# Corroboration should not compare these two positions.
 SKIP_CORROBORATION_PAIRS: Set[tuple] = {
+    # Category 1: Pre-assigned block flags (game writes ONLY the block flag)
     (1034480200, 62022),   # Map: Liurnia, West
     (1034500100, 60430),   # Memory Stone
     (1035470100, 60420),   # Memory Stone
@@ -45,15 +47,21 @@ SKIP_CORROBORATION_PAIRS: Set[tuple] = {
     (1037440210, 62021),   # Map: Liurnia, North
     (1037460001, 60150),   # Golden Tailoring Tools
     (1038410200, 62020),   # Map: Liurnia, East
+    (1038480000, 68400),   # Frenzied's Cookbook [1]
     (1040520500, 62030),   # Map: Altus Plateau
     (1042370200, 62010),   # Map: Limgrave, West
     (1042371010, 60130),   # Whetstone Knife
     (1042510500, 62031),   # Map: Leyndell, Royal Capital
     (1044320000, 62011),   # Map: Weeping Peninsula
     (1045370020, 62012),   # Map: Limgrave, East
+    (1045380010, 68200),   # Fevor's Cookbook [1]
     (1046380300, 60020),   # Flask of Wondrous Physick
     (1049370500, 62040),   # Map: Caelid
     (1049400500, 62041),   # Map: Dragonbarrow
+    # Category 2: row_id vs getItemFlagId (both tile flags, different local_id offsets)
+    (1042371011, 1042377110),  # Ash of War: Storm Stomp
+    (1043392000, 1043397200),  # Golden Rune [3]
+    (1045371000, 1045377100),  # Axe Talisman
 }
 
 @dataclass
