@@ -4,6 +4,26 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.6 - Save slot feature registry
+
+### Documentation
+- **Created `save_slot_registry.json`** — central registry of all 89 features stored in a character save slot, organized into 8 groups (character_identity, equipment, inventory, unlocks_progression, world_state, network, system, unknown)
+- Coverage: 51 verified, 15 partial, 11 identified_unparsed, 12 unknown
+- Each feature has stable dot-notation IDs (e.g., `character_identity.level`, `unlocks.graces_overworld`) for cross-referencing
+- References `ground_truth_offsets.json` via pointers — no duplication, no code consumer changes
+- Integrated registry maintenance into discovery workflow (`docs/discovery-verification-cycle.md` Phase 7 + Verification Checklist)
+- Added registry to commit protocol decision table (`docs/COMMIT-PROTOCOL.md`)
+- Added documentation table entry in `CLAUDE.md`
+
+### Files Modified
+- `save_slot_registry.json`: new central registry (89 features across 8 groups)
+- `docs/discovery-verification-cycle.md`: registry update steps in Phase 7 + Prerequisites + Verification Checklist
+- `docs/COMMIT-PROTOCOL.md`: Registry column in decision table + documentation triggers
+- `CLAUDE.md`: documentation table reference
+- `Cargo.toml`: bumped to 0.17.6
+
+---
+
 ## v0.17.5 - Regenerate merged POI database with AEG pickups
 
 ### Database

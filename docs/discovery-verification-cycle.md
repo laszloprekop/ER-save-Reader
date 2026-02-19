@@ -23,6 +23,7 @@ A comprehensive guide to empirically discovering and verifying event flag offset
 3. **Ground Truth Database**
    - `ground_truth_offsets.json` - Verified offsets (single source of truth)
    - `src/generated/ground_truth.rs` - Auto-generated Rust code
+   - `save_slot_registry.json` - Central feature registry tracking all save slot data (status, storage, evidence)
 
 ### Formula Types
 
@@ -221,6 +222,16 @@ See [CORROBORATION-SYSTEM.md](CORROBORATION-SYSTEM.md#inseparable-evidence-metho
 }
 ```
 
+### Update save_slot_registry.json
+
+When a discovery affects a feature's storage, confidence, or evidence chain:
+1. Locate the feature by its stable ID (e.g., `unlocks.aeg_pickups`)
+2. Update `status` and `confidence` to reflect the new evidence level
+3. Append a new entry to `evidence[]` with type, date, source, and summary
+4. If storage location was discovered, fill in `storage.section`, `storage.byte_size`, etc.
+5. If a feature moves from `unknown` group to a known group, relocate it
+6. Update `coverage_summary` counts
+
 ### Required Fields
 
 - `base_offset`: The verified byte offset
@@ -322,6 +333,7 @@ Before marking a flag/block as "verified":
 - [ ] Sub-block lookup considered (if applicable)
 - [ ] Results recorded in ground_truth_offsets.json
 - [ ] Notes include date, method, and match ratio
+- [ ] Registry feature updated with new evidence (if applicable to a tracked feature)
 
 ---
 

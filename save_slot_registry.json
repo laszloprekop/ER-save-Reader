@@ -1,0 +1,2492 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "game_version": "1.16 (App Ver 1.16, Regulation 1.16.0)",
+    "slot_size_hex": "0x280000",
+    "slot_size_bytes": 2621440,
+    "created_date": "2026-02-19",
+    "description": "Central registry of all features stored in an Elden Ring character save slot. References ground_truth_offsets.json for event flag details without duplicating them."
+  },
+  "coverage_summary": {
+    "total_features": 89,
+    "by_status": {
+      "verified": 51,
+      "partial": 15,
+      "identified_unparsed": 11,
+      "unknown": 12
+    },
+    "by_group": {
+      "character_identity": 13,
+      "equipment": 12,
+      "inventory": 7,
+      "unlocks_progression": 24,
+      "world_state": 11,
+      "network": 4,
+      "system": 6,
+      "unknown": 12
+    }
+  },
+  "groups": {
+    "character_identity": {
+      "description": "Player character stats, identity, and progression level",
+      "features": {
+        "character_identity.character_name": {
+          "name": "Character Name",
+          "description": "The player-chosen name for this character (up to 16 UTF-16 characters)",
+          "data_type": "[u16; 16]",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 32,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.character_name",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1150",
+              "summary": "UTF-16LE encoded name, round-trip verified via save editor UI"
+            }
+          ]
+        },
+        "character_identity.level": {
+          "name": "Character Level",
+          "description": "Current soul level (determines stat scaling and matchmaking range)",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.level",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1146",
+              "summary": "u32 level field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.gender": {
+          "name": "Gender",
+          "description": "Character body type (0 = Type A, 1 = Type B)",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.gender",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1152",
+              "summary": "Assert validates value is 0 or 1"
+            }
+          ]
+        },
+        "character_identity.archetype": {
+          "name": "Starting Class",
+          "description": "Character's starting class selection (Vagabond, Warrior, Hero, Bandit, Astrologer, Prophet, Confessor, Samurai, Prisoner, Wretch)",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.arche_type",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1153",
+              "summary": "u8 class ID, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.keepsake": {
+          "name": "Keepsake (Starting Gift)",
+          "description": "The starting gift chosen at character creation",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.gift",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1155",
+              "summary": "u8 gift ID, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.vigor": {
+          "name": "Vigor",
+          "description": "Vigor attribute - governs HP",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.vigor",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1135",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.mind": {
+          "name": "Mind",
+          "description": "Mind attribute - governs FP",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.mind",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1136",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.endurance": {
+          "name": "Endurance",
+          "description": "Endurance attribute - governs Stamina and equip load",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.endurance",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1137",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.strength": {
+          "name": "Strength",
+          "description": "Strength attribute - governs physical damage scaling",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.strength",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1138",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.dexterity": {
+          "name": "Dexterity",
+          "description": "Dexterity attribute - governs skill damage scaling and cast speed",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.dexterity",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1139",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.intelligence": {
+          "name": "Intelligence",
+          "description": "Intelligence attribute - governs sorcery scaling",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.intelligence",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1140",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.faith": {
+          "name": "Faith",
+          "description": "Faith attribute - governs incantation scaling",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.faith",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1141",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.arcane": {
+          "name": "Arcane",
+          "description": "Arcane attribute - governs discovery and certain scaling",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.arcane",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1142",
+              "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        }
+      }
+    },
+    "equipment": {
+      "description": "Currently equipped weapons, armor, talismans, spells, and consumable slots",
+      "features": {
+        "equipment.left_hand_armaments": {
+          "name": "Left Hand Armaments",
+          "description": "Three left-hand weapon slots (main hand, second, third)",
+          "data_type": "[u32; 3]",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.left_hand_armaments",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1040",
+              "summary": "Stored redundantly in EquipData, ChrAsm, ChrAsm2, and EquippedItems"
+            }
+          ]
+        },
+        "equipment.right_hand_armaments": {
+          "name": "Right Hand Armaments",
+          "description": "Three right-hand weapon slots (main hand, second, third)",
+          "data_type": "[u32; 3]",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.right_hand_armaments",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1041",
+              "summary": "Stored redundantly in EquipData, ChrAsm, ChrAsm2, and EquippedItems"
+            }
+          ]
+        },
+        "equipment.arrows": {
+          "name": "Arrows",
+          "description": "Two equipped arrow slots",
+          "data_type": "[u32; 2]",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 8,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.arrows",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1042",
+              "summary": "Stored in EquipData, ChrAsm, ChrAsm2, and EquippedItems"
+            }
+          ]
+        },
+        "equipment.bolts": {
+          "name": "Bolts",
+          "description": "Two equipped bolt slots (crossbow ammo)",
+          "data_type": "[u32; 2]",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 8,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.bolts",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1043",
+              "summary": "Stored in EquipData, ChrAsm, ChrAsm2, and EquippedItems"
+            }
+          ]
+        },
+        "equipment.head_armor": {
+          "name": "Head Armor",
+          "description": "Currently equipped head armor piece",
+          "data_type": "u32",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.head",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1046",
+              "summary": "Item ID for head armor slot"
+            }
+          ]
+        },
+        "equipment.chest_armor": {
+          "name": "Chest Armor",
+          "description": "Currently equipped chest armor piece",
+          "data_type": "u32",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.chest",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1047",
+              "summary": "Item ID for chest armor slot"
+            }
+          ]
+        },
+        "equipment.arm_armor": {
+          "name": "Arm Armor",
+          "description": "Currently equipped gauntlets/arm armor",
+          "data_type": "u32",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.arms",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1048",
+              "summary": "Item ID for arm armor slot"
+            }
+          ]
+        },
+        "equipment.leg_armor": {
+          "name": "Leg Armor",
+          "description": "Currently equipped leg armor piece",
+          "data_type": "u32",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.legs",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1049",
+              "summary": "Item ID for leg armor slot"
+            }
+          ]
+        },
+        "equipment.talismans": {
+          "name": "Talismans",
+          "description": "Four equipped talisman slots",
+          "data_type": "[u32; 4]",
+          "storage": {
+            "section": "EquipData / ChrAsm / EquippedItems",
+            "section_struct": "EquipData",
+            "byte_size": 16,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipData.talismans",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1051",
+              "summary": "4 talisman item IDs"
+            }
+          ]
+        },
+        "equipment.quickslot_items": {
+          "name": "Quick Slot Items",
+          "description": "Ten quick-use consumable item slots (D-pad cycle)",
+          "data_type": "struct[10]",
+          "storage": {
+            "section": "EquipItemData",
+            "section_struct": "EquipItemData",
+            "byte_size": 80,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipItemData.quick_slot_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:613",
+              "summary": "10 EquipItem structs (ga_item_handle + equipment_index), plus active_slot index"
+            }
+          ]
+        },
+        "equipment.pouch_items": {
+          "name": "Pouch Items",
+          "description": "Six pouch item slots (quick-access menu)",
+          "data_type": "struct[6]",
+          "storage": {
+            "section": "EquipItemData",
+            "section_struct": "EquipItemData",
+            "byte_size": 48,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipItemData.pouch_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:616",
+              "summary": "6 EquipItem structs for pouch slots"
+            }
+          ]
+        },
+        "equipment.equipped_spells": {
+          "name": "Equipped Spells",
+          "description": "Twelve spell/incantation memory slots with active slot tracking",
+          "data_type": "struct[12]",
+          "storage": {
+            "section": "EquipMagicData",
+            "section_struct": "EquipMagicData",
+            "byte_size": 100,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipMagicData.equip_magic_spells",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:709",
+              "summary": "12 EquipMagicSpell structs (spell_id + unk) plus 0x10 padding and active_slot"
+            }
+          ]
+        }
+      }
+    },
+    "inventory": {
+      "description": "Item ownership, quantities, storage chest, and acquisition tracking",
+      "features": {
+        "inventory.common_items": {
+          "name": "Common Inventory Items",
+          "description": "Consumables, crafting materials, ammunition, and other stackable/non-key items in player inventory (max 0xa80 slots)",
+          "data_type": "struct[]",
+          "storage": {
+            "section": "EquipInventoryData",
+            "section_struct": "EquipInventoryData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipInventoryData.common_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:797",
+              "summary": "EquipInventoryItem array (ga_item_handle, quantity, inventory_index) with distinct count header"
+            }
+          ]
+        },
+        "inventory.key_items": {
+          "name": "Key Inventory Items",
+          "description": "Key items, quest items, and special non-discardable items (max 0x180 slots)",
+          "data_type": "struct[]",
+          "storage": {
+            "section": "EquipInventoryData",
+            "section_struct": "EquipInventoryData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "EquipInventoryData.key_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:799",
+              "summary": "Same struct as common_items but for key items, includes next_equip_index and next_acquisition_sort_id"
+            }
+          ]
+        },
+        "inventory.storage_common": {
+          "name": "Storage Chest - Common Items",
+          "description": "Items stored in the chest at Sites of Grace (max 0x780 common slots)",
+          "data_type": "struct[]",
+          "storage": {
+            "section": "EquipInventoryData (storage)",
+            "section_struct": "EquipInventoryData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.storage_inventory_data.common_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1679",
+              "summary": "Second EquipInventoryData instance for storage chest (0x780 common, 0x80 key)"
+            }
+          ]
+        },
+        "inventory.storage_key": {
+          "name": "Storage Chest - Key Items",
+          "description": "Key items stored in the chest (max 0x80 slots)",
+          "data_type": "struct[]",
+          "storage": {
+            "section": "EquipInventoryData (storage)",
+            "section_struct": "EquipInventoryData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.storage_inventory_data.key_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1679",
+              "summary": "Key item portion of storage chest inventory"
+            }
+          ]
+        },
+        "inventory.ga_items": {
+          "name": "GaItem Table",
+          "description": "Item acquisition/ownership table mapping gaitem_handles to item_ids with weapon Art of War links. 0x1400 entries. Variable-length per entry (weapons have AoW handle, armor has extra fields).",
+          "data_type": "struct[0x1400]",
+          "storage": {
+            "section": "GaItems",
+            "section_struct": "GaItem",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.ga_items",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1440",
+              "summary": "Variable-length GaItem entries: weapons get unk2+unk3+aow_handle+unk5, armor gets unk2+unk3, others only handle+id"
+            }
+          ]
+        },
+        "inventory.ga_item_data": {
+          "name": "GaItem Data (Reinforcement)",
+          "description": "Detailed item data with reinforcement (upgrade) levels. 0x1b58 entries with item_id, reinforce_type, and unknown fields.",
+          "data_type": "struct[0x1b58]",
+          "storage": {
+            "section": "GaItemData",
+            "section_struct": "GaItemData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.ga_item_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:236",
+              "summary": "GaItem2 entries (id, unk, reinforce_type, unk1) preceded by distinct_acquired_items_count"
+            }
+          ]
+        },
+        "inventory.equipped_projectiles": {
+          "name": "Equipped Projectiles",
+          "description": "Currently equipped projectile/throwable items with variable-length count",
+          "data_type": "struct[]",
+          "storage": {
+            "section": "EquipProjectileData",
+            "section_struct": "EquipProjectileData",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.equip_projectile_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:444",
+              "summary": "Variable-count EquipProjectile structs (projectile_id + unk)"
+            }
+          ]
+        }
+      }
+    },
+    "unlocks_progression": {
+      "description": "Game progression flags, unlocks, and achievement tracking stored in event flags and other sections",
+      "features": {
+        "unlocks.graces_tutorial": {
+          "name": "Tutorial Graces",
+          "description": "Sites of Grace in tutorial area (Cave of Knowledge, Stranded Graveyard). Block 71800.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 71800) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.71800"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.block_bases.71800",
+              "summary": "Base 2725, block_size 200, status verified. Tutorial graces confirmed via multi-slot differential."
+            }
+          ]
+        },
+        "unlocks.graces_overworld": {
+          "name": "Overworld Graces",
+          "description": "Sites of Grace in the open world (Limgrave, Liurnia, Caelid, etc.). Block 76000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 76000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.76000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.block_bases.76000",
+              "summary": "Base 3250, block_size 1000, status verified. Limgrave graces confirmed."
+            }
+          ]
+        },
+        "unlocks.graces_dungeon": {
+          "name": "Dungeon Graces (Base Game)",
+          "description": "Sites of Grace in catacombs, caves, tunnels. Block 73000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 73000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.73000"
+          },
+          "status": "partial",
+          "confidence": 0.4,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-01",
+              "source": "ground_truth_offsets.json:formulas.block_bases.73000",
+              "summary": "Base 2662 marked UNRELIABLE - shows false negatives on some saves, needs per-save calibration."
+            }
+          ]
+        },
+        "unlocks.graces_dlc": {
+          "name": "DLC Graces (Enir-Ilim)",
+          "description": "Sites of Grace in Shadow of the Erdtree DLC areas. Block 72000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 72000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.72000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.block_bases.72000",
+              "summary": "Base 2750, block_size 1000, status verified. 10+ consistent proven flags."
+            }
+          ]
+        },
+        "unlocks.graces_dlc_dungeons": {
+          "name": "DLC Dungeon Graces",
+          "description": "Sites of Grace in DLC dungeon areas. Block 74000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 74000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.74000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.block_bases.74000",
+              "summary": "Base 3000, block_size 1000, status verified. 8+ consistent proven flags."
+            }
+          ]
+        },
+        "unlocks.grace_guidance": {
+          "name": "Grace Guidance Flags",
+          "description": "Flags that control which direction the grace light points. Block 78000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - 78000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.78000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.block_bases.78000",
+              "summary": "Base 3500, block_size 1000, status verified. 8+ proven flags match."
+            }
+          ]
+        },
+        "unlocks.boss_defeats": {
+          "name": "Boss Defeat Flags",
+          "description": "Event flags tracking which bosses have been defeated. Blocks 60000 and 62000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: base_offset + (flag_id - block_start) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.60000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-15",
+              "source": "ground_truth_offsets.json:formulas.block_bases.60000",
+              "summary": "Block 60000 base 1260, block 62000 base 1500. Both verified via multi-slot differential and timeline diffs."
+            }
+          ]
+        },
+        "unlocks.world_pickups_tile": {
+          "name": "World Pickups (Tile Flags)",
+          "description": "Item pickup flags for overworld items using 10-digit tile coordinate system (10XXYYZZZZ).",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "tile: base + (row-33)*40*875 + (col-30)*875 + local_id/8, bit = 7 - (local_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.tile_formula"
+          },
+          "status": "partial",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-15",
+              "source": "ground_truth_offsets.json:formulas.tile_formula",
+              "summary": "Base 337375 verified via before/after save capture diffs across 3 characters."
+            }
+          ]
+        },
+        "unlocks.dungeon_events": {
+          "name": "Dungeon Event Flags",
+          "description": "Event flags for legacy dungeon events (bosses, doors, triggers) using 8-digit area system (AASSZZZZ).",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "dungeon: base + section*1125 + local_id/8, bit = 7 - (local_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.dungeon_formula"
+          },
+          "status": "partial",
+          "confidence": 0.8,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.dungeon_formula",
+              "summary": "Multiple areas verified (12, 14, 18). Some calculated but unverified (10, 13, 15, 19)."
+            }
+          ]
+        },
+        "unlocks.aeg_pickups": {
+          "name": "AEG Pickups (Enemy Item Drops)",
+          "description": "Event flags for items dropped by placed enemies (Asset Enemy Group pickups). Use tile/dungeon formulas depending on location.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "varies (tile or dungeon formula based on map location)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.tile_formula"
+          },
+          "status": "partial",
+          "confidence": 0.7,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "game_file",
+              "date": "2026-02-19",
+              "source": "MSB enemy placement files + ItemLotParam_map",
+              "summary": "15,893 AEG pickups extracted with renewability metadata. Uses same formulas as world pickups."
+            }
+          ]
+        },
+        "unlocks.cookbooks": {
+          "name": "Cookbook Unlock Flags",
+          "description": "Crafting cookbook acquisition flags. Blocks 65000-69000 with sub-block overrides for base game vs DLC.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block formula with sub-block overrides",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.65000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-15",
+              "source": "ground_truth_offsets.json:formulas.block_bases",
+              "summary": "Blocks 65000-69000 verified. Sub-blocks 67600, 68200, 68400 have separate base game overrides."
+            }
+          ]
+        },
+        "unlocks.remembrance_consumption": {
+          "name": "Remembrance Consumption Flags",
+          "description": "Flags tracking which remembrances have been consumed at Enia. Block 510000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: 63750 + (flag_id - 510000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.midrange_formula.510000"
+          },
+          "status": "partial",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-23",
+              "source": "ground_truth_offsets.json:formulas.midrange_formula.510000",
+              "summary": "Base 63750 derived from event_flags.rs hardcoded data. 64 remembrance flags verified."
+            }
+          ]
+        },
+        "unlocks.spirit_ash_talisman_rewards": {
+          "name": "Spirit Ash / Talisman Reward Flags",
+          "description": "Catacomb reward flags for spirit ashes and talismans. Block 520000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: 1341 + (flag_id - 520000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.block_bases.520000"
+          },
+          "status": "partial",
+          "confidence": 0.7,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-31",
+              "source": "ground_truth_offsets.json:formulas.midrange_formula.520000",
+              "summary": "Base 1341, 12/15 key flags verified. Block has sparse allocation with 0xFF padding gaps."
+            }
+          ]
+        },
+        "unlocks.sorceries_incantations_aow": {
+          "name": "Sorcery / Incantation / Ash of War Unlock Flags",
+          "description": "Flags tracking unlocked sorceries, incantations, and Ashes of War. Block 540000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: 67500 + (flag_id - 540000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.midrange_formula.540000"
+          },
+          "status": "partial",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-22",
+              "source": "ground_truth_offsets.json:formulas.midrange_formula.540000",
+              "summary": "Base 67500, 129/129 flags verified against event_flags.rs hardcoded data."
+            }
+          ]
+        },
+        "unlocks.npc_progression": {
+          "name": "NPC Progression Flags",
+          "description": "Roundtable Hold and overworld NPC state progression. Block 710000.",
+          "data_type": "bitfield",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": null,
+            "ef_formula": "block: 13875 + (flag_id - 710000) / 8, bit = 7 - (flag_id % 8)",
+            "ground_truth_ref": "ground_truth_offsets.json:formulas.midrange_formula.710000"
+          },
+          "status": "partial",
+          "confidence": 0.8,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-01-23",
+              "source": "ground_truth_offsets.json:formulas.midrange_formula.710000",
+              "summary": "Base 13875 from event_flags.rs. 41 EMEVD flags primarily from m18 (Roundtable Hold)."
+            }
+          ]
+        },
+        "unlocks.tutorial_completion": {
+          "name": "Tutorial Completion Flags",
+          "description": "Tutorial popup dismissal and completion tracking. 0x408 bytes of tutorial state data.",
+          "data_type": "[u8; 0x408]",
+          "storage": {
+            "section": "TutorialData",
+            "section_struct": "SaveSlot",
+            "byte_size": 1032,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.3,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._tutorial_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1538",
+              "summary": "0x408 bytes read/written as raw blob. Internal structure not decoded."
+            }
+          ]
+        },
+        "unlocks.map_regions": {
+          "name": "Unlocked Map Regions",
+          "description": "Map fragments collected, unlocking map display for regions. Variable-length list of region IDs.",
+          "data_type": "u32[]",
+          "storage": {
+            "section": "Regions",
+            "section_struct": "Regions",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.regions",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:330",
+              "summary": "Count-prefixed u32 array of unlocked region IDs"
+            }
+          ]
+        },
+        "unlocks.gestures_unlocked": {
+          "name": "Unlocked Gestures",
+          "description": "All gesture unlock states. 0x40 (64) gesture entries tracking which gestures the player has learned.",
+          "data_type": "[i32; 0x40]",
+          "storage": {
+            "section": "GestureGameData",
+            "section_struct": "SaveSlot",
+            "byte_size": 256,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.gesture_game_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1527",
+              "summary": "64 i32 entries representing gesture unlock/progression state"
+            }
+          ]
+        },
+        "unlocks.gestures_equipped": {
+          "name": "Equipped Gestures",
+          "description": "Six gesture slots assigned to the gesture menu quick-access.",
+          "data_type": "[i32; 6]",
+          "storage": {
+            "section": "EquipGestureData",
+            "section_struct": "SaveSlot",
+            "byte_size": 24,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.equip_gesture_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1520",
+              "summary": "6 i32 gesture IDs for quick-access slots"
+            }
+          ]
+        },
+        "unlocks.scadutree_level": {
+          "name": "Scadutree Blessing Level",
+          "description": "DLC Shadow of the Erdtree: Scadutree Fragment blessing level (attack/defense scaling in DLC areas)",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.scadutree_lvl",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-06-01",
+              "source": "src/save/common/save_slot.rs:1159",
+              "summary": "u8 DLC blessing level, added with Shadow of the Erdtree expansion"
+            }
+          ]
+        },
+        "unlocks.spirit_ash_level": {
+          "name": "Revered Spirit Ash Blessing Level",
+          "description": "DLC Shadow of the Erdtree: Revered Spirit Ash blessing level (spirit summon scaling in DLC areas)",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.spirit_ash_lvl",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-06-01",
+              "source": "src/save/common/save_slot.rs:1160",
+              "summary": "u8 DLC spirit ash blessing level"
+            }
+          ]
+        },
+        "unlocks.runes_held": {
+          "name": "Runes (Held)",
+          "description": "Current rune count (souls) available for spending",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.souls",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1147",
+              "summary": "u32 current rune count"
+            }
+          ]
+        },
+        "unlocks.physick_flask": {
+          "name": "Flask of Wondrous Physick",
+          "description": "Wondrous Physick flask configuration - which two Crystal Tears are mixed. Stored in EquipPhysicsData.",
+          "data_type": "struct(2xu32)",
+          "storage": {
+            "section": "EquipPhysicsData",
+            "section_struct": "EquipPhysicsData",
+            "byte_size": 8,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.85,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.equip_physics_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:373",
+              "summary": "EquipPhysicsData with slot1 and slot2 u32 fields - Crystal Tear item IDs"
+            }
+          ]
+        },
+        "unlocks.runes_total_acquired": {
+          "name": "Total Runes Acquired",
+          "description": "Lifetime total runes acquired (soulsmemory). Used for matchmaking calculations.",
+          "data_type": "u32",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.soulsmemory",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1148",
+              "summary": "u32 lifetime rune total"
+            }
+          ]
+        }
+      }
+    },
+    "world_state": {
+      "description": "World positioning, environmental conditions, and transient game state",
+      "features": {
+        "world_state.player_coordinates": {
+          "name": "Player Coordinates",
+          "description": "Player character world position (X, Y, Z) and associated map ID",
+          "data_type": "(f32, f32, f32) + [u8; 4]",
+          "storage": {
+            "section": "PlayerCoords",
+            "section_struct": "PlayerCoords",
+            "byte_size": 60,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerCoords.player_coords",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:82",
+              "summary": "Primary and secondary coordinate sets with map_id and padding"
+            }
+          ]
+        },
+        "world_state.player_coordinates_secondary": {
+          "name": "Player Coordinates (Secondary)",
+          "description": "Secondary player position stored in PlayerCoords, possibly last grace or respawn point",
+          "data_type": "(f32, f32, f32)",
+          "storage": {
+            "section": "PlayerCoords",
+            "section_struct": "PlayerCoords",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.7,
+          "implementation": {
+            "rust_struct_field": "PlayerCoords.player_coords2",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:86",
+              "summary": "Second coordinate triplet in PlayerCoords struct - exact purpose (respawn? last grace?) unconfirmed"
+            }
+          ]
+        },
+        "world_state.current_map_id": {
+          "name": "Current Map ID",
+          "description": "4-byte map identifier for the area the player is currently in",
+          "data_type": "[u8; 4]",
+          "storage": {
+            "section": "SaveSlot header",
+            "section_struct": "SaveSlot",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.map_id",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1509",
+              "summary": "4-byte map ID in slot header after version field"
+            }
+          ]
+        },
+        "world_state.horse_coordinates": {
+          "name": "Horse (Torrent) Coordinates",
+          "description": "Torrent's world position when dismounted",
+          "data_type": "(f32, f32, f32)",
+          "storage": {
+            "section": "RideGameData",
+            "section_struct": "RideGameData",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": "RideGameData.horse_coords",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:279",
+              "summary": "3 f32 coordinates plus HP and unknown padding"
+            }
+          ]
+        },
+        "world_state.horse_hp": {
+          "name": "Horse (Torrent) HP",
+          "description": "Torrent's current hit points",
+          "data_type": "u32",
+          "storage": {
+            "section": "RideGameData",
+            "section_struct": "RideGameData",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 0.9,
+          "implementation": {
+            "rust_struct_field": "RideGameData.horse_hp",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:282",
+              "summary": "u32 horse HP in RideGameData struct"
+            }
+          ]
+        },
+        "world_state.weather": {
+          "name": "World Area Weather",
+          "description": "Current weather state for the world area. Three i32 values with unknown semantics.",
+          "data_type": "struct(3xi32)",
+          "storage": {
+            "section": "WorldAreaWeather",
+            "section_struct": "WorldAreaWeather",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.3,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.world_area_weather",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:45",
+              "summary": "3 unknown i32 fields - bytes preserved but meaning not decoded"
+            }
+          ]
+        },
+        "world_state.time_of_day": {
+          "name": "World Area Time",
+          "description": "Current time of day state for the world area. Three i32 values with unknown semantics.",
+          "data_type": "struct(3xi32)",
+          "storage": {
+            "section": "WorldAreaTime",
+            "section_struct": "WorldAreaTime",
+            "byte_size": 12,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.3,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.world_area_time",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:8",
+              "summary": "3 unknown i32 fields - bytes preserved but meaning not decoded"
+            }
+          ]
+        },
+        "world_state.slot_version": {
+          "name": "Slot Version",
+          "description": "Save slot format version number",
+          "data_type": "u32",
+          "storage": {
+            "section": "SaveSlot header",
+            "section_struct": "SaveSlot",
+            "byte_size": 4,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.ver",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1508",
+              "summary": "First u32 of slot data"
+            }
+          ]
+        },
+        "world_state.cs_net_data": {
+          "name": "Network Data Chunks",
+          "description": "CSNetMan network state data. 0x20000 bytes (128KB) of network/multiplayer state.",
+          "data_type": "[u8; 0x20000]",
+          "storage": {
+            "section": "CSNetDataChunks",
+            "section_struct": "SaveSlot",
+            "byte_size": 131072,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._cs_net_data_chunks",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1549",
+              "summary": "0x20000 byte blob, internal structure unknown. Preceded by account status u32 (2=active, 0=empty)."
+            }
+          ]
+        },
+        "world_state.unknown_lists": {
+          "name": "Post-EventFlags Unknown Lists",
+          "description": "Five variable-length unknown lists following EventFlags section. Length-prefixed byte arrays.",
+          "data_type": "struct[5]",
+          "storage": {
+            "section": "UnknownLists",
+            "section_struct": "UknownList",
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._unk_lists",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1545",
+              "summary": "5 length-prefixed byte arrays. Contents completely unknown."
+            }
+          ]
+        },
+        "world_state.game_man_values": {
+          "name": "GameMan Unknown Values",
+          "description": "15 bytes of unknown game manager state data",
+          "data_type": "[u8; 0xf]",
+          "storage": {
+            "section": "GameManUnknown",
+            "section_struct": "SaveSlot",
+            "byte_size": 15,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._game_man_unkown_values",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1547",
+              "summary": "0xf bytes of unknown purpose between PlayerCoords and account status flag"
+            }
+          ]
+        }
+      }
+    },
+    "network": {
+      "description": "Online multiplayer, matchmaking, and platform identity data",
+      "features": {
+        "network.steam_id": {
+          "name": "Steam ID",
+          "description": "Player's Steam 64-bit identifier for this save slot",
+          "data_type": "u64",
+          "storage": {
+            "section": "SteamID",
+            "section_struct": "SaveSlot",
+            "byte_size": 8,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.steam_id",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1553",
+              "summary": "u64 Steam ID, round-trip verified"
+            }
+          ]
+        },
+        "network.multiplayer_password": {
+          "name": "Multiplayer Password",
+          "description": "Password for restricting multiplayer matchmaking to friends",
+          "data_type": "[u8; 0x12]",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 18,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.password",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1162",
+              "summary": "18-byte password field, round-trip verified"
+            }
+          ]
+        },
+        "network.group_passwords": {
+          "name": "Group Passwords",
+          "description": "Five group password slots for co-op matchmaking priority",
+          "data_type": "[u8; 0x12] x 5",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 90,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.group_password1..5",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1163",
+              "summary": "5 x 18-byte group password fields"
+            }
+          ]
+        },
+        "network.matchmaking_weapon_level": {
+          "name": "Matchmaking Weapon Level",
+          "description": "Highest weapon upgrade level found (determines PvP/co-op matchmaking bracket)",
+          "data_type": "u8",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 1,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "verified",
+          "confidence": 1.0,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData.match_making_wpn_lvl",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1157",
+              "summary": "u8 max weapon level seen, used for matchmaking bracket calculation"
+            }
+          ]
+        }
+      }
+    },
+    "system": {
+      "description": "Engine-level data, platform features, and raw flag storage",
+      "features": {
+        "system.event_flags_raw": {
+          "name": "Event Flags (Raw Section)",
+          "description": "The complete 0x1bf99f byte (~1.8MB) event flags bitfield section. Contains all flag types (block, tile, dungeon). Individual flag semantics decoded via ground_truth_offsets.json formulas.",
+          "data_type": "[u8; 0x1bf99f]",
+          "storage": {
+            "section": "EventFlags",
+            "section_struct": "EventFlags",
+            "byte_size": 1833375,
+            "ef_formula": null,
+            "ground_truth_ref": "ground_truth_offsets.json:formulas"
+          },
+          "status": "verified",
+          "confidence": 0.95,
+          "implementation": {
+            "rust_struct_field": "SaveSlot.event_flags",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": true
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:207",
+              "summary": "Full EF blob read/write with dynamic offset detection via validation flags"
+            },
+            {
+              "type": "save_diff",
+              "date": "2026-02-02",
+              "source": "src/save/common/event_flags_detection.rs",
+              "summary": "Validation-based offset detection shared between ER-save-Editor and elden-map WASM"
+            }
+          ]
+        },
+        "system.face_data": {
+          "name": "Face Customization Data",
+          "description": "Character face/appearance slider values from character creator. 0x12f bytes of face configuration.",
+          "data_type": "[u8; 0x12f]",
+          "storage": {
+            "section": "FaceData",
+            "section_struct": "SaveSlot",
+            "byte_size": 303,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.4,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._face_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1525",
+              "summary": "0x12f bytes read/written as raw blob. Individual slider mappings not decoded."
+            }
+          ]
+        },
+        "system.menu_profile_save_load": {
+          "name": "Menu Profile Save/Load Data",
+          "description": "Menu state and profile configuration. 0x1008 bytes of menu/UI persistence data.",
+          "data_type": "[u8; 0x1008]",
+          "storage": {
+            "section": "MenuProfileSaveLoad",
+            "section_struct": "SaveSlot",
+            "byte_size": 4104,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._menu_profile_save_load",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1535",
+              "summary": "0x1008 byte blob, internal structure unknown"
+            }
+          ]
+        },
+        "system.trophy_equip_data": {
+          "name": "Trophy/Achievement Equipment Data",
+          "description": "Trophy or achievement tracking data. 0x34 bytes.",
+          "data_type": "[u8; 0x34]",
+          "storage": {
+            "section": "TrophyEquipData",
+            "section_struct": "SaveSlot",
+            "byte_size": 52,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._trophy_equip_data",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1536",
+              "summary": "0x34 byte blob, internal structure unknown"
+            }
+          ]
+        },
+        "system.ps5_activity": {
+          "name": "PS5 Activity Data",
+          "description": "PlayStation 5 activity card data. 0x20 bytes.",
+          "data_type": "[u8; 0x20]",
+          "storage": {
+            "section": "CSPS5Activity",
+            "section_struct": "SaveSlot",
+            "byte_size": 32,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._cs_ps5_activity",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1554",
+              "summary": "0x20 byte blob for PS5 platform features"
+            }
+          ]
+        },
+        "system.dlc_data": {
+          "name": "DLC Configuration Data",
+          "description": "DLC-related state data. 0x32 bytes.",
+          "data_type": "[u8; 0x32]",
+          "storage": {
+            "section": "CSDlc",
+            "section_struct": "SaveSlot",
+            "byte_size": 50,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": "SaveSlot._cs_dlc",
+            "read_support": true,
+            "write_support": true,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2024-01-01",
+              "source": "src/save/common/save_slot.rs:1555",
+              "summary": "0x32 byte blob, likely DLC ownership/state flags"
+            }
+          ]
+        }
+      }
+    },
+    "unknown": {
+      "description": "Gameplay features known to exist but with no identified save file storage location",
+      "features": {
+        "unknown.active_buffs_debuffs": {
+          "name": "Active Buffs and Debuffs",
+          "description": "Status effects currently applied to the character (poison, rot, buffs from items/spells). Likely transient and not persisted, or stored in event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.flask_configuration": {
+          "name": "Flask Configuration",
+          "description": "Crimson/Cerulean flask allocation (how many of each) and flask upgrade level. May be in event flags or PlayerGameData unknown bytes.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.flask_charges": {
+          "name": "Flask Charge Count",
+          "description": "Total number of flask charges (Sacred Tears collected). Possibly stored in event flags or PlayerGameData padding.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.map_markers_beacons": {
+          "name": "Map Markers and Beacons",
+          "description": "Player-placed map markers (100 slots) and beacon position. Storage location completely unknown.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.npc_hostility_state": {
+          "name": "NPC Hostility State",
+          "description": "Whether NPCs are hostile due to player attacks. Possibly stored in event flags per NPC.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.chest_opened_state": {
+          "name": "Chest Opened State",
+          "description": "Which chests have been opened. Likely stored as dungeon event flags but specific flag IDs not mapped.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.illusory_wall_state": {
+          "name": "Illusory Wall State",
+          "description": "Which illusory walls have been revealed. Likely stored as dungeon event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.summoning_pool_activation": {
+          "name": "Summoning Pool Activation",
+          "description": "Which Martyr Effigies (summoning pools) have been activated. Likely in event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.great_rune_equipped": {
+          "name": "Great Rune Equipped",
+          "description": "Which Great Rune is currently equipped in the Great Rune slot. May be in EquipPhysicsData or event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.2,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "struct_parsing",
+              "date": "2026-02-19",
+              "source": "src/save/common/save_slot.rs:373",
+              "summary": "EquipPhysicsData has 2 u32 slots - possibly Great Rune slot, but semantics unconfirmed"
+            }
+          ]
+        },
+        "unknown.rune_arc_active": {
+          "name": "Rune Arc Active State",
+          "description": "Whether a Rune Arc is currently active (enabling Great Rune effects). Likely transient or in event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.crafting_favorites": {
+          "name": "Crafting Favorites",
+          "description": "Which crafting recipes are marked as favorites in the crafting menu.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.0,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        },
+        "unknown.pvp_invasion_stats": {
+          "name": "PvP / Invasion Statistics",
+          "description": "Kill counts, invasion history, and multiplayer statistics. May be in CSNetDataChunks or event flags.",
+          "data_type": null,
+          "storage": {
+            "section": null,
+            "section_struct": null,
+            "byte_size": null,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "unknown",
+          "confidence": 0.1,
+          "implementation": {
+            "rust_struct_field": null,
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": []
+        }
+      }
+    }
+  }
+}

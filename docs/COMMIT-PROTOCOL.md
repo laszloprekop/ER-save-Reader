@@ -36,6 +36,12 @@ Trigger the snapshot routine when:
 
 Categorize the changes to determine which docs need updates:
 
+**Save Slot Feature Registry** → `save_slot_registry.json`
+- Save format discoveries, new storage locations found
+- Confidence changes from new verification data
+- Feature reclassification (unknown → identified → verified)
+- New features identified that weren't previously tracked
+
 **Architecture Changes** → `docs/ARCHITECTURE.md` (create if needed)
 - New major patterns or approaches
 - Save format discoveries
@@ -287,14 +293,14 @@ Common scopes for this project:
 
 ## Quick Reference: When to Update Which Doc
 
-| Change Type | CLAUDE.md | DATABASE_COVERAGE | IMPLEMENTATION_PLAN | DATA-SCHEMAS |
-|-------------|-----------|-------------------|---------------------|--------------|
-| New DB module | Maybe | Yes | Yes | Maybe |
-| Event flag expansion | No | Yes | Yes | Maybe |
-| Save format discovery | Maybe | No | No | Yes |
-| New feature | No | No | Yes | No |
-| Bug fix | No | No | No | No |
-| Architecture change | Yes | No | Maybe | Maybe |
+| Change Type | CLAUDE.md | DATABASE_COVERAGE | IMPLEMENTATION_PLAN | DATA-SCHEMAS | Registry |
+|-------------|-----------|-------------------|---------------------|--------------|----------|
+| New DB module | Maybe | Yes | Yes | Maybe | Maybe |
+| Event flag expansion | No | Yes | Yes | Maybe | Yes |
+| Save format discovery | Maybe | No | No | Yes | Yes |
+| New feature | No | No | Yes | No | Maybe |
+| Bug fix | No | No | No | No | No |
+| Architecture change | Yes | No | Maybe | Maybe | No |
 
 ## Common Pitfalls to Avoid
 

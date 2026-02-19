@@ -85,6 +85,7 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
 | Data sources & characters | `docs/DATA-SOURCES.md` |
 | Project backlog | `docs/BACKLOG.md` |
 | Ground truth data | `ground_truth_offsets.json` |
+| Save slot feature registry | `save_slot_registry.json` |
 
 **Single Source of Truth**:
 - Offset values: `ground_truth_offsets.json` (never use `flag_formulas.py`, which is deprecated)
