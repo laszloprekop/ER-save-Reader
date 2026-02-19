@@ -3990,6 +3990,250 @@ def extract_map_literal_flags(existing_flag_ids: set) -> List[EventFlag]:
     return flags
 
 
+def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[int, EventFlag]) -> int:
+    """
+    Post-processing: resolve names for flags extracted via literal EMEVD calls.
+
+    For Talisman Pouch, Remembrance, Progression, and Mausoleum Duplication flags,
+    traces the EMEVD event context to find the associated boss defeat and uses that
+    boss name in the flag's display name.
+
+    For EMEVD Literal Flags, classifies the surrounding event context (boss defeat,
+    cutscene, network state, etc.) and stores it in raw_data['emevd_context'].
+
+    Returns the number of flags resolved.
+    """
+    if not EVENT_DIR.exists():
+        print("  Warning: Event directory not found, skipping EMEVD name resolution")
+        return 0
+
+    # Categories eligible for boss-name resolution
+    resolvable_categories = {"Talisman Pouch", "Remembrance", "Progression", "Mausoleum Duplication"}
+    # Categories that get context classification
+    context_categories = {"EMEVD Literal Flag"}
+
+    # Collect flags that need processing, grouped by source EMEVD file
+    flags_by_source: Dict[str, List[EventFlag]] = {}
+    for f in flags:
+        if f.category not in (resolvable_categories | context_categories):
+            continue
+        if f.category in resolvable_categories and "Map Event Flag" not in f.name:
+            continue  # Already has a resolved name
+        source = f.source_file.replace("EMEVD:", "")
+        if source not in flags_by_source:
+            flags_by_source[source] = []
+        flags_by_source[source].append(f)
+
+    if not flags_by_source:
+        return 0
+
+    # Regex patterns
+    boss_defeat_re = re.compile(r'HandleBossDefeatAndDisplayBanner\((\d+),')
+    flag_set_re_template = r'Set(?:Networkconnected)?EventFlagID\({flag_id},\s*ON\)'
+    # Context classification patterns (ordered by specificity)
+    context_patterns = [
+        (re.compile(r'HandleBossDefeatAndDisplayBanner'), 'boss_defeat'),
+        (re.compile(r'PlayCutscene'), 'cutscene'),
+        (re.compile(r'AwardGesture'), 'gesture_unlock'),
+        (re.compile(r'OpenMapDoor|EnableMapDoor'), 'door_state'),
+        (re.compile(r'BatchSetNetworkconnectedEventFlags'), 'network_state_batch'),
+        (re.compile(r'CharacterDead\('), 'enemy_defeat'),
+        (re.compile(r'AwardItemsIncludingClients|AwardItemLot'), 'item_award'),
+        (re.compile(r'EnableCharacter\(|SpawnObjTreasure'), 'spawn_state'),
+        (re.compile(r'DisableCharacter|ForceCharacterDeath'), 'character_state'),
+        (re.compile(r'SetNetworkconnectedEventFlagID'), 'network_state'),
+    ]
+
+    # Human-readable context labels for display
+    context_labels = {
+        'boss_defeat': 'Boss Defeat',
+        'cutscene': 'Cutscene Trigger',
+        'gesture_unlock': 'Gesture Unlock',
+        'door_state': 'Door/Gate State',
+        'network_state_batch': 'Network State (Batch)',
+        'network_state': 'Network State',
+        'enemy_defeat': 'Enemy Defeat',
+        'item_award': 'Item Award',
+        'spawn_state': 'Spawn State',
+        'character_state': 'Character State',
+    }
+
+    # Map EMEVD source names to dungeon region names for enrichment
+    dungeon_region_names = {
+        10: "Stormveil Castle", 11: "Leyndell", 12: "Underground",
+        13: "Crumbling Farum Azula", 14: "Academy of Raya Lucaria",
+        15: "Caria Manor", 16: "Volcano Manor", 18: "Roundtable Hold",
+        19: "Chapel of Anticipation", 21: "Miquella's Haligtree",
+        22: "Castle Sol", 30: "Catacombs", 31: "Cave", 32: "Tunnel",
+        34: "Divine Tower", 35: "Mohgwyn Palace", 39: "Ruin-Strewn Precipice",
+        40: "Hero's Grave", 41: "Gaol",
+    }
+
+    resolved = 0
+    file_cache: Dict[str, Optional[str]] = {}
+
+    for source, source_flags in flags_by_source.items():
+        js_file = EVENT_DIR / (source + ".js")
+
+        if source not in file_cache:
+            if js_file.exists():
+                try:
+                    file_cache[source] = js_file.read_text(encoding="utf-8")
+                except Exception:
+                    file_cache[source] = None
+            else:
+                file_cache[source] = None
+
+        content = file_cache[source]
+        if content is None:
+            continue
+
+        for f in source_flags:
+            flag_re = re.compile(flag_set_re_template.format(flag_id=f.flag_id))
+            match = flag_re.search(content)
+            if not match:
+                continue
+
+            # Get surrounding context (500 chars before, 200 after)
+            ctx_start = max(0, match.start() - 500)
+            ctx_end = min(len(content), match.end() + 200)
+            ctx = content[ctx_start:ctx_end]
+
+            if f.category in resolvable_categories:
+                # Try to find a boss defeat nearby (look backwards from the flag set)
+                before = content[:match.start()]
+                boss_matches = list(boss_defeat_re.finditer(before))
+                boss_name = None
+
+                if boss_matches:
+                    boss_entity_id = int(boss_matches[-1].group(1))
+                    boss_flag = all_flags_lookup.get(boss_entity_id)
+                    if boss_flag:
+                        boss_name = boss_flag.name
+                        # Strip category prefix like "[Boss Defeat] " or "Great Boss Defeat: "
+                        boss_name = re.sub(r'^\[.*?\]\s*', '', boss_name)
+                        boss_name = re.sub(r'^(Great |)Boss (Defeat|Found): ', '', boss_name)
+
+                # Derive dungeon name from source file
+                map_match = re.match(r'm(\d+)_(\d+)_(\d+)', source)
+                dungeon_label = None
+                if map_match:
+                    area_no = int(map_match.group(1))
+                    dungeon_label = dungeon_region_names.get(area_no)
+
+                if f.category == "Talisman Pouch":
+                    if boss_name:
+                        f.name = f"Talisman Pouch ({boss_name})"
+                    elif dungeon_label:
+                        f.name = f"Talisman Pouch ({dungeon_label} {source.split('.')[0]})"
+                    f.raw_data["resolved_via"] = "emevd_boss_trace"
+                    if boss_name:
+                        f.raw_data["boss_name"] = boss_name
+                    resolved += 1
+
+                elif f.category == "Remembrance":
+                    if boss_name:
+                        f.name = f"Remembrance ({boss_name})"
+                    elif dungeon_label:
+                        f.name = f"Remembrance ({dungeon_label})"
+                    f.raw_data["resolved_via"] = "emevd_boss_trace"
+                    if boss_name:
+                        f.raw_data["boss_name"] = boss_name
+                    resolved += 1
+
+                elif f.category == "Progression":
+                    # Check specific context types
+                    if boss_name:
+                        f.name = f"Progression ({boss_name})"
+                    elif re.search(r'AwardGesture\((\d+)\)', ctx):
+                        gesture_match = re.search(r'AwardGesture\((\d+)\)', ctx)
+                        f.name = f"Gesture Unlock (gesture {gesture_match.group(1)})"
+                    elif dungeon_label:
+                        f.name = f"Progression ({dungeon_label})"
+                    f.raw_data["resolved_via"] = "emevd_context_trace"
+                    if boss_name:
+                        f.raw_data["boss_name"] = boss_name
+                    resolved += 1
+
+                elif f.category == "Mausoleum Duplication":
+                    # Look for co-set flags that hint at what this mausoleum duplicates
+                    if dungeon_label:
+                        f.name = f"Mausoleum Duplication ({dungeon_label})"
+                    else:
+                        # Try to find a meaningful co-set flag
+                        nearby_flags = re.findall(r'SetEventFlagID\((\d+),\s*ON\)', ctx)
+                        for nf_id_str in nearby_flags:
+                            nf_id = int(nf_id_str)
+                            if nf_id != f.flag_id and nf_id in all_flags_lookup:
+                                nf = all_flags_lookup[nf_id]
+                                if nf.category not in ("EMEVD Literal Flag", "Mausoleum Duplication"):
+                                    f.name = f"Mausoleum Duplication (near {nf.name})"
+                                    break
+                    f.raw_data["resolved_via"] = "emevd_context_trace"
+                    resolved += 1
+
+            elif f.category == "EMEVD Literal Flag":
+                # Classify event context
+                emevd_context = 'unknown'
+                for pattern, label in context_patterns:
+                    if pattern.search(ctx):
+                        emevd_context = label
+                        break
+                f.raw_data["emevd_context"] = emevd_context
+
+                # Enrich the name with context type + specifics
+                context_label = context_labels.get(emevd_context)
+                specific_name = None
+
+                if emevd_context == 'boss_defeat':
+                    # Extract boss name from HandleBossDefeatAndDisplayBanner
+                    before = content[:match.start()]
+                    bm = list(boss_defeat_re.finditer(before))
+                    if bm:
+                        boss_entity_id = int(bm[-1].group(1))
+                        boss_flag = all_flags_lookup.get(boss_entity_id)
+                        if boss_flag:
+                            bname = boss_flag.name
+                            bname = re.sub(r'^\[.*?\]\s*', '', bname)
+                            bname = re.sub(r'^(Great |)Boss (Defeat|Found): ', '', bname)
+                            # Don't use self-referential names
+                            if 'Flag' not in bname and 'Map Event' not in bname:
+                                specific_name = bname
+                                f.raw_data["boss_name"] = bname
+
+                elif emevd_context == 'enemy_defeat':
+                    # Extract entity ID from CharacterDead(N)
+                    char_dead_match = re.search(r'CharacterDead\((\d+)\)', ctx)
+                    if char_dead_match:
+                        entity_id = int(char_dead_match.group(1))
+                        enemy_flag = all_flags_lookup.get(entity_id)
+                        if enemy_flag:
+                            ename = enemy_flag.name
+                            ename = re.sub(r'^\[.*?\]\s*', '', ename)
+                            if 'Flag' not in ename and 'Map Event' not in ename:
+                                specific_name = ename
+                                f.raw_data["enemy_name"] = ename
+
+                elif emevd_context == 'gesture_unlock':
+                    gesture_match = re.search(r'AwardGesture\((\d+)\)', ctx)
+                    if gesture_match:
+                        specific_name = f"gesture {gesture_match.group(1)}"
+
+                elif emevd_context == 'cutscene':
+                    cutscene_match = re.search(r'PlayCutscene[A-Za-z]*\((\d+),', ctx)
+                    if cutscene_match:
+                        specific_name = f"cutscene {cutscene_match.group(1)}"
+
+                if context_label:
+                    if specific_name:
+                        f.name = f"{context_label} ({specific_name})"
+                    else:
+                        f.name = f"{context_label} Flag ({f.flag_id})"
+                    resolved += 1
+
+    return resolved
+
+
 def format_output_markdown(flags: List[EventFlag]) -> str:
     """Format flags as proper markdown table with spatial data."""
     flags.sort(key=lambda f: f.flag_id)
@@ -4250,6 +4494,12 @@ def main():
                     f.backed_by.append("EMEVD")
                 emevd_backfill_count += 1
     print(f"EMEVD enemy positions backfilled: {emevd_backfill_count} flags")
+
+    # Post-processing: resolve literal EMEVD flag names via event context tracing
+    print("\nResolving EMEVD literal flag names via event context...")
+    all_flags_lookup = {f.flag_id: f for f in unique_flags}
+    emevd_resolved_count = resolve_emevd_literal_names(unique_flags, all_flags_lookup)
+    print(f"  EMEVD names resolved: {emevd_resolved_count} flags")
 
     # Category summary
     print(f"\n{'=' * 40}")

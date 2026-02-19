@@ -4,6 +4,24 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.10 - EMEVD event context name resolution
+
+### Extraction: EMEVD Name Resolution
+- **New post-processing step** — `resolve_emevd_literal_names()` traces EMEVD event chains to resolve cryptic "Map Event Flag (N)" names to descriptive labels.
+- **1,147 of 1,449 flags resolved** (79% coverage):
+  - **Talisman Pouch (55/59)**: Traced `HandleBossDefeatAndDisplayBanner` → boss name lookup. e.g. `Map Event Flag (9206)` → `Talisman Pouch (Spiritcaller Snail)`
+  - **Remembrance (17/17)**: Same boss-trace technique. e.g. `Map Event Flag (9163)` → `Remembrance (Bayle the Dread)`
+  - **Progression (9/9)**: Context-dependent — boss defeats, gesture unlocks
+  - **Mausoleum Duplication (4/4)**: Named by dungeon location
+  - **EMEVD Literal Flags (1,066/1,360)**: Classified by surrounding code context into 9 types: Boss Defeat, Enemy Defeat, Cutscene Trigger, Gesture Unlock, Network State, Character State, Spawn State, Item Award, Door State
+- **Boss/enemy name enrichment** — Boss Defeat and Enemy Defeat flags include the actual boss/enemy name when the entity ID exists in the database. e.g. `Boss Defeat Flag (30030800)` → `Boss Defeat (Spiritcaller Snail)`
+- **Cutscene/gesture specifics** — Cutscene flags include cutscene ID, gesture flags include gesture ID
+
+### Files Modified
+- `scripts/extract_event_flags.py`: Added `resolve_emevd_literal_names()` (~170 lines), called in `main()` post-processing
+- `scripts/extracted_event_flags.json`: Regenerated with resolved names
+- `scripts/extracted_event_flags.md`: Regenerated
+
 ## v0.17.9 - Dungeon grace resolution and corroboration cleanup
 
 ### WASM: Dungeon Grace Resolution
