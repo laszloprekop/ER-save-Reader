@@ -85,6 +85,11 @@ pub struct FlagRelationship {
     pub source_file: Option<String>,
     pub item_name: Option<String>,
     pub notes: Option<String>,
+    /// When true, this edge is excluded from corroboration checks.
+    /// Used for pickup_sets_flag edges where the tile-side flag is the row_id
+    /// position (never written by the game), not the actual getItemFlagId.
+    #[serde(default)]
+    pub skip_corroboration: bool,
 }
 
 /// A dual-formula corroboration pair
@@ -131,6 +136,8 @@ struct RawEdge {
     file: Option<String>,
     item: Option<String>,
     notes: Option<String>,
+    #[serde(default)]
+    skip_corroboration: bool,
 }
 
 /// The relationship graph with indexed lookups
@@ -215,6 +222,7 @@ impl RelationshipGraph {
                 source_file: edge.file,
                 item_name: edge.item.clone(),
                 notes: edge.notes.clone(),
+                skip_corroboration: edge.skip_corroboration,
             };
 
             let idx = relationships.len();
@@ -232,10 +240,12 @@ impl RelationshipGraph {
 
             // Identify dual-formula corroboration pairs
             // These are pickup_sets_flag where source is 10-digit and target is 5-digit
+            // Skip edges marked as non-corroborable (tile flag is row_id, not getItemFlagId)
             if rel_type == RelationshipType::PickupSetsFlag
                 && source >= 1_000_000_000
                 && target >= 60000
                 && target < 100_000
+                && !edge.skip_corroboration
             {
                 corroboration_pairs.push(CorroborationPair {
                     tile_flag: source,

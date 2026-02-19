@@ -169,6 +169,15 @@ The mid-section contains a Y-axis rotation (yaw/heading) in radians [-pi, pi] at
 
 All constants are sourced from `ground_truth_offsets.json` (`player_coords_extraction` section).
 
+### Flag Offset Resolution
+
+Block flags (60,000-99,999) use a two-tier lookup in `calculate_simple_flag_offset()`:
+
+1. **Sub-block bases** (`get_sub_block_bases()`, 100-granularity) — checked first for overrides
+2. **Main-block bases** (`get_main_block_bases()`, 1000-granularity) — fallback
+
+This split allows key `71000` to map to base `9315` for Stormveil graces (71000-71099) at the sub-block level, while flags 71100-71799 fall through to the main-block base of `2625` for other dungeon graces. See [Event Flag Geography](EVENT-FLAG-GEOGRAPHY.md) for the full block table.
+
 ## Testing
 
 ```bash

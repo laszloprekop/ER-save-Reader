@@ -411,7 +411,29 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
 /// against a false-positive EF offset (0x1A570 in GaItemData section) rather than the
 /// correct structural EF offset. Correct values from game event scripts (common.emevd.js)
 /// and verified via timeline diffs for map fragments (6/6 exact bit matches at base 1500).
-fn get_block_bases() -> HashMap<u32, u32> {
+/// Sub-block bases (100-granularity) — checked FIRST in calculate_simple_flag_offset.
+/// These override the main-block when a flag falls in a sub-block range with a
+/// different allocation (e.g., base game cookbooks in DLC blocks, Stormveil graces).
+fn get_sub_block_bases() -> HashMap<u32, u32> {
+    HashMap::from([
+        // Stormveil dungeon graces (71000-71099) — separate allocation region
+        // Verified: 55 flags in ground_truth_offsets.json, base 9315 confirmed
+        (71000, 9315),
+        // Tutorial graces (71800-71899) — VALIDATED via 71800, 71801
+        (71800, 2725),
+        // Base game cookbook sub-block overrides
+        // The DLC introduced SEPARATE flag allocations for blocks 67000/68000.
+        // Base game cookbook flags (getItemFlagId from ItemLotParam_map) are stored
+        // at DIFFERENT byte offsets than DLC cookbook flags in the same nominal block.
+        // Verified empirically: Confessor (4/4 non-ADA), Bee (2/2) match at these bases.
+        (68200, 1500),    // Base game Fevor's/Missionary's[7] cookbooks (base 1475 + 200/8)
+        (68400, 1525),    // Base game Frenzied's cookbooks (base 1475 + 400/8)
+        (67600, 2145),    // Base game Missionary's cookbooks (base 2070 + 600/8)
+    ])
+}
+
+/// Main-block bases (1000-granularity) — fallback when no sub-block matches.
+fn get_main_block_bases() -> HashMap<u32, u32> {
     HashMap::from([
         // System flags — emevd hex + 1 for non-map/non-progression blocks
         // Blocks 60000/62000: emevd hex value IS the correct byte offset
@@ -425,17 +447,10 @@ fn get_block_bases() -> HashMap<u32, u32> {
         (69000, 1845),    // 0x734+1 - Remembrance/Notes — VERIFIED (20/20 mod10=0)
         (91000, 2385),    // 0x950+1 - Boss Remembrance — VERIFIED (41/41 mod10=0)
         (92000, 2425),    // 0x978+1 - Container Upgrades — VERIFIED (16/16 mod10=0)
-        // Base game cookbook sub-block overrides
-        // The DLC introduced SEPARATE flag allocations for blocks 67000/68000.
-        // Base game cookbook flags (getItemFlagId from ItemLotParam_map) are stored
-        // at DIFFERENT byte offsets than DLC cookbook flags in the same nominal block.
-        // Sub-block entries (checked first) route base game ranges to the correct base.
-        // Verified empirically: Confessor (4/4 non-ADA), Bee (2/2) match at these bases.
-        (68200, 1500),    // Base game Fevor's/Missionary's[7] cookbooks (base 1475 + 200/8)
-        (68400, 1525),    // Base game Frenzied's cookbooks (base 1475 + 400/8)
-        (67600, 2145),    // Base game Missionary's cookbooks (base 2070 + 600/8)
+        // Dungeon graces (71100-71799) — standard block formula with base 2625
+        // Confirmed by computing all 55 verified flags in ground_truth_offsets.json
+        (71000, 2625),
         // Grace flags — verified via multi-slot validation
-        (71800, 2725),    // Tutorial graces - VALIDATED via 71800, 71801
         (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
         (73000, 2662),    // Dungeon graces - verified via temporal diff
         (74000, 3000),    // DLC dungeon graces - verified (8+ consistent proven)
@@ -831,11 +846,12 @@ fn calculate_simple_flag_offset(flag_id: u32) -> FlagOffset {
     }
 
     // Block flags (60,000-99,999) - check sub-block (100-rounded) then main block (1000-rounded)
-    let block_bases = get_block_bases();
     let sub_block = (flag_id / 100) * 100;
     let main_block = (flag_id / 1000) * 1000;
 
-    if let Some(&base) = block_bases.get(&sub_block) {
+    // Sub-block (100-granularity) — checked first for overrides
+    let sub_bases = get_sub_block_bases();
+    if let Some(&base) = sub_bases.get(&sub_block) {
         let relative = flag_id - sub_block;
         let byte_offset = base + relative / 8;
         if byte_offset < EVENT_FLAGS_SIZE as u32 {
@@ -843,7 +859,9 @@ fn calculate_simple_flag_offset(flag_id: u32) -> FlagOffset {
         }
     }
 
-    if let Some(&base) = block_bases.get(&main_block) {
+    // Main-block (1000-granularity) — fallback
+    let main_bases = get_main_block_bases();
+    if let Some(&base) = main_bases.get(&main_block) {
         let relative = flag_id - main_block;
         let byte_offset = base + relative / 8;
         if byte_offset < EVENT_FLAGS_SIZE as u32 {
@@ -2392,6 +2410,79 @@ mod tests {
         assert_eq!(pos, 2);
         // Negative flags should all be "unset" since data is zeros
         assert_eq!(neg, NEGATIVE_VALIDATION_FLAGS.len());
+    }
+
+    // =========================================================================
+    // DUNGEON GRACE RESOLUTION TESTS (sub-block / main-block split)
+    // =========================================================================
+
+    #[test]
+    fn test_stormveil_grace_sub_block() {
+        // Flag 71000: sub_block=71000 → hits sub_bases(9315), relative=0
+        // byte = 9315 + 0/8 = 9315, bit = 7 - (71000%8) = 7
+        let result = get_flag_offset(71000);
+        assert!(result.valid, "Flag 71000 should resolve via Stormveil sub-block");
+        assert_eq!(result.byte_offset, 9315);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_dungeon_grace_main_block_fallback() {
+        // Flag 71120: sub_block=71100 → miss in sub_bases
+        //             main_block=71000 → hits main_bases(2625), relative=120
+        // byte = 2625 + 120/8 = 2640, bit = 7 - (71120%8) = 7
+        let result = get_flag_offset(71120);
+        assert!(result.valid, "Flag 71120 should resolve via main-block fallback");
+        assert_eq!(result.byte_offset, 2640);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_tutorial_grace_sub_block() {
+        // Flag 71800: sub_block=71800 → hits sub_bases(2725), relative=0
+        // byte = 2725, bit = 7 - (71800%8) = 7
+        let result = get_flag_offset(71800);
+        assert!(result.valid, "Flag 71800 should resolve via tutorial sub-block");
+        assert_eq!(result.byte_offset, 2725);
+        assert_eq!(result.bit_position, 7);
+    }
+
+    #[test]
+    fn test_world_grace_unchanged() {
+        // Flag 76100: sub_block=76100 → miss, main_block=76000 → hits(3250)
+        // byte = 3250 + 100/8 = 3262, bit = 3
+        // This must remain unchanged from before the split.
+        let result = get_flag_offset(76100);
+        assert!(result.valid);
+        assert_eq!(result.byte_offset, 3262);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_dungeon_grace_leyndell() {
+        // Flag 71100 (Leyndell range): sub=71100 → miss, main=71000 → 2625
+        // relative = 100, byte = 2625 + 100/8 = 2637, bit = 7-(71100%8) = 3
+        let result = get_flag_offset(71100);
+        assert!(result.valid, "Flag 71100 should resolve via main-block");
+        assert_eq!(result.byte_offset, 2637);
+        assert_eq!(result.bit_position, 3);
+    }
+
+    #[test]
+    fn test_sub_block_bases_no_conflict() {
+        // Verify sub-block and main-block don't share keys
+        let sub = get_sub_block_bases();
+        let main = get_main_block_bases();
+        // Key 71000 is intentionally in BOTH — sub for 100-granularity, main for 1000-granularity
+        // But they resolve at different levels (sub_block=71000 vs main_block=71000)
+        // All other sub-block keys should NOT appear in main-block
+        for &key in sub.keys() {
+            if key == 71000 {
+                continue; // Expected dual presence
+            }
+            assert!(!main.contains_key(&key),
+                "Sub-block key {} should not appear in main-block bases", key);
+        }
     }
 
 }

@@ -4,6 +4,30 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.9 - Dungeon grace resolution and corroboration cleanup
+
+### WASM: Dungeon Grace Resolution
+- **Sub-block/main-block split** — Replaced single `get_block_bases()` HashMap with `get_sub_block_bases()` (100-granularity, checked first) and `get_main_block_bases()` (1000-granularity, fallback). This allows key `71000` to map to base `9315` for Stormveil graces (71000-71099) AND base `2625` for dungeon graces (71100-71799).
+- **~80 dungeon graces unlocked** — Flags 71100-71799 (Leyndell, Underground, Farum Azula, Raya Lucaria, Haligtree, Volcano Manor, Fractured Marika) now resolve correctly via `calculate_simple_flag_offset()`.
+- **6 new unit tests** — Stormveil sub-block routing, main-block fallback, tutorial grace, world grace regression, Leyndell grace, no-conflict validation. All 51 WASM tests pass.
+
+### Corroboration: False-Alarm Cleanup
+- **`skip_corroboration` field** — Added to `FlagRelationship` and `RawEdge` structs (`#[serde(default)]`), honored in both `check_corroboration()` loop and `corroboration_pairs` construction.
+- **16 edges marked** — All are `pickup_sets_flag` edges where the tile-side flag is the row_id position (never written by the game). Includes 11 map fragments, 2 Memory Stones, Whetstone Knife, Flask of Wondrous Physick, Golden Tailoring Tools.
+- **Extraction script updated** — `SKIP_CORROBORATION_PAIRS` set ensures regeneration preserves the field.
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: sub-block/main-block split + 6 tests
+- `src/discovery/relationship_graph.rs`: skip_corroboration field + guard
+- `src/discovery/corroboration.rs`: skip_corroboration early continue
+- `scripts/flag_relationships.json`: 16 edges marked (32 total across both sections)
+- `scripts/extract_flag_relationships.py`: SKIP_CORROBORATION_PAIRS for regeneration
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: dungeon grace block ranges + routing explanation
+- `docs/WASM-EVENT-FLAGS.md`: flag offset resolution section
+- `docs/BACKLOG.md`: blocks 71000/71100 resolved
+
+---
+
 ## v0.17.8 - EF geography: simple flags, item acquisition tables, structural chain evidence
 
 ### Ground Truth Expansion

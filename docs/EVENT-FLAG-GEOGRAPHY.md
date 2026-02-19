@@ -124,11 +124,20 @@ bit_position = 7 - (flag_id % 8)
 | 67000-67999 | Cookbooks | 0x6e4 |
 | 68000-68999 | Cookbooks | 0x70c |
 | 69000-69999 | Remembrance | 0x734 |
-| 76000-76999 | Graces (partial) | 0xcb2 |
+| 71000-71099 | Dungeon Graces (Stormveil) | 0x2463 (sub-block) |
+| 71100-71799 | Dungeon Graces (Leyndell, Underground, etc.) | 0xa41 (main-block) |
+| 71800-71899 | Tutorial Graces | 0xaa5 (sub-block) |
+| 72000-72999 | DLC Graces (Enir-Ilim) | 0xabe |
+| 73000-73999 | Dungeon Graces | 0xa66 |
+| 74000-74999 | DLC Dungeon Graces | 0xbb8 |
+| 76000-76999 | World Graces | 0xcb2 |
+| 78000-78999 | Grace Guidance | 0xdac |
 | 91000-91999 | Boss Remembrance | 0x950 |
 | 92000-92999 | Container Upgrades | 0x978 |
 
 **Source File**: Derived from `common.emevd.js` event definitions
+
+**Sub-block / Main-block Routing**: Block flags use a two-tier lookup. First, the flag is rounded to its 100-granularity sub-block (`flag_id / 100 * 100`). If a sub-block base exists, it's used. Otherwise, the 1000-granularity main-block (`flag_id / 1000 * 1000`) is tried. This allows block 71000 to route Stormveil graces (71000-71099) to a separate allocation (base 9315) while dungeon graces (71100-71799) use the main-block base (2625).
 
 ### 3. Dungeon & Area Flags (8-digit flags)
 

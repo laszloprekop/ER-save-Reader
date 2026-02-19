@@ -30,10 +30,11 @@ This is the single location for all planned work, remaining gaps, and deferred i
 - **Blocked by**: Need gameplay progression in test characters
 
 ### Unreliable Block Bases
-- **Blocks**: 71000, 71100, 71600, 73000
+- **Blocks**: ~~71000~~, ~~71100~~, 71600, 73000
 - **Issue**: Base offsets vary by save progression (not stable across saves)
 - **Solution**: Dynamic calibration per save file, or discover stable alternative bases
 - **Progress** (v0.15.0): Multi-tile calibration with 4 anchors from 2+ tiles mitigates drift; unified flag routing in WASM uses calibrated tile_base
+- **Progress** (v0.17.9): Block 71000 resolved via sub-block/main-block split — Stormveil graces (71000-71099) route to sub-block base 9315, dungeon graces (71100-71799) route to main-block base 2625. Block 71100 now resolved as part of the 71000 main-block range
 
 ### Unverified Dungeon Areas
 - **Areas**: 20, 21 (unverified), plus 13, 15, 16, 18, 19, 34, 35, 39 (calculated but not empirically verified)

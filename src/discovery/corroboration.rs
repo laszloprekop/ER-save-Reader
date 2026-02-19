@@ -270,6 +270,9 @@ impl CorroborationEngine {
 
         // Check related flags
         for rel in self.graph.get_related(flag_id) {
+            if rel.skip_corroboration {
+                continue;
+            }
             let related_flag = if rel.source_flag == flag_id {
                 rel.target_flag
             } else {

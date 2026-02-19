@@ -22364,7 +22364,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1034480200 sets flag 62022"
+      "notes": "Picking up at 1034480200 sets flag 62022",
+      "skip_corroboration": true
     },
     {
       "source": 1034481300,
@@ -22460,7 +22461,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1034500100 sets flag 60430"
+      "notes": "Picking up at 1034500100 sets flag 60430",
+      "skip_corroboration": true
     },
     {
       "source": 1034500200,
@@ -22836,7 +22838,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1035470100 sets flag 60420"
+      "notes": "Picking up at 1035470100 sets flag 60420",
+      "skip_corroboration": true
     },
     {
       "source": 1035480010,
@@ -23684,7 +23687,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1036540500 sets flag 62032"
+      "notes": "Picking up at 1036540500 sets flag 62032",
+      "skip_corroboration": true
     },
     {
       "source": 1037410010,
@@ -23788,7 +23792,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1037440210 sets flag 62021"
+      "notes": "Picking up at 1037440210 sets flag 62021",
+      "skip_corroboration": true
     },
     {
       "source": 1037450100,
@@ -23812,7 +23817,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1037460001 sets flag 60150"
+      "notes": "Picking up at 1037460001 sets flag 60150",
+      "skip_corroboration": true
     },
     {
       "source": 1037460010,
@@ -24396,7 +24402,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1038410200 sets flag 62020"
+      "notes": "Picking up at 1038410200 sets flag 62020",
+      "skip_corroboration": true
     },
     {
       "source": 1038420000,
@@ -25852,7 +25859,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1040520500 sets flag 62030"
+      "notes": "Picking up at 1040520500 sets flag 62030",
+      "skip_corroboration": true
     },
     {
       "source": 1040530000,
@@ -26564,7 +26572,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1042370200 sets flag 62010"
+      "notes": "Picking up at 1042370200 sets flag 62010",
+      "skip_corroboration": true
     },
     {
       "source": 1042370700,
@@ -26580,7 +26589,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1042371010 sets flag 60130"
+      "notes": "Picking up at 1042371010 sets flag 60130",
+      "skip_corroboration": true
     },
     {
       "source": 1042371011,
@@ -26868,7 +26878,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1042510500 sets flag 62031"
+      "notes": "Picking up at 1042510500 sets flag 62031",
+      "skip_corroboration": true
     },
     {
       "source": 1042510900,
@@ -27836,7 +27847,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1044320000 sets flag 62011"
+      "notes": "Picking up at 1044320000 sets flag 62011",
+      "skip_corroboration": true
     },
     {
       "source": 1044320010,
@@ -28452,7 +28464,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1045370020 sets flag 62012"
+      "notes": "Picking up at 1045370020 sets flag 62012",
+      "skip_corroboration": true
     },
     {
       "source": 1045370030,
@@ -28812,7 +28825,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1046380300 sets flag 60020"
+      "notes": "Picking up at 1046380300 sets flag 60020",
+      "skip_corroboration": true
     },
     {
       "source": 1046380301,
@@ -29988,7 +30002,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1049370500 sets flag 62040"
+      "notes": "Picking up at 1049370500 sets flag 62040",
+      "skip_corroboration": true
     },
     {
       "source": 1049370700,
@@ -30204,7 +30219,8 @@
       "type": "pickup_sets_flag",
       "file": "ItemLotParam_map",
       "item": null,
-      "notes": "Picking up at 1049400500 sets flag 62041"
+      "notes": "Picking up at 1049400500 sets flag 62041",
+      "skip_corroboration": true
     },
     {
       "source": 1049410040,
@@ -46695,7 +46711,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1034480200 sets flag 62022"
+        "notes": "Picking up at 1034480200 sets flag 62022",
+        "skip_corroboration": true
       },
       {
         "source": 1034481300,
@@ -46791,7 +46808,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1034500100 sets flag 60430"
+        "notes": "Picking up at 1034500100 sets flag 60430",
+        "skip_corroboration": true
       },
       {
         "source": 1034500200,
@@ -47167,7 +47185,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1035470100 sets flag 60420"
+        "notes": "Picking up at 1035470100 sets flag 60420",
+        "skip_corroboration": true
       },
       {
         "source": 1035480010,
@@ -48015,7 +48034,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1036540500 sets flag 62032"
+        "notes": "Picking up at 1036540500 sets flag 62032",
+        "skip_corroboration": true
       },
       {
         "source": 1037410010,
@@ -48119,7 +48139,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1037440210 sets flag 62021"
+        "notes": "Picking up at 1037440210 sets flag 62021",
+        "skip_corroboration": true
       },
       {
         "source": 1037450100,
@@ -48143,7 +48164,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1037460001 sets flag 60150"
+        "notes": "Picking up at 1037460001 sets flag 60150",
+        "skip_corroboration": true
       },
       {
         "source": 1037460010,
@@ -48727,7 +48749,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1038410200 sets flag 62020"
+        "notes": "Picking up at 1038410200 sets flag 62020",
+        "skip_corroboration": true
       },
       {
         "source": 1038420000,
@@ -50183,7 +50206,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1040520500 sets flag 62030"
+        "notes": "Picking up at 1040520500 sets flag 62030",
+        "skip_corroboration": true
       },
       {
         "source": 1040530000,
@@ -50895,7 +50919,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1042370200 sets flag 62010"
+        "notes": "Picking up at 1042370200 sets flag 62010",
+        "skip_corroboration": true
       },
       {
         "source": 1042370700,
@@ -50911,7 +50936,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1042371010 sets flag 60130"
+        "notes": "Picking up at 1042371010 sets flag 60130",
+        "skip_corroboration": true
       },
       {
         "source": 1042371011,
@@ -51199,7 +51225,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1042510500 sets flag 62031"
+        "notes": "Picking up at 1042510500 sets flag 62031",
+        "skip_corroboration": true
       },
       {
         "source": 1042510900,
@@ -52167,7 +52194,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1044320000 sets flag 62011"
+        "notes": "Picking up at 1044320000 sets flag 62011",
+        "skip_corroboration": true
       },
       {
         "source": 1044320010,
@@ -52783,7 +52811,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1045370020 sets flag 62012"
+        "notes": "Picking up at 1045370020 sets flag 62012",
+        "skip_corroboration": true
       },
       {
         "source": 1045370030,
@@ -53143,7 +53172,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1046380300 sets flag 60020"
+        "notes": "Picking up at 1046380300 sets flag 60020",
+        "skip_corroboration": true
       },
       {
         "source": 1046380301,
@@ -54319,7 +54349,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1049370500 sets flag 62040"
+        "notes": "Picking up at 1049370500 sets flag 62040",
+        "skip_corroboration": true
       },
       {
         "source": 1049370700,
@@ -54535,7 +54566,8 @@
         "type": "pickup_sets_flag",
         "file": "ItemLotParam_map",
         "item": null,
-        "notes": "Picking up at 1049400500 sets flag 62041"
+        "notes": "Picking up at 1049400500 sets flag 62041",
+        "skip_corroboration": true
       },
       {
         "source": 1049410040,
