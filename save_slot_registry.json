@@ -12,18 +12,18 @@
     "by_status": {
       "verified": 51,
       "partial": 15,
-      "identified_unparsed": 11,
-      "unknown": 12
+      "identified_unparsed": 13,
+      "unknown": 10
     },
     "by_group": {
-      "character_identity": 13,
+      "character_identity": 15,
       "equipment": 12,
       "inventory": 7,
       "unlocks_progression": 24,
       "world_state": 11,
       "network": 4,
       "system": 6,
-      "unknown": 12
+      "unknown": 10
     }
   },
   "groups": {
@@ -391,6 +391,74 @@
               "date": "2024-01-01",
               "source": "src/save/common/save_slot.rs:1142",
               "summary": "u32 stat field, round-trip verified"
+            }
+          ]
+        },
+        "character_identity.flask_allocation": {
+          "name": "Flask Allocation",
+          "description": "Crimson/Cerulean flask charge allocation (how many of each). Stored as 2 bytes in PlayerGameData._0x1a at offsets 3-4. Crimson + Cerulean = total charges. Starting value is (3,1)=4. Mid-game Confessor has (7,5)=12.",
+          "data_type": "u8[2]",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 2,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.95,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData._0x1a[3..5]",
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-19",
+              "source": "PlayerGameData._0x1a bytes 3-4, multi-save differential",
+              "summary": "Backup(Jan11) Confessor: crimson=8,cerulean=4 (sum=12). Latest Confessor: crimson=7,cerulean=5 (sum=12). Reallocation confirmed with constant total. All early chars: (3,1)=4 (correct starting value). 5 slots x 2 saves compared."
+            },
+            {
+              "type": "save_diff",
+              "date": "2026-02-19",
+              "source": "Bee (slot 5) timeline: 689 valid snapshots, 15 Golden Seed pickups",
+              "summary": "6 flask charge increases confirmed: (3,1)=4 -> (9,1)=10. Each increase of +1 occurred at grace rest (not at pickup). 11 Golden Seed pickups never caused immediate change (correct ER behavior). Total monotonically non-decreasing across all 689 snapshots. Cerulean stayed at 1 (player allocated all new charges to crimson)."
+            }
+          ]
+        },
+        "character_identity.flask_upgrade_data": {
+          "name": "Flask Upgrade Data",
+          "description": "Flask upgrade progression (Golden Seeds for charges, Sacred Tears for potency). Total charges derivable from flask_allocation sum. _0x1e bytes 1-3 contain upgrade data ([7,2,7] for mid-game Confessor, all zeros for early chars). Exact semantics of each byte TBD.",
+          "data_type": "u8[3]",
+          "storage": {
+            "section": "PlayerGameData",
+            "section_struct": "PlayerGameData",
+            "byte_size": 3,
+            "ef_formula": null,
+            "ground_truth_ref": null
+          },
+          "status": "identified_unparsed",
+          "confidence": 0.8,
+          "implementation": {
+            "rust_struct_field": "PlayerGameData._0x1e[1..4]",
+            "read_support": false,
+            "write_support": false,
+            "wasm_support": false
+          },
+          "evidence": [
+            {
+              "type": "save_diff",
+              "date": "2026-02-19",
+              "source": "PlayerGameData._0x1e, multi-slot analysis",
+              "summary": "Only Confessor (mid-game) has non-zero values: [7,2,7]. All 4 early chars have zeros. Unchanged between Jan11 backup and latest save. Likely flask upgrade levels or Sacred Tear/Golden Seed counts. Total flask charges (crimson+cerulean): early=4, Confessor=12."
+            },
+            {
+              "type": "save_diff",
+              "date": "2026-02-19",
+              "source": "Bee (slot 5) timeline: Sacred Tear pickup at sd_000257, application at sd_000521",
+              "summary": "_0x1e changed from [0,0,0,0,0,0] to [0,1,0,0,0,0] when Sacred Tear was applied at grace (not at pickup time). byte[1] = Sacred Tear count. Consistent with Confessor's byte[1]=7 (7 Sacred Tears). Exact meaning of Confessor's bytes [2]=2 and [3]=7 still TBD."
             }
           ]
         }
@@ -2230,48 +2298,6 @@
         "unknown.active_buffs_debuffs": {
           "name": "Active Buffs and Debuffs",
           "description": "Status effects currently applied to the character (poison, rot, buffs from items/spells). Likely transient and not persisted, or stored in event flags.",
-          "data_type": null,
-          "storage": {
-            "section": null,
-            "section_struct": null,
-            "byte_size": null,
-            "ef_formula": null,
-            "ground_truth_ref": null
-          },
-          "status": "unknown",
-          "confidence": 0.0,
-          "implementation": {
-            "rust_struct_field": null,
-            "read_support": false,
-            "write_support": false,
-            "wasm_support": false
-          },
-          "evidence": []
-        },
-        "unknown.flask_configuration": {
-          "name": "Flask Configuration",
-          "description": "Crimson/Cerulean flask allocation (how many of each) and flask upgrade level. May be in event flags or PlayerGameData unknown bytes.",
-          "data_type": null,
-          "storage": {
-            "section": null,
-            "section_struct": null,
-            "byte_size": null,
-            "ef_formula": null,
-            "ground_truth_ref": null
-          },
-          "status": "unknown",
-          "confidence": 0.0,
-          "implementation": {
-            "rust_struct_field": null,
-            "read_support": false,
-            "write_support": false,
-            "wasm_support": false
-          },
-          "evidence": []
-        },
-        "unknown.flask_charges": {
-          "name": "Flask Charge Count",
-          "description": "Total number of flask charges (Sacred Tears collected). Possibly stored in event flags or PlayerGameData padding.",
           "data_type": null,
           "storage": {
             "section": null,

@@ -4,6 +4,37 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.7 - PlayerGameData unknown byte discoveries
+
+### Save Format Discoveries
+- **Flask Allocation (`_0x1a[3:5]`)** — identified with HIGH confidence (0.95)
+  - `_0x1a[3]` = Crimson Flask charges, `_0x1a[4]` = Cerulean Flask charges
+  - Verified via multi-save differential (5 slots × 2 saves) + Bee timeline (689 snapshots, 6 flask transitions)
+  - Golden Seeds collected as inventory items; allocation only updates at grace rest (confirmed 11/11 pickups)
+  - Monotonically non-decreasing across entire timeline; constant-sum invariant within periods
+- **Flask Upgrade Data (`_0x1e[1]`)** — identified with MEDIUM-HIGH confidence (0.8)
+  - byte[1] = Sacred Tear count (0→1 after applying 1 Sacred Tear at grace)
+  - Consistent with Confessor's byte[1]=7 (7 Sacred Tears collected)
+- **Defense Ratings (`_0x28`)** — 7 equipment+level dependent u32 values
+  - Naked L1 Wretch: uniform 90 base; armored L1: 140-200 range; scales with level (+1-4 per level)
+
+### Registry Updates
+- Moved `flask_configuration` and `flask_charges` from `unknown` → `character_identity` group
+- New features: `character_identity.flask_allocation` (0.95), `character_identity.flask_upgrade_data` (0.80)
+- Coverage: 51 verified, 15 partial, 13 identified_unparsed (was 11), 10 unknown (was 12)
+
+### Verification Method
+- Multi-save differential: 5 character slots across backup (Jan 11) and latest save files
+- Temporal timeline: Bee (slot 5) — 799 captures, 689 valid reconstructed snapshots
+- Reverse diff reconstruction from latest save state through sparse binary diffs
+
+### Files Modified
+- `save_slot_registry.json`: flask features relocated, evidence added, confidence updated
+- `docs/CHANGELOG.md`: v0.17.7 entry
+- `Cargo.toml`: bumped to 0.17.7
+
+---
+
 ## v0.17.6 - Save slot feature registry
 
 ### Documentation
