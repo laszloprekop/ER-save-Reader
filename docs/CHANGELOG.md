@@ -4,6 +4,36 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.12 - Resolve numeric flag names and add event_action property
+
+### Improvements
+- **Numeric flag name resolution** — Reduced flags with numeric-only identifiers from ~1,448 to 764 (684 flags improved):
+  - **Gesture names**: `load_gesture_names()` from GestureParam.param.xml (51 gestures). "Gesture Unlock (gesture 102)" → "Gesture Unlock (Rapture)"
+  - **Entity names for templates**: `entity_names` dict passed to `extract_emevd_templates()`. "Enemy Defeat (10000280)" → "Grafted Scion - Enemy Defeat" (~216 flags)
+  - **Region labels**: Door/Mechanism/Treasure flags use region as fallback. "Door Unlock (10000510)" → "Door Unlock (Stormveil Castle)" (~204 flags)
+  - **Context verb entity extraction**: Character State, Spawn State, Item Award contexts now extract entity IDs from EMEVD verbs (DisableCharacter, EnableCharacter, etc.) and resolve to names (~100+ flags)
+  - **MSB Region entities**: `load_msb_region_names()` parses 4,280 Region/Other XMLs with Japanese→English keyword translation for area_trigger/interaction names
+
+- **`event_action` property** — New `raw_data["event_action"]` field on all EMEVD Literal Flags classifies the immediate EMEVD verb nearest to the SetEventFlagID call. 18 action types (boss_defeated, enemy_killed, gesture_acquired, item_acquired, cutscene_watched, door_opened, etc.). 937 of 1,360 EMEVD Literal Flags classified.
+
+### New Functions
+- `load_gesture_names()`: GestureParam.param.xml → gesture ID→name mapping
+- `load_msb_region_names()`: MSB Region/Other XMLs → region entity ID→translated label mapping
+- `JAPANESE_REGION_KEYWORDS`: 32-entry translation table for MSB region name keywords
+
+### Call Site Changes
+- `build_entity_name_map()` moved before `extract_emevd_templates()` in `main()` (was after)
+- `extract_emevd_templates()` now accepts `entity_names` and `gesture_names` parameters
+- `resolve_emevd_literal_names()` now accepts `gesture_names` and `region_entities` parameters
+
+### Files Modified
+- `scripts/extract_event_flags.py`: All changes (new loaders, enriched name resolution, event_action property)
+- `scripts/extracted_event_flags.json`: Regenerated with improved names and event_action
+- `scripts/extracted_event_flags.md`: Regenerated
+- `docs/BACKLOG.md`: Updated Gesture Database status
+- `docs/CHANGELOG.md`: v0.17.12
+- `Cargo.toml`: bumped to 0.17.12
+
 ## v0.17.11 - Fix extraction categorizer priority and wrong hardcoded names
 
 ### Fixes

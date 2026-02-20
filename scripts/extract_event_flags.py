@@ -159,7 +159,7 @@ EMEVD_TEMPLATES = {
     90005560: {"flag_idx": 0, "entity_idx": 1, "entity_type": "asset", "category": "EMEVD Treasure"},
 
     # Gesture unlock - SetEventFlagID(eventFlagId, ON) on asset interaction
-    90005570: {"flag_idx": 0, "entity_idx": 2, "entity_type": "asset", "category": "Gesture Unlock"},
+    90005570: {"flag_idx": 0, "entity_idx": 2, "entity_type": "asset", "gesture_idx": 1, "category": "Gesture Unlock"},
 
     # Quest/NPC state
     # 90005767: quest completion - sets flag_idx 0 and 4
@@ -477,6 +477,34 @@ def load_chr_model_param() -> Dict[int, str]:
         print(f"  Warning: Error parsing {xml_path.name}: {e}")
 
     return model_names
+
+
+def load_gesture_names() -> Dict[int, str]:
+    """
+    Load gesture names from GestureParam (maps gesture row ID to display name).
+
+    Returns dict: {gesture_id: name}
+    e.g., {0: "Bow", 60: "Bravo!", 102: "Rapture"}
+    """
+    gesture_names = {}
+    xml_path = REGULATION_BIN / "GestureParam.param.xml"
+
+    if not xml_path.exists():
+        print(f"  Warning: {xml_path.name} not found")
+        return gesture_names
+
+    try:
+        tree = ET.parse(xml_path)
+        root = tree.getroot()
+        for row in root.findall(".//row"):
+            gesture_id = int(row.get("id", 0))
+            name = row.get("paramdexName", "")
+            if name:
+                gesture_names[gesture_id] = name
+    except Exception as e:
+        print(f"  Warning: Error parsing {xml_path.name}: {e}")
+
+    return gesture_names
 
 
 def lookup_enemy_name_from_npc_names(model_name: str, npc_names: Dict[int, str]) -> Optional[str]:
@@ -1114,6 +1142,106 @@ def load_msb_asset_entities() -> Dict[int, Dict]:
     return assets
 
 
+# Japanese keyword → English translation table for MSB Region names
+JAPANESE_REGION_KEYWORDS = {
+    'ボス': 'Boss',
+    '入場': 'Entrance',
+    '領域': 'Area',
+    '敵': 'Enemy',
+    'NPC': 'NPC',
+    '宝箱': 'Chest',
+    '霧壁': 'Fog Wall',
+    '門': 'Gate',
+    '扉': 'Door',
+    'ワープ': 'Warp',
+    '先': 'Destination',
+    '帰還': 'Return',
+    '起動': 'Activation',
+    'エレベーター': 'Elevator',
+    'イベント': 'Event',
+    '会話': 'Conversation',
+    'チュートリアル': 'Tutorial',
+    'カメラ': 'Camera',
+    'バディ': 'Summon',
+    '侵入': 'Invasion',
+    '開始': 'Start',
+    '部屋': 'Room',
+    '初戦': 'First Battle',
+    '落ちる': 'Fall',
+    '床': 'Floor',
+    '地名': 'Place Name',
+    '歓迎': 'Welcome',
+    '合成': 'Composite',
+    '距離判定': 'Distance Check',
+    '判定': 'Check',
+    '召喚': 'Summon',
+    '復活': 'Revive',
+    '戦闘': 'Battle',
+}
+
+
+def load_msb_region_names() -> Dict[int, str]:
+    """
+    Load Region/Other entity names from MSB files, indexed by EntityID.
+
+    Parses Japanese region names and extracts matching keywords to build
+    abbreviated English labels for EMEVD area_trigger/interaction resolution.
+
+    Returns dict: {entity_id: translated_label}
+    """
+    regions = {}
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+    for msb_dir in msb_dirs:
+        region_dir = msb_dir / "Region" / "Other"
+        if not region_dir.exists():
+            continue
+
+        for region_file in region_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(region_file)
+                root = tree.getroot()
+
+                entity_id_elem = root.find(".//EntityID")
+                if entity_id_elem is None:
+                    continue
+                entity_id = int(entity_id_elem.text or 0)
+                if entity_id == 0:
+                    continue
+
+                name_elem = root.find(".//Name")
+                if name_elem is None or not name_elem.text:
+                    continue
+
+                jp_name = name_elem.text.strip()
+
+                # Translate Japanese keywords to English
+                keywords = []
+                for jp_word, en_word in JAPANESE_REGION_KEYWORDS.items():
+                    if jp_word in jp_name:
+                        keywords.append(en_word)
+
+                if keywords:
+                    # Deduplicate while preserving order
+                    seen = set()
+                    unique_kw = []
+                    for kw in keywords:
+                        if kw not in seen:
+                            seen.add(kw)
+                            unique_kw.append(kw)
+                    label = " ".join(unique_kw)
+                else:
+                    label = "Region"
+
+                if entity_id not in regions:
+                    regions[entity_id] = label
+
+            except Exception:
+                continue
+
+    return regions
+
+
 def load_aeg_param() -> Dict[int, Dict]:
     """
     Load AssetEnvironmentGeometryParam — maps AEG model suffix to item lot and behavior.
@@ -1469,6 +1597,140 @@ def load_msb_enemy_positions() -> Dict[int, Dict]:
 
     print(f"  Loaded {len(positions)} total enemy positions (unfiltered)")
     return positions
+
+
+def load_msb_entity_names(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
+                          boss_names: Dict[str, str], chr_model_names: Dict[int, str]) -> Dict[int, str]:
+    """
+    Load names for ALL MSB enemies indexed by EntityID (unfiltered).
+
+    Uses the same 5-priority name resolution chain as load_msb_enemy_data()
+    but without the tracked_flags filter and without loading positions.
+
+    Returns dict: {entity_id: resolved_name} for all enemies with non-generic names.
+    """
+    entity_names: Dict[int, str] = {}
+
+    if not MSB_DIR.exists():
+        return entity_names
+
+    msb_dirs = sorted(MSB_DIR.glob("m*-msb-dcx"))
+
+    for msb_dir in msb_dirs:
+        enemy_dir = msb_dir / "Part" / "Enemy"
+        if not enemy_dir.exists():
+            continue
+
+        for enemy_file in enemy_dir.glob("*.xml"):
+            try:
+                tree = ET.parse(enemy_file)
+                root = tree.getroot()
+
+                entity_elem = root.find(".//EntityID")
+                if entity_elem is None:
+                    continue
+                entity_id = int(entity_elem.text or 0)
+                if entity_id == 0 or entity_id in entity_names:
+                    continue
+
+                model_elem = root.find(".//ModelName")
+                model_name = model_elem.text if model_elem is not None else ""
+
+                npc_param_elem = root.find(".//NPCParamID")
+                npc_param_id = int(npc_param_elem.text or 0) if npc_param_elem is not None else 0
+
+                # Name resolution - same 5-priority chain as load_msb_enemy_data()
+                name = None
+
+                if model_name == "c0000":
+                    if npc_param_id and npc_param_id in npc_params:
+                        name_id = npc_params[npc_param_id].get("name_id", 0)
+                        if name_id and name_id in npc_names:
+                            name = npc_names[name_id]
+                else:
+                    # Priority 1: NpcName.fmg via constructed nameId
+                    name = lookup_enemy_name_from_npc_names(model_name, npc_names)
+
+                    # Priority 2: BgmBossChrIdConv (major boss display names)
+                    if not name and model_name in boss_names:
+                        name = boss_names[model_name]
+
+                    # Priority 3: ChrModelParam.paramdexName
+                    if not name:
+                        model_num_str = model_name[1:] if model_name.startswith("c") else ""
+                        try:
+                            model_num = int(model_num_str)
+                            if model_num in chr_model_names:
+                                name = chr_model_names[model_num]
+                        except ValueError:
+                            pass
+
+                    # Priority 4: NpcParam nameId → NpcName
+                    if not name and npc_param_id in npc_params:
+                        name_id = npc_params[npc_param_id].get("name_id", 0)
+                        if name_id and name_id in npc_names:
+                            name = npc_names[name_id]
+
+                # Only store if we got a real name (skip generic/fallback)
+                if name:
+                    entity_names[entity_id] = name
+
+            except Exception:
+                continue
+
+    return entity_names
+
+
+def build_entity_name_map(npc_params: Dict[int, Dict], npc_names: Dict[int, str],
+                          boss_names: Dict[str, str], chr_model_names: Dict[int, str]) -> Dict[int, str]:
+    """
+    Build a comprehensive entity_id → name mapping for EMEVD resolution.
+
+    Combines three sources in priority order:
+    1. NPC_NAME_LOOKUP (highest priority - manually curated)
+    2. MSB enemy names via load_msb_entity_names() (5-priority name chain)
+    3. GameAreaParam defeat_flag → boss_name (direct high-confidence mapping)
+
+    Returns dict: {entity_id_or_flag_id: name}
+    """
+    # Start with MSB entity names (lowest priority, most coverage)
+    print("\n  Loading MSB entity names for EMEVD resolution...")
+    entity_names = load_msb_entity_names(npc_params, npc_names, boss_names, chr_model_names)
+    print(f"    MSB entity names: {len(entity_names)}")
+
+    # Add GameAreaParam defeat_flag → boss_name mappings
+    xml_path = REGULATION_BIN / "GameAreaParam.param.xml"
+    game_area_count = 0
+    if xml_path.exists():
+        try:
+            tree = ET.parse(xml_path)
+            root = tree.getroot()
+            for row in root.findall(".//row"):
+                name = row.get("paramdexName", "")
+                defeat_flag = int(row.get("defeatBossFlagId", 0))
+                if defeat_flag <= 0 or not name:
+                    continue
+                # Clean boss name (remove location prefix)
+                boss_name_clean = name
+                if name.startswith("[") and "]" in name:
+                    boss_name_clean = name[name.index("]") + 1:].strip()
+                if defeat_flag not in entity_names:
+                    entity_names[defeat_flag] = boss_name_clean
+                    game_area_count += 1
+        except Exception as e:
+            print(f"    Warning: Error parsing GameAreaParam: {e}")
+    print(f"    GameAreaParam boss names: {game_area_count}")
+
+    # Apply NPC_NAME_LOOKUP as highest priority (overwrites)
+    npc_lookup_count = 0
+    for entity_id, name in NPC_NAME_LOOKUP.items():
+        if entity_id not in entity_names:
+            npc_lookup_count += 1
+        entity_names[entity_id] = name  # Always overwrite - highest priority
+    print(f"    NPC_NAME_LOOKUP entries: {npc_lookup_count} new, {len(NPC_NAME_LOOKUP)} total")
+
+    print(f"    Total entity names: {len(entity_names)}")
+    return entity_names
 
 
 def format_map_tile(area_no: int, grid_x: int, grid_z: int) -> str:
@@ -3568,6 +3830,8 @@ def extract_emevd_templates(
     msb_assets: Dict[int, Dict],
     world_map_points: Dict[int, Dict],
     existing_flag_ids: set,
+    entity_names: Dict[int, str] = None,
+    gesture_names: Dict[int, str] = None,
 ) -> Tuple[List[EventFlag], Dict[int, Dict]]:
     """
     Extract event flags from EMEVD template instantiations in map-specific event files.
@@ -3586,6 +3850,8 @@ def extract_emevd_templates(
         msb_assets: Asset entity index {entity_id: {pos, area, ...}} for asset lookups
         world_map_points: WorldMapPointParam data for map discovery coordinate lookups
         existing_flag_ids: Set of already-extracted flag IDs to deduplicate against
+        entity_names: Optional entity_id → name mapping for fallback name resolution
+        gesture_names: Optional gesture_id → name mapping from GestureParam
     """
     flags = []
     item_lot_positions = {}  # {item_lot_id: position_data}
@@ -3732,10 +3998,24 @@ def extract_emevd_templates(
 
             # Build flag name
             name = f"{category} ({flag_id})"
+            ename = None
             if entity_data:
                 ename = entity_data.get("name")
-                if ename:
-                    name = f"{ename} - {category}"
+            # Fallback: entity_names map (covers chr entities without MSB names)
+            if not ename and entity_id and entity_names:
+                ename = entity_names.get(entity_id)
+            if ename:
+                name = f"{ename} - {category}"
+            elif category == "Gesture Unlock" and gesture_names and "gesture_idx" in tmpl:
+                # Resolve gesture name from template params
+                gidx = tmpl["gesture_idx"]
+                if gidx < len(params) and params[gidx] > 0:
+                    gname = gesture_names.get(params[gidx])
+                    if gname:
+                        name = f"{category} ({gname})"
+            elif not ename and region and region != "Various":
+                # Use region as location context for unnamed entities
+                name = f"{category} ({region})"
 
             # Raw data
             raw_data = {
@@ -3750,6 +4030,10 @@ def extract_emevd_templates(
                 ilt_idx = tmpl["item_lot_idx"]
                 if ilt_idx < len(params) and params[ilt_idx] > 0:
                     raw_data["item_lot_id"] = params[ilt_idx]
+            if "gesture_idx" in tmpl:
+                gidx = tmpl["gesture_idx"]
+                if gidx < len(params) and params[gidx] > 0:
+                    raw_data["gesture_id"] = params[gidx]
 
             # Verification status
             vs, backed = categorize_verification_status(
@@ -3927,7 +4211,10 @@ def extract_map_literal_flags(existing_flag_ids: set) -> List[EventFlag]:
     return flags
 
 
-def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[int, EventFlag]) -> int:
+def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[int, EventFlag],
+                                entity_names: Dict[int, str] = None,
+                                gesture_names: Dict[int, str] = None,
+                                region_entities: Dict[int, str] = None) -> int:
     """
     Post-processing: resolve names for flags extracted via literal EMEVD calls.
 
@@ -3938,8 +4225,20 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
     For EMEVD Literal Flags, classifies the surrounding event context (boss defeat,
     cutscene, network state, etc.) and stores it in raw_data['emevd_context'].
 
+    Args:
+        entity_names: Optional entity_id → name mapping from build_entity_name_map()
+            for fallback name resolution when all_flags_lookup returns generic names.
+        gesture_names: Optional gesture_id → name mapping from GestureParam.
+        region_entities: Optional region entity_id → translated label from MSB Region/Other.
+
     Returns the number of flags resolved.
     """
+    if entity_names is None:
+        entity_names = {}
+    if gesture_names is None:
+        gesture_names = {}
+    if region_entities is None:
+        region_entities = {}
     if not EVENT_DIR.exists():
         print("  Warning: Event directory not found, skipping EMEVD name resolution")
         return 0
@@ -3979,6 +4278,15 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
         (re.compile(r'EnableCharacter\(|SpawnObjTreasure'), 'spawn_state'),
         (re.compile(r'DisableCharacter|ForceCharacterDeath'), 'character_state'),
         (re.compile(r'SetNetworkconnectedEventFlagID'), 'network_state'),
+        # Lower-specificity patterns for previously unclassified verbs
+        (re.compile(r'WaitFor.*InArea|InArea\(\d+,\s*\d+\)'), 'area_trigger'),
+        (re.compile(r'ActionButtonInArea'), 'interaction'),
+        (re.compile(r'IssueShortWarpRequest'), 'warp_trigger'),
+        (re.compile(r'DisplayGenericDialog'), 'dialog_trigger'),
+        (re.compile(r'InvokeEnemyGenerator'), 'enemy_spawn'),
+        (re.compile(r'ShowTutorialPopup'), 'tutorial'),
+        (re.compile(r'OpenWorldMapPoint'), 'map_unlock'),
+        (re.compile(r'StartPS5Activity'), 'activity_trigger'),
     ]
 
     # Human-readable context labels for display
@@ -3993,7 +4301,38 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
         'item_award': 'Item Award',
         'spawn_state': 'Spawn State',
         'character_state': 'Character State',
+        'area_trigger': 'Area Trigger',
+        'interaction': 'Interaction Trigger',
+        'warp_trigger': 'Warp Trigger',
+        'dialog_trigger': 'Dialog Trigger',
+        'enemy_spawn': 'Enemy Spawn',
+        'tutorial': 'Tutorial Trigger',
+        'map_unlock': 'Map Unlock',
+        'activity_trigger': 'Activity Trigger',
     }
+
+    # Action patterns for event_action classification (ordered by specificity)
+    # Classifies the immediate verb nearest to the SetEventFlagID call
+    action_patterns = [
+        (re.compile(r'HandleBossDefeatAndDisplayBanner'), 'boss_defeated'),
+        (re.compile(r'CharacterDead\('), 'enemy_killed'),
+        (re.compile(r'AwardGesture'), 'gesture_acquired'),
+        (re.compile(r'AwardItemsIncludingClients|AwardItemLot|DirectlyGivePlayerItem'), 'item_acquired'),
+        (re.compile(r'PlayCutscene'), 'cutscene_watched'),
+        (re.compile(r'OpenMapDoor|EnableMapDoor'), 'door_opened'),
+        (re.compile(r'DisableCharacter'), 'character_hidden'),
+        (re.compile(r'EnableCharacter'), 'character_revealed'),
+        (re.compile(r'ForceCharacterDeath'), 'character_killed'),
+        (re.compile(r'SpawnObjTreasure'), 'treasure_spawned'),
+        (re.compile(r'DisplayAreaWelcomeMessage'), 'area_discovered'),
+        (re.compile(r'ShowTutorialPopup'), 'tutorial_shown'),
+        (re.compile(r'InArea\('), 'area_entered'),
+        (re.compile(r'ActionButtonInArea'), 'interaction_used'),
+        (re.compile(r'StartPS5Activity'), 'activity_started'),
+        (re.compile(r'WarpCharacterAndCopyFloor|IssueShortWarpRequest'), 'warp_triggered'),
+        (re.compile(r'BatchSetNetworkconnectedEventFlags'), 'network_sync'),
+        (re.compile(r'SetNetworkconnectedEventFlagID'), 'network_flag_set'),
+    ]
 
     # Map EMEVD source names to dungeon region names for enrichment
     dungeon_region_names = {
@@ -4007,7 +4346,21 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
     }
 
     resolved = 0
+    # Resolution statistics
+    stats = {
+        'entity_name_boss': 0,      # Boss name via entity_names map
+        'entity_name_enemy': 0,     # Enemy name via entity_names map
+        'context_pattern_new': 0,   # Resolved by new context patterns
+        'dungeon_label_fallback': 0, # Dungeon label fallback for unknowns
+        'context_pattern_existing': 0, # Resolved by existing context patterns
+        'resolvable_category': 0,   # Resolvable category (Boss Reward etc.)
+    }
     file_cache: Dict[str, Optional[str]] = {}
+    # Cache of pre-parsed $Event block boundaries per source file
+    event_blocks_cache: Dict[str, List[Tuple[int, int]]] = {}
+    # New patterns added in this improvement
+    new_pattern_labels = {'area_trigger', 'interaction', 'warp_trigger', 'dialog_trigger',
+                          'enemy_spawn', 'tutorial', 'map_unlock', 'activity_trigger'}
 
     for source, source_flags in flags_by_source.items():
         js_file = EVENT_DIR / (source + ".js")
@@ -4025,16 +4378,49 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
         if content is None:
             continue
 
+        # Pre-parse $Event block boundaries for this file
+        if source not in event_blocks_cache:
+            blocks = []
+            # Find all $Event( starts and their matching closing braces
+            for evt_match in re.finditer(r'\$Event\(\d+', content):
+                evt_start = evt_match.start()
+                # Find the closing brace by counting brace depth
+                brace_depth = 0
+                evt_end = evt_start
+                in_block = False
+                for i in range(evt_start, len(content)):
+                    if content[i] == '{':
+                        brace_depth += 1
+                        in_block = True
+                    elif content[i] == '}':
+                        brace_depth -= 1
+                        if in_block and brace_depth == 0:
+                            evt_end = i + 1
+                            break
+                if evt_end > evt_start:
+                    blocks.append((evt_start, evt_end))
+            event_blocks_cache[source] = blocks
+
+        event_blocks = event_blocks_cache[source]
+
         for f in source_flags:
             flag_re = re.compile(flag_set_re_template.format(flag_id=f.flag_id))
             match = flag_re.search(content)
             if not match:
                 continue
 
-            # Get surrounding context (500 chars before, 200 after)
-            ctx_start = max(0, match.start() - 500)
-            ctx_end = min(len(content), match.end() + 200)
-            ctx = content[ctx_start:ctx_end]
+            # Find enclosing $Event block for wider context
+            ctx = None
+            for block_start, block_end in event_blocks:
+                if block_start <= match.start() < block_end:
+                    ctx = content[block_start:block_end]
+                    break
+
+            # Fallback to fixed window if no enclosing block found
+            if ctx is None:
+                ctx_start = max(0, match.start() - 500)
+                ctx_end = min(len(content), match.end() + 200)
+                ctx = content[ctx_start:ctx_end]
 
             if f.category in resolvable_categories:
                 # Try to find a boss defeat nearby (look backwards from the flag set)
@@ -4050,6 +4436,12 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                         # Strip category prefix like "[Boss Defeat] " or "Great Boss Defeat: "
                         boss_name = re.sub(r'^\[.*?\]\s*', '', boss_name)
                         boss_name = re.sub(r'^(Great |)Boss (Defeat|Found): ', '', boss_name)
+                    # Fallback: try entity_names if flag name is generic
+                    if not boss_name or 'Flag' in boss_name or 'Map Event' in boss_name:
+                        entity_boss_name = entity_names.get(boss_entity_id)
+                        if entity_boss_name:
+                            boss_name = entity_boss_name
+                            stats['entity_name_boss'] += 1
 
                 # Derive dungeon name from source file
                 map_match = re.match(r'm(\d+)_(\d+)_(\d+)', source)
@@ -4067,6 +4459,7 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                     if boss_name:
                         f.raw_data["boss_name"] = boss_name
                     resolved += 1
+                    stats['resolvable_category'] += 1
 
                 elif f.category == "Remembrance":
                     if boss_name:
@@ -4077,6 +4470,7 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                     if boss_name:
                         f.raw_data["boss_name"] = boss_name
                     resolved += 1
+                    stats['resolvable_category'] += 1
 
                 elif f.category == "Progression":
                     # Check specific context types
@@ -4084,13 +4478,17 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                         f.name = f"Progression ({boss_name})"
                     elif re.search(r'AwardGesture\((\d+)\)', ctx):
                         gesture_match = re.search(r'AwardGesture\((\d+)\)', ctx)
-                        f.name = f"Gesture Unlock (gesture {gesture_match.group(1)})"
+                        gesture_id = int(gesture_match.group(1))
+                        gname = gesture_names.get(gesture_id)
+                        f.name = f"Gesture Unlock ({gname})" if gname else f"Gesture Unlock (gesture {gesture_id})"
+                        f.raw_data["gesture_id"] = gesture_id
                     elif dungeon_label:
                         f.name = f"Progression ({dungeon_label})"
                     f.raw_data["resolved_via"] = "emevd_context_trace"
                     if boss_name:
                         f.raw_data["boss_name"] = boss_name
                     resolved += 1
+                    stats['resolvable_category'] += 1
 
                 elif f.category == "Mausoleum Duplication":
                     # Look for co-set flags that hint at what this mausoleum duplicates
@@ -4108,6 +4506,7 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                                     break
                     f.raw_data["resolved_via"] = "emevd_context_trace"
                     resolved += 1
+                    stats['resolvable_category'] += 1
 
             elif f.category == "EMEVD Literal Flag":
                 # Classify event context
@@ -4117,6 +4516,21 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                         emevd_context = label
                         break
                 f.raw_data["emevd_context"] = emevd_context
+
+                # Determine event_action: the nearest EMEVD verb before the flag set
+                # This classifies the immediate action, separate from emevd_context
+                # which classifies the whole event block
+                flag_pos_in_ctx = ctx.find(f'SetEventFlagID({f.flag_id},')
+                if flag_pos_in_ctx < 0:
+                    flag_pos_in_ctx = ctx.find(f'SetNetworkconnectedEventFlagID({f.flag_id},')
+                before_flag = ctx[:flag_pos_in_ctx] if flag_pos_in_ctx > 0 else ctx
+                event_action = None
+                for ap, action_label in action_patterns:
+                    if ap.search(before_flag):
+                        event_action = action_label
+                        break
+                if event_action:
+                    f.raw_data["event_action"] = event_action
 
                 # Enrich the name with context type + specifics
                 context_label = context_labels.get(emevd_context)
@@ -4128,38 +4542,91 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                     bm = list(boss_defeat_re.finditer(before))
                     if bm:
                         boss_entity_id = int(bm[-1].group(1))
+                        bname = None
                         boss_flag = all_flags_lookup.get(boss_entity_id)
                         if boss_flag:
                             bname = boss_flag.name
                             bname = re.sub(r'^\[.*?\]\s*', '', bname)
                             bname = re.sub(r'^(Great |)Boss (Defeat|Found): ', '', bname)
-                            # Don't use self-referential names
-                            if 'Flag' not in bname and 'Map Event' not in bname:
-                                specific_name = bname
-                                f.raw_data["boss_name"] = bname
+                        # Fallback: try entity_names if flag name is generic
+                        if not bname or 'Flag' in bname or 'Map Event' in bname:
+                            entity_boss_name = entity_names.get(boss_entity_id)
+                            if entity_boss_name:
+                                bname = entity_boss_name
+                                stats['entity_name_boss'] += 1
+                        # Don't use self-referential names
+                        if bname and 'Flag' not in bname and 'Map Event' not in bname:
+                            specific_name = bname
+                            f.raw_data["boss_name"] = bname
 
                 elif emevd_context == 'enemy_defeat':
                     # Extract entity ID from CharacterDead(N)
                     char_dead_match = re.search(r'CharacterDead\((\d+)\)', ctx)
                     if char_dead_match:
                         entity_id = int(char_dead_match.group(1))
+                        ename = None
                         enemy_flag = all_flags_lookup.get(entity_id)
                         if enemy_flag:
                             ename = enemy_flag.name
                             ename = re.sub(r'^\[.*?\]\s*', '', ename)
-                            if 'Flag' not in ename and 'Map Event' not in ename:
-                                specific_name = ename
-                                f.raw_data["enemy_name"] = ename
+                        # Fallback: try entity_names if flag name is generic
+                        if not ename or 'Flag' in ename or 'Map Event' in ename:
+                            entity_enemy_name = entity_names.get(entity_id)
+                            if entity_enemy_name:
+                                ename = entity_enemy_name
+                                stats['entity_name_enemy'] += 1
+                        if ename and 'Flag' not in ename and 'Map Event' not in ename:
+                            specific_name = ename
+                            f.raw_data["enemy_name"] = ename
 
                 elif emevd_context == 'gesture_unlock':
                     gesture_match = re.search(r'AwardGesture\((\d+)\)', ctx)
                     if gesture_match:
-                        specific_name = f"gesture {gesture_match.group(1)}"
+                        gesture_id = int(gesture_match.group(1))
+                        gname = gesture_names.get(gesture_id)
+                        specific_name = gname if gname else f"gesture {gesture_id}"
+                        f.raw_data["gesture_id"] = gesture_id
 
                 elif emevd_context == 'cutscene':
                     cutscene_match = re.search(r'PlayCutscene[A-Za-z]*\((\d+),', ctx)
                     if cutscene_match:
                         specific_name = f"cutscene {cutscene_match.group(1)}"
+
+                elif emevd_context == 'character_state':
+                    # Extract entity ID from DisableCharacter(N) or ForceCharacterDeath(N)
+                    char_match = re.search(r'(?:DisableCharacter|ForceCharacterDeath)\((\d+)\)', ctx)
+                    if char_match:
+                        eid = int(char_match.group(1))
+                        ename = entity_names.get(eid)
+                        if ename:
+                            specific_name = ename
+                            f.raw_data["entity_id"] = eid
+
+                elif emevd_context == 'spawn_state':
+                    # Extract entity ID from EnableCharacter(N) or SpawnObjTreasure(N)
+                    spawn_match = re.search(r'(?:EnableCharacter|SpawnObjTreasure)\((\d+)\)', ctx)
+                    if spawn_match:
+                        eid = int(spawn_match.group(1))
+                        ename = entity_names.get(eid)
+                        if ename:
+                            specific_name = ename
+                            f.raw_data["entity_id"] = eid
+
+                elif emevd_context == 'item_award':
+                    # Extract entity ID from AwardItemLot(N) or AwardItemsIncludingClients(N)
+                    item_match = re.search(r'(?:AwardItemLot|AwardItemsIncludingClients)\((\d+)', ctx)
+                    if item_match:
+                        f.raw_data["item_lot_id"] = int(item_match.group(1))
+
+                elif emevd_context in ('area_trigger', 'interaction', 'warp_trigger'):
+                    # Extract region entity ID from InArea/ActionButtonInArea patterns
+                    area_match = re.search(r'(?:InArea|ActionButtonInArea)\(\d+,\s*(\d+)\)', ctx)
+                    if area_match:
+                        region_eid = int(area_match.group(1))
+                        rname = region_entities.get(region_eid)
+                        if rname:
+                            specific_name = rname
+                            f.raw_data["region_entity_id"] = region_eid
 
                 if context_label:
                     if specific_name:
@@ -4167,6 +4634,32 @@ def resolve_emevd_literal_names(flags: List[EventFlag], all_flags_lookup: Dict[i
                     else:
                         f.name = f"{context_label} Flag ({f.flag_id})"
                     resolved += 1
+                    if emevd_context in new_pattern_labels:
+                        stats['context_pattern_new'] += 1
+                    else:
+                        stats['context_pattern_existing'] += 1
+                elif emevd_context == 'unknown' and "Map Event Flag" in f.name:
+                    # Fallback: enrich with dungeon/location label
+                    map_match = re.match(r'm(\d+)_(\d+)_(\d+)', source)
+                    if map_match:
+                        area_no = int(map_match.group(1))
+                        dungeon_label = dungeon_region_names.get(area_no)
+                        source_map = source.split('.')[0]
+                        if dungeon_label:
+                            f.name = f"Event Flag ({dungeon_label} {source_map})"
+                        else:
+                            f.name = f"Event Flag ({source_map})"
+                        resolved += 1
+                        stats['dungeon_label_fallback'] += 1
+
+    # Print resolution statistics breakdown
+    print(f"  Resolution breakdown:")
+    print(f"    Resolvable categories (Boss Reward/Remembrance/etc.): {stats['resolvable_category']}")
+    print(f"    Existing context patterns: {stats['context_pattern_existing']}")
+    print(f"    New context patterns: {stats['context_pattern_new']}")
+    print(f"    Entity name fallback (boss): {stats['entity_name_boss']}")
+    print(f"    Entity name fallback (enemy): {stats['entity_name_enemy']}")
+    print(f"    Dungeon label fallback: {stats['dungeon_label_fallback']}")
 
     return resolved
 
@@ -4353,12 +4846,27 @@ def main():
         for f in f_list:
             existing_flag_ids.add(f.flag_id)
 
+    # Build entity name map (needed by templates AND literal resolution)
+    entity_names = build_entity_name_map(npc_params, lookups["npcs"], boss_names, chr_model_names)
+
+    # Load gesture names
+    print("\nLoading gesture names...")
+    gesture_names = load_gesture_names()
+    print(f"  GestureParam: {len(gesture_names)} gesture names")
+
+    # Load MSB region names
+    print("\nLoading MSB region entity names...")
+    region_entities = load_msb_region_names()
+    print(f"  MSB Region/Other: {len(region_entities)} region entities with translated labels")
+
     print("\n" + "-" * 40)
     print("Extracting from EMEVD map event files...")
     print("-" * 40)
 
     print("\nExtracting EMEVD template instantiations...")
-    template_flags, item_lot_positions = extract_emevd_templates(msb_enemies, msb_enemy_positions, msb_assets, world_map_points, existing_flag_ids)
+    template_flags, item_lot_positions = extract_emevd_templates(
+        msb_enemies, msb_enemy_positions, msb_assets, world_map_points,
+        existing_flag_ids, entity_names, gesture_names)
     print(f"  Found {len(template_flags)} new flags from templates")
     print(f"  Item lot positions resolved: {len(item_lot_positions)}")
 
@@ -4435,7 +4943,8 @@ def main():
     # Post-processing: resolve literal EMEVD flag names via event context tracing
     print("\nResolving EMEVD literal flag names via event context...")
     all_flags_lookup = {f.flag_id: f for f in unique_flags}
-    emevd_resolved_count = resolve_emevd_literal_names(unique_flags, all_flags_lookup)
+    emevd_resolved_count = resolve_emevd_literal_names(
+        unique_flags, all_flags_lookup, entity_names, gesture_names, region_entities)
     print(f"  EMEVD names resolved: {emevd_resolved_count} flags")
 
     # Category summary

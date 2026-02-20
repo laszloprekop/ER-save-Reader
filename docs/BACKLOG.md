@@ -1,6 +1,6 @@
 # Project Backlog
 
-**Last updated**: 2026-02-15
+**Last updated**: 2026-02-20
 
 This is the single location for all planned work, remaining gaps, and deferred items. Organized by priority.
 
@@ -10,9 +10,9 @@ This is the single location for all planned work, remaining gaps, and deferred i
 
 ### Gesture Database
 - **Source**: GestureParam (~60 rows)
-- **Status**: NOT STARTED
-- **Impact**: Cannot display/edit unlocked gestures
-- **Effort**: Low (simple enum + flag mapping)
+- **Status**: PARTIALLY DONE — `load_gesture_names()` added in extraction script (v0.17.12), 51 gestures mapped for flag name resolution. WASM/Rust enum and save editing not yet implemented.
+- **Impact**: Cannot display/edit unlocked gestures in save editor
+- **Effort**: Low (simple enum + flag mapping, gesture names already available)
 
 ### Full NPC Database
 - **Source**: NpcParam (~500 entries)
