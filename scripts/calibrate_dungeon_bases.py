@@ -270,6 +270,84 @@ def self_check(slots: list[dict]) -> bool:
 # Main
 # ---------------------------------------------------------------------------
 
+def calibrate_section(
+    slots: list[dict],
+    area: int,
+    section: int,
+    anchors: List[FlagAnchor],
+    label: str,
+    corroborate_anchors: List[FlagAnchor] | None = None,
+    patch: bool = False,
+) -> int | None:
+    """
+    Run cross-slot calibration for one (area, section) pickup base.
+
+    Returns the discovered base if exactly 1 or very few candidates remain,
+    otherwise None.  Prints a compact summary.
+    """
+    import datetime
+
+    print(f"\n  [{area:02d}_{section:02d}] {label}")
+
+    per_slot: list[list[BaseCandidate]] = []
+    for slot in slots:
+        candidates = find_base_for_flags(slot['event_flags'], anchors)
+        verified = corroborate(candidates)
+        per_slot.append(verified)
+
+    non_empty = [s for s in per_slot if s]
+    if not non_empty:
+        print(f"    SKIP — no slot has all anchors set")
+        return None
+
+    # Try requiring all non-empty slots first; fall back by one slot at a time
+    consistent: list[BaseCandidate] = []
+    min_used = len(non_empty)
+    for min_s in range(len(non_empty), 0, -1):
+        consistent = find_consistent_base(per_slot, min_slots=min_s)
+        if consistent:
+            min_used = min_s
+            break
+
+    slot_counts = ", ".join(f"s{s['slot_idx']}={len(r)}" for s, r in zip(slots, per_slot) if r)
+    print(f"    Slots with candidates: {slot_counts}  |  consistent(min={min_used}): {len(consistent)}")
+
+    if not consistent:
+        print(f"    FAIL — no consistent candidate found")
+        return None
+
+    # Sort by number of supporting slots descending
+    from collections import Counter
+    base_slot_count: Counter = Counter()
+    for r in per_slot:
+        for c in r:
+            base_slot_count[c.base] += 1
+    consistent.sort(key=lambda c: -base_slot_count[c.base])
+
+    winner = consistent[0].base
+
+    # Corroborate winner with extra anchors if provided
+    if corroborate_anchors:
+        hit_count = 0
+        for slot in slots:
+            ef = slot['event_flags']
+            if all(_is_set(ef, *_flag_offset(winner, a.flag_id)) for a in corroborate_anchors):
+                hit_count += 1
+        corr_str = f"corroborated in {hit_count}/{len(slots)} slots"
+    else:
+        corr_str = f"{len(consistent)} candidate(s)"
+
+    print(f"    Winner: base={winner}  ({corr_str})")
+    if len(consistent) > 1:
+        others = [c.base for c in consistent[1:4]]
+        print(f"    Other candidates: {others}{'...' if len(consistent) > 4 else ''}")
+
+    if patch:
+        print(f"    (({area:2d}, {section:2d}), {winner}),  // {label} — VERIFIED {datetime.date.today()}")
+
+    return winner
+
+
 def main() -> None:
     import argparse
 
@@ -286,111 +364,186 @@ def main() -> None:
 
     print("Running self-check on verified areas...")
     self_check(slots)
-    print()
 
     # -----------------------------------------------------------------------
-    # m14 GENERAL base — already in lib.rs as 29987, verify with NPC flags
-    # that have statusesAlign=true in correlation data (TestA / slot 7)
-    # -----------------------------------------------------------------------
-    print("=" * 60)
-    print("Verifying m14_00 general base (boss defeats / events)")
-    print("=" * 60)
-
-    KNOWN_GENERAL_BASE = 29987
-
-    # Witch-Hunter Jerren NPC flags confirmed SET in slot 7 (TestA)
-    # via correlation data (statusesAlign=true, computedByteOffset=30076)
-    # local_id 717: residue=5; local_id 712: residue=0 → 2 distinct residues
-    m14_general_anchors = [
-        FlagAnchor(14000717, "Witch-Hunter Jerren (state 5)"),
-        FlagAnchor(14000712, "Sorceress Sellen (state 0)"),
-    ]
-
-    print(f"\n  Direct check at base {KNOWN_GENERAL_BASE} across slots:")
-    for slot in slots:
-        ef = slot['event_flags']
-        states = {
-            a.name: "SET" if _is_set(ef, *_flag_offset(KNOWN_GENERAL_BASE, a.flag_id)) else "CLEAR"
-            for a in m14_general_anchors
-        }
-        print(f"    Slot {slot['slot_idx']}: " + "  ".join(f"{k}={v}" for k, v in states.items()))
-
-    # -----------------------------------------------------------------------
-    # m14 PICKUP base — current placeholder 31903 needs calibration
-    # Confessor (slot 0) has confirmed m14 pickup items in correlation data:
-    #   14007150 (local_id 7150, residue 6) computedByteOffset=30880
-    #   14007290 (local_id 7290, residue 2) computedByteOffset=30898
-    # Both imply pickup base = 29987
+    # Pickup section base calibration for all 31903-placeholder areas
+    # Anchors are confirmed-in-save flags from flag-correlation-candidates.jsonl
+    # Each set has >= 2 distinct local_id % 8 residues (required by corroborate)
     # -----------------------------------------------------------------------
     print()
     print("=" * 60)
-    print("Calibrating m14_00 pickup base (item pickups, local_id >= 7000)")
+    print("Calibrating pickup section bases (31903 placeholders)")
     print("=" * 60)
 
-    # Academy Glintstone Key is required to enter Raya Lucaria → all visiting
-    # slots must have it.  Longtail Cat Talisman: main-path chest pickup.
-    m14_pickup_anchors = [
-        FlagAnchor(14007930, "Academy Glintstone Key"),     # residue=7930%8=2
-        FlagAnchor(14007320, "Longtail Cat Talisman"),      # residue=7320%8=0
+    # CALIBRATION RELIABILITY TIERS:
+    #
+    # TIER 1 — High confidence: anchors have unique local_ids (not shared with
+    #   other sections), sufficient distinct residues, and 3+ slots agree.
+    #   Winner verified by checking hit-count across all 41+ confirmed flags.
+    #   m14 (29782), m16 (2194) belong here.
+    #
+    # TIER 2 — Unreliable: anchors use generic local_ids (7025, 7220, 7230...)
+    #   present across many sections.  Cross-slot consistency can be fooled by
+    #   coincidental dense bits.  Winner looks clean (1-2 candidates) but is
+    #   likely a false positive.  Do NOT apply these results to lib.rs without
+    #   a before/after save diff confirming the specific item pickup.
+    #   m11, m12_2, m12_7, m13, m15, m20, m21, m31_21, m35, m41 are TIER 2.
+    #
+    # To move an area to TIER 1: find local_ids that are unique to that section
+    #   (not shared with any other dungeon area that a typical character has also
+    #   visited) and rerun the calibration.
+
+    SECTIONS: list[tuple[int, int, list[FlagAnchor], str]] = [
+        # (area, section, anchors, label)
+        # ------------------------------------------------------------------
+        # TIER 2 — generic local_ids, result unreliable
+        # Area 11: Leyndell Royal Capital — section 0
+        (11, 0, [
+            FlagAnchor(11007025, "Celestial Dew"),             # residue=1
+            FlagAnchor(11007220, "Golden Rune [8]"),           # residue=4
+            FlagAnchor(11007230, "Lordsworn's Bolt"),          # residue=6
+            FlagAnchor(11007730, "Holyproof Dried Liver"),     # residue=2
+        ], "Leyndell Royal Capital (s0)  [TIER 2 — unreliable]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — generic local_ids, result unreliable
+        # Area 12: Underground section 2 (Ainsel River Main)
+        (12, 2, [
+            FlagAnchor(12027050, "Marika's Scarseal"),         # residue=2
+            FlagAnchor(12027470, "Clarifying Horn Charm"),     # residue=6
+            FlagAnchor(12027000, "Mottled Necklace"),          # residue=0
+            FlagAnchor(12027620, "Mottled Necklace +1"),       # residue=4
+        ], "Underground s2 (Ainsel River Main)  [TIER 2 — unreliable]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — only 1 unique local_id (7440), insufficient discrimination
+        # Area 12: Underground section 7 (Deeproot Depths)
+        (12, 7, [
+            FlagAnchor(12077440, "Greatshield Soldier Ashes"), # residue=0 UNIQUE
+            FlagAnchor(12077220, "Golden Rune [1]"),           # residue=4
+            FlagAnchor(12077230, "Golden Rune [1] (2nd)"),     # residue=6
+            FlagAnchor(12077410, "Smithing Stone [3]"),        # residue=2
+        ], "Underground s7 (Deeproot Depths)  [TIER 2 — only 1 unique lid]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — generic local_ids
+        # Area 13: Crumbling Farum Azula — section 0
+        (13, 0, [
+            FlagAnchor(13007025, "Great Grave Glovewort"),     # residue=1
+            FlagAnchor(13007220, "Smithing Stone [8]"),        # residue=4
+            FlagAnchor(13007670, "Smithing Stone [6]"),        # residue=6
+            FlagAnchor(13007730, "Smithing Stone [7]"),        # residue=2
+        ], "Crumbling Farum Azula (s0)  [TIER 2 — unreliable]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — generic local_ids
+        # Area 15: Miquella's Haligtree — section 0
+        (15, 0, [
+            FlagAnchor(15007220, "Pearldrake Talisman +2"),    # residue=4
+            FlagAnchor(15007230, "Smithing Stone [8]"),        # residue=6
+            FlagAnchor(15007730, "Smithing Stone [8] (2nd)"), # residue=2
+            FlagAnchor(15007280, "Somber Smithing Stone [8]"), # residue=0
+        ], "Miquella's Haligtree (s0)  [TIER 2 — unreliable]"),
+        # ------------------------------------------------------------------
+        # TIER 1 — 4 unique local_ids (7940/7000/7010/7030), 4 distinct residues
+        # Area 16: Volcano Manor — section 0 — VERIFIED 2026-04-07 → base 2194
+        (16, 0, [
+            FlagAnchor(16007940, "Ghiza's Wheel"),             # residue=4 UNIQUE
+            FlagAnchor(16007000, "Smithing Stone [6]"),        # residue=0 UNIQUE
+            FlagAnchor(16007010, "Depraved Perfumer Carmaan"), # residue=2 UNIQUE
+            FlagAnchor(16007030, "Budding Horn"),              # residue=6 UNIQUE
+        ], "Volcano Manor (s0)  [TIER 1]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — DLC sections: all local_ids shared across m20/m21 sections
+        # Area 20: DLC Shadow Realm — section 0
+        (20, 0, [
+            FlagAnchor(20007220, "Thin Beast Bones"),          # residue=4
+            FlagAnchor(20007230, "Sliver of Meat"),            # residue=6
+            FlagAnchor(20007730, "Black Pyrefly"),             # residue=2
+            FlagAnchor(20007991, "Immunizing Horn Charm +2"),  # residue=7
+        ], "DLC Shadow Realm s0  [TIER 2 — no unique local_ids]"),
+        # Area 20: DLC Shadow Realm — section 1
+        (20, 1, [
+            FlagAnchor(20017220, "Furlcalling Finger Remedy"), # residue=4
+            FlagAnchor(20017230, "Spira"),                     # residue=6
+            FlagAnchor(20017991, "Horned Warrior's Greatsword"),# residue=7
+            FlagAnchor(20017280, "Rada Fruit"),                # residue=0
+        ], "DLC Shadow Realm s1  [TIER 2 — no unique local_ids]"),
+        # Area 21: DLC Elphael — section 0
+        (21, 0, [
+            FlagAnchor(21007220, "Rada Fruit"),                # residue=4
+            FlagAnchor(21007230, "Rada Fruit (2nd)"),          # residue=6
+            FlagAnchor(21007730, "Rada Fruit (3rd)"),          # residue=2
+            FlagAnchor(21007991, "Mantle of Thorns"),          # residue=7
+        ], "DLC Elphael s0  [TIER 2 — no unique local_ids]"),
+        # Area 21: DLC Elphael — section 1
+        (21, 1, [
+            FlagAnchor(21017220, "Rada Fruit"),                # residue=4
+            FlagAnchor(21017230, "Rada Fruit (2nd)"),          # residue=6
+            FlagAnchor(21017730, "Rada Fruit (3rd)"),          # residue=2
+            FlagAnchor(21017991, "Fire Knight Helm"),          # residue=7
+        ], "DLC Elphael s1  [TIER 2 — no unique local_ids]"),
+        # Area 21: DLC Elphael — section 2
+        (21, 2, [
+            FlagAnchor(21027220, "Beast Blood"),               # residue=4
+            FlagAnchor(21027230, "Smithing Stone [4]"),        # residue=6
+            FlagAnchor(21027991, "Fire Knight Helm (2nd)"),    # residue=7
+            FlagAnchor(21027280, "Rada Fruit"),                # residue=0
+        ], "DLC Elphael s2  [TIER 2 — no unique local_ids]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — no unique local_ids
+        # Area 31: Caves — section 21
+        (31, 21, [
+            FlagAnchor(31217350, "Regalia of Eochaid"),        # residue=6
+            FlagAnchor(31217100, "Wakizashi"),                 # residue=4
+            FlagAnchor(31217040, "Old Fang"),                  # residue=0
+            FlagAnchor(31217210, "Pillory Shield"),            # residue=2
+        ], "Caves s21  [TIER 2 — no unique local_ids]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — generic local_ids
+        # Area 35: Mohgwyn Palace — section 0
+        (35, 0, [
+            FlagAnchor(35007220, "Smithing Stone [7]"),        # residue=4
+            FlagAnchor(35007670, "Hefty Beast Bone"),          # residue=6
+            FlagAnchor(35007730, "Warming Stone"),             # residue=2
+            FlagAnchor(35007280, "Preserving Boluses"),        # residue=0
+        ], "Mohgwyn Palace (s0)  [TIER 2 — unreliable]"),
+        # ------------------------------------------------------------------
+        # TIER 2 — no unique local_ids
+        # Area 41: Minor Dungeons — section 0
+        (41, 0, [
+            FlagAnchor(41007100, "Broken Rune"),               # residue=4
+            FlagAnchor(41007110, "Thawfrost Boluses"),         # residue=6
+            FlagAnchor(41007130, "Glass Shard"),               # residue=2
+            FlagAnchor(41007200, "Smithing Stone [6]"),        # residue=0
+        ], "Minor Dungeons s0  [TIER 2 — no unique local_ids]"),
+        # Area 41: Minor Dungeons — section 2
+        (41, 2, [
+            FlagAnchor(41027100, "Chilling Perfume Bottle"),   # residue=4
+            FlagAnchor(41027110, "Call of Tibia"),             # residue=6
+            FlagAnchor(41027130, "Lamenting Visage"),          # residue=2
+            FlagAnchor(41027200, "Innard Meat"),               # residue=0
+        ], "Minor Dungeons s2  [TIER 2 — no unique local_ids]"),
     ]
 
-    print(f"\n  Direct check at base=29987 (slot 0 = Confessor):")
-    slot0_ef = slots[0]['event_flags']
-    for a in m14_pickup_anchors:
-        local_id = a.flag_id % 10000
-        byte_off = KNOWN_GENERAL_BASE + local_id // 8
-        bit_pos  = 7 - (a.flag_id % 8)
-        state = "SET" if _is_set(slot0_ef, byte_off, bit_pos) else "CLEAR"
-        print(f"    {a.name} (flag {a.flag_id}): byte={byte_off}, bit={bit_pos} → {state}")
+    TIER1 = {(16, 0)}  # sections with unique local_ids → trustworthy results
+    results: dict[tuple[int, int], int] = {}
+    for area, section, anchors, label in SECTIONS:
+        base = calibrate_section(slots, area, section, anchors, label,
+                                 patch=args.patch)
+        if base is not None:
+            results[(area, section)] = base
 
-    # Scan to find the pickup base empirically
-    # Scan range: same ~27000-35000 neighborhood
-    M14_SCAN_START = 27_000
-    M14_SCAN_END   = 35_000
-
-    per_slot: list[list[BaseCandidate]] = []
-    for slot in slots:
-        candidates = find_base_for_flags(slot['event_flags'], m14_pickup_anchors,
-                                         scan_start=M14_SCAN_START,
-                                         scan_end=M14_SCAN_END)
-        verified = corroborate(candidates)
-        per_slot.append(verified)
-        print(f"  Slot {slot['slot_idx']}: {len(verified)} corroborated pickup candidate(s)")
-
-    non_empty = [s for s in per_slot if s]
-    consistent = find_consistent_base(per_slot, min_slots=len(non_empty))
-    print(f"\n  Consistent across ALL {len(non_empty)} non-empty slot(s): {len(consistent)} candidate(s)")
-    if not consistent:
-        consistent = find_consistent_base(per_slot, min_slots=max(1, len(non_empty) - 1))
-        print(f"  (falling back to min_slots={max(1, len(non_empty)-1)}: {len(consistent)} candidate(s))")
-
-    expected_in = any(c.base == KNOWN_GENERAL_BASE for c in consistent)
-    print(f"  Expected base {KNOWN_GENERAL_BASE} in consistent list: {expected_in}")
-
-    for c in consistent[:5]:
-        residues = sorted({a.flag_id % 8 for a in c.anchors})
-        print(f"    base={c.base}  residues={residues}")
-
-    # Corroborate winner with additional Confessor (slot 0) pickup items
-    if consistent:
-        winner = consistent[0].base
-        print(f"\n  Corroborating base={winner} with additional Confessor pickup items:")
-        extra_anchors = [
-            FlagAnchor(14007150, "Marionette Soldier Ashes"),   # residue=6
-            FlagAnchor(14007290, "Avionette Soldier Ashes"),    # residue=2
-            FlagAnchor(14007930, "Academy Glintstone Key"),     # residue=2
-            FlagAnchor(14007320, "Longtail Cat Talisman"),      # residue=0
-        ]
-        for a in extra_anchors:
-            local_id = a.flag_id % 10000
-            byte_off = winner + local_id // 8
-            bit_pos  = 7 - (a.flag_id % 8)
-            state = "SET" if _is_set(slot0_ef, byte_off, bit_pos) else "CLEAR"
-            print(f"    {a.name}: byte={byte_off}, bit={bit_pos} → {state}")
-
-        if args.patch:
-            import datetime
-            print(f"\n    ((14, 0), {winner}),  // m14 pickup section base — VERIFIED {datetime.date.today()}")
+    print()
+    print("=" * 60)
+    print(f"Summary: {len(results)}/{len(SECTIONS)} sections found a winner")
+    print("=" * 60)
+    tier1 = [(k, v) for k, v in sorted(results.items()) if k in TIER1]
+    tier2 = [(k, v) for k, v in sorted(results.items()) if k not in TIER1]
+    if tier1:
+        print("  TIER 1 (trustworthy — unique local_ids):")
+        for (area, section), base in tier1:
+            print(f"    ({area:2d}, {section:2d}) → {base}")
+    if tier2:
+        print("  TIER 2 (DO NOT apply — generic local_ids, likely false positives):")
+        for (area, section), base in tier2:
+            print(f"    ({area:2d}, {section:2d}) → {base} ← suspicious")
 
 
 if __name__ == "__main__":

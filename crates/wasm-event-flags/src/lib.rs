@@ -307,8 +307,11 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
         ((14,  0), 29782),
         // Area 15: Miquella's Haligtree
         ((15,  0), 31903),
-        // Area 16: Volcano Manor
-        ((16,  0), 31903),
+        // Area 16: Volcano Manor — VERIFIED 2026-04-07 via unique local_ids
+        // (7940/7000/7010/7030, 4 distinct residues): 2 candidates from
+        // 6-slot intersection; 2194 confirmed with 34/41 flags SET in 3
+        // well-progressed slots vs 17/41 for the only other candidate (2270).
+        ((16,  0), 2194),
         // Area 18: Roundtable Hold
         ((18,  0),  3847),
         // Area 20: Stranded Graveyard
