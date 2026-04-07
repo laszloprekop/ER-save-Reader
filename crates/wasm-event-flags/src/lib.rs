@@ -300,8 +300,11 @@ fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
         ((12,  7), 31903),
         // Area 13: Crumbling Farum Azula
         ((13,  0), 31903),
-        // Area 14: Academy of Raya Lucaria
-        ((14,  0), 31903),
+        // Area 14: Academy of Raya Lucaria — VERIFIED 2026-04-07 via cross-slot
+        // intersection (8 save slots): Glintstone Key + Longtail Cat Talisman
+        // consistent in all 7 non-empty slots; corroborated by Avionette Ashes
+        // and Longtail Cat Talisman SET at this base in Confessor (slot 0).
+        ((14,  0), 29782),
         // Area 15: Miquella's Haligtree
         ((15,  0), 31903),
         // Area 16: Volcano Manor
