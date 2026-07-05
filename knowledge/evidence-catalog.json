@@ -1,0 +1,149 @@
+{
+  "corpora": [
+    {
+      "context": {
+        "format": "BND4, plaintext slots (0x300 header, 10 x (0x10 checksum + 0x280000 slot))",
+        "game_version": "1.16"
+      },
+      "description": "Full PC save backup, 2026-01-01. Slots 0 (Confessor, early) and 1 (Wretch, minimal).",
+      "id": "backup-2026-01-01",
+      "kind": "file",
+      "path": "ER0000-backup-2026-01-01.sl2",
+      "root": "saves",
+      "sha256": "993bf2ef95fe3b97d08fd1b7d631a8df24a6e45896049dfb72908af1f1cbf991",
+      "size": 28967888
+    },
+    {
+      "context": {
+        "format": "BND4, plaintext slots",
+        "game_version": "1.16",
+        "grace_family_bases_2026_07_05": {
+          "0": 81077,
+          "1": 76758,
+          "2": 76787,
+          "3": 76787,
+          "4": 76779
+        },
+        "slots": {
+          "0": "Confessor, mid-game. NOTE (2026-07-05): predates the Margit/Godrick/Radahn kills described in DATA-SOURCES.md - zeros at their flag bytes are TRUE negatives in this file.",
+          "1": "Wretch: only the tutorial enemy (Soldier of Godrick) defeated; a few graces/pickups",
+          "2": "V1: minimal, pickup-debugging character",
+          "3": "V2: minimal, different path than V1, same pickup",
+          "4": "V3: minimal, negative control (no pickup)",
+          "5": "R: little-known character, largely uncharacterized"
+        }
+      },
+      "description": "Full PC save backup, 2026-01-11. Primary multi-slot differential instrument.",
+      "id": "backup-2026-01-11",
+      "kind": "file",
+      "path": "ER0000-backup-2026-01-11.sl2",
+      "root": "saves",
+      "sha256": "420e4bc1fa843c9cb7c1ae95c4615b83bb376b603566f2e39e26a7e938fb7b44",
+      "size": 28967888
+    },
+    {
+      "context": {
+        "key_items": {
+          "b24_b25": "Erdtree Burial Watchdog kill pair - THE anchor-disproof instrument (flag 30020800 flips at grace-base-adjacent region; ~222k struct-walk position stays zero). Regions shift by different amounts across the pair (GaItems +16, flag region +4).",
+          "level_93_snapshot": "Confessor at level 93; catacombs done, Stormveil bosses NOT yet killed (or area-10 base unverified); grace-family base 81251 (2026-07-05 detection, confident=false due to negative-flag violations)"
+        },
+        "pairing": "before/after around single in-game actions; b-series pairs are same-session (clean diffs)"
+      },
+      "description": "Full-save capture pairs for slot 0 (Confessor): 01-10 numbered series, b1-b55 series, level-93 snapshot.",
+      "files": 66,
+      "id": "snapshots-confessor",
+      "kind": "directory",
+      "manifest": "knowledge/manifests/snapshots-confessor.sha256",
+      "path": "Granular snapshots for debugging/slot 0 Confessor",
+      "root": "saves",
+      "total_size": 1911880608
+    },
+    {
+      "context": {
+        "note": "capture_catalog.json (excluded) is capture-agent metadata = legacy claims, not evidence; its context fields were computed with the removed python detector.",
+        "warning": "Several pairs are CROSS-SESSION: GaItem handles churn and layouts shift between before/after, so absolute byte diffs are shift illusions (e.g. pairs 122/123, 124/125). The s7 131/132 grace-71800 pair is near-clean (28 changed bytes) but its flag-byte interpretation is unresolved."
+      },
+      "description": "Numbered capture-pair saves at the snapshots root: s2-V1 world pickup pairs (119-127), s7-Slot7 grace/progression pairs (129-147+).",
+      "excludes": [
+        "slot 0 Confessor",
+        "timeline",
+        "capture_catalog.json",
+        "enrich_snapshots.py"
+      ],
+      "files": 101,
+      "id": "snapshots-root",
+      "kind": "directory",
+      "manifest": "knowledge/manifests/snapshots-root.sha256",
+      "path": "Granular snapshots for debugging",
+      "root": "saves",
+      "total_size": 2925756688
+    },
+    {
+      "context": {
+        "key_entries": "sd_000259 (Red Wolf kill) byte-validated the m14 base (c=0 vs GT catacombs flags); sd_000195 'Rennala' annotation is a flicker artifact.",
+        "missing": "Entries sd_000001..sd_000140 were never persisted; the chain starts at sd_000141 whose old-values reflect an unknown prior state.",
+        "replay": "Full-state replay accumulates ~0.7% old-value mismatches; untouched bytes are unknowable (no keyframes - see ADR-0007)."
+      },
+      "description": "Bee timeline (slot 5, 2026-02-14 .. 2026-05-25): 3,830 sparse slot diffs, 6 bytes per changed byte ([u32 LE offset][old][new]). Raw diff records are Evidence.",
+      "files": 3830,
+      "id": "timeline-slot-diffs",
+      "kind": "directory",
+      "manifest": "knowledge/manifests/timeline-slot-diffs.sha256",
+      "path": "Granular snapshots for debugging/timeline/slot_diffs",
+      "root": "saves",
+      "total_size": 7166532678
+    },
+    {
+      "context": {
+        "cataloged_as": "file hash only - integrity, not endorsement",
+        "trust": "eventFlagsOffset trustworthy only in the Feb-2026 era (~76k values; deltas 35,111+8k from gaEnd); from sd_000274 (2026-02-14T18:17) onward anchors jumped to ~223k (poisoned structural detection). bossesDefeated partly flicker artifacts. inventoryDelta polluted by GaItem handle churn."
+      },
+      "description": "Per-entry capture-agent metadata for the Bee timeline. LEGACY CLAIMS, not evidence (ADR-0001/0007).",
+      "id": "timeline-metadata",
+      "kind": "file",
+      "path": "Granular snapshots for debugging/timeline/slot_changes.jsonl",
+      "root": "saves",
+      "sha256": "d59a9523e4e085967580ca6dd128f5ce2a727bf54fac6da658d6a1248fb60e19",
+      "size": 4129223
+    },
+    {
+      "context": {
+        "not_regenerated": "event/*.emevd.js decompiles (the pipeline parses raw .emevd from game-raw-1162 natively) and MSB XMLs (optional, -IncludeMsb in scripts/windows/regenerate-game-extracts.ps1)",
+        "provenance": "regulation.bin (catalog corpus game-raw-1162) -> WitchyBND unpack -> param->XML; verified: ItemLotParam_map 5,564 rows, BonfireWarpParam 422, NpcParam 7,039, ShopLineupParam 1,277, WorldMapPointParam 472, Magic 317, GestureParam 57",
+        "third_party_note": "paramdexName attributes are community row names (Paramdex) - useful labels, not primary evidence"
+      },
+      "description": "Decompiled game resource files, RESTORED 2026-07-05: regulation-bin/*.param.xml regenerated with WitchyBND 2.15 from the Steam install (regulation version 11611000 = 1.16.1, matching the save era). 194 params, fields paramdef-resolved, Paramdex community row names embedded (names are third-party; values primary).",
+      "files": 390,
+      "id": "game-extracts",
+      "kind": "directory",
+      "manifest": "knowledge/manifests/game-extracts.sha256",
+      "path": ".",
+      "root": "decompiled",
+      "total_size": 156283657
+    },
+    {
+      "context": {
+        "alloclists": "decompressed/eventflag/*.eventflagalloclist are plain CSV `slot,map_id,class`; legacy-map base = REGION_BASE(4112 in grace-anchored coords of verified saves) + slot*1125; parsed into knowledge/game/eventflag-alloclists.json",
+        "compression": "DCX with DCP KRAK (Oodle Kraken); decompress by stripping to the DCA payload and prepending u64 LE uncompressed size for `ooz -d`",
+        "provenance_note": "Primary evidence for flag group definitions; the in-save POSITION of each family still floats per save (ADR-0003 amendment)."
+      },
+      "description": "Flag-relevant raw game files copied 2026-07-05 from the Steam install (NAS mount /Volumes/192.168.50.172/.../ELDEN RING/Game; exe ProductVersion 2.6.2 ~ game 1.16.x, matching the save era). event/ (590 .emevd.dcx + eventflag alloclists), regulation.bin, map/mapstudio (.msb.dcx), plus decompressed/ (DCX-unwrapped alloclists via ooz).",
+      "files": 1534,
+      "id": "game-raw-1162",
+      "kind": "directory",
+      "manifest": "knowledge/manifests/game-raw-1162.sha256",
+      "path": ".",
+      "root": "game_raw",
+      "total_size": 20027671
+    }
+  ],
+  "description": "Integrity index over out-of-repo Evidence (ADR-0001: evidence = raw bytes only). Hand-written fields: description, context, status, excludes. Machine fields (sha256, size, files, total_size, manifest, updated) are owned by `er-save-editor knowledge catalog-update`. In-repo evidence (conformance fixtures) is integrity-covered by git and the fixtures README, not by this catalog.",
+  "roots": {
+    "decompiled": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files",
+    "game_raw": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring game raw",
+    "repo_scripts": "/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/scripts",
+    "saves": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files"
+  },
+  "schema": "evidence-catalog/1",
+  "updated": "2026-07-05"
+}

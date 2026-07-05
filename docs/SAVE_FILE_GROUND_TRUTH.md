@@ -22,6 +22,19 @@ This document is the **single source of truth** for Elden Ring save file parsing
 > grace-validation scan pinned by committed conformance fixtures
 > (`crates/wasm-event-flags/tests/`). See `CONTEXT.md`, ADR-0003 amendment, ADR-0007,
 > and BACKLOG Priority 0b.
+>
+> **PRIMARY SOURCE RECOVERED (2026-07-05):** the game's own `eventflagalloclist` files
+> (decompressed from the raw install, parsed to `knowledge/game/eventflag-alloclists.json`)
+> define the legacy-map flag layout as CSV `slot,map_id,class` with
+> `base = REGION_BASE + slot × 1125`. With REGION_BASE = 4112 (grace-anchored coords of
+> the verified saves) this reproduces the entire legacy table including the
+> byte-verified m14 base (slot 23 → 29,987) and the previously removed m18 (slot 35 →
+> 43,487) / m19 (slot 38 → 46,862): the LAYOUT is authoritative; only the region's
+> in-save position floats per save. "Areas 20/21" in 8-digit flags are DLC maps m20
+> (Belurat) / m21 (Enir-Ilim) at DLC alloclist slots 150-156 — old "Stranded
+> Graveyard"/"Haligtree" labels were wrong. Regulation param XMLs regenerated at
+> version 11611000 (= 1.16.1, save-era match); see the evidence catalog
+> (`knowledge/evidence-catalog.json`, corpora `game-raw-1162` and `game-extracts`).
 
 ### Key Findings
 
@@ -79,14 +92,14 @@ Offset    | Size      | Content
 0x4       | 4         | Map ID
 0x20      | Variable  | GaItems (0x1400 max × variable bytes each)
 ...       | ...       | Other structures (PlayerGameData, Equipment, etc.)
-Variable  | 1,833,375 | EventFlags (offset around 0x36000-0x37000)
+Variable  | 1,833,375 | EventFlags (grace-family base ~ gaItemsEnd + 35-37k)
 ```
 
 **Critical**:
 1. Slot offsets are **NOT at fixed intervals** - they must be read from BND4 entries
 2. Each slot has a 16-byte MD5 checksum header before the actual data
-3. EventFlags offset **VARIES** per slot (around 0x36000-0x37000, ~222K-225K) due to variable-size GaItems section and intermediate structures
-4. **Structural detection** (v0.16.0): Sequential section parsing from GaItems through TutorialData + constant 29-byte gap computes the exact offset deterministically. Content-based grace flag search is retained only as a fallback for corrupted data
+3. EventFlags offset **VARIES** per slot due to the variable-size GaItems section (grace-family base = gaItemsEnd + ~35,100..37,100 across observed saves)
+4. ~~Structural detection (v0.16.0)~~ **DISPROVEN 2026-07-05**: the sequential-section model overshoots by ~146k onto a lookalike region (the "~222K" belief came from it). Detection is the gaEnd-windowed grace-validation scan pinned by conformance fixtures (`crates/wasm-event-flags/tests/`)
 
 ### Event Flags Section
 

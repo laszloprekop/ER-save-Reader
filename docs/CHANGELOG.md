@@ -4,6 +4,56 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.20.0 - Evidence catalog; game corpus restored; alloclist primary source
+
+### Features
+- **Evidence catalog (migration step 2)**: `knowledge/evidence-catalog.json` — integrity
+  index over all out-of-repo Evidence (8 corpora incl. saves, capture pairs, timeline
+  diffs, raw game files, regulation XMLs) with hand-written trust context per corpus and
+  machine-owned sha256/manifests. Per-file manifests under `knowledge/manifests/`
+  (5,500+ files, ~12GB covered).
+- **`knowledge` CLI family** (new `src/knowledge/`): `catalog-update` (fills machine
+  fields, preserves hand context) and `catalog-verify` (recompute + compare, exit 1 on
+  drift; drift detection tested with an injected stray file). Wired into `main.rs`
+  alongside `discovery`.
+- **Windows extraction script** `scripts/windows/regenerate-game-extracts.ps1`:
+  WitchyBND chain (regulation.bin → .param → .param.xml, optional MSB→XML), chunked
+  invocations, silent-mode fallback.
+
+### Evidence Restored
+- **Raw game files** (corpus `game-raw-1162`, 1,534 files): event/ (590 EMEVD + 4
+  eventflagalloclists), regulation.bin, MSBs — copied from the Steam install (exe
+  ProductVersion 2.6.2 ≈ 1.16.x). DCX(KRAK) decompression solved locally via ooz
+  (strip to DCA payload + u64 LE size prefix).
+- **Regulation param XMLs regenerated** (corpus `game-extracts`, flipped
+  missing→directory, 390 files): WitchyBND on the Windows machine, regulation version
+  11611000 = **1.16.1 — save-era match**; 194 paramdef-resolved params with Paramdex
+  row names (ItemLotParam_map 5,564 rows, NpcParam 7,039, BonfireWarpParam 422, …).
+  Restored to the canonical 'Elden Ring decompiled game files' path.
+
+### Key Findings (primary source)
+- **eventflagalloclists recovered and parsed** (`knowledge/game/eventflag-alloclists.json`,
+  143 entries): plain CSV `slot,map_id,class`; legacy layout
+  `base = REGION_BASE + slot×1125` reproduces the full legacy table INCLUDING the
+  byte-verified m14 base (slot 23 → 29,987) and the previously removed m18 (slot 35 →
+  43,487) / m19 (slot 38 → 46,862) — the LAYOUT was right all along; only the region's
+  in-save position floats per save (per-family float).
+- "Areas 20/21" belong to DLC maps m20 (Belurat) / m21 (Enir-Ilim) at DLC alloclist
+  slots 150-156 — old "Stranded Graveyard"/"Haligtree" labels were misreadings.
+- The decompiled-game-files corpus had been missing from this machine entirely;
+  the restoration chain is now scripted and cataloged.
+
+### Files Modified
+- `src/knowledge/{mod,catalog}.rs`: NEW knowledge CLI family
+- `src/main.rs`: knowledge dispatch; `Cargo.toml`: +sha2, bumped to 0.20.0
+- `knowledge/`: NEW catalog, manifests, game/eventflag-alloclists.json
+- `scripts/windows/regenerate-game-extracts.ps1`: NEW
+- `CLAUDE.md`, `docs/DATA-SOURCES.md`: stale corpus pointers corrected, extraction
+  levels documented
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: alloclist primary-source note; stale "~222K"
+  claims in the body corrected
+- `docs/BACKLOG.md`: step 2 done + corpus restoration updates
+
 ## v0.19.0 - ef-dump consumer API; delete Python EF detectors; deploy fixed wasm to elden-map
 
 ### Features

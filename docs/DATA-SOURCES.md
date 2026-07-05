@@ -60,6 +60,35 @@ Key fields in slot_changes.jsonl:
 
 ## Decompiled game resource files (single source of truth)
 
+> **MISSING (recorded 2026-07-05):** this corpus is no longer present on this machine —
+> the path below is dead. See the `game-extracts` entry in
+> `knowledge/evidence-catalog.json`. The derived remnant is
+> `scripts/extracted_event_flags.json` (provenance no longer re-verifiable).
+>
+> **RAW SOURCES RESTORED (2026-07-05):** flag-relevant raw game files were copied from
+> the Steam install (exe ProductVersion 2.6.2 ≈ game 1.16.x) into
+> `'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring game raw'` and cataloged as
+> corpus `game-raw-1162`. Extraction levels:
+> - **Level 0 (raw .dcx)**: DONE — event/ (590 EMEVD + 4 eventflagalloclists),
+>   regulation.bin, map/mapstudio MSBs; integrity-verified via the evidence catalog.
+> - **Level 1 (DCX/Oodle decompression)**: SOLVED locally — DCX(DCP KRAK) unwraps to a
+>   Kraken payload; prepend u64 LE uncompressed size and run `ooz -d` (ooz build in
+>   'Elden Ring stuff/ooz/build/ooz'). Alloclists decompressed under
+>   `Elden Ring game raw/decompressed/`.
+> - **Level 2 (format parsing)**:
+>   - eventflagalloclists: DONE — plain CSV `slot,map_id,class`; parsed into
+>     `knowledge/game/eventflag-alloclists.json`. Legacy-map layout:
+>     `base = REGION_BASE + slot × 1125` (region position floats per save).
+>   - EMEVD: needs an EMEVD parser (extract SetEventFlag ops) or re-running the
+>     Windows decompiler toolchain to regenerate the .js corpus.
+>   - regulation.bin: the app already decrypts it (`src/util/regulation.rs`); param→XML
+>     needs paramdefs (WitchyBND on Windows) or a minimal Rust param reader.
+>     **Scripted**: `scripts/windows/regenerate-game-extracts.ps1` runs the whole
+>     WitchyBND chain (regulation.bin → .param → .param.xml, optional MSB→XML) on a
+>     Windows machine and says where to drop the result.
+>   - MSB: only needed for region names; WitchyBND supports MSB serialization
+>     (comparison-grade) — covered by the same script via `-IncludeMsb`.
+
 '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
 
 Key files:

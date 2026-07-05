@@ -18,9 +18,35 @@ Steps, in order:
    commit the conformance fixture set (5 test slots + catacombs kill bytes + sd_000259
    kill transitions), add a validation gate, delete the redundant detectors (python
    SaveParser parsing, elden-map `slot-layout.ts`/`ground-truth-formulas.ts`).
-2. **Evidence catalog** — committed index (path, sha256, capture context, slot
-   descriptions) of game extracted files, snapshots, timeline raw diffs; pipeline
-   verifies it. Timeline *metadata* is demoted to legacy claims.
+2. ~~Evidence catalog~~ DONE 2026-07-05: `knowledge/evidence-catalog.json` (7 corpora,
+   hand context + machine sha256) + per-file manifests under `knowledge/manifests/`
+   (3,997 files, ~12GB) + `er-save-editor knowledge catalog-update|catalog-verify`
+   (start of the `knowledge` CLI family; verify runs in ~70s, exit 1 on drift).
+   Timeline metadata cataloged as LEGACY CLAIMS with trust-era notes. FINDING: the
+   decompiled game files corpus is MISSING from this machine (recorded as a `missing`
+   corpus; only `scripts/extracted_event_flags.json` survives, provenance
+   unverifiable) — restoring/re-extracting it is a prerequisite for re-grounding flag
+   definitions. CLAUDE.md and DATA-SOURCES.md stale paths corrected.
+   **UPDATE (2026-07-05 later):** raw sources RESTORED from the Steam install (exe
+   ProductVersion 2.6.2 ≈ 1.16.x) as catalog corpus `game-raw-1162` (event/,
+   regulation.bin, MSBs; 1,534 files). eventflagalloclists decompressed (ooz) and
+   parsed → `knowledge/game/eventflag-alloclists.json` (143 allocation entries).
+   **KEY FINDING:** the alloclist CONFIRMS the legacy-map layout including the removed
+   m18=43,487 / m19=46,862 values (`base = 4112 + slot×1125`, and 4112+23×1125 = 29,987
+   = the byte-verified m14 base). Reconciliation with the empirical zeros at those
+   spans: the LAYOUT is correct but the legacy-region's in-save position floats per
+   save (per-family float) — the pipeline must calibrate the legacy-family base per
+   save and then apply the alloclist layout. Also resolved: "areas 20/21" belong to
+   DLC maps m20 (Belurat) / m21 (Enir-Ilim) at DLC alloclist slots 150-156, not
+   Stranded Graveyard/Haligtree as old comments claimed. Remaining extraction levels
+   (EMEVD parse, param decode, MSB) documented in docs/DATA-SOURCES.md.
+   **UPDATE (2026-07-05, latest):** regulation param XMLs REGENERATED on the Windows
+   machine via WitchyBND (regulation version 11611000 = 1.16.1 ✓ save era); verified
+   (194 params, paramdef-resolved fields, Paramdex row names; ItemLotParam_map 5,564
+   rows etc.) and restored to the canonical 'Elden Ring decompiled game files' path.
+   Catalog corpus `game-extracts` flipped missing→directory (390 files). Still not
+   regenerated (by design): emevd.js decompiles (pipeline parses raw .emevd from
+   `game-raw-1162`), MSB XMLs (optional).
 3. **Pipeline** — `knowledge` subcommand family in this binary (reuses the reference
    implementation): catalog check → anchor detection → verification methods
    (multi-slot differential, kill transition, reward corroboration per ADR-0007) →

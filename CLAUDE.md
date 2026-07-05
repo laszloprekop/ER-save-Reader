@@ -8,14 +8,24 @@
 
 ---
 
-## Knowledge Resource files (single source of truth):
+## Evidence Catalog (single source of truth for evidence inventory)
 
-Decompiled game resource files:
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
+`knowledge/evidence-catalog.json` — integrity index (sha256) over all out-of-repo
+evidence, with per-corpus trust context. Verify with
+`er-save-editor knowledge catalog-verify` before relying on evidence files.
+Glossary: `CONTEXT.md`. Decisions: `docs/adr/`.
+
+**Decompiled game resource files: PARTIALLY RESTORED 2026-07-05** at
+'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files':
+`regulation-bin/*.param.xml` regenerated (WitchyBND, regulation 1.16.1 — matches the
+save era; catalog corpus `game-extracts`). Raw game files (EMEVD, alloclists, MSBs,
+regulation.bin) live in corpus `game-raw-1162`. The old `event/*.emevd.js` decompiles
+were NOT regenerated — the pipeline parses raw `.emevd` natively.
 
 ## Game save files with five character slots:
 
-- Slot 0: Confessor, mid-game progression
+- Slot 0: Confessor, mid-game progression (NOTE: in the 2026-01-11 backup this slot
+  predates the Margit/Godrick/Radahn kills — see catalog entry)
 - Slot 1: Wretch, early game, few steps of progression, item collection, one boss defeat
 - Slot 2: V1, very little progression, made for item pickup debugging
 - Slot 3: V2, similar little amout progression as V1, different path taken, same item pickup for debugging
