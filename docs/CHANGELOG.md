@@ -4,6 +4,59 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.18.0 - Rework EF detection (anchor conformance); per-family float discovery
+
+### Fixes
+- **EF detection reworked** (`crates/wasm-event-flags`): primary is now a gaEnd-windowed
+  grace-validation scan (`[gaEnd+30k, gaEnd+45k]`); the v0.16 "structural computation" is
+  no longer used for detection — its section model overshoots the real flag region by
+  ~146k bytes and its `confident: true` masked the error since ~Mar 2026. Proof: the
+  b24/b25 kill-transition pair (Erdtree Burial Watchdog) — flag 30020800 flips in the low
+  region; the struct-walk position stays zero in both files.
+- **Honest confidence gating**: all-zero slots no longer report `confident: true`;
+  negative-validation violations lower confidence instead of being ignored.
+- **Legacy content-fallback `SEARCH_START` corrected 0x30000 → 0x12000** — it previously
+  began PAST the real flag region, guaranteeing lookalike hits.
+- **`save_slot.rs`**: hardcoded fallback 0x36500 (the ~222k lookalike) replaced with a
+  gaEnd-derived fallback; the backwards "real EF is at ~222K, inventory at ~76K" comment
+  corrected. GaItems-end parsing verified byte-exact (PlayerGameData name at gaEnd+148).
+- Verified end-to-end: the "level 93 snapshot" — previously all-zero through every
+  detector — now reads real flag data via the discovery probe.
+
+### New: Anchor Conformance Fixtures (ADR-0003)
+- `crates/wasm-event-flags/tests/fixtures/`: 8 real slot-data prefixes (128 KiB each,
+  provenance-hashed) from the 2026-01-11 backup (slots 0-4), the level-93 snapshot, and
+  the b24/b25 kill pair.
+- `tests/anchor_conformance.rs`: golden detection results, in-window property (lookalike
+  regions unreachable), tier-1 anchor bits at detected offsets, gaEnd churn tracking
+  across the kill pair. 52 lib + 4 conformance tests pass.
+
+### Key Findings
+- **Per-family float**: flag families (graces, catacombs, …) sit at independently
+  floating bases per save (Δ0 / Δ~77-141 / Δ~490 across measured saves) and regions
+  shift by different amounts within one save pair (GaItems +16, flag region +4). No
+  single per-save EF anchor exists; claims must carry their family. ADR-0003 amended;
+  `CONTEXT.md` gains "Flag Family"; GT offsets are family+layout-specific.
+- Bee-timeline Feb-2026-era anchors were correct (deltas 35,111+8k — 8-byte-stride
+  variable section); the Mar-2026+ anchors inherited the structural bug.
+
+### Decisions (ADR-0007, grilling session)
+- **The capture agent records; the pipeline interprets**: capture-time interpretation
+  abolished (bossesDefeated/inventoryDelta become re-runnable pipeline outputs); agent
+  gains keyframes + per-entry state checksums + version stamps (rides the coordinated
+  elden-map change). Reward Corroboration verification method defined (boss-unique items
+  as independent kill evidence; inventory deltas by item identity — GaItem handles churn).
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: detection rework, SEARCH_START fix, window scan
+- `crates/wasm-event-flags/tests/`: NEW conformance fixtures + tests
+- `src/save/common/save_slot.rs`, `src/save/common/event_flags_detection.rs`: fallback +
+  comment corrections, delegation docs
+- `CONTEXT.md`, `docs/adr/0003` (amended), `docs/adr/0007` (new)
+- `docs/BACKLOG.md`: Priority 0b partially resolved; pipeline/capture-flow additions
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: per-family float critical update
+- `docs/CHANGELOG.md`: v0.18.0; `Cargo.toml`/`Cargo.lock`: bumped to 0.18.0
+
 ## v0.17.13 - Remove disproven m18/m19 dungeon bases; knowledge-base reset decisions
 
 ### Fixes

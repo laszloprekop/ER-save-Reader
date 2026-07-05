@@ -23,8 +23,11 @@ Steps, in order:
    verifies it. Timeline *metadata* is demoted to legacy claims.
 3. **Pipeline** — `knowledge` subcommand family in this binary (reuses the reference
    implementation): catalog check → anchor detection → verification methods
-   (multi-slot differential, kill transition) → deterministic claims-store emission.
-   Add `ef-dump` for Python/exploratory consumers.
+   (multi-slot differential, kill transition, reward corroboration per ADR-0007) →
+   deterministic claims-store emission. Add `ef-dump` for Python/exploratory consumers.
+   Interpretation diffs PARSED DOMAIN OBJECTS, not raw bytes: inventory deltas by item
+   identity (GaItem handles churn), flags per family (per-family float, ADR-0003
+   amendment). Timeline re-annotation (bossesDefeated etc.) is a pipeline output.
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
    store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
@@ -37,9 +40,32 @@ Steps, in order:
 
 ---
 
-## Priority 0b: EF Anchor Detection Inconsistency (CRITICAL, found 2026-07-05)
+## Priority 0b: EF Anchor Detection Inconsistency (found 2026-07-05, PARTIALLY RESOLVED same day)
 
-Multiple EF-offset implementations disagree on the same save slots, which silently breaks
+**Resolved** (migration step 1, anchor conformance):
+- `detect_event_flags_offset_impl` reworked: primary is now a gaEnd-windowed
+  grace-validation scan ([gaEnd+30k, gaEnd+45k]); the disproven structural walk is no
+  longer used for detection; honest confidence gating (all-zero slots are no longer
+  `confident: true`). Legacy content-fallback `SEARCH_START` corrected 0x30000→0x12000
+  (it previously started PAST the real flag region). `save_slot.rs` fallback constant
+  0x36500 (the ~222k lookalike) replaced with a gaEnd-derived fallback; the backwards
+  "real EF is at ~222K" comment corrected.
+- Proof the ~222k position is a lookalike: b24/b25 kill-transition pair — flag 30020800
+  flips in the low region; the struct-walk position stays zero in both files.
+- Conformance fixtures committed (ADR-0003): `crates/wasm-event-flags/tests/fixtures/`
+  (8 slot prefixes with provenance) + `tests/anchor_conformance.rs` (golden detections,
+  in-window property, tier-1 anchor bits, gaEnd churn tracking across the kill pair).
+
+**NEW FINDING — per-family float (shapes the pipeline design):** flag families
+(graces, catacombs, …) sit at independently floating bases per save (Δ0 on the Bee
+save, Δ~77-141 on b24, ~490 on backup measurements), and regions shift by different
+amounts within one save pair (b24→b25: GaItems +16, flag region +4). A single "EF
+anchor" therefore cannot position all families across saves: ADR-0003's convention
+must become per-family bases, and a GT offset measured against one save's anchor is
+only valid for that family in that save's layout. Byte-exact family pinning =
+shift-aware flip-pair analysis in the re-verification pipeline (migration step 3).
+
+**Remaining** — original problem statement: multiple EF-offset implementations disagree on the same save slots, which silently breaks
 all flag reads downstream (this — not wrong bases — was the cause of `batch-validate 0
 --context boss_defeat` reporting 0/110 set on a mid-game character):
 
@@ -60,10 +86,18 @@ all flag reads downstream (this — not wrong bases — was the cause of `batch-
   verification eras must not be combined in one matched filter.
 
 Follow-ups:
-1. Fix `compute_structural_ef_offset` section arithmetic; add a hard validation gate
-   (structural result must also pass grace validation or fall back to content search).
-2. Re-anchor `ground_truth_offsets.json` families to one convention; record the convention.
-3. Then locate true (18,0)/(19,0) bases (see below) — evidence points to the m18 general
+1. ~~Fix detection; add a hard validation gate~~ DONE 2026-07-05 (windowed scan + gate;
+   structural walk demoted to diagnostics).
+2. Python `SaveParser` still runs its own (lookalike-prone) content search — re-point it
+   to an `ef-dump` CLI output per ADR-0005; elden-map `slot-layout.ts` /
+   `ground-truth-formulas.ts` deletion happens in the coordinated change. The same
+   coordinated change upgrades the capture flow per ADR-0007: agent stops writing
+   interpretations; adds full-slot keyframes (every N entries + on GaItems resize),
+   per-entry state checksums, and agent+wasm version stamps. `scripts/capture_agent.py`
+   catalog context fields get the same demotion (computed with the python detector).
+3. Re-anchor `ground_truth_offsets.json` PER FAMILY (see per-family float finding);
+   record family + source save in each claim's provenance.
+4. Then locate true (18,0)/(19,0) bases (see below) — evidence points to the m18 general
    section living near the m18 pickup base 3847, not at the removed 43487.
 
 ---

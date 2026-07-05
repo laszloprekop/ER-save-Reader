@@ -10,6 +10,19 @@
 
 This document is the **single source of truth** for Elden Ring save file parsing and event flag calculations. It supersedes all previous research documents (archived in `docs/archive/`).
 
+> **CRITICAL UPDATE (2026-07-05) — per-family float:** all "block base" and offset values
+> in this document are valid only **per flag family, per save layout**. Flag families
+> (graces, catacombs, …) sit at independently floating bases across saves (measured:
+> grace-vs-catacombs family delta 0 bytes on one save, ~77-141 on another, ~490 on a
+> third), and regions shift by different amounts even within one before/after pair
+> (b24→b25: GaItems +16, flag region +4). A single per-save "EF anchor" therefore cannot
+> position all families. EF detection was reworked the same day: the v0.16 "structural
+> detection" was DISPROVEN (~146k overshoot onto a lookalike region — the b24/b25 kill
+> pair proves flags live at gaEnd+~35-37k, not ~222k) and replaced with a gaEnd-windowed
+> grace-validation scan pinned by committed conformance fixtures
+> (`crates/wasm-event-flags/tests/`). See `CONTEXT.md`, ADR-0003 amendment, ADR-0007,
+> and BACKLOG Priority 0b.
+
 ### Key Findings
 
 | Category | Status | Details |

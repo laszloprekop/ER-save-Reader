@@ -30,7 +30,11 @@ use std::collections::HashMap;
 pub const EVENT_FLAGS_SIZE: usize = 0x1BF99F;  // 1,833,375 bytes
 
 /// Search parameters for EventFlags detection
-pub const SEARCH_START: usize = 0x30000;  // 196608 - skip inventory region where false positives occur
+// 2026-07-05: was 0x30000 (196,608), which SKIPPED the real flag region
+// (grace-family base ≈ 76k-82k) and made the fallback land on the ~222k
+// lookalike. The "skip inventory region" rationale was backwards — the b24/b25
+// kill-transition pair proves the flags live in the low region.
+pub const SEARCH_START: usize = 0x12000;  // 73,728
 pub const MAX_SEARCH_RANGE: usize = 200_000;
 
 /// Tile flag constants (10-digit flags like 1035537020)
@@ -131,33 +135,83 @@ pub fn detect_event_flags_offset(slot_data: &[u8]) -> DetectionResult {
 /// Minimum tier1 score to accept a content-based candidate
 const MIN_TIER1_SCORE: usize = 2;
 
+/// Window for the gaEnd-anchored scan: grace-family base minus GaItems end,
+/// measured across saves (Bee timeline Feb-2026 era: 35,111..35,207;
+/// 2026-01-11 backup slots: 35,437..37,021). Generous margins on both sides.
+const EF_WINDOW_AFTER_GA_END: core::ops::Range<usize> = 30_000..45_000;
+
 /// Internal implementation (also usable from native Rust without WASM)
 ///
-/// Detection strategy (ordered by reliability):
-/// 1. **Structural computation** (primary): Sequential section parsing from slot start
-///    through all intermediate sections to EventFlags. Deterministic, zero false positives.
-///    Works even for brand-new characters with zero graces.
-/// 2. **Content-based search** (fallback): Scan for grace flag patterns in the data.
-///    Only used if structural computation fails (data corruption, unknown format).
+/// Detection strategy (2026-07-05 rework, see docs/adr/0003 and BACKLOG Priority 0b):
+/// 1. **gaEnd-windowed content scan** (primary): parse GaItems end (byte-exact,
+///    verified via PlayerGameData name position), then scan
+///    [gaEnd+30k, gaEnd+45k] scoring the grace validation flags. The tight window
+///    makes the known lookalike regions (~106k content echo, ~222k struct-walk
+///    position) unreachable.
+/// 2. **Full-range content search** (fallback): only if GaItems parsing fails or
+///    the windowed scan finds no acceptable candidate.
+///
+/// The former "structural computation" is intentionally NOT used for detection:
+/// its section model overshoots the real flag region by ~146k bytes (empirically
+/// disproven by the b24/b25 kill-transition pair: flag 30020800 flips at the
+/// windowed position, and the struct-walk position stays zero). It poisoned all
+/// consumers from ~Mar 2026 ("real EF at ~222K" was a lookalike).
+///
+/// CAVEAT (per-family float): the returned offset is the GRACE-FAMILY base.
+/// Other flag families (catacombs, tiles, ...) float independently per save by
+/// up to a few hundred bytes and need their own calibration; do not treat this
+/// offset as a universal anchor for all families.
 pub fn detect_event_flags_offset_impl(slot_data: &[u8]) -> DetectionResult {
-    // === PRIMARY: Structural computation ===
-    if let Some(structural_offset) = compute_structural_ef_offset(slot_data) {
-        // Validate the structural offset against grace flags (sanity check only)
-        let (_tier1_score, positive_score, negative_score) = validate_at_offset(slot_data, structural_offset);
-
-        return DetectionResult {
-            offset: structural_offset,
-            positive_score,
-            negative_score,
-            // Confident if we have structural + at least some grace validation,
-            // OR if we have structural alone (new characters have no graces but offset is still correct)
-            confident: true,
-        };
+    // === PRIMARY: gaEnd-windowed content scan ===
+    if let Some(ga_end) = find_ga_items_end(slot_data) {
+        if let Some(result) = detect_in_window(slot_data, ga_end) {
+            return result;
+        }
     }
 
-    // === FALLBACK: Content-based search ===
-    // Only reached if structural computation fails (e.g., data too short, corrupted GaItems)
+    // === FALLBACK: Content-based search over the legacy full range ===
     detect_event_flags_content_based(slot_data)
+}
+
+/// Scan the gaEnd-anchored window for the best grace-validation candidate.
+/// Returns None if no candidate reaches MIN_TIER1_SCORE (e.g. a character that
+/// has not touched the tutorial graces yet).
+fn detect_in_window(slot_data: &[u8], ga_end: usize) -> Option<DetectionResult> {
+    let lo = ga_end + EF_WINDOW_AFTER_GA_END.start;
+    let hi = (ga_end + EF_WINDOW_AFTER_GA_END.end).min(slot_data.len().saturating_sub(4096));
+    if lo >= hi {
+        return None;
+    }
+
+    let mut best: Option<(usize, usize, usize, usize)> = None; // (tier1, pos, neg, offset)
+    for offset in lo..hi {
+        let (tier1, pos, neg) = validate_at_offset(slot_data, offset);
+        if tier1 < MIN_TIER1_SCORE {
+            continue;
+        }
+        let better = match best {
+            None => true,
+            // prefer higher tier1, then higher pos, then higher neg;
+            // on full ties keep the FIRST (lowest offset): scoring plateaus are
+            // small shifted echoes, and the low edge matched the byte-exact
+            // c=0 verification on the Bee timeline (sd_000259).
+            Some((bt, bp, bn, _)) => (tier1, pos, neg) > (bt, bp, bn),
+        };
+        if better {
+            best = Some((tier1, pos, neg, offset));
+        }
+    }
+
+    let (tier1, pos, neg, offset) = best?;
+    // Confidence: all tier-1 anchors present and at most one late-game negative
+    // violation (mid/late-game characters legitimately set some).
+    let confident = tier1 >= 3 && neg >= NEGATIVE_VALIDATION_FLAGS.len() - 1;
+    Some(DetectionResult {
+        offset,
+        positive_score: pos,
+        negative_score: neg,
+        confident,
+    })
 }
 
 /// Validate grace flags at a candidate EventFlags offset.
@@ -1778,7 +1832,7 @@ mod tests {
 
     #[test]
     fn test_constants() {
-        assert_eq!(SEARCH_START, 0x30000);
+        assert_eq!(SEARCH_START, 0x12000);
         assert_eq!(EVENT_FLAGS_SIZE, 0x1BF99F);
         assert_eq!(POSITIVE_VALIDATION_FLAGS.len(), 7);
         assert_eq!(NEGATIVE_VALIDATION_FLAGS.len(), 6);
@@ -2400,24 +2454,46 @@ mod tests {
     }
 
     #[test]
-    fn test_detect_ef_structural_primary() {
-        // Verify that detect_event_flags_offset_impl uses structural path
-        // when structural computation succeeds.
+    fn test_detect_ef_no_anchors_not_confident() {
+        // 2026-07-05: an all-zero slot has no grace anchors, so detection must
+        // NOT claim confidence. (The old structural-primary path returned
+        // confident=true here, which is how the ~146k overshoot went unnoticed.)
+        let slot_data = vec![0u8; 0x280000];
+        let result = detect_event_flags_offset_impl(&slot_data);
+        assert!(
+            !result.confident,
+            "no grace anchors present, detection must not be confident"
+        );
+    }
+
+    #[test]
+    fn test_detect_ef_windowed_scan_finds_planted_anchors() {
+        // Plant the tier-1 validation flags at a known offset inside the
+        // gaEnd window and verify the windowed scan returns exactly it.
         let header_size = 4 + 4 + 0x18;
         let ga_items_size = GA_ITEMS_MAX * 8;
-        let ga_end = header_size + ga_items_size;
+        let ga_end = header_size + ga_items_size; // all-zero GaItems parse
 
-        let expected_ef = ga_end + FIXED_BEFORE_PROJECTILE
-            + 4 + FIXED_BETWEEN_PROJ_AND_REGIONS
-            + 4 + FIXED_AFTER_REGIONS + PRE_EVENT_FLAGS_GAP;
-
-        let total_needed = expected_ef + EVENT_FLAGS_SIZE;
-        let slot_data = vec![0u8; total_needed];
+        let planted = ga_end + 36_000; // inside EF_WINDOW_AFTER_GA_END
+        let mut slot_data = vec![0u8; 0x280000];
+        slot_data[planted + 2725] = 0x80 | 0x40; // 71800 bit7, 71801 bit6
+        slot_data[planted + 3262] = 0x08 | 0x04; // 76100 bit3, 76101 bit2
 
         let result = detect_event_flags_offset_impl(&slot_data);
-        // Should use structural path and be confident
-        assert_eq!(result.offset, expected_ef);
-        assert!(result.confident, "Structural detection should be confident");
+        assert_eq!(result.offset, planted);
+        assert!(result.confident, "all tier-1 anchors present in-window");
+
+        // The struct-walk position (~146k past the real base) must lose:
+        // planting the same pattern there too must not displace the
+        // in-window candidate.
+        let lookalike = planted + 146_104;
+        slot_data[lookalike + 2725] = 0x80 | 0x40;
+        slot_data[lookalike + 3262] = 0x08 | 0x04;
+        let result = detect_event_flags_offset_impl(&slot_data);
+        assert_eq!(
+            result.offset, planted,
+            "out-of-window lookalike must be unreachable"
+        );
     }
 
     #[test]

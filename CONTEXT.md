@@ -28,14 +28,20 @@ The trail attached to every Claim: which Evidence, which method, which coordinat
 convention, when. What separates a Claim from folklore.
 
 **Coordinate Convention**:
-The definition of byte 0 that an offset is expressed against (e.g. EF-section start within
-a slot). Every stored offset names its convention; offsets from different conventions must
-never be compared or merged.
+The definition of byte 0 that an offset is expressed against. Per the 2026-07-05 finding,
+conventions are PER FLAG FAMILY: every stored offset names its family, and offsets from
+different families or conventions must never be compared or merged.
 _Avoid_: anchor (when meaning the convention rather than a detected position)
 
+**Flag Family**:
+A group of event flags whose bytes move together within a save (e.g. the grace family,
+the catacombs family). Families float independently across saves, so each family has its
+own per-save base.
+
 **EF Anchor**:
-The detected absolute position of the EventFlags section inside one specific save slot.
-A per-slot measurement, not a convention.
+The detected per-save base of one flag family (by default the grace family, which the
+detection fixtures pin). A per-slot measurement, not a convention, and not valid for
+positioning other families.
 
 **Claims Store**:
 The pipeline-generated collection of Claims consumed by the applications (successor of
@@ -77,5 +83,17 @@ progression; the expected presence/absence pattern must match.
 
 **Kill Transition**:
 Verification method: a byte observed changing at the recorded moment of a specific
-in-game event (e.g. 00→ff on a boss kill) inside one self-consistent EF window. The
-strongest single-source evidence for a flag offset.
+in-game event (e.g. 00→ff on a boss kill) inside one self-consistent EF window. An
+*attributed* kill transition (a labeled before/after capture pair) is Verified on its
+own; an *unattributed* flip inside a timeline window needs a second independent method
+(e.g. Reward Corroboration) to reach Verified.
+
+**Reward Corroboration**:
+Verification method: a boss-specific unique item (remembrance, boss soul, unique key
+item/weapon) appearing in the parsed inventory in the same capture window as a flag
+flip. Strong per-boss evidence; rune jumps are only a weak supporting signal. Inventory
+deltas must be computed by item identity, never by GaItem handle (handles churn).
+
+**Keyframe**:
+A periodic full-slot snapshot inside the Timeline (plus per-entry state checksums),
+making diff-chain replay verifiable and re-startable. Evidence.
