@@ -1,6 +1,72 @@
 # Project Backlog
 
-**Last updated**: 2026-02-20
+**Last updated**: 2026-07-05
+
+---
+
+## Priority 0: Knowledge Base Reset — Migration Plan (decided 2026-07-05)
+
+Decisions recorded in `CONTEXT.md` and `docs/adr/0001`–`0006`. Summary: Evidence = raw
+bytes only; the claims store is pipeline-generated with a status ladder and tombstones;
+one reference implementation in `crates/wasm-event-flags` defined by conformance
+fixtures; reset the knowledge, not the code (no fresh upstream clone).
+
+Steps, in order:
+
+1. **Anchor conformance** — fix `compute_structural_ef_offset` (~146k overshoot, see
+   next section), port the working `src/save` struct-parse logic into the wasm crate,
+   commit the conformance fixture set (5 test slots + catacombs kill bytes + sd_000259
+   kill transitions), add a validation gate, delete the redundant detectors (python
+   SaveParser parsing, elden-map `slot-layout.ts`/`ground-truth-formulas.ts`).
+2. **Evidence catalog** — committed index (path, sha256, capture context, slot
+   descriptions) of game extracted files, snapshots, timeline raw diffs; pipeline
+   verifies it. Timeline *metadata* is demoted to legacy claims.
+3. **Pipeline** — `knowledge` subcommand family in this binary (reuses the reference
+   implementation): catalog check → anchor detection → verification methods
+   (multi-slot differential, kill transition) → deterministic claims-store emission.
+   Add `ef-dump` for Python/exploratory consumers.
+4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
+   store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
+5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
+   `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
+   convention) out of the app into KB inputs as the CE-era Rosetta table.
+6. **Docs audit** — epistemic header on all 14 docs (evidence / claim summary /
+   methodology / obsolete), correct or retire wrong content (EVENT-FLAG-GEOGRAPHY area
+   labels, stale CLAUDE.md paths); CLAUDE.md shrinks to workflow rules + pointers to
+   `CONTEXT.md` and the catalog.
+
+---
+
+## Priority 0b: EF Anchor Detection Inconsistency (CRITICAL, found 2026-07-05)
+
+Multiple EF-offset implementations disagree on the same save slots, which silently breaks
+all flag reads downstream (this — not wrong bases — was the cause of `batch-validate 0
+--context boss_defeat` reporting 0/110 set on a mid-game character):
+
+- **`compute_structural_ef_offset` (crates/wasm-event-flags) overshoots by ~146,000 bytes**
+  (returned 227,671 on backup slot 0 where hard-fact anchoring via GT catacombs kill bytes
+  puts the EF flag data at ~81,567). Because it returns `Some` with `confident: true`, the
+  content-based fallback never runs and no validation gate catches it. The elden-map capture
+  agent inherited this (~Mar 2026 onward): its recorded `eventFlagsOffset` jumped from ~76k
+  (Feb, correct) to ~223k, and its EF-relative reads flicker whenever GaItems resizes.
+- **`scripts/verification/save_parser.py` content search** lands on a lookalike region
+  (~106,808 on the same slot) — grace-pattern false positive; its per-slot results are
+  inconsistent with each other by small deltas (V2 vs V3 align, V1 off by 4).
+- **`src/save` struct parse (probe CLI path)** is correct on the 2026-01-11 backup but reads
+  all-zero on the "level 93 snapshot" — likely fails for larger GaItems.
+- **`ground_truth_offsets.json` mixes anchor conventions**: catacombs/tunnels/graces-block
+  families are probe-convention (consistent, trustworthy); the 71xxx/72xxx dungeon-grace
+  family reads garbage at the probe anchor (verified-era drift). Offsets from different
+  verification eras must not be combined in one matched filter.
+
+Follow-ups:
+1. Fix `compute_structural_ef_offset` section arithmetic; add a hard validation gate
+   (structural result must also pass grace validation or fall back to content search).
+2. Re-anchor `ground_truth_offsets.json` families to one convention; record the convention.
+3. Then locate true (18,0)/(19,0) bases (see below) — evidence points to the m18 general
+   section living near the m18 pickup base 3847, not at the removed 43487.
+
+---
 
 This is the single location for all planned work, remaining gaps, and deferred items. Organized by priority.
 
@@ -37,8 +103,21 @@ This is the single location for all planned work, remaining gaps, and deferred i
 - **Progress** (v0.17.9): Block 71000 resolved via sub-block/main-block split — Stormveil graces (71000-71099) route to sub-block base 9315, dungeon graces (71100-71799) route to main-block base 2625. Block 71100 now resolved as part of the 71000 main-block range
 
 ### Unverified Dungeon Areas
-- **Areas**: 20, 21 (unverified), plus 13, 15, 16, 18, 19, 34, 35, 39 (calculated but not empirically verified)
-- **Method**: Multi-slot differential with appropriate test characters
+- **Update 2026-07-05 (multi-slot differential + Bee timeline audit)**:
+  - **(14,0)=29987 VERIFIED** — Red Wolf kill (14000850) at 29987+106 bit5 in timeline
+    entry sd_000259, same byte-validated window as GT-proven 30040800/31020800.
+  - **(18,0)=43487 and (19,0)=46862 DISPROVEN and removed** from
+    `get_dungeon_general_bases` — all five test slots and Bee's day-1 state have zero
+    bytes in those spans despite mandatory tutorial (m18) flags. m18 = Stranded
+    Graveyard (Soldier of Godrick 18000850), m19 = Elden Throne (Radagon 19000800);
+    old comments had these areas mislabeled. True m18 section likely near the
+    calibrated m18 pickup base 3847. Consumers now report "unknown" for these areas.
+  - Remaining m10/m11/m12/m13/m15/m20/m21/m22 entries stem from the same "+3375 per
+    area" stride assumption and read all-zero in every available save — treat as
+    UNVERIFIED ((35,0) duplicates (20,0), (39,20) duplicates (21,0)).
+- **Areas**: 20, 21 (unverified), plus 10, 11, 12, 13, 15, 16, 34, 35, 39 (calculated but not empirically verified)
+- **Method**: Multi-slot differential with appropriate test characters — blocked on the
+  Priority 0 anchor fix for byte-precise localization
 
 ### Disproven Block Bases
 - **Blocks**: 75000, 77000 (0xFF padding, not real data)

@@ -478,32 +478,49 @@ fn get_midrange_bases() -> HashMap<u32, u32> {
 /// General dungeon base offsets (for local_id < 7000)
 /// From eventflagalloclist - formula: base + section * 1125 + local_id / 8
 /// Key format: "XX_YY" where XX is map area, YY is section
+///
+/// VERIFICATION AUDIT (2026-07-05, multi-slot differential + Bee timeline):
+/// - (14,0)=29987 EMPIRICALLY VERIFIED: Red Wolf of Radagon kill (14000850) landed at
+///   exactly 29987+106 bit5 in timeline entry sd_000259, in the same byte-validated EF
+///   window as GT-proven 30040800@32011 and 31020800@30984 (00->ff kill transitions).
+/// - (18,0)=43487 and (19,0)=46862 DISPROVEN and removed: all five test-save slots AND
+///   the byte-validated Bee day-1 state show zero bytes across those 1125-byte spans,
+///   although every character necessarily sets Stranded Graveyard (m18) flags in the
+///   tutorial (Soldier of Godrick 18000850). The m18 *pickup* base is 3847 (calibrated),
+///   so the true m18 general section lies near the 2.5k-4k region, ~40k away from 43487.
+///   These entries came from an unverified "+3375 per area" stride assumption.
+/// - The other m10-m22 entries below stem from the same stride assumption and are
+///   UNVERIFIED; (10,0)/(10,1)/(11,0)/(13,0)/(20,0)/(21,*)/(22,0) spans read all-zero in
+///   every available save. They are retained for now but should not be treated as
+///   verified. Note (35,0) duplicates (20,0) and (39,20) duplicates (21,0) - a further
+///   sign of fabrication. Map comments fixed: m18 = Stranded Graveyard (tutorial),
+///   m19 = Elden Throne (Radagon/Elden Beast 19000800).
 fn get_dungeon_general_bases() -> HashMap<(u32, u32), u32> {
     HashMap::from([
-        // Stormveil Castle (m10)
+        // Stormveil Castle (m10) - UNVERIFIED (stride assumption; no save shows data here)
         ((10,  0), 4112), ((10,  1), 5237),
-        // Leyndell (m11) - section formula: 8612 + section * 1125
+        // Leyndell (m11) - UNVERIFIED - section formula: 8612 + section * 1125
         ((11,  0), 8612), ((11,  5), 14237), ((11, 10), 19862), ((11, 71), 88487),
-        // Underground areas (m12)
+        // Underground areas (m12) - UNVERIFIED
         ((12,  1), 16487), ((12,  2), 17612), ((12,  3), 18737), ((12,  4), 19862),
         ((12,  5), 20987), ((12,  6), 22112), ((12,  7), 23237), ((12,  8), 24362), ((12,  9), 25487),
-        // Crumbling Farum Azula (m13)
+        // Crumbling Farum Azula (m13) - UNVERIFIED
         ((13,  0), 26612),
-        // Academy of Raya Lucaria (m14)
+        // Academy of Raya Lucaria (m14) - VERIFIED 2026-07-05 (Red Wolf kill @30093, see audit above)
         ((14,  0), 29987),
-        // Miquella's Haligtree (m15)
+        // Miquella's Haligtree (m15) - UNVERIFIED (span overlaps verified (31,4)=33134!)
         ((15,  0), 33362),
         // Volcano Manor (m16) - verified (was 36737 - WRONG, corrected to 40517)
         ((16,  0), 40517),
-        // Roundtable Hold (m18)
-        ((18,  0), 43487),
-        // Chapel of Anticipation (m19)
-        ((19,  0), 46862),
-        // Stranded Graveyard (m20)
+        // m18 Stranded Graveyard REMOVED (was ((18,0), 43487)) - DISPROVEN, see audit above.
+        // m19 Elden Throne REMOVED (was ((19,0), 46862)) - DISPROVEN, see audit above.
+        // Missing entries make lookups return invalid -> callers report "unknown"
+        // instead of a silent false "flag not set".
+        // Stranded Graveyard (m20)?? - UNVERIFIED (duplicate of (35,0); area naming suspect)
         ((20,  0), 50237),
-        // Miquella's Haligtree sections (m21)
+        // Miquella's Haligtree sections (m21) - UNVERIFIED
         ((21,  0), 53612), ((21,  1), 54737), ((21,  2), 55862),
-        // Castle Sol (m22)
+        // Castle Sol (m22) - UNVERIFIED
         ((22,  0), 59237),
         // Catacombs (m30) - VERIFIED base 27411
         ((30,  0), 27411), ((30,  1), 28536), ((30,  2), 29661), ((30,  3), 30786),

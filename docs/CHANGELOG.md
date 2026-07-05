@@ -4,6 +4,48 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.17.13 - Remove disproven m18/m19 dungeon bases; knowledge-base reset decisions
+
+### Fixes
+- **Removed disproven dungeon general bases** `(18,0)=43487` and `(19,0)=46862` from
+  `get_dungeon_general_bases()` (crates/wasm-event-flags). Multi-slot differential: all five
+  test-save slots AND the byte-validated Bee day-1 timeline state show zero bytes across those
+  1125-byte spans, although every character necessarily sets Stranded Graveyard (m18) tutorial
+  flags (Soldier of Godrick 18000850). Both entries came from an unverified "+3375 per area"
+  stride assumption. Lookups for these areas now return invalid → consumers report "unknown"
+  instead of a silent false "flag not set".
+- **Fixed area comments**: m18 = Stranded Graveyard (tutorial), m19 = Elden Throne
+  (Radagon/Elden Beast 19000800) — previously mislabeled Roundtable Hold / Chapel of Anticipation.
+
+### Key Findings
+- **(14,0)=29987 EMPIRICALLY VERIFIED**: Red Wolf of Radagon kill (14000850) landed at exactly
+  29987+106 bit5 in timeline entry sd_000259, in the same byte-validated EF window as GT-proven
+  30040800@32011 and 31020800@30984 (00→ff kill transitions).
+- **EF anchor detection is systemically inconsistent** (BACKLOG Priority 0b):
+  `compute_structural_ef_offset` overshoots by ~146k with `confident: true` (no fallback);
+  the elden-map capture agent inherited this from ~Mar 2026 (anchor flicker artifacts in
+  timeline metadata); python SaveParser lands on lookalike regions; `ground_truth_offsets.json`
+  mixes anchor conventions across verification eras. This — not wrong bases — caused
+  `batch-validate --context boss_defeat` to report 0/110 set on a mid-game character.
+- Remaining m10-m22 general-base entries stem from the same stride assumption: marked
+  UNVERIFIED in an in-code verification audit comment.
+
+### Decisions (grilling session)
+- New `CONTEXT.md` glossary (Evidence / Claim / Hypothesis / Provenance / Coordinate
+  Convention / Claims Store / Status Ladder / Tombstone …) and `docs/adr/0001`–`0006`:
+  evidence = raw bytes only; reset the knowledge base, not the code (no upstream re-clone);
+  conformance fixtures define the coordinate convention; pipeline-generated claims store with
+  status ladder; single reference implementation in crates/wasm-event-flags; frozen legacy
+  store with per-family cutover. Migration plan in `docs/BACKLOG.md` Priority 0.
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: removed (18,0)/(19,0) bases, verification audit comments
+- `CONTEXT.md`: new domain glossary
+- `docs/adr/0001`–`0006`: architecture decision records
+- `docs/BACKLOG.md`: Priority 0 migration plan + Priority 0b anchor bug; dungeon-area updates
+- `docs/CHANGELOG.md`: v0.17.13
+- `Cargo.toml` / `Cargo.lock`: bumped to 0.17.13
+
 ## v0.17.12 - Resolve numeric flag names and add event_action property
 
 ### Improvements
