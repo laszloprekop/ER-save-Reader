@@ -88,13 +88,20 @@ all flag reads downstream (this — not wrong bases — was the cause of `batch-
 Follow-ups:
 1. ~~Fix detection; add a hard validation gate~~ DONE 2026-07-05 (windowed scan + gate;
    structural walk demoted to diagnostics).
-2. Python `SaveParser` still runs its own (lookalike-prone) content search — re-point it
-   to an `ef-dump` CLI output per ADR-0005; elden-map `slot-layout.ts` /
-   `ground-truth-formulas.ts` deletion happens in the coordinated change. The same
-   coordinated change upgrades the capture flow per ADR-0007: agent stops writing
-   interpretations; adds full-slot keyframes (every N entries + on GaItems resize),
-   per-entry state checksums, and agent+wasm version stamps. `scripts/capture_agent.py`
-   catalog context fields get the same demotion (computed with the python detector).
+2. ~~Python re-point~~ DONE 2026-07-05: `discovery ef-dump` subcommand added (JSON,
+   `--raw-slot` mode); `scripts/verification/ef_dump.py` is the single sanctioned
+   bridge; `SaveParser._find_event_flags_offset`, `utils.detect_event_flags_start`
+   and `_robust` now DELEGATE to it (python content search deleted). Verified: python
+   now returns the fixture-golden offsets (81,077 etc.; previously 106,808).
+3. elden-map coordinated change, PARTIALLY DONE 2026-07-05: rebuilt
+   `wasm-event-flags` deployed to `elden-map/wasm-event-flags/` (vendored build was
+   from the poisoned Apr-07 era) and verified under node against a fixture (81,077,
+   confident). REMAINING: rebuild/restart the elden-map server+bundle to pick it up;
+   delete `slot-layout.ts` / `ground-truth-formulas.ts` and re-point consumers;
+   capture-agent rework per ADR-0007 (stop writing interpretations; add full-slot
+   keyframes every N entries + on GaItems resize, per-entry state checksums,
+   agent+wasm version stamps). `scripts/capture_agent.py` catalog context fields get
+   the same demotion (were computed with the removed python detector).
 3. Re-anchor `ground_truth_offsets.json` PER FAMILY (see per-family float finding);
    record family + source save in each claim's provenance.
 4. Then locate true (18,0)/(19,0) bases (see below) — evidence points to the m18 general

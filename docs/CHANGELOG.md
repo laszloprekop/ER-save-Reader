@@ -4,6 +4,40 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.19.0 - ef-dump consumer API; delete Python EF detectors; deploy fixed wasm to elden-map
+
+### Features
+- **`discovery ef-dump` subcommand** (ADR-0005 consumer API): per-slot JSON with
+  `ga_items_end`, `ef_offset` (grace-family base; per-family caveat embedded in output),
+  scores, confidence, md5 integrity hashes. `--slot N` filter, `--bytes DIR` EF-section
+  export, `--raw-slot` mode for bare slot bytes.
+- **`scripts/verification/ef_dump.py`**: the single sanctioned Python bridge to the Rust
+  reference implementation (subprocess; clear error if the binary is not built).
+
+### Removals (ADR-0005: one reference implementation)
+- Python content-search detectors DELETED: `SaveParser._find_event_flags_offset`,
+  `utils.detect_event_flags_start`, `utils.detect_event_flags_start_robust` now delegate
+  to `ef_dump.detect_ef_offset_bytes()`. All ~50k lines of lab scripts keep working
+  through the one choke point. Verified: Python now returns the fixture-golden offsets
+  on the backup slots (81,077 / 76,758 / 76,787 / 76,787 / 76,779, all 7/7) where the
+  deleted search previously found the 106,808 lookalike.
+
+### Cross-repo (elden-map)
+- Rebuilt `wasm-event-flags` (wasm-pack, web target) and deployed to
+  `elden-map/wasm-event-flags/` — the vendored binary was built 2026-04-07 in the
+  poisoned-detection era. Node-verified against a conformance fixture (81,077,
+  confident=true, corrected search_start). Remaining elden-map work (server/bundle
+  rebuild, TS detector deletion, capture-agent ADR-0007 rework) tracked in BACKLOG
+  Priority 0b follow-up 3.
+
+### Files Modified
+- `src/discovery/cli.rs`: NEW cmd_ef_dump (+ help text)
+- `scripts/verification/ef_dump.py`: NEW bridge module
+- `scripts/verification/save_parser.py`, `scripts/verification/utils.py`: detector
+  bodies replaced with delegation
+- `docs/BACKLOG.md`: Priority 0b follow-ups 2 done / 3 partially done
+- `docs/CHANGELOG.md`: v0.19.0; `Cargo.toml`/`Cargo.lock`: bumped to 0.19.0
+
 ## v0.18.0 - Rework EF detection (anchor conformance); per-family float discovery
 
 ### Fixes

@@ -278,58 +278,18 @@ class SaveParser:
         )
 
     def _find_event_flags_offset(self, slot_data: bytes) -> int:
+        """Grace-family EF base for raw slot bytes.
+
+        DELEGATES to the Rust reference implementation via `discovery ef-dump`
+        (ADR-0005). The previous Python content search was removed 2026-07-05:
+        it landed on lookalike regions (e.g. ~106,808 on backup slot 0 where
+        the fixture-pinned base is 81,077) and used a 4-byte search stride.
+
+        Note: the returned offset is the GRACE-FAMILY base; other flag
+        families float independently per save (see CONTEXT.md "Flag Family").
         """
-        Find the event flags section offset using validation flag patterns.
-
-        The offset varies due to variable-size GaItems section (depends on inventory).
-        Empirically, the offset is around 0x12B00-0x13800 for our test saves.
-
-        Algorithm:
-        1. Search all candidate offsets and score each one
-        2. Reject candidates where validation bytes are 0xFF (padding false positives)
-        3. Prioritize Tier 1 flags (tutorial graces that MUST be set)
-        4. Among candidates with equal Tier 1 scores, prefer LOWER offsets
-           (first valid match is more likely correct than 0xFF padding at higher offsets)
-        """
-        best_offset = 0x12B00  # Default fallback based on empirical testing
-        best_tier1_score = 0
-        best_total_score = 0
-
-        # Search in 4-byte increments for speed
-        for test_offset in range(EVENT_FLAGS_SEARCH_MIN, min(EVENT_FLAGS_SEARCH_MAX, len(slot_data) - EVENT_FLAGS_SIZE), 4):
-            tier1_score = 0
-            total_score = 0
-            has_0xff = False
-
-            for flag_id, byte_off, bit_pos, name, tier in VALIDATION_FLAGS:
-                abs_pos = test_offset + byte_off
-                if abs_pos < len(slot_data):
-                    byte_val = slot_data[abs_pos]
-                    if byte_val == 0xFF:
-                        has_0xff = True
-                    if (byte_val & (1 << bit_pos)) != 0:
-                        total_score += 1
-                        if tier == 1:
-                            tier1_score += 1
-
-            # Skip candidates where ANY validation byte is 0xFF — these are
-            # padding regions that produce false positives (all bits read as SET)
-            if has_0xff:
-                continue
-
-            # Prefer higher tier1, then higher total, but do NOT prefer higher
-            # offsets on tie (that causes false positives from 0xFF padding)
-            is_better = (
-                tier1_score > best_tier1_score or
-                (tier1_score == best_tier1_score and total_score > best_total_score)
-            )
-
-            if is_better:
-                best_tier1_score = tier1_score
-                best_total_score = total_score
-                best_offset = test_offset
-
-        return best_offset
+        from .ef_dump import detect_ef_offset_bytes
+        return int(detect_ef_offset_bytes(slot_data)["ef_offset"])
 
     def _validate_event_flags(self, event_flags: bytes) -> Tuple[int, List[str]]:
         """Validate event flags section using anchor flags."""

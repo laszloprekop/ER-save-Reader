@@ -52,6 +52,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         "param-query" | "pq" => cmd_param_query(&args[1..]),
         "unified" | "u" => cmd_unified(&args[1..]),
         "verify-anchors" | "va" => cmd_verify_anchors(&args[1..]),
+        "ef-dump" => cmd_ef_dump(&args[1..]),
         "help" | "-h" | "--help" => {
             print_help();
             Ok(())
@@ -83,6 +84,7 @@ fn print_help() {
     println!("    param-query      Query the param flags database");
     println!("    unified          Query unified flag database (catalog + params + EMEVD)");
     println!("    verify-anchors   Verify non-consumable tile pickup anchors across slots");
+    println!("    ef-dump          Dump per-slot EF detection results as JSON (ADR-0005 consumer API)");
     println!("    help             Show this help message");
     println!();
     println!("EXAMPLES:");
@@ -2230,5 +2232,93 @@ fn cmd_verify_anchors(args: &[String]) -> Result<(), String> {
     println!("  Tier 2: SET in >=2 slots in at least one save -> add to matching slot suites");
     println!("  Tier 3: SET in slot 0 in both saves -> add to slot 0 only");
 
+    Ok(())
+}
+
+/// Dump per-slot EF detection results as JSON (ADR-0005 consumer API).
+///
+/// This is the ONLY sanctioned way for Python/external tooling to obtain slot
+/// layout facts (GaItems end, grace-family EF base, confidence) — external
+/// tools must not re-implement save parsing or anchor detection.
+///
+/// Usage: discovery ef-dump <save.sl2> [--slot N] [--bytes <dir>] [--raw-slot]
+///   --slot N     Only dump slot N (default: 0-9)
+///   --bytes DIR  Also write each slot's EF section bytes to DIR/efdump_slot{N}.bin
+///   --raw-slot   Treat the input file as raw slot bytes (single slot, index 0)
+fn cmd_ef_dump(args: &[String]) -> Result<(), String> {
+    const SLOT_SIZE: usize = 0x280000;
+    const HEADER: usize = 0x300;
+    const CHECKSUM: usize = 0x10;
+
+    let save_path = args.iter()
+        .find(|a| !a.starts_with("--"))
+        .ok_or("Usage: discovery ef-dump <save.sl2> [--slot N] [--bytes <dir>] [--raw-slot]")?;
+
+    let raw_slot_mode = args.iter().any(|a| a == "--raw-slot");
+
+    let only_slot: Option<usize> = args.iter()
+        .position(|a| a == "--slot")
+        .and_then(|i| args.get(i + 1))
+        .and_then(|s| s.parse().ok());
+
+    let bytes_dir: Option<&String> = args.iter()
+        .position(|a| a == "--bytes")
+        .and_then(|i| args.get(i + 1));
+
+    let data = std::fs::read(save_path)
+        .map_err(|e| format!("read {}: {}", save_path, e))?;
+    if !raw_slot_mode && data.len() < HEADER + CHECKSUM + SLOT_SIZE {
+        return Err("file too small to contain a PC save slot".to_string());
+    }
+
+    let slot_count = if raw_slot_mode { 1 } else { 10 };
+    let mut slots = Vec::new();
+    for idx in 0..slot_count {
+        if only_slot.is_some() && only_slot != Some(idx) {
+            continue;
+        }
+        let start = if raw_slot_mode { 0 } else { HEADER + idx * (CHECKSUM + SLOT_SIZE) + CHECKSUM };
+        let slot_len = if raw_slot_mode { data.len() } else { SLOT_SIZE };
+        if start + slot_len > data.len() {
+            break;
+        }
+        let slot = &data[start..start + slot_len];
+        let ga_end = wasm_event_flags::parse_ga_items_end(slot);
+        let det = wasm_event_flags::detect_event_flags_offset_impl(slot);
+        let ef_len = wasm_event_flags::get_event_flags_size()
+            .min(slot_len.saturating_sub(det.offset));
+        let ef = &slot[det.offset..det.offset + ef_len];
+
+        let bytes_path = if let Some(dir) = bytes_dir {
+            let p = format!("{}/efdump_slot{}.bin", dir, idx);
+            std::fs::write(&p, ef).map_err(|e| format!("write {}: {}", p, e))?;
+            Some(p)
+        } else {
+            None
+        };
+
+        slots.push(serde_json::json!({
+            "slot_index": idx,
+            "slot_data_start": start,
+            "ga_items_end": ga_end,
+            "ef_offset": det.offset,
+            "ef_offset_absolute": start + det.offset,
+            "ef_length": ef_len,
+            "positive_score": det.positive_score,
+            "negative_score": det.negative_score,
+            "confident": det.confident,
+            "ef_md5": format!("{:x}", md5::compute(ef)),
+            "bytes_path": bytes_path,
+        }));
+    }
+
+    let doc = serde_json::json!({
+        "schema": "ef-dump/1",
+        "source": save_path,
+        "source_md5": format!("{:x}", md5::compute(&data)),
+        "convention": "grace-family base (per-family float caveat: not valid for other families)",
+        "slots": slots,
+    });
+    println!("{}", serde_json::to_string_pretty(&doc).map_err(|e| e.to_string())?);
     Ok(())
 }
