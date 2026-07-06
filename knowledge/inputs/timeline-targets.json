@@ -1,0 +1,13 @@
+{
+  "schema": "timeline-targets/1",
+  "description": "Sparse-diff timeline corpora to replay and re-annotate (`er-save-editor knowledge timeline`). Each target names the raw-diff corpus (Evidence: [u32 LE offset][old byte][new byte] records, one file per capture), the metadata corpus (chronological ordering + timestamps only — capture-agent metadata is NOT trusted for flag content, ADR-0007), and which save slot index the diffs apply to.",
+  "targets": [
+    {
+      "id": "bee",
+      "diff_corpus": "timeline-slot-diffs",
+      "metadata_corpus": "timeline-metadata",
+      "slot_index": 5,
+      "character": "Bee"
+    }
+  ]
+}

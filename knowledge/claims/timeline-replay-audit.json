@@ -1,0 +1,16 @@
+{
+  "character": "Bee",
+  "confident_detection_entries": 2735,
+  "diff_corpus": "timeline-slot-diffs",
+  "ef_offset_max": 82586,
+  "ef_offset_min": 72609,
+  "entries_processed": 3830,
+  "metadata_corpus": "timeline-metadata",
+  "note": "Replay-and-detect audit only, not a flag re-annotation (see the module doc in src/knowledge/timeline.rs for the two anchor-scan designs that were tried and failed the evidence bar: repeated 'first-time' 0->1 transitions on set-monotonic bits proved base misidentification, not real gameplay). This file records that the sparse-diff replay is self-consistent and that the reference grace detector stays confident across the chain; it names no flags and asserts no game events.",
+  "replay_old_value_mismatch_pct": 0.6848410550148614,
+  "replay_old_value_mismatches": 8179893,
+  "replay_records": 1194422113,
+  "schema": "timeline-replay-audit/1",
+  "slot_index": 5,
+  "target": "bee"
+}

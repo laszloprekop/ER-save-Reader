@@ -41,6 +41,12 @@ This document is the **single source of truth** for Elden Ring save file parsing
 > produced from 24 attributed transition pairs of the Confessor captures (the numbered
 > 01-10 session of 2025-12-29 plus the b-series of 2026-01-23..25; 20 flags verified,
 > 4 honest hypotheses) and **supersedes this document for the families it covers**.
+>
+> **EXTENDED 2026-07-06** with 7 pairs from the `snapshots-root` corpus's slot-2
+> (V1) and slot-7 (an uncharacterized instrument character) 2026-02-09 session —
+> 27 pairs total, 27 flags verified across both corpora (see the intra-session
+> drift amendment below).
+>
 > Measured region map (grace-relative, per-save floating bases):
 >
 > | family | layout | base (grace_rel) |
@@ -60,11 +66,25 @@ This document is the **single source of truth** for Elden Ring save file parsing
 > Cross-session measurements on the SAME character confirm per-save base float:
 > the December session measured tile-pickup base 483,889 / world-state-b base
 > 146,514 vs the b-series' 483,969 / 146,598-146,618. Within a session, bases are
-> empirically stable — the pipeline exploits this as a **multi-file differential**:
+> USUALLY stable — the pipeline exploits this as a **multi-file differential**:
 > an ambiguous set-transition candidate whose implied base is independently
 > re-measured by a later resolved pair must stay SET in that pair's files (these
 > flags are set-monotonic), which disambiguated the Golden Order Seal pickup
 > (candidate at grace_rel 851,264 cleared in later files; 851,389 persisted).
+>
+> **AMENDMENT (2026-07-06, `snapshots-root` s7 pairs):** bases can also drift
+> BETWEEN individual captures within one session, not just between sessions. The
+> `snapshots-root` corpus's slot-7 tile-pickup-row-id base measured 482,861 at
+> 21:51 and 482,931 at 22:15-22:21 — a ~70-byte shift inside a single ~30-minute
+> capture run. This does not break candidate resolution: each pair's cross-checks
+> evaluate an expectation flag's bit at the CANDIDATE'S OWN implied base in that
+> pair's own `after` file, never a cached base from the resolving pair, so the
+> mechanism is inherently robust to intra-session drift. The corpus's four
+> world-state-b pairs (progression 60220, graces 71800/76101) did not resolve at
+> all (0 or many isolated-flip candidates) — left as unresolved rather than
+> forced, consistent with the evidence catalog's own note that this corpus has
+> cross-session churn and an unresolved flag-byte interpretation for the 71800
+> pair.
 >
 > Copy A vs copy B (c03-c04, grace 76310): **open-world graces (76xxx) set the bit
 > in BOTH world-state blocks** — copy A (the grace-anchor region detection pins) and

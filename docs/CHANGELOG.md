@@ -4,6 +4,71 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.24.0 - S2/S7 attributed pairs; timeline replay audit (re-annotation rejected on evidence)
+
+### Features
+- **7 new attributed pairs** from the `snapshots-root` corpus's 2026-02-09 session
+  added to `knowledge/inputs/attributed-transitions.json`, with per-pair
+  corpus/save_slot overrides (slot 2 = "V1", slot 7 = a previously
+  uncharacterized instrument character): 3 world pickups resolve for s2-V1
+  (family base 482,907) and 4 for s7 (base 482,861 then 482,931 24 minutes
+  later — see Key Findings). 27 pairs total, all re-verified deterministic.
+- **`knowledge timeline <target>`** (new subcommand, `src/knowledge/timeline.rs`,
+  `knowledge/inputs/timeline-targets.json`): replays a sparse-diff capture-agent
+  timeline (`[u32 LE offset][old byte][new byte]` records, one file per capture)
+  into an in-memory slot buffer in chronological order, verify-on-read against
+  the evidence catalog, and reports the reference grace detector's confidence
+  and offset drift across the whole chain. Emits
+  `knowledge/claims/timeline-replay-audit.json` — replay/detection statistics
+  only, no flag claims (see Key Findings for why).
+
+### Key Findings (byte-verified)
+- **Family bases can drift within a single session, not just between
+  sessions**: s7's tile-pickup-row-id base measured 482,861 at 21:51 and
+  482,931 at 22:15-22:21 on 2026-02-09, a ~70-byte shift inside one ~30-minute
+  capture run. Harmless to the pipeline's candidate resolution because every
+  cross-check reads an expectation flag's bit at the CANDIDATE's own implied
+  base in that candidate's own `after` file, never a cached base from the
+  pair that first resolved it.
+- s7's four world-state-b pairs (progression 60220, graces 71800/76101) did
+  NOT resolve (isolated-flip scans returned zero or many candidates) —
+  consistent with the evidence catalog's own warning that this corpus has
+  cross-session churn and an unresolved flag-byte interpretation for 71800;
+  left unresolved rather than forced.
+- **Timeline re-annotation attempted and rejected on evidence.** Replaying the
+  "Bee" corpus (slot 5, 3,830 captures, 2026-02-14..2026-05-25) is
+  self-consistent: 1,194,422,113 records, 0.68% old-value mismatch rate
+  (matches the earlier 2026-07-05 audit), confident grace detection on
+  2,735/3,830 entries. But naming which flags set when requires locating the
+  world-state-b family base per entry with no attributed before/after pair to
+  anchor a search window (unlike every other pipeline stage). A blind 4-bit
+  tutorial-anchor scan (71800/71801/76100/76101) gave 2-3 candidates even
+  inside a tight window around the established base cluster; adding a
+  3-entry base-stability streak still produced 32,893 "events" naming only
+  16,174 distinct flags, with some flags "transitioning" 0→1 up to 69 times —
+  logically impossible for a monotonic bit, and decisive proof the resolved
+  base was hopping between the real region and a coincidentally-matching one.
+  Not shipped (would violate ADR-0004 / the False Negative Investigation
+  Protocol's evidence discipline). Next viable design, documented but not
+  attempted: cluster grace-aligned isolated flips (reusing the same ±16-byte
+  neighborhood test already proven in `pipeline.rs`) across every consecutive
+  pair in the whole chain, and locate the family base from where many
+  independent flips agree, instead of re-deriving a base from a single state.
+
+### Files Modified
+- knowledge/inputs/attributed-transitions.json: 7 s2/s7 pairs added (27 total)
+- knowledge/claims/event-flags.json: regenerated — 27 verified flags
+- src/knowledge/timeline.rs: new — sparse-diff replay audit
+- src/knowledge/mod.rs: `timeline` subcommand registered
+- knowledge/inputs/timeline-targets.json: new — timeline corpus/slot targets
+- knowledge/claims/timeline-replay-audit.json: new — replay/detection stats
+- docs/SAVE_FILE_GROUND_TRUTH.md: intra-session base-drift amendment; 27-pair note
+- docs/BACKLOG.md: s2/s7 pairs marked done; timeline re-annotation attempt documented
+- docs/CHANGELOG.md: version 0.24.0
+- Cargo.toml: bumped to 0.24.0
+
+---
+
 ## v0.23.0 - Multi-slot differential: cross-slot flag verification
 
 ### Features

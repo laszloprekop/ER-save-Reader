@@ -110,9 +110,52 @@ Steps, in order:
    0,0,1). Bonus finding: the "V3 - no" file is byte-identical to "V1 - after picked
    up rowId_1044360310" (sha match), directly attributing V1's SET state; the
    treasure content is Golden Rune [1] (reward corroboration on the anchor pair).
-   REMAINING in step 3: more attributed pairs (s2/s7 root pairs,
-   c06-c08 Golden Centipede pairs lack flag annotations), timeline re-annotation as
-   pipeline output.
+   S2/S7 ROOT PAIRS DONE 2026-07-06: added 7 pairs from the `snapshots-root` corpus
+   (2026-02-09 session), corpus/slot overridden per pair (slot 2 = V1, slot 7 = an
+   uncharacterized instrument character not among the five registered slots).
+   3 world pickups resolved for s2-V1 (rowIds 1044360320/330/300, family base
+   482,907) and 4 for s7 (rowIds 1042360030, 1044360310/340/330). NEW FINDING:
+   s7's tile-pickup-row-id base measured 482,861 at 21:51 and 482,931 at 22:15-22:21
+   — a ~70-byte shift **within the same ~30-minute session**, amending the earlier
+   "stable within a session" assumption to "can drift between individual captures
+   within a session, not just between sessions"; the per-pair isolated-flip +
+   candidate-resolution design tolerates this because each candidate's cross-checks
+   use its own file's current base, never a cached one. The four s7 world-state-b
+   pairs (60220 progression, 71800/76101 graces) did NOT resolve — isolated-flip
+   scans returned zero or many candidates, consistent with the evidence catalog's
+   own warning that this corpus has cross-session churn and the 71800 pair's
+   "flag-byte interpretation is unresolved"; left unresolved rather than forced.
+   All 27 pairs total re-verified deterministic (`knowledge run` reports "claims
+   store unchanged" on re-run) and the full test suite (116 main + 3 regression +
+   52 wasm + 4 conformance) stays green.
+   TIMELINE RE-ANNOTATION ATTEMPTED 2026-07-06 (`er-save-editor knowledge timeline`,
+   `src/knowledge/timeline.rs`): replays the Bee corpus's sparse-diff chain (slot 5,
+   3,830 captures, 2026-02-14..2026-05-25, verify-on-read against the evidence
+   catalog) into an in-memory slot buffer and runs the reference grace detector at
+   every step. Replay is self-consistent (1,194,422,113 records, 0.68% old-value
+   mismatch rate against the reconstructed state — matches the 2026-07-05 audit
+   exactly) and grace detection stays confident for 2,735/3,830 entries (ef_offset
+   drifting 72,609-82,586 over the chain). RE-ANNOTATING WHICH FLAGS SET WHEN WAS
+   ATTEMPTED AND REJECTED on evidence: unlike `cmd_run`'s attributed pairs, there is
+   no known before/after transition here to anchor a bounded family-base search, so
+   a blind full-EF scan for the world-state-b tutorial-anchor 4-bit pattern
+   (71800/71801/76100/76101) was tried — first unbounded (0 matches), then bounded to
+   the empirically-established base cluster (~130k-160k, still 2-3 candidates), then
+   gated by a 3-entry base-stability streak. The streak-gated version still produced
+   32,893 "events" naming only 16,174 distinct flags, with some flags "transitioning"
+   0→1 up to 69 times — logically impossible for a monotonic bit, and decisive proof
+   the resolved base was hopping between the real region and a coincidentally-matching
+   one. This result was NOT shipped (would violate ADR-0004 / the False Negative
+   Investigation Protocol); the command now emits only the replay-and-detect audit
+   (`knowledge/claims/timeline-replay-audit.json`) and asserts no flags. Next viable
+   design (not attempted, out of scope for this increment): cluster grace-aligned
+   isolated flips (reusing the same ±16-neighborhood test from `pipeline.rs`) across
+   every consecutive pair in the whole chain, and locate the family base from where
+   many independent flips agree, rather than re-deriving a base from a single state.
+   REMAINING in step 3: c06-c08 Golden Centipede pairs still lack flag annotations
+   (cannot become pairs without a flag hypothesis) — data gap, not a mechanism gap;
+   the four s7 world-state-b pairs above also remain unresolved pending more/cleaner
+   captures; the timeline flip-clustering design above, if someone wants to pursue it.
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
    store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink

@@ -53,6 +53,13 @@
     {
       "base_is_per_save": true,
       "base_measurements_grace_rel": {
+        "ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after": 482907,
+        "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after": 482907,
+        "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after": 482907,
+        "ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after": 482861,
+        "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after": 482931,
+        "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before": 482931,
+        "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after": 482931,
         "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50": 483889,
         "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010": 483889,
         "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37": 483969,
@@ -929,6 +936,48 @@
       "status": "verified"
     },
     {
+      "bit": 1,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after",
+          "sha256": "c27fb1bd6bb5df3df066fedf603bff8cdf030ea2f1d8bcab7f33b2647a309424"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 135 s7-Slot7 World Pickup 1042360030_m60_4_23 before",
+          "sha256": "d5f5c97beb850350594ba6280d7b776131646572a491996b2b7a29d84318a983"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2901",
+            "name": "Golden Rune [2]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s7-135-136",
+        "save_slot": 7
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 320253,
+      "flag": 1042360030,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1042360030 (m60_42_36) picked up — s7-Slot7 session, 2026-02-09 21:51. Character in slot 7 is not one of the five registered save slots; treat as an uncharacterized instrument character.",
+      "measured": {
+        "byte_after": "0x02",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482861,
+        "flip_grace_rel": 803114
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2901 (Golden Rune [2]) x1 in the world_pickup window"
+      ],
+      "status": "verified"
+    },
+    {
       "bit": 3,
       "co_set_flags_hypotheses": [],
       "established": "2026-07-05",
@@ -1219,6 +1268,50 @@
       "status": "verified"
     },
     {
+      "bit": 3,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after",
+          "sha256": "410f49cebc75d9082c2e5fc84724de369550531f8ea21d8f6d6081b8bf784c8d"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 126 s2-V1 World Pickup 1044360300_m60_4_4 before",
+          "sha256": "82fe6aef39e20f7b69b3d37f43b07304b9a6237c44acfbd8633e9e1c85d8b43d"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s2-126-127",
+        "save_slot": 2
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390287,
+      "flag": 1044360300,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360300 (m60_44_36) picked up — s2-V1 session, 2026-02-09",
+      "measured": {
+        "byte_after": "0x08",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482907,
+        "flip_grace_rel": 873194
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2900 (Golden Rune [1]) x1 in the world_pickup window",
+        "within_file_cross_check: 1044360320 (s2-122-123) SET at base+390290",
+        "within_file_cross_check: 1044360330 (s2-124-125) SET at base+390291"
+      ],
+      "status": "verified"
+    },
+    {
       "bit": 1,
       "co_set_flags_hypotheses": [],
       "established": "2026-07-05",
@@ -1260,13 +1353,230 @@
         "multi_slot_differential: treasure-1044360310-v1-v2-v3 — expected presence/absence pattern matches in every slot at per-slot bases within ±64 of the anchor base"
       ],
       "status": "verified"
+    },
+    {
+      "bit": 1,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after",
+          "sha256": "4ac67e8ce30fc75661e298760386688d4178ce4ed34a1c10c6ceb5649d872d82"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 142 s7-Slot7 World Pickup 1044360310_m60_4_43 before",
+          "sha256": "b17efc4606263673ad9a983d3e5bbc889339315bc10aced81ab4d229c3d4a835"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s7-142-143",
+        "save_slot": 7
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390288,
+      "flag": 1044360310,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360310 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:15. NOTE: the tile-pickup family base measured here (~482,931) differs from the base measured 24 minutes earlier in the same session by s7-135-136 (~482,861) — intra-session base drift, not just inter-session (amends the 'stable within a session' assumption).",
+      "measured": {
+        "byte_after": "0x02",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482931,
+        "flip_grace_rel": 873219
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2900 (Golden Rune [1]) x1 in the world_pickup window",
+        "within_file_cross_check: 1042360030 (s7-135-136) SET at base+320253"
+      ],
+      "status": "verified"
+    },
+    {
+      "bit": 7,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after",
+          "sha256": "70ef474343b90ea3d5d1a49b63f53214ec46b71fa10279e0e4e506b6d5345d78"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 122 s2-V1 World Pickup 1044360320_m60_4_43 before",
+          "sha256": "d4b8ad7d52ab4d78ba4ffdde28a3aa77f037baa6d57938f3f9bc1f24f89b5bf4"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2901",
+            "name": "Golden Rune [2]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s2-122-123",
+        "save_slot": 2
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390290,
+      "flag": 1044360320,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360320 (m60_44_36) picked up — s2-V1 session, 2026-02-09",
+      "measured": {
+        "byte_after": "0x80",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482907,
+        "flip_grace_rel": 873197
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2901 (Golden Rune [2]) x1 in the world_pickup window"
+      ],
+      "status": "verified"
+    },
+    {
+      "bit": 5,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after",
+          "sha256": "dff0098e88c48640f34c381eea189b4df221929611552cae7e8a31205c6dfd45"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 124 s2-V1 World Pickup 1044360330_m60_4_43 before",
+          "sha256": "c859522ed93216f72ed9ebcdebd731fdf9c98ac1e01eed0e66312cfff33285a7"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s2-124-125",
+        "save_slot": 2
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390291,
+      "flag": 1044360330,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360330 (m60_44_36) picked up — s2-V1 session, 2026-02-09",
+      "measured": {
+        "byte_after": "0x20",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482907,
+        "flip_grace_rel": 873198
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2900 (Golden Rune [1]) x1 in the world_pickup window",
+        "within_file_cross_check: 1044360320 (s2-122-123) SET at base+390290"
+      ],
+      "status": "verified"
+    },
+    {
+      "bit": 5,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after",
+          "sha256": "5c0c26abbe1b2229f467abf89ad4ef324e1dfb725110adf3c7d9958176b3b67a"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+          "sha256": "f28c92e6bd647c71cd1b7f9ce514e4670475ea27d16779ab4a55ded1883bdc45"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s7-145-146",
+        "save_slot": 7
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390291,
+      "flag": 1044360330,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360330 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:21",
+      "measured": {
+        "byte_after": "0x20",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482931,
+        "flip_grace_rel": 873222
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2900 (Golden Rune [1]) x1 in the world_pickup window",
+        "within_file_cross_check: 1042360030 (s7-135-136) SET at base+320253",
+        "within_file_cross_check: 1044360310 (s7-142-143) SET at base+390288",
+        "within_file_cross_check: 1044360340 (s7-144-145) SET at base+390292"
+      ],
+      "status": "verified"
+    },
+    {
+      "bit": 3,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+          "sha256": "f28c92e6bd647c71cd1b7f9ce514e4670475ea27d16779ab4a55ded1883bdc45"
+        },
+        "before": {
+          "file": "ER0000.sl2 - 144 s7-Slot7 World Pickup 1044360340_m60_4_43 before",
+          "sha256": "8e4ae1d6a561e2aed593c748da59536d86581e4b1d9801512ca3b4cb3b955fa3"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2902",
+            "name": "Golden Rune [3]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "s7-144-145",
+        "save_slot": 7
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390292,
+      "flag": 1044360340,
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360340 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:19. NOTE: filenames for 144/145 both say 'before' for different rowIds; the isolated flip between them attributes cleanly to 1044360340.",
+      "measured": {
+        "byte_after": "0x08",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482931,
+        "flip_grace_rel": 873223
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2902 (Golden Rune [3]) x1 in the world_pickup window",
+        "within_file_cross_check: 1042360030 (s7-135-136) SET at base+320253",
+        "within_file_cross_check: 1044360310 (s7-142-143) SET at base+390288"
+      ],
+      "status": "verified"
     }
   ],
   "generated_by": "er-save-editor knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
   "inputs": {
     "attributed_transitions": {
       "path": "knowledge/inputs/attributed-transitions.json",
-      "sha256": "60b5dc756581e716c33bcde79be28cdc69f90124750a12665a6610e25bce379c"
+      "sha256": "09e54d968bccf5b5fafbad3ee3c54651569a640d4a1097cd84b82770bcc34076"
     },
     "eventflag_alloclists": {
       "path": "knowledge/game/eventflag-alloclists.json",
@@ -1601,6 +1911,42 @@
       "grace_base": 81864,
       "sha256": "8a5a05c277703b2d79a730f5fc36c55796d681095178cee17befa65fc239ae9e"
     },
+    "snapshots-root#2#ER0000.sl2 - 122 s2-V1 World Pickup 1044360320_m60_4_43 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76757,
+      "sha256": "d4b8ad7d52ab4d78ba4ffdde28a3aa77f037baa6d57938f3f9bc1f24f89b5bf4"
+    },
+    "snapshots-root#2#ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "70ef474343b90ea3d5d1a49b63f53214ec46b71fa10279e0e4e506b6d5345d78"
+    },
+    "snapshots-root#2#ER0000.sl2 - 124 s2-V1 World Pickup 1044360330_m60_4_43 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "c859522ed93216f72ed9ebcdebd731fdf9c98ac1e01eed0e66312cfff33285a7"
+    },
+    "snapshots-root#2#ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "dff0098e88c48640f34c381eea189b4df221929611552cae7e8a31205c6dfd45"
+    },
+    "snapshots-root#2#ER0000.sl2 - 126 s2-V1 World Pickup 1044360300_m60_4_4 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "82fe6aef39e20f7b69b3d37f43b07304b9a6237c44acfbd8633e9e1c85d8b43d"
+    },
+    "snapshots-root#2#ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "410f49cebc75d9082c2e5fc84724de369550531f8ea21d8f6d6081b8bf784c8d"
+    },
     "snapshots-root#2#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
       "detection_confident": true,
       "ga_items_end": 41448,
@@ -1654,6 +2000,48 @@
       "ga_items_end": 41448,
       "grace_base": 76787,
       "sha256": "c3e288234811dca36551e500ee1e4f3d551e29936a7dfa3249be65f230344e7e"
+    },
+    "snapshots-root#7#ER0000.sl2 - 135 s7-Slot7 World Pickup 1042360030_m60_4_23 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76779,
+      "sha256": "d5f5c97beb850350594ba6280d7b776131646572a491996b2b7a29d84318a983"
+    },
+    "snapshots-root#7#ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "c27fb1bd6bb5df3df066fedf603bff8cdf030ea2f1d8bcab7f33b2647a309424"
+    },
+    "snapshots-root#7#ER0000.sl2 - 142 s7-Slot7 World Pickup 1044360310_m60_4_43 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76749,
+      "sha256": "b17efc4606263673ad9a983d3e5bbc889339315bc10aced81ab4d229c3d4a835"
+    },
+    "snapshots-root#7#ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76757,
+      "sha256": "4ac67e8ce30fc75661e298760386688d4178ce4ed34a1c10c6ceb5649d872d82"
+    },
+    "snapshots-root#7#ER0000.sl2 - 144 s7-Slot7 World Pickup 1044360340_m60_4_43 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76757,
+      "sha256": "8e4ae1d6a561e2aed593c748da59536d86581e4b1d9801512ca3b4cb3b955fa3"
+    },
+    "snapshots-root#7#ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "f28c92e6bd647c71cd1b7f9ce514e4670475ea27d16779ab4a55ded1883bdc45"
+    },
+    "snapshots-root#7#ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76765,
+      "sha256": "5c0c26abbe1b2229f467abf89ad4ef324e1dfb725110adf3c7d9958176b3b67a"
     }
   },
   "schema": "claims-store/1",
@@ -1720,6 +2108,24 @@
           ],
           "grace_abs_delta": 0,
           "independent_float": false
+        },
+        "tile-pickup-row-id [snapshots-root slot 2]": {
+          "family_abs_delta": 0,
+          "files": [
+            "snapshots-root#2#ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after",
+            "snapshots-root#2#ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after"
+          ],
+          "grace_abs_delta": 0,
+          "independent_float": false
+        },
+        "tile-pickup-row-id [snapshots-root slot 7]": {
+          "family_abs_delta": 40,
+          "files": [
+            "snapshots-root#7#ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after",
+            "snapshots-root#7#ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after"
+          ],
+          "grace_abs_delta": -30,
+          "independent_float": true
         },
         "world-state-b [snapshots-confessor slot 0]": {
           "family_abs_delta": 0,

@@ -264,6 +264,90 @@
       "family": "tile-pickup-row-id",
       "kind": "world_pickup",
       "label": "V3 picks up treasure_m60_44_36_10 (rowId 1044360310, m60_44_36). CAVEAT: cross-session pair (before 2025-12-30, after 2026-01-20) — en-route tile flips expected alongside the attributed one."
+    },
+    {
+      "id": "s2-122-123",
+      "order": 2123,
+      "corpus": "snapshots-root",
+      "save_slot": 2,
+      "before": "ER0000.sl2 - 122 s2-V1 World Pickup 1044360320_m60_4_43 before",
+      "after": "ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after",
+      "flag": 1044360320,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360320 (m60_44_36) picked up — s2-V1 session, 2026-02-09"
+    },
+    {
+      "id": "s2-124-125",
+      "order": 2125,
+      "corpus": "snapshots-root",
+      "save_slot": 2,
+      "before": "ER0000.sl2 - 124 s2-V1 World Pickup 1044360330_m60_4_43 before",
+      "after": "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after",
+      "flag": 1044360330,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360330 (m60_44_36) picked up — s2-V1 session, 2026-02-09"
+    },
+    {
+      "id": "s2-126-127",
+      "order": 2127,
+      "corpus": "snapshots-root",
+      "save_slot": 2,
+      "before": "ER0000.sl2 - 126 s2-V1 World Pickup 1044360300_m60_4_4 before",
+      "after": "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after",
+      "flag": 1044360300,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360300 (m60_44_36) picked up — s2-V1 session, 2026-02-09"
+    },
+    {
+      "id": "s7-135-136",
+      "order": 3136,
+      "corpus": "snapshots-root",
+      "save_slot": 7,
+      "before": "ER0000.sl2 - 135 s7-Slot7 World Pickup 1042360030_m60_4_23 before",
+      "after": "ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after",
+      "flag": 1042360030,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1042360030 (m60_42_36) picked up — s7-Slot7 session, 2026-02-09 21:51. Character in slot 7 is not one of the five registered save slots; treat as an uncharacterized instrument character."
+    },
+    {
+      "id": "s7-142-143",
+      "order": 3143,
+      "corpus": "snapshots-root",
+      "save_slot": 7,
+      "before": "ER0000.sl2 - 142 s7-Slot7 World Pickup 1044360310_m60_4_43 before",
+      "after": "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after",
+      "flag": 1044360310,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360310 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:15. NOTE: the tile-pickup family base measured here (~482,931) differs from the base measured 24 minutes earlier in the same session by s7-135-136 (~482,861) — intra-session base drift, not just inter-session (amends the 'stable within a session' assumption)."
+    },
+    {
+      "id": "s7-144-145",
+      "order": 3145,
+      "corpus": "snapshots-root",
+      "save_slot": 7,
+      "before": "ER0000.sl2 - 144 s7-Slot7 World Pickup 1044360340_m60_4_43 before",
+      "after": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+      "flag": 1044360340,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360340 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:19. NOTE: filenames for 144/145 both say 'before' for different rowIds; the isolated flip between them attributes cleanly to 1044360340."
+    },
+    {
+      "id": "s7-145-146",
+      "order": 3146,
+      "corpus": "snapshots-root",
+      "save_slot": 7,
+      "before": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+      "after": "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after",
+      "flag": 1044360330,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360330 (m60_44_36) picked up — s7-Slot7 session, 2026-02-09 22:21"
     }
   ],
   "multi_slot_differentials": [
