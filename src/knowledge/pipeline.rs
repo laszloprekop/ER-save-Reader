@@ -339,6 +339,8 @@ fn bit_at(f: &SaveFile, grace_rel: u64, bit: u8) -> Option<bool> {
 struct Pair {
     id: String,
     order: u64,
+    corpus: String,
+    save_slot: usize,
     before: String,
     after: String,
     flag: u64,
@@ -347,6 +349,27 @@ struct Pair {
     label: String,
     rel: u64,
     bit: u8,
+}
+
+/// Key for the loaded-files map: the same rel_path can appear under several
+/// corpora/slots (multi-slot instrument files).
+fn file_key(corpus: &str, save_slot: usize, rel_path: &str) -> String {
+    format!("{}#{}#{}", corpus, save_slot, rel_path)
+}
+
+impl Pair {
+    fn bkey(&self) -> String {
+        file_key(&self.corpus, self.save_slot, &self.before)
+    }
+    fn akey(&self) -> String {
+        file_key(&self.corpus, self.save_slot, &self.after)
+    }
+    /// Pairs may only cross-check each other within the same slot of the same
+    /// corpus: family bases float per save, so expectations from another
+    /// character's captures are meaningless.
+    fn same_scope(&self, other: &Pair) -> bool {
+        self.corpus == other.corpus && self.save_slot == other.save_slot
+    }
 }
 
 struct Resolved {
@@ -389,16 +412,25 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     let save_slot = input["save_slot"].as_u64().unwrap_or(0) as usize;
     let established = input["established"].as_str().unwrap_or("").to_string();
 
-    // resolve corpus directory + manifest from the evidence catalog
-    let corpus = catalog["corpora"]
-        .as_array()
-        .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id))
-        .ok_or_else(|| format!("corpus {} not in evidence catalog", corpus_id))?;
-    let root_key = corpus["root"].as_str().ok_or("corpus missing root")?;
-    let root = catalog["roots"][root_key].as_str().ok_or("unknown root")?;
-    let dir = Path::new(root).join(corpus["path"].as_str().ok_or("corpus missing path")?);
-    let manifest_rel = corpus["manifest"].as_str().ok_or("corpus has no manifest")?;
-    let manifest = load_manifest(&repo_root, manifest_rel)?;
+    // resolve corpus directory + manifest from the evidence catalog (lazily,
+    // per corpus id — pairs and differentials may reference several corpora)
+    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
+    let mut corpus_for = |id: &str| -> Result<(PathBuf, BTreeMap<String, String>), String> {
+        if let Some(v) = corpora.get(id) {
+            return Ok(v.clone());
+        }
+        let corpus = catalog["corpora"]
+            .as_array()
+            .and_then(|cs| cs.iter().find(|c| c["id"] == id))
+            .ok_or_else(|| format!("corpus {} not in evidence catalog", id))?;
+        let root_key = corpus["root"].as_str().ok_or("corpus missing root")?;
+        let root = catalog["roots"][root_key].as_str().ok_or("unknown root")?;
+        let dir = Path::new(root).join(corpus["path"].as_str().ok_or("corpus missing path")?);
+        let manifest_rel = corpus["manifest"].as_str().ok_or("corpus has no manifest")?;
+        let manifest = load_manifest(&repo_root, manifest_rel)?;
+        corpora.insert(id.to_string(), (dir.clone(), manifest.clone()));
+        Ok((dir, manifest))
+    };
 
     let mut pairs: Vec<Pair> = Vec::new();
     for p in input["pairs"].as_array().ok_or("input missing pairs")? {
@@ -408,6 +440,8 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
         pairs.push(Pair {
             id: p["id"].as_str().unwrap_or_default().to_string(),
             order: p["order"].as_u64().ok_or("pair missing order")?,
+            corpus: p["corpus"].as_str().unwrap_or(corpus_id).to_string(),
+            save_slot: p["save_slot"].as_u64().map(|v| v as usize).unwrap_or(save_slot),
             before: p["before"].as_str().ok_or("pair missing before")?.to_string(),
             after: p["after"].as_str().ok_or("pair missing after")?.to_string(),
             flag,
@@ -433,20 +467,45 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     }
 
     // --- evidence (verify-on-read) ----------------------------------------
-    println!("loading evidence from corpus '{}' (verify-on-read)…", corpus_id);
+    println!("loading evidence (verify-on-read)…");
     let mut files: BTreeMap<String, SaveFile> = BTreeMap::new();
+    let mut load_into = |files: &mut BTreeMap<String, SaveFile>,
+                         corpus: &str,
+                         slot: usize,
+                         rel_path: &str|
+     -> Result<(), String> {
+        let key = file_key(corpus, slot, rel_path);
+        if files.contains_key(&key) {
+            return Ok(());
+        }
+        let (dir, manifest) = corpus_for(corpus)?;
+        let f = load_save(&dir, rel_path, slot, &manifest)?;
+        println!(
+            "  [{} slot {}] {}… grace={} gaEnd={} confident={}",
+            corpus,
+            slot,
+            &f.rel_path[..f.rel_path.len().min(52)],
+            f.grace,
+            f.ga_end,
+            f.confident
+        );
+        files.insert(key, f);
+        Ok(())
+    };
     for p in &pairs {
-        for rel_path in [&p.before, &p.after] {
-            if !files.contains_key(rel_path.as_str()) {
-                let f = load_save(&dir, rel_path, save_slot, &manifest)?;
-                println!(
-                    "  {}… grace={} gaEnd={} confident={}",
-                    &f.rel_path[..f.rel_path.len().min(52)],
-                    f.grace,
-                    f.ga_end,
-                    f.confident
-                );
-                files.insert(rel_path.clone(), f);
+        load_into(&mut files, &p.corpus, p.save_slot, &p.before)?;
+        load_into(&mut files, &p.corpus, p.save_slot, &p.after)?;
+    }
+    let differentials: Vec<Value> = input["multi_slot_differentials"]
+        .as_array()
+        .cloned()
+        .unwrap_or_default();
+    for d in &differentials {
+        let d_corpus = d["corpus"].as_str().unwrap_or(corpus_id);
+        for se in d["slots"].as_array().unwrap_or(&vec![]) {
+            let slot = se["save_slot"].as_u64().unwrap_or(0) as usize;
+            for (rel_path, _) in se["files"].as_object().map(|o| o.iter()).into_iter().flatten() {
+                load_into(&mut files, d_corpus, slot, rel_path)?;
             }
         }
     }
@@ -457,7 +516,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     // fixpoint: each pass may resolve pairs that were ambiguous before.
     let mut flips_by_pair: BTreeMap<String, Vec<(usize, u8, u8)>> = BTreeMap::new();
     for p in &pairs {
-        flips_by_pair.insert(p.id.clone(), isolated_flips(&files[&p.before], &files[&p.after]));
+        flips_by_pair.insert(p.id.clone(), isolated_flips(&files[&p.bkey()], &files[&p.akey()]));
     }
 
     let mut resolved: BTreeMap<String, Resolved> = BTreeMap::new();
@@ -468,18 +527,25 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
             if resolved.contains_key(&p.id) {
                 continue;
             }
-            let after = &files[&p.after];
+            let after = &files[&p.akey()];
             let flips = &flips_by_pair[&p.id];
 
-            // expectations from resolved same-family pairs + known-set anchors
+            // expectations from resolved same-family pairs (same corpus+slot
+            // only — bases float per save) + known-set anchors (which are
+            // attributed to the top-level corpus/slot context)
             let mut expectations: Vec<(u64, bool, String)> = Vec::new();
             for q in pairs.iter().filter(|q| {
-                q.family == p.family && q.id != p.id && resolved.contains_key(&q.id)
+                q.family == p.family
+                    && q.id != p.id
+                    && q.same_scope(p)
+                    && resolved.contains_key(&q.id)
             }) {
                 expectations.push((q.flag, q.order < p.order, format!("{} ({})", q.flag, q.id)));
             }
-            for f in known_set.get(&p.family).cloned().unwrap_or_default() {
-                expectations.push((f, true, format!("{} (known-set anchor)", f)));
+            if p.corpus == corpus_id && p.save_slot == save_slot {
+                for f in known_set.get(&p.family).cloned().unwrap_or_default() {
+                    expectations.push((f, true, format!("{} (known-set anchor)", f)));
+                }
             }
 
             // candidates: expected bit flips 0 -> 1, family base non-negative
@@ -550,6 +616,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
                         .filter(|q| {
                             q.family == p.family
                                 && q.id != p.id
+                                && q.same_scope(p)
                                 && resolved
                                     .get(&q.id)
                                     .is_some_and(|r| r.base_after == s.base_after)
@@ -557,11 +624,11 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
                         .collect();
                     let mut alive = true;
                     for q in corroborators.iter().filter(|q| q.order > p.order) {
-                        for file_key in [&q.before, &q.after] {
-                            match bit_at(&files[file_key], s.flip_grace_rel, p.bit) {
+                        for fkey in [q.bkey(), q.akey()] {
+                            match bit_at(&files[&fkey], s.flip_grace_rel, p.bit) {
                                 Some(true) => s.checks.push(format!(
                                     "persists SET in {} file of {} (multi-file differential, base {})",
-                                    if *file_key == q.before { "before" } else { "after" },
+                                    if fkey == q.bkey() { "before" } else { "after" },
                                     q.id,
                                     s.base_after
                                 )),
@@ -655,6 +722,16 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     // --- tombstone refutation checks (recomputed every run) -----------------
     let tombstones = tombstone_checks(&pairs, &files, &resolved)?;
 
+    // --- multi-slot differentials -------------------------------------------
+    let msd_results = run_multi_slot_differentials(
+        &differentials,
+        corpus_id,
+        &alloc,
+        &pairs,
+        &files,
+        &resolved,
+    )?;
+
     // --- claims assembly ----------------------------------------------------
     let store = build_store(
         &repo_root,
@@ -666,6 +743,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
         &resolved,
         &diagnostics,
         tombstones,
+        &msd_results,
     )?;
 
     let out_path = repo_root.join(OUTPUT);
@@ -684,6 +762,149 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
 /// Refutations of retired conventions, recomputed from the bytes each run.
 /// A refutation that stops holding is a contradiction: abort so it gets
 /// investigated instead of silently emitting stale tombstones.
+/// Result of one multi-slot differential instrument.
+struct MsdResult {
+    anchor_pair: String,
+    /// method line to append to the anchor pair's flag claim (None = failed)
+    method: Option<String>,
+    entry: Value,
+}
+
+/// Multi-slot differential (CONTEXT.md): verify a flag across character slots
+/// with attributed different progression, inside the same instrument files.
+/// The anchor pair pins the family base in the anchor slot; each other slot's
+/// base is located by matching its full expected bit pattern within ±64 bytes
+/// of the anchor base (slots of one file float independently by record-list
+/// insertions — measured Δ4 between V1 and V2/V3). Far-away pattern matches
+/// exist but are static constants refuted by the anchor transition contrast
+/// (full-EF scan, 2026-07-06); the bounded window plus a uniqueness
+/// requirement keeps the check honest.
+fn run_multi_slot_differentials(
+    differentials: &[Value],
+    default_corpus: &str,
+    alloc: &BTreeMap<String, u64>,
+    pairs: &[Pair],
+    files: &BTreeMap<String, SaveFile>,
+    resolved: &BTreeMap<String, Resolved>,
+) -> Result<Vec<MsdResult>, String> {
+    const WINDOW: i64 = 64;
+    let mut out = Vec::new();
+    for d in differentials {
+        let id = d["id"].as_str().unwrap_or_default().to_string();
+        let anchor_id = d["anchor_pair"].as_str().unwrap_or_default().to_string();
+        let corpus = d["corpus"].as_str().unwrap_or(default_corpus);
+        let family = d["family"].as_str().ok_or("differential missing family")?;
+        let mut entry = json!({
+            "id": id,
+            "flag": d["flag"],
+            "family": family,
+            "label": d["label"],
+            "established": d["established"],
+            "anchor_pair": anchor_id,
+        });
+        let obj = entry.as_object_mut().unwrap();
+
+        let Some(anchor) = pairs.iter().find(|p| p.id == anchor_id) else {
+            return Err(format!("differential {}: anchor pair {} not in pairs", id, anchor_id));
+        };
+        let Some(r) = resolved.get(&anchor_id) else {
+            println!("{}: SKIPPED — anchor pair {} unresolved", id, anchor_id);
+            obj.insert("status".into(), json!("skipped"));
+            obj.insert("diagnostic".into(), json!("anchor pair unresolved"));
+            out.push(MsdResult { anchor_pair: anchor_id, method: None, entry });
+            continue;
+        };
+        let anchor_base = r.base_after as i64;
+        obj.insert("anchor_base_grace_rel".into(), json!(anchor_base));
+
+        let mut slot_reports = Vec::new();
+        let mut all_ok = true;
+        for se in d["slots"].as_array().unwrap_or(&vec![]) {
+            let slot = se["save_slot"].as_u64().unwrap_or(0) as usize;
+            let character = se["character"].as_str().unwrap_or_default();
+            let file_patterns = se["files"].as_object().ok_or("slot entry missing files")?;
+
+            // deltas (vs the anchor base) where the slot's full pattern matches
+            let mut matches: Vec<i64> = Vec::new();
+            for delta in -WINDOW..=WINDOW {
+                let mut ok = true;
+                'outer: for (rel_path, pattern) in file_patterns {
+                    let f = &files[&file_key(corpus, slot, rel_path)];
+                    for (flag_s, expect) in pattern.as_object().unwrap() {
+                        let flag: u64 = flag_s.parse().map_err(|_| format!("bad flag {}", flag_s))?;
+                        let rel = family_rel(family, flag, alloc)? as i64;
+                        let pos = anchor_base + delta + rel;
+                        let actual = pos >= 0 && bit_at(f, pos as u64, bit_of(flag)) == Some(true);
+                        if actual != expect.as_bool().unwrap_or(false) {
+                            ok = false;
+                            break 'outer;
+                        }
+                    }
+                }
+                if ok {
+                    matches.push(delta);
+                }
+            }
+            let checks: usize = file_patterns
+                .values()
+                .map(|p| p.as_object().map(|o| o.len()).unwrap_or(0))
+                .sum();
+            match matches.as_slice() {
+                [delta] => {
+                    println!(
+                        "{}: slot {} ({}) matches at base {} (anchor{:+}), {} bit-checks across {} files",
+                        id, slot, character, anchor_base + delta, delta, checks, file_patterns.len()
+                    );
+                    slot_reports.push(json!({
+                        "save_slot": slot,
+                        "character": character,
+                        "base_grace_rel": anchor_base + delta,
+                        "delta_vs_anchor": delta,
+                        "bit_checks": checks,
+                        "files": file_patterns.len(),
+                        "pattern_provenance": se["pattern_provenance"],
+                    }));
+                }
+                [] => {
+                    all_ok = false;
+                    slot_reports.push(json!({
+                        "save_slot": slot,
+                        "character": character,
+                        "diagnostic": "no base within ±64 of the anchor matches the expected pattern",
+                    }));
+                }
+                many => {
+                    all_ok = false;
+                    slot_reports.push(json!({
+                        "save_slot": slot,
+                        "character": character,
+                        "diagnostic": format!("ambiguous: {} bases match within the window: {:?}", many.len(), many),
+                    }));
+                }
+            }
+        }
+        obj.insert("slots".into(), Value::Array(slot_reports));
+        let method = if all_ok {
+            obj.insert("status".into(), json!("verified"));
+            println!("{}: VERIFIED across {} slots", id, d["slots"].as_array().map(|a| a.len()).unwrap_or(0));
+            Some(format!(
+                "multi_slot_differential: {} — expected presence/absence pattern matches in every slot at per-slot bases within ±{} of the anchor base",
+                id, WINDOW
+            ))
+        } else {
+            obj.insert("status".into(), json!("failed"));
+            println!("{}: FAILED — see slot diagnostics", id);
+            None
+        };
+        // the anchor pair must belong to the differential's corpus
+        if anchor.corpus != corpus {
+            return Err(format!("differential {}: anchor pair corpus mismatch", id));
+        }
+        out.push(MsdResult { anchor_pair: anchor_id, method, entry });
+    }
+    Ok(out)
+}
+
 fn tombstone_checks(
     pairs: &[Pair],
     files: &BTreeMap<String, SaveFile>,
@@ -726,7 +947,7 @@ fn tombstone_checks(
                 r.base_after
             ));
         }
-        let after = &files[&p.after];
+        let after = &files[&p.akey()];
         if bit_at(after, 4112 + p.rel, p.bit) == Some(true) {
             return Err(format!(
                 "tombstone check failed: {} bit also set at old 4112-based position",
@@ -744,15 +965,16 @@ fn tombstone_checks(
     }));
 
     // (3) "one universal EF anchor positions all families" — family bases move
-    // by different amounts than the grace base between captures.
+    // by different amounts than the grace base between captures. Grouped per
+    // (family, corpus, slot): comparing bases across characters is meaningless.
     let mut abs_bases: BTreeMap<String, BTreeMap<String, i64>> = BTreeMap::new();
     for p in pairs {
         let Some(r) = resolved.get(&p.id) else { continue };
-        let f = &files[&p.after];
+        let f = &files[&p.akey()];
         abs_bases
-            .entry(p.family.clone())
+            .entry(format!("{} [{} slot {}]", p.family, p.corpus, p.save_slot))
             .or_default()
-            .insert(p.after.clone(), f.grace as i64 + r.base_after as i64);
+            .insert(p.akey(), f.grace as i64 + r.base_after as i64);
     }
     // The refutation needs at least ONE family that provably moves differently
     // from the grace base; families may coincidentally not drift between two
@@ -808,7 +1030,7 @@ fn tombstone_checks(
     for p in pairs.iter().filter(|p| {
         p.family == "world-state-b" && p.kind == "grace_discovery" && resolved.contains_key(&p.id)
     }) {
-        let after = &files[&p.after];
+        let after = &files[&p.akey()];
         let set = bit_at(after, p.rel, p.bit) == Some(true);
         let open_world = p.flag >= 76_000;
         if set != open_world {
@@ -839,14 +1061,15 @@ fn tombstone_checks(
 #[allow(clippy::too_many_arguments)]
 fn build_store(
     repo_root: &Path,
-    corpus_id: &str,
-    save_slot: usize,
+    _corpus_id: &str,
+    _save_slot: usize,
     established: &str,
     pairs: &[Pair],
     files: &BTreeMap<String, SaveFile>,
     resolved: &BTreeMap<String, Resolved>,
     diagnostics: &BTreeMap<String, String>,
     tombstones: Vec<Value>,
+    msd: &[MsdResult],
 ) -> Result<Value, String> {
     let input_hash = |rel: &str| -> Result<String, String> {
         sha256_file(&PathBuf::from(repo_root).join(rel)).map(|(h, _)| h)
@@ -855,8 +1078,8 @@ fn build_store(
     // flag claims (verified when resolved; hypothesis with diagnostics otherwise)
     let mut flags = Vec::new();
     for p in pairs {
-        let before = &files[&p.before];
-        let after = &files[&p.after];
+        let before = &files[&p.bkey()];
+        let after = &files[&p.akey()];
         let mut claim = json!({
             "flag": p.flag,
             "label": p.label,
@@ -866,8 +1089,8 @@ fn build_store(
             "bit": p.bit,
             "established": established,
             "evidence": {
-                "corpus": corpus_id,
-                "save_slot": save_slot,
+                "corpus": p.corpus,
+                "save_slot": p.save_slot,
                 "pair": p.id,
                 "before": { "file": before.rel_path, "sha256": before.sha256 },
                 "after": { "file": after.rel_path, "sha256": after.sha256 },
@@ -908,6 +1131,11 @@ fn build_store(
         if let Some(r) = resolved.get(&p.id) {
             let mut methods = vec![format!("attributed_transition ({})", p.kind)];
             methods.extend(reward_method.clone());
+            methods.extend(
+                msd.iter()
+                    .filter(|m| m.anchor_pair == p.id)
+                    .filter_map(|m| m.method.clone()),
+            );
             methods.extend(r.checks.iter().map(|c| {
                 if c.contains("multi-file differential") || c.contains("independently measured") {
                     format!("multi_file_differential: {}", c)
@@ -1005,11 +1233,12 @@ fn build_store(
         }));
     }
 
-    // per-file measurements
+    // per-file measurements (keyed corpus#slot#rel_path — instrument files
+    // are read once per slot)
     let mut measurements = Map::new();
-    for f in files.values() {
+    for (key, f) in files {
         measurements.insert(
-            f.rel_path.clone(),
+            key.clone(),
             json!({
                 "sha256": f.sha256,
                 "grace_base": f.grace,
@@ -1031,6 +1260,7 @@ fn build_store(
         },
         "families": families,
         "flags": flags,
+        "multi_slot_differentials": msd.iter().map(|m| m.entry.clone()).collect::<Vec<_>>(),
         "tombstones": tombstones,
         "per_file_measurements": Value::Object(measurements),
     }))

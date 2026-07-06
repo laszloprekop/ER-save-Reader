@@ -95,8 +95,22 @@ Steps, in order:
    corroborated by its exact item (e.g. Watchdog → Noble Sorcerer Ashes, Bols →
    Greatblade Phalanx, Crucible Knight → Aspects of the Crucible: Tail, chest →
    Arrow's Reach Talisman); grace pairs honestly show flask-refill noise instead.
-   REMAINING in step 3: multi-slot differential
-   across the 2026-01-11 backup slots, more attributed pairs (s2/s7 root pairs,
+   MULTI-SLOT DIFFERENTIAL DONE 2026-07-06: pairs may now override corpus/save_slot
+   (cross-checks scoped to same corpus+slot — bases float per save), and a
+   `multi_slot_differentials` input section verifies a flag across character slots
+   with attributed different progression. The purpose-built instrument files
+   ("treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 yes, V3 no/yes") verified
+   rowId 1044360310 across V1/V2/V3: the V3 no→yes anchor pair pins the base
+   (482,865); V2/V3 match at anchor+0 and V1 at anchor+4 (slots of ONE file float
+   independently by record-list insertions — the ±4 float observed across slots).
+   Each slot's 5-bit pattern (310 SET/CLEAR per attribution, 300/320/330/340 CLEAR by
+   s2-before-captures + set-monotonicity) matched at exactly one base within ±64 of
+   the anchor; full-EF scans showed far-away pattern matches are static constants
+   refuted by the anchor transition contrast (only 482,865 shows no,rest,yes =
+   0,0,1). Bonus finding: the "V3 - no" file is byte-identical to "V1 - after picked
+   up rowId_1044360310" (sha match), directly attributing V1's SET state; the
+   treasure content is Golden Rune [1] (reward corroboration on the anchor pair).
+   REMAINING in step 3: more attributed pairs (s2/s7 root pairs,
    c06-c08 Golden Centipede pairs lack flag annotations), timeline re-annotation as
    pipeline output.
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims

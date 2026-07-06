@@ -59,7 +59,8 @@
         "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36": 483969,
         "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46": 483981,
         "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32": 483969,
-        "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": 483969
+        "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": 483969,
+        "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": 482865
       },
       "established": "2026-07-05",
       "family": "tile-pickup-row-id",
@@ -1216,13 +1217,56 @@
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501"
       ],
       "status": "verified"
+    },
+    {
+      "bit": 1,
+      "co_set_flags_hypotheses": [],
+      "established": "2026-07-05",
+      "evidence": {
+        "after": {
+          "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+          "sha256": "c3e288234811dca36551e500ee1e4f3d551e29936a7dfa3249be65f230344e7e"
+        },
+        "before": {
+          "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+          "sha256": "331e07707c3f10713925d81f76cf1bb505ea1d067aa93d912de84ae9d9b3f87c"
+        },
+        "corpus": "snapshots-root",
+        "inventory_gained": [
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
+        "pair": "v3rest-v3yes",
+        "save_slot": 4
+      },
+      "family": "tile-pickup-row-id",
+      "family_rel_byte": 390288,
+      "flag": 1044360310,
+      "kind": "world_pickup",
+      "label": "V3 picks up treasure_m60_44_36_10 (rowId 1044360310, m60_44_36). CAVEAT: cross-session pair (before 2025-12-30, after 2026-01-20) — en-route tile flips expected alongside the attributed one.",
+      "measured": {
+        "byte_after": "0x02",
+        "byte_before": "0x00",
+        "family_base_grace_rel_after": 482865,
+        "flip_grace_rel": 873153
+      },
+      "methods": [
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:2900 (Golden Rune [1]) x1 in the world_pickup window",
+        "multi_slot_differential: treasure-1044360310-v1-v2-v3 — expected presence/absence pattern matches in every slot at per-slot bases within ±64 of the anchor base"
+      ],
+      "status": "verified"
     }
   ],
   "generated_by": "er-save-editor knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
   "inputs": {
     "attributed_transitions": {
       "path": "knowledge/inputs/attributed-transitions.json",
-      "sha256": "28760e8a88517364d1070db1777a48a4e30d498b1f08d84778e8e873dab0b244"
+      "sha256": "60b5dc756581e716c33bcde79be28cdc69f90124750a12665a6610e25bce379c"
     },
     "eventflag_alloclists": {
       "path": "knowledge/game/eventflag-alloclists.json",
@@ -1233,288 +1277,383 @@
       "sha256": "07a08caa4ec7873e4cc588b3bdfe2500c854a529db4392abaa579e72e877f157"
     }
   },
+  "multi_slot_differentials": [
+    {
+      "anchor_base_grace_rel": 482865,
+      "anchor_pair": "v3rest-v3yes",
+      "established": "2026-07-06",
+      "family": "tile-pickup-row-id",
+      "flag": 1044360310,
+      "id": "treasure-1044360310-v1-v2-v3",
+      "label": "Multi-slot differential on treasure_m60_44_36_10 (rowId 1044360310) across the pickup-debugging characters: V1 (slot 2) picked it, V2 (slot 3) picked it via a different path, V3 (slot 4) did not until the anchor transition. Instrument files were captured for exactly this purpose.",
+      "slots": [
+        {
+          "base_grace_rel": 482869,
+          "bit_checks": 15,
+          "character": "V1",
+          "delta_vs_anchor": 4,
+          "files": 3,
+          "pattern_provenance": "310 SET attributed by capture filenames ('V1 yes' / 'V2 yes'; the V3-no file is byte-identical to 'V1 - after picked up rowId_1044360310'); 300/320/330/340 CLEAR justified by the s2-V1 before-captures of 2026-02-09 (bits still clear there) + set-monotonicity: clear at a later capture implies clear earlier.",
+          "save_slot": 2
+        },
+        {
+          "base_grace_rel": 482865,
+          "bit_checks": 15,
+          "character": "V2",
+          "delta_vs_anchor": 0,
+          "files": 3,
+          "pattern_provenance": "310 SET attributed by capture filenames ('V1 yes' / 'V2 yes'; the V3-no file is byte-identical to 'V1 - after picked up rowId_1044360310'); 300/320/330/340 CLEAR justified by the s2-V1 before-captures of 2026-02-09 (bits still clear there) + set-monotonicity: clear at a later capture implies clear earlier.",
+          "save_slot": 3
+        },
+        {
+          "base_grace_rel": 482865,
+          "bit_checks": 15,
+          "character": "V3",
+          "delta_vs_anchor": 0,
+          "files": 3,
+          "pattern_provenance": "V3 attributed as not having the pickup in the 'V3 - no' files and having it in 'V3 - yes' (the anchor pair's own transition).",
+          "save_slot": 4
+        }
+      ],
+      "status": "verified"
+    }
+  ],
   "per_file_measurements": {
-    "ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44473,
       "grace_base": 81060,
       "sha256": "ee2ab824379be87d222c70c5c21d5a5a5810da88a37fab272151d10504b2bc15"
     },
-    "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44473,
       "grace_base": 81060,
       "sha256": "c3336e9d148776c7bb8b4fe8419f552e21f55fbce7743af749d331a885afd88c"
     },
-    "ER0000.sl2 Confessor - 03 before touching Minor Erdtree Church grace EF-76310 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 03 before touching Minor Erdtree Church grace EF-76310 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44473,
       "grace_base": 81060,
       "sha256": "dd80db1cddf5d0aa92312f737e37e6aac3d119d68014c8e16166e94f446cce0a"
     },
-    "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44473,
       "grace_base": 81060,
       "sha256": "d69d6c2d77f8fa72ea01195635436901bdeaad9e724956fed04129e70b5fceb9"
     },
-    "ER0000.sl2 Confessor - 05 before picking up Golden Order Seal EF-1043500000 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 05 before picking up Golden Order Seal EF-1043500000 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44473,
       "grace_base": 81060,
       "sha256": "d69d6c2d77f8fa72ea01195635436901bdeaad9e724956fed04129e70b5fceb9"
     },
-    "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50": {
       "detection_confident": false,
       "ga_items_end": 44486,
       "grace_base": 81073,
       "sha256": "5e5ad76bc4781247c2bd62aa0e182faeaf43ea7939ed29ab6bb65be132312e46"
     },
-    "ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010": {
       "detection_confident": false,
       "ga_items_end": 44486,
       "grace_base": 81073,
       "sha256": "eae479a74d2e996459832464ffa53c905e375c642c17499082c326036f2f92c9"
     },
-    "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010": {
+    "snapshots-confessor#0#ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010": {
       "detection_confident": false,
       "ga_items_end": 44486,
       "grace_base": 81073,
       "sha256": "9f09656856b33de2e8a412912d6f41800dd541da4f8118caab0f940ff8575ae9"
     },
-    "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36": {
       "detection_confident": false,
       "ga_items_end": 44984,
       "grace_base": 81523,
       "sha256": "acf59a0dff48fd656c432487b0f92a17d64e4161a144d7b3820442fdc865cac9"
     },
-    "ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45325,
       "grace_base": 81864,
       "sha256": "58c29d75170e311b4d48d25df2af0ef8bfdb54c5fa7f7caa857f6233cabee23c"
     },
-    "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45333,
       "grace_base": 81872,
       "sha256": "b353eaa32b7de1674456cf1e8fac1ae0af10328836c550cd2cba45b7855c0227"
     },
-    "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45231,
       "grace_base": 81770,
       "sha256": "ec4aab3cae805d2cf8f6a0afe6df610cd7644b009db19b51e12552b31b8c7eb2"
     },
-    "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45231,
       "grace_base": 81770,
       "sha256": "6595f5b5ed86e9df8f41b3b01338cf3bb643a1b60b7f05b4fcfc272a3a727a9c"
     },
-    "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45121,
       "grace_base": 81660,
       "sha256": "e4a9cc66d0a2b3b818083c59892469238bcbf701a338d48b9d0ca43a85ea9e6d"
     },
-    "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36": {
       "detection_confident": false,
       "ga_items_end": 44984,
       "grace_base": 81523,
       "sha256": "61de6c3000de1a1dc53a065036d68fa65a9c7b8d8ad532b86823b2684717d106"
     },
-    "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45121,
       "grace_base": 81660,
       "sha256": "c8d6d65423fd74f24ea83060ce6f4f28b0e5120b15b797d99f9d27e2a2132f4b"
     },
-    "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45121,
       "grace_base": 81660,
       "sha256": "d3b2a75dbde7b722da96a6a61c216c552c671f17cd2a99fd8fcfbb3bc2300ae9"
     },
-    "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45011,
       "grace_base": 81550,
       "sha256": "65c0d4466d18f05c0c4f6ab5813578f55e3be7e2911e16c0939ce1f1e0bba087"
     },
-    "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45011,
       "grace_base": 81550,
       "sha256": "6271a56c1ca173fa3b546171d787798937f288a121978201415912707f23a3c1"
     },
-    "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45105,
       "grace_base": 81644,
       "sha256": "d3fd0c00fea43a4277ddab1b86a74772c42d99d0753a848ba4e090e33dae789b"
     },
-    "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00": {
       "detection_confident": false,
       "ga_items_end": 45121,
       "grace_base": 81660,
       "sha256": "69f07362014836b84ff3b6f52c467527a242a9ce846a15d5da1ce183726fd8e7"
     },
-    "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45": {
       "detection_confident": false,
       "ga_items_end": 44901,
       "grace_base": 81440,
       "sha256": "80c35b7804899c44fabea748fa155c1a2a8e5ddf8a84d6fdc077901441add2fb"
     },
-    "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45": {
       "detection_confident": false,
       "ga_items_end": 44901,
       "grace_base": 81440,
       "sha256": "fd7009076ef7bf0cd77baa5b22cc0b735c2e4acfab85d4f43079304fece28948"
     },
-    "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00": {
       "detection_confident": false,
       "ga_items_end": 45024,
       "grace_base": 81563,
       "sha256": "22feab9679c0b4b507d7ce160f79c53abf56e48f03f0a30a671dfeadba41b703"
     },
-    "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00": {
       "detection_confident": false,
       "ga_items_end": 45024,
       "grace_base": 81563,
       "sha256": "c1b974779b3d19f91778bff1b0904ae2c4d002b4a6de621154a4d0eb1db7c32a"
     },
-    "ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32": {
       "detection_confident": false,
       "ga_items_end": 45215,
       "grace_base": 81754,
       "sha256": "486a1228b40991f9fbe844f91be5033bc5a706aa59f9db3d7162697528bb8b28"
     },
-    "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00": {
       "detection_confident": false,
       "ga_items_end": 45024,
       "grace_base": 81563,
       "sha256": "4ebab761567b91b0551dbb3526df2efabf1c9a882277f50874c289dd6d0bae36"
     },
-    "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00": {
       "detection_confident": false,
       "ga_items_end": 45024,
       "grace_base": 81563,
       "sha256": "834bca5319adb8daab84edf25a338fd468c755db31a8722e7131e40799498e24"
     },
-    "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46": {
       "detection_confident": false,
       "ga_items_end": 44804,
       "grace_base": 81343,
       "sha256": "d8303cf0cc444dd8c7d1bae44dcd083ca53c04f628f6293c0e9903f17bf49a9f"
     },
-    "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46": {
       "detection_confident": false,
       "ga_items_end": 44817,
       "grace_base": 81356,
       "sha256": "2f1586d07dc90e01614c0337e429194606649d1d7de4311d0f77b74c3647586d"
     },
-    "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "6dc7f84a736d2b4e6a4929e5d343551c4867d137bc12ced0724e09d6dcfe57b0"
     },
-    "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "3699041584e65cff47135eaad83d72ad99a85c0ccb955a8ea22744a1f4522907"
     },
-    "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32": {
       "detection_confident": false,
       "ga_items_end": 45215,
       "grace_base": 81754,
       "sha256": "58bd0cebc166434e5fb038b979eaa59cd4c68f87f805695ca009d14bdeaa0322"
     },
-    "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00": {
       "detection_confident": false,
       "ga_items_end": 46011,
       "grace_base": 82550,
       "sha256": "2e90761486426e58ff690bc3cf9ba2465f03983b0a3f1c53ec47bf8d2ccef1e0"
     },
-    "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "878664615b4e47e5531a74830886386e2d23405b403eecc918c07a962c50fac8"
     },
-    "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "2df56db1648028473eafb1c1d345a29ffcd499dbebc62d53de8927b7a9b03d51"
     },
-    "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "293842e2e4045aa2f5665ec1e53f4de900c529b500965a23ed387aac65dcb4aa"
     },
-    "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "449b4750ca82396d1984442cc05ab77dcae68fd00d71bff7c7baf525088edd2f"
     },
-    "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750": {
       "detection_confident": false,
       "ga_items_end": 46011,
       "grace_base": 82550,
       "sha256": "db2aad22b1a741f11be71069157d8d32f718ee5e7fcb5b49b81999f4b7ace2c2"
     },
-    "ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": {
       "detection_confident": false,
       "ga_items_end": 45215,
       "grace_base": 81754,
       "sha256": "0bcf24945e80c3c4311ccd2162530fcb882c8d84136024f49b6c894ae837cb47"
     },
-    "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730": {
       "detection_confident": false,
       "ga_items_end": 46011,
       "grace_base": 82550,
       "sha256": "db2aad22b1a741f11be71069157d8d32f718ee5e7fcb5b49b81999f4b7ace2c2"
     },
-    "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "574abbd4ca5407d496d54e2ef099e9a1dddc86e575c7d4f7557cfd2b5f9ff70c"
     },
-    "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "2af94bc3d0a5f68852ae9158dd25b05741ffe3c5a6ad10ff97b7ab8aa1e5810d"
     },
-    "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720": {
       "detection_confident": false,
       "ga_items_end": 46027,
       "grace_base": 82566,
       "sha256": "e6c7fa5e09f27ab5a71c5f697135c3773577e72dd601845697e80031415e2f3d"
     },
-    "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32": {
       "detection_confident": false,
       "ga_items_end": 45215,
       "grace_base": 81754,
       "sha256": "a524bd1e19e3fd44a6b768ffb82709fc19d7d542fa56a12ea21a05f5d90c456b"
     },
-    "ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45325,
       "grace_base": 81864,
       "sha256": "da858659a6195df9891aba63d37c11f29fb7caf9864ed7440bbc4a9f97c9357b"
     },
-    "ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37": {
+    "snapshots-confessor#0#ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37": {
       "detection_confident": false,
       "ga_items_end": 45325,
       "grace_base": 81864,
       "sha256": "8a5a05c277703b2d79a730f5fc36c55796d681095178cee17befa65fc239ae9e"
+    },
+    "snapshots-root#2#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "e3c25f093ad037c4ef0a0778d701829792e908349ee489030b5b625417fc2fa1"
+    },
+    "snapshots-root#2#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "331e07707c3f10713925d81f76cf1bb505ea1d067aa93d912de84ae9d9b3f87c"
+    },
+    "snapshots-root#2#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "c3e288234811dca36551e500ee1e4f3d551e29936a7dfa3249be65f230344e7e"
+    },
+    "snapshots-root#3#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "e3c25f093ad037c4ef0a0778d701829792e908349ee489030b5b625417fc2fa1"
+    },
+    "snapshots-root#3#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "331e07707c3f10713925d81f76cf1bb505ea1d067aa93d912de84ae9d9b3f87c"
+    },
+    "snapshots-root#3#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "c3e288234811dca36551e500ee1e4f3d551e29936a7dfa3249be65f230344e7e"
+    },
+    "snapshots-root#4#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76779,
+      "sha256": "e3c25f093ad037c4ef0a0778d701829792e908349ee489030b5b625417fc2fa1"
+    },
+    "snapshots-root#4#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76779,
+      "sha256": "331e07707c3f10713925d81f76cf1bb505ea1d067aa93d912de84ae9d9b3f87c"
+    },
+    "snapshots-root#4#ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+      "detection_confident": true,
+      "ga_items_end": 41448,
+      "grace_base": 76787,
+      "sha256": "c3e288234811dca36551e500ee1e4f3d551e29936a7dfa3249be65f230344e7e"
     }
   },
   "schema": "claims-store/1",
@@ -1546,47 +1685,47 @@
     },
     {
       "float_evidence": {
-        "legacy-dungeon": {
+        "legacy-dungeon [snapshots-confessor slot 0]": {
           "family_abs_delta": -93,
           "files": [
-            "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
-            "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00"
+            "snapshots-confessor#0#ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+            "snapshots-confessor#0#ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00"
           ],
           "grace_abs_delta": -97,
           "independent_float": true
         },
-        "legacy-dungeon-pickup": {
+        "legacy-dungeon-pickup [snapshots-confessor slot 0]": {
           "family_abs_delta": -110,
           "files": [
-            "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
-            "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00"
+            "snapshots-confessor#0#ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+            "snapshots-confessor#0#ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00"
           ],
           "grace_abs_delta": -110,
           "independent_float": false
         },
-        "tile-open-world": {
+        "tile-open-world [snapshots-confessor slot 0]": {
           "family_abs_delta": -424,
           "files": [
-            "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
-            "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45"
+            "snapshots-confessor#0#ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+            "snapshots-confessor#0#ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45"
           ],
           "grace_abs_delta": -432,
           "independent_float": true
         },
-        "tile-pickup-row-id": {
+        "tile-pickup-row-id [snapshots-confessor slot 0]": {
           "family_abs_delta": 0,
           "files": [
-            "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
-            "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010"
+            "snapshots-confessor#0#ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+            "snapshots-confessor#0#ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010"
           ],
           "grace_abs_delta": 0,
           "independent_float": false
         },
-        "world-state-b": {
+        "world-state-b [snapshots-confessor slot 0]": {
           "family_abs_delta": 0,
           "files": [
-            "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
-            "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50"
+            "snapshots-confessor#0#ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
+            "snapshots-confessor#0#ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50"
           ],
           "grace_abs_delta": 0,
           "independent_float": false

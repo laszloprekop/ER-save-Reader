@@ -71,6 +71,13 @@ This document is the **single source of truth** for Elden Ring save file parsing
 > copy B (~146.6k above). Dungeon graces (71xxx/73xxx) set copy B only. Both blocks
 > use the same `(flag − 50000)/8` packing.
 >
+> Multi-slot differential (2026-07-06, V1/V2/V3 instrument files): **slots of ONE
+> save file float independently** — the tile-pickup base measured 482,865 for slots
+> 3/4 but 482,869 for slot 2 in the same file (the ±4 record-list float, across
+> slots). Cross-slot flag checks must calibrate the family base per slot; the
+> pipeline locates each slot's base by pattern-matching within ±64 of an
+> anchor-pair-pinned base.
+>
 > Four refuted conventions are tombstoned in the store: (1) tile base 337,375 was
 > expressed relative to the poisoned structural anchor (measured base − 337,375
 > reproduces the ~146.1k struct-walk delta); (2) the legacy region does NOT start at

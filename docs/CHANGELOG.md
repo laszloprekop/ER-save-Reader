@@ -4,6 +4,53 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.23.0 - Multi-slot differential: cross-slot flag verification
+
+### Features
+- **Multi-slot differential** (the third CONTEXT.md verification method) in the
+  knowledge pipeline: a `multi_slot_differentials` input section verifies a flag
+  across character slots with attributed different progression. An anchor pair pins
+  the family base in the anchor slot; each other slot's base is located by matching
+  its full expected bit pattern within ±64 bytes of the anchor base, requiring
+  exactly one match (`run_multi_slot_differentials`, src/knowledge/pipeline.rs).
+  Passing instruments add a `multi_slot_differential` method to the anchor claim
+  and a full per-slot measurement section to the store.
+- **Per-pair corpus/save_slot overrides** in the attributed-transitions input; all
+  cross-check machinery (expectations, multi-file differential corroborators,
+  known-set anchors, the universal-anchor tombstone grouping) is now scoped to the
+  same corpus+slot — family bases float per save, so another character's captures
+  must never cross-check yours. Loaded files are keyed corpus#slot#rel_path.
+
+### Key Findings (byte-verified)
+- **rowId 1044360310 verified across V1/V2/V3** using the purpose-built instrument
+  files: the V3 no→yes anchor pair resolves at base 482,865 — the only base whose
+  (no, rested, yes) states are (clear, clear, set); all other full-EF pattern
+  matches are static constants. V2/V3 match at anchor+0, V1 at anchor+4.
+- **Slots of ONE save file float independently** (tile-pickup base 482,865 for
+  slots 3/4 vs 482,869 for slot 2 in the same file) — the ±4 record-list float,
+  now observed across slots. Cross-slot checks must calibrate per slot.
+- Pattern provenance is recorded per slot: the 300/320/330/340 CLEAR expectations
+  rest on the 2026-02-09 s2 before-captures plus set-monotonicity (clear at a
+  later capture implies clear earlier).
+- The "V3 - no" instrument file is byte-identical (sha256) to "V1 - after picked
+  up rowId_1044360310" — V1's SET state is directly attributed.
+- Reward corroboration on the anchor pair: the treasure's content is Golden
+  Rune [1] ×1 (the only inventory change in the window).
+
+### Files Modified
+- src/knowledge/pipeline.rs: multi-slot differential stage; per-pair corpus/slot;
+  scoped cross-checks; composite file keys; evidence corpus/slot per pair
+- knowledge/inputs/attributed-transitions.json: v3rest-v3yes anchor pair + the
+  treasure-1044360310-v1-v2-v3 differential (25 pairs total)
+- knowledge/claims/event-flags.json: regenerated — 21 verified flags,
+  multi_slot_differentials section
+- docs/SAVE_FILE_GROUND_TRUTH.md: per-slot independent float note
+- docs/BACKLOG.md: multi-slot differential marked done in step 3
+- docs/CHANGELOG.md: version 0.23.0
+- Cargo.toml: bumped to 0.23.0
+
+---
+
 ## v0.22.0 - Reward corroboration: inventory diffs by item identity
 
 ### Features

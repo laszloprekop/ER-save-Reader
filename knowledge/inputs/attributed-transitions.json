@@ -1,6 +1,6 @@
 {
   "schema": "attributed-transitions/1",
-  "description": "Hand-written hypothesis input (ADR-0004): attributed before/after capture pairs from the Confessor snapshots. Two chronological sessions confirmed by file mtimes: the numbered 01-10 series (2025-12-29) and the b-series (2026-01-23..25). `order` preserves that chronology: numbered series uses the after-file number (2..10), b-series uses 100 + b-number. The pipeline (er-save-editor knowledge run) verifies each transition empirically and emits claims; nothing here is trusted without the byte-level checks passing. For family tile-pickup-row-id the `flag` field carries the ItemLotParam ROW ID (the stored id), not the getItemFlagId.",
+  "description": "Hand-written hypothesis input (ADR-0004): attributed before/after capture pairs from the Confessor snapshots. Two chronological sessions confirmed by file mtimes: the numbered 01-10 series (2025-12-29) and the b-series (2026-01-23..25). `order` preserves that chronology: numbered series uses the after-file number (2..10), b-series uses 100 + b-number. The pipeline (er-save-editor knowledge run) verifies each transition empirically and emits claims; nothing here is trusted without the byte-level checks passing. For family tile-pickup-row-id the `flag` field carries the ItemLotParam ROW ID (the stored id), not the getItemFlagId. Pairs may override `corpus` and `save_slot` per pair; cross-check expectations and known_set anchors are scoped to the same corpus+slot. The multi_slot_differentials section verifies a flag across character slots with attributed different progression: the anchor pair pins the family base in the anchor slot, and each other slot's base is located by matching its full expected bit pattern within ±64 bytes of the anchor base (full-EF scans on 2026-07-06 showed far-away pattern matches exist but are static constants refuted by the anchor transition contrast).",
   "established": "2026-07-05",
   "corpus": "snapshots-confessor",
   "save_slot": 0,
@@ -252,6 +252,115 @@
       "family": "world-state-b",
       "kind": "world_pickup",
       "label": "Recusant Finger picked up — flag 60260"
+    },
+    {
+      "id": "v3rest-v3yes",
+      "order": 1000,
+      "corpus": "snapshots-root",
+      "save_slot": 4,
+      "before": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+      "after": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+      "flag": 1044360310,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "V3 picks up treasure_m60_44_36_10 (rowId 1044360310, m60_44_36). CAVEAT: cross-session pair (before 2025-12-30, after 2026-01-20) — en-route tile flips expected alongside the attributed one."
+    }
+  ],
+  "multi_slot_differentials": [
+    {
+      "id": "treasure-1044360310-v1-v2-v3",
+      "flag": 1044360310,
+      "family": "tile-pickup-row-id",
+      "corpus": "snapshots-root",
+      "anchor_pair": "v3rest-v3yes",
+      "established": "2026-07-06",
+      "label": "Multi-slot differential on treasure_m60_44_36_10 (rowId 1044360310) across the pickup-debugging characters: V1 (slot 2) picked it, V2 (slot 3) picked it via a different path, V3 (slot 4) did not until the anchor transition. Instrument files were captured for exactly this purpose.",
+      "slots": [
+        {
+          "save_slot": 2,
+          "character": "V1",
+          "pattern_provenance": "310 SET attributed by capture filenames ('V1 yes' / 'V2 yes'; the V3-no file is byte-identical to 'V1 - after picked up rowId_1044360310'); 300/320/330/340 CLEAR justified by the s2-V1 before-captures of 2026-02-09 (bits still clear there) + set-monotonicity: clear at a later capture implies clear earlier.",
+          "files": {
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            }
+          }
+        },
+        {
+          "save_slot": 3,
+          "character": "V2",
+          "pattern_provenance": "310 SET attributed by capture filenames ('V1 yes' / 'V2 yes'; the V3-no file is byte-identical to 'V1 - after picked up rowId_1044360310'); 300/320/330/340 CLEAR justified by the s2-V1 before-captures of 2026-02-09 (bits still clear there) + set-monotonicity: clear at a later capture implies clear earlier.",
+          "files": {
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            }
+          }
+        },
+        {
+          "save_slot": 4,
+          "character": "V3",
+          "pattern_provenance": "V3 attributed as not having the pickup in the 'V3 - no' files and having it in 'V3 - yes' (the anchor pair's own transition).",
+          "files": {
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no": {
+              "1044360310": false,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace": {
+              "1044360310": false,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            },
+            "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes": {
+              "1044360310": true,
+              "1044360300": false,
+              "1044360320": false,
+              "1044360330": false,
+              "1044360340": false
+            }
+          }
+        }
+      ]
     }
   ]
 }
