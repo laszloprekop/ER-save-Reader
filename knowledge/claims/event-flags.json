@@ -107,6 +107,14 @@
           "sha256": "2af94bc3d0a5f68852ae9158dd25b05741ffe3c5a6ad10ff97b7ab8aa1e5810d"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:112",
+            "name": "Recusant Finger",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b54-b55",
         "save_slot": 0
       },
@@ -123,6 +131,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:112 (Recusant Finger) x1 in the world_pickup window",
         "within_file_cross_check: 67640 (c01-c02) SET at base+2205",
         "within_file_cross_check: 76310 (c03-c04) SET at base+3288",
         "within_file_cross_check: 73002 (b19-b20) SET at base+2875",
@@ -148,6 +157,8 @@
           "sha256": "da858659a6195df9891aba63d37c11f29fb7caf9864ed7440bbc4a9f97c9357b"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "b7-b8",
         "save_slot": 0
       },
@@ -173,6 +184,14 @@
           "sha256": "2e90761486426e58ff690bc3cf9ba2465f03983b0a3f1c53ec47bf8d2ccef1e0"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:9510",
+            "name": "Perfume Bottle",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b43-b44",
         "save_slot": 0
       },
@@ -189,6 +208,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:9510 (Perfume Bottle) x1 in the world_pickup window",
         "within_file_cross_check: 67640 (c01-c02) SET at base+2205",
         "within_file_cross_check: 76310 (c03-c04) SET at base+3288",
         "within_file_cross_check: 73002 (b19-b20) SET at base+2875",
@@ -214,6 +234,14 @@
           "sha256": "ee2ab824379be87d222c70c5c21d5a5a5810da88a37fab272151d10504b2bc15"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:9364",
+            "name": "Missionary's Cookbook [4]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "c01-c02",
         "save_slot": 0
       },
@@ -230,6 +258,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:9364 (Missionary's Cookbook [4]) x1 in the world_pickup window",
         "within_file_cross_check: 71800 (known-set anchor) SET at base+2725",
         "within_file_cross_check: 71801 (known-set anchor) SET at base+2725",
         "within_file_cross_check: 76100 (known-set anchor) SET at base+3262",
@@ -251,6 +280,8 @@
           "sha256": "6dc7f84a736d2b4e6a4929e5d343551c4867d137bc12ced0724e09d6dcfe57b0"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "b38-b39",
         "save_slot": 0
       },
@@ -291,6 +322,30 @@
           "sha256": "e4a9cc66d0a2b3b818083c59892469238bcbf701a338d48b9d0ca43a85ea9e6d"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:1017",
+            "name": "Flask of Crimson Tears +8",
+            "qty": 7
+          },
+          {
+            "identity": "goods:1067",
+            "name": "Flask of Cerulean Tears +8",
+            "qty": 1
+          },
+          {
+            "identity": "goods:250",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [
+          {
+            "identity": "goods:251",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
         "pair": "b19-b20",
         "save_slot": 0
       },
@@ -330,6 +385,8 @@
           "sha256": "dd80db1cddf5d0aa92312f737e37e6aac3d119d68014c8e16166e94f446cce0a"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "c03-c04",
         "save_slot": 0
       },
@@ -367,6 +424,8 @@
           "sha256": "2df56db1648028473eafb1c1d345a29ffcd499dbebc62d53de8927b7a9b03d51"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "b45-b46",
         "save_slot": 0
       },
@@ -391,6 +450,8 @@
           "sha256": "db2aad22b1a741f11be71069157d8d32f718ee5e7fcb5b49b81999f4b7ace2c2"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "b50-b51",
         "save_slot": 0
       },
@@ -415,6 +476,8 @@
           "sha256": "449b4750ca82396d1984442cc05ab77dcae68fd00d71bff7c7baf525088edd2f"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [],
+        "inventory_lost": [],
         "pair": "b48-b49",
         "save_slot": 0
       },
@@ -442,6 +505,20 @@
           "sha256": "d3fd0c00fea43a4277ddab1b86a74772c42d99d0753a848ba4e090e33dae789b"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:241000",
+            "name": "Noble Sorcerer Ashes",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [
+          {
+            "identity": "goods:1067",
+            "name": "Flask of Cerulean Tears +8",
+            "qty": 1
+          }
+        ],
         "pair": "b24-b25",
         "save_slot": 0
       },
@@ -457,7 +534,8 @@
         "flip_grace_rel": 1622327
       },
       "methods": [
-        "attributed_transition (boss_kill)"
+        "attributed_transition (boss_kill)",
+        "reward_corroboration: gained goods:241000 (Noble Sorcerer Ashes) x1 in the boss_kill window"
       ],
       "status": "verified"
     },
@@ -475,6 +553,14 @@
           "sha256": "c8d6d65423fd74f24ea83060ce6f4f28b0e5120b15b797d99f9d27e2a2132f4b"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:20775",
+            "name": "Root Resin",
+            "qty": 2
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b20-b21",
         "save_slot": 0
       },
@@ -490,7 +576,8 @@
         "flip_grace_rel": 1622973
       },
       "methods": [
-        "attributed_transition (dungeon_pickup)"
+        "attributed_transition (dungeon_pickup)",
+        "reward_corroboration: gained goods:20775 (Root Resin) x2 in the dungeon_pickup window"
       ],
       "status": "verified"
     },
@@ -508,6 +595,14 @@
           "sha256": "65c0d4466d18f05c0c4f6ab5813578f55e3be7e2911e16c0939ce1f1e0bba087"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:2200",
+            "name": "Prattling Pate 'Hello'",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b22-b23",
         "save_slot": 0
       },
@@ -524,6 +619,7 @@
       },
       "methods": [
         "attributed_transition (dungeon_pickup)",
+        "reward_corroboration: gained goods:2200 (Prattling Pate 'Hello') x1 in the dungeon_pickup window",
         "within_file_cross_check: 30027000 (b20-b21) SET at base+93125"
       ],
       "status": "verified"
@@ -542,6 +638,35 @@
           "sha256": "4ebab761567b91b0551dbb3526df2efabf1c9a882277f50874c289dd6d0bae36"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:1067",
+            "name": "Flask of Cerulean Tears +8",
+            "qty": 1
+          },
+          {
+            "identity": "goods:20775",
+            "name": "Root Resin",
+            "qty": 2
+          },
+          {
+            "identity": "goods:218000",
+            "name": "Glintstone Sorcerer Ashes",
+            "qty": 1
+          },
+          {
+            "identity": "goods:251",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [
+          {
+            "identity": "goods:250",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
         "pair": "b32-b33",
         "save_slot": 0
       },
@@ -558,6 +683,7 @@
       },
       "methods": [
         "attributed_transition (boss_kill)",
+        "reward_corroboration: gained goods:1067 (Flask of Cerulean Tears +8) x1, goods:20775 (Root Resin) x2, goods:218000 (Glintstone Sorcerer Ashes) x1, goods:251 (Flask of Wondrous Physick) x1 in the boss_kill window",
         "within_file_cross_check: 30020800 (b24-b25) SET at base+92350"
       ],
       "status": "verified"
@@ -576,6 +702,14 @@
           "sha256": "22feab9679c0b4b507d7ce160f79c53abf56e48f03f0a30a671dfeadba41b703"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:190",
+            "name": "Rune Arc",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b28-b29",
         "save_slot": 0
       },
@@ -592,6 +726,7 @@
       },
       "methods": [
         "attributed_transition (dungeon_pickup)",
+        "reward_corroboration: gained goods:190 (Rune Arc) x1 in the dungeon_pickup window",
         "within_file_cross_check: 30027000 (b20-b21) SET at base+93125",
         "within_file_cross_check: 30027030 (b22-b23) SET at base+93128"
       ],
@@ -611,6 +746,30 @@
           "sha256": "80c35b7804899c44fabea748fa155c1a2a8e5ddf8a84d6fdc077901441add2fb"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:251",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          },
+          {
+            "identity": "goods:4302",
+            "name": "[Sorcery] Greatblade Phalanx",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [
+          {
+            "identity": "goods:1017",
+            "name": "Flask of Crimson Tears +8",
+            "qty": 2
+          },
+          {
+            "identity": "goods:250",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
         "pair": "b26-b27",
         "save_slot": 0
       },
@@ -627,6 +786,7 @@
       },
       "methods": [
         "attributed_transition (boss_kill)",
+        "reward_corroboration: gained goods:251 (Flask of Wondrous Physick) x1, goods:4302 ([Sorcery] Greatblade Phalanx) x1 in the boss_kill window",
         "within_file_cross_check: 1042370800 (b11-b12) SET at base+321225"
       ],
       "status": "verified"
@@ -645,6 +805,14 @@
           "sha256": "d8303cf0cc444dd8c7d1bae44dcd083ca53c04f628f6293c0e9903f17bf49a9f"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "weapon:32120000",
+            "name": "Jellyfish Shield",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b34-b35",
         "save_slot": 0
       },
@@ -661,6 +829,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained weapon:32120000 (Jellyfish Shield) x1 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501",
         "within_file_cross_check: 1044360040 (b1-b2) SET at base+390255",
         "within_file_cross_check: 1042320000 (b3-b4) SET at base+316750",
@@ -683,6 +852,14 @@
           "sha256": "486a1228b40991f9fbe844f91be5033bc5a706aa59f9db3d7162697528bb8b28"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:15110",
+            "name": "Great Dragonfly Head",
+            "qty": 3
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b3-b4",
         "save_slot": 0
       },
@@ -699,6 +876,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:15110 (Great Dragonfly Head) x3 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501",
         "within_file_cross_check: 1044360040 (b1-b2) SET at base+390255"
       ],
@@ -718,6 +896,14 @@
           "sha256": "0bcf24945e80c3c4311ccd2162530fcb882c8d84136024f49b6c894ae837cb47"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:20760",
+            "name": "Mushroom",
+            "qty": 4
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b5-b6",
         "save_slot": 0
       },
@@ -734,6 +920,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:20760 (Mushroom) x4 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501",
         "within_file_cross_check: 1044360040 (b1-b2) SET at base+390255",
         "within_file_cross_check: 1042320000 (b3-b4) SET at base+316750"
@@ -754,6 +941,14 @@
           "sha256": "ec4aab3cae805d2cf8f6a0afe6df610cd7644b009db19b51e12552b31b8c7eb2"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "accessory:2100",
+            "name": "Arrow's Reach Talisman",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b15-b16",
         "save_slot": 0
       },
@@ -770,6 +965,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained accessory:2100 (Arrow's Reach Talisman) x1 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501",
         "within_file_cross_check: 1044360040 (b1-b2) SET at base+390255",
         "within_file_cross_check: 1042320000 (b3-b4) SET at base+316750",
@@ -791,6 +987,80 @@
           "sha256": "58c29d75170e311b4d48d25df2af0ef8bfdb54c5fa7f7caa857f6233cabee23c"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "aow:30700",
+            "name": "Ash of War: Golden Parry",
+            "qty": 1
+          },
+          {
+            "identity": "armor:1700300",
+            "name": "Godrick Soldier Greaves",
+            "qty": 1
+          },
+          {
+            "identity": "goods:1016",
+            "name": "Flask of Crimson Tears +8",
+            "qty": 1
+          },
+          {
+            "identity": "goods:1760",
+            "name": "Ruin Fragment",
+            "qty": 6
+          },
+          {
+            "identity": "goods:20680",
+            "name": "Erdleaf Flower",
+            "qty": 2
+          },
+          {
+            "identity": "goods:251",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          },
+          {
+            "identity": "goods:2900",
+            "name": "Golden Rune [1]",
+            "qty": 1
+          },
+          {
+            "identity": "goods:7500",
+            "name": "[Incantation] Aspects of the Crucible: Tail",
+            "qty": 1
+          },
+          {
+            "identity": "weapon:52080000",
+            "name": "Lordsworn's Bolt",
+            "qty": 5
+          }
+        ],
+        "inventory_lost": [
+          {
+            "identity": "aow:30900",
+            "name": "Ash of War: No Skill",
+            "qty": 1
+          },
+          {
+            "identity": "goods:1017",
+            "name": "Flask of Crimson Tears +8",
+            "qty": 8
+          },
+          {
+            "identity": "goods:1067",
+            "name": "Flask of Cerulean Tears +8",
+            "qty": 3
+          },
+          {
+            "identity": "goods:190",
+            "name": "Rune Arc",
+            "qty": 1
+          },
+          {
+            "identity": "goods:250",
+            "name": "Flask of Wondrous Physick",
+            "qty": 1
+          }
+        ],
         "pair": "b11-b12",
         "save_slot": 0
       },
@@ -806,7 +1076,8 @@
         "flip_grace_rel": 804694
       },
       "methods": [
-        "attributed_transition (boss_kill)"
+        "attributed_transition (boss_kill)",
+        "reward_corroboration: gained aow:30700 (Ash of War: Golden Parry) x1, armor:1700300 (Godrick Soldier Greaves) x1, goods:1016 (Flask of Crimson Tears +8) x1, goods:1760 (Ruin Fragment) x6, goods:20680 (Erdleaf Flower) x2, goods:251 (Flask of Wondrous Physick) x1, goods:2900 (Golden Rune [1]) x1, goods:7500 ([Incantation] Aspects of the Crucible: Tail) x1, weapon:52080000 (Lordsworn's Bolt) x5 in the boss_kill window"
       ],
       "status": "verified"
     },
@@ -824,6 +1095,14 @@
           "sha256": "d69d6c2d77f8fa72ea01195635436901bdeaad9e724956fed04129e70b5fceb9"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "weapon:34060000",
+            "name": "Golden Order Seal",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "c05-c06",
         "save_slot": 0
       },
@@ -840,6 +1119,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained weapon:34060000 (Golden Order Seal) x1 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) CLEAR at base+367501",
         "within_file_cross_check: 1044360040 (b1-b2) CLEAR at base+390255",
         "within_file_cross_check: 1042320000 (b3-b4) CLEAR at base+316750",
@@ -866,6 +1146,14 @@
           "sha256": "eae479a74d2e996459832464ffa53c905e375c642c17499082c326036f2f92c9"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:20802",
+            "name": "Smoldering Butterfly",
+            "qty": 3
+          }
+        ],
+        "inventory_lost": [],
         "pair": "c09-c10",
         "save_slot": 0
       },
@@ -881,7 +1169,8 @@
         "flip_grace_rel": 851390
       },
       "methods": [
-        "attributed_transition (world_pickup)"
+        "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:20802 (Smoldering Butterfly) x3 in the world_pickup window"
       ],
       "status": "verified"
     },
@@ -899,6 +1188,14 @@
           "sha256": "acf59a0dff48fd656c432487b0f92a17d64e4161a144d7b3820442fdc865cac9"
         },
         "corpus": "snapshots-confessor",
+        "inventory_gained": [
+          {
+            "identity": "goods:10160",
+            "name": "Somber Smithing Stone [1]",
+            "qty": 1
+          }
+        ],
+        "inventory_lost": [],
         "pair": "b1-b2",
         "save_slot": 0
       },
@@ -915,6 +1212,7 @@
       },
       "methods": [
         "attributed_transition (world_pickup)",
+        "reward_corroboration: gained goods:10160 (Somber Smithing Stone [1]) x1 in the world_pickup window",
         "within_file_cross_check: 1043500010 (c09-c10) SET at base+367501"
       ],
       "status": "verified"

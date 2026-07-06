@@ -86,8 +86,16 @@ Steps, in order:
    (tombstone 4 now records the contrast); family bases float per SESSION on the
    same character (Dec tile-pickup base 483,889 / world-state-b 146,514 vs b-series
    483,969 / 146,598-146,618) but are stable within a session.
-   REMAINING in step 3: reward corroboration (ADR-0007, inventory by item identity;
-   b36/b37 Miquella's Lily, b52/b53 Letter pairs exist), multi-slot differential
+   REWARD CORROBORATION DONE 2026-07-06 (ADR-0007): each capture's inventory is
+   parsed by item identity (weapon/armor/AoW handles resolved via the slot's
+   ga_items table; accessory/goods ids from the handle's low 28 bits; held +
+   storage, common + key lists) and diffed across the pair window; deltas are
+   evidence on every claim, and matching gains add an independent
+   `reward_corroboration` method. Every resolvable pickup/kill label was
+   corroborated by its exact item (e.g. Watchdog → Noble Sorcerer Ashes, Bols →
+   Greatblade Phalanx, Crucible Knight → Aspects of the Crucible: Tail, chest →
+   Arrow's Reach Talisman); grace pairs honestly show flask-refill noise instead.
+   REMAINING in step 3: multi-slot differential
    across the 2026-01-11 backup slots, more attributed pairs (s2/s7 root pairs,
    c06-c08 Golden Centipede pairs lack flag annotations), timeline re-annotation as
    pipeline output.

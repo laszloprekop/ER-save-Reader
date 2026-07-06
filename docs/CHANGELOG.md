@@ -4,6 +4,42 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.22.0 - Reward corroboration: inventory diffs by item identity
+
+### Features
+- **Reward corroboration (ADR-0007)** in the knowledge pipeline: every capture's
+  inventory is parsed by ITEM IDENTITY — never GaItem handle, handles churn across
+  captures. Weapon/armor/AoW handles resolve through the slot's `ga_items` table
+  (weapon item_id keeps its upgrade level; armor `^0x10000000`; AoW `^0x80000000`);
+  accessory (`^0xa0000000`) and goods (`^0xb0000000`) ids come from the handle's low
+  28 bits. Held + storage-box inventories, common + key lists, are summed per
+  identity. The per-pair gained/lost delta is recorded as evidence on every claim,
+  and a matching gain on a pickup/kill pair adds an independent
+  `reward_corroboration` method (`src/knowledge/pipeline.rs`).
+- Display names from the in-repo name databases (labels only — claims rest on ids).
+
+### Key Findings (byte-verified)
+- **Every resolvable pickup/kill label corroborated by its exact item**: bosses —
+  Erdtree Burial Watchdog → Noble Sorcerer Ashes, Bols → [Sorcery] Greatblade
+  Phalanx, Crucible Knight → [Incantation] Aspects of the Crucible: Tail, the
+  unnamed m30_03 boss → Glintstone Sorcerer Ashes (an identifying clue for that
+  dungeon); pickups — all matched, including lot annotations 2200 (Prattling Pate
+  "Hello") and 20775 (Root Resin ×2), the b15/b16 chest (Arrow's Reach Talisman),
+  Golden Order Seal, Jellyfish Shield, Recusant Finger, Perfume Bottle.
+- Honest negatives stay honest: grace pairs gained only flask refills (resting
+  refills them); NPC-dialogue pairs gained nothing — consistent with their
+  hypothesis status.
+
+### Files Modified
+- src/knowledge/pipeline.rs: inventory_identities / inventory_delta / identity_name;
+  deltas wired into claim evidence and methods; module doc now 8 stages
+- knowledge/claims/event-flags.json: regenerated with inventory evidence
+- docs/BACKLOG.md: reward corroboration marked done in step 3
+- docs/CHANGELOG.md: version 0.22.0
+- Cargo.toml: bumped to 0.22.0
+
+---
+
 ## v0.21.0 - Knowledge pipeline: claims store generated from attributed transitions
 
 ### Features

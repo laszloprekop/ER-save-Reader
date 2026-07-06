@@ -19,10 +19,15 @@
 //!    consistent with every other attributed flag of that family in the same
 //!    file (earlier transitions SET, later transitions CLEAR, `known_set`
 //!    anchors SET). Exactly one surviving candidate ⇒ Verified.
-//! 6. Tombstone checks: refutations of legacy conventions are recomputed from
+//! 6. Reward corroboration (ADR-0007): the inventory of each capture is parsed
+//!    by ITEM IDENTITY (never GaItem handle — handles churn) and diffed across
+//!    the pair window; gained/lost items are recorded as evidence on every
+//!    claim, and a matching gain on a pickup/kill pair adds an independent
+//!    `reward_corroboration` method.
+//! 7. Tombstone checks: refutations of legacy conventions are recomputed from
 //!    the bytes each run; a failing refutation aborts the run (a contradiction
 //!    in the knowledge base must be investigated, not papered over).
-//! 7. Deterministic emission of `knowledge/claims/event-flags.json` (sorted
+//! 8. Deterministic emission of `knowledge/claims/event-flags.json` (sorted
 //!    keys, no wall-clock timestamps): regenerating must be byte-identical.
 //!
 //! Flag families measured so far (bases are per-save, grace-relative — the
@@ -37,6 +42,12 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use super::catalog::sha256_file;
+use crate::db::accessory_name::accessory_name::ACCESSORY_NAME;
+use crate::db::aow_name::aow_name::AOW_NAME;
+use crate::db::armor_name::armor_name::ARMOR_NAME;
+use crate::db::item_name::item_name::ITEM_NAME;
+use crate::db::weapon_name::weapon_name::WEAPON_NAME;
+use crate::save::save::save::Save;
 
 const HEADER: usize = 0x300;
 const CHECKSUM: usize = 0x10;
@@ -126,6 +137,118 @@ struct SaveFile {
     grace: usize,
     ga_end: i64,
     confident: bool,
+    /// item identity ("category:id") -> total quantity (held + storage box,
+    /// common + key lists). Identity, never GaItem handle — handles churn
+    /// across captures (ADR-0007).
+    inventory: BTreeMap<String, i64>,
+}
+
+/// Parse the slot's inventory into identity -> quantity counts.
+/// Weapon/armor/AoW handles resolve through the slot's ga_items table
+/// (same derivation as the inventory view model); accessory and goods
+/// handles carry the id in their low 28 bits.
+fn inventory_identities(path: &Path, save_slot: usize) -> Result<BTreeMap<String, i64>, String> {
+    let save = Save::from_path(&path.to_path_buf())
+        .map_err(|e| format!("{}: typed save parse failed: {}", path.display(), e))?;
+    let slot = save.save_type.get_slot(save_slot);
+    let mut counts: BTreeMap<String, i64> = BTreeMap::new();
+    for inv in [&slot.equip_inventory_data, &slot.storage_inventory_data] {
+        for it in inv.common_items.iter().chain(inv.key_items.iter()) {
+            let handle = it.ga_item_handle;
+            if handle == 0 || it.quantity == 0 {
+                continue;
+            }
+            let identity = match handle & 0xf000_0000 {
+                0x8000_0000 | 0x9000_0000 | 0xc000_0000 => {
+                    let ga = slot
+                        .ga_items
+                        .iter()
+                        .find(|g| g.gaitem_handle == handle)
+                        .ok_or_else(|| {
+                            format!("{}: gaitem handle {:#010x} not in ga_items", path.display(), handle)
+                        })?;
+                    match handle & 0xf000_0000 {
+                        0x8000_0000 => format!("weapon:{}", ga.item_id),
+                        0x9000_0000 => format!("armor:{}", ga.item_id ^ 0x1000_0000),
+                        _ => format!("aow:{}", ga.item_id ^ 0x8000_0000),
+                    }
+                }
+                0xa000_0000 => format!("accessory:{}", handle ^ 0xa000_0000),
+                0xb000_0000 => format!("goods:{}", handle ^ 0xb000_0000),
+                other => format!("unknown-cat-{:x}:{}", other >> 28, handle & 0x0fff_ffff),
+            };
+            *counts.entry(identity).or_insert(0) += it.quantity as i64;
+        }
+    }
+    Ok(counts)
+}
+
+/// Display name for an identity, from the in-repo name databases (labels only —
+/// the claim rests on the id).
+fn identity_name(identity: &str) -> Option<String> {
+    let (cat, id) = identity.split_once(':')?;
+    let id: u32 = id.parse().ok()?;
+    let name = match cat {
+        "weapon" => {
+            let (base, lvl) = ((id / 100) * 100, id % 100);
+            WEAPON_NAME.lock().unwrap().get(&base).map(|n| {
+                if lvl > 0 {
+                    format!("{} +{}", n, lvl)
+                } else {
+                    n.to_string()
+                }
+            })
+        }
+        "armor" => ARMOR_NAME.lock().unwrap().get(&id).map(|n| n.to_string()),
+        "accessory" => ACCESSORY_NAME.lock().unwrap().get(&id).map(|n| n.to_string()),
+        "goods" => ITEM_NAME.lock().unwrap().get(&id).map(|n| n.to_string()),
+        "aow" => AOW_NAME.lock().unwrap().get(&id).map(|n| n.to_string()),
+        _ => None,
+    }?;
+    if name.is_empty() || name.starts_with("+") {
+        None
+    } else {
+        Some(name)
+    }
+}
+
+/// (gained, lost) identity deltas between two inventories.
+fn inventory_delta(
+    before: &BTreeMap<String, i64>,
+    after: &BTreeMap<String, i64>,
+) -> (Vec<(String, i64)>, Vec<(String, i64)>) {
+    let mut gained = Vec::new();
+    let mut lost = Vec::new();
+    for (id, qa) in after {
+        let qb = before.get(id).copied().unwrap_or(0);
+        if *qa > qb {
+            gained.push((id.clone(), qa - qb));
+        }
+    }
+    for (id, qb) in before {
+        let qa = after.get(id).copied().unwrap_or(0);
+        if qb > &qa {
+            lost.push((id.clone(), qb - qa));
+        }
+    }
+    (gained, lost)
+}
+
+fn delta_json(delta: &[(String, i64)]) -> Value {
+    Value::Array(
+        delta
+            .iter()
+            .map(|(id, qty)| {
+                let mut m = Map::new();
+                m.insert("identity".into(), json!(id));
+                if let Some(n) = identity_name(id) {
+                    m.insert("name".into(), json!(n));
+                }
+                m.insert("qty".into(), json!(qty));
+                Value::Object(m)
+            })
+            .collect(),
+    )
 }
 
 fn load_manifest(repo_root: &Path, manifest_rel: &str) -> Result<BTreeMap<String, String>, String> {
@@ -168,6 +291,7 @@ fn load_save(
         return Err(format!("{}: grace-base detection failed", rel_path));
     }
     let ga_end = wasm_event_flags::parse_ga_items_end(&slot);
+    let inventory = inventory_identities(&path, save_slot)?;
     Ok(SaveFile {
         rel_path: rel_path.to_string(),
         sha256: hash,
@@ -175,6 +299,7 @@ fn load_save(
         grace: det.offset,
         ga_end,
         confident: det.confident,
+        inventory,
     })
 }
 
@@ -749,8 +874,40 @@ fn build_store(
             },
         });
         let obj = claim.as_object_mut().unwrap();
+
+        // inventory delta by item identity across the pair window (ADR-0007) —
+        // evidence for every pair; a method entry when it corroborates the kind
+        let (gained, lost) = inventory_delta(&before.inventory, &after.inventory);
+        obj["evidence"]
+            .as_object_mut()
+            .unwrap()
+            .insert("inventory_gained".into(), delta_json(&gained));
+        obj["evidence"]
+            .as_object_mut()
+            .unwrap()
+            .insert("inventory_lost".into(), delta_json(&lost));
+        let reward_method = if !gained.is_empty()
+            && matches!(p.kind.as_str(), "boss_kill" | "world_pickup" | "dungeon_pickup")
+        {
+            let list = gained
+                .iter()
+                .map(|(id, qty)| {
+                    let n = identity_name(id).map(|n| format!(" ({})", n)).unwrap_or_default();
+                    format!("{}{} x{}", id, n, qty)
+                })
+                .collect::<Vec<_>>()
+                .join(", ");
+            Some(format!(
+                "reward_corroboration: gained {} in the {} window",
+                list, p.kind
+            ))
+        } else {
+            None
+        };
+
         if let Some(r) = resolved.get(&p.id) {
             let mut methods = vec![format!("attributed_transition ({})", p.kind)];
+            methods.extend(reward_method.clone());
             methods.extend(r.checks.iter().map(|c| {
                 if c.contains("multi-file differential") || c.contains("independently measured") {
                     format!("multi_file_differential: {}", c)
