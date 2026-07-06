@@ -4,6 +4,69 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.21.0 - Knowledge pipeline: claims store generated from attributed transitions
+
+### Features
+- **Knowledge pipeline (migration step 3)**: `er-save-editor knowledge run`
+  (`src/knowledge/pipeline.rs`) regenerates `knowledge/claims/event-flags.json`
+  deterministically (re-run ⇒ byte-identical) from the hand-written hypothesis input
+  `knowledge/inputs/attributed-transitions.json` + the alloclist layout + the evidence
+  catalog (ADR-0004: the store is pipeline-generated, never hand-edited). Stages:
+  verify-on-read (sha256 vs manifest, "EVIDENCE DRIFT" abort) → grace-base detection
+  (wasm reference impl) → grace-aligned isolated-flip extraction (±16-byte identical
+  neighborhoods kill shift illusions) → iterative fail-soft candidate resolution
+  (cross-check expectations built only from already-resolved pairs, so a wrong
+  hypothesis cannot poison verified claims) → multi-file differential disambiguation →
+  tombstone refutations recomputed from bytes each run (failing refutation aborts) →
+  deterministic emission (sorted keys, no wall-clock dates, input sha256s embedded).
+- **Attributed-transitions input**: 24 Confessor pairs across two sessions (numbered
+  01-10 of 2025-12-29, ordering confirmed by file mtimes + a byte-identical
+  session-boundary file; b-series of 2026-01-23..25).
+- **New verification method — multi-file differential**: an ambiguous set-monotonic
+  candidate whose implied family base is independently re-measured by a later resolved
+  pair must stay SET in that pair's files; disambiguated the Golden Order Seal pickup
+  (candidate at grace_rel 851,264 cleared in later files; 851,389 persisted with 9
+  cross-checks).
+
+### Key Findings (byte-verified)
+- **REGION MAP REDRAWN** (grace-relative, per-save floating bases): world-state-b
+  `(flag−50000)/8` @ ~146.6k; tile-open-world `slot×875+local/8` @ ~483.47k;
+  tile-pickup-row-id (row_id = getItemFlagId−7000, same tile layout, SEPARATE region)
+  @ ~483.97k; legacy-dungeon `alloclist_slot×1125+local/8` @ ~1,529.98k (NOT 4,112 —
+  the 28-31k span is a u32-record LIST whose insertions cause the ±4 shifts);
+  legacy-dungeon-pickup (separate region) @ ~1,529.85k. **Event flags and pickup
+  tracking are separate regions per area type.**
+- **20 flags Verified** (bosses 30020800, 30030800, 1042370800, 1033450800; graces
+  73002, 71602, 76310; world flags 66700, 60260, 67640; dungeon pickups 30027000,
+  30027030, 30037030; world pickups by row id ×7) + 4 honest hypotheses (62132 and
+  NPC-talk 16000720/730/750 provably do NOT flip at their labeled positions); 5 family
+  layouts Verified.
+- **Open-world graces (76xxx) set BOTH world-state blocks** (copy A and copy B);
+  dungeon graces set copy B only — the copy-A tombstone records the contrast.
+- **Family bases float per session** on the same character (Dec tile-pickup base
+  483,889 vs b-series 483,969) but are stable within a session.
+- 4 tombstones: tile-337375 (struct-anchor-relative), legacy-at-4112, universal EF
+  anchor, dungeon-graces-in-copy-A.
+- Capture filename annotations can be wrong: b15/b16's `rowId-1042371300` was actually
+  1042370300 (getItemFlagId−7000); the flip verifies the corrected id.
+
+### Files Modified
+- src/knowledge/pipeline.rs: NEW — the pipeline (7 stages)
+- src/knowledge/mod.rs: `run` subcommand wiring
+- src/knowledge/catalog.rs: sha256_file made pub(crate)
+- knowledge/inputs/attributed-transitions.json: NEW — 24-pair hypothesis input
+- knowledge/claims/event-flags.json: NEW — generated claims store
+- docs/SAVE_FILE_GROUND_TRUTH.md: claims-store header block with region map
+- docs/BACKLOG.md: step 3 core done; remaining work itemized
+- CONTEXT.md: Flag Family regions, Record List, Attributed Transition, Multi-file
+  Differential glossary entries
+- CLAUDE.md: claims-store pointer (supersedes ground_truth_offsets.json for covered
+  families)
+- docs/CHANGELOG.md: version 0.21.0
+- Cargo.toml: bumped to 0.21.0
+
+---
+
 ## v0.20.0 - Evidence catalog; game corpus restored; alloclist primary source
 
 ### Features

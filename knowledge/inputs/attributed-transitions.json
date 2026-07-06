@@ -1,0 +1,257 @@
+{
+  "schema": "attributed-transitions/1",
+  "description": "Hand-written hypothesis input (ADR-0004): attributed before/after capture pairs from the Confessor snapshots. Two chronological sessions confirmed by file mtimes: the numbered 01-10 series (2025-12-29) and the b-series (2026-01-23..25). `order` preserves that chronology: numbered series uses the after-file number (2..10), b-series uses 100 + b-number. The pipeline (er-save-editor knowledge run) verifies each transition empirically and emits claims; nothing here is trusted without the byte-level checks passing. For family tile-pickup-row-id the `flag` field carries the ItemLotParam ROW ID (the stored id), not the getItemFlagId.",
+  "established": "2026-07-05",
+  "corpus": "snapshots-confessor",
+  "save_slot": 0,
+  "known_set_before_all_pairs": {
+    "world-state-b": [
+      71800,
+      71801,
+      76100,
+      76101
+    ]
+  },
+  "pairs": [
+    {
+      "id": "c01-c02",
+      "order": 2,
+      "before": "ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50",
+      "after": "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
+      "flag": 67640,
+      "family": "world-state-b",
+      "kind": "world_pickup",
+      "label": "Missionary's Cookbook [4] (m60_43_50) picked up — flag 67640"
+    },
+    {
+      "id": "c03-c04",
+      "order": 4,
+      "before": "ER0000.sl2 Confessor - 03 before touching Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+      "after": "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+      "flag": 76310,
+      "family": "world-state-b",
+      "kind": "grace_discovery",
+      "label": "Minor Erdtree Church grace (m60_43_50) discovered — flag 76310"
+    },
+    {
+      "id": "c05-c06",
+      "order": 6,
+      "before": "ER0000.sl2 Confessor - 05 before picking up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+      "after": "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+      "flag": 1043500000,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "Golden Order Seal rowId 1043500000 (m60_43_50) picked up. NOTE: filename's EF-1043500000 is the ItemLotParam row id (local 0000 < 7000), not a getItemFlagId. Before-file is byte-identical to c03-c04's after-file (clean session boundary)."
+    },
+    {
+      "id": "c09-c10",
+      "order": 10,
+      "before": "ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "after": "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "flag": 1043500010,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "Smoldering Butterfly rowId 1043500010 (treasure_m60_43_50_00) picked up. CAVEAT: 3.4h wall-clock gap between before and after captures — other flips possible in the window."
+    },
+    {
+      "id": "b1-b2",
+      "order": 102,
+      "before": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "after": "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "flag": 1044360040,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1044360040 (getItemFlagId 1044367040, m60_44_36) pillaged"
+    },
+    {
+      "id": "b3-b4",
+      "order": 104,
+      "before": "ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+      "after": "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+      "flag": 1042320000,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1042320000 (getItemFlagId 1042327000, m60_42_32)"
+    },
+    {
+      "id": "b5-b6",
+      "order": 106,
+      "before": "ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+      "after": "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+      "flag": 1042320020,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1042320020 (getItemFlagId 1042327020, m60_42_32) pillaged"
+    },
+    {
+      "id": "b7-b8",
+      "order": 108,
+      "before": "ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+      "after": "ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+      "flag": 62132,
+      "family": "world-state-b",
+      "kind": "world_event",
+      "label": "Area entered / map event 62132 (m60_42_37)"
+    },
+    {
+      "id": "b11-b12",
+      "order": 112,
+      "before": "ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+      "after": "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+      "flag": 1042370800,
+      "family": "tile-open-world",
+      "kind": "boss_kill",
+      "label": "Crucible Knight (Stormhill Evergaol, m60_42_37) defeat"
+    },
+    {
+      "id": "b15-b16",
+      "order": 116,
+      "before": "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "after": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "flag": 1042370300,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "Chest item rowId 1042370300 (getItemFlagId 1042377300, m60_42_37) picked up. NOTE: the filename's rowId-1042371300 annotation is wrong (getItemFlagId - 7000 = ...0300); the flip verifies the corrected id."
+    },
+    {
+      "id": "b19-b20",
+      "order": 120,
+      "before": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+      "after": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+      "flag": 73002,
+      "family": "world-state-b",
+      "kind": "grace_discovery",
+      "label": "Stormfoot Catacombs grace (m30_02) discovered"
+    },
+    {
+      "id": "b20-b21",
+      "order": 121,
+      "before": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+      "after": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+      "flag": 30027000,
+      "family": "legacy-dungeon-pickup",
+      "kind": "dungeon_pickup",
+      "label": "Dungeon pickup 30027000 (m30_02, lot 30020000, item 20775)"
+    },
+    {
+      "id": "b22-b23",
+      "order": 123,
+      "before": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "after": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "flag": 30027030,
+      "family": "legacy-dungeon-pickup",
+      "kind": "dungeon_pickup",
+      "label": "Prattling Pate \"Hello\" (m30_02, lot 30020030) picked up"
+    },
+    {
+      "id": "b24-b25",
+      "order": 125,
+      "before": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "after": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "flag": 30020800,
+      "family": "legacy-dungeon",
+      "kind": "boss_kill",
+      "label": "Erdtree Burial Watchdog (Stormfoot Catacombs, m30_02, npc_param 42600110) defeat"
+    },
+    {
+      "id": "b26-b27",
+      "order": 127,
+      "before": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "after": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "flag": 1033450800,
+      "family": "tile-open-world",
+      "kind": "boss_kill",
+      "label": "Bols, Carian Knight (Cuckoo's Evergaol, m60_33_45) defeat"
+    },
+    {
+      "id": "b28-b29",
+      "order": 129,
+      "before": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "after": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "flag": 30037030,
+      "family": "legacy-dungeon-pickup",
+      "kind": "dungeon_pickup",
+      "label": "Dungeon pickup 30037030 (m30_03, lot 30030030)"
+    },
+    {
+      "id": "b32-b33",
+      "order": 133,
+      "before": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "after": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "flag": 30030800,
+      "family": "legacy-dungeon",
+      "kind": "boss_kill",
+      "label": "Catacombs boss (m30_03, npc_param 41402920 = Erdtree Burial Watchdog model family) defeat"
+    },
+    {
+      "id": "b34-b35",
+      "order": 135,
+      "before": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+      "after": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+      "flag": 1033460040,
+      "family": "tile-pickup-row-id",
+      "kind": "world_pickup",
+      "label": "World pickup rowId 1033460040 (getItemFlagId 1033467040, m60_33_46)"
+    },
+    {
+      "id": "b38-b39",
+      "order": 139,
+      "before": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "after": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "flag": 71602,
+      "family": "world-state-b",
+      "kind": "grace_discovery",
+      "label": "Volcano Manor grace (m16_00) discovered"
+    },
+    {
+      "id": "b43-b44",
+      "order": 144,
+      "before": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "after": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "flag": 66700,
+      "family": "world-state-b",
+      "kind": "world_pickup",
+      "label": "Perfume Bottle (Volcano Manor, m16_00, lot 16000110) pillaged — flag 66700"
+    },
+    {
+      "id": "b45-b46",
+      "order": 146,
+      "before": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+      "after": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+      "flag": 16000720,
+      "family": "legacy-dungeon",
+      "kind": "npc_dialogue",
+      "label": "Talked to Rya (Volcano Manor, m16_00) — flag 16000720"
+    },
+    {
+      "id": "b48-b49",
+      "order": 149,
+      "before": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+      "after": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+      "flag": 16000750,
+      "family": "legacy-dungeon",
+      "kind": "npc_dialogue",
+      "label": "Talked to Bernahl (Volcano Manor, m16_00) — flag 16000750"
+    },
+    {
+      "id": "b50-b51",
+      "order": 151,
+      "before": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+      "after": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+      "flag": 16000730,
+      "family": "legacy-dungeon",
+      "kind": "npc_dialogue",
+      "label": "Talked to Diallos (Volcano Manor, m16_00) — flag 16000730"
+    },
+    {
+      "id": "b54-b55",
+      "order": 155,
+      "before": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+      "after": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+      "flag": 60260,
+      "family": "world-state-b",
+      "kind": "world_pickup",
+      "label": "Recusant Finger picked up — flag 60260"
+    }
+  ]
+}

@@ -6,15 +6,20 @@
 //!                              manifests) in knowledge/evidence-catalog.json,
 //!                              preserving hand-written context fields.
 //!   knowledge catalog-verify   Recompute and compare; nonzero exit on drift.
+//!   knowledge run              Evidence -> claims pipeline: verify-on-read,
+//!                              attributed-transition analysis, deterministic
+//!                              claims-store emission (knowledge/claims/).
 
 pub mod catalog;
+pub mod pipeline;
 
 pub fn run_cli(args: &[String]) -> Result<(), String> {
     match args.first().map(|s| s.as_str()) {
         Some("catalog-update") => catalog::cmd_update(&args[1..]),
         Some("catalog-verify") => catalog::cmd_verify(&args[1..]),
+        Some("run") => pipeline::cmd_run(&args[1..]),
         _ => {
-            println!("Knowledge pipeline (evidence catalog)");
+            println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
             println!("USAGE:");
             println!("    er-save-editor knowledge <COMMAND>");
@@ -22,6 +27,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("COMMANDS:");
             println!("    catalog-update    Fill/refresh machine fields in the evidence catalog");
             println!("    catalog-verify    Verify evidence against the catalog (exit 1 on drift)");
+            println!("    run               Regenerate the claims store from evidence (ADR-0004)");
             Ok(())
         }
     }

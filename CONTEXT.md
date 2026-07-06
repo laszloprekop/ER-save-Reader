@@ -34,9 +34,22 @@ different families or conventions must never be compared or merged.
 _Avoid_: anchor (when meaning the convention rather than a detected position)
 
 **Flag Family**:
-A group of event flags whose bytes move together within a save (e.g. the grace family,
-the catacombs family). Families float independently across saves, so each family has its
-own per-save base.
+A group of event flags whose bytes move together within a save. Families float
+independently across saves, so each family has its own per-save base. Named families
+measured so far (see the Claims Store for layouts and bases): **world-state-b**
+(dungeon graces and other world state, in a second block ~146.6k above the grace base
+that also mirrors the tutorial anchor flags), **tile-open-world** (m60 tile event
+flags, including overworld boss kills), **tile-pickup-row-id** (world pickups tracked
+by ItemLotParam row id; same tile layout, separate region), **legacy-dungeon**
+(alloclist-slot layout, including catacombs boss kills), **legacy-dungeon-pickup**
+(dungeon pickups; same layout, separate region). Event flags and pickup tracking are
+separate regions per area type.
+
+**Record List**:
+A u32-record structure inside the EF region (~28-31k above the grace base) that is NOT
+a flag bitmap: inserting a record shifts everything after it (the ±4 float
+illusions). Old "catacombs/tunnels base" offsets pointed here; its entries react to
+kills, which made them look like verified flag positions.
 
 **EF Anchor**:
 The detected per-save base of one flag family (by default the grace family, which the
@@ -45,8 +58,14 @@ positioning other families.
 
 **Claims Store**:
 The pipeline-generated collection of Claims consumed by the applications (successor of
-ground_truth_offsets.json). Never hand-edited; regenerable from Evidence at any time.
+ground_truth_offsets.json). Never hand-edited; regenerable from Evidence at any time
+(`er-save-editor knowledge run` → `knowledge/claims/event-flags.json`).
 _Avoid_: ground truth file
+
+**Attributed Transition**:
+A before/after capture pair labeled with the in-game action it brackets (boss kill,
+grace discovery, pickup). The pipeline's strongest instrument: an isolated bit flip
+matching the expected flag, cross-checked within the after-file, is Verified on its own.
 
 **Evidence Catalog**:
 The committed index of all Evidence: paths, sha256 checksums, capture context, slot
@@ -80,6 +99,12 @@ been shown to be partly wrong.
 **Multi-slot Differential**:
 Verification method: compare a byte across character slots with known different
 progression; the expected presence/absence pattern must match.
+
+**Multi-file Differential**:
+Verification method: track a set-monotonic flag bit across successive captures of the
+same slot — once set it must stay set. Valid only when the family base is attested
+unchanged (independently re-measured by another resolved pair in the later files).
+Used by the pipeline to disambiguate multiple candidate flips.
 
 **Kill Transition**:
 Verification method: a byte observed changing at the recorded moment of a specific

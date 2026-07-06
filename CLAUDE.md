@@ -15,6 +15,12 @@ evidence, with per-corpus trust context. Verify with
 `er-save-editor knowledge catalog-verify` before relying on evidence files.
 Glossary: `CONTEXT.md`. Decisions: `docs/adr/`.
 
+**Claims store**: `knowledge/claims/event-flags.json` — pipeline-generated
+(`er-save-editor knowledge run`), NEVER hand-edited (ADR-0004). For the families it
+covers (world-state-b, tile-open-world, legacy-dungeon) it supersedes
+`ground_truth_offsets.json` and the block-base tables in the docs. Check its
+tombstones before re-proposing any offset convention.
+
 **Decompiled game resource files: PARTIALLY RESTORED 2026-07-05** at
 '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files':
 `regulation-bin/*.param.xml` regenerated (WitchyBND, regulation 1.16.1 — matches the

@@ -35,6 +35,53 @@ This document is the **single source of truth** for Elden Ring save file parsing
 > Graveyard"/"Haligtree" labels were wrong. Regulation param XMLs regenerated at
 > version 11611000 (= 1.16.1, save-era match); see the evidence catalog
 > (`knowledge/evidence-catalog.json`, corpora `game-raw-1162` and `game-extracts`).
+>
+> **CLAIMS STORE LIVE — REGION MAP CORRECTED (2026-07-05, `knowledge run`):** the first
+> pipeline-generated claims store (`knowledge/claims/event-flags.json`, ADR-0004) was
+> produced from 24 attributed transition pairs of the Confessor captures (the numbered
+> 01-10 session of 2025-12-29 plus the b-series of 2026-01-23..25; 20 flags verified,
+> 4 honest hypotheses) and **supersedes this document for the families it covers**.
+> Measured region map (grace-relative, per-save floating bases):
+>
+> | family | layout | base (grace_rel) |
+> |--------|--------|------------------|
+> | world-state-b (dungeon graces, 60xxx/66xxx world flags …) | `(flag − 50000) / 8` | ~146.6k |
+> | tile-open-world (m60 event flags, incl. overworld bosses) | `tile_slot × 875 + local/8` | ~483.47k |
+> | tile-pickup-row-id (world pickups by ItemLotParam row id) | `tile_slot × 875 + (row_id % 10000)/8` | ~483.97k |
+> | legacy-dungeon-pickup (dungeon pickups, local ≥ 7000) | `alloclist_slot × 1125 + local/8` | ~1,529.85k |
+> | legacy-dungeon (event flags, incl. catacombs bosses) | `alloclist_slot × 1125 + local/8` | ~1,529.98k |
+>
+> Event flags and pickup tracking are SEPARATE regions per area type (the pickup
+> regions sit ~500 bytes above the tile event region / ~129 bytes below the legacy
+> event region and float independently). World pickups store `row_id =
+> getItemFlagId − 7000` — beware capture annotations that miscompute this
+> (b15/b16's `rowId-1042371300` was actually 1042370300).
+>
+> Cross-session measurements on the SAME character confirm per-save base float:
+> the December session measured tile-pickup base 483,889 / world-state-b base
+> 146,514 vs the b-series' 483,969 / 146,598-146,618. Within a session, bases are
+> empirically stable — the pipeline exploits this as a **multi-file differential**:
+> an ambiguous set-transition candidate whose implied base is independently
+> re-measured by a later resolved pair must stay SET in that pair's files (these
+> flags are set-monotonic), which disambiguated the Golden Order Seal pickup
+> (candidate at grace_rel 851,264 cleared in later files; 851,389 persisted).
+>
+> Copy A vs copy B (c03-c04, grace 76310): **open-world graces (76xxx) set the bit
+> in BOTH world-state blocks** — copy A (the grace-anchor region detection pins) and
+> copy B (~146.6k above). Dungeon graces (71xxx/73xxx) set copy B only. Both blocks
+> use the same `(flag − 50000)/8` packing.
+>
+> Four refuted conventions are tombstoned in the store: (1) tile base 337,375 was
+> expressed relative to the poisoned structural anchor (measured base − 337,375
+> reproduces the ~146.1k struct-walk delta); (2) the legacy region does NOT start at
+> grace_rel 4,112 — the 28-31k span (old "m14=29,987" etc.) is a u32-record LIST whose
+> insertions cause the ±4 region shifts, not the legacy flag bitmap (the alloclist
+> slot×1125 LAYOUT itself is confirmed within the real region); (3) no universal EF
+> anchor (families float independently, measured per pair); (4) dungeon graces are NOT
+> at `(flag−50000)/8` from the grace base — they live in a second world-state block
+> (~146.6k) that also mirrors the tutorial anchor flags (the lookalike-region mystery).
+> Block-base rows in the tables below that touch these families are era-specific legacy
+> claims pending the per-family cutover (migration step 4).
 
 ### Key Findings
 

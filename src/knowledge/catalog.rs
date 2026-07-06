@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 const CATALOG_PATH: &str = "knowledge/evidence-catalog.json";
 const MANIFEST_DIR: &str = "knowledge/manifests";
 
-fn sha256_file(path: &Path) -> Result<(String, u64), String> {
+pub(crate) fn sha256_file(path: &Path) -> Result<(String, u64), String> {
     let mut f = fs::File::open(path).map_err(|e| format!("{}: {}", path.display(), e))?;
     let mut hasher = Sha256::new();
     let mut buf = vec![0u8; 1 << 20];

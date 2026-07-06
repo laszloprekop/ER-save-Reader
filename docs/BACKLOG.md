@@ -47,13 +47,50 @@ Steps, in order:
    Catalog corpus `game-extracts` flipped missing→directory (390 files). Still not
    regenerated (by design): emevd.js decompiles (pipeline parses raw .emevd from
    `game-raw-1162`), MSB XMLs (optional).
-3. **Pipeline** — `knowledge` subcommand family in this binary (reuses the reference
-   implementation): catalog check → anchor detection → verification methods
-   (multi-slot differential, kill transition, reward corroboration per ADR-0007) →
-   deterministic claims-store emission. Add `ef-dump` for Python/exploratory consumers.
-   Interpretation diffs PARSED DOMAIN OBJECTS, not raw bytes: inventory deltas by item
-   identity (GaItem handles churn), flags per family (per-family float, ADR-0003
-   amendment). Timeline re-annotation (bossesDefeated etc.) is a pipeline output.
+3. **Pipeline** — CORE DONE 2026-07-05: `er-save-editor knowledge run`
+   (`src/knowledge/pipeline.rs`) regenerates `knowledge/claims/event-flags.json`
+   deterministically (re-run ⇒ byte-identical) from the hand-written hypothesis input
+   `knowledge/inputs/attributed-transitions.json` (24 Confessor pairs: the numbered
+   01-10 session of 2025-12-29, ordering confirmed by file mtimes + a byte-identical
+   session-boundary file, plus the b-series of 2026-01-23..25) + the
+   alloclist layout + the evidence catalog. Stages: verify-on-read (sha256 vs
+   manifest) → grace-base detection (reference impl) → grace-aligned isolated-flip
+   extraction (±16-byte identical neighborhoods kill shift illusions) → candidate
+   resolution via within-file cross-checks (earlier transitions SET / later CLEAR /
+   known-set anchors SET at the candidate family base) + multi-file differential
+   disambiguation (set-monotonic candidates whose implied base is independently
+   re-measured by a later resolved pair must stay SET in that pair's files) →
+   tombstone refutations recomputed from bytes each run (a failing refutation
+   aborts) → deterministic
+   emission. **RESULTS (24 pairs):** 20 flags Verified (bosses 30020800, 30030800,
+   1042370800, 1033450800; graces 73002, 71602, 76310; world flags 66700, 60260,
+   67640; dungeon
+   pickups 30027000, 30027030, 30037030; world pickups by row id 1044360040,
+   1042320000, 1042320020, 1042370300, 1033460040, 1043500000, 1043500010) + 4
+   honest hypotheses (62132
+   "entering", NPC-talk 16000720/730/750 — their labeled flags provably do NOT flip
+   in the EF region on those transitions); 5 family layouts Verified with measured
+   per-save bases — world-state-b `(flag−50000)/8` @ ~146.6k grace_rel,
+   tile-open-world `slot×875+local/8` @ ~483.47k, tile-pickup-row-id (same tile
+   layout, row_id = getItemFlagId−7000, SEPARATE region) @ ~483.97k,
+   legacy-dungeon `alloclist_slot×1125+local/8` @ ~1,529.98k, legacy-dungeon-pickup
+   (same layout, separate region) @ ~1,529.85k; 4 tombstones (tile 337,375 was
+   struct-anchor-relative; legacy-at-4,112 refuted — the 28-31k span is a u32-record
+   list; universal anchor; dungeon-graces-in-copy-A). Resolution is iterative
+   (expectations only from already-resolved pairs), so a wrong hypothesis cannot
+   poison verified claims — this is what exposed the pickup regions as separate
+   families. Also caught: b15/b16's filename `rowId-1042371300` annotation is wrong
+   (getItemFlagId−7000 = 1042370300; the flip verifies the corrected id).
+   NEW FINDINGS from the December session: open-world graces (76xxx) set the bit in
+   BOTH world-state blocks (copy A and copy B) while dungeon graces set copy B only
+   (tombstone 4 now records the contrast); family bases float per SESSION on the
+   same character (Dec tile-pickup base 483,889 / world-state-b 146,514 vs b-series
+   483,969 / 146,598-146,618) but are stable within a session.
+   REMAINING in step 3: reward corroboration (ADR-0007, inventory by item identity;
+   b36/b37 Miquella's Lily, b52/b53 Letter pairs exist), multi-slot differential
+   across the 2026-01-11 backup slots, more attributed pairs (s2/s7 root pairs,
+   c06-c08 Golden Centipede pairs lack flag annotations), timeline re-annotation as
+   pipeline output.
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
    store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
@@ -110,6 +147,15 @@ all flag reads downstream (this — not wrong bases — was the cause of `batch-
   families are probe-convention (consistent, trustworthy); the 71xxx/72xxx dungeon-grace
   family reads garbage at the probe anchor (verified-era drift). Offsets from different
   verification eras must not be combined in one matched filter.
+  **UPDATE (2026-07-05, `knowledge run`):** largely explained. The dungeon-grace family
+  lives in a second world-state block ~146.6k above the grace base (claims store,
+  family `world-state-b`); tile offsets were struct-anchor-relative (~146.1k above
+  grace, tombstone `tile-base-337375-grace-anchored`); and the old "catacombs region"
+  around grace_rel 28-31k is a u32-record LIST, not the flag bitmap — its entries react
+  to kills (hence the old c=0 validations correlating) but the real boss-kill bits are
+  in the legacy-dungeon family at ~1,529.98k grace_rel. Old catacombs/tunnels GT
+  offsets should be treated as record-list observations, not flag positions, during the
+  step-4 cutover.
 
 Follow-ups:
 1. ~~Fix detection; add a hard validation gate~~ DONE 2026-07-05 (windowed scan + gate;
