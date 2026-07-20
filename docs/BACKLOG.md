@@ -660,10 +660,49 @@ maps — unexplained, worth a look before claiming pickup coverage).
    the correct state for those flags is Unknown. Unblocking requires the DLC installed
    plus a character captured either side of a DLC pickup or boss kill.
 
-   *Next, and actually actionable:* `is_flag_set_with_status` in `pickup_flags.rs` is the
-   last app-side reader on the legacy store, blocked for the reason recorded in place —
-   it takes a bare id and cannot know the family. It needs its callers to say which
-   family they mean, not a smarter router.
+   **PICKUP READERS CUT OVER 2026-07-20 — the app no longer reads the frozen store.**
+   `is_flag_set_with_status` was described as blocked because a bare id cannot identify
+   its family. That was the wrong framing: the missing information was never in the id,
+   it was in the CALLER. An entry in `WORLD_PICKUPS` or `DUNGEON_PICKUPS` is known to be
+   a pickup, and that alone resolves the ambiguity that blocked the cutover (a 10-digit
+   id being either an open-world event flag or a pickup row_id). Given "this is a
+   pickup", family follows from the id's shape, which is what
+   `pickup_flags::pickup_flag_state` does.
+
+   *Six read paths cut over*, four of them previously unnoticed: the events-view world
+   pickup table and its detail panel, the dungeon-pickup detail panel (which carried its
+   OWN copy of the `DUNGEON_PICKUP_BASES` arithmetic, so it could disagree with the very
+   row it was opened from), `collect_set_flags` over UNIQUE_ITEMS, `comparison_view`, and
+   `world_pickups_view` (already cut over but single-family). The comparison view now
+   SKIPS pickups it cannot resolve in both saves rather than reporting them as
+   differences — comparing two Unknowns manufactures diffs that say nothing.
+
+   *Effect, measured:* `WORLD_PICKUPS` Unknown fell 3,577 -> 1,517 across every slot,
+   exactly the 2,060 predicted from the family census. Confessor collected rose 495 ->
+   910; Wretch 2 -> 5; V1/V2 1 -> 3.
+
+   *One anomaly, recorded rather than smoothed over.* V3 — the true-negative control —
+   went from 0 collected to 2. One is `60210` "Tarnished's Wizened Finger", a starting
+   item every character is given, so reading SET is correct and the old 0 was an artifact
+   of it being Unknown. The other is `10007452` "Crimson Hood", a Stormveil pickup that
+   V3 never reached, and it reads SET on ALL SIX slots. It is not a mislabel — the
+   primary source has it (`ItemLotParam_map` row 10000451, `lotItemId01=740000` =
+   Crimson Hood) — and it is not a read artifact: V3 reads exactly 1 SET out of ~1,960
+   readable legacy pickups, whereas a misplaced base or wrong stride would smear hits
+   across many blocks, and the m10_00 block shows a clean differential (75/250 non-zero
+   for the Confessor who cleared Stormveil, 1/250 for every minimal character). So the
+   bit is genuinely set for everyone; WHY is unestablished. Settling it needs an
+   attributed transition on that flag, which the corpus does not have. **"V3 has zero
+   pickups" is no longer the right expectation for the control** — it has zero *chosen*
+   pickups plus whatever the game sets for all characters.
+
+   **`dungeon_pickups.rs` diverges from the primary source — its own task, now unblocked.**
+   Audited against `ItemLotParam_map` (regulation 1.16.1): 189 DB entries absent from the
+   primary source, 152 primary entries absent from the DB, about 8% each way, with the
+   missing ones clustered in m41_00/01/02, m40_02 and m13_00. The DB-only entries are
+   third-party in origin with unverified provenance. Regenerating the table from the
+   primary source is a data task with its own verification and must NOT be folded into a
+   flag-layout change — but the primary source is on this machine, so nothing blocks it.
 
    **SETTLED 2026-07-20 — the overlap is real, and harmless.** Jump to the resolution
    below; the statement of the question is kept because the reasoning that closed it is

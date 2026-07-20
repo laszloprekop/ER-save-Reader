@@ -4,7 +4,6 @@ use eframe::egui::{self, ComboBox, RichText, ScrollArea, Ui};
 use serde::Serialize;
 
 use crate::vm::slot::slot_view_model::SlotViewModel;
-use crate::db::pickup_flags::is_flag_set;
 use crate::ui::components::filter::fuzzy_match_default;
 use crate::ui::components::export::{ExportToolbar, ExportFormat, to_json};
 use crate::ui::tokens::{colors, spacing};
@@ -420,8 +419,17 @@ fn show_event_flags_comparison(
 
         // Sample first 100 pickups to avoid performance issues
         for pickup in crate::db::pickup_data::WORLD_PICKUPS.iter().take(100) {
-            let in_a = is_flag_set(flags_a, pickup.event_flag);
-            let in_b = is_flag_set(flags_b, pickup.event_flag);
+            // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
+            // family. A pickup whose position cannot be resolved in EITHER save
+            // is skipped rather than reported as a difference: comparing two
+            // Unknowns, or an Unknown against a real bit, manufactures diffs that
+            // say nothing about the characters.
+            let (Some(in_a), Some(in_b)) = (
+                crate::db::pickup_flags::pickup_flag_state(flags_a, pickup.event_flag),
+                crate::db::pickup_flags::pickup_flag_state(flags_b, pickup.event_flag),
+            ) else {
+                continue;
+            };
 
             if in_a != in_b || !differences_only {
                 pickup_diffs.push(FlagDiff {

@@ -4,6 +4,72 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.30.0 - Route pickups by family; the app leaves the frozen store entirely
+
+### Features
+- **`pickup_flags::pickup_flag_state`** — one router for every pickup table. Resolves
+  per save and dispatches by id shape: 10-digit to the open-world tile family, 8-digit
+  with localId >= 7000 to legacy-map pickups, 50000-79999 to world-state-b. `None` is
+  UNKNOWN and is never collapsed to "not collected".
+- **Seven read paths cut over**, five of them previously unnoticed: the events-view world
+  pickup table and its detail panel, the dungeon-pickup detail panel, `collect_set_flags`
+  over UNIQUE_ITEMS, `comparison_view`, `world_pickups_view`, and the **JSON export**.
+  No app-layer reader is left on `ground_truth_offsets.json`.
+- **Export now distinguishes unknown from not-collected.**
+  `ExportWorldPickupItem.collected` became `Option<bool>` and serialises as `null` when
+  the flag's position could not be resolved. **This is a JSON schema change** — consumers
+  that assumed a boolean will see `null` for DLC tiles and unclassified ids.
+- `comparison_view` skips pickups it cannot resolve in both saves rather than reporting
+  them as differences; comparing two Unknowns manufactures diffs that say nothing about
+  the characters.
+
+### Key Findings
+- **`WORLD_PICKUPS` is not a single-family table**, despite the name: of 4,809 entries,
+  1,232 are open-world tiles, 2,010 legacy-map, 100 world-state-b, 935 unclassified
+  six-digit ids and 532 DLC. v0.28.0 routed all of it through the tile reader, leaving
+  3,577 Unknown. Routing by family recovered **2,060** — Unknown fell 3,577 -> 1,517,
+  Confessor collected rose 495 -> 910, Wretch 2 -> 5. The first cut was not wrong (each
+  family reader rejects foreign ids, so nothing read a wrong bit) but needlessly blind,
+  and only the aggregate count exposed it.
+- **The dungeon-pickup detail panel carried its own copy of the legacy
+  `DUNGEON_PICKUP_BASES` arithmetic**, separate from the table's, so the panel and the
+  row it was opened from could disagree about the same pickup. Both now share a resolver.
+- **An anomaly, recorded rather than smoothed over.** V3, the true-negative control,
+  went 0 -> 2 collected. One is `60210` "Tarnished's Wizened Finger", a starting item, so
+  SET is correct and the old 0 was an artifact of it reading Unknown. The other is
+  `10007452` "Crimson Hood", a Stormveil pickup V3 never reached, SET on all six slots.
+  Not a mislabel (primary source: `ItemLotParam_map` row 10000451, `lotItemId01=740000`)
+  and not a read artifact (V3 reads exactly 1 SET of ~1,960 readable legacy pickups; a
+  bad base would smear hits, and m10_00 shows 75/250 non-zero for the Confessor against
+  1/250 for minimal characters). The bit is genuinely set for everyone; why is
+  unestablished, and settling it needs an attributed transition the corpus lacks.
+  **"V3 has zero pickups" is no longer the right expectation for the control.**
+- **`dungeon_pickups.rs` diverges from `ItemLotParam_map` about 8% each way** — 189 DB
+  entries absent from the primary source, 152 primary entries absent from the DB,
+  clustered in m41_00/01/02, m40_02 and m13_00. Regenerating it is its own data task with
+  its own verification, deliberately not folded in here; the primary source is on this
+  machine, so it is unblocked.
+
+### Verification
+- 189 -> 190 tests. New unit test pins the export contract: `collected` must serialise
+  as `true` / `false` / `null` and never collapse UNKNOWN to `false`.
+- Live counts still match the documented character designs, with the control's
+  expectation restated (see the V3 note above).
+- Clippy unchanged at its 882-warning baseline; no new warnings introduced.
+
+### Files Modified
+- `src/db/pickup_flags.rs`: `pickup_flag_state`; `is_flag_set_with_status` deprecated
+- `src/ui/events.rs`: world pickups, both detail panels, `collect_set_flags`
+- `src/ui/world_pickups_view.rs`, `src/ui/comparison/comparison_view.rs`: routed
+- `src/vm/slot.rs`, `src/vm/export.rs`: export path; `collected` is now `Option<bool>`,
+  plus a test pinning the null semantics
+- `src/knowledge/dump.rs`: pickup counter uses the router
+- `DATA-SCHEMAS.md`: world-pickup export item documented, with the nullability change
+- `docs/BACKLOG.md`, `docs/DATABASE_COVERAGE_ANALYSIS.md`: cutover, anomaly, DB audit
+- `Cargo.toml`: bumped to 0.30.0
+
+---
+
 ## v0.29.2 - Settle the legacy family address overlap
 
 Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.

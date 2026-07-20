@@ -320,6 +320,30 @@ interface CollectibleStatus {
 }
 ```
 
+### Save-editor JSON export — world pickups
+
+Emitted by `src/vm/export.rs` (`ExportWorldPickupItem`), one object per
+`WORLD_PICKUPS` entry, under `events.world_pickups`.
+
+```ts
+interface ExportWorldPickupItem {
+  lot_id: number
+  flag_id: number
+  item_name: string
+  item_type: string
+  quantity: number
+  region: string
+  collected: boolean | null    // null = UNKNOWN, see below
+}
+```
+
+> **`collected` became nullable in v0.30.0** (was `boolean`). `null` means the flag's
+> position could not be resolved for that save — DLC tiles, ids belonging to no verified
+> family, doubly-allocated maps — and is deliberately NOT reported as `false`. An export
+> that prints "not collected" for a flag it could not read is asserting something it does
+> not know, which is the failure this migration exists to remove. Roughly 1,517 of 4,809
+> entries are `null` on a current save. Consumers that assumed a boolean must handle it.
+
 ---
 
 ## 4. Zone Domain

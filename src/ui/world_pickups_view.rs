@@ -86,10 +86,18 @@ pub mod world_pickups_view {
     /// from the open-world family. Sending one to the other's base reads a
     /// plausible-looking wrong bit rather than failing.
     ///
+    /// WIDENED 2026-07-20: this originally sent the whole table to the tile
+    /// reader, on the assumption that `WORLD_PICKUPS` is all open-world tiles.
+    /// It is not — of 4,809 entries only 1,232 are, alongside 2,010 legacy-map
+    /// pickups and 100 world-state-b flags — so 3,577 read Unknown. Routing by
+    /// family via `pickup_flag_state` recovers about 2,060 of them. The first cut
+    /// was not WRONG (no entry read a wrong bit; the tile reader rejects foreign
+    /// ids), it was needlessly blind.
+    ///
     /// `None` means the position could not be resolved: UNKNOWN, not "not
     /// collected". The table renders that distinctly.
     fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-        wasm_event_flags::is_tile_pickup_set(event_flags?, flag_id)
+        crate::db::pickup_flags::pickup_flag_state(event_flags?, flag_id)
     }
 
     /// Check if an item is in the character's inventory based on flag ID

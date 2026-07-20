@@ -765,8 +765,46 @@ pub fn is_tile_pickup_flag_set(event_flags: &[u8], flag_id: u32, calibrated_tile
     false
 }
 
+/// State of a flag from a PICKUP table, resolved per save.
+///
+/// CUT OVER 2026-07-20 (ADR-0006, migration step 4). This is what
+/// `is_flag_set_with_status` could not be: that function takes a bare id and so
+/// cannot know which family it belongs to. The missing information was never in
+/// the id — it is in the CALLER. An entry in `WORLD_PICKUPS` or
+/// `DUNGEON_PICKUPS` is known to be a pickup, which resolves the one ambiguity
+/// that blocked the cutover (a 10-digit id being either an open-world event flag
+/// or a pickup row_id). So the family follows from the id's SHAPE once
+/// "this is a pickup" is given:
+///
+///   10-digit, 1xxxxxxxxx   open-world tile pickup, by row_id / getItemFlagId
+///    8-digit, local >= 7000  legacy-map pickup (alloc-slot layout)
+///    5-digit, 50000-79999    world-state-b
+///
+/// `None` is UNKNOWN, never "not collected". It covers DLC tiles (`2xxxxxxxxx`,
+/// no verified layout), the ~935 six-digit ids in `WORLD_PICKUPS` that belong to
+/// no known family, doubly-allocated maps, and any save whose origin will not
+/// resolve.
+///
+/// Note `WORLD_PICKUPS` is NOT a single-family table despite its name: of 4,809
+/// entries, 1,232 are open-world tiles, 2,010 legacy-map, 100 world-state-b, 935
+/// unclassified and 532 DLC. Routing the whole table through the tile reader —
+/// which is what shipped in v0.28.0 — left 3,577 of them reading Unknown.
+pub fn pickup_flag_state(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+    match flag_id {
+        1_000_000_000..=1_999_999_999 => wasm_event_flags::is_tile_pickup_set(event_flags, flag_id),
+        10_000_000..=999_999_999 => wasm_event_flags::is_dungeon_pickup_set(event_flags, flag_id),
+        50_000..=79_999 => wasm_event_flags::is_world_state_flag_set(event_flags, flag_id),
+        _ => None,
+    }
+}
+
 /// Check if an event flag is set and return verification status
 /// Returns (is_set, verification_status)
+///
+/// DEPRECATED for pickup tables — use `pickup_flag_state`, which resolves
+/// positions per save. This remains only for callers that have neither a family
+/// nor a resolved origin, and it reads absolute offsets from the frozen legacy
+/// store, so a save whose families have drifted reads every flag as clear.
 pub fn is_flag_set_with_status(event_flags: &[u8], flag_id: u32) -> (bool, VerificationStatus) {
     // NOT cut over to the resolver, deliberately. A bare 10-digit id is
     // ambiguous between the open-world and pickup tile families (both use

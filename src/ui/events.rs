@@ -2,7 +2,7 @@ pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
     use serde::Serialize;
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::{is_flag_set_with_status, get_flag_verification_status, DUNGEON_PICKUP_BASES}, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus, SimpleEventFlagViewState}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus, SimpleEventFlagViewState}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
     /// Icon size multiplier for table icons (150%)
@@ -729,6 +729,21 @@ pub mod events {
         None // No unique item mapping for this flag
     }
 
+    /// Pickup state in the (collected, status) shape this view already renders.
+    ///
+    /// Positions resolve per save via `pickup_flag_state`, which routes by family
+    /// — `WORLD_PICKUPS` mixes open-world tiles, legacy-map pickups and
+    /// world-state-b flags in one table. An unresolvable entry becomes
+    /// `Unverified`, which the table shows as its own state; it is never
+    /// collapsed into "not collected".
+    fn pickup_state(ef: &[u8], flag_id: u32) -> (bool, crate::db::pickup_flags::VerificationStatus) {
+        use crate::db::pickup_flags::{pickup_flag_state, VerificationStatus};
+        match pickup_flag_state(ef, flag_id) {
+            Some(collected) => (collected, VerificationStatus::Verified),
+            None => (false, VerificationStatus::Unverified),
+        }
+    }
+
     fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
         let filter = &mut vm.slots[vm.index].events_vm.world_pickups_filter;
 
@@ -821,7 +836,10 @@ pub mod events {
         // Build filtered data with inventory status
         let mut pickups: Vec<(&crate::db::pickup_data::WorldPickup, bool, crate::db::pickup_flags::VerificationStatus, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
             .filter_map(|pickup| {
-                let (is_collected, status) = is_flag_set_with_status(ef, pickup.event_flag);
+                // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
+                // family; `Unknown` maps to the existing uncertain status, which
+                // the table already renders as its own state.
+                let (is_collected, status) = pickup_state(ef, pickup.event_flag);
 
                 // Apply collected filter
                 match collected_filter {
@@ -1510,17 +1528,23 @@ pub mod events {
         }
     }
 
-    /// Collect all set flags from the unique items database for verification
+    /// Collect all set flags from the unique items database for verification.
+    ///
+    /// CUT OVER 2026-07-20 (ADR-0006). Only flags whose family is known are
+    /// resolvable: of UNIQUE_ITEMS' 141 entries, 34 are world-state-b and the
+    /// remaining 107 are 3-to-6-digit ids belonging to no verified family. The
+    /// unresolvable ones are simply absent from the returned set, which is what
+    /// they were before — a set of flags observed SET — so an unknown flag has
+    /// never been representable here as anything but absent.
     fn collect_set_flags(event_flags: Option<&[u8]>) -> std::collections::HashSet<u32> {
         use crate::discovery::inventory_verification::UNIQUE_ITEMS;
-        use crate::db::pickup_flags::is_flag_set_with_status;
+        use crate::db::pickup_flags::pickup_flag_state;
 
         let mut set_flags = std::collections::HashSet::new();
 
         if let Some(ef) = event_flags {
             for item in UNIQUE_ITEMS.iter() {
-                let (is_set, _status) = is_flag_set_with_status(ef, item.event_flag);
-                if is_set {
+                if pickup_flag_state(ef, item.event_flag) == Some(true) {
                     set_flags.insert(item.event_flag);
                 }
             }
@@ -1669,7 +1693,7 @@ pub mod events {
                     let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
                         let ef = event_flags.unwrap_or(&[]);
-                        let (is_set, _) = is_flag_set_with_status(ef, flag_id);
+                        let (is_set, _) = pickup_state(ef, flag_id);
                         (Some(flag_id), p.name.to_string(), is_set, true)
                     } else {
                         (None, String::new(), false, true)
@@ -1683,22 +1707,13 @@ pub mod events {
                     // Find the dungeon pickup data for this flag
                     let pickup = DUNGEON_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
-                        // For dungeon pickups, we need to check the flag differently
-                        // using the dungeon base offsets
+                        // CUT OVER 2026-07-20 (ADR-0006). This detail panel had its
+                        // OWN copy of the legacy DUNGEON_PICKUP_BASES arithmetic,
+                        // separate from the table's — so the panel and the row it
+                        // was opened from could disagree about the same pickup.
+                        // Both now go through the same resolver.
                         let ef = event_flags.unwrap_or(&[]);
-                        let is_set = if let Some(&base) = DUNGEON_PICKUP_BASES.get(&p.dungeon_area) {
-                            use crate::db::pickup_flags::DUNGEON_SECTION_SIZE;
-                            use crate::util::bit::bit::get_bit;
-                            let byte_offset = base + p.section * DUNGEON_SECTION_SIZE + p.event_flag % 10000 / 8;
-                            let bit_pos = 7 - (p.event_flag % 8);
-                            if (byte_offset as usize) < ef.len() {
-                                get_bit(ef[byte_offset as usize], bit_pos as u8)
-                            } else {
-                                false
-                            }
-                        } else {
-                            false
-                        };
+                        let is_set = pickup_state(ef, p.event_flag).0;
                         (Some(flag_id), p.name.to_string(), is_set, false)
                     } else {
                         (None, String::new(), false, false)

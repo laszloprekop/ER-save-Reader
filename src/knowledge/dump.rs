@@ -114,7 +114,7 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         // regions 500 bytes apart, so this also exercises that routing.
         let (mut pset, mut pclear, mut punknown) = (0usize, 0usize, 0usize);
         for pickup in crate::db::pickup_data::WORLD_PICKUPS.iter() {
-            match wasm_event_flags::is_tile_pickup_set(ef, pickup.event_flag) {
+            match crate::db::pickup_flags::pickup_flag_state(ef, pickup.event_flag) {
                 Some(true) => pset += 1,
                 Some(false) => pclear += 1,
                 None => punknown += 1,

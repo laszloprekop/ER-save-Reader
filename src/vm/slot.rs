@@ -11,7 +11,6 @@ pub mod slot_view_model {
             summoning_pools::summoning_pools::SUMMONING_POOLS,
             whetblades::whetblades::WHETBLADES,
             pickup_data::{WORLD_PICKUPS, PickupCategory},
-            pickup_flags::is_flag_set,
         },
         save::common::save_slot::SaveSlot,
         vm::{
@@ -565,7 +564,12 @@ pub mod slot_view_model {
                 WORLD_PICKUPS
                     .iter()
                     .map(|pickup| {
-                        let collected = is_flag_set(flags, pickup.event_flag);
+                        // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and
+                        // routed by family. `None` exports as null: an export that
+                        // says "not collected" for a flag it could not read is
+                        // asserting something it does not know.
+                        let collected =
+                            crate::db::pickup_flags::pickup_flag_state(flags, pickup.event_flag);
 
                         let type_str = match pickup.category {
                             PickupCategory::GoldenRunes => "GoldenRunes",

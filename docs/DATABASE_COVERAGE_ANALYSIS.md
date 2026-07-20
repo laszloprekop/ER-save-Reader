@@ -121,7 +121,34 @@ found", so these gaps are now visible instead of silently counted as negatives:
 | Graces | 421 / 421 | 0 | — |
 | Bosses | 176 / 205 | 29 | 26 DLC tiles outside the m60 grid; 2 doubly-allocated maps (m34_12, m40_00); 1 disputed id (Night's Cavalry 1248550800) |
 | Dungeon Pickups | 2,072 / 2,108 | 36 | 32 in the two doubly-allocated maps; 2 under a bogus prefix 9901; 2 whose localId < 7000 (so not pickups at all) |
-| World Pickups | 4,277 / 4,809 | 532 | tile ids outside the open-world grid — same DLC/underground cause as the boss gap |
+| World Pickups | 3,292 / 4,809 | 1,517 | 532 DLC tiles; ~935 six-digit ids belonging to no verified family; the remainder doubly-allocated or out-of-grid |
+
+> **`WORLD_PICKUPS` is not a single-family table**, despite the name. Of its 4,809
+> entries only 1,232 are open-world tiles; there are also 2,010 legacy-map pickups, 100
+> world-state-b flags, 935 unclassified six-digit ids and 532 DLC tiles. v0.28.0 routed
+> the whole table through the tile reader, which left 3,577 reading Unknown. Routing by
+> family (`pickup_flags::pickup_flag_state`) recovered 2,060 of them. The first cut was
+> not wrong — no entry read a wrong bit, because each family reader rejects foreign ids —
+> it was needlessly blind, and the aggregate count was what exposed it.
+
+### Database vs primary source (audited 2026-07-20)
+
+`dungeon_pickups.rs` diverges from `ItemLotParam_map` (regulation 1.16.1) in both
+directions, roughly 8% each way:
+
+| | count |
+|---|---|
+| legacy `getItemFlagId`s in the primary source | 2,069 |
+| legacy entries in `dungeon_pickups.rs` | 2,106 |
+| in the DB, absent from the primary source | 189 |
+| in the primary source, absent from the DB | 152 |
+
+The missing-from-DB entries cluster in m41_00/01/02, m40_02 and m13_00 (29+25+19+18+17
+for the top five maps). Provenance of the 189 DB-only entries is unknown; they are
+third-party in origin and unverified. Regenerating `dungeon_pickups.rs` from
+`ItemLotParam_map` is its own task with its own verification — it is NOT a cleanup to
+fold into a flag-layout change — but the primary source is now on this machine, so it is
+unblocked whenever someone wants it.
 
 The DLC gap is one issue, not four: DLC maps (m61 tiles, `2xxxxxxxxx` ids) have no
 verified layout.

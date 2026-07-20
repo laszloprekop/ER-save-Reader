@@ -251,7 +251,11 @@ pub struct ExportWorldPickupItem {
     pub item_type: String,
     pub quantity: u32,
     pub region: String,
-    pub collected: bool,
+    /// `None` = UNKNOWN: the flag's position could not be resolved for this save
+    /// (DLC tiles, ids in no verified family, doubly-allocated maps). Serialises
+    /// as JSON `null`, never as `false` — an export that prints "not collected"
+    /// for a flag it could not read is stating something it does not know.
+    pub collected: Option<bool>,
 }
 
 impl ExportWorldPickupItem {
@@ -262,7 +266,7 @@ impl ExportWorldPickupItem {
         item_type: &str,
         quantity: u32,
         region: &str,
-        collected: bool,
+        collected: Option<bool>,
     ) -> Self {
         Self {
             lot_id,
@@ -312,4 +316,31 @@ impl ExportRegionItem {
 #[derive(Serialize)]
 pub struct ExportRegions {
     pub regions: Vec<ExportRegionItem>,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The world-pickup export promises `collected: boolean | null`
+    /// (DATA-SCHEMAS.md, Character Domain). `null` is UNKNOWN — the flag's
+    /// position could not be resolved for that save — and must never be emitted
+    /// as `false`, because an export that says "not collected" for a flag it
+    /// could not read asserts something it does not know. That is precisely the
+    /// failure this migration removed, so the contract is pinned here rather
+    /// than left to convention.
+    #[test]
+    fn world_pickup_export_reports_unknown_as_null() {
+        for (collected, want) in [(Some(true), "true"), (Some(false), "false"), (None, "null")] {
+            let item = ExportWorldPickupItem::new(1, 2, "n", "t", 1, "r", collected);
+            let json = serde_json::to_value(&item).expect("serialises");
+            assert_eq!(
+                json["collected"].to_string(),
+                want,
+                "collected={:?} must serialise as {}",
+                collected,
+                want
+            );
+        }
+    }
 }
