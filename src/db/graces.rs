@@ -495,7 +495,7 @@ pub mod maps {
     pub static GRACES: Lazy<Mutex<HashMap<Grace, (MapName, u32, &str)>>> = Lazy::new(|| {
         Mutex::new(HashMap::from([
             // Table of Lost Grace / Roundtable Hold
-            (Grace::RoundtableHold, (MapName::RoundtableHold, 71190,"Table of Lost Grace / Roundtable Hold")),
+            (Grace::RoundtableHold, (MapName::RoundtableHold, 71190, "Table of Lost Grace")),
         
             // Limgrave
             (Grace::AgheelLakeNorth, (MapName::Limgrave, 76108,"Agheel Lake North")),
@@ -504,10 +504,10 @@ pub mod maps {
             (Grace::ChurchofElleh, (MapName::Limgrave, 76100,"Church of Elleh")),
             (Grace::CoastalCave, (MapName::Limgrave, 73115,"Coastal Cave")),
             (Grace::FortHaightWest, (MapName::Limgrave, 76105,"Fort Haight West")),
-            (Grace::Gatefront, (MapName::Limgrave, 76111,"Gatefront")),
+            (Grace::Gatefront, (MapName::Limgrave, 76111, "Gatefront Ruins")),
             (Grace::GrovesideCave, (MapName::Limgrave, 73103,"Groveside Cave")),
             (Grace::HighroadCave, (MapName::Limgrave, 73117,"Highroad Cave")),
-            (Grace::LimgraveArtistShack, (MapName::Limgrave, 76103,"Artist's Shack (Limgrave)")),
+            (Grace::LimgraveArtistShack, (MapName::Limgrave, 76103, "Artist's Shack")),
             (Grace::LimgraveTunnels, (MapName::Limgrave, 73201,"Limgrave Tunnels")),
             (Grace::MistwoodOutskirts, (MapName::Limgrave, 76114,"Mistwood Outskirts")),
             (Grace::MurkwaterCatacombs, (MapName::Limgrave, 73004,"Murkwater Catacombs")),
@@ -536,8 +536,8 @@ pub mod maps {
 
             // Weeping Peninsula
             (Grace::AilingVillageOutskirts, (MapName::WeepingPeninsula, 76154,"Ailing Village Outskirts")),
-            (Grace::BehindTheCastle, (MapName::WeepingPeninsula, 76159,"Behind The Castle")),
-            (Grace::BesidetheCraterPockedGlade, (MapName::WeepingPeninsula, 76155,"Beside the Crater-Pocked Glade")),
+            (Grace::BehindTheCastle, (MapName::WeepingPeninsula, 76159, "Behind the Castle")),
+            (Grace::BesidetheCraterPockedGlade, (MapName::WeepingPeninsula, 76155, "Beside the Crater,Pocked Glade")),
             (Grace::BesidetheRampartGaol, (MapName::WeepingPeninsula, 76160,"Beside the Rampart Gaol")),
             (Grace::BridgeofSacrifice, (MapName::WeepingPeninsula, 76157,"Bridge of Sacrifice")),
             (Grace::CastleMorneLift, (MapName::WeepingPeninsula, 76158,"Castle Morne Lift")),
@@ -546,11 +546,11 @@ pub mod maps {
             (Grace::EarthboreCave, (MapName::WeepingPeninsula, 73101,"Earthbore Cave")),
             (Grace::FourthChurchofMarika, (MapName::WeepingPeninsula, 76162,"Fourth Church of Marika")),
             (Grace::ImpalersCatacombs, (MapName::WeepingPeninsula, 73001,"Impaler's Catacombs")),
-            (Grace::LimgraveIsolatedMerchantsShack, (MapName::WeepingPeninsula, 76156,"Isolated Merchant's Shack (Limgrave)")),
+            (Grace::LimgraveIsolatedMerchantsShack, (MapName::WeepingPeninsula, 76156, "Isolated Merchant's Shack")),
             (Grace::MorneMoangrave, (MapName::WeepingPeninsula, 76161,"Morne Moangrave")),
             (Grace::MorneTunnel, (MapName::WeepingPeninsula, 73200,"Morne Tunnel")),
             (Grace::SouthoftheLookoutTower, (MapName::WeepingPeninsula, 76153,"South of the Lookout Tower")),
-            (Grace::Tombsward, (MapName::WeepingPeninsula, 76152,"Tombsward")),
+            (Grace::Tombsward, (MapName::WeepingPeninsula, 76152, "Weeping Evergaol")),
             (Grace::TombswardCatacombs, (MapName::WeepingPeninsula, 73000,"Tombsward Catacombs")),
             (Grace::TombswardCave, (MapName::WeepingPeninsula, 73102,"Tombsward Cave")),
 
@@ -583,23 +583,23 @@ pub mod maps {
             (Grace::GateTownBridge, (MapName::LiurniaOfTheLakes, 76222,"Gate Town Bridge")),
             (Grace::GateTownNorth, (MapName::LiurniaOfTheLakes, 76233,"Gate Town North")),
             (Grace::Jarburg, (MapName::LiurniaOfTheLakes, 76245,"Jarburg")),
-            (Grace::LakeFacingCliffs, (MapName::LiurniaOfTheLakes, 76200,"Lake-Facing Cliffs")),
+            (Grace::LakeFacingCliffs, (MapName::LiurniaOfTheLakes, 76200, "Lake,Facing Cliffs")),
             (Grace::LakesideCrystalCave, (MapName::LiurniaOfTheLakes, 73105,"Lakeside Crystal Cave")),
             (Grace::LaskyarRuins, (MapName::LiurniaOfTheLakes, 76202,"Laskyar Ruins")),
             (Grace::LiurniaHighwayNorth, (MapName::LiurniaOfTheLakes, 76221,"Liurnia Highway North")),
             (Grace::LiurniaHighwaySouth, (MapName::LiurniaOfTheLakes, 76244,"Liurnia Highway South")),
             (Grace::LiurniaLakeShore, (MapName::LiurniaOfTheLakes, 76201,"Liurnia Lake Shore")),
-            (Grace::LiurniaoftheLakesArtistsShack, (MapName::LiurniaOfTheLakes, 76217,"Artist's Shack (Liurnia of the Lakes)")),
+            (Grace::LiurniaoftheLakesArtistsShack, (MapName::LiurniaOfTheLakes, 76217, "Artist's Shack")),
             (Grace::LiurniaTowerBridge, (MapName::LiurniaOfTheLakes, 73421,"Liurnia Tower Bridge")),
             (Grace::MainAcademyGate, (MapName::LiurniaOfTheLakes, 76206,"Main Academy Gate")),
             (Grace::MainCariaManorGate, (MapName::LiurniaOfTheLakes, 76214,"Main Caria Manor Gate")),
             (Grace::ManorLowerLevel, (MapName::LiurniaOfTheLakes, 76231,"Manor Lower Level")),
             (Grace::ManorUpperLevel, (MapName::LiurniaOfTheLakes, 76230,"Manor Upper Level")),
             (Grace::MausoleumCompound, (MapName::LiurniaOfTheLakes, 76226,"Mausoleum Compound")),
-            (Grace::NorthernLiurniaLakeShore, (MapName::LiurniaOfTheLakes, 76212,"Northern Liurnia Lake Shore")),
+            (Grace::NorthernLiurniaLakeShore, (MapName::LiurniaOfTheLakes, 76212, "Kingsrealm Ruins")),
             (Grace::RannisChamber, (MapName::LiurniaOfTheLakes, 76247,"Ranni's Chamber")),
             (Grace::RannisRise, (MapName::LiurniaOfTheLakes, 76228,"Ranni's Rise")),
-            (Grace::RavineVeiledVillage, (MapName::LiurniaOfTheLakes, 76229,"Ravine-Veiled Village")),
+            (Grace::RavineVeiledVillage, (MapName::LiurniaOfTheLakes, 76229, "Ravine,Veiled Village")),
             (Grace::RayaLucariaCrystalTunnel, (MapName::LiurniaOfTheLakes, 73202,"Raya Lucaria Crystal Tunnel")),
             (Grace::RevengersShack, (MapName::LiurniaOfTheLakes, 76218,"Revenger's Shack")),
             (Grace::RoadsEndCatacombs, (MapName::LiurniaOfTheLakes, 73003,"Road's End Catacombs")),
@@ -625,9 +625,9 @@ pub mod maps {
             (Grace::GrandLiftofDectus, (MapName::BellumHighway, 76209, "Grand Lift of Dectus")),
 
             // Ruin-Strewn Precipice
-            (Grace::MagmaWyrm, (MapName::RuinStrewnPrecipice, 73900, "Magma Wyrm")),
-            (Grace::RuinStrewnPrecipice, (MapName::RuinStrewnPrecipice, 73901, "Ruin-Strewn Precipice")),
-            (Grace::RuinStrewnPrecipiceOverlook, (MapName::RuinStrewnPrecipice, 73902, "Ruin-Strewn Precipice Overlook")),
+            (Grace::MagmaWyrm, (MapName::RuinStrewnPrecipice, 73900, "Magma Wyrm Makar")),
+            (Grace::RuinStrewnPrecipice, (MapName::RuinStrewnPrecipice, 73901, "Ruin,Strewn Precipice")),
+            (Grace::RuinStrewnPrecipiceOverlook, (MapName::RuinStrewnPrecipice, 73902, "Ruin,Strewn Precipice Overlook")),
 
             // Moonlight Altar
             (Grace::AltarSouth, (MapName::MoonlightAltar, 76252, "Altar South")),
@@ -636,7 +636,7 @@ pub mod maps {
 
             // Academy of Raya Lucaria
             (Grace::ChurchoftheCuckoo, (MapName::AcademyOfRayaLucaria, 71402, "Church of the Cuckoo")),
-            (Grace::DebateParlour, (MapName::AcademyOfRayaLucaria, 71401, "Debate Parlour")),
+            (Grace::DebateParlour, (MapName::AcademyOfRayaLucaria, 71401, "Debate Parlor")),
             (Grace::RayaLucariaGrandLibrary, (MapName::AcademyOfRayaLucaria, 71400, "Raya Lucaria Grand Library")),
             (Grace::SchoolhouseClassroom, (MapName::AcademyOfRayaLucaria, 71403, "Schoolhouse Classroom")),
 
@@ -647,15 +647,15 @@ pub mod maps {
             (Grace::AltusTunnel, (MapName::AltusPlateau, 73205, "Altus Tunnel")),
             (Grace::BowerofBounty, (MapName::AltusPlateau, 76306, "Bower of Bounty")),
             (Grace::CastellansHall, (MapName::AltusPlateau, 76322, "Castellan's Hall")),
-            (Grace::ErdtreeGazingHill, (MapName::AltusPlateau, 76302, "Erdtree-Gazing Hill")),
-            (Grace::ForestSpanningGreatbridge, (MapName::AltusPlateau, 76304, "Forest-Spanning Greatbridge")),
+            (Grace::ErdtreeGazingHill, (MapName::AltusPlateau, 76302, "Erdtree,Gazing Hill")),
+            (Grace::ForestSpanningGreatbridge, (MapName::AltusPlateau, 76304, "Forest,Spanning Greatbridge")),
             (Grace::OldAltusTunnel, (MapName::AltusPlateau, 73204, "Old Altus Tunnel")),
             (Grace::PerfumersGrotto, (MapName::AltusPlateau, 73118, "Perfumer's Grotto")),
             (Grace::RampartsidePath, (MapName::AltusPlateau, 76305, "Rampartside Path")),
             (Grace::RoadofIniquitySidePath, (MapName::AltusPlateau, 76307, "Road of Iniquity Side Path")),
             (Grace::SagesCave, (MapName::AltusPlateau, 73119, "Sage's Cave")),
             (Grace::SaintedHerosGrave, (MapName::AltusPlateau, 73008, "Sainted Hero's Grave")),
-            (Grace::ShadedCastleInnerGate, (MapName::AltusPlateau, 76321, "Shaded Castle Inner Gate")),
+            (Grace::ShadedCastleInnerGate, (MapName::AltusPlateau, 76321, "Shaded castle Inner Gate")),
             (Grace::ShadedCastleRamparts, (MapName::AltusPlateau, 76320, "Shaded Castle Ramparts")),
             (Grace::UnsightlyCatacombs, (MapName::AltusPlateau, 73012, "Unsightly Catacombs")),
             (Grace::WindmillHeights, (MapName::AltusPlateau, 76313, "Windmill Heights")),
@@ -663,7 +663,7 @@ pub mod maps {
 
             // Mt. Gelmir
             (Grace::BridgeofIniquity, (MapName::MtGelmir, 76350, "Bridge of Iniquity")),
-            (Grace::CraftsmansShack, (MapName::MtGelmir, 76356, "Craftsman's Shack")),
+            (Grace::CraftsmansShack, (MapName::MtGelmir, 76356, "Craftman's Shack")),
             (Grace::FirstMtGelmirCampsite, (MapName::MtGelmir, 76351, "First Mt. Gelmir Campsite")),
             (Grace::GelmirHerosGrave, (MapName::MtGelmir, 73009, "Gelmir Hero's Grave")),
             (Grace::NinthMtGelmirCampsite, (MapName::MtGelmir, 76352, "Ninth Mt. Gelmir Campsite")),
@@ -677,12 +677,12 @@ pub mod maps {
 
             // Capital Outskirts
             (Grace::AurizaSideTomb, (MapName::CapitalOutskirts, 73013, "Auriza Side Tomb")),
-            (Grace::AuziraHerosGrave, (MapName::CapitalOutskirts, 73010, "Auzira Hero's Grave")),
+            (Grace::AuziraHerosGrave, (MapName::CapitalOutskirts, 73010, "Auriza Hero's Grave")),
             (Grace::CapitalRampart, (MapName::CapitalOutskirts, 76314, "Capital Rampart")),
             (Grace::DivineTowerofWestAltus, (MapName::CapitalOutskirts, 73430, "Divine Tower of West Altus")),
             (Grace::DivineTowerofWestAltusGate, (MapName::CapitalOutskirts, 73432, "Divine Tower of West Altus: Gate")),
             (Grace::HermitMerchantsShack, (MapName::CapitalOutskirts, 76311, "Hermit Merchant's Shack")),
-            (Grace::MinorEerdtreeChurch, (MapName::CapitalOutskirts, 76310, "Minor Eerdtree Church")),
+            (Grace::MinorEerdtreeChurch, (MapName::CapitalOutskirts, 76310, "Minor Erdtree Church")),
             (Grace::OuterWallBattleground, (MapName::CapitalOutskirts, 76312, "Outer Wall Battleground")),
             (Grace::OuterWallPhantomTree, (MapName::CapitalOutskirts, 76309, "Outer Wall Phantom Tree")),
             (Grace::SealedTunnel, (MapName::CapitalOutskirts, 73431, "Sealed Tunnel")),
@@ -716,7 +716,7 @@ pub mod maps {
             (Grace::UndergroundRoadside, (MapName::SubterraneanShunningGrounds, 73501, "Underground Roadside")),
 
             // Leyndell, Ashen Capital
-            (Grace::LeyendellCapitalofAsh, (MapName::LeyndellAshenCapital, 71123, "Leyendell, Capital of Ash")),
+            (Grace::LeyendellCapitalofAsh, (MapName::LeyndellAshenCapital, 71123, "Leyndell, Capital of Ash")),
             (Grace::LeyndellAshenCapitalDivineBridge, (MapName::LeyndellAshenCapital, 71125, "Divine Bridge")),
             (Grace::LeyndellAshenCapitalEastCapitalRampart, (MapName::LeyndellAshenCapital, 71122, "East Capital Rampart")),
             (Grace::LeyndellAshenCapitalEldenThrone, (MapName::LeyndellAshenCapital, 71120, "Elden Throne")),
@@ -732,7 +732,7 @@ pub mod maps {
             (Grace::CaelidCatacombs, (MapName::Caelid, 73015, "Caelid Catacombs")),
             (Grace::CaelidHighwaySouth, (MapName::Caelid, 76405, "Caelid Highway South")),
             (Grace::CathedralofDragonCommunion, (MapName::Caelid, 76404, "Cathedral of Dragon Communion")),
-            (Grace::ChairCryptofSellia, (MapName::Caelid, 76415, "Chair-Crypt of Sellia")),
+            (Grace::ChairCryptofSellia, (MapName::Caelid, 76415, "Chair,Crypt of Sellia")),
             (Grace::ChamberOutsidethePlaza, (MapName::Caelid, 76420, "Chamber Outside the Plaza")),
             (Grace::ChurchofthePlague, (MapName::Caelid, 76418, "Church of the Plague")),
             (Grace::DeepSiofraWell, (MapName::Caelid, 76410, "Deep Siofra Well")),
@@ -740,18 +740,18 @@ pub mod maps {
             (Grace::GaelTunnel, (MapName::Caelid, 73207, "Gael Tunnel")),
             (Grace::GaolCave, (MapName::Caelid, 73121, "Gaol Cave")),
             (Grace::ImpassableGreatbridge, (MapName::Caelid, 76417, "Impassable Greatbridge")),
-            (Grace::MinorEerdtreeCatacombs, (MapName::Caelid, 73014, "Minor Eerdtree Catacombs")),
+            (Grace::MinorEerdtreeCatacombs, (MapName::Caelid, 73014, "Minor Erdtree Catacombs")),
             (Grace::RearGaelTunnelEntrance, (MapName::Caelid, 73257, "Rear Gael Tunnel Entrance")),
             (Grace::RedmaneCastlePlaza, (MapName::Caelid, 76419, "Redmane Castle Plaza")),
             (Grace::RotviewBalcony, (MapName::Caelid, 76401, "Rotview Balcony")),
             (Grace::SelliaBackstreets, (MapName::Caelid, 76414, "Sellia Backstreets")),
             (Grace::SelliaCrystalTunnel, (MapName::Caelid, 73208, "Sellia Crystal Tunnel")),
-            (Grace::SelliaUnderStair, (MapName::Caelid, 76416, "Sellia Under-Stair")),
+            (Grace::SelliaUnderStair, (MapName::Caelid, 76416, "Sellia Under,Stair")),
             (Grace::SmolderingChurch, (MapName::Caelid, 76400, "Smoldering Church")),
             (Grace::SmolderingWall, (MapName::Caelid, 76409, "Smoldering Wall")),
             (Grace::SouthernAeoniaSwampBank, (MapName::Caelid, 76411, "Southern Aeonia Swamp Bank")),
             (Grace::StarscourgeRadahn, (MapName::Caelid, 76422, "Starscourge Radahn")),
-            (Grace::WarDeadCatacombs, (MapName::Caelid, 73016, "War-Dead Catacombs")),
+            (Grace::WarDeadCatacombs, (MapName::Caelid, 73016, "War,Dead Catacombs")),
 
             // Swamp of Aeonia
             (Grace::AeoniaSwampShore, (MapName::SwampOfAeonia, 76406, "Aeonia Swamp Shore")),
@@ -768,14 +768,14 @@ pub mod maps {
             (Grace::DragonbarrowWest, (MapName::GreyollsDragonbarrow, 76450, "Dragonbarrow West")),
             (Grace::FarumGreatbridge, (MapName::GreyollsDragonbarrow, 76456, "Farum Greatbridge")),
             (Grace::FortFaroth, (MapName::GreyollsDragonbarrow, 76453, "Fort Faroth")),
-            (Grace::GreyollsDragonbarrowIsolatedMerchantsShack, (MapName::GreyollsDragonbarrow, 76451, "Isolated Merchant's Shack (Greyoll's Dragonbarrow)")),
+            (Grace::GreyollsDragonbarrowIsolatedMerchantsShack, (MapName::GreyollsDragonbarrow, 76451, "Isolated Merchant's Shack")),
             (Grace::IsolatedDivineTower, (MapName::GreyollsDragonbarrow, 73460, "Isolated Divine Tower")),
             (Grace::LennesRise, (MapName::GreyollsDragonbarrow, 76455, "Lenne's Rise")),
             (Grace::SelliaHideaway, (MapName::GreyollsDragonbarrow, 73111, "Sellia Hideaway")),
 
             // Forbiden Lands
-            (Grace::DivineToweroftheEastAltus, (MapName::ForbiddenLands, 73451, "Divine Tower of the East Altus")),
-            (Grace::DivineToweroftheEastAltusGate, (MapName::ForbiddenLands, 73450, "Divine Tower of the East Altus: Gate")),
+            (Grace::DivineToweroftheEastAltus, (MapName::ForbiddenLands, 73451, "Divine Tower of East Altus")),
+            (Grace::DivineToweroftheEastAltusGate, (MapName::ForbiddenLands, 73450, "Divine Tower of East Altus: Gate")),
             (Grace::ForbiddenLands, (MapName::ForbiddenLands, 76500, "Forbidden Lands")),
             (Grace::GrandLiftofRold, (MapName::ForbiddenLands, 76502, "Grand Lift of Rold")),
             (Grace::HiddenPathtotheHaligtree, (MapName::ForbiddenLands, 73020, "Hidden Path to the Haligtree")),
@@ -797,9 +797,9 @@ pub mod maps {
             (Grace::FireGiant, (MapName::FlamePeak, 76509, "Fire Giant")),
             (Grace::FootoftheForge, (MapName::FlamePeak, 76508, "Foot of the Forge")),
             (Grace::ForgeoftheGiants, (MapName::FlamePeak, 76510, "Forge of the Giants")),
-            (Grace::GiantConqueringHerosGrave, (MapName::FlamePeak, 73017, "Giant-Conquering Hero's Grave")),
+            (Grace::GiantConqueringHerosGrave, (MapName::FlamePeak, 73017, "Giant,Conquering Hero's Grave")),
             (Grace::GiantsGravepost, (MapName::FlamePeak, 76506, "Giant's Gravepost")),
-            (Grace::GiantsMountaintopCatacombs, (MapName::FlamePeak, 73018, "Giant's Mountaintop Catacombs")),
+            (Grace::GiantsMountaintopCatacombs, (MapName::FlamePeak, 73018, "Giants' Mountaintop Catacombs")),
 
             // Consecrated Snowfield
             (Grace::ApostateDerelict, (MapName::ConsecratedSnowfield, 76653, "Apostate Derelict")),
@@ -820,11 +820,11 @@ pub mod maps {
             (Grace::DrainageChannel, (MapName::ElphaelBraceOfTheHaligtree, 71503, "Drainage Channel")),
             (Grace::ElphaelInnerWall, (MapName::ElphaelBraceOfTheHaligtree, 71502, "Elphael Inner Wall")),
             (Grace::HaligtreeRoots, (MapName::ElphaelBraceOfTheHaligtree, 71504, "Haligtree Roots")),
-            (Grace::MaleniaGodessofRot, (MapName::ElphaelBraceOfTheHaligtree, 71500, "Malenia, Godess of Rot")),
+            (Grace::MaleniaGodessofRot, (MapName::ElphaelBraceOfTheHaligtree, 71500, "Malenia, Goddess of Rot")),
             (Grace::PrayerRoom, (MapName::ElphaelBraceOfTheHaligtree, 71501, "Prayer Room")),
 
             // Crumbling Farum Azula
-            (Grace::BesidethegreatBridge, (MapName::CrumblingFarumAzula, 71310, "Beside the great Bridge")),
+            (Grace::BesidethegreatBridge, (MapName::CrumblingFarumAzula, 71310, "Beside the Great Bridge")),
             (Grace::CrumblingBeastGrave, (MapName::CrumblingFarumAzula, 71303, "Crumbling Beast Grave")),
             (Grace::CrumblingBeastGraveDepths, (MapName::CrumblingFarumAzula, 71304, "Crumbling Beast Grave Depths")),
             (Grace::DragonlordPlacidusax, (MapName::CrumblingFarumAzula, 71301, "Dragonlord Placidusax")),
@@ -834,7 +834,7 @@ pub mod maps {
             (Grace::DragonTempleRooftop, (MapName::CrumblingFarumAzula, 71309, "Dragon Temple Rooftop")),
             (Grace::DragonTempleTransept, (MapName::CrumblingFarumAzula, 71307, "Dragon Temple Transept")),
             (Grace::MalikeththeBlackBlade, (MapName::CrumblingFarumAzula, 71300, "Maliketh, the Black Blade")),
-            (Grace::TempestFacingBalcony, (MapName::CrumblingFarumAzula, 71305, "Tempest-Facing Balcony")),
+            (Grace::TempestFacingBalcony, (MapName::CrumblingFarumAzula, 71305, "Tempest,Facing Balcony")),
 
             // Ainsel River
             (Grace::AinselRiverDownstream, (MapName::AinselRiver, 71213, "Ainsel River Downstream")),
@@ -854,7 +854,7 @@ pub mod maps {
 
             // Nokron, Eternal City
             (Grace::AncestralWoods, (MapName::NokronEternalCity, 71224, "Ancestral Woods")),
-            (Grace::AqueductFacingCliffs, (MapName::NokronEternalCity, 71225, "Aqueduct-Facing Cliffs")),
+            (Grace::AqueductFacingCliffs, (MapName::NokronEternalCity, 71225, "Aqueduct,Facing Cliffs")),
             (Grace::GreatWaterfallBasin, (MapName::NokronEternalCity, 71220, "Great Waterfall Basin")),
             (Grace::MimicTear, (MapName::NokronEternalCity, 71221, "Mimic Tear")),
             (Grace::NightsSacredGround, (MapName::NokronEternalCity, 71226, "Night's Sacred Ground")),
@@ -870,57 +870,57 @@ pub mod maps {
             (Grace::CocoonoftheEmpyrean, (MapName::MohgwynPalace, 71250, "Cocoon of the Empyrean")),
             (Grace::DynastyMausoleumEntrance, (MapName::MohgwynPalace, 71252, "Dynasty Mausoleum Entrance")),
             (Grace::DynastyMausoleumMidpoint, (MapName::MohgwynPalace, 71253, "Dynasty Mausoleum Midpoint")),
-            (Grace::PalaceApproachLedgeRoad, (MapName::MohgwynPalace, 71251, "Palace Approach Ledge-Road")),
+            (Grace::PalaceApproachLedgeRoad, (MapName::MohgwynPalace, 71251, "Palace Approach Ledge,Road")),
 
             // Deeproot Depths
             (Grace::AcrosstheRoots, (MapName::DeeprootDepths, 71235, "Across the Roots")),
             (Grace::DeeprootDepths, (MapName::DeeprootDepths, 71233, "Deeproot Depths")),
             (Grace::GreatWaterfallCrest, (MapName::DeeprootDepths, 71232, "Great Waterfall Crest")),
             (Grace::PrinceofDeathsThrone, (MapName::DeeprootDepths, 71230, "Prince of Death's Throne")),
-            (Grace::RootFacingCliffs, (MapName::DeeprootDepths, 71231, "Root-Facing Cliffs")),
+            (Grace::RootFacingCliffs, (MapName::DeeprootDepths, 71231, "Root,Facing Cliffs")),
             (Grace::TheNamelessEternalCity, (MapName::DeeprootDepths, 71234, "The Nameless Eternal City")),
             
             // Realm of shadow DLC
 
             // Belurat Region
             (Grace::BelahurTheatreoftheDivineBeast, (MapName::RealmOfShadowBelurat, 72000, "Theatre of the Divine Beast")),
-            (Grace::BelahurTowerSettlement, (MapName::RealmOfShadowBelurat, 72001, "Tower Settlement")),
+            (Grace::BelahurTowerSettlement, (MapName::RealmOfShadowBelurat, 72001, "Belurat, Tower Settlement")),
             (Grace::BelahurStagefront, (MapName::RealmOfShadowBelurat, 72003, "Stagefront")),
 
             // Enir-Ilim Region
             (Grace::EnirIlimGateofDivinity, (MapName::RealmOfShadowEnirIlim, 72010, "Gate of Divinity")),
-            (Grace::EnirIlimOuterWall, (MapName::RealmOfShadowEnirIlim, 72012, "Outer Wall")),
+            (Grace::EnirIlimOuterWall, (MapName::RealmOfShadowEnirIlim, 72012, "Enir-Ilim: Outer Wall")),
             (Grace::EnirIlimSpiralRise, (MapName::RealmOfShadowEnirIlim, 72014, "Spiral Rise")),
             (Grace::EnirIlimCleansingChamberAnteroom, (MapName::RealmOfShadowEnirIlim, 72015, "Cleansing Chamber Anteroom")),
             (Grace::EnirIlimDivineGateFrontStaircase, (MapName::RealmOfShadowEnirIlim, 72016, "Divine Gate Front Staircase")),
 
             // Shadow Keep Region
-            (Grace::ShadowKeepMainGate, (MapName::RealmOfShadowShadowKeep, 72102, "Main Gate")),
+            (Grace::ShadowKeepMainGate, (MapName::RealmOfShadowShadowKeep, 72102, "Shadow Keep Main Gate")),
             (Grace::ShadowKeepMainGatePlaza, (MapName::RealmOfShadowShadowKeep, 72101, "Main Gate Plaza")),
             (Grace::ShadowKeepChurchDistrictEntrance, (MapName::RealmOfShadowShadowKeep, 72106, "Church District Entrance")),
             (Grace::ShadowKeepSunkenChapel, (MapName::RealmOfShadowShadowKeep, 72107, "Sunken Chapel")),
-            (Grace::ShadowKeepTreeWorshipSanctum, (MapName::RealmOfShadowShadowKeep, 72108, "Tree-Worship Sanctum")),
+            (Grace::ShadowKeepTreeWorshipSanctum, (MapName::RealmOfShadowShadowKeep, 72108, "Tree,Worship Passage")),
 
             // Storehouse Region
             (Grace::StorehouseMessmersDarkChamber, (MapName::RealmOfShadowStorehouse, 72110, "Messmer's Dark Chamber")),
-            (Grace::StorehouseFirstFloor, (MapName::RealmOfShadowStorehouse, 72111, "First Floor")),
-            (Grace::StorehouseFourthFloor, (MapName::RealmOfShadowStorehouse, 72112, "Fourth Floor")),
-            (Grace::StorehouseSeventhFloor, (MapName::RealmOfShadowStorehouse, 72113, "Seventh Floor")),
+            (Grace::StorehouseFirstFloor, (MapName::RealmOfShadowStorehouse, 72111, "Storehouse, First Floor")),
+            (Grace::StorehouseFourthFloor, (MapName::RealmOfShadowStorehouse, 72112, "Storehouse, Fourth Floor")),
+            (Grace::StorehouseSeventhFloor, (MapName::RealmOfShadowStorehouse, 72113, "Storehouse, Seventh Floor")),
             (Grace::StorehouseDarkChamberEntrance, (MapName::RealmOfShadowStorehouse, 72114, "Dark Chamber Entrance")),
-            (Grace::StorehouseBackSection, (MapName::RealmOfShadowStorehouse, 72116, "Back Section")),
-            (Grace::StorehouseLoft, (MapName::RealmOfShadowStorehouse, 72117, "Loft")),
+            (Grace::StorehouseBackSection, (MapName::RealmOfShadowStorehouse, 72116, "Storehouse, Back Section")),
+            (Grace::StorehouseLoft, (MapName::RealmOfShadowStorehouse, 72117, "Storehouse, Loft")),
             (Grace::StorehouseWestRampart, (MapName::RealmOfShadowStorehouse, 72120, "West Rampart")),
 
             // Stone Coffin Fissure Region
             (Grace::StoneCoffinFissureGardenofDeepPurple, (MapName::RealmOfShadowStoneCoffinFissure, 72200, "Garden of Deep Purple")),
-            (Grace::StoneCoffinFissure, (MapName::RealmOfShadowStoneCoffinFissure, 72201, "Main Fissure")),
+            (Grace::StoneCoffinFissure, (MapName::RealmOfShadowStoneCoffinFissure, 72201, "Stone Coffin Fissure")),
             (Grace::StoneCoffinFissureCross, (MapName::RealmOfShadowStoneCoffinFissure, 72202, "Fissure Cross")),
             (Grace::StoneCoffinFissureWaypoint, (MapName::RealmOfShadowStoneCoffinFissure, 72203, "Fissure Waypoint")),
 
             // Midra's Manse Region
             (Grace::MidraManseDiscussionChamber, (MapName::RealmOfShadowMidrasManse, 72800, "Discussion Chamber")),
             (Grace::MidraManseManseHall, (MapName::RealmOfShadowMidrasManse, 72801, "Manse Hall")),
-            (Grace::MidraManseLibrary, (MapName::RealmOfShadowMidrasManse, 72802, "Library")),
+            (Grace::MidraManseLibrary, (MapName::RealmOfShadowMidrasManse, 72802, "Midra's Library")),
 
             // Gravesite Plain Region
             (Grace::FogRiftCatacombs, (MapName::RealmOfShadowGravesitePlain, 74000, "Fog Rift Catacombs")),
@@ -928,56 +928,56 @@ pub mod maps {
             (Grace::RivermouthCave, (MapName::RealmOfShadowGravesitePlain, 74300, "Rivermouth Cave")),
             (Grace::DragonsPit, (MapName::RealmOfShadowGravesitePlain, 74301, "Dragon's Pit")),
             (Grace::DragonsPitTerminus, (MapName::RealmOfShadowGravesitePlain, 74351, "Dragon's Pit Terminus")),
-            (Grace::GravesitePlain, (MapName::RealmOfShadowGravesitePlain, 76800, "Main Plain")),
+            (Grace::GravesitePlain, (MapName::RealmOfShadowGravesitePlain, 76800, "Gravesite Plain")),
             (Grace::EllacRiverCave, (MapName::RealmOfShadowGravesitePlain, 76812, "Ellac River Cave")),
-            (Grace::PillarPath, (MapName::RealmOfShadowGravesitePlain, 76810, "Pillar Path")),
+            (Grace::PillarPath, (MapName::RealmOfShadowGravesitePlain, 76810, "Pillar Path Cross")),
             (Grace::BeluratGaol, (MapName::RealmOfShadowGravesitePlain, 74100, "Belurat Gaol")),
             (Grace::EllacRiverDownstream, (MapName::RealmOfShadowGravesitePlain, 76830, "Ellac River Downstream")),
 
             // Charo's Hidden Grave Region
-            (Grace::CharosHiddenGrave, (MapName::RealmOfShadowCharosGrave, 76841, "Hidden Grave")),
+            (Grace::CharosHiddenGrave, (MapName::RealmOfShadowCharosGrave, 76841, "Charo's Hidden Grave")),
             (Grace::LamentersGaol, (MapName::RealmOfShadowCharosGrave, 74102, "Lamenter's Gaol")),
 
             // Castle Ensis Region
-            (Grace::CastleEnsis, (MapName::RealmOfShadowCastleEnsis, 76821, "Castle Entrance")),
-            (Grace::EnsisMoongazingGrounds, (MapName::RealmOfShadowCastleEnsis, 76823, "Moongazing Grounds")),
+            (Grace::CastleEnsis, (MapName::RealmOfShadowCastleEnsis, 76821, "Castle Ensis Checkpoint")),
+            (Grace::EnsisMoongazingGrounds, (MapName::RealmOfShadowCastleEnsis, 76823, "Ensis Moongazing Grounds")),
 
             // Cerulean Coast Region
-            (Grace::CeruleanCoast, (MapName::RealmOfShadowCeruleanCoast, 76831, "Main Shore")),
+            (Grace::CeruleanCoast, (MapName::RealmOfShadowCeruleanCoast, 76831, "Cerulean Coast")),
             (Grace::TheFissure, (MapName::RealmOfShadowCeruleanCoast, 76833, "The Fissure")),
 
             // Abyssal Woods Region
-            (Grace::AbyssalWoods, (MapName::RealmOfShadowAbyssalWoods, 76860, "Woods Entrance")),
+            (Grace::AbyssalWoods, (MapName::RealmOfShadowAbyssalWoods, 76860, "Abyssal Woods")),
             (Grace::ForsakenGraveyard, (MapName::RealmOfShadowAbyssalWoods, 76862, "Forsaken Graveyard")),
 
             // Jagged Peak Region
-            (Grace::FootoftheJaggedPeak, (MapName::RealmOfShadowJaggedPeak, 76840, "Peak Base")),
-            (Grace::JaggedPeakMountainside, (MapName::RealmOfShadowJaggedPeak, 76850, "Mountainside")),
-            (Grace::JaggedPeakSummit, (MapName::RealmOfShadowJaggedPeak, 76852, "Summit")),
+            (Grace::FootoftheJaggedPeak, (MapName::RealmOfShadowJaggedPeak, 76840, "Grand Altar of Dragon Communion")),
+            (Grace::JaggedPeakMountainside, (MapName::RealmOfShadowJaggedPeak, 76850, "Foot of the Jagged Peak")),
+            (Grace::JaggedPeakSummit, (MapName::RealmOfShadowJaggedPeak, 76852, "Jagged Peak Summit")),
             (Grace::JaggedPeakRestoftheDreadDragon, (MapName::RealmOfShadowJaggedPeak, 76853, "Rest of the Dread Dragon")),
 
             // Ancient Ruins of Rauh Region
-            (Grace::AncientRuinsofRauhWest, (MapName::RealmOfShadowRauh, 76942, "Western Ruins")),
+            (Grace::AncientRuinsofRauhWest, (MapName::RealmOfShadowRauh, 76942, "Rauh Ancient Ruins, West")),
             (Grace::AncientRuinsofRauhChurchoftheBud, (MapName::RealmOfShadowRauh, 76945, "Church of the Bud")),
-            (Grace::AncientRuinsofRauhEast, (MapName::RealmOfShadowRauh, 76940, "Eastern Ruins")),
-            (Grace::RauhBaseAncientRuins, (MapName::RealmOfShadowRauh, 76912, "Base Ruins")),
+            (Grace::AncientRuinsofRauhEast, (MapName::RealmOfShadowRauh, 76940, "Viaduct Minor Tower")),
+            (Grace::RauhBaseAncientRuins, (MapName::RealmOfShadowRauh, 76912, "Ancient Ruins Base")),
             (Grace::ScorpionRiverCatacombs, (MapName::RealmOfShadowRauh, 74001, "Scorpion River Catacombs")),
             (Grace::TaylewsRuinedForge, (MapName::RealmOfShadowRauh, 74203, "Taylew's Ruined Forge")),
 
             // Scadu Altus Region
             (Grace::ScaduAltusFingerBirthingGrounds, (MapName::RealmOfShadowScaduAltus, 72500, "Finger Birthing Grounds")),
-            (Grace::ScaduAltus, (MapName::RealmOfShadowScaduAltus, 76900, "Main Plaza")),
+            (Grace::ScaduAltus, (MapName::RealmOfShadowScaduAltus, 76900, "Highroad Cross")),
             (Grace::BonnyVillage, (MapName::RealmOfShadowScaduAltus, 76903, "Bonny Village")),
-            (Grace::CastleWateringHole, (MapName::RealmOfShadowScaduAltus, 76916, "Watering Hole")),
-            (Grace::ReclusesRiverDownstream, (MapName::RealmOfShadowScaduAltus, 76918, "River Downstream")),
+            (Grace::CastleWateringHole, (MapName::RealmOfShadowScaduAltus, 76916, "Castle Watering Hole")),
+            (Grace::ReclusesRiverDownstream, (MapName::RealmOfShadowScaduAltus, 76918, "Recluses' River Downstream")),
             (Grace::DarklightCatacombs, (MapName::RealmOfShadowScaduAltus, 74002, "Darklight Catacombs")),
             (Grace::BonnyGaol, (MapName::RealmOfShadowScaduAltus, 74101, "Bonny Gaol")),
-            (Grace::RuinedForgeofStarfallPast, (MapName::RealmOfShadowScaduAltus, 74202, "Starfall Past Forge")),
+            (Grace::RuinedForgeofStarfallPast, (MapName::RealmOfShadowScaduAltus, 74202, "Ruined Forge of Starfall Past")),
 
             // Scaduview Region
             (Grace::ScaduviewScadutreeBase, (MapName::RealmOfShadowScaduview, 76960, "Scadutree Base")),
-            (Grace::Scaduview, (MapName::RealmOfShadowScaduview, 76930, "Main Overlook")),
-            (Grace::ShadowKeepBackGate, (MapName::RealmOfShadowScaduview, 76931, "Keep Back Gate")),
+            (Grace::Scaduview, (MapName::RealmOfShadowScaduview, 76930, "Scaduview")),
+            (Grace::ShadowKeepBackGate, (MapName::RealmOfShadowScaduview, 76931, "Shadow Keep, Back Gate")),
             (Grace::ScaduviewHinterland, (MapName::RealmOfShadowScaduview, 76935, "Hinterland"))
         ]))
     });

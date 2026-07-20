@@ -502,7 +502,8 @@ Steps, in order:
    | 2-4 | V1/V2/V3 | 2 each | "very little progression" |
 
    Zero unknown on all five. **This also closes the 6 outstanding validation FAILs**:
-   V1/V2/V3 have exactly TWO graces, and they are 71801 and 76101 — so 71800/76100
+   V1/V2/V3 have exactly TWO graces, and they are 71801 (Stranded Graveyard) and
+   76101 (The First Step) — so 71800/76100
    reading clear is corroborated by the independent total, not merely consistent with it.
    The tutorial-anchor expectation was wrong, as suspected; the model was not.
 

@@ -62,18 +62,18 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(71222, GraceData { id: 120203, event_flag_id: 71222, name: "Siofra River Bank", region: "Siofra River", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1098.26, pos_y: -823.46, pos_z: 1266.80, mapgenie_id: Some("167473"), });
     m.insert(71223, GraceData { id: 120204, event_flag_id: 71223, name: "Worshippers' Woods", region: "Siofra River", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1438.45, pos_y: -816.47, pos_z: 1519.47, mapgenie_id: Some("192643"), });
     m.insert(71224, GraceData { id: 120206, event_flag_id: 71224, name: "Ancestral Woods", region: "Nokron, Eternal City", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1016.45, pos_y: -605.42, pos_z: 1462.90, mapgenie_id: Some("167496"), });
-    m.insert(71225, GraceData { id: 120207, event_flag_id: 71225, name: "Aqueduct-Facing Cliffs", region: "Nokron, Eternal City", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1176.12, pos_y: -611.76, pos_z: 1754.38, mapgenie_id: Some("169279"), });
+    m.insert(71225, GraceData { id: 120207, event_flag_id: 71225, name: "Aqueduct,Facing Cliffs", region: "Nokron, Eternal City", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1176.12, pos_y: -611.76, pos_z: 1754.38, mapgenie_id: Some("169279"), });
     m.insert(71226, GraceData { id: 120208, event_flag_id: 71226, name: "Night's Sacred Ground", region: "Nokron, Eternal City", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 951.61, pos_y: -671.30, pos_z: 1293.86, mapgenie_id: Some("167492"), });
     m.insert(71227, GraceData { id: 120209, event_flag_id: 71227, name: "Below the Well", region: "Siofra River", area_no: 12, grid_x: 2, grid_z: 0, pos_x: 1518.22, pos_y: -770.54, pos_z: 1867.40, mapgenie_id: Some("167491"), });
     m.insert(71230, GraceData { id: 120300, event_flag_id: 71230, name: "Prince of Death's Throne", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -379.50, pos_y: 149.74, pos_z: -202.16, mapgenie_id: Some("167604"), });
-    m.insert(71231, GraceData { id: 120301, event_flag_id: 71231, name: "Root-Facing Cliffs", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -184.95, pos_y: 272.90, pos_z: -517.58, mapgenie_id: Some("168674"), });
+    m.insert(71231, GraceData { id: 120301, event_flag_id: 71231, name: "Root,Facing Cliffs", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -184.95, pos_y: 272.90, pos_z: -517.58, mapgenie_id: Some("168674"), });
     m.insert(71232, GraceData { id: 120302, event_flag_id: 71232, name: "Great Waterfall Crest", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -163.86, pos_y: 91.92, pos_z: -624.79, mapgenie_id: Some("167606"), });
     m.insert(71233, GraceData { id: 120303, event_flag_id: 71233, name: "Deeproot Depths", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -598.37, pos_y: 98.15, pos_z: -609.92, mapgenie_id: Some("167605"), });
     m.insert(71234, GraceData { id: 120304, event_flag_id: 71234, name: "The Nameless Eternal City", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -689.66, pos_y: 92.28, pos_z: -409.82, mapgenie_id: Some("167602"), });
     m.insert(71235, GraceData { id: 120305, event_flag_id: 71235, name: "Across the Roots", region: "Deeproot Depths", area_no: 12, grid_x: 3, grid_z: 0, pos_x: -469.23, pos_y: 149.62, pos_z: -351.10, mapgenie_id: Some("167603"), });
     m.insert(71240, GraceData { id: 120400, event_flag_id: 71240, name: "Astel, Naturalborn of the Void", region: "Ainsel River", area_no: 12, grid_x: 4, grid_z: 0, pos_x: -64.49, pos_y: -106.13, pos_z: -77.82, mapgenie_id: Some("167479"), });
     m.insert(71250, GraceData { id: 120500, event_flag_id: 71250, name: "Cocoon of the Empyrean", region: "Mohgwyn Palace", area_no: 12, grid_x: 5, grid_z: 0, pos_x: 1533.44, pos_y: -501.00, pos_z: 1243.16, mapgenie_id: Some("167514"), });
-    m.insert(71251, GraceData { id: 120501, event_flag_id: 71251, name: "Palace Approach Ledge-Road", region: "Mohgwyn Palace", area_no: 12, grid_x: 5, grid_z: 0, pos_x: 1902.74, pos_y: -600.38, pos_z: 1116.63, mapgenie_id: Some("167517"), });
+    m.insert(71251, GraceData { id: 120501, event_flag_id: 71251, name: "Palace Approach Ledge,Road", region: "Mohgwyn Palace", area_no: 12, grid_x: 5, grid_z: 0, pos_x: 1902.74, pos_y: -600.38, pos_z: 1116.63, mapgenie_id: Some("167517"), });
     m.insert(71252, GraceData { id: 120502, event_flag_id: 71252, name: "Dynasty Mausoleum Entrance", region: "Mohgwyn Palace", area_no: 12, grid_x: 5, grid_z: 0, pos_x: 1703.00, pos_y: -611.84, pos_z: 1288.74, mapgenie_id: Some("167515"), });
     m.insert(71253, GraceData { id: 120503, event_flag_id: 71253, name: "Dynasty Mausoleum Midpoint", region: "Mohgwyn Palace", area_no: 12, grid_x: 5, grid_z: 0, pos_x: 1637.66, pos_y: -562.65, pos_z: 1248.00, mapgenie_id: Some("167516"), });
     m.insert(71260, GraceData { id: 120600, event_flag_id: 71260, name: "", region: "Underground", area_no: 12, grid_x: 6, grid_z: 0, pos_x: 809.30, pos_y: 305.10, pos_z: 525.65, mapgenie_id: None, });
@@ -85,7 +85,7 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(71302, GraceData { id: 130002, event_flag_id: 71302, name: "Dragon Temple Altar", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: 13.73, pos_y: -39.29, pos_z: 411.53, mapgenie_id: Some("167388"), });
     m.insert(71303, GraceData { id: 130003, event_flag_id: 71303, name: "Crumbling Beast Grave", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: 116.66, pos_y: 53.95, pos_z: 161.07, mapgenie_id: Some("167379"), });
     m.insert(71304, GraceData { id: 130004, event_flag_id: 71304, name: "Crumbling Beast Grave Depths", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: -92.94, pos_y: 47.42, pos_z: 210.90, mapgenie_id: Some("167380"), });
-    m.insert(71305, GraceData { id: 130005, event_flag_id: 71305, name: "Tempest-Facing Balcony", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: -88.16, pos_y: 36.37, pos_z: 282.61, mapgenie_id: Some("167386"), });
+    m.insert(71305, GraceData { id: 130005, event_flag_id: 71305, name: "Tempest,Facing Balcony", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: -88.16, pos_y: 36.37, pos_z: 282.61, mapgenie_id: Some("167386"), });
     m.insert(71306, GraceData { id: 130006, event_flag_id: 71306, name: "Dragon Temple", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: -75.41, pos_y: -19.96, pos_z: 404.67, mapgenie_id: Some("167389"), });
     m.insert(71307, GraceData { id: 130007, event_flag_id: 71307, name: "Dragon Temple Transept", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: 30.40, pos_y: -45.99, pos_z: 361.79, mapgenie_id: Some("167382"), });
     m.insert(71308, GraceData { id: 130008, event_flag_id: 71308, name: "Dragon Temple Lift", region: "Crumbling Farum Azula", area_no: 13, grid_x: 0, grid_z: 0, pos_x: -73.60, pos_y: -0.97, pos_z: 498.83, mapgenie_id: Some("167387"), });
@@ -165,8 +165,8 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(73013, GraceData { id: 301300, event_flag_id: 73013, name: "Auriza Side Tomb", region: "Capital Outskirts", area_no: 30, grid_x: 13, grid_z: 0, pos_x: 102.75, pos_y: 969.71, pos_z: 25.77, mapgenie_id: Some("165610"), });
     m.insert(73014, GraceData { id: 301400, event_flag_id: 73014, name: "Minor Erdtree Catacombs", region: "Caelid", area_no: 30, grid_x: 14, grid_z: 0, pos_x: -54.48, pos_y: 123.36, pos_z: 67.59, mapgenie_id: None, });
     m.insert(73015, GraceData { id: 301500, event_flag_id: 73015, name: "Caelid Catacombs", region: "Caelid", area_no: 30, grid_x: 15, grid_z: 0, pos_x: 90.19, pos_y: 54.51, pos_z: 69.13, mapgenie_id: Some("166776"), });
-    m.insert(73016, GraceData { id: 301600, event_flag_id: 73016, name: "War-Dead Catacombs", region: "Caelid", area_no: 30, grid_x: 16, grid_z: 0, pos_x: 37.72, pos_y: 5.19, pos_z: -134.68, mapgenie_id: Some("167164"), });
-    m.insert(73017, GraceData { id: 301700, event_flag_id: 73017, name: "Giant-Conquering Hero's Grave", region: "Flame Peak", area_no: 60, grid_x: 50, grid_z: 53, pos_x: -118.56, pos_y: 1511.76, pos_z: 120.04, mapgenie_id: Some("167424"), });
+    m.insert(73016, GraceData { id: 301600, event_flag_id: 73016, name: "War,Dead Catacombs", region: "Caelid", area_no: 30, grid_x: 16, grid_z: 0, pos_x: 37.72, pos_y: 5.19, pos_z: -134.68, mapgenie_id: Some("167164"), });
+    m.insert(73017, GraceData { id: 301700, event_flag_id: 73017, name: "Giant,Conquering Hero's Grave", region: "Flame Peak", area_no: 60, grid_x: 50, grid_z: 53, pos_x: -118.56, pos_y: 1511.76, pos_z: 120.04, mapgenie_id: Some("167424"), });
     m.insert(73018, GraceData { id: 301800, event_flag_id: 73018, name: "Giants' Mountaintop Catacombs", region: "Flame Peak", area_no: 60, grid_x: 50, grid_z: 53, pos_x: 26.16, pos_y: 1577.71, pos_z: 109.34, mapgenie_id: Some("167425"), });
     m.insert(73019, GraceData { id: 301900, event_flag_id: 73019, name: "Consecrated Snowfield Catacombs", region: "Consecrated Snowfield", area_no: 60, grid_x: 50, grid_z: 55, pos_x: -69.57, pos_y: 1360.01, pos_z: -86.39, mapgenie_id: Some("167155"), });
     m.insert(73020, GraceData { id: 302000, event_flag_id: 73020, name: "Hidden Path to the Haligtree", region: "Forbidden Lands", area_no: 30, grid_x: 20, grid_z: 0, pos_x: -105.12, pos_y: 1338.62, pos_z: -122.70, mapgenie_id: Some("165640"), });
@@ -188,7 +188,7 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(73119, GraceData { id: 311900, event_flag_id: 73119, name: "Sage's Cave", region: "Altus Plateau", area_no: 31, grid_x: 19, grid_z: 0, pos_x: 101.29, pos_y: 654.73, pos_z: -55.79, mapgenie_id: Some("166997"), });
     m.insert(73120, GraceData { id: 312000, event_flag_id: 73120, name: "Abandoned Cave", region: "Caelid", area_no: 31, grid_x: 20, grid_z: 0, pos_x: 137.79, pos_y: 127.62, pos_z: 42.44, mapgenie_id: Some("165605"), });
     m.insert(73121, GraceData { id: 312100, event_flag_id: 73121, name: "Gaol Cave", region: "Caelid", area_no: 31, grid_x: 21, grid_z: 0, pos_x: -64.32, pos_y: 87.81, pos_z: 33.87, mapgenie_id: Some("166583"), });
-    m.insert(73122, GraceData { id: 312200, event_flag_id: 73122, name: "Spiritcaller Cave", region: "Mountaintops of the Giants", area_no: 60, grid_x: 53, grid_z: 56, pos_x: -38.33, pos_y: 1626.26, pos_z: 114.54, mapgenie_id: Some("168188"), });
+    m.insert(73122, GraceData { id: 312200, event_flag_id: 73122, name: "Spiritcaller's Cave", region: "Mountaintops of the Giants", area_no: 60, grid_x: 53, grid_z: 56, pos_x: -38.33, pos_y: 1626.26, pos_z: 114.54, mapgenie_id: Some("168188"), });
     m.insert(73200, GraceData { id: 320000, event_flag_id: 73200, name: "Morne Tunnel", region: "Weeping Peninsula", area_no: 32, grid_x: 0, grid_z: 0, pos_x: 36.14, pos_y: 27.87, pos_z: -69.91, mapgenie_id: Some("165304"), });
     m.insert(73201, GraceData { id: 320100, event_flag_id: 73201, name: "Limgrave Tunnels", region: "Limgrave", area_no: 60, grid_x: 43, grid_z: 37, pos_x: -121.70, pos_y: 66.61, pos_z: -34.93, mapgenie_id: Some("164024"), });
     m.insert(73202, GraceData { id: 320200, event_flag_id: 73202, name: "Raya Lucaria Crystal Tunnel", region: "Liurnia of the Lakes", area_no: 60, grid_x: 37, grid_z: 47, pos_x: -111.98, pos_y: 242.98, pos_z: 16.29, mapgenie_id: Some("165498"), });
@@ -217,8 +217,8 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(73503, GraceData { id: 350003, event_flag_id: 73503, name: "Leyndell Catacombs", region: "Subterranean Shunning,Grounds", area_no: 35, grid_x: 0, grid_z: 0, pos_x: -138.84, pos_y: -143.74, pos_z: -242.31, mapgenie_id: Some("167518"), });
     m.insert(73504, GraceData { id: 350004, event_flag_id: 73504, name: "Frenzied Flame Proscription", region: "Subterranean Shunning,Grounds", area_no: 35, grid_x: 0, grid_z: 0, pos_x: 126.05, pos_y: -408.54, pos_z: -63.33, mapgenie_id: Some("168677"), });
     m.insert(73900, GraceData { id: 390000, event_flag_id: 73900, name: "Magma Wyrm Makar", region: "Ruin,Strewn Precipice", area_no: 39, grid_x: 20, grid_z: 0, pos_x: -124.22, pos_y: 353.51, pos_z: -1298.06, mapgenie_id: Some("166767"), });
-    m.insert(73901, GraceData { id: 390001, event_flag_id: 73901, name: "Ruin-Strewn Precipice", region: "Ruin,Strewn Precipice", area_no: 39, grid_x: 20, grid_z: 0, pos_x: 91.34, pos_y: 239.17, pos_z: -1312.03, mapgenie_id: Some("167002"), });
-    m.insert(73902, GraceData { id: 390002, event_flag_id: 73902, name: "Ruin-Strewn Precipice Overlook", region: "Ruin,Strewn Precipice", area_no: 39, grid_x: 20, grid_z: 0, pos_x: -13.26, pos_y: 350.44, pos_z: -1345.30, mapgenie_id: Some("166769"), });
+    m.insert(73901, GraceData { id: 390001, event_flag_id: 73901, name: "Ruin,Strewn Precipice", region: "Ruin,Strewn Precipice", area_no: 39, grid_x: 20, grid_z: 0, pos_x: 91.34, pos_y: 239.17, pos_z: -1312.03, mapgenie_id: Some("167002"), });
+    m.insert(73902, GraceData { id: 390002, event_flag_id: 73902, name: "Ruin,Strewn Precipice Overlook", region: "Ruin,Strewn Precipice", area_no: 39, grid_x: 20, grid_z: 0, pos_x: -13.26, pos_y: 350.44, pos_z: -1345.30, mapgenie_id: Some("166769"), });
     m.insert(74000, GraceData { id: 400000, event_flag_id: 74000, name: "Fog Rift Catacombs", region: "Gravesite Plain", area_no: 40, grid_x: 0, grid_z: 0, pos_x: -92.01, pos_y: 259.02, pos_z: -68.97, mapgenie_id: Some("164032"), });
     m.insert(74001, GraceData { id: 400100, event_flag_id: 74001, name: "Scorpion River Catacombs", region: "Rauh Base", area_no: 40, grid_x: 1, grid_z: 0, pos_x: -62.70, pos_y: 295.05, pos_z: 58.26, mapgenie_id: None, });
     m.insert(74002, GraceData { id: 400200, event_flag_id: 74002, name: "Darklight Catacombs", region: "Scadu Altus", area_no: 40, grid_x: 2, grid_z: 0, pos_x: -46.21, pos_y: 80.01, pos_z: 111.53, mapgenie_id: Some("166776"), });
@@ -235,10 +235,10 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76162, GraceData { id: 61413300, event_flag_id: 76162, name: "Fourth Church of Marika", region: "Weeping Peninsula", area_no: 60, grid_x: 41, grid_z: 33, pos_x: 53.79, pos_y: 32.64, pos_z: 65.57, mapgenie_id: Some("163993"), });
     m.insert(76110, GraceData { id: 61413500, event_flag_id: 76110, name: "Church of Dragon Communion", region: "Limgrave", area_no: 60, grid_x: 41, grid_z: 35, pos_x: -54.55, pos_y: 26.77, pos_z: -22.72, mapgenie_id: Some("163997"), });
     m.insert(76102, GraceData { id: 61413800, event_flag_id: 76102, name: "Stormhill Shack", region: "Stormhill", area_no: 60, grid_x: 41, grid_z: 38, pos_x: 16.85, pos_y: 204.57, pos_z: 16.98, mapgenie_id: Some("164054"), });
-    m.insert(76152, GraceData { id: 61423300, event_flag_id: 76152, name: "Tombsward", region: "Weeping Peninsula", area_no: 60, grid_x: 42, grid_z: 33, pos_x: 77.19, pos_y: 31.55, pos_z: -35.46, mapgenie_id: Some("164663"), });
+    m.insert(76152, GraceData { id: 61423300, event_flag_id: 76152, name: "Weeping Evergaol", region: "Weeping Peninsula", area_no: 60, grid_x: 42, grid_z: 33, pos_x: 77.19, pos_y: 31.55, pos_z: -35.46, mapgenie_id: Some("164663"), });
     m.insert(76100, GraceData { id: 61423600, event_flag_id: 76100, name: "Church of Elleh", region: "Limgrave", area_no: 60, grid_x: 42, grid_z: 36, pos_x: -40.73, pos_y: 90.97, pos_z: 79.34, mapgenie_id: Some("163934"), });
     m.insert(76101, GraceData { id: 61423601, event_flag_id: 76101, name: "The First Step", region: "Limgrave", area_no: 60, grid_x: 42, grid_z: 36, pos_x: -12.83, pos_y: 90.70, pos_z: -54.50, mapgenie_id: Some("163930"), });
-    m.insert(76111, GraceData { id: 61423700, event_flag_id: 76111, name: "Gatefront", region: "Limgrave", area_no: 60, grid_x: 42, grid_z: 37, pos_x: 13.61, pos_y: 110.65, pos_z: 110.21, mapgenie_id: Some("163926"), });
+    m.insert(76111, GraceData { id: 61423700, event_flag_id: 76111, name: "Gatefront Ruins", region: "Limgrave", area_no: 60, grid_x: 42, grid_z: 37, pos_x: 13.61, pos_y: 110.65, pos_z: 110.21, mapgenie_id: Some("163926"), });
     m.insert(76118, GraceData { id: 61423800, event_flag_id: 76118, name: "Warmaster's Shack", region: "Stormhill", area_no: 60, grid_x: 42, grid_z: 38, pos_x: 8.94, pos_y: 187.95, pos_z: 99.03, mapgenie_id: Some("164058"), });
     m.insert(76161, GraceData { id: 61433000, event_flag_id: 76161, name: "Morne Moangrave", region: "Weeping Peninsula", area_no: 60, grid_x: 43, grid_z: 30, pos_x: -31.10, pos_y: 0.51, pos_z: -12.64, mapgenie_id: Some("163945"), });
     m.insert(76158, GraceData { id: 61433100, event_flag_id: 76158, name: "Castle Morne Lift", region: "Weeping Peninsula", area_no: 60, grid_x: 43, grid_z: 31, pos_x: 104.40, pos_y: 14.26, pos_z: -2.87, mapgenie_id: Some("163949"), });
@@ -258,7 +258,7 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76114, GraceData { id: 61443700, event_flag_id: 76114, name: "Mistwood Outskirts", region: "Limgrave", area_no: 60, grid_x: 44, grid_z: 37, pos_x: 122.20, pos_y: 26.18, pos_z: 108.18, mapgenie_id: Some("164014"), });
     m.insert(76103, GraceData { id: 61443800, event_flag_id: 76103, name: "Artist's Shack", region: "Limgrave", area_no: 60, grid_x: 44, grid_z: 38, pos_x: -10.86, pos_y: 92.81, pos_z: -20.38, mapgenie_id: Some("164154"), });
     m.insert(76119, GraceData { id: 61443900, event_flag_id: 76119, name: "Summonwater Village Outskirts", region: "Limgrave", area_no: 60, grid_x: 44, grid_z: 39, pos_x: 122.75, pos_y: 101.38, pos_z: -40.09, mapgenie_id: Some("164018"), });
-    m.insert(76155, GraceData { id: 61453300, event_flag_id: 76155, name: "Beside the Crater-Pocked Glade", region: "Weeping Peninsula", area_no: 60, grid_x: 45, grid_z: 33, pos_x: -66.14, pos_y: 72.35, pos_z: 59.46, mapgenie_id: Some("163959"), });
+    m.insert(76155, GraceData { id: 61453300, event_flag_id: 76155, name: "Beside the Crater,Pocked Glade", region: "Weeping Peninsula", area_no: 60, grid_x: 45, grid_z: 33, pos_x: -66.14, pos_y: 72.35, pos_z: 59.46, mapgenie_id: Some("163959"), });
     m.insert(76105, GraceData { id: 61453600, event_flag_id: 76105, name: "Fort Haight West", region: "Limgrave", area_no: 60, grid_x: 45, grid_z: 36, pos_x: 119.59, pos_y: 20.84, pos_z: -43.99, mapgenie_id: Some("164013"), });
     m.insert(76804, GraceData { id: 61454100, event_flag_id: 76804, name: "Cliffroad Terminus", region: "Gravesite Plain", area_no: 61, grid_x: 45, grid_z: 41, pos_x: -8.01, pos_y: 393.13, pos_z: 55.91, mapgenie_id: None, });
     m.insert(76803, GraceData { id: 61454200, event_flag_id: 76803, name: "Main Gate Cross", region: "Gravesite Plain", area_no: 61, grid_x: 45, grid_z: 42, pos_x: -97.52, pos_y: 392.33, pos_z: 97.68, mapgenie_id: None, });
@@ -284,7 +284,7 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76241, GraceData { id: 62344400, event_flag_id: 76241, name: "Temple Quarter", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 44, pos_x: -41.73, pos_y: 237.59, pos_z: 122.91, mapgenie_id: Some("164159"), });
     m.insert(76243, GraceData { id: 62344600, event_flag_id: 76243, name: "Crystalline Woods", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 46, pos_x: 6.38, pos_y: 237.38, pos_z: -69.70, mapgenie_id: Some("164160"), });
     m.insert(76211, GraceData { id: 62344701, event_flag_id: 76211, name: "Sorcerer's Isle", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 47, pos_x: 76.72, pos_y: 240.07, pos_z: 45.37, mapgenie_id: Some("165496"), });
-    m.insert(76212, GraceData { id: 62344800, event_flag_id: 76212, name: "Northern Liurnia Lake Shore", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 48, pos_x: -52.58, pos_y: 256.58, pos_z: 13.38, mapgenie_id: Some("164163"), });
+    m.insert(76212, GraceData { id: 62344800, event_flag_id: 76212, name: "Kingsrealm Ruins", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 48, pos_x: -52.58, pos_y: 256.58, pos_z: 13.38, mapgenie_id: Some("164163"), });
     m.insert(76213, GraceData { id: 62344900, event_flag_id: 76213, name: "Road to the Manor", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 49, pos_x: 52.06, pos_y: 272.87, pos_z: -68.56, mapgenie_id: Some("164164"), });
     m.insert(76228, GraceData { id: 62345000, event_flag_id: 76228, name: "Ranni's Rise", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 50, pos_x: -85.66, pos_y: 476.08, pos_z: 13.37, mapgenie_id: Some("165879"), });
     m.insert(76247, GraceData { id: 62345001, event_flag_id: 76247, name: "Ranni's Chamber", region: "Liurnia of the Lakes", area_no: 60, grid_x: 34, grid_z: 50, pos_x: -56.90, pos_y: 511.64, pos_z: 24.10, mapgenie_id: Some("168421"), });
@@ -319,27 +319,27 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76225, GraceData { id: 62384700, event_flag_id: 76225, name: "Ruined Labyrinth", region: "Liurnia of the Lakes", area_no: 60, grid_x: 38, grid_z: 47, pos_x: -103.05, pos_y: 372.84, pos_z: -7.04, mapgenie_id: Some("165500"), });
     m.insert(76239, GraceData { id: 62384800, event_flag_id: 76239, name: "Frenzied Flame Village Outskirts", region: "Bellum Highway", area_no: 60, grid_x: 38, grid_z: 48, pos_x: 50.22, pos_y: 449.73, pos_z: 70.93, mapgenie_id: Some("166525"), });
     m.insert(76209, GraceData { id: 62385000, event_flag_id: 76209, name: "Grand Lift of Dectus", region: "Liurnia of the Lakes", area_no: 60, grid_x: 38, grid_z: 50, pos_x: -17.34, pos_y: 367.07, pos_z: -63.15, mapgenie_id: Some("165888"), });
-    m.insert(76229, GraceData { id: 62385001, event_flag_id: 76229, name: "Ravine-Veiled Village", region: "Liurnia of the Lakes", area_no: 60, grid_x: 38, grid_z: 50, pos_x: -123.60, pos_y: 240.71, pos_z: 95.07, mapgenie_id: Some("165512"), });
-    m.insert(76200, GraceData { id: 62394000, event_flag_id: 76200, name: "Lake-Facing Cliffs", region: "Liurnia of the Lakes", area_no: 60, grid_x: 39, grid_z: 40, pos_x: 16.21, pos_y: 337.66, pos_z: -71.12, mapgenie_id: Some("164145"), });
+    m.insert(76229, GraceData { id: 62385001, event_flag_id: 76229, name: "Ravine,Veiled Village", region: "Liurnia of the Lakes", area_no: 60, grid_x: 38, grid_z: 50, pos_x: -123.60, pos_y: 240.71, pos_z: 95.07, mapgenie_id: Some("165512"), });
+    m.insert(76200, GraceData { id: 62394000, event_flag_id: 76200, name: "Lake,Facing Cliffs", region: "Liurnia of the Lakes", area_no: 60, grid_x: 39, grid_z: 40, pos_x: 16.21, pos_y: 337.66, pos_z: -71.12, mapgenie_id: Some("164145"), });
     m.insert(76244, GraceData { id: 62394100, event_flag_id: 76244, name: "Liurnia Highway South", region: "Liurnia of the Lakes", area_no: 60, grid_x: 39, grid_z: 41, pos_x: 37.16, pos_y: 300.04, pos_z: -122.96, mapgenie_id: Some("164151"), });
     m.insert(76221, GraceData { id: 62394200, event_flag_id: 76221, name: "Liurnia Highway North", region: "Liurnia of the Lakes", area_no: 60, grid_x: 39, grid_z: 42, pos_x: -7.63, pos_y: 273.51, pos_z: -40.21, mapgenie_id: Some("164152"), });
     m.insert(76245, GraceData { id: 62394400, event_flag_id: 76245, name: "Jarburg", region: "Liurnia of the Lakes", area_no: 60, grid_x: 39, grid_z: 44, pos_x: 47.52, pos_y: 221.25, pos_z: -59.60, mapgenie_id: Some("167420"), });
     m.insert(76355, GraceData { id: 63355300, event_flag_id: 76355, name: "Seethewater Terminus", region: "Mt. Gelmir", area_no: 60, grid_x: 35, grid_z: 53, pos_x: 126.25, pos_y: 794.74, pos_z: 80.35, mapgenie_id: Some("165486"), });
-    m.insert(76356, GraceData { id: 63365200, event_flag_id: 76356, name: "Craftsman's Shack", region: "Mt. Gelmir", area_no: 60, grid_x: 36, grid_z: 52, pos_x: 101.60, pos_y: 879.68, pos_z: -24.59, mapgenie_id: Some("166759"), });
+    m.insert(76356, GraceData { id: 63365200, event_flag_id: 76356, name: "Craftman's Shack", region: "Mt. Gelmir", area_no: 60, grid_x: 36, grid_z: 52, pos_x: 101.60, pos_y: 879.68, pos_z: -24.59, mapgenie_id: Some("166759"), });
     m.insert(76352, GraceData { id: 63365401, event_flag_id: 76352, name: "Ninth Mt. Gelmir Campsite", region: "Mt. Gelmir", area_no: 60, grid_x: 36, grid_z: 54, pos_x: 117.71, pos_y: 1010.80, pos_z: 25.47, mapgenie_id: Some("166543"), });
     m.insert(76353, GraceData { id: 63365402, event_flag_id: 76353, name: "Road of Iniquity", region: "Mt. Gelmir", area_no: 60, grid_x: 36, grid_z: 54, pos_x: -18.44, pos_y: 930.96, pos_z: -89.88, mapgenie_id: Some("164406"), });
     m.insert(76300, GraceData { id: 63375100, event_flag_id: 76300, name: "Abandoned Coffin", region: "Altus Plateau", area_no: 60, grid_x: 37, grid_z: 51, pos_x: -46.07, pos_y: 656.41, pos_z: -62.55, mapgenie_id: Some("166768"), });
     m.insert(76354, GraceData { id: 63375200, event_flag_id: 76354, name: "Seethewater River", region: "Mt. Gelmir", area_no: 60, grid_x: 37, grid_z: 52, pos_x: 64.43, pos_y: 792.70, pos_z: 55.27, mapgenie_id: Some("166542"), });
     m.insert(76357, GraceData { id: 63375300, event_flag_id: 76357, name: "Primeval Sorcerer Azur", region: "Mt. Gelmir", area_no: 60, grid_x: 37, grid_z: 53, pos_x: 5.19, pos_y: 904.73, pos_z: -54.77, mapgenie_id: Some("166777"), });
     m.insert(76301, GraceData { id: 63385002, event_flag_id: 76301, name: "Altus Plateau", region: "Altus Plateau", area_no: 60, grid_x: 38, grid_z: 50, pos_x: 55.76, pos_y: 764.40, pos_z: 82.93, mapgenie_id: Some("166995"), });
-    m.insert(76302, GraceData { id: 63385100, event_flag_id: 76302, name: "Erdtree-Gazing Hill", region: "Altus Plateau", area_no: 60, grid_x: 38, grid_z: 51, pos_x: -21.82, pos_y: 766.14, pos_z: 50.09, mapgenie_id: Some("167001"), });
+    m.insert(76302, GraceData { id: 63385100, event_flag_id: 76302, name: "Erdtree,Gazing Hill", region: "Altus Plateau", area_no: 60, grid_x: 38, grid_z: 51, pos_x: -21.82, pos_y: 766.14, pos_z: 50.09, mapgenie_id: Some("167001"), });
     m.insert(76351, GraceData { id: 63385400, event_flag_id: 76351, name: "First Mt. Gelmir Campsite", region: "Mt. Gelmir", area_no: 60, grid_x: 38, grid_z: 54, pos_x: 28.19, pos_y: 861.17, pos_z: -123.25, mapgenie_id: Some("165883"), });
     m.insert(76303, GraceData { id: 63395100, event_flag_id: 76303, name: "Altus Highway Junction", region: "Altus Plateau", area_no: 60, grid_x: 39, grid_z: 51, pos_x: 92.80, pos_y: 760.57, pos_z: 0.10, mapgenie_id: Some("167000"), });
     m.insert(76350, GraceData { id: 63395300, event_flag_id: 76350, name: "Bridge of Iniquity", region: "Mt. Gelmir", area_no: 60, grid_x: 39, grid_z: 53, pos_x: -98.56, pos_y: 812.82, pos_z: 37.45, mapgenie_id: Some("165482"), });
     m.insert(76320, GraceData { id: 63395400, event_flag_id: 76320, name: "Shaded Castle Ramparts", region: "Altus Plateau", area_no: 60, grid_x: 39, grid_z: 54, pos_x: 21.95, pos_y: 725.01, pos_z: -48.26, mapgenie_id: Some("165483"), });
-    m.insert(76321, GraceData { id: 63395401, event_flag_id: 76321, name: "Shaded Castle Inner Gate", region: "Altus Plateau", area_no: 60, grid_x: 39, grid_z: 54, pos_x: -50.87, pos_y: 734.78, pos_z: 48.29, mapgenie_id: Some("165484"), });
+    m.insert(76321, GraceData { id: 63395401, event_flag_id: 76321, name: "Shaded castle Inner Gate", region: "Altus Plateau", area_no: 60, grid_x: 39, grid_z: 54, pos_x: -50.87, pos_y: 734.78, pos_z: 48.29, mapgenie_id: Some("165484"), });
     m.insert(76322, GraceData { id: 63395402, event_flag_id: 76322, name: "Castellan's Hall", region: "Altus Plateau", area_no: 60, grid_x: 39, grid_z: 54, pos_x: -46.95, pos_y: 768.39, pos_z: 56.37, mapgenie_id: Some("166853"), });
-    m.insert(76304, GraceData { id: 63405200, event_flag_id: 76304, name: "Forest-Spanning Greatbridge", region: "Altus Plateau", area_no: 60, grid_x: 40, grid_z: 52, pos_x: 109.35, pos_y: 828.30, pos_z: 138.86, mapgenie_id: Some("166549"), });
+    m.insert(76304, GraceData { id: 63405200, event_flag_id: 76304, name: "Forest,Spanning Greatbridge", region: "Altus Plateau", area_no: 60, grid_x: 40, grid_z: 52, pos_x: 109.35, pos_y: 828.30, pos_z: 138.86, mapgenie_id: Some("166549"), });
     m.insert(76306, GraceData { id: 63405300, event_flag_id: 76306, name: "Bower of Bounty", region: "Altus Plateau", area_no: 60, grid_x: 40, grid_z: 53, pos_x: 12.33, pos_y: 749.28, pos_z: -80.48, mapgenie_id: Some("166993"), });
     m.insert(76307, GraceData { id: 63405400, event_flag_id: 76307, name: "Road of Iniquity Side Path", region: "Altus Plateau", area_no: 60, grid_x: 40, grid_z: 54, pos_x: 66.43, pos_y: 820.57, pos_z: 113.11, mapgenie_id: Some("166783"), });
     m.insert(76305, GraceData { id: 63415201, event_flag_id: 76305, name: "Rampartside Path", region: "Altus Plateau", area_no: 60, grid_x: 41, grid_z: 52, pos_x: 91.80, pos_y: 904.31, pos_z: 19.61, mapgenie_id: Some("166763"), });
@@ -366,8 +366,8 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76412, GraceData { id: 64493800, event_flag_id: 76412, name: "Heart of Aeonia", region: "Swamp of Aeonia", area_no: 60, grid_x: 49, grid_z: 38, pos_x: -25.19, pos_y: 65.84, pos_z: 46.76, mapgenie_id: Some("166177"), });
     m.insert(76413, GraceData { id: 64493801, event_flag_id: 76413, name: "Inner Aeonia", region: "Swamp of Aeonia", area_no: 60, grid_x: 49, grid_z: 38, pos_x: -58.46, pos_y: 64.29, pos_z: 115.31, mapgenie_id: Some("165615"), });
     m.insert(76414, GraceData { id: 64493900, event_flag_id: 76414, name: "Sellia Backstreets", region: "Caelid", area_no: 60, grid_x: 49, grid_z: 39, pos_x: 128.50, pos_y: 99.36, pos_z: 54.99, mapgenie_id: Some("166174"), });
-    m.insert(76415, GraceData { id: 64493901, event_flag_id: 76415, name: "Chair-Crypt of Sellia", region: "Caelid", area_no: 60, grid_x: 49, grid_z: 39, pos_x: 96.98, pos_y: 83.36, pos_z: 77.59, mapgenie_id: Some("166636"), });
-    m.insert(76416, GraceData { id: 64493902, event_flag_id: 76416, name: "Sellia Under-Stair", region: "Caelid", area_no: 60, grid_x: 49, grid_z: 39, pos_x: 99.48, pos_y: 65.49, pos_z: -31.72, mapgenie_id: Some("164381"), });
+    m.insert(76415, GraceData { id: 64493901, event_flag_id: 76415, name: "Chair,Crypt of Sellia", region: "Caelid", area_no: 60, grid_x: 49, grid_z: 39, pos_x: 96.98, pos_y: 83.36, pos_z: 77.59, mapgenie_id: Some("166636"), });
+    m.insert(76416, GraceData { id: 64493902, event_flag_id: 76416, name: "Sellia Under,Stair", region: "Caelid", area_no: 60, grid_x: 49, grid_z: 39, pos_x: 99.48, pos_y: 65.49, pos_z: -31.72, mapgenie_id: Some("164381"), });
     m.insert(76417, GraceData { id: 64503600, event_flag_id: 76417, name: "Impassable Greatbridge", region: "Caelid", area_no: 60, grid_x: 50, grid_z: 36, pos_x: -68.31, pos_y: 38.73, pos_z: -82.76, mapgenie_id: Some("164382"), });
     m.insert(76418, GraceData { id: 64503800, event_flag_id: 76418, name: "Church of the Plague", region: "Caelid", area_no: 60, grid_x: 50, grid_z: 38, pos_x: 19.86, pos_y: 160.85, pos_z: 126.98, mapgenie_id: Some("165582"), });
     m.insert(76452, GraceData { id: 64504000, event_flag_id: 76452, name: "Dragonbarrow Fork", region: "Greyoll's Dragonbarrow", area_no: 60, grid_x: 50, grid_z: 40, pos_x: 76.04, pos_y: 155.39, pos_z: 124.15, mapgenie_id: Some("164393"), });
@@ -392,7 +392,7 @@ pub static GRACES_DATA: Lazy<HashMap<u32, GraceData>> = Lazy::new(|| {
     m.insert(76523, GraceData { id: 65515702, event_flag_id: 76523, name: "Church of the Eclipse", region: "Mountaintops of the Giants", area_no: 60, grid_x: 51, grid_z: 57, pos_x: 73.15, pos_y: 1616.28, pos_z: 114.25, mapgenie_id: Some("164416"), });
     m.insert(76524, GraceData { id: 65515703, event_flag_id: 76524, name: "Castle Sol Rooftop", region: "Mountaintops of the Giants", area_no: 60, grid_x: 51, grid_z: 57, pos_x: 82.50, pos_y: 1632.19, pos_z: 197.39, mapgenie_id: Some("164415"), });
     m.insert(76508, GraceData { id: 65525300, event_flag_id: 76508, name: "Foot of the Forge", region: "Mountaintops of the Giants", area_no: 60, grid_x: 52, grid_z: 53, pos_x: -79.18, pos_y: 1802.80, pos_z: -46.09, mapgenie_id: Some("166546"), });
-    m.insert(76506, GraceData { id: 65525400, event_flag_id: 76506, name: "Giants' Gravepost", region: "Mountaintops of the Giants", area_no: 60, grid_x: 52, grid_z: 54, pos_x: -53.68, pos_y: 1706.52, pos_z: 66.82, mapgenie_id: Some("164431"), });
+    m.insert(76506, GraceData { id: 65525400, event_flag_id: 76506, name: "Giant's Gravepost", region: "Mountaintops of the Giants", area_no: 60, grid_x: 52, grid_z: 54, pos_x: -53.68, pos_y: 1706.52, pos_z: 66.82, mapgenie_id: Some("164431"), });
     m.insert(76520, GraceData { id: 65525600, event_flag_id: 76520, name: "Whiteridge Road", region: "Mountaintops of the Giants", area_no: 60, grid_x: 52, grid_z: 56, pos_x: 42.35, pos_y: 1667.12, pos_z: -126.11, mapgenie_id: Some("167133"), });
     m.insert(76504, GraceData { id: 65525700, event_flag_id: 76504, name: "Freezing Lake", region: "Mountaintops of the Giants", area_no: 60, grid_x: 52, grid_z: 57, pos_x: 82.48, pos_y: 1625.79, pos_z: 77.83, mapgenie_id: Some("168644"), });
     m.insert(76509, GraceData { id: 65535200, event_flag_id: 76509, name: "Fire Giant", region: "Mountaintops of the Giants", area_no: 60, grid_x: 53, grid_z: 52, pos_x: -84.40, pos_y: 1878.88, pos_z: 26.10, mapgenie_id: Some("166545"), });
@@ -505,3 +505,48 @@ pub static GRACE_REGIONS: &[&str] = &[
     "Volcano Manor",
     "Weeping Peninsula",
 ];
+
+#[cfg(test)]
+mod tests {
+    use super::GRACES_DATA;
+    use crate::db::graces::maps::GRACES;
+
+    /// The app carries two grace databases. They disagreed on 49 flag names until
+    /// 2026-07-20, including "Eerdtree" for "Erdtree" and two entries whose names
+    /// were swapped outright. That cost real debugging time: when you are reading a
+    /// table of grace names, a wrong NAME is indistinguishable from a wrong OFFSET.
+    ///
+    /// Both are now aligned to BonfireWarpParam (regulation 1.16.1). If this fails,
+    /// one list was edited alone — fix it against the game file, not by copying the
+    /// other list.
+    #[test]
+    fn the_two_grace_databases_agree_on_names() {
+        let map = GRACES.lock().expect("GRACES lock");
+        let mut mismatches = Vec::new();
+        for (_grace, (_map_name, flag, name)) in map.iter() {
+            if let Some(data) = GRACES_DATA.get(flag) {
+                if data.name != *name {
+                    mismatches.push(format!("{}: {:?} vs {:?}", flag, name, data.name));
+                }
+            }
+        }
+        mismatches.sort();
+        assert!(
+            mismatches.is_empty(),
+            "grace databases disagree on {} name(s):\n  {}",
+            mismatches.len(),
+            mismatches.join("\n  ")
+        );
+    }
+
+    /// Guards the specific pair that was documented backwards and sent an
+    /// investigation down the wrong path (docs/SAVE_FILE_GROUND_TRUTH.md).
+    /// Verified against BonfireWarpParam rows 61423600 / 61423601.
+    #[test]
+    fn limgrave_starter_graces_are_not_swapped() {
+        assert_eq!(GRACES_DATA[&76100].name, "Church of Elleh");
+        assert_eq!(GRACES_DATA[&76101].name, "The First Step");
+        assert_eq!(GRACES_DATA[&71800].name, "Cave of Knowledge");
+        assert_eq!(GRACES_DATA[&71801].name, "Stranded Graveyard");
+    }
+}

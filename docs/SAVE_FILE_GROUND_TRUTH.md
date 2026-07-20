@@ -342,12 +342,20 @@ bit_position = 7 - (local_id % 8)
 > minimal characters — the false-negative mode this project keeps rediscovering.
 > The byte offsets in the table are also save-specific; see *Flag Family Origin* above.
 
+> **NAMES CORRECTED 2026-07-20.** This table had 76100 and 76101 swapped. Verified
+> against the primary source — `BonfireWarpParam.param.xml` (regulation 1.16.1, the
+> save era) in the `game-extracts` corpus, whose rows carry `eventflagId` directly:
+> 76100 = `[Limgrave] Church of Elleh`, 76101 = `[Limgrave] The First Step`. Both of
+> the app's grace databases (`src/db/graces_data.rs`, `src/db/graces/maps.rs`) already
+> had this right; only this table was wrong. A wrong NAME is indistinguishable from a
+> wrong OFFSET when you are looking at a table of grace names, so this cost real time.
+
 | Flag ID | Byte Offset | Bit | Name | Notes |
 |---------|-------------|-----|------|-------|
 | 71800 | 2725 | 7 | Cave of Knowledge | Tutorial grace — CLEAR on V1/V2/V3 |
 | 71801 | 2725 | 6 | Stranded Graveyard | Tutorial grace |
-| 76100 | 3262 | 3 | The First Step | First world grace — CLEAR on V1/V2/V3 |
-| 76101 | 3262 | 2 | Church of Elleh | Early world grace |
+| 76100 | 3262 | 3 | Church of Elleh | CLEAR on V1/V2/V3 |
+| 76101 | 3262 | 2 | The First Step | First world grace |
 
 Usable as corroboration for characters known to have progressed past the tutorial.
 Never as a universal validity test.

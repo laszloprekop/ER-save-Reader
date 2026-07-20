@@ -4,6 +4,52 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.27.0 - Grace name correction; layered dump tool
+
+### Features
+- **`knowledge grace-dump <save.sl2> [slot] [--all]`** (`src/knowledge/dump.rs`):
+  prints what each layer believes about every grace in a slot — the raw byte and
+  bit, the resolver's verdict (set / clear / UNKNOWN), and the name the database
+  attaches to that flag. Built to compare layers against each other and against an
+  exported JSON, without opening the GUI.
+
+### Fixes
+- **Grace names corrected against the game files.** The app carried TWO grace
+  databases that disagreed on 49 flag names, and `docs/SAVE_FILE_GROUND_TRUTH.md`
+  had 76100/76101 swapped outright. All three are now aligned to
+  `BonfireWarpParam.param.xml` (regulation 1.16.1, the save era), whose rows carry
+  `eventflagId` directly: 76100 = Church of Elleh, 76101 = The First Step,
+  71800 = Cave of Knowledge, 71801 = Stranded Graveyard. 67 names fixed in
+  `src/db/graces.rs`, 22 in `src/db/graces_data.rs`; both now match the game file
+  exactly on all 382 shared flags. Includes the "Eerdtree" -> "Erdtree" typos.
+  Caveat: `paramdexName` is a community annotation embedded by WitchyBND, not the
+  game's own display text (which lives in FMG); it is the best available reference
+  and `graces_data.rs` clearly derives from it, but it is not proof.
+
+### Key Findings
+- **Grace reading verified end-to-end against a real save.** The user's GUI export
+  and an independent dump of the same live save agree exactly for all six
+  characters — Confessor 186, Bee 182, Wretch 6, V1/V2/V3 2 each — and agree
+  grace-for-grace by name, not merely by count.
+- **A wrong NAME is indistinguishable from a wrong OFFSET** when reading a table of
+  grace names. The swapped 76100/76101 documentation sent an investigation down the
+  wrong path: the byte reads were correct the whole time.
+- Empty character slots correctly report UNKNOWN rather than "0 discovered".
+
+### Tests
+- `the_two_grace_databases_agree_on_names` — the two databases must not drift apart
+  again; fix against the game file, not by copying one list onto the other.
+- `limgrave_starter_graces_are_not_swapped` — guards the specific pair that was
+  documented backwards.
+
+### Files Modified
+- src/knowledge/dump.rs, src/knowledge/mod.rs: grace-dump subcommand
+- src/db/graces.rs, src/db/graces_data.rs: names aligned to the game file; tests
+- docs/SAVE_FILE_GROUND_TRUTH.md: anchor table names corrected
+- docs/BACKLOG.md, docs/CHANGELOG.md, Cargo.toml: 0.27.0
+
+---
+
 ## v0.26.0 - Grace family cutover: first family off the frozen legacy store
 
 ### Features
@@ -27,7 +73,8 @@ All notable changes to ER-save-Editor will be documented in this file.
 - **Aggregate results match the evidence catalog's own character descriptions**:
   Confessor 179/421 graces, Wretch 6, V1/V2/V3 2 each, zero unknown.
 - **The 6 outstanding origin-validation FAILs are resolved**: V1/V2/V3 have exactly two
-  graces, and they are 71801 and 76101. The tutorial-anchor expectation was wrong; the
+  graces, and they are 71801 (Stranded Graveyard) and 76101 (The First Step). The
+  tutorial-anchor expectation was wrong; the
   model was right. Corroborated by the independent total, not just consistent with it.
 
 ### Removed

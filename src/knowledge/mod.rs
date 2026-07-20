@@ -13,6 +13,7 @@
 //!                              re-annotation (knowledge/claims/timeline-events.json).
 
 pub mod catalog;
+pub mod dump;
 pub mod family_distances;
 pub mod pipeline;
 pub mod timeline;
@@ -27,6 +28,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         Some("origin-probe") => family_distances::cmd_origin_probe(&args[1..]),
         Some("list-hunt") => family_distances::cmd_list_hunt(&args[1..]),
         Some("validate-origin") => family_distances::cmd_validate_origin(&args[1..]),
+        Some("grace-dump") => dump::cmd_grace_dump(&args[1..]),
         _ => {
             println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
@@ -45,6 +47,9 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("                      the flag families (step 4b)");
             println!("    validate-origin   Out-of-sample test of the origin model on");
             println!("                      characters it was not derived from (step 4b)");
+            println!("    grace-dump <save> [slot] [--all]");
+            println!("                      Dump every grace in a slot, layer by layer:");
+            println!("                      raw byte, resolver verdict, database name");
             println!("    timeline <id>     Replay a sparse-diff timeline target (see");
             println!("                      knowledge/inputs/timeline-targets.json), emit");
             println!("                      knowledge/claims/timeline-events.json");
