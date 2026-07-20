@@ -765,6 +765,14 @@ maps — unexplained, worth a look before claiming pickup coverage).
    transition, and the bytes sit in the overlapping range above, so they cannot even be
    assigned to a family with confidence. m40_00 is undecidable outright: both its blocks
    are zero in every slot, i.e. no character has been there. Both maps stay Unknown.
+   *Agreed order for the remaining migration work (2026-07-20):* **Priority 1b first**
+   (the exported wasm readers — the only remaining correctness risk, and it needs a
+   decision on breaking elden-map loudly), then step 6 (docs audit), then step 5
+   (distill and delete). Step 6 before step 5 because era-mixed docs actively misled
+   this session more than once — the Margit/Godrick catalog note, the tombstoned
+   "tile base 337375 is constant" guidance, and the retracted elden-map advice above
+   were each believed before being checked.
+
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
    `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
    convention) out of the app into KB inputs as the CE-era Rosetta table.
@@ -910,13 +918,44 @@ This is the single location for all planned work, remaining gaps, and deferred i
 
 ---
 
-## Priority 3: Cross-Project Sync
+## Priority 1b: The WASM exports still reach a disproven table (found 2026-07-20)
+
+**This is the last place a caller can still get a silently wrong bit, and the callers
+are outside this repo where we cannot see them.** After the v0.30.0 cutover no app-side
+reader touches the legacy store — but the wasm crate's exported entry points do:
+
+```
+#[wasm_bindgen] is_flag_set / get_flag_offset / get_flag_offset_calibrated
+  └─ get_flag_offset_with_tile_base        (lib.rs:816-837)
+       └─ calculate_dungeon_flag_offset_unified
+            └─ get_dungeon_general_bases()  ← the disproven "+3375 per area" table
+```
+
+`get_dungeon_general_bases()` is the table whose own audit comment records entries
+disproven by every save on this machine (m18=43,487 and m19=46,862 removed; most of the
+rest UNVERIFIED and reading all-zero in every available save). These exports return a
+plausible-looking wrong offset rather than refusing — the exact failure mode this
+migration exists to remove — and elden-map has already inherited a poisoned build once
+(step 3 note above, the Apr-07 vendored wasm).
+
+**Open decision, needs a human:** re-point the exports at the resolver, or delete the
+disproven path so they refuse loudly. Refusing loudly is the argument-from-principle —
+a caller that breaks gets fixed, a caller that reads wrong bits does not know to — but
+it breaks elden-map at a distance, so it is not mine to decide unilaterally.
+
+Note the resolver needs the flag REGION (or slot bytes) to locate a family per save,
+whereas `get_flag_offset(flag_id)` takes only an id and returns a static offset. Those
+signatures are not compatible: there is no correct static offset any more. That is the
+real content of this item — the export shape encodes a model the project has abandoned.
 
 ### Elden Map Missing Block Bases
 - **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing block bases that Save Editor has
 - **Missing blocks**: 62000 (map fragments), 65000 (Crystal Tears), 72000 (DLC graces), 74000 (DLC dungeon graces), 78000 (grace guidance)
 - **Action**: Sync BLOCK_BASES from ground_truth_offsets.json to Elden Map
-- **Progress** (v0.15.0): WASM unified flag routing now includes all block bases — elden-map can use WASM `get_flag_offset()` instead of maintaining separate lookup tables
+- ~~**Progress** (v0.15.0): elden-map can use WASM `get_flag_offset()` instead of
+  maintaining separate lookup tables~~ **RETRACTED 2026-07-20.** That advice points at
+  the disproven path above. `get_flag_offset()` returns a static offset, and the project
+  has since established that every family's position floats per save. Do not follow it.
 - **Progress** (v0.16.1): Block bases corrected — old bases were false positives calibrated against GaItemData section. 61000 removed (disproven). New blocks added: 66000, 69000, 91000, 92000
 
 ---
