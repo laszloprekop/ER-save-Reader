@@ -257,7 +257,6 @@ impl App {
     fn get_discovered_regions(&self) -> std::collections::HashSet<String> {
         use crate::db::graces::maps::GRACES;
         use crate::db::map_name::map_name::MAP_NAME;
-        use crate::db::pickup_flags::is_flag_set;
 
         let mut regions = std::collections::HashSet::new();
 
@@ -278,8 +277,14 @@ impl App {
         };
 
         for (_grace, (map_name, flag_id, _name)) in graces.iter() {
-            // Check if this grace is discovered
-            if is_flag_set(event_flags, *flag_id) {
+            // Grace family cut over to per-save resolution (ADR-0006, 2026-07-20).
+            // Unresolved reads as "not discovered" HERE specifically because this
+            // builds a region filter: an unresolved save should offer no regions
+            // rather than every region. The tri-state itself is preserved in the
+            // grace table, which is where a user reads state.
+            if wasm_event_flags::is_world_state_flag_set(event_flags, *flag_id)
+                .unwrap_or(false)
+            {
                 // Get the region name string
                 if let Some(region_str) = map_names.get(map_name) {
                     regions.insert(region_str.to_string());

@@ -37,8 +37,11 @@ fn test_ground_truth_exists() {
 /// pinned digest in the same commit that records the cutover.
 #[test]
 fn test_ground_truth_is_frozen() {
+    // Re-pinned 2026-07-20 for the grace family cutover (ADR-0006). The only
+    // legitimate reason to change this digest: recording a family's cutover in
+    // metadata.frozen.cutover_state, in the same commit as the cutover itself.
     const FROZEN_SHA256: &str =
-        "5b2256d122b6475ac320e3d7beaf97dd1129b2393063d756eb066905474fd480";
+        "6f72654d9f19b7569a049c9238953647c5ca4535fa2b81451530372f19ea63f7";
 
     let path = Path::new("ground_truth_offsets.json");
     let bytes = fs::read(path).expect("Should be able to read ground_truth_offsets.json");

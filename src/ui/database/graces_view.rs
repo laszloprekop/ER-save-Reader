@@ -5,7 +5,6 @@
 use eframe::egui::{Ui, Color32, RichText};
 use crate::db::graces_data::{GRACES_DATA, GRACE_REGIONS};
 use crate::db::entity_relationships::{get_grace_relationships, RelationType};
-use crate::db::pickup_flags::is_flag_set;
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
@@ -53,10 +52,19 @@ struct GraceExportItem {
 
 /// Check if a grace is discovered using event flags.
 ///
-/// Grace discovery flags are in the 71XXX-76XXX range (block flags).
-/// Uses the verified block base offsets from ground_truth_offsets.json.
+/// CUT OVER 2026-07-20 (ADR-0006, migration step 4): graces are the first family
+/// to leave `ground_truth_offsets.json`. Its offsets were absolute positions
+/// measured on one save, but an append-only list ahead of the flag data shifts
+/// every family as the character plays — so those offsets were only ever valid
+/// for their own source layout. Positions are now resolved per save from the
+/// flag region itself (`world-state-b` family).
+///
+/// `None` means the origin could not be resolved and the state is UNKNOWN. It is
+/// deliberately not collapsed to `false`: rendering "not discovered" for a save
+/// we failed to parse is how `batch-validate` came to report 0/110 boss defeats
+/// on a fully progressed character. The table renders this as "-".
 fn is_grace_discovered(event_flag: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-    event_flags.map(|flags| is_flag_set(flags, event_flag))
+    wasm_event_flags::is_world_state_flag_set(event_flags?, event_flag)
 }
 
 /// Build detail panel sections for a grace, including relationships.

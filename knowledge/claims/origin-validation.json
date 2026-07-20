@@ -129,6 +129,29 @@
       "pass": true,
       "predicted_base": 227671,
       "save_slot": 0,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": true,
+          "flag": 71800,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76100,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -141,6 +164,29 @@
       "pass": true,
       "predicted_base": 222301,
       "save_slot": 1,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": true,
+          "flag": 71800,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76100,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -156,6 +202,29 @@
       "pass": false,
       "predicted_base": 222281,
       "save_slot": 2,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -171,6 +240,29 @@
       "pass": false,
       "predicted_base": 222277,
       "save_slot": 3,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -186,6 +278,29 @@
       "pass": false,
       "predicted_base": 222269,
       "save_slot": 4,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -198,6 +313,29 @@
       "pass": true,
       "predicted_base": 227671,
       "save_slot": 0,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": true,
+          "flag": 71800,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76100,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -210,6 +348,29 @@
       "pass": true,
       "predicted_base": 222301,
       "save_slot": 1,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": true,
+          "flag": 71800,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76100,
+          "shipped": true
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -225,6 +386,29 @@
       "pass": false,
       "predicted_base": 222281,
       "save_slot": 2,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -240,6 +424,29 @@
       "pass": false,
       "predicted_base": 222277,
       "save_slot": 3,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     },
     {
@@ -255,6 +462,29 @@
       "pass": false,
       "predicted_base": 222269,
       "save_slot": 4,
+      "shipped_ef_path_agrees": true,
+      "shipped_ef_path_reads": [
+        {
+          "direct": false,
+          "flag": 71800,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 71801,
+          "shipped": true
+        },
+        {
+          "direct": false,
+          "flag": 76100,
+          "shipped": false
+        },
+        {
+          "direct": true,
+          "flag": 76101,
+          "shipped": true
+        }
+      ],
       "test": "backup_tutorial_anchors"
     }
   ],

@@ -2718,3 +2718,99 @@ pub fn family_base(slot_data: &[u8], family_constant: i64) -> i64 {
 pub fn find_ga_items_end_pub(slot_data: &[u8]) -> Option<usize> {
     find_ga_items_end(slot_data)
 }
+
+// ---------------------------------------------------------------------------
+// EF-relative origin resolution (for callers holding only the flag region)
+// ---------------------------------------------------------------------------
+//
+// The application parses saves into structs and keeps `event_flags.flags` — the
+// flag region — not raw slot bytes. The append-only list lives INSIDE that
+// region (~29.3k in), so the same scan works anchored on the region start, and
+// the app needs no access to the slot.
+//
+// This is self-correcting with respect to where the region actually begins:
+// every value is relative to the slice, so if the caller's region start is off
+// by N, the list end is found N earlier and the resolved base shifts back by the
+// same N — indexing into that same slice still lands on the right byte.
+//
+// Verified 62/62 against the pipeline's own measurements across probe points
+// EF+8,000 through EF+24,000 (docs/BACKLOG.md step 4b).
+
+/// Where to start scanning within the flag region. Must sit in the zero gap
+/// before the list; observed list ends are ~29,322-29,426 into the region.
+pub const EF_ORIGIN_PROBE_START: usize = 16_000;
+
+/// Plausible range for the list end measured from the flag region start.
+pub const EF_ORIGIN_MIN: usize = 20_000;
+pub const EF_ORIGIN_MAX: usize = 45_000;
+
+/// End of the append-only u32 list, relative to the flag region start.
+pub fn find_flag_list_end_in_ef(event_flags: &[u8]) -> Option<usize> {
+    let probe = EF_ORIGIN_PROBE_START;
+    if probe >= event_flags.len() {
+        return None;
+    }
+    let lead = event_flags[probe..]
+        .iter()
+        .take(ORIGIN_MIN_LEAD_ZEROS)
+        .take_while(|&&b| b == 0)
+        .count();
+    if lead < ORIGIN_MIN_LEAD_ZEROS {
+        return None;
+    }
+    let mut i = probe;
+    while i < event_flags.len() && event_flags[i] == 0 {
+        i += 1;
+    }
+    if i >= event_flags.len() {
+        return None;
+    }
+    let mut run = 0usize;
+    while i < event_flags.len() {
+        if event_flags[i] == 0 {
+            run += 1;
+            if run >= ORIGIN_ZERO_RUN {
+                let end = i + 1 - run;
+                return (EF_ORIGIN_MIN..=EF_ORIGIN_MAX).contains(&end).then_some(end);
+            }
+        } else {
+            run = 0;
+        }
+        i += 1;
+    }
+    None
+}
+
+/// Base of a flag family relative to the flag region start.
+pub fn resolve_family_base_in_ef(event_flags: &[u8], family_constant: i64) -> Option<usize> {
+    let list_end = find_flag_list_end_in_ef(event_flags)? as i64;
+    let base = list_end + family_constant;
+    if base < 0 || base as usize >= event_flags.len() {
+        return None;
+    }
+    Some(base as usize)
+}
+
+/// Is a world-state-b flag set? `None` means the origin could not be resolved —
+/// which is NOT the same as "not set" and must not be rendered as such.
+///
+/// Covers graces and world-state flags in [50000, 80000).
+pub fn is_world_state_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+    if !(50_000..80_000).contains(&flag_id) {
+        return None;
+    }
+    let base = resolve_family_base_in_ef(event_flags, FAMILY_WORLD_STATE_B)?;
+    let byte = base.checked_add(((flag_id - 50_000) / 8) as usize)?;
+    let bit = 7 - (flag_id % 8) as u8;
+    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+}
+
+/// WASM export: -1 unresolved, 0 clear, 1 set.
+#[wasm_bindgen]
+pub fn world_state_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
+    match is_world_state_flag_set(event_flags, flag_id) {
+        None => -1,
+        Some(false) => 0,
+        Some(true) => 1,
+    }
+}

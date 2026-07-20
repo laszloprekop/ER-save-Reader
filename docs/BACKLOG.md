@@ -465,6 +465,51 @@ Steps, in order:
    correctly refuses on the 128k fixtures because the bases lie at ~228k, i.e. the
    bounds check fired on the test author first.
 
+   **GRACE FAMILY CUT OVER 2026-07-20 — first family off the legacy store.**
+   Graces no longer read `ground_truth_offsets.json`. Positions resolve per save via
+   `wasm_event_flags::is_world_state_flag_set` (world-state-b, located from the
+   append-only list's end). `metadata.frozen.cutover_state.graces` records this and the
+   freeze digest was re-pinned in the same commit — the workflow the freeze test was
+   built for.
+
+   *Both grace read paths were cut over*, not just the visible one: the database view
+   (`src/ui/database/graces_view.rs`) and the view-model status used by the events view,
+   comparison and export (`src/vm/events.rs`). Leaving one on legacy offsets would have
+   had two screens disagree about the same grace. `src/main.rs`'s region filter also
+   moved, where unresolved deliberately means "offer no region" rather than "offer all".
+
+   *Unknown is now a first-class state.* `GraceStatus::Unreliable` / `Option<bool>::None`
+   render as "-", never as "not discovered". Collapsing unknown to false is how
+   `batch-validate` reported 0/110 boss defeats on a progressed character.
+
+   *Legacy compensation deleted, not just bypassed* (70 lines): `check_progression_gate`
+   overrode the byte with an inference ("prerequisite boss not defeated → report not
+   discovered") and `get_calibrated_grace_status` re-derived a base for "unreliable"
+   blocks. Both existed to suppress false positives from wrong offsets; against a
+   correctly resolved position the gate can only manufacture false NEGATIVES, hiding a
+   grace the player has. `PROGRESSION_GATES` is kept as prerequisite documentation.
+
+   *Verification.* Shipped EF-relative path agrees with the validated slot-absolute path
+   on 10/10 slot-checks across both backups. Conformance extended to 8 tests, including
+   that the two paths resolve the same absolute byte, and that an unresolvable read is
+   `None` rather than `Some(false)`. Aggregate smoke test matches the catalog's own
+   character descriptions:
+
+   | slot | character | graces discovered | catalog says |
+   |---|---|---|---|
+   | 0 | Confessor | 179 / 421 | mid-game progression |
+   | 1 | Wretch | 6 | "a few graces/pickups" |
+   | 2-4 | V1/V2/V3 | 2 each | "very little progression" |
+
+   Zero unknown on all five. **This also closes the 6 outstanding validation FAILs**:
+   V1/V2/V3 have exactly TWO graces, and they are 71801 and 76101 — so 71800/76100
+   reading clear is corroborated by the independent total, not merely consistent with it.
+   The tutorial-anchor expectation was wrong, as suspected; the model was not.
+
+   *Remaining families.* boss_defeats still needs a verified layout for non-dungeon
+   bosses. Pickups are now wiring rather than discovery: both pickup family layouts are
+   verified and the origin resolves.
+
    *Still not derived.* The constants are measured, and the scan is bounded-structural
    rather than a parse of the enclosing section. A full parse would need the section
    layout around grace_rel 29k, which nothing in the corpus documents yet.

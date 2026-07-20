@@ -656,6 +656,32 @@ const SYNC_WINDOW: usize = 64;
 /// Largest insertion the shift search will follow.
 const MAX_SHIFT: usize = 4096;
 
+/// The reference scan, re-anchored: skip leading zeros from `probe`, then take
+/// the first ORIGIN_ZERO_RUN zero run. Used only to test whether the EF slice is
+/// a usable anchor; the shipped resolver lives in the reference implementation.
+fn scan_list_end(win: &[u8], probe: usize) -> Option<usize> {
+    let mut i = probe;
+    while i < win.len() && win[i] == 0 {
+        i += 1;
+    }
+    if i >= win.len() {
+        return None;
+    }
+    let mut run = 0usize;
+    while i < win.len() {
+        if win[i] == 0 {
+            run += 1;
+            if run >= wasm_event_flags::ORIGIN_ZERO_RUN {
+                return Some(i + 1 - run);
+            }
+        } else {
+            run = 0;
+        }
+        i += 1;
+    }
+    None
+}
+
 /// Non-zero bytes a sync window must contain before an alignment counts.
 /// The flag region is mostly zeros, and a zero run matches at EVERY shift —
 /// without this the search reports shift 0 straight through the bitmap and
@@ -866,6 +892,30 @@ pub fn cmd_list_hunt(_args: &[String]) -> Result<(), String> {
         .get(target)
         .cloned()
         .unwrap_or_default();
+
+    // ---- can the list be found from the EF slice alone? --------------------
+    // The app holds event_flags.flags (a struct-parsed EF region), not raw slot
+    // bytes. If the same scan works anchored on the EF start, the grace cutover
+    // needs no replumbing of every call site.
+    println!("\n=== EF-slice test: can the list end be found without raw slot bytes?");
+    for probe in [8_000usize, 12_000, 16_000, 20_000, 24_000] {
+        let (mut agree, mut disagree, mut none) = (0usize, 0usize, 0usize);
+        for f in &m.files {
+            let (Some(le), false) = (f.list_end, f.grace_window.is_empty()) else {
+                continue;
+            };
+            let want = f.ga_end + le as i64 - f.grace; // list end, EF-relative
+            match scan_list_end(&f.grace_window, probe) {
+                Some(got) if got as i64 == want => agree += 1,
+                Some(_) => disagree += 1,
+                None => none += 1,
+            }
+        }
+        println!(
+            "    probe EF+{:<6} agree={:<3} disagree={:<3} unresolved={}",
+            probe, agree, disagree, none
+        );
+    }
 
     let out = json!({
         "schema": "list-hunt/1",
@@ -1153,6 +1203,58 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
                      with these graces being genuinely untouched, not a bad base"
                 );
             }
+            // End-to-end: the SHIPPED read path (EF-relative, what graces_view
+            // calls) must agree flag-for-flag with the validated slot-absolute
+            // path. Disagreement here means the app and the evidence disagree.
+            let det = wasm_event_flags::detect_event_flags_offset_impl(slot);
+            let mut shipped = Vec::new();
+            let mut shipped_agrees = true;
+            if det.offset > 0 {
+                let ef = &slot[det.offset..];
+                for &flag in &anchors {
+                    let via_shipped = wasm_event_flags::is_world_state_flag_set(ef, flag as u32);
+                    let via_direct = family_rel("world-state-b", flag, &alloc)
+                        .ok()
+                        .and_then(|rel| slot.get((base + rel as i64) as usize))
+                        .map(|b| (b >> bit_of(flag)) & 1 == 1);
+                    if via_shipped != via_direct {
+                        shipped_agrees = false;
+                    }
+                    shipped.push(json!({
+                        "flag": flag, "shipped": via_shipped, "direct": via_direct
+                    }));
+                }
+            } else {
+                shipped_agrees = false;
+            }
+            // Aggregate smoke test: a systematic error can still satisfy a
+            // handful of anchors, but it cannot make a whole grace database look
+            // plausible. Mid-game characters should show many; minimal ones few.
+            if det.offset > 0 {
+                let ef = &slot[det.offset..];
+                let (mut yes, mut no, mut unknown) = (0usize, 0usize, 0usize);
+                for (flag, _) in crate::db::graces_data::GRACES_DATA.iter() {
+                    match wasm_event_flags::is_world_state_flag_set(ef, *flag) {
+                        Some(true) => yes += 1,
+                        Some(false) => no += 1,
+                        None => unknown += 1,
+                    }
+                }
+                println!(
+                    "        graces: {} discovered / {} not / {} unknown (of {})",
+                    yes,
+                    no,
+                    unknown,
+                    crate::db::graces_data::GRACES_DATA.len()
+                );
+            }
+            println!(
+                "        shipped EF-relative read agrees with validated path: {}",
+                if shipped_agrees { "YES" } else { "NO" }
+            );
+            if !shipped_agrees {
+                fail += 1;
+            }
             println!(
                 "    slot {}  predicted base {:>9}  {}/{} tutorial anchors SET  {}",
                 save_slot,
@@ -1172,6 +1274,8 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
                 "anchors_total": anchors.len(), "pass": bad.is_empty(),
                 "clear_anchors": bad,
                 "alternative_base_setting_all_anchors": rescue,
+                "shipped_ef_path_agrees": shipped_agrees,
+                "shipped_ef_path_reads": shipped,
             }));
         }
     }

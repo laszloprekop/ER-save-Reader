@@ -132,3 +132,46 @@ fn resolution_is_deterministic() {
         assert_eq!(find_flag_list_end(&data), find_flag_list_end(&data), "{}", name);
     }
 }
+
+#[test]
+fn ef_relative_path_agrees_with_slot_absolute_path() {
+    // The application holds only the flag region, so it uses the EF-anchored
+    // resolver. That must locate the SAME list, or the two code paths would
+    // disagree about where every family lives — the exact class of bug this
+    // work exists to remove.
+    use wasm_event_flags::{detect_event_flags_offset_impl, find_flag_list_end_in_ef};
+    for (name, ga_end, list_end) in GOLDEN {
+        let data = load(name);
+        let det = detect_event_flags_offset_impl(&data);
+        assert!(det.offset > 0, "{}: no EF offset", name);
+
+        let ef = &data[det.offset..];
+        let via_ef = find_flag_list_end_in_ef(ef).unwrap_or_else(|| panic!("{}", name));
+
+        // Both describe the same absolute byte.
+        let abs_from_slot = ga_end + list_end;
+        let abs_from_ef = det.offset + via_ef;
+        assert_eq!(
+            abs_from_ef, abs_from_slot,
+            "{}: EF path resolved {} but slot path resolved {}",
+            name, abs_from_ef, abs_from_slot
+        );
+    }
+}
+
+#[test]
+fn world_state_reads_are_unknown_not_false_when_unresolvable() {
+    // A truncated region cannot place the base. The read must report UNKNOWN.
+    // Collapsing that to "not set" is how a fully progressed character came to
+    // display 0/110 boss defeats.
+    use wasm_event_flags::is_world_state_flag_set;
+    assert_eq!(is_world_state_flag_set(&[], 76100), None, "empty");
+    assert_eq!(
+        is_world_state_flag_set(&vec![0u8; 40_000], 76100),
+        None,
+        "region too short to contain the base: must be None, never Some(false)"
+    );
+    // Out-of-family ids are not this family's business.
+    assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 1_042_370_800), None);
+    assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 30_020_800), None);
+}

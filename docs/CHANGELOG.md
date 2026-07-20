@@ -4,6 +4,52 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.26.0 - Grace family cutover: first family off the frozen legacy store
+
+### Features
+- **Graces resolve per save** (ADR-0006, migration step 4). `is_world_state_flag_set`
+  in the reference implementation locates the world-state-b family from the flag
+  region itself; `ground_truth_offsets.json` is no longer consulted for graces. Its
+  71xxx/76xxx entries are marked SUPERSEDED in `metadata.frozen.cutover_state`, and
+  the freeze digest was re-pinned in the same commit.
+- **EF-relative resolver API**: `find_flag_list_end_in_ef`, `resolve_family_base_in_ef`,
+  `is_world_state_flag_set`, plus WASM export `world_state_flag_state`. The app holds a
+  struct-parsed flag region, not raw slot bytes, and the append-only list lives inside
+  that region — so the same scan works anchored on it. Verified 62/62 against the
+  pipeline's measurements across probe points EF+8,000 through EF+24,000.
+- **Both grace read paths cut over**: the database view and the view-model status used
+  by the events view, comparison and export. The region filter in `main.rs` moved too.
+
+### Key Findings
+- **The EF-anchored resolver is self-correcting** with respect to where the flag region
+  is believed to start: every value is relative to the slice, so an error of N in the
+  region start moves the located list end by -N and cancels on indexing.
+- **Aggregate results match the evidence catalog's own character descriptions**:
+  Confessor 179/421 graces, Wretch 6, V1/V2/V3 2 each, zero unknown.
+- **The 6 outstanding origin-validation FAILs are resolved**: V1/V2/V3 have exactly two
+  graces, and they are 71801 and 76101. The tutorial-anchor expectation was wrong; the
+  model was right. Corroborated by the independent total, not just consistent with it.
+
+### Removed
+- `check_progression_gate` and `get_calibrated_grace_status` (70 lines). Both existed to
+  compensate for legacy absolute offsets — one overrode the byte with an inference about
+  prerequisite bosses, the other re-derived a base for "unreliable" blocks. Against a
+  correctly resolved position the progression gate can only produce false NEGATIVES,
+  hiding graces the player has. `PROGRESSION_GATES` retained as documentation.
+
+### Files Modified
+- crates/wasm-event-flags/src/lib.rs: EF-relative resolver + world-state read
+- crates/wasm-event-flags/tests/origin_conformance.rs: 8 tests (path agreement,
+  unknown-not-false)
+- src/ui/database/graces_view.rs, src/vm/events.rs, src/main.rs: cutover
+- src/knowledge/family_distances.rs: EF-slice anchor test, shipped-path and aggregate
+  verification in validate-origin
+- ground_truth_offsets.json: cutover_state.graces
+- tests/regression_suite.rs: freeze digest re-pinned for the cutover
+- docs/BACKLOG.md, docs/CHANGELOG.md, Cargo.toml: 0.26.0
+
+---
+
 ## v0.25.0 - Flag family origin: single-save resolution via the append-only list
 
 ### Features

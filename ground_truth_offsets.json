@@ -16,9 +16,9 @@
       "why_still_wired_in": "Per ADR-0006 the applications keep reading this store family-by-family until each family reaches parity in the claims store, so the UI stays alive mid-migration. build.rs codegens src/generated/ground_truth.rs from it.",
       "convention_warning": "Offsets here are ABSOLUTE per-flag positions measured against a single save's anchor. The claims store established that every flag family sits at a base that floats per save (and can drift between captures within one session). An offset here is therefore only valid for its own family in its own source save's layout. Offsets from different verification eras must not be combined in one matched filter.",
       "cutover_state": {
-        "graces": "not cut over - blocked on a single-save world-state-b base detector (see BACKLOG step 4b)",
-        "boss_defeats": "not cut over",
-        "pickups": "not cut over",
+        "graces": "CUT OVER 2026-07-20 (first family, per ADR-0006). src/ui/database/graces_view.rs no longer reads this store; grace state resolves per save via wasm_event_flags::is_world_state_flag_set (world-state-b family, positioned from the append-only list's end). The 71xxx/76xxx entries below are SUPERSEDED - they are absolute positions from one save's layout and are wrong for any save whose list has grown. Unknown now renders as unknown, never as 'not discovered'.",
+        "boss_defeats": "not cut over - needs a verified family layout for boss flags; legacy-dungeon covers dungeon bosses only",
+        "pickups": "not cut over - tile-pickup-row-id and legacy-dungeon-pickup layouts are verified and the origin resolves, so this is now wiring rather than discovery",
         "note": "Claims store supersedes this file for the families it covers (world-state-b, tile-open-world, tile-pickup-row-id, legacy-dungeon, legacy-dungeon-pickup) at the LAYOUT level. Check its tombstones before trusting any entry here."
       },
       "known_bad_entries": {
