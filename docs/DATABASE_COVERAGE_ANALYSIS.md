@@ -110,6 +110,22 @@ The ER-save-Editor has **40 database modules** cataloging **~22,184 game data en
 | NPCs | 30 | ~500 | **6%** |
 | Shop Items | 1,372 + 1,277 | ~1,400 | **98%** |
 
+### Read Coverage (added 2026-07-20)
+
+Having a row in the database is not the same as being able to READ its flag. Since the
+family cutovers (ADR-0006) an unreadable entry renders as Unknown rather than as "not
+found", so these gaps are now visible instead of silently counted as negatives:
+
+| Category | Resolvable | Unknown | Why |
+|----------|-----------|---------|-----|
+| Graces | 421 / 421 | 0 | — |
+| Bosses | 176 / 205 | 29 | 26 DLC tiles outside the m60 grid; 2 doubly-allocated maps (m34_12, m40_00); 1 disputed id (Night's Cavalry 1248550800) |
+| Dungeon Pickups | 2,072 / 2,108 | 36 | 32 in the two doubly-allocated maps; 2 under a bogus prefix 9901; 2 whose localId < 7000 (so not pickups at all) |
+| World Pickups | 4,277 / 4,809 | 532 | tile ids outside the open-world grid — same DLC/underground cause as the boss gap |
+
+The DLC gap is one issue, not four: DLC maps (m61 tiles, `2xxxxxxxxx` ids) have no
+verified layout yet. That is the single highest-value remaining discovery for coverage.
+
 ### Still Missing
 
 | Category | Game Param | Estimated Rows | Status |

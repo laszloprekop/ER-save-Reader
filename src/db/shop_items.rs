@@ -6891,7 +6891,7 @@ pub static SHOP_ITEMS: Lazy<HashMap<u32, ShopItem>> = Lazy::new(|| {
         item_name: "Borealis's Mist",
         price: 2,
         stock_flag: 290550,
-        release_flag: 1254560800,
+        release_flag: 1054560800,
         quantity: 1,
     });
     map.insert(101956, ShopItem {

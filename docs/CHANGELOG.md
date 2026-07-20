@@ -4,6 +4,91 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.29.0 - Legacy-dungeon cutover; boss_defeats leaves the frozen store
+
+### Features
+- **`FAMILY_LEGACY_DUNGEON` = 1,500,567** — the last family without an origin constant.
+  Measured from the two attributed boss-kill pairs that pinned it (30020800 b24-b25,
+  30030800 b32-b33), spread 0 across a drift step.
+- **`er-save-editor knowledge family-constants`** (`src/knowledge/family_distances.rs`,
+  emits `knowledge/claims/family-constants.json`). Derives each family's constant from
+  the attributed flips that pinned its base:
+  `constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)`. It reproduces
+  all four already-shipped constants exactly — a second derivation chain agreeing with
+  the first — and reaches the two families `list-hunt` structurally cannot see.
+- **Boss defeats cut over** (ADR-0006, migration step 4). `src/ui/database/bosses_view.rs`
+  no longer reads `ground_truth_offsets.json`. Both families resolve per save and are
+  routed explicitly: `is_tile_world_flag_set` for 10-digit open-world bosses,
+  `is_dungeon_flag_set` for 8-digit legacy-map bosses.
+- **Dungeon pickups cut over.** The table in `src/ui/events.rs` used `DUNGEON_PICKUP_BASES`
+  plus each pickup's `dungeon_area`/`section` fields; it now calls `is_dungeon_pickup_set`
+  and takes the position from the flag id alone, so those fields are display data only and
+  can no longer disagree with the flag they label.
+- **`LEGACY_ALLOC_SLOTS`** (99 maps) in the reference implementation, copied from the
+  game's own eventflagalloclists, with a conformance test that re-reads the source file
+  and fails on drift. Replaces the disproven "+3375 per area" stride table for these
+  reads. Layout: `alloc_slot(map) * 1125 + localId / 8`.
+
+### Key Findings
+- **An evidence-catalog note was wrong, and the corrected read caught it.** The catalog
+  said the 2026-01-11 backup slot 0 "predates the Margit/Godrick/Radahn kills - zeros at
+  their flag bytes are TRUE negatives". Read at the resolved base, Margit and Godrick ARE
+  defeated; only Radahn is not. The 2026-07-05 note measured zeros at the pre-migration
+  offsets. Corroborated by the adjacent found_flags (10000801, 10000851), the m10_00
+  block carrying 96 non-zero bytes of 1125 where slots 1 and 4 carry 5 and 0, and
+  `DATA-SOURCES.md`'s own character description.
+- **The Wretch names its own boss.** A character that contributed nothing to deriving the
+  constant reports exactly one defeated boss - Soldier of Godrick - out of 205
+  candidates, matching the catalog's wording verbatim.
+- **m18's old disproof retired.** Stranded Graveyard was removed from the legacy base
+  table as DISPROVEN (its span read all zeros) despite every character killing Soldier of
+  Godrick in the tutorial. Via alloc slot 35 and a resolved origin it now reads correctly.
+  The layout was right; only the base was wrong - the same lesson as 337,375.
+- **The two legacy families sit 125 bytes apart**, not the "~129" in the pipeline's own
+  family note. That number was a cross-file subtraction of bases measured at different
+  list lengths; the list-end-relative distance is the invariant one.
+- **Three boss ids were unreachable in the database** - a "12" prefix where the
+  open-world tile prefix is "10", so they addressed tiles outside the m60 grid and could
+  never read as defeated, Starscourge Radahn among them.
+
+### Fixes
+- `src/db/bosses_data.rs`: Radahn 1252380800 -> 1052380800 and Borealis 1254560800 ->
+  1054560800, with cross-references updated in `entity_relationships_data.rs`,
+  `shop_items.rs` and `merchants_data.rs`. Each row contradicted itself (its own `id` and
+  `area_no: 60` gave the "10" form); the game's openmap alloclist allocates m60_52_38 and
+  m60_54_56; and for Borealis the CE-era dump independently lists 1054560800.
+  Night's Cavalry 1248550800 is deliberately NOT corrected - its `id` agrees with the
+  "12" form and the CE dump lists it far from the tile region, so it reads Unknown.
+
+### Verification
+- `knowledge validate-origin` part C: 28 verified flags (up from 23) read clear->set
+  through the SHIPPED functions, with zero families skipped for want of a read function.
+- `origin_conformance.rs` extended to 11 tests: the legacy alloc table must still equal
+  its source file, the two legacy families must stay 125 bytes apart, and each dungeon
+  read must refuse the other family's ids and every open-world tile id.
+- `knowledge run` re-run: claims byte-identical apart from the recorded catalog digest.
+- Live counts match the documented character designs - Confessor 51 bosses / 382 dungeon
+  pickups, Wretch 1 / 0, V1-V3 0 / 0.
+- Recorded, not hand-waved: 29 of 205 bosses and 36 of 2,108 dungeon pickups read
+  Unknown, itemised by cause in `docs/DATABASE_COVERAGE_ANALYSIS.md`.
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: FAMILY_LEGACY_DUNGEON, dungeon read functions,
+  LEGACY_ALLOC_SLOTS, WASM exports
+- `crates/wasm-event-flags/tests/origin_conformance.rs`: 3 new conformance tests
+- `src/knowledge/family_distances.rs`: `family-constants` command; dungeon families in
+  ORIGIN_CONSTANTS and part C
+- `src/knowledge/dump.rs`: per-slot boss, demigod and dungeon-pickup counts
+- `src/ui/database/bosses_view.rs`, `src/ui/events.rs`: cutovers
+- `src/db/bosses_data.rs` + 3 cross-reference files: boss id corrections
+- `knowledge/evidence-catalog.json`, `CLAUDE.md`: slot 0 note corrected
+- `ground_truth_offsets.json`: cutover_state for boss_defeats and pickups
+- `tests/regression_suite.rs`: freeze digest re-pinned
+- `docs/`: BACKLOG, SAVE_FILE_GROUND_TRUTH, DATABASE_COVERAGE_ANALYSIS, CHANGELOG
+- `Cargo.toml`: bumped to 0.29.0
+
+---
+
 ## v0.28.0 - World pickup cutover; explicit tile family API; shared vocabulary
 
 ### Features

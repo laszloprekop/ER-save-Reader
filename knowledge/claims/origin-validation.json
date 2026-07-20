@@ -1,14 +1,16 @@
 {
   "caveat": "the origin is a bounded structural scan, not a full parse: the list carries no length prefix. The resolver checks its assumptions and returns nothing rather than a plausible wrong answer; constants are measured, not derived.",
   "constants": {
+    "legacy-dungeon": 1500567,
     "legacy-dungeon-pickup": 1500442,
+    "tile-open-world": 454067,
     "tile-pickup-row-id": 454567,
     "world-state-b": 117192
   },
   "fail": 6,
   "generated_by": "er-save-editor knowledge validate-origin",
   "model": "family_base = ga_end + find_list_end(slot) + constant(family)",
-  "pass": 36,
+  "pass": 41,
   "question": "Do the list-end origin constants hold on characters that were NOT used to derive them?",
   "results": [
     {

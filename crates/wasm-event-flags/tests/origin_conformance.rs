@@ -12,9 +12,10 @@
 use std::fs;
 use std::path::Path;
 use wasm_event_flags::{
-    find_flag_list_end, find_ga_items_end_pub as ga_items_end, resolve_family_base,
-    FAMILY_LEGACY_DUNGEON_PICKUP, FAMILY_TILE_PICKUP_ROW_ID, FAMILY_WORLD_STATE_B,
-    ORIGIN_MAX_GAP, ORIGIN_MIN_GAP,
+    find_flag_list_end, find_ga_items_end_pub as ga_items_end, legacy_alloc_slot,
+    resolve_family_base, FAMILY_LEGACY_DUNGEON, FAMILY_LEGACY_DUNGEON_PICKUP,
+    FAMILY_TILE_PICKUP_ROW_ID, FAMILY_WORLD_STATE_B, LEGACY_ALLOC_AMBIGUOUS, ORIGIN_MAX_GAP,
+    ORIGIN_MIN_GAP,
 };
 
 /// (fixture, ga_end, list_end offset from ga_end)
@@ -174,4 +175,95 @@ fn world_state_reads_are_unknown_not_false_when_unresolvable() {
     // Out-of-family ids are not this family's business.
     assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 1_042_370_800), None);
     assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 30_020_800), None);
+}
+
+#[test]
+fn legacy_dungeon_constant_matches_its_measured_distance_from_the_pickups() {
+    // Both legacy families were pinned by attributed flips in the SAME two
+    // catacombs (knowledge/claims/family-constants.json). Their separation is
+    // the only cross-check the constant has, so it is pinned here: an edit to
+    // either constant alone moves one family into the other's region.
+    assert_eq!(FAMILY_LEGACY_DUNGEON - FAMILY_LEGACY_DUNGEON_PICKUP, 125);
+}
+
+#[test]
+fn legacy_alloc_table_matches_the_game_alloclists() {
+    // The table is a copy of the game's own eventflagalloclists. A copy that
+    // drifts from its source is worse than no copy: it reads a wrong bit
+    // 1125 bytes per slot away, silently. So the source is re-read here.
+    let src = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../knowledge/game/eventflag-alloclists.json");
+    let raw = fs::read_to_string(&src).unwrap_or_else(|e| panic!("{}: {}", src.display(), e));
+    let json: serde_json::Value = serde_json::from_str(&raw).expect("alloclists json");
+
+    // prefix -> every slot the game allocates for it
+    let mut want: std::collections::BTreeMap<u32, std::collections::BTreeSet<u16>> =
+        Default::default();
+    for list in ["legacymap", "legacymap_dlc02"] {
+        for e in json["lists"][list]["entries"].as_array().expect("entries") {
+            let map = e["map"].as_str().expect("map");
+            let prefix: u32 = map[1..3].parse::<u32>().unwrap() * 100 + map[4..6].parse::<u32>().unwrap();
+            want.entry(prefix)
+                .or_default()
+                .insert(e["slot"].as_u64().unwrap() as u16);
+        }
+    }
+
+    for (prefix, slots) in &want {
+        match slots.len() {
+            1 => assert_eq!(
+                legacy_alloc_slot(*prefix),
+                slots.iter().next().copied(),
+                "prefix {} disagrees with the alloclists",
+                prefix
+            ),
+            _ => assert_eq!(
+                legacy_alloc_slot(*prefix),
+                None,
+                "prefix {} is allocated {:?}; an ambiguous map must resolve to Unknown",
+                prefix,
+                slots
+            ),
+        }
+    }
+    // and nothing invented: the table has no prefix the game does not allocate
+    for p in 0u32..10_000 {
+        if legacy_alloc_slot(p).is_some() {
+            assert!(want.contains_key(&p), "prefix {} is not in the alloclists", p);
+        }
+    }
+    // the ambiguous set is declared, not merely absent
+    for (prefix, slots) in LEGACY_ALLOC_AMBIGUOUS {
+        assert_eq!(
+            want.get(&(prefix as u32)).map(|s| s.iter().copied().collect::<Vec<_>>()),
+            Some(slots.to_vec()),
+            "declared ambiguity for {} does not match the alloclists",
+            prefix
+        );
+    }
+}
+
+#[test]
+fn dungeon_reads_split_by_family_and_refuse_foreign_ids() {
+    use wasm_event_flags::{is_dungeon_flag_set, is_dungeon_pickup_set, legacy_dungeon_rel_byte};
+
+    // The layout, on the two flags that established the families.
+    // m30_02 is alloc slot 82: 82*1125 = 92,250.
+    assert_eq!(legacy_dungeon_rel_byte(30_020_800), Some(92_350)); // + 800/8
+    assert_eq!(legacy_dungeon_rel_byte(30_027_000), Some(93_125)); // + 7000/8
+
+    // Each function refuses the other family's ids rather than reading 125
+    // bytes into the wrong region.
+    let big = vec![0u8; 300_000];
+    assert_eq!(is_dungeon_flag_set(&big, 30_027_000), None, "pickup id to event reader");
+    assert_eq!(is_dungeon_pickup_set(&big, 30_020_800), None, "event id to pickup reader");
+
+    // Open-world tile ids belong to the tile families; their six-digit prefix
+    // must not be truncated into a legacy slot lookup.
+    assert_eq!(legacy_dungeon_rel_byte(1_042_370_800), None);
+    assert_eq!(is_dungeon_flag_set(&big, 1_042_370_800), None);
+
+    // Unknown and ambiguous maps are Unknown, never "not set".
+    assert_eq!(legacy_dungeon_rel_byte(34_120_800), None, "m34_12 is allocated twice");
+    assert_eq!(is_dungeon_flag_set(&[], 30_020_800), None, "no origin in an empty region");
 }

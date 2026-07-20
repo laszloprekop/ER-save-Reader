@@ -2893,3 +2893,143 @@ pub fn tile_pickup_state(event_flags: &[u8], id: u32) -> i32 {
         Some(true) => 1,
     }
 }
+
+// ---------------------------------------------------------------------------
+// Legacy-dungeon flag reads
+// ---------------------------------------------------------------------------
+//
+// Legacy maps (castles, catacombs, caves, tunnels — anything not an open-world
+// tile) address flags by ALLOCATION SLOT, not by map id:
+//
+//     byte = alloc_slot(map) * 1125 + localId / 8
+//
+// and, as with tiles, the flags split into two families in separate regions:
+//
+//   legacy-dungeon         localId <  7000  — boss kills, world state, NPC state
+//   legacy-dungeon-pickup  localId >= 7000  — item pickups
+//
+// The slots come from the GAME's own eventflagalloclists, not from the
+// "+3375 per area" stride assumption that produced `get_dungeon_general_bases()`
+// above — that table has entries disproven by every save on this machine
+// (see its audit comment). Nothing here derives from it.
+
+/// Bytes allocated to one legacy map's flags.
+const LEGACY_SLOT_STRIDE: u64 = 1125;
+
+/// Distance from the list end to the legacy-dungeon (event) family's base.
+///
+/// Measured by `knowledge family-constants` from the two attributed boss-kill
+/// pairs that pinned this family: Erdtree Burial Watchdog (30020800, b24-b25)
+/// and the m30_03 catacombs boss (30030800, b32-b33). Both give exactly this
+/// value, and they sit at different list lengths — the second capture's list has
+/// grown — so the agreement survives a drift step rather than restating one
+/// measurement twice.
+///
+/// The derivation is thin — two files, both catacombs (alloc slots 82 and 83) —
+/// but it holds away from those slots and on another character. The Wretch
+/// (backup slot 1, never used to derive anything here) reads exactly ONE legacy
+/// boss defeated across all 102: 18000850, Soldier of Godrick, the tutorial
+/// enemy, at alloc slot 35. That is what the evidence catalog says about that
+/// character, and slot 35 is 47 allocations away from where the constant was
+/// measured, so it exercises the 1125 stride rather than just the base.
+///
+/// It also retires an old negative result: m18's flags were called DISPROVEN
+/// because "all five slots read zero" at base 43,487. They read zero because
+/// 43,487 was the wrong convention, not because m18 is unallocated.
+pub const FAMILY_LEGACY_DUNGEON: i64 = 1_500_567;
+
+/// Legacy-map event flags: boss kills, world state, NPC state. NOT pickups.
+///
+/// `None` means unresolved — an unknown or ambiguously allocated map, an
+/// out-of-family id, or an origin that could not be pinned. It is not "clear".
+pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+    if flag_id % 10_000 >= 7_000 {
+        return None;
+    }
+    dungeon_read(event_flags, flag_id, FAMILY_LEGACY_DUNGEON)
+}
+
+/// Legacy-map pickups (localId >= 7000), in their own region below the event
+/// flags. Takes the pickup flag id, not an ItemLotParam row id.
+pub fn is_dungeon_pickup_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+    if flag_id % 10_000 < 7_000 {
+        return None;
+    }
+    dungeon_read(event_flags, flag_id, FAMILY_LEGACY_DUNGEON_PICKUP)
+}
+
+fn dungeon_read(event_flags: &[u8], flag_id: u32, family: i64) -> Option<bool> {
+    let rel = legacy_dungeon_rel_byte(flag_id)?;
+    let base = resolve_family_base_in_ef(event_flags, family)?;
+    let byte = base.checked_add(rel as usize)?;
+    let bit = 7 - (flag_id % 8) as u8;
+    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+}
+
+/// Byte offset of a legacy-map flag from its family's base.
+pub fn legacy_dungeon_rel_byte(flag_id: u32) -> Option<u64> {
+    let slot = legacy_alloc_slot(flag_id / 10_000)?;
+    Some(slot as u64 * LEGACY_SLOT_STRIDE + (flag_id % 10_000) as u64 / 8)
+}
+
+/// Allocation slot for a legacy map, keyed by the flag prefix AABB
+/// (m30_02_00_00 -> 3002). `None` for anything with no allocation — including
+/// every 10-digit open-world tile id, whose prefix is six digits and belongs to
+/// the tile families instead.
+pub fn legacy_alloc_slot(map_prefix: u32) -> Option<u16> {
+    let key = u16::try_from(map_prefix).ok()?;
+    LEGACY_ALLOC_SLOTS
+        .binary_search_by_key(&key, |&(m, _)| m)
+        .ok()
+        .map(|i| LEGACY_ALLOC_SLOTS[i].1)
+}
+
+/// Maps the game allocates TWICE. Which allocation the flag bits actually live
+/// in is not established by anything in the evidence, and picking one would read
+/// a plausible wrong bit ~92KB away, so both resolve to `None` (Unknown).
+/// Kept as data rather than a comment so the conformance test can assert it.
+pub const LEGACY_ALLOC_AMBIGUOUS: [(u16, [u16; 2]); 2] = [(3412, [62, 144]), (4000, [70, 170])];
+
+/// map prefix AABB -> allocation slot, from the game's own eventflagalloclists
+/// (regulation/exe ProductVersion 2.6.2 = 1.16.x, evidence corpus
+/// `game-raw-1162`, decompressed to knowledge/game/eventflag-alloclists.json).
+/// Sorted by prefix for binary search; the two ambiguous maps above are absent
+/// by design. `tests/origin_conformance.rs` asserts this table still equals its
+/// source file.
+#[rustfmt::skip]
+const LEGACY_ALLOC_SLOTS: [(u16, u16); 99] = [
+    (1000, 0), (1001, 1), (1100, 4), (1105, 5), (1110, 6), (1200, 10), (1201, 11), (1202, 12),
+    (1203, 13), (1204, 14), (1205, 15), (1206, 16), (1207, 17), (1208, 18), (1209, 19),
+    (1300, 20), (1400, 23), (1500, 26), (1600, 29), (1700, 32), (1800, 35), (1900, 38),
+    (2000, 150), (2001, 151), (2100, 154), (2101, 155), (2102, 156), (2200, 158), (2500, 160),
+    (2800, 166), (3000, 80), (3001, 81), (3002, 82), (3003, 83), (3004, 84), (3005, 85),
+    (3006, 86), (3007, 87), (3008, 88), (3009, 89), (3010, 90), (3011, 91), (3012, 92),
+    (3013, 93), (3014, 94), (3015, 95), (3016, 96), (3017, 97), (3018, 98), (3019, 99),
+    (3020, 100), (3100, 110), (3101, 111), (3102, 112), (3103, 113), (3104, 114), (3105, 115),
+    (3106, 116), (3107, 117), (3108, 118), (3109, 119), (3110, 120), (3111, 121), (3112, 122),
+    (3113, 123), (3114, 124), (3115, 125), (3117, 126), (3118, 127), (3119, 128), (3120, 129),
+    (3121, 130), (3122, 131), (3200, 140), (3201, 141), (3202, 142), (3204, 143), (3205, 145),
+    (3207, 146), (3208, 147), (3211, 148), (3410, 60), (3411, 61), (3413, 63), (3414, 64),
+    (3415, 65), (3500, 41), (3920, 44), (4001, 171), (4002, 172), (4100, 175), (4101, 176),
+    (4102, 177), (4200, 180), (4201, 181), (4202, 182), (4203, 183), (4300, 185), (4301, 186),
+];
+
+/// WASM export: legacy-map event flag. -1 unresolved, 0 clear, 1 set.
+#[wasm_bindgen]
+pub fn dungeon_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
+    match is_dungeon_flag_set(event_flags, flag_id) {
+        None => -1,
+        Some(false) => 0,
+        Some(true) => 1,
+    }
+}
+
+/// WASM export: legacy-map pickup flag. -1 unresolved, 0 clear, 1 set.
+#[wasm_bindgen]
+pub fn dungeon_pickup_state(event_flags: &[u8], flag_id: u32) -> i32 {
+    match is_dungeon_pickup_set(event_flags, flag_id) {
+        None => -1,
+        Some(false) => 0,
+        Some(true) => 1,
+    }
+}

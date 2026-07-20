@@ -127,6 +127,76 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
             punknown,
             crate::db::pickup_data::WORLD_PICKUPS.len()
         );
+        let (mut dset, mut dclear, mut dunknown) = (0usize, 0usize, 0usize);
+        for p in crate::db::dungeon_pickups::DUNGEON_PICKUPS.iter() {
+            match wasm_event_flags::is_dungeon_pickup_set(ef, p.event_flag) {
+                Some(true) => dset += 1,
+                Some(false) => dclear += 1,
+                None => dunknown += 1,
+            }
+        }
+        println!(
+            "  dungeon: {} collected, {} not, {} UNKNOWN (of {})",
+            dset,
+            dclear,
+            dunknown,
+            crate::db::dungeon_pickups::DUNGEON_PICKUPS.len()
+        );
+
+        // Bosses split by id width into two families: 10-digit open-world tiles
+        // and 8-digit legacy maps (alloc-slot layout). Counted separately so a
+        // family that silently stops resolving shows up as its own column of
+        // UNKNOWN rather than being averaged away.
+        let (mut btile, mut bleg) = ((0usize, 0usize, 0usize), (0usize, 0usize, 0usize));
+        for boss in crate::db::bosses_data::BOSSES_DATA.values() {
+            let f = boss.defeat_flag;
+            let (state, c) = if f >= 1_000_000_000 {
+                (wasm_event_flags::is_tile_world_flag_set(ef, f), &mut btile)
+            } else {
+                (wasm_event_flags::is_dungeon_flag_set(ef, f), &mut bleg)
+            };
+            match state {
+                Some(true) => c.0 += 1,
+                Some(false) => c.1 += 1,
+                None => c.2 += 1,
+            }
+        }
+        println!(
+            "  bosses:  {} defeated, {} not, {} UNKNOWN  (open-world {}/{}, legacy {}/{})",
+            btile.0 + bleg.0,
+            btile.1 + bleg.1,
+            btile.2 + bleg.2,
+            btile.0,
+            btile.0 + btile.1 + btile.2,
+            bleg.0,
+            bleg.0 + bleg.1 + bleg.2,
+        );
+
+        // The demigods by name. These are the milestones the evidence catalog
+        // describes characters by ("predates the Margit/Godrick/Radahn kills"),
+        // so printing them lets a reader check the read against the catalog
+        // rather than against an aggregate that could hide a wrong family.
+        let mut demigods: Vec<_> = crate::db::bosses_data::BOSSES_DATA
+            .values()
+            .filter(|b| b.boss_type == crate::db::bosses_data::BossType::Demigod)
+            .collect();
+        demigods.sort_by_key(|b| b.defeat_flag);
+        print!("  demigods:");
+        for b in demigods {
+            let state = if b.defeat_flag >= 1_000_000_000 {
+                wasm_event_flags::is_tile_world_flag_set(ef, b.defeat_flag)
+            } else {
+                wasm_event_flags::is_dungeon_flag_set(ef, b.defeat_flag)
+            };
+            let mark = match state {
+                Some(true) => "YES",
+                Some(false) => "no",
+                None => "?",
+            };
+            print!(" {}={}", b.name.split_whitespace().next().unwrap_or("?"), mark);
+        }
+        println!();
+
         if !found_names.is_empty() && found_names.len() <= 12 {
             println!("  set flags:");
             for (flag, name) in &found_names {

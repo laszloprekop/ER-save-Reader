@@ -1154,8 +1154,6 @@ pub mod events {
 
     fn dungeon_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         use crate::db::dungeon_pickups::DungeonPickup;
-        use crate::db::pickup_flags::DUNGEON_SECTION_SIZE;
-        use crate::util::bit::bit::get_bit;
 
         let filter = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter;
 
@@ -1249,24 +1247,24 @@ pub mod events {
 
         let ef = event_flags.unwrap_or(&[]);
 
-        // Helper to check if dungeon pickup flag is set
+        // CUT OVER 2026-07-20 (ADR-0006, migration step 4). This used
+        // DUNGEON_PICKUP_BASES — absolute per-area offsets from the frozen
+        // legacy store — plus the pickup's own `dungeon_area`/`section` fields.
+        // The base is now resolved per save from the flag region's origin, and
+        // the position comes from the flag itself: the legacy-dungeon-pickup
+        // family lays out as alloc_slot(map) * 1125 + local/8, and the map is
+        // encoded in the flag id, so `dungeon_area`/`section` are display data
+        // only and can no longer disagree with the flag they label.
+        //
+        // Returns (collected, known). `known == false` is UNKNOWN — an
+        // unresolved origin, a map the game allocates twice, or an id outside
+        // the family — and the table already renders that as its own state
+        // rather than as "not collected".
         fn is_dungeon_pickup_collected(ef: &[u8], pickup: &DungeonPickup) -> (bool, bool) {
-            // Check if base is verified
-            let base = DUNGEON_PICKUP_BASES.get(&pickup.dungeon_area);
-            if base.is_none() {
-                return (false, false); // Unverified
+            match wasm_event_flags::is_dungeon_pickup_set(ef, pickup.event_flag) {
+                Some(collected) => (collected, true),
+                None => (false, false),
             }
-            let base = *base.unwrap();
-
-            let byte_offset = base + pickup.section * DUNGEON_SECTION_SIZE + pickup.event_flag % 10000 / 8;
-            let bit_pos = 7 - (pickup.event_flag % 8);
-
-            if byte_offset as usize >= ef.len() {
-                return (false, false);
-            }
-
-            let is_set = get_bit(ef[byte_offset as usize], bit_pos as u8);
-            (is_set, true) // true = verified base
         }
 
         // Build filtered data - flat list
@@ -1346,19 +1344,19 @@ pub mod events {
         let collected_count: usize = DUNGEON_PICKUPS.iter()
             .filter(|p| is_dungeon_pickup_collected(ef, p).0)
             .count();
-        let unverified_count: usize = DUNGEON_PICKUPS.iter()
+        let unknown_count: usize = DUNGEON_PICKUPS.iter()
             .filter(|p| !is_dungeon_pickup_collected(ef, p).1)
             .count();
 
         // Summary
         let summary = if filtered_count < total_count {
-            if unverified_count > 0 {
-                format!("Dungeon Pickups: {}/{} collected ({} unverified) - showing {}", collected_count, total_count, unverified_count, filtered_count)
+            if unknown_count > 0 {
+                format!("Dungeon Pickups: {}/{} collected ({} unknown) - showing {}", collected_count, total_count, unknown_count, filtered_count)
             } else {
                 format!("Dungeon Pickups: {}/{} collected - showing {}", collected_count, total_count, filtered_count)
             }
-        } else if unverified_count > 0 {
-            format!("Dungeon Pickups: {}/{} collected ({} unverified)", collected_count, total_count, unverified_count)
+        } else if unknown_count > 0 {
+            format!("Dungeon Pickups: {}/{} collected ({} unknown)", collected_count, total_count, unknown_count)
         } else {
             format!("Dungeon Pickups: {}/{} collected", collected_count, total_count)
         };

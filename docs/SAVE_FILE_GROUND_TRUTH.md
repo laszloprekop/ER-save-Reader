@@ -202,7 +202,13 @@ family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT
 | world-state-b (graces, world state) | 117,192 | 47 captures, spread 0 |
 | tile-open-world (overworld boss kills) | 454,067 | 2 attributed pairs, exact agreement |
 | tile-pickup-row-id (world pickups) | 454,567 | 38 captures, spread 0 |
+| legacy-dungeon (legacy-map boss kills, NPC/world state) | 1,500,567 | 2 attributed pairs, exact agreement |
 | legacy-dungeon-pickup | 1,500,442 | 16 captures, spread 0 |
+
+Re-derive any of these with `er-save-editor knowledge family-constants`, which measures
+each family from the attributed flips that pinned it (a chain independent of the
+`list-hunt` route that produced the first four) and emits
+`knowledge/claims/family-constants.json`.
 
 > **A bare 10-digit tile id does not tell you its family.** Open-world flags and pickup
 > row_ids both use localId < 7000 and their regions sit 500 bytes apart, so a function
@@ -210,6 +216,35 @@ family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT
 > caller must choose: `is_tile_world_flag_set` or `is_tile_pickup_set`. Note also that
 > `pickup_data.rs` stores row_ids (its `event_flag` = `item_lot_id`), while the game's
 > param tables use `getItemFlagId` = row_id + 7000.
+
+### Legacy-map families (anything not an open-world tile)
+
+Legacy maps address flags by **allocation slot**, not by map id:
+
+```
+byte = alloc_slot(map) * 1125 + localId / 8      bit = 7 - flagId % 8
+```
+
+Slots come from the game's own `eventflagalloclists` (corpus `game-raw-1162`,
+decompressed to `knowledge/game/eventflag-alloclists.json`), mirrored into the
+reference implementation as `LEGACY_ALLOC_SLOTS` with a conformance test that re-reads
+the source file. They do **not** come from `get_dungeon_general_bases()`, whose own
+audit comment records entries disproven by every save on this machine.
+
+The same localId split applies as for tiles — `is_dungeon_flag_set` for localId < 7000,
+`is_dungeon_pickup_set` for >= 7000 — and the two regions sit 125 bytes apart.
+
+**Two maps are allocated twice** (m34_12 → slots 62 and 144; m40_00 → 70 and 170).
+Nothing in the evidence establishes which allocation holds the bits, so both resolve to
+`None`. A guess there reads a wrong bit ~92KB away.
+
+> **An old disproof retired here.** m18 (Stranded Graveyard) was removed from the legacy
+> base table as DISPROVEN because its span read all zeros, even though every character
+> necessarily kills Soldier of Godrick in the tutorial. Via alloc slot 35 and a resolved
+> origin, 18000850 now reads correctly on both the Wretch and the Confessor. The layout
+> was right; only the base was wrong — the same lesson as the 337,375 constant. Check
+> whether a legacy constant is a real structure wearing the wrong anchor before
+> dismissing it.
 
 The families are **rigidly locked to each other**: the distances between them
 (337,375 / 1,383,250 / 1,045,875) were measured through an independent route and agree

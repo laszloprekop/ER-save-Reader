@@ -30,8 +30,9 @@ were NOT regenerated — the pipeline parses raw `.emevd` natively.
 
 ## Game save files with five character slots:
 
-- Slot 0: Confessor, mid-game progression (NOTE: in the 2026-01-11 backup this slot
-  predates the Margit/Godrick/Radahn kills — see catalog entry)
+- Slot 0: Confessor, mid-game progression (NOTE: in the 2026-01-11 backup Margit and
+  Godrick ARE defeated and Radahn is not — corrected 2026-07-20; the older "predates
+  all three" note was measured at the pre-migration offsets. See catalog entry.)
 - Slot 1: Wretch, early game, few steps of progression, item collection, one boss defeat
 - Slot 2: V1, very little progression, made for item pickup debugging
 - Slot 3: V2, similar little amout progression as V1, different path taken, same item pickup for debugging
@@ -125,5 +126,10 @@ every family base moves.
   (both localId < 7000, regions 500 bytes apart). The caller must pick
   `is_tile_world_flag_set` or `is_tile_pickup_set` — routing on the value silently
   reads the wrong bit. `pickup_data.rs` stores row_ids, not getItemFlagIds.
+- Legacy maps (8-digit ids) split the same way by localId: `is_dungeon_flag_set`
+  (< 7000) vs `is_dungeon_pickup_set` (>= 7000), regions 125 bytes apart. Their
+  layout is `alloc_slot(map) * 1125 + localId / 8`, with slots from the game's own
+  alloclists — NOT from `get_dungeon_general_bases()`, which is the disproven
+  "+3375 per area" stride table.
 - Tutorial graces (71800/76100) are NOT universal anchors — they are clear on minimal
   characters. Never use them as a validity test for a detected offset.

@@ -223,9 +223,25 @@ pub static BOSSES_DATA: Lazy<HashMap<u32, BossData>> = Lazy::new(|| {
     m.insert(1052520800, BossData { id: 1052520800, name: "Fire Giant", defeat_flag: 1052520800, region: "Southeast Mountaintops", boss_type: BossType::GreatBoss, runes: 180000, pos_x: 104.60, pos_y: 1859.69, pos_z: 58.67, area_no: 60, block_no: 52, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
     m.insert(1052560800, BossData { id: 1052560800, name: "Erdtree Avatar", defeat_flag: 1052560800, region: "Mountaintops of the Giants - Minor Erdtree", boss_type: BossType::Boss, runes: 70000, pos_x: -58.98, pos_y: 1676.36, pos_z: 70.18, area_no: 60, block_no: 52, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
     m.insert(1053560800, BossData { id: 1053560800, name: "Roundtable Knight Vyke", defeat_flag: 1053560800, region: "Mountaintops of the Giants - Lord Contender's Evergaol", boss_type: BossType::Boss, runes: 75000, pos_x: -52.50, pos_y: 1668.45, pos_z: -116.28, area_no: 60, block_no: 53, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
+    // NOT CORRECTED, deliberately. Like the two rows below this one carries a
+    // "12" prefix that is outside the open-world tile grid, and area_no 60 +
+    // the m60_48_55 entry in the game's openmap alloclist both point at
+    // 1048550800. But unlike them its own `id` field agrees with the "12" form,
+    // and the CE-era flag dump (`db/event_flags.rs`) lists 1248550800 as a real
+    // flag — at an in-memory address far from the m60 tile region — while having
+    // no 1048550800 at all. Two sources against two. It therefore reads Unknown,
+    // which is the honest answer, rather than a guessed bit in a tile region.
     m.insert(1248550800, BossData { id: 1248550800, name: "Night's Cavalry", defeat_flag: 1248550800, region: "Southwest Mountaintops", boss_type: BossType::Boss, runes: 84000, pos_x: 108.17, pos_y: 1281.57, pos_z: -33.08, area_no: 60, block_no: 48, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
-    m.insert(1252380800, BossData { id: 1052380800, name: "Starscourge Radahn", defeat_flag: 1252380800, region: "Southeast Caelid", boss_type: BossType::Demigod, runes: 70000, pos_x: -46.99, pos_y: 35.13, pos_z: -39.66, area_no: 60, block_no: 52, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
-    m.insert(1254560800, BossData { id: 1054560800, name: "Borealis the Freezing Fog", defeat_flag: 1254560800, region: "Northeast Mountaintops", boss_type: BossType::GreatBoss, runes: 100000, pos_x: -124.93, pos_y: 1620.18, pos_z: 54.68, area_no: 60, block_no: 54, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
+    // CORRECTED 2026-07-20: both carried a "12" where the open-world tile prefix
+    // is "10", so they addressed tiles outside the m60 grid and could never read
+    // as defeated — Radahn among them. Each row contradicts itself (`id` and
+    // `area_no: 60` both give the "10" form), the flag->map convention
+    // 10AABBnnnn -> m60_AA_BB that every attributed pickup in the claims store
+    // follows resolves them to m60_52_38 and m60_54_56, and the game's own
+    // openmap eventflagalloclist allocates exactly those two tiles. Borealis has
+    // a fourth: the CE-era dump lists 1054560800 and not 1254560800.
+    m.insert(1052380800, BossData { id: 1052380800, name: "Starscourge Radahn", defeat_flag: 1052380800, region: "Southeast Caelid", boss_type: BossType::Demigod, runes: 70000, pos_x: -46.99, pos_y: 35.13, pos_z: -39.66, area_no: 60, block_no: 52, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
+    m.insert(1054560800, BossData { id: 1054560800, name: "Borealis the Freezing Fog", defeat_flag: 1054560800, region: "Northeast Mountaintops", boss_type: BossType::GreatBoss, runes: 100000, pos_x: -124.93, pos_y: 1620.18, pos_z: 54.68, area_no: 60, block_no: 54, found_flag: 30020801, challenge_flag: 0, mapgenie_id: None, });
     m.insert(2044450800, BossData { id: 2044450800, name: "Romina, Saint of the Bud", defeat_flag: 2044450800, region: "Ancient Ruins of Rauh", boss_type: BossType::GreatBoss, runes: 380000, pos_x: -61.24, pos_y: 625.31, pos_z: 110.57, area_no: 61, block_no: 44, found_flag: 0, challenge_flag: 0, mapgenie_id: None, });
     m.insert(2044470800, BossData { id: 2044470800, name: "Rugalea the Great Red Bear", defeat_flag: 2044470800, region: "Ancient Ruins of Rauh", boss_type: BossType::GreatBoss, runes: 210000, pos_x: -52.12, pos_y: 321.72, pos_z: 112.28, area_no: 61, block_no: 44, found_flag: 0, challenge_flag: 0, mapgenie_id: None, });
     m.insert(2045440800, BossData { id: 2045440800, name: "Ghostflame Dragon", defeat_flag: 2045440800, region: "Gravesite Plain", boss_type: BossType::GreatBoss, runes: 100000, pos_x: 59.10, pos_y: 256.42, pos_z: -73.89, area_no: 61, block_no: 45, found_flag: 0, challenge_flag: 0, mapgenie_id: None, });

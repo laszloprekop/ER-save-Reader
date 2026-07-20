@@ -599,7 +599,8 @@ pub fn icons_view(ui: &mut Ui, state: &mut IconsViewState) {
         .show(ui, |ui| {
             let available_width = ui.available_width();
             let item_spacing = ui.spacing().item_spacing.x;
-            let cols = (((available_width + item_spacing) / (CELL_SIZE + item_spacing)) as usize).max(1);
+            let cols =
+                (((available_width + item_spacing) / (CELL_SIZE + item_spacing)) as usize).max(1);
 
             ui.add_space(4.0);
 

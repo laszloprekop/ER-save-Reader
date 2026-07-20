@@ -25,7 +25,7 @@
           "4": 76779
         },
         "slots": {
-          "0": "Confessor, mid-game. NOTE (2026-07-05): predates the Margit/Godrick/Radahn kills described in DATA-SOURCES.md - zeros at their flag bytes are TRUE negatives in this file.",
+          "0": "Confessor, mid-game. CORRECTED 2026-07-20: Margit (10000850) and Godrick (10000800) ARE defeated in this file; only the Radahn kill postdates it. The 2026-07-05 note claiming all three were true negatives read 'zeros at their flag bytes' with the pre-migration offset convention, i.e. at the wrong bytes. Read through the legacy-dungeon family resolved from this save's own origin, both bits are set alongside their found_flags (10000801, 10000851), the m10_00 block carries 96 non-zero bytes of 1125, and slots 1 and 4 read clear at the same construction with 5 and 0.",
           "1": "Wretch: only the tutorial enemy (Soldier of Godrick) defeated; a few graces/pickups",
           "2": "V1: minimal, pickup-debugging character",
           "3": "V2: minimal, different path than V1, same pickup",

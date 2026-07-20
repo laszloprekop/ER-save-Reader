@@ -544,7 +544,8 @@ maps — unexplained, worth a look before claiming pickup coverage).
 
    *Remaining families.* boss_defeats still needs a verified layout for non-dungeon
    bosses. Pickups are now wiring rather than discovery: both pickup family layouts are
-   verified and the origin resolves.
+   verified and the origin resolves. (Both settled 2026-07-20 — see the legacy-dungeon
+   cutover below.)
 
    *Still not derived.* The constants are measured, and the scan is bounded-structural
    rather than a parse of the enclosing section. A full parse would need the section
@@ -557,6 +558,104 @@ maps — unexplained, worth a look before claiming pickup coverage).
    alignment silently lies inside zero runs, where EVERY shift matches: the search must
    require the sync window to contain real bytes (`MIN_INFORMATIVE`) or the whole
    sparse bitmap reads as "shift 0" and insertions inside it become invisible.
+
+   **LEGACY-DUNGEON FAMILY CUT OVER 2026-07-20 — boss_defeats leaves the legacy
+   store; every family now has a constant.** `FAMILY_LEGACY_DUNGEON = 1,500,567`.
+
+   *Why list-hunt never produced it.* `list-hunt` derives constants from
+   `family-distances`, which re-measures a base by finding the unique window position
+   where ≥3 known flag states hold. `legacy-dungeon` and `tile-open-world` have only
+   two verified flags each, so no file ever carries enough anchors and both were absent
+   from its table — not because their bases were unknown, but because that particular
+   instrument could not see them.
+
+   *What produced it.* `er-save-editor knowledge family-constants`
+   (`src/knowledge/family_distances.rs`, emits `knowledge/claims/family-constants.json`).
+   The pipeline already pins a family base in the pair that established each flag, by
+   isolated-flip analysis, and records it — a *stronger* positioning than a windowed
+   pattern match, just present in fewer files. The command re-expresses those
+   measurements against the resolver's own origin:
+
+       constant = (grace_base + family_base_grace_rel) − (ga_end + list_end)
+
+   It reproduces all four already-shipped constants exactly (world-state-b 117,192 over
+   6 files, tile-open-world 454,067 over 2, tile-pickup-row-id 454,567 over 15,
+   legacy-dungeon-pickup 1,500,442 over 3) — a second derivation chain agreeing with
+   the first — and yields legacy-dungeon at 1,500,567 from its two boss-kill pairs
+   (30020800 b24-b25, 30030800 b32-b33), spread 0 across a drift step.
+
+   *Thin, and labelled thin.* Two files, both catacombs (alloc slots 82 and 83). The
+   only cross-check the constant has is its 125-byte separation from the pickup family,
+   which `origin_conformance.rs` now pins. Note 125 ≠ the "~129 bytes" in the pipeline's
+   own family note: that number was a cross-file subtraction of bases measured at
+   different list lengths. The list-end-relative distance is the invariant one.
+
+   *Layout comes from the game, not from the stride assumption.* The wasm crate now
+   carries `LEGACY_ALLOC_SLOTS` (99 maps) copied from the game's own
+   eventflagalloclists, with a conformance test that re-reads the source file and fails
+   on drift. The two maps the game allocates TWICE (m34_12 → 62 and 144, m40_00 → 70
+   and 170) resolve to `None`, because nothing establishes which allocation holds the
+   bits and a guess reads a wrong bit ~92KB away. This table replaces nothing less than
+   `get_dungeon_general_bases()`, whose own audit comment records entries disproven by
+   every save on this machine.
+
+   *Cut over.* `bosses_view` (both id widths, routed explicitly by family) and the
+   dungeon-pickups table in `events.rs`, which had been positioning flags with
+   `DUNGEON_PICKUP_BASES` plus the pickup's `dungeon_area`/`section` fields — those are
+   now display data only and can no longer disagree with the flag they label.
+
+   *Out-of-sample verification.* `validate-origin` part C rose from 23 to 28 verified
+   flags reading clear→set through the SHIPPED functions, with zero families skipped
+   for want of a read function. Live counts match the documented character designs:
+
+   | slot | character | bosses | dungeon pickups | catalog says |
+   |---|---|---|---|---|
+   | 0 | Confessor | 51 | 382 | mid-game progression |
+   | 1 | Wretch | **1 — Soldier of Godrick** | 0 | "only the tutorial enemy (Soldier of Godrick) defeated" |
+   | 2-4 | V1/V2/V3 | 0 | 0 | "very little progression" |
+
+   The Wretch line is the strongest single result here: a character that contributed
+   nothing to deriving the constant, whose one defeated boss is named correctly by the
+   read, out of 205 candidates.
+
+   **It also corrected the knowledge base.** The evidence catalog said the 2026-01-11
+   backup slot 0 "predates the Margit/Godrick/Radahn kills — zeros at their flag bytes
+   are TRUE negatives". Read at the resolved base, **Margit and Godrick are defeated**;
+   only Radahn is not. That 2026-07-05 note measured zeros at the pre-migration offsets,
+   i.e. at the wrong bytes — the failure this migration exists to remove, caught
+   annotating the evidence itself. Corroboration: both bits sit beside their found_flags
+   (10000801, 10000851), the m10_00 block carries 96 non-zero bytes of 1125 where slots
+   1 and 4 carry 5 and 0, and `DATA-SOURCES.md`'s own character description says the
+   Confessor felled all three. Catalog and CLAUDE.md corrected.
+
+   *And it retires an old disproof.* m18 (Stranded Graveyard) was "DISPROVEN and
+   removed" from `get_dungeon_general_bases()` because its span read all zeros, with the
+   reasoning that "the true m18 general section lies near 2.5k-4k". Via alloc slot 35
+   and a resolved origin, m18's tutorial boss now reads correctly on both the Wretch and
+   the Confessor. The layout was always right; only the base was wrong — the same lesson
+   as 337,375. Before dismissing a legacy constant, check whether it is a real
+   structure wearing the wrong anchor.
+
+   *Three boss ids were wrong in the database.* `bosses_data.rs` carried a "12" prefix
+   where the open-world tile prefix is "10", so those bosses addressed tiles outside the
+   m60 grid and could never read as defeated — Starscourge Radahn among them. Radahn and
+   Borealis are corrected (each row contradicted itself via its own `id`/`area_no`; the
+   game's openmap alloclist allocates m60_52_38 and m60_54_56; and for Borealis the
+   CE-era dump independently lists 1054560800). Night's Cavalry 1248550800 is
+   deliberately NOT corrected: its `id` agrees with the "12" form and the CE dump lists
+   it at an in-memory address far from the tile region. Two sources each way, so it
+   reads Unknown.
+
+   *Known gaps, recorded not hand-waved.* 29 of 205 bosses read Unknown: 26 DLC tiles
+   outside the m60 grid (the same gap as the 532 unknown WORLD_PICKUPS, now with a
+   legible cause — they are named DLC bosses), 2 doubly-allocated maps, 1 disputed id.
+   36 of 2,108 dungeon pickups likewise: 32 in the two doubly-allocated maps, 2 under a
+   bogus prefix 9901, 2 whose local id is below 7000 and so are not pickups at all.
+
+   *Next:* `is_flag_set_with_status` in `pickup_flags.rs` is the last app-side reader on
+   the legacy store, and it is blocked for the reason recorded in place — it takes a
+   bare id and cannot know the family. It needs its callers to say which family they
+   mean, not a smarter router.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
    `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
    convention) out of the app into KB inputs as the CE-era Rosetta table.

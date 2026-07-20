@@ -5,7 +5,6 @@
 use eframe::egui::{Ui, Color32, RichText};
 use crate::db::bosses_data::{BOSSES_DATA, BOSS_REGIONS, BossType};
 use crate::db::entity_relationships::{get_boss_relationships, RelationType};
-use crate::db::pickup_flags::is_flag_set;
 use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
 use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_default};
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
@@ -76,12 +75,32 @@ struct BossExportItem {
 
 /// Check if a boss is defeated using event flags.
 ///
-/// Boss defeat flags can be in various ranges:
-/// - Dungeon bosses (8-digit): 10000800 (Godrick), 30020800 (catacombs), etc.
-/// - Block flags (5-digit): Some boss flags like remembrances
-/// Uses the verified formulas from ground_truth_offsets.json.
+/// CUT OVER 2026-07-20 (ADR-0006, migration step 4). Previously this called
+/// `pickup_flags::is_flag_set`, which read absolute offsets from the frozen
+/// legacy store and returned a bare `bool` — so a save whose flag families had
+/// drifted away from those offsets reported every boss as NOT defeated, which
+/// is exactly how `batch-validate` came to print 0/110 on a mid-game character.
+///
+/// Both families are resolved per save from the flag region's own origin. The
+/// two ranges are distinct families, not two encodings of one:
+///
+///   10-digit  open-world tile bosses  -> tile-open-world
+///    8-digit  legacy-map bosses       -> legacy-dungeon (alloc-slot layout)
+///
+/// Routing on the digit count is safe HERE — unlike the pickup case, where a
+/// 10-digit id was ambiguous between two families 500 bytes apart — because a
+/// boss defeat is always an event flag, never a pickup, in whichever map hosts
+/// it. Both reads reject ids outside their own family rather than guessing.
+///
+/// `None` is UNKNOWN (unresolved origin, or a map with no allocation) and is
+/// rendered as "-", never as "not defeated".
 fn is_boss_defeated(defeat_flag: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-    event_flags.map(|flags| is_flag_set(flags, defeat_flag))
+    let flags = event_flags?;
+    if defeat_flag >= 1_000_000_000 {
+        wasm_event_flags::is_tile_world_flag_set(flags, defeat_flag)
+    } else {
+        wasm_event_flags::is_dungeon_flag_set(flags, defeat_flag)
+    }
 }
 
 /// Build detail panel sections for a boss, including relationships.

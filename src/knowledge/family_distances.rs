@@ -49,6 +49,7 @@ const OUT_DISTANCES: &str = "knowledge/claims/family-distances.json";
 const OUT_ORIGIN: &str = "knowledge/claims/origin-probe.json";
 const OUT_LIST_HUNT: &str = "knowledge/claims/list-hunt.json";
 const OUT_VALIDATE: &str = "knowledge/claims/origin-validation.json";
+const OUT_CONSTANTS: &str = "knowledge/claims/family-constants.json";
 
 /// Search margin either side of a family's already-measured delta range.
 /// Wide enough to cover record-list growth beyond what has been observed,
@@ -965,9 +966,11 @@ pub fn cmd_list_hunt(_args: &[String]) -> Result<(), String> {
 
 /// Family base = ga_end + list_end + constant. The constants live in the
 /// reference implementation (ADR-0005); this table only names them.
-const ORIGIN_CONSTANTS: [(&str, i64); 3] = [
+const ORIGIN_CONSTANTS: [(&str, i64); 5] = [
     ("world-state-b", wasm_event_flags::FAMILY_WORLD_STATE_B),
+    ("tile-open-world", wasm_event_flags::FAMILY_TILE_OPEN_WORLD),
     ("tile-pickup-row-id", wasm_event_flags::FAMILY_TILE_PICKUP_ROW_ID),
+    ("legacy-dungeon", wasm_event_flags::FAMILY_LEGACY_DUNGEON),
     ("legacy-dungeon-pickup", wasm_event_flags::FAMILY_LEGACY_DUNGEON_PICKUP),
 ];
 
@@ -1311,6 +1314,7 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         // function takes the raw getItemFlagId, so convert back.
         let read_id: u32 = match family.as_str() {
             "world-state-b" | "tile-open-world" => flag as u32,
+            "legacy-dungeon" | "legacy-dungeon-pickup" => flag as u32,
             "tile-pickup-row-id" => (flag + 7_000) as u32,
             other => {
                 *skipped.entry(other.to_string()).or_default() += 1;
@@ -1346,6 +1350,8 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
             let state = match family.as_str() {
                 "world-state-b" => wasm_event_flags::is_world_state_flag_set(efs, read_id),
                 "tile-open-world" => wasm_event_flags::is_tile_world_flag_set(efs, read_id),
+                "legacy-dungeon" => wasm_event_flags::is_dungeon_flag_set(efs, read_id),
+                "legacy-dungeon-pickup" => wasm_event_flags::is_dungeon_pickup_set(efs, read_id),
                 _ => wasm_event_flags::is_tile_pickup_set(efs, read_id),
             };
             states.push(state);
@@ -1383,4 +1389,211 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         "results": results,
     });
     write_json(&repo_root, OUT_VALIDATE, &out)
+}
+
+// ---------------------------------------------------------------------------
+// knowledge family-constants
+// ---------------------------------------------------------------------------
+//
+// `list-hunt` measures a family constant only where `family-distances` could
+// re-measure that family's base, which needs MIN_ANCHORS known flag states in a
+// file where nothing of that family flipped. Two families never clear that bar:
+// `tile-open-world` and `legacy-dungeon` have only two verified flags each, so
+// no file ever carries three anchors for them.
+//
+// The pipeline already knows where those families sit in specific files: an
+// isolated-flip analysis pins the base in the very pair that established the
+// flag, and it records it (`measured.family_base_grace_rel_after`). That is a
+// STRONGER positioning than the windowed re-measurement — it comes from an
+// observed transition rather than from a pattern match — it just exists in
+// fewer files. This command reads those measurements back and expresses each
+// one against the same origin the resolver uses:
+//
+//     constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)
+//
+// Verified flags only. A hypothesis-status flag is recorded precisely because
+// its labelled flag did NOT flip where the label said, so it carries no base.
+
+/// One family constant measured from one flip.
+struct ConstantObs {
+    family: String,
+    flag: u64,
+    file: String,
+    side: &'static str,
+    constant: i64,
+}
+
+pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
+    let repo_root = std::env::current_dir().map_err(|e| e.to_string())?;
+    let claims: Value = read_json(&repo_root, CLAIMS)?;
+    let catalog: Value = read_json(&repo_root, CATALOG)?;
+
+    println!("FAMILY CONSTANTS FROM ATTRIBUTED FLIPS");
+    println!("Each observation is one pipeline-verified flag whose flip pinned its");
+    println!("family base in a named file. The base is re-expressed against the");
+    println!("origin (ga_end + list end) that the shipped resolver uses.\n");
+
+    // (corpus, slot, file) -> (grace_base, ga_end, list_end); None = unreadable
+    type Origin = Option<(i64, i64, usize)>;
+    let mut seen: BTreeMap<(String, usize, String), Origin> = BTreeMap::new();
+    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
+    let mut obs: Vec<ConstantObs> = Vec::new();
+    let mut skipped: Vec<Value> = Vec::new();
+
+    for f in claims["flags"].as_array().unwrap_or(&vec![]) {
+        if f["status"].as_str() != Some("verified") {
+            continue;
+        }
+        let (Some(family), Some(flag)) = (f["family"].as_str(), f["flag"].as_u64()) else {
+            continue;
+        };
+        let ev = &f["evidence"];
+        let corpus_id = ev["corpus"].as_str().unwrap_or_default().to_string();
+        let save_slot = ev["save_slot"].as_u64().unwrap_or(0) as usize;
+
+        for side in ["before", "after"] {
+            let Some(rel) = f["measured"][format!("family_base_grace_rel_{}", side)].as_i64()
+            else {
+                continue;
+            };
+            let Some(name) = ev[side]["file"].as_str() else {
+                continue;
+            };
+
+            let key = (corpus_id.clone(), save_slot, name.to_string());
+            if !seen.contains_key(&key) {
+                let (dir, manifest) = match corpora.get(&corpus_id) {
+                    Some(v) => v.clone(),
+                    None => {
+                        let c = catalog["corpora"]
+                            .as_array()
+                            .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id.as_str()))
+                            .ok_or_else(|| format!("corpus {} not in catalog", corpus_id))?;
+                        let root = catalog["roots"][c["root"].as_str().unwrap_or("")]
+                            .as_str()
+                            .ok_or("unknown root")?;
+                        let dir = Path::new(root).join(c["path"].as_str().unwrap_or(""));
+                        let m = load_manifest(&repo_root, c["manifest"].as_str().unwrap_or(""))?;
+                        corpora.insert(corpus_id.clone(), (dir.clone(), m.clone()));
+                        (dir, m)
+                    }
+                };
+                // verify-on-read; an unreadable file is reported, never guessed
+                let v = load_save(&dir, name, save_slot, &manifest).ok().and_then(|sf| {
+                    let end =
+                        wasm_event_flags::find_flag_list_end_from(&sf.slot, sf.ga_end.max(0) as usize)?;
+                    Some((sf.grace as i64, sf.ga_end, end))
+                });
+                seen.insert(key.clone(), v);
+            }
+
+            match seen[&key] {
+                Some((grace, ga_end, end)) => obs.push(ConstantObs {
+                    family: family.to_string(),
+                    flag,
+                    file: name.to_string(),
+                    side,
+                    constant: (grace + rel) - (ga_end + end as i64),
+                }),
+                None => skipped.push(json!({
+                    "family": family, "flag": flag, "file": name, "side": side,
+                    "reason": "file unreadable or origin unresolved",
+                })),
+            }
+        }
+    }
+
+    let mut by_family: BTreeMap<String, Vec<&ConstantObs>> = BTreeMap::new();
+    for o in &obs {
+        by_family.entry(o.family.clone()).or_default().push(o);
+    }
+
+    let shipped = origin_constant;
+
+    let mut families = Map::new();
+    let mut agree = 0usize;
+    let mut disagree = 0usize;
+    for (fam, os) in &by_family {
+        let values: BTreeSet<i64> = os.iter().map(|o| o.constant).collect();
+        let spread = values.iter().next_back().unwrap() - values.iter().next().unwrap();
+        let verdict = match (values.len(), shipped(fam)) {
+            (1, Some(c)) if *values.iter().next().unwrap() == c => {
+                agree += 1;
+                "AGREES WITH SHIPPED".to_string()
+            }
+            (1, Some(c)) => {
+                disagree += 1;
+                format!("DISAGREES WITH SHIPPED {}", c)
+            }
+            (1, None) => "constant; not shipped yet".to_string(),
+            _ => {
+                disagree += 1;
+                "NOT CONSTANT".to_string()
+            }
+        };
+        println!(
+            "  {:24} n={:<3} files={:<3} values={:?} spread={}  [{}]",
+            fam,
+            os.len(),
+            os.iter().map(|o| &o.file).collect::<BTreeSet<_>>().len(),
+            values,
+            spread,
+            verdict
+        );
+        for o in os {
+            println!(
+                "      {:>10} {:<6} {} = {}",
+                o.flag,
+                o.side,
+                &o.file[..o.file.len().min(64)],
+                o.constant
+            );
+        }
+        families.insert(
+            fam.clone(),
+            json!({
+                "observations": os.len(),
+                "distinct_files": os.iter().map(|o| &o.file).collect::<BTreeSet<_>>().len(),
+                "values": values.iter().collect::<Vec<_>>(),
+                "spread": spread,
+                "shipped_constant": shipped(fam),
+                "verdict": verdict,
+                "flags": os.iter().map(|o| json!({
+                    "flag": o.flag, "side": o.side, "file": o.file, "constant": o.constant
+                })).collect::<Vec<_>>(),
+            }),
+        );
+    }
+
+    println!(
+        "\n{} family constant(s) reproduced from flips; {} problem(s); {} observation(s) skipped",
+        agree,
+        disagree,
+        skipped.len()
+    );
+
+    let out = json!({
+        "schema": "family-constants/1",
+        "generated_by": "er-save-editor knowledge family-constants",
+        "question": "What is each family's distance from the origin, measured from \
+                     the attributed flips that pinned its base?",
+        "method": {
+            "formula": "constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)",
+            "source": "knowledge/claims/event-flags.json, verified flags only — a \
+                       hypothesis-status flag has no measured base by construction",
+            "why_not_list_hunt": "list-hunt derives constants from family-distances, \
+                                  which re-measures a base by pattern-matching >=3 known \
+                                  flag states in a window. tile-open-world and \
+                                  legacy-dungeon have only two verified flags each, so no \
+                                  file ever carries enough anchors and both are absent \
+                                  from its table. The flips themselves pin those bases.",
+            "limits": "coverage is per-family as thin as the flip evidence: a family \
+                       measured on two files is exactly two independent measurements, \
+                       and agreement across them is weaker than the 16-47 file \
+                       agreement behind the other constants.",
+        },
+        "families": families,
+        "skipped": skipped,
+    });
+    write_json(&repo_root, OUT_CONSTANTS, &out)
 }

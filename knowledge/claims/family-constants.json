@@ -1,0 +1,242 @@
+{
+  "families": {
+    "legacy-dungeon": {
+      "distinct_files": 2,
+      "flags": [
+        {
+          "constant": 1500567,
+          "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+          "flag": 30020800,
+          "side": "after"
+        },
+        {
+          "constant": 1500567,
+          "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+          "flag": 30030800,
+          "side": "after"
+        }
+      ],
+      "observations": 2,
+      "shipped_constant": null,
+      "spread": 0,
+      "values": [
+        1500567
+      ],
+      "verdict": "constant; not shipped yet"
+    },
+    "legacy-dungeon-pickup": {
+      "distinct_files": 3,
+      "flags": [
+        {
+          "constant": 1500442,
+          "file": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+          "flag": 30027000,
+          "side": "after"
+        },
+        {
+          "constant": 1500442,
+          "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+          "flag": 30027030,
+          "side": "after"
+        },
+        {
+          "constant": 1500442,
+          "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+          "flag": 30037030,
+          "side": "after"
+        }
+      ],
+      "observations": 3,
+      "shipped_constant": 1500442,
+      "spread": 0,
+      "values": [
+        1500442
+      ],
+      "verdict": "AGREES WITH SHIPPED"
+    },
+    "tile-open-world": {
+      "distinct_files": 2,
+      "flags": [
+        {
+          "constant": 454067,
+          "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+          "flag": 1033450800,
+          "side": "after"
+        },
+        {
+          "constant": 454067,
+          "file": "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+          "flag": 1042370800,
+          "side": "after"
+        }
+      ],
+      "observations": 2,
+      "shipped_constant": 454067,
+      "spread": 0,
+      "values": [
+        454067
+      ],
+      "verdict": "AGREES WITH SHIPPED"
+    },
+    "tile-pickup-row-id": {
+      "distinct_files": 15,
+      "flags": [
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+          "flag": 1033460040,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+          "flag": 1042320000,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+          "flag": 1042320020,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after",
+          "flag": 1042360030,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+          "flag": 1042370300,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+          "flag": 1043500000,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+          "flag": 1043500010,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+          "flag": 1044360040,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after",
+          "flag": 1044360300,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+          "flag": 1044360310,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after",
+          "flag": 1044360310,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after",
+          "flag": 1044360320,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after",
+          "flag": 1044360330,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after",
+          "flag": 1044360330,
+          "side": "after"
+        },
+        {
+          "constant": 454567,
+          "file": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+          "flag": 1044360340,
+          "side": "after"
+        }
+      ],
+      "observations": 15,
+      "shipped_constant": 454567,
+      "spread": 0,
+      "values": [
+        454567
+      ],
+      "verdict": "AGREES WITH SHIPPED"
+    },
+    "world-state-b": {
+      "distinct_files": 6,
+      "flags": [
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+          "flag": 60260,
+          "side": "after"
+        },
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+          "flag": 66700,
+          "side": "after"
+        },
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
+          "flag": 67640,
+          "side": "after"
+        },
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+          "flag": 71602,
+          "side": "after"
+        },
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+          "flag": 73002,
+          "side": "after"
+        },
+        {
+          "constant": 117192,
+          "file": "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+          "flag": 76310,
+          "side": "after"
+        }
+      ],
+      "observations": 6,
+      "shipped_constant": 117192,
+      "spread": 0,
+      "values": [
+        117192
+      ],
+      "verdict": "AGREES WITH SHIPPED"
+    }
+  },
+  "generated_by": "er-save-editor knowledge family-constants",
+  "method": {
+    "formula": "constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)",
+    "limits": "coverage is per-family as thin as the flip evidence: a family measured on two files is exactly two independent measurements, and agreement across them is weaker than the 16-47 file agreement behind the other constants.",
+    "source": "knowledge/claims/event-flags.json, verified flags only — a hypothesis-status flag has no measured base by construction",
+    "why_not_list_hunt": "list-hunt derives constants from family-distances, which re-measures a base by pattern-matching >=3 known flag states in a window. tile-open-world and legacy-dungeon have only two verified flags each, so no file ever carries enough anchors and both are absent from its table. The flips themselves pin those bases."
+  },
+  "question": "What is each family's distance from the origin, measured from the attributed flips that pinned its base?",
+  "schema": "family-constants/1",
+  "skipped": []
+}

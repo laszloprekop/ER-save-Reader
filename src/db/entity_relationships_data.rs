@@ -52,8 +52,8 @@ pub static BOSS_DROPS: &[BossDropEntry] = &[
     BossDropEntry { boss_flag: 10000800, boss_name: "Godrick the Grafted", item_id: 8101, item_name: "Godrick's Great Rune", category: DropCategory::GreatRune },
     BossDropEntry { boss_flag: 14000800, boss_name: "Rennala Queen of the Full Moon", item_id: 8151, item_name: "Remembrance of the Full Moon Queen", category: DropCategory::Remembrance },
     BossDropEntry { boss_flag: 14000800, boss_name: "Rennala Queen of the Full Moon", item_id: 8103, item_name: "Great Rune of the Unborn", category: DropCategory::GreatRune },
-    BossDropEntry { boss_flag: 1252380800, boss_name: "Starscourge Radahn", item_id: 8153, item_name: "Remembrance of the Starscourge", category: DropCategory::Remembrance },
-    BossDropEntry { boss_flag: 1252380800, boss_name: "Starscourge Radahn", item_id: 8105, item_name: "Radahn's Great Rune", category: DropCategory::GreatRune },
+    BossDropEntry { boss_flag: 1052380800, boss_name: "Starscourge Radahn", item_id: 8153, item_name: "Remembrance of the Starscourge", category: DropCategory::Remembrance },
+    BossDropEntry { boss_flag: 1052380800, boss_name: "Starscourge Radahn", item_id: 8105, item_name: "Radahn's Great Rune", category: DropCategory::GreatRune },
     BossDropEntry { boss_flag: 16000800, boss_name: "Rykard Lord of Blasphemy", item_id: 8152, item_name: "Remembrance of the Blasphemous", category: DropCategory::Remembrance },
     BossDropEntry { boss_flag: 16000800, boss_name: "Rykard Lord of Blasphemy", item_id: 8104, item_name: "Rykard's Great Rune", category: DropCategory::GreatRune },
     BossDropEntry { boss_flag: 11000800, boss_name: "Morgott, the Omen King", item_id: 8156, item_name: "Remembrance of the Omen King", category: DropCategory::Remembrance },
@@ -130,13 +130,13 @@ pub static ITEM_DROPPED_BY: Lazy<HashMap<u32, Vec<(u32, &'static str)>>> = Lazy:
     m.insert(8102, vec![(11000800, "Morgott, the Omen King")]);
     m.insert(8103, vec![(14000800, "Rennala Queen of the Full Moon")]);
     m.insert(8104, vec![(16000800, "Rykard Lord of Blasphemy")]);
-    m.insert(8105, vec![(1252380800, "Starscourge Radahn")]);
+    m.insert(8105, vec![(1052380800, "Starscourge Radahn")]);
     m.insert(8106, vec![(15000800, "Malenia Blade of Miquella")]);
     m.insert(8107, vec![(12050800, "Mohg Lord of Blood")]);
     m.insert(8150, vec![(10000800, "Godrick the Grafted")]);
     m.insert(8151, vec![(14000800, "Rennala Queen of the Full Moon")]);
     m.insert(8152, vec![(16000800, "Rykard Lord of Blasphemy")]);
-    m.insert(8153, vec![(1252380800, "Starscourge Radahn")]);
+    m.insert(8153, vec![(1052380800, "Starscourge Radahn")]);
     m.insert(8154, vec![(15000800, "Malenia Blade of Miquella")]);
     m.insert(8155, vec![(12050800, "Mohg Lord of Blood")]);
     m.insert(8156, vec![(11000800, "Morgott, the Omen King")]);
@@ -232,7 +232,7 @@ pub static BOSS_DROP_INDEX: Lazy<HashMap<u32, Vec<usize>>> = Lazy::new(|| {
     m.insert(1050570800, vec![48]);
     m.insert(1051560800, vec![37]);
     m.insert(1052520800, vec![17]);
-    m.insert(1252380800, vec![4, 5]);
+    m.insert(1052380800, vec![4, 5]);
     m
 });
 
@@ -399,8 +399,8 @@ pub static BOSS_NEARBY_GRACES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(|
     m.insert(1052560800, vec![(76506, 30.8), (76505, 58.8), (73122, 70.0), (76522, 91.3), (73018, 136.1)]);
     m.insert(1053560800, vec![(76520, 95.4), (76503, 105.3), (76507, 142.2), (76508, 153.9), (76505, 185.0)]);
     m.insert(1248550800, vec![(76653, 57.9), (73211, 71.9), (76652, 77.7)]);
-    m.insert(1252380800, vec![(76422, 4.2), (76110, 20.3), (76161, 46.7), (76417, 48.2), (76831, 53.8)]);
-    m.insert(1254560800, vec![(76505, 95.0), (73122, 105.5), (76522, 111.6), (76506, 112.6), (73017, 126.8)]);
+    m.insert(1052380800, vec![(76422, 4.2), (76110, 20.3), (76161, 46.7), (76417, 48.2), (76831, 53.8)]);
+    m.insert(1054560800, vec![(76505, 95.0), (73122, 105.5), (76522, 111.6), (76506, 112.6), (73017, 126.8)]);
     m.insert(2044450800, vec![(76945, 14.5), (76940, 81.8), (76942, 88.3), (76930, 102.1), (76321, 126.4)]);
     m.insert(2044470800, vec![(76902, 30.6), (76904, 39.9), (76802, 49.5), (76811, 51.1), (76801, 51.8)]);
     m.insert(2045440800, vec![(76213, 18.7), (76220, 30.8), (76916, 31.3), (76216, 32.5), (76242, 39.4)]);
@@ -515,7 +515,7 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(73014, vec![(30040800, 89.9), (30000800, 95.6), (30140800, 132.6), (30060800, 134.8), (30020800, 160.8), (30110800, 169.3)]);
     m.insert(73015, vec![(30020800, 42.9), (30000800, 88.0), (30040800, 114.7), (30030800, 146.2), (30150800, 194.6)]);
     m.insert(73016, vec![(30010800, 77.2), (30160800, 173.9)]);
-    m.insert(73017, vec![(1254560800, 126.8)]);
+    m.insert(73017, vec![(1054560800, 126.8)]);
     m.insert(73018, vec![(1051570800, 125.8), (1052560800, 136.1)]);
     m.insert(73019, vec![(1050570850, 45.4)]);
     m.insert(73020, vec![(30200810, 154.8), (30170800, 172.8), (30190800, 181.1)]);
@@ -536,7 +536,7 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(73119, vec![(31190850, 30.3), (31190800, 60.9)]);
     m.insert(73120, vec![(31100800, 112.1), (31200800, 118.5), (31060800, 120.9), (31170800, 184.8)]);
     m.insert(73121, vec![(31030800, 73.4), (31020800, 85.3), (31100800, 97.6), (31000800, 124.9), (31210800, 127.3), (31050800, 132.9), (31110800, 136.2)]);
-    m.insert(73122, vec![(1052560800, 70.0), (1254560800, 105.5)]);
+    m.insert(73122, vec![(1052560800, 70.0), (1054560800, 105.5)]);
     m.insert(73200, vec![(32000800, 84.0), (32010800, 90.6), (32020800, 123.9)]);
     m.insert(73201, vec![(1049370800, 44.9), (1044320800, 52.8), (2048380850, 73.4), (1048400800, 91.3)]);
     m.insert(73202, vec![(1039430340, 29.6), (2046410800, 106.8)]);
@@ -566,7 +566,7 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(76104, vec![(1042330800, 47.4)]);
     m.insert(76106, vec![(1049380800, 16.0), (1042360800, 30.2), (1043330800, 31.7), (1045390800, 49.3)]);
     m.insert(76108, vec![(1043360800, 37.3), (1043330800, 42.5), (1047400800, 63.7), (1042370800, 72.4)]);
-    m.insert(76110, vec![(1252380800, 20.3), (2046400800, 31.7), (1043300800, 34.3), (1044320800, 59.2)]);
+    m.insert(76110, vec![(1052380800, 20.3), (2046400800, 31.7), (1043300800, 34.3), (1044320800, 59.2)]);
     m.insert(76111, vec![(1044350800, 32.8), (2051440800, 55.0)]);
     m.insert(76113, vec![(1049380800, 8.7), (1042360800, 22.0), (1044360800, 41.8), (1043330800, 50.2), (1045390800, 57.6)]);
     m.insert(76114, vec![(1049390800, 67.5)]);
@@ -581,7 +581,7 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(76156, vec![(1044320850, 54.6)]);
     m.insert(76159, vec![(1043370800, 43.8), (2049410800, 60.8)]);
     m.insert(76160, vec![(2046380800, 62.7)]);
-    m.insert(76161, vec![(1043300800, 9.3), (2046400800, 40.7), (1252380800, 46.7)]);
+    m.insert(76161, vec![(1043300800, 9.3), (2046400800, 40.7), (1052380800, 46.7)]);
     m.insert(76162, vec![(1044320850, 41.9), (1049390800, 68.2)]);
     m.insert(76200, vec![(1051430800, 55.7)]);
     m.insert(76201, vec![(1052410850, 39.6), (1034480800, 40.7), (1051400800, 53.7), (1042380850, 64.6)]);
@@ -664,11 +664,11 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(76413, vec![(1043360800, 51.0), (1044350800, 58.5), (1042330800, 81.4)]);
     m.insert(76414, vec![(2047390800, 38.3), (1049370850, 42.8), (1049390800, 49.3)]);
     m.insert(76415, vec![(1049390800, 9.4), (2047390800, 22.2), (1051360800, 44.9)]);
-    m.insert(76417, vec![(2048380850, 24.3), (1252380800, 48.2), (2046380800, 54.3)]);
+    m.insert(76417, vec![(2048380850, 24.3), (1052380800, 48.2), (2046380800, 54.3)]);
     m.insert(76418, vec![(2051440800, 36.0), (1042380850, 46.8), (1052410850, 62.6)]);
     m.insert(76419, vec![(1051360800, 19.0), (1049370850, 32.5), (2047390800, 39.2)]);
     m.insert(76420, vec![(1043370800, 58.3), (1049370850, 60.0), (2049410800, 71.7)]);
-    m.insert(76422, vec![(1252380800, 4.2), (1043300800, 40.7), (2046400800, 51.8), (2046380800, 63.2), (2048380850, 68.1)]);
+    m.insert(76422, vec![(1052380800, 4.2), (1043300800, 40.7), (2046400800, 51.8), (2046380800, 63.2), (2048380850, 68.1)]);
     m.insert(76450, vec![(1042380800, 16.6)]);
     m.insert(76451, vec![(1048410800, 17.0), (1048400800, 93.9)]);
     m.insert(76453, vec![(1052410800, 36.0), (1037420340, 43.1)]);
@@ -679,15 +679,15 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(76502, vec![(1036540800, 123.8)]);
     m.insert(76503, vec![(1050570800, 79.0), (1053560800, 105.3)]);
     m.insert(76504, vec![(1051570800, 132.6), (1050570800, 158.4)]);
-    m.insert(76505, vec![(1052560800, 58.8), (1254560800, 95.0), (1053560800, 185.0)]);
-    m.insert(76506, vec![(1052560800, 30.8), (1254560800, 112.6)]);
+    m.insert(76505, vec![(1052560800, 58.8), (1054560800, 95.0), (1053560800, 185.0)]);
+    m.insert(76506, vec![(1052560800, 30.8), (1054560800, 112.6)]);
     m.insert(76507, vec![(1053560800, 142.2)]);
     m.insert(76508, vec![(1053560800, 153.9)]);
     m.insert(76509, vec![(1052520800, 192.7)]);
     m.insert(76510, vec![(1052520800, 185.4)]);
     m.insert(76520, vec![(1050570800, 63.4), (1053560800, 95.4)]);
     m.insert(76521, vec![(1050570800, 80.5)]);
-    m.insert(76522, vec![(1052560800, 91.3), (1254560800, 111.6), (1050570800, 164.6)]);
+    m.insert(76522, vec![(1052560800, 91.3), (1054560800, 111.6), (1050570800, 164.6)]);
     m.insert(76523, vec![(1051570800, 97.4)]);
     m.insert(76524, vec![(1051570800, 13.6)]);
     m.insert(76550, vec![(1050570850, 87.8), (1050560800, 131.7), (1048570800, 137.4)]);
@@ -706,7 +706,7 @@ pub static GRACE_NEARBY_BOSSES: Lazy<HashMap<u32, Vec<(u32, f32)>>> = Lazy::new(
     m.insert(76822, vec![(1037460800, 31.4), (2048440800, 52.8)]);
     m.insert(76823, vec![(2048440800, 10.2), (1037460800, 42.7), (1035500800, 65.1)]);
     m.insert(76830, vec![(1044360800, 30.9), (1051360800, 37.7), (2047390800, 59.2)]);
-    m.insert(76831, vec![(1044320800, 49.5), (1252380800, 53.8), (2048380850, 54.4), (2046400800, 61.7)]);
+    m.insert(76831, vec![(1044320800, 49.5), (1052380800, 53.8), (2048380850, 54.4), (2046400800, 61.7)]);
     m.insert(76832, vec![(2046380800, 18.8), (2048380850, 55.6), (1043300800, 75.2)]);
     m.insert(76834, vec![(1049380800, 37.1), (1044320850, 66.7)]);
     m.insert(76835, vec![(1043370800, 46.2), (2049410800, 46.4), (2046380800, 81.0)]);
