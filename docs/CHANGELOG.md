@@ -4,6 +4,47 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.29.2 - Settle the legacy family address overlap
+
+Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.
+
+### Key Findings
+- **The 125-byte separation between the legacy families is REAL, and the single-base
+  alternative is refuted by bytes.** File b33 carries two event flags and three pickups
+  all known set — one file, so no drift confound — and each reads set at its own family's
+  base and clear at the other's. The clincher is the transition: the byte that flips for
+  pickup 30027000 across b20->b21 is at the pickup base (`ef[1622973]`, `0x00 -> 0x80`),
+  while the single-base prediction (`ef[1623098]`) stays `0x00` on both sides.
+- **The overlap is harmless because its band is empty on the event side.** Legacy event
+  flags cluster in localId 0-2999 and pickups in 7000-7999; 6000-6999 is used by neither.
+  Zero hits across 4,540 distinct legacy flags from three independent sources, and the
+  primary source agrees — `ItemLotParam_map` (regulation 1.16.1) carries 2,143 legacy
+  `getItemFlagId`s in 7000-7999 and none in 6000-6999.
+- **Two `dungeon_pickups.rs` discrepancies against the primary source**, neither
+  affecting a shipped read: m15_00's seven `getItemFlagId`s at localId 1200-1290 are
+  absent from the DB (coverage gap), and the DB's `12022995` / `12022997` are absent from
+  the primary source (suspect provenance). Both incidental finds, so a full audit of
+  `dungeon_pickups.rs` against `ItemLotParam_map` is now on the backlog.
+
+### Fixes
+- **Retracted the fix proposed in v0.29.1.** It suggested pickups should index from
+  `localId - 1000` at a shared base. That expands to `(base_ev - 125) + slot*1125 + L/8`
+  — the shipped formula, character for character. The two were never competing
+  hypotheses and no experiment could have separated them.
+- **Withdrew the v0.29.1 caution** to "suspect legacy event flags with localId 6000-6999".
+  It implied a live risk; there are no such flags. What remains is a trigger to watch
+  for — if one is ever found it collides with a real pickup — not a standing doubt.
+
+### Files Modified
+- `docs/BACKLOG.md`: open question marked settled, with the three findings and the
+  algebra mistake recorded as the reusable part
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: overlap section rewritten as settled; DB
+  discrepancies recorded
+- `crates/wasm-event-flags/src/lib.rs`: resolution recorded at `is_dungeon_pickup_set`
+- `Cargo.toml`: bumped to 0.29.2
+
+---
+
 ## v0.29.1 - Record the DLC evidence block and a legacy family address overlap
 
 Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.

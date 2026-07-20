@@ -2952,13 +2952,23 @@ pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
 /// Legacy-map pickups (localId >= 7000), in their own region below the event
 /// flags. Takes the pickup flag id, not an ItemLotParam row id.
 ///
-/// KNOWN OPEN QUESTION (docs/BACKLOG.md, step 4b): this family's base sits 125
+/// SETTLED 2026-07-20 (docs/BACKLOG.md, step 4b). This family's base sits 125
 /// bytes below the event family's while both index by the raw `localId / 8`, so
-/// their address ranges overlap — event localId L and pickup localId L + 1000
-/// land on the same bit. Each (base, formula) pair is verified against its own
-/// flips, so reads of evidenced flags are correct; what is unpinned is the split
-/// between base and formula. Suspect any legacy event flag with localId in
-/// 6000-6999 until that is settled.
+/// the two computed address ranges OVERLAP: event localId L and pickup localId
+/// L + 1000 land on the same bit. That is a real property of the layout, not a
+/// modelling error — the single-base alternative was refuted directly, in b33,
+/// where a known-set event flag reads clear at the pickup base and the byte that
+/// actually flipped for pickup 30027000 is at the pickup base.
+///
+/// It is harmless because the overlap band is empty on the event side. Legacy
+/// event flags cluster in localId 0-2999 and pickups in 7000-7999; 6000-6999 is
+/// used by neither. Checked across 4,540 distinct legacy flags from three
+/// independent sources and against the primary `ItemLotParam_map` (regulation
+/// 1.16.1), which has 2,143 legacy getItemFlagIds in 7000-7999 and none in
+/// 6000-6999.
+///
+/// If a legacy event flag with localId in 6000-6999 is ever found, it collides
+/// with a real pickup and this layout needs revisiting. Nothing else does.
 pub fn is_dungeon_pickup_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
     if flag_id % 10_000 < 7_000 {
         return None;

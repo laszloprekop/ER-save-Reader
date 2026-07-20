@@ -234,22 +234,42 @@ audit comment records entries disproven by every save on this machine.
 The same localId split applies as for tiles — `is_dungeon_flag_set` for localId < 7000,
 `is_dungeon_pickup_set` for >= 7000 — and the two regions sit 125 bytes apart.
 
-> **OPEN QUESTION: those two ranges overlap (found 2026-07-20).** Both families index by
-> the raw `localId / 8`, so within one map's 1125-byte block events occupy bytes 0-874
-> and pickups 875-1124 — which would tile the block exactly *if the bases were equal*.
-> They are not: the pickup base is 125 bytes lower, placing pickups at bytes 750-999 of
-> the event block. The consequence is exact:
+> **Those two ranges overlap — real, and harmless (settled 2026-07-20).** Both families
+> index by the raw `localId / 8`, and the pickup base sits 125 bytes lower, which places
+> the pickup range at bytes 750-999 of the event block. The consequence is exact:
 >
 > ```
 > event localId L   and   pickup localId L + 1000   resolve to the same bit
 > ```
 >
-> Verified pickup 30027000 shares its byte with a hypothetical event flag 30026000.
-> Each (base, formula) pair is verified against its own flips, so reads of evidenced
-> flags are correct — what is unpinned is the split between base and formula. The likely
-> resolution is that pickups index from `localId - 1000`, which equalises the bases.
-> No evidence file exercises a colliding pair, which is why this has not surfaced.
-> **Treat legacy event flags with localId in 6000-6999 as suspect until it is settled.**
+> **The single-base alternative is refuted, not merely unproven.** In file b33, where two
+> event flags and three pickups are all known set, each reads set at its own base and
+> clear at the other's, and the byte that actually flipped for pickup 30027000 across
+> b20→b21 is at the pickup base while the single-base prediction stayed `0x00` through
+> the transition.
+>
+> Note also that "pickups index from `localId - 1000` at a shared base" is *the same
+> model*, not a competing one: `base_ev + slot*1125 + (L-1000)/8` expands to
+> `(base_ev - 125) + slot*1125 + L/8`, which is the shipped formula exactly.
+>
+> **The overlap never fires because its band is empty on the event side.** Legacy event
+> flags cluster in localId 0-2999, pickups in 7000-7999; 6000-6999 is used by neither.
+> Verified across 4,540 distinct legacy flags from three independent sources, and against
+> the primary source — `ItemLotParam_map` (regulation 1.16.1) carries 2,143 legacy
+> `getItemFlagId`s in 7000-7999 and none in 6000-6999. If a legacy event flag in that
+> band is ever found, it collides with a real pickup and the layout needs revisiting.
+
+**Two database discrepancies found against the primary source**, both small and neither
+affecting a shipped read:
+
+- `ItemLotParam_map` gives m15_00 (Miquella's Haligtree) seven `getItemFlagId`s at
+  localId 1200-1290, below the 7000 split. They are the only legacy pickups in the
+  primary source outside 7000-7999, and `dungeon_pickups.rs` does not carry them at all —
+  a DB coverage gap, not a misread. Were they added, `is_dungeon_pickup_set` would
+  reject them on the 7000 rule and they would read Unknown.
+- Conversely `dungeon_pickups.rs` carries two entries the primary source does not list
+  as legacy pickups: `12022995` and `12022997` (m12_02, localId 2995/2997). They read
+  Unknown today. Unverified provenance; treat as suspect.
 
 **Two maps are allocated twice** (m34_12 → slots 62 and 144; m40_00 → 70 and 170).
 Nothing in the evidence establishes which allocation holds the bits, so both resolve to
