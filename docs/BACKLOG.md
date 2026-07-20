@@ -938,15 +938,28 @@ plausible-looking wrong offset rather than refusing — the exact failure mode t
 migration exists to remove — and elden-map has already inherited a poisoned build once
 (step 3 note above, the Apr-07 vendored wasm).
 
-**Open decision, needs a human:** re-point the exports at the resolver, or delete the
-disproven path so they refuse loudly. Refusing loudly is the argument-from-principle —
-a caller that breaks gets fixed, a caller that reads wrong bits does not know to — but
-it breaks elden-map at a distance, so it is not mine to decide unilaterally.
+**DECIDED 2026-07-20 — refuse loudly (ADR-0008).** The exports will fail rather than
+return a static offset, accepting that this breaks elden-map. Reasoning in the ADR; the
+short form is that the export SHAPE encodes an abandoned model — `get_flag_offset(flag_id)`
+promises a static byte offset, every family floats per save, so there is no correct value
+to return. "Re-point it at the resolver" is not available: the resolver needs the flag
+region to locate a family for that save, so any honest replacement takes different
+arguments. Consumers break either way; the only choice is visibly or silently.
 
-Note the resolver needs the flag REGION (or slot bytes) to locate a family per save,
-whereas `get_flag_offset(flag_id)` takes only an id and returns a static offset. Those
-signatures are not compatible: there is no correct static offset any more. That is the
-real content of this item — the export shape encodes a model the project has abandoned.
+*The work, in order:*
+1. Delete the disproven path — `get_dungeon_general_bases()` and
+   `calculate_dungeon_flag_offset_unified` — and every route into it.
+2. Make `is_flag_set` / `get_flag_offset` / `get_flag_offset_calibrated` refuse:
+   removed outright, or retained returning `FlagOffset::invalid()` / a clear error.
+   Prefer removal — an export that always fails is still an export people call.
+3. Conformance test pinning that no exported entry point reaches a legacy base table,
+   so this cannot silently regrow. This is the check whose absence let the risk survive
+   four cutover commits: the table was documented as disproven in five places, but
+   nothing tested that it was unreachable.
+4. Coordinate elden-map onto the region-taking readers (`is_world_state_flag_set`,
+   `is_tile_pickup_set`, `is_tile_world_flag_set`, `is_dungeon_flag_set`,
+   `is_dungeon_pickup_set`) and their three-state result. Cross-repo, sequence
+   deliberately — but not a reason to keep serving wrong answers first.
 
 ### Elden Map Missing Block Bases
 - **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing block bases that Save Editor has
