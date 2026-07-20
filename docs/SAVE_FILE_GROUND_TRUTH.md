@@ -234,6 +234,23 @@ audit comment records entries disproven by every save on this machine.
 The same localId split applies as for tiles — `is_dungeon_flag_set` for localId < 7000,
 `is_dungeon_pickup_set` for >= 7000 — and the two regions sit 125 bytes apart.
 
+> **OPEN QUESTION: those two ranges overlap (found 2026-07-20).** Both families index by
+> the raw `localId / 8`, so within one map's 1125-byte block events occupy bytes 0-874
+> and pickups 875-1124 — which would tile the block exactly *if the bases were equal*.
+> They are not: the pickup base is 125 bytes lower, placing pickups at bytes 750-999 of
+> the event block. The consequence is exact:
+>
+> ```
+> event localId L   and   pickup localId L + 1000   resolve to the same bit
+> ```
+>
+> Verified pickup 30027000 shares its byte with a hypothetical event flag 30026000.
+> Each (base, formula) pair is verified against its own flips, so reads of evidenced
+> flags are correct — what is unpinned is the split between base and formula. The likely
+> resolution is that pickups index from `localId - 1000`, which equalises the bases.
+> No evidence file exercises a colliding pair, which is why this has not surfaced.
+> **Treat legacy event flags with localId in 6000-6999 as suspect until it is settled.**
+
 **Two maps are allocated twice** (m34_12 → slots 62 and 144; m40_00 → 70 and 170).
 Nothing in the evidence establishes which allocation holds the bits, so both resolve to
 `None`. A guess there reads a wrong bit ~92KB away.

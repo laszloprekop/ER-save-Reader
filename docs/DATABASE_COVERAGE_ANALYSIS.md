@@ -124,7 +124,17 @@ found", so these gaps are now visible instead of silently counted as negatives:
 | World Pickups | 4,277 / 4,809 | 532 | tile ids outside the open-world grid — same DLC/underground cause as the boss gap |
 
 The DLC gap is one issue, not four: DLC maps (m61 tiles, `2xxxxxxxxx` ids) have no
-verified layout yet. That is the single highest-value remaining discovery for coverage.
+verified layout.
+
+> **BLOCKED ON EVIDENCE, not on effort (2026-07-20).** The DLC is not installed on this
+> machine and no character has progressed into DLC content. Verification here depends on
+> attributed before/after transitions, so with no DLC-progressed save there is nothing to
+> attribute and no way to test a hypothesised base. A layout inferred from the alloclists
+> alone would be an unverifiable claim of exactly the kind ADR-0004's status ladder
+> exists to keep out of the app. These flags read Unknown, which is the correct answer
+> until the evidence exists. **Do not treat the size of this number as an argument for
+> working on it.** Unblocking needs the DLC installed and a character captured either
+> side of a DLC pickup or boss kill.
 
 ### Still Missing
 

@@ -4,6 +4,51 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.29.1 - Record the DLC evidence block and a legacy family address overlap
+
+Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.
+
+### Key Findings
+- **The two legacy families' address ranges OVERLAP.** Both index by the raw
+  `localId / 8` inside a map's 1125-byte block — events at bytes 0-874, pickups at
+  875-1124 — which would tile the block exactly if their bases were equal. They are not:
+  the pickup base sits 125 bytes lower, putting pickups at bytes 750-999 of the event
+  block. The consequence is exact: **event localId L and pickup localId L + 1000 resolve
+  to the same bit**. Verified pickup 30027000 shares its byte with a hypothetical event
+  flag 30026000.
+  Each (base, formula) pair is verified against its own flips, so reads of evidenced
+  flags are correct — what is unpinned is the split between base and formula, most
+  likely a missing `- 1000` on the pickup index. No evidence file exercises a colliding
+  pair, which is why it had not surfaced. Legacy event flags with localId in 6000-6999
+  are suspect until settled.
+- **m34_12 / m40_00 double allocation: INCONCLUSIVE, recorded so it is not re-run blind.**
+  In backup slot 0 the slot-62 block holds 6 non-zero bytes and slot 144 none, which is
+  suggestive but not decisive: one map, one save, no attributed transition, and those
+  bytes sit in the overlapping range above so they cannot even be assigned to a family.
+  m40_00 is undecidable outright — both blocks are zero in every slot, i.e. no character
+  has been there. Both maps continue to read Unknown.
+
+### Fixes
+- **Retracted a wrong recommendation.** v0.29.0 called the DLC layout "the single
+  highest-value remaining discovery for coverage" in three documents. The DLC is not
+  installed on this machine and no character has progressed into it, so there is no
+  transition to attribute and no way to verify a hypothesised base; inferring one from
+  the alloclists would be exactly the unverifiable claim ADR-0004's status ladder exists
+  to exclude. All three now record the block, the unblock condition (DLC installed plus a
+  character captured either side of a DLC pickup or boss kill), and a warning that the
+  size of the Unknown count is not an argument for the work.
+
+### Files Modified
+- `docs/BACKLOG.md`: DLC block; the overlap as an open question with its settling test;
+  the inconclusive alloc probe; actionable next work re-pointed at
+  `is_flag_set_with_status`
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: overlap caveat on the legacy-map layout section
+- `docs/DATABASE_COVERAGE_ANALYSIS.md`: DLC gap marked blocked on evidence
+- `crates/wasm-event-flags/src/lib.rs`: overlap recorded at `is_dungeon_pickup_set`
+- `Cargo.toml`: bumped to 0.29.1
+
+---
+
 ## v0.29.0 - Legacy-dungeon cutover; boss_defeats leaves the frozen store
 
 ### Features
@@ -70,7 +115,9 @@ All notable changes to ER-save-Editor will be documented in this file.
 - Live counts match the documented character designs - Confessor 51 bosses / 382 dungeon
   pickups, Wretch 1 / 0, V1-V3 0 / 0.
 - Recorded, not hand-waved: 29 of 205 bosses and 36 of 2,108 dungeon pickups read
-  Unknown, itemised by cause in `docs/DATABASE_COVERAGE_ANALYSIS.md`.
+  Unknown, itemised by cause in `docs/DATABASE_COVERAGE_ANALYSIS.md`. Most of that is
+  DLC, which is blocked on evidence — the DLC is not installed here and no character has
+  progressed into it, so there is no transition to attribute. Those flags stay Unknown.
 
 ### Files Modified
 - `crates/wasm-event-flags/src/lib.rs`: FAMILY_LEGACY_DUNGEON, dungeon read functions,

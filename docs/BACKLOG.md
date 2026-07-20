@@ -652,10 +652,48 @@ maps — unexplained, worth a look before claiming pickup coverage).
    36 of 2,108 dungeon pickups likewise: 32 in the two doubly-allocated maps, 2 under a
    bogus prefix 9901, 2 whose local id is below 7000 and so are not pickups at all.
 
-   *Next:* `is_flag_set_with_status` in `pickup_flags.rs` is the last app-side reader on
-   the legacy store, and it is blocked for the reason recorded in place — it takes a
-   bare id and cannot know the family. It needs its callers to say which family they
-   mean, not a smarter router.
+   *The DLC gap is BLOCKED ON EVIDENCE and must not be picked up.* The DLC is not
+   installed here and no character has progressed into it (confirmed 2026-07-20), so
+   there is no attributed transition to work from and no way to verify a hypothesised
+   base — the alloclists alone would give an unverifiable claim. It is the largest
+   Unknown count in the app and therefore the most tempting target; that is a trap, and
+   the correct state for those flags is Unknown. Unblocking requires the DLC installed
+   plus a character captured either side of a DLC pickup or boss kill.
+
+   *Next, and actually actionable:* `is_flag_set_with_status` in `pickup_flags.rs` is the
+   last app-side reader on the legacy store, blocked for the reason recorded in place —
+   it takes a bare id and cannot know the family. It needs its callers to say which
+   family they mean, not a smarter router.
+
+   **OPEN QUESTION — the two legacy families' address ranges OVERLAP (found 2026-07-20).**
+   Both use `alloc_slot * 1125 + localId / 8` with no subtraction for the pickup family,
+   so within one map's 1125-byte block the event flags occupy bytes 0-874 (localId
+   < 7000) and the pickups 875-1124 (localId >= 7000). If the two bases were equal that
+   would tile one block exactly. They are not equal: the pickup base sits 125 bytes
+   LOWER, which puts the pickup range at bytes 750-999 of the event block. So for any map,
+
+       event localId L  and  pickup localId L + 1000  resolve to the same bit.
+
+   Concretely, verified pickup 30027000 shares its byte with a hypothetical event flag
+   30026000 — both inside their own family's declared range. Each family was verified
+   against its own flips, so each (base, formula) pair is individually correct on the
+   evidence; the split of that pair into "base" and "formula" is what is not pinned. Most
+   likely one family's formula needs a term the other lacks (e.g. pickups indexed from
+   `localId - 1000` rather than `localId`, which would make the bases equal and the block
+   tile cleanly).
+
+   *Why it has not bitten yet:* no evidence file exercises a colliding pair. The test
+   that would settle it is cheap and specific — find a map where an event flag with local
+   L and a pickup with local L+1000 are both known and differ, or attribute a transition
+   on an event flag with localId in 6000-6999. Worth doing before anyone relies on
+   legacy event flags in the 6000-6999 local range.
+
+   *Also inconclusive, recorded so it is not re-run blind:* whether m34_12 belongs to
+   alloc slot 62 or 144. In backup slot 0 the slot-62 block holds 6 non-zero bytes and
+   slot 144 none, which is suggestive but not decisive — one map, one save, no attributed
+   transition, and the bytes sit in the overlapping range above, so they cannot even be
+   assigned to a family with confidence. m40_00 is undecidable outright: both its blocks
+   are zero in every slot, i.e. no character has been there. Both maps stay Unknown.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
    `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
    convention) out of the app into KB inputs as the CE-era Rosetta table.

@@ -2951,6 +2951,14 @@ pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
 
 /// Legacy-map pickups (localId >= 7000), in their own region below the event
 /// flags. Takes the pickup flag id, not an ItemLotParam row id.
+///
+/// KNOWN OPEN QUESTION (docs/BACKLOG.md, step 4b): this family's base sits 125
+/// bytes below the event family's while both index by the raw `localId / 8`, so
+/// their address ranges overlap — event localId L and pickup localId L + 1000
+/// land on the same bit. Each (base, formula) pair is verified against its own
+/// flips, so reads of evidenced flags are correct; what is unpinned is the split
+/// between base and formula. Suspect any legacy event flag with localId in
+/// 6000-6999 until that is settled.
 pub fn is_dungeon_pickup_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
     if flag_id % 10_000 < 7_000 {
         return None;
