@@ -7,7 +7,25 @@
     "disproven_count": 0,
     "unverified_count": 263,
     "untrackable_count": 0,
-    "last_probe_run": "2026-02-02 - Fixed EF detection algorithm, added shared validation flags."
+    "last_probe_run": "2026-02-02 - Fixed EF detection algorithm, added shared validation flags.",
+    "frozen": {
+      "frozen_date": "2026-07-19",
+      "authority": "docs/adr/0006-frozen-legacy-store-with-per-family-cutover.md",
+      "status": "READ-ONLY. This file is a frozen legacy store. Do not add, edit or re-measure entries; it cannot accumulate new contamination. New knowledge goes to knowledge/claims/event-flags.json via `er-save-editor knowledge run` (ADR-0004).",
+      "enforcement": "tests/regression_suite.rs::test_ground_truth_is_frozen pins the sha256 of this file. Any edit fails the suite by design.",
+      "why_still_wired_in": "Per ADR-0006 the applications keep reading this store family-by-family until each family reaches parity in the claims store, so the UI stays alive mid-migration. build.rs codegens src/generated/ground_truth.rs from it.",
+      "convention_warning": "Offsets here are ABSOLUTE per-flag positions measured against a single save's anchor. The claims store established that every flag family sits at a base that floats per save (and can drift between captures within one session). An offset here is therefore only valid for its own family in its own source save's layout. Offsets from different verification eras must not be combined in one matched filter.",
+      "cutover_state": {
+        "graces": "not cut over - blocked on a single-save world-state-b base detector (see BACKLOG step 4b)",
+        "boss_defeats": "not cut over",
+        "pickups": "not cut over",
+        "note": "Claims store supersedes this file for the families it covers (world-state-b, tile-open-world, tile-pickup-row-id, legacy-dungeon, legacy-dungeon-pickup) at the LAYOUT level. Check its tombstones before trusting any entry here."
+      },
+      "known_bad_entries": {
+        "formulas.tile.base_offset 337375": "TOMBSTONED in the claims store (tile-base-337375-grace-anchored): it was expressed relative to the disproven structural anchor. Measured tile base is ~483.4k grace_rel.",
+        "catacombs/tunnels families": "The ~28-31k grace_rel span these describe is a u32-record LIST, not the flag bitmap. Entries react to kills, which is why old validations correlated, but the real boss-kill bits are in the legacy-dungeon family at ~1,529.98k grace_rel. Treat as record-list observations, not flag positions."
+      }
+    }
   },
   "event_flags_detection": {
     "description": "Parameters for detecting EventFlags section offset within slot data. SINGLE SOURCE OF TRUTH for both ER-save-Editor and elden-map.",

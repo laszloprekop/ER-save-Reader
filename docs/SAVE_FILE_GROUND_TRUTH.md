@@ -183,6 +183,45 @@ Variable  | 1,833,375 | EventFlags (grace-family base ~ gaItemsEnd + 35-37k)
 
 ---
 
+## Flag Family Origin (discovered 2026-07-20)
+
+**This section supersedes the fixed byte offsets below.** Flag families do not sit at
+constant offsets. An **append-only u32 list** ahead of the flag data grows as the
+character plays — one record per progression event — pushing every family 4 bytes
+further along each time. Fixed offsets measured on one save are therefore only valid
+for that save's layout, which is why historical offsets drifted and disagreed.
+
+Measuring from the list's END removes the drift completely:
+
+```
+family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT
+```
+
+| family | constant | evidence |
+|---|---|---|
+| world-state-b (graces, world state) | 117,192 | 47 captures, spread 0 |
+| tile-pickup-row-id | 454,567 | 38 captures, spread 0 |
+| legacy-dungeon-pickup | 1,500,442 | 16 captures, spread 0 |
+
+The families are **rigidly locked to each other**: the distances between them
+(337,375 / 1,383,250 / 1,045,875) were measured through an independent route and agree
+with these constants to the byte. So locating one family locates all of them.
+
+The list has **no length prefix** — the bytes before it are zeros — so its end must be
+scanned for. Reference implementation: `crates/wasm-event-flags/src/lib.rs`
+(`find_flag_list_end`, `resolve_family_base`), locked by
+`crates/wasm-event-flags/tests/origin_conformance.rs`. It validates its assumptions and
+returns nothing rather than a plausible-looking wrong answer, because a wrong base
+reads garbage flags silently. Full derivation and negative results: `docs/BACKLOG.md`
+step 4b; generated evidence: `knowledge/claims/{family-distances,list-hunt,
+origin-validation}.json`.
+
+Validated out-of-sample on five characters (Confessor, Wretch, V1, V2, V3) across two
+backup saves and the snapshots-root corpus. The constants are **measured, not derived**;
+the scan is bounded-structural, not a parse of the enclosing section.
+
+---
+
 ## Event Flag Formulas
 
 ### Block-Based Formula (5-6 digit flags)
@@ -294,16 +333,24 @@ bit_position = 7 - (local_id % 8)
 
 ## Validation Flags (Anchors)
 
-These flags are **100% reliable** for detecting the EventFlags section:
+> **CORRECTED 2026-07-20 — these are NOT 100% reliable.** The claim below was
+> falsified by out-of-sample validation (`knowledge/claims/origin-validation.json`):
+> on the V1/V2/V3 pickup-debugging characters, **71800 and 76100 read CLEAR** in both
+> backup saves, while 71801 and 76101 read SET. A ±4096 search around the verified base
+> found no position at which all four are SET, so this is genuine character state, not
+> a detection error. Anchor sets that assume a "normal" progression will reject valid
+> minimal characters — the false-negative mode this project keeps rediscovering.
+> The byte offsets in the table are also save-specific; see *Flag Family Origin* above.
 
 | Flag ID | Byte Offset | Bit | Name | Notes |
 |---------|-------------|-----|------|-------|
-| 71800 | 2725 | 7 | Cave of Knowledge | Tutorial grace |
+| 71800 | 2725 | 7 | Cave of Knowledge | Tutorial grace — CLEAR on V1/V2/V3 |
 | 71801 | 2725 | 6 | Stranded Graveyard | Tutorial grace |
-| 76100 | 3262 | 3 | The First Step | First world grace |
+| 76100 | 3262 | 3 | The First Step | First world grace — CLEAR on V1/V2/V3 |
 | 76101 | 3262 | 2 | Church of Elleh | Early world grace |
 
-Use these to validate EventFlags offset detection.
+Usable as corroboration for characters known to have progressed past the tutorial.
+Never as a universal validity test.
 
 ---
 

@@ -49,16 +49,16 @@ use crate::db::item_name::item_name::ITEM_NAME;
 use crate::db::weapon_name::weapon_name::WEAPON_NAME;
 use crate::save::save::save::Save;
 
-const HEADER: usize = 0x300;
-const CHECKSUM: usize = 0x10;
-const SLOT_SIZE: usize = 0x280000;
+pub(super) const HEADER: usize = 0x300;
+pub(super) const CHECKSUM: usize = 0x10;
+pub(super) const SLOT_SIZE: usize = 0x280000;
 const EF_SIZE: usize = wasm_event_flags::EVENT_FLAGS_SIZE;
 /// Neighborhood half-width for the isolated-flip test.
 const ISOLATION_W: usize = 16;
 
-const INPUT_TRANSITIONS: &str = "knowledge/inputs/attributed-transitions.json";
-const INPUT_ALLOCLISTS: &str = "knowledge/game/eventflag-alloclists.json";
-const CATALOG: &str = "knowledge/evidence-catalog.json";
+pub(super) const INPUT_TRANSITIONS: &str = "knowledge/inputs/attributed-transitions.json";
+pub(super) const INPUT_ALLOCLISTS: &str = "knowledge/game/eventflag-alloclists.json";
+pub(super) const CATALOG: &str = "knowledge/evidence-catalog.json";
 const OUTPUT: &str = "knowledge/claims/event-flags.json";
 
 // ---------------------------------------------------------------------------
@@ -67,7 +67,7 @@ const OUTPUT: &str = "knowledge/claims/event-flags.json";
 
 /// Byte offset of `flag` relative to its family's floating base, plus bit.
 /// Bit convention (all families): bit = 7 - flag % 8.
-fn family_rel(family: &str, flag: u64, alloc: &BTreeMap<String, u64>) -> Result<u64, String> {
+pub(super) fn family_rel(family: &str, flag: u64, alloc: &BTreeMap<String, u64>) -> Result<u64, String> {
     let bitcheck = |v: u64| -> Result<u64, String> { Ok(v) };
     match family {
         "world-state-b" => {
@@ -122,7 +122,7 @@ fn family_rel(family: &str, flag: u64, alloc: &BTreeMap<String, u64>) -> Result<
     }
 }
 
-fn bit_of(flag: u64) -> u8 {
+pub(super) fn bit_of(flag: u64) -> u8 {
     (7 - flag % 8) as u8
 }
 
@@ -130,13 +130,13 @@ fn bit_of(flag: u64) -> u8 {
 // Evidence loading
 // ---------------------------------------------------------------------------
 
-struct SaveFile {
-    rel_path: String,
+pub(super) struct SaveFile {
+    pub(super) rel_path: String,
     sha256: String,
-    slot: Vec<u8>,
-    grace: usize,
-    ga_end: i64,
-    confident: bool,
+    pub(super) slot: Vec<u8>,
+    pub(super) grace: usize,
+    pub(super) ga_end: i64,
+    pub(super) confident: bool,
     /// item identity ("category:id") -> total quantity (held + storage box,
     /// common + key lists). Identity, never GaItem handle — handles churn
     /// across captures (ADR-0007).
@@ -251,7 +251,7 @@ fn delta_json(delta: &[(String, i64)]) -> Value {
     )
 }
 
-fn load_manifest(repo_root: &Path, manifest_rel: &str) -> Result<BTreeMap<String, String>, String> {
+pub(super) fn load_manifest(repo_root: &Path, manifest_rel: &str) -> Result<BTreeMap<String, String>, String> {
     let text = fs::read_to_string(repo_root.join(manifest_rel))
         .map_err(|e| format!("{}: {}", manifest_rel, e))?;
     let mut map = BTreeMap::new();
@@ -263,7 +263,7 @@ fn load_manifest(repo_root: &Path, manifest_rel: &str) -> Result<BTreeMap<String
     Ok(map)
 }
 
-fn load_save(
+pub(super) fn load_save(
     dir: &Path,
     rel_path: &str,
     save_slot: usize,
@@ -327,7 +327,7 @@ fn isolated_flips(before: &SaveFile, after: &SaveFile) -> Vec<(usize, u8, u8)> {
     out
 }
 
-fn bit_at(f: &SaveFile, grace_rel: u64, bit: u8) -> Option<bool> {
+pub(super) fn bit_at(f: &SaveFile, grace_rel: u64, bit: u8) -> Option<bool> {
     let pos = f.grace as u64 + grace_rel;
     f.slot.get(pos as usize).map(|b| (b >> bit) & 1 == 1)
 }

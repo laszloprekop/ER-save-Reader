@@ -158,6 +158,324 @@ Steps, in order:
    captures; the timeline flip-clustering design above, if someone wants to pursue it.
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
    store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
+
+   **4a. FREEZE — DONE 2026-07-19.** `metadata.frozen` block added to the store itself
+   (authority, enforcement, convention warning, per-family cutover state, and the two
+   known-bad entry classes: tombstoned tile base 337375, and the catacombs/tunnels
+   families that describe a u32-record list rather than the flag bitmap). Enforced by
+   `tests/regression_suite.rs::test_ground_truth_is_frozen`, which pins the file's
+   sha256 (`5b2256d1…`) and asserts the marker survives; verified to actually bite by
+   perturbing one offset and observing the failure. Audit finding: **nothing in the
+   repo writes this file** — `build.rs` codegens `src/generated/ground_truth.rs` from
+   it and `tests/regression_suite.rs` reads it, so the freeze cost nothing to impose.
+
+   **4b. CUTOVER — BLOCKED, and it is not a data migration.** The two stores use
+   incompatible models: the legacy store holds ABSOLUTE per-flag offsets (71000 →
+   offset 9315), while every claims-store family is `base_is_per_save: true`. So legacy
+   entries cannot be mapped onto claims entries one-for-one — for a family to flip, the
+   app must detect that family's base *in the save in front of it* and then apply the
+   layout formula. The claims store's contribution is the verified LAYOUT (e.g.
+   world-state-b `(flag−50000)/8`), which covers every flag in the family; what is
+   missing is the per-save base.
+
+   The missing capability is a **single-save family-base detector**. The pipeline
+   measures bases from attributed before/after transition PAIRS (isolated-flip
+   analysis), which the app cannot do — it has one save, no pair.
+
+   Nearest existing mechanism is `src/calibration.rs`, which is the right shape
+   (bounded anchor scan, ≥3 anchor matches across ≥2 distinct tiles, window
+   430k–510k) but is entirely pre-reset:
+   - its header comment asserts the tile base "is constant across saves" — the exact
+     claim the per-family float finding refuted, citing the now-tombstoned 337375;
+   - its anchors/windows are EF-relative from the GT era (tile_base 446321 / 453473)
+     while the claims store measures grace_rel (~483.4k) — different conventions,
+     not comparable as written;
+   - it covers tiles only. There is **no world-state-b calibrator at all**, and
+     ADR-0006 puts graces first.
+
+   Note the hazard is already charted: blind full-EF pattern scanning for the
+   world-state-b tutorial anchors was tried during the timeline work and produced
+   32,893 bogus "events" with flags flipping 0→1 up to 69 times. A *bounded*
+   multi-anchor scan is a different animal and is NOT refuted by that result — but it
+   must be re-grounded on claims-store conventions and re-verified against the
+   attributed pairs (whose bases are known) before any family flips.
+
+   So 4b is a discovery task, not a refactor: build and prove a single-save
+   world-state-b base detector, validating it against the pairs where the pipeline
+   already knows the right answer. Only then do grace entries get promoted/tombstoned.
+
+   **4b INVESTIGATION 2026-07-19/20 — the float is quantized, not arbitrary.**
+   Decision taken: pursue the structural theory (the location must be predictable
+   from the file's own structure, since the game itself reconstructs everything from
+   one file) with a pre-registered pass criterion — back the constant out of every
+   fixture independently, and *all* fixtures must agree on ONE number. Zero residual
+   was NOT required (the fixed table is known bad); zero spread was.
+
+   *Confirmed:* an independent Python reimplementation of `find_ga_items_end`
+   reproduced all 8 conformance goldens exactly. GaItems parsing is genuinely
+   understood, not fitted.
+
+   *Test 1 (EF region start vs ga_end) — INCONCLUSIVE, measurement contaminated.*
+   No single count field explains the gap. But the goldens it was tested against are
+   outputs of the byte-by-byte scan in `detect_in_window`, whose own tie-break comment
+   calls the plateaus it chooses between "small shifted echoes". The near-identical
+   low-progression slots 1-4 share one ga_end yet their gaps differ by 29/21/8 bytes —
+   the same order as the scan's ambiguity. **Do not treat the golden EF offsets as
+   structural truth; they are scan results.** Gross structure is real and far above the
+   noise floor (low-progression gap ~35.3k vs mid-game ~36.5k, a ~1,200-byte
+   progression-linked difference); fine structure is unmeasurable this way.
+
+   *Test 2 (family base vs ga_end) — byte-exact, and the key result.* `grace_base +
+   family_base_grace_rel` recovers the exact absolute base (the scan jitter cancels,
+   since the rel value was computed against that same grace_base). Deltas from ga_end:
+
+   | family | n files | delta range | spread |
+   |---|---|---|---|
+   | world-state-b | 6 | 183,101–183,157 | 56 |
+   | tile-open-world | 2 | 520,008–520,016 | 8 |
+   | tile-pickup-row-id (snapshots-root) | 8 | 518,200–518,248 | 48 |
+   | tile-pickup-row-id (snapshots-confessor) | 7 | 520,476–520,520 | 44 |
+   | legacy-dungeon | 2 | 1,566,516–1,566,520 | 4 |
+   | legacy-dungeon-pickup | 3 | 1,566,387–1,566,391 | 4 |
+
+   Findings: (1) the base is NOT a fixed distance from ga_end, so ga_end alone cannot
+   position a family — decisively shown by the 8 `snapshots-root` files, which share
+   an identical ga_end of 41,448 yet spread 48 bytes; (2) but the variation is ~0.03%
+   of the magnitude, so the gross structure is essentially pinned; (3) **every step in
+   every family is a multiple of 4** (steps observed: 4, 8, 12, 16, 20, 32, 36);
+   (4) tile-pickup-row-id splits cleanly by character (~518.2k root vs ~520.5k
+   confessor) with only ~48 bytes of spread *within* each — the "2,320-byte float"
+   is a between-character offset, not per-save chaos.
+
+   *Interpretation (inference, not yet proven):* a variable-length u32 record list
+   sits between ga_end and the flag families, so
+   `family_base = ga_end + FIXED(family) + 4 × record_count`. This is consistent with
+   the pipeline's independent finding that the old "catacombs" 28-31k span is a
+   u32-record LIST rather than a bitmap. It also reconciles the two facts that looked
+   contradictory: a fixed-size bitmap cannot reflow, yet the bases move.
+
+   *Decisive next experiment (blocked on a pipeline run, not on knowledge):* measure
+   ALL family bases in EACH file and test whether the distance BETWEEN families is
+   constant. This could not be run from the claims store — each pair records only the
+   family of its own flag, so no file currently carries two bases. If inter-family
+   distances are constant, then locating ONE family locates every family, and 4b
+   reduces to pinning a single origin plus reading one record count.
+
+   **INTER-FAMILY TEST DONE 2026-07-20 — CONSTANT, and it collapses 4b.**
+   `er-save-editor knowledge family-distances` (`src/knowledge/family_distances.rs`,
+   emits `knowledge/claims/family-distances.json`, byte-identical on re-run). It
+   re-measures each family in files where no flag of that family flipped, by finding
+   the UNIQUE position in a bounded window at which every expected flag state holds
+   (expectations from set-monotonicity over pipeline-verified flips, plus the
+   `known_set_before_all_pairs` anchors; `MIN_ANCHORS` = 3, window = the family's
+   measured delta range ±512). 48 files measured, 37 carrying ≥2 family bases.
+
+   | distance | n files | value | spread |
+   |---|---|---|---|
+   | tile-pickup-row-id → world-state-b | 37 | −337,375 | **0** |
+   | legacy-dungeon-pickup → world-state-b | 16 | −1,383,250 | **0** |
+   | legacy-dungeon-pickup → tile-pickup-row-id | 16 | −1,045,875 | **0** |
+
+   Zero spread on all three, and they are mutually consistent by an arithmetic check
+   that was not imposed by construction: −1,383,250 − (−1,045,875) = −337,375 exactly.
+
+   **The families are rigidly locked to each other.** Each family's distance from
+   ga_end wanders (the 4-byte-quantized record-list growth above), but they all wander
+   *together*. So locating ONE family locates all of them, and 4b reduces from "build a
+   detector per family" to "pin a single origin, then add a known constant."
+
+   **−337,375 is the tombstoned constant.** Tombstone `tile-base-337375-grace-anchored`
+   retired 337,375 as a tile base, and that refutation stands — it was being used as an
+   absolute offset from the disproven structural anchor. But the NUMBER was never
+   wrong: it is the exact, invariant distance between the tile-pickup and world-state-b
+   families. The old ground truth had measured a real structural invariant and
+   misattributed it to the wrong origin. Worth remembering before dismissing other
+   legacy constants as noise — some may be real distances wearing the wrong anchor.
+
+   *Honest limits of this run.* The search windows are centred on prior measurements,
+   so this command re-measures known families; it does NOT locate a family from nothing
+   and must not be cited as doing so (the emitted JSON says so in its `method` block).
+   Unresolved: `tile-open-world` never resolved (29 files, too few anchors — only 2
+   verified flags exist for it); `world-state-b` found no candidate in 15 files and
+   `legacy-dungeon` in 6, which needs a look — likely captures predating the tutorial
+   anchors, or the churny s7 files the evidence catalog already warns about.
+
+   *Next:* pin the single origin. That is now the whole of 4b, and the ±512 windows
+   plus three mutually-consistent constants give it a far tighter target than the blind
+   scan that failed in step 3.
+
+   **ORIGIN PROBE 2026-07-20 — the drift is monotonic; no count field explains it.**
+   `er-save-editor knowledge origin-probe` (same module, emits
+   `knowledge/claims/origin-probe.json`, byte-identical on re-run). Origin proxy is
+   world-state-b (resolved in 47 files, all `snapshots-confessor`). Its delta from
+   ga_end takes 7 distinct values over 183,101–183,157, and they are ordered by
+   capture sequence:
+
+   | capture | delta | step |
+   |---|---|---|
+   | Confessor 01 (earliest) | 183,101 | — |
+   | b1 | 183,133 | +32 |
+   | b19 | 183,137 | +4 |
+   | b25 | 183,141 | +4 |
+   | b33 | 183,145 | +4 |
+   | b38 | 183,153 | +8 |
+   | b43 (latest) | 183,157 | +4 |
+
+   **Monotonically growing, every step a multiple of 4.** The drift is a structure
+   being appended to as the character plays — it never shrinks. This is the clearest
+   confirmation yet of the record-list model, and it also means the drift is a
+   *function of progression*, not of save/load noise.
+
+   *Negative result:* no single u32 count field explains it. The probe searched
+   [0, 190,000) from BOTH `ga_end` and `grace_base`, multipliers 1/2/4/8/12, requiring
+   `delta − mult × count` to be identical across all 47 files. Zero candidates.
+   (The two anchors matter: the ga_end→EF variable section has ~1,277 bytes of spread,
+   so a count stored after it is not at a stable offset from ga_end. Neither anchor
+   worked.) The first run of this probe used a 70,000 span, which never even reached
+   the origin proxy at ga_end+183k — the full-span re-run is the one that counts.
+
+   *What this does and does not mean.* The record-list model is NOT refuted; the
+   single-count *form* of it is. Live hypotheses, in rough order of promise:
+   (1) the list is sentinel/terminator-delimited rather than length-prefixed, so its
+   size is found by scanning for the terminator and no count exists to find — this
+   would explain every observation and is still fully parseable;
+   (2) the count lives outside the searched span (before ga_end, or in a section not
+   covered); (3) several lists sum to the observed drift; (4) the width is not u32.
+
+   *Next experiment:* stop looking for a count and look for the LIST. Scan the region
+   between grace_base and world-state-b for a run of fixed-width records ending in a
+   terminator, and test whether the record count tracks the drift across the 47 files
+   in capture order. The monotonic ordering above is a strong constraint: any correct
+   model must reproduce that exact sequence of steps (32, 4, 4, 4, 8, 4).
+
+   **LIST FOUND 2026-07-20 — the origin is pinned. `knowledge list-hunt`**
+   (`src/knowledge/family_distances.rs`, emits `knowledge/claims/list-hunt.json`,
+   byte-identical on re-run). Method: differential alignment. For two captures whose
+   measured family delta differs, find every position where the byte alignment between
+   them shifts; each shift change is a variable-length structure.
+
+   *The list.* Every diffed pair puts its FIRST shift at ga_end+65,7xx, and the shift
+   there already equals the pair's TOTAL family drift — everything later (72k–77k)
+   churns but nets back out. The bytes there are 4-byte little-endian records
+   (`0x00125764, 0x00125752, … 0x002f7859, 0x002f785a`), and the later capture has
+   exactly one more appended (`0x002f7858`). An **append-only u32 list**. The detected
+   boundary itself creeps by exactly the previous pair's growth (65,727 → 65,731 →
+   65,735 → 65,739 → 65,747), confirming it is the list's END.
+   At grace_rel ≈ 29,200 this is the same structure the pipeline independently called
+   "a u32-record LIST, not the flag bitmap" (the old "catacombs" 28-31k span) — two
+   separate lines of evidence landing on one structure.
+
+   *The payoff.* Measuring from the list's end removes the drift completely:
+
+   | family | n | base − list_end | spread |
+   |---|---|---|---|
+   | world-state-b | 47 | **117,192** | 0 |
+   | tile-pickup-row-id | 38 (37 confessor + 1 root) | **454,567** | 0 |
+   | legacy-dungeon-pickup | 16 | **1,500,442** | 0 |
+
+   These reproduce the independently measured inter-family distances exactly:
+   454,567 − 117,192 = 337,375 ✓ · 1,500,442 − 117,192 = 1,383,250 ✓ ·
+   1,500,442 − 454,567 = 1,045,875 ✓. Two separately derived measurement chains agree
+   to the byte.
+
+   **So a single save with no history can position every family:** parse ga_end
+   (already exact), find the list end, add the family constant. No before/after pair,
+   no scoring, no scan of the flag region.
+
+   *Honest limits — this is not finished.* (1) `find_list_end` is a heuristic, not a
+   format parse: skip to the first non-zero byte at/after ga_end+60,000, then take the
+   first 64-byte zero run. Both constants are empirical, and a character whose list is
+   far longer or shorter could walk out of that window. A real parse of the enclosing
+   section should replace it. (2) Cross-character evidence is thin: 47 of the files are
+   one Confessor, and the only non-confessor confirmation is a SINGLE `snapshots-root`
+   file (which does hit 454,567 exactly). Validating against the conformance fixtures
+   and the V1/V2/V3 slots is the necessary next step before any of this is wired into
+   the app. (3) The constants are measured, not derived from the format.
+
+   **CROSS-CHARACTER VALIDATION 2026-07-20 — the model holds out-of-sample.**
+   `er-save-editor knowledge validate-origin` (emits
+   `knowledge/claims/origin-validation.json`, byte-identical on re-run). Predicts each
+   family base from the slot's own bytes only — `ga_end + find_list_end(slot) +
+   constant` — then checks against states established independently of the model.
+
+   *A. Multi-slot differentials — 9/9 PASS.* V1 (slot 2), V2 (slot 3) and V3 (slot 4)
+   across three instrument files each, 5 exact expected bits per file (rowIds
+   1044360300/310/320/330/340), **including the CLEAR ones**, which are the real
+   discriminator — a mislocated base fails those first. Predicted bases differ per
+   slot exactly as the per-slot float predicts (559,656 / 559,652 / 559,644), and V3's
+   third file correctly shifts to 559,652 after its anchor transition. These three
+   characters contributed nothing to deriving the constants.
+
+   *B. Backup saves, five characters, tutorial grace anchors.* Slot 0 (Confessor) and
+   slot 1 (Wretch) PASS 4/4 on both backups; Wretch is fully out-of-sample. Slots 2-4
+   read 71801/76101 SET but 71800/76100 CLEAR, identically across all three characters
+   and both backups.
+
+   *That is a bad expectation, not a bad base.* `known_set_before_all_pairs` is an
+   assumption about the CONFESSOR's state; applying it to V1/V2/V3 was out of scope —
+   my test-design error. The command now discriminates the two explanations directly:
+   it searches ±4096 around the prediction for any base at which all four anchors read
+   SET. **There is none, for any of the three slots.** A mislocated base would have a
+   rescue position; a genuinely untouched grace has none. Combined with part A
+   validating these very characters, the model is corroborated rather than refuted.
+   Not proven, though: settling what V1/V2/V3 actually touched needs independent
+   evidence about those characters, which `save_slot_registry.json` does not carry
+   (it is a feature registry, not per-slot state). The 6 are recorded as FAIL, not
+   quietly reclassified.
+
+   *Standing.* The origin model now validates on five distinct characters (Confessor,
+   Wretch, V1, V2, V3) across two backup saves and the snapshots-root corpus. The
+   remaining weakness is no longer cross-character coverage but the heuristic in
+   `find_list_end` (empirical probe start and zero-run length rather than a parse of
+   the enclosing section), which is what should be hardened before graces are cut over.
+
+   **HARDENED 2026-07-20 — resolver moved into the reference implementation.**
+   `crates/wasm-event-flags/src/lib.rs` now owns the origin: `find_flag_list_end`,
+   `resolve_family_base`, the three family constants, and WASM exports
+   (`flag_list_end`, `family_base`). `src/knowledge/family_distances.rs` DELEGATES to
+   it — the local copy is deleted, so the pipeline and the app cannot disagree about
+   where a family is (ADR-0005). Re-running `list-hunt` and `validate-origin` after
+   the cutover reproduced every number byte-identically, including all 19 validation
+   verdicts and the three list-end constants, so the delegation is verified rather
+   than assumed.
+
+   *Anatomy checked first (5 backup characters).* The list has NO length prefix —
+   the 32 bytes before its start are zeros in every slot — which is why the earlier
+   single-count search found nothing. Record counts track progression (Confessor 291,
+   Wretch 112, V1 111, V2/V3 110). So the end genuinely has to be scanned for; the
+   hardening makes that scan honest rather than replacing it.
+
+   *What hardening actually means here.* The resolver checks its own assumptions and
+   returns `None` rather than a plausible-looking wrong answer, because a wrong base
+   reads garbage flags silently:
+   - the probe point must be followed by `ORIGIN_MIN_LEAD_ZEROS` (256) actual zeros,
+     proving we started in the gap and not inside the list, where the "start" would
+     be wherever we happened to enter;
+   - `(list_end - ga_end)` must land in [55,000, 80,000] (observed 63,629-65,949);
+   - the resulting base must lie inside the data.
+   Probe start moved 60,000 → 50,000 to sit further from the earliest observed list
+   start (63,187), with the lead-zero check as the guard rather than luck.
+
+   *Locked by `crates/wasm-event-flags/tests/origin_conformance.rs`* (6 tests):
+   golden ga_end + list_end for all 8 fixtures; the declared sanity range must contain
+   real saves with ≥2,000 bytes of margin at both ends (bounds that only just fit are
+   bounds about to reject a valid save); the family constants must reproduce the
+   independently measured inter-family distances; and refusal on empty, all-zero,
+   too-short, and truncated input. Writing these caught a real one: `resolve_family_base`
+   correctly refuses on the 128k fixtures because the bases lie at ~228k, i.e. the
+   bounds check fired on the test author first.
+
+   *Still not derived.* The constants are measured, and the scan is bounded-structural
+   rather than a parse of the enclosing section. A full parse would need the section
+   layout around grace_rel 29k, which nothing in the corpus documents yet.
+
+   *Two method bugs worth remembering.* The first list-end scan returned garbage
+   because ga_end+60,000 is itself inside a zero gap, so it terminated instantly and
+   produced values that were exactly `delta − 60,000` — a "constant-looking" failure
+   mode that only showed up as suspiciously round arithmetic. And differential
+   alignment silently lies inside zero runs, where EVERY shift matches: the search must
+   require the sync window to contain real bytes (`MIN_INFORMATIVE`) or the whole
+   sparse bitmap reads as "shift 0" and insertions inside it become invisible.
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
    `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
    convention) out of the app into KB inputs as the CE-era Rosetta table.

@@ -1,0 +1,1018 @@
+{
+  "candidates": [],
+  "delta_distinct_values": 7,
+  "files_used": 47,
+  "generated_by": "er-save-editor knowledge origin-probe",
+  "method": {
+    "base_acceptance": "unique position in a bounded window where every expected flag state matches",
+    "expectations": "set-monotonicity from pipeline-verified flips, plus known_set_before_all_pairs anchors",
+    "limitation": "windows are centred on prior measurements, so this re-measures known families; it does not locate a family from nothing and must not be cited as doing so",
+    "min_anchors": 3,
+    "window": "family's measured delta range from ga_end, +/- margin",
+    "window_margin": 512
+  },
+  "observations": [
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50",
+      "ga_end": 44473
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
+      "ga_end": 44473
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 03 before touching Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+      "ga_end": 44473
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+      "ga_end": 44473
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 05 before picking up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+      "ga_end": 44473
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+      "ga_end": 44486
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "ga_end": 44486
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183101,
+      "file": "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "ga_end": 44486
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "ga_end": 44984
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "ga_end": 44984
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+      "ga_end": 45215
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+      "ga_end": 45215
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+      "ga_end": 45215
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+      "ga_end": 45215
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+      "ga_end": 45325
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+      "ga_end": 45325
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+      "ga_end": 45325
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+      "ga_end": 45333
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "ga_end": 45231
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183133,
+      "file": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "ga_end": 45231
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+      "ga_end": 45121
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+      "ga_end": 45121
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+      "ga_end": 45121
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "ga_end": 45011
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "ga_end": 45011
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183137,
+      "file": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "ga_end": 45105
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "ga_end": 45121
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "ga_end": 44901
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "ga_end": 44901
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "ga_end": 45024
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "ga_end": 45024
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183141,
+      "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "ga_end": 45024
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183145,
+      "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "ga_end": 45024
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183145,
+      "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+      "ga_end": 44804
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183145,
+      "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+      "ga_end": 44817
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183153,
+      "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183153,
+      "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "ga_end": 46011
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+      "ga_end": 46011
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+      "ga_end": 46011
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+      "ga_end": 46027
+    },
+    {
+      "corpus": "snapshots-confessor",
+      "delta": 183157,
+      "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+      "ga_end": 46027
+    }
+  ],
+  "origin_proxy_family": "world-state-b",
+  "probe_span_from_ga_end": 190000,
+  "question": "Is the family drift explained by a single u32 record count in the save, i.e. family_base - ga_end = FIXED + multiplier * count?",
+  "schema": "origin-probe/1",
+  "unresolved": [
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon-pickup",
+      "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 1,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 3,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+      "flags": [
+        16000720,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 3,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+      "flags": [
+        16000720,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+      "flags": [
+        16000720,
+        16000750,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+      "flags": [
+        16000720,
+        16000750,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 5,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+      "flags": [
+        16000720,
+        16000730,
+        16000750,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 5,
+      "candidates": 0,
+      "family": "legacy-dungeon",
+      "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+      "flags": [
+        16000720,
+        16000730,
+        16000750,
+        30020800,
+        30030800
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-open-world",
+      "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 122 s2-V1 World Pickup 1044360320_m60_4_43 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 123 s2-V1 World Pickup 1044360320_m60_4_43 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 124 s2-V1 World Pickup 1044360330_m60_4_43 before",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 124 s2-V1 World Pickup 1044360330_m60_4_43 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 125 s2-V1 World Pickup 1044360330_m60_4_43 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 126 s2-V1 World Pickup 1044360300_m60_4_4 before",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 126 s2-V1 World Pickup 1044360300_m60_4_4 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 127 s2-V1 World Pickup 1044360300_m60_4_43 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 135 s7-Slot7 World Pickup 1042360030_m60_4_23 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 136 s7-Slot7 World Pickup 1042360030_m60_4_23 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 142 s7-Slot7 World Pickup 1044360310_m60_4_43 before",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 142 s7-Slot7 World Pickup 1044360310_m60_4_43 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 1,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 143 s7-Slot7 World Pickup 1044360310_m60_4_43 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 144 s7-Slot7 World Pickup 1044360340_m60_4_43 before",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 144 s7-Slot7 World Pickup 1044360340_m60_4_43 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 2,
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+      "min_required": 3,
+      "skipped": "too few anchors"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 145 s7-Slot7 World Pickup 1044360330_m60_4_43 before",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    },
+    {
+      "anchors": 4,
+      "candidates": 0,
+      "family": "world-state-b",
+      "file": "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after",
+      "flags": [
+        71801,
+        71800,
+        76101,
+        76100
+      ],
+      "skipped": "no candidate"
+    }
+  ]
+}

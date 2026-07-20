@@ -1,0 +1,1079 @@
+{
+  "generated_by": "er-save-editor knowledge list-hunt",
+  "list_end_test": {
+    "constant_origin_proxy": true,
+    "distinct_values_origin_proxy": [
+      117192
+    ],
+    "observations": [
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 02 after Missionary's Cookbook [4] picked up EF-67640 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 03 before touching Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 04 after touched Minor Erdtree Church grace EF-76310 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 05 before picking up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 06 after picked up Golden Order Seal EF-1043500000 mapTile-m60_43_50",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 09 before picking up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 Confessor - 10 after picked up Smoldering Butterfly treasure_m60_43_50_00_1043500010",
+        "list_end_from_ga_end": 65909
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b2 after pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b3 before pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b4 after pickup EF-1042327000 rowId-1042320000 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b5 before pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b6 after pillaging EF-1042327020 rowId-1042320020 mapTile-m60_42_32",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b7 before entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b8 after entering EF-62132 rowId-61423701 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b11 before defeating Crucible Knight EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b12 after Crucible Knight felled EF-1042370800 rowId-1042370800 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b15 before picking up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b16 after picked up EF-1042377300 rowId-1042371300 mapTile-m60_42_37",
+        "list_end_from_ga_end": 65941
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b20 after touched grace and rested EF-73002 rowId-300200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b21 after picked up EF-30027000 rowId-30020000 lotItemId01-20775 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b22 before picking up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b23 after picked up Prattling Pate \"Hello\" EF-30027030 rowId-30020030 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b24 Before first traversing the yellow mist to defeat EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65945
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b26 before fighting Bols EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b27 after Bols felled EF-1033450800 rowId-1033450800 found_flag-30020801 mapTile-m60_33_45",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b28 before pillaging EF-30037030 rowId-30030030 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b29 after picked up EF-30037030 rowId-30030030 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b32 before fighting EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65949
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b34 before picking up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b35 after picked up EF-1033467040 rowId-1033460040 m60_33_46",
+        "list_end_from_ga_end": 65953
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b39 after discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+        "list_end_from_ga_end": 65961
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b44 after pillaged Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b45 before talking to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b46 afer talked to Rya EF-16000720 model_name-c0000",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b48 before talking to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b49 after talked to Bernahl EF-16000750",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b50 before talking to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b51 after talked to Diallos EF-16000730",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b54 before picking up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 1500442,
+        "corpus": "snapshots-confessor",
+        "family": "legacy-dungeon-pickup",
+        "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-confessor",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 117192,
+        "corpus": "snapshots-confessor",
+        "family": "world-state-b",
+        "file": "ER0000.sl2 S0 - b55 after picked up Recusant Finger EF-60260 rowId-16000720",
+        "list_end_from_ga_end": 65965
+      },
+      {
+        "base_minus_list_end": 454567,
+        "corpus": "snapshots-root",
+        "family": "tile-pickup-row-id",
+        "file": "ER0000.sl2 - 146 s7-Slot7 World Pickup 1044360330_m60_4_43 after",
+        "list_end_from_ga_end": 63681
+      }
+    ],
+    "per_family": {
+      "legacy-dungeon-pickup": {
+        "constant": true,
+        "values": [
+          1500442
+        ]
+      },
+      "tile-pickup-row-id": {
+        "constant": true,
+        "values": [
+          454567
+        ]
+      },
+      "world-state-b": {
+        "constant": true,
+        "values": [
+          117192
+        ]
+      }
+    },
+    "per_family_per_corpus": {
+      "legacy-dungeon-pickup @ snapshots-confessor": {
+        "constant": true,
+        "values": [
+          1500442
+        ]
+      },
+      "tile-pickup-row-id @ snapshots-confessor": {
+        "constant": true,
+        "values": [
+          454567
+        ]
+      },
+      "tile-pickup-row-id @ snapshots-root": {
+        "constant": true,
+        "values": [
+          454567
+        ]
+      },
+      "world-state-b @ snapshots-confessor": {
+        "constant": true,
+        "values": [
+          117192
+        ]
+      }
+    },
+    "probe_start_from_ga_end": 50000,
+    "question": "does measuring from the append-only list's end remove the drift?",
+    "zero_run_terminator": 64
+  },
+  "method": {
+    "approach": "differential alignment: for two captures whose measured family delta differs, find every position where the byte alignment shifts",
+    "max_shift": 4096,
+    "note": "an insertion point is narrowed to the exact byte by binary search on the pre-insertion shift",
+    "scan_stride": 256,
+    "sync_window": 64
+  },
+  "origin_proxy_family": "world-state-b",
+  "pairs": [
+    {
+      "delta_from": 183101,
+      "delta_to": 183133,
+      "file_a": "ER0000.sl2 Confessor - 01 before Missionary's Cookbook [4] pickup EF-67640 mapTile-m60_43_50",
+      "file_b": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "growth": 32,
+      "insertions": [
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 38296,
+          "shift_from": 0,
+          "shift_to": 16
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 65695,
+          "shift_from": 16,
+          "shift_to": 32
+        },
+        {
+          "bytes": -32,
+          "offset_from_ga_end": 66559,
+          "shift_from": 32,
+          "shift_to": 0
+        },
+        {
+          "bytes": 32,
+          "offset_from_ga_end": 67844,
+          "shift_from": 0,
+          "shift_to": 32
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 68351,
+          "shift_from": 32,
+          "shift_to": 16
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 68607,
+          "shift_from": 16,
+          "shift_to": 0
+        },
+        {
+          "bytes": 32,
+          "offset_from_ga_end": 69868,
+          "shift_from": 0,
+          "shift_to": 32
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 70408,
+          "shift_from": 32,
+          "shift_to": 48
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 70816,
+          "shift_from": 48,
+          "shift_to": 56
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 70936,
+          "shift_from": 56,
+          "shift_to": 72
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 71272,
+          "shift_from": 72,
+          "shift_to": 88
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 72744,
+          "shift_from": 88,
+          "shift_to": 104
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 73520,
+          "shift_from": 104,
+          "shift_to": 120
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 73968,
+          "shift_from": 120,
+          "shift_to": 136
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 75120,
+          "shift_from": 136,
+          "shift_to": 144
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 76216,
+          "shift_from": 144,
+          "shift_to": 152
+        },
+        {
+          "bytes": -120,
+          "offset_from_ga_end": 76384,
+          "shift_from": 152,
+          "shift_to": 32
+        }
+      ],
+      "shift_at_family_base": 32,
+      "shift_at_ga_end": 0
+    },
+    {
+      "delta_from": 183133,
+      "delta_to": 183137,
+      "file_a": "ER0000.sl2 S0 - b1 before pillaging EF-1044367040 rowId-1044360040 mapTile-m60_44_36",
+      "file_b": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+      "growth": 4,
+      "insertions": [
+        {
+          "bytes": 4,
+          "offset_from_ga_end": 65727,
+          "shift_from": 0,
+          "shift_to": 4
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 72480,
+          "shift_from": 4,
+          "shift_to": 12
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 73992,
+          "shift_from": 12,
+          "shift_to": 20
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 76970,
+          "shift_from": 20,
+          "shift_to": 4
+        }
+      ],
+      "shift_at_family_base": 4,
+      "shift_at_ga_end": 0
+    },
+    {
+      "delta_from": 183137,
+      "delta_to": 183141,
+      "file_a": "ER0000.sl2 S0 - b19 before touching grace EF-73002 rowId-300200 mapTile-m30_02_00",
+      "file_b": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "growth": 4,
+      "insertions": [
+        {
+          "bytes": 4,
+          "offset_from_ga_end": 65731,
+          "shift_from": 0,
+          "shift_to": 4
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 73348,
+          "shift_from": 4,
+          "shift_to": 12
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 76500,
+          "shift_from": 12,
+          "shift_to": 28
+        },
+        {
+          "bytes": -24,
+          "offset_from_ga_end": 76990,
+          "shift_from": 28,
+          "shift_to": 4
+        }
+      ],
+      "shift_at_family_base": 4,
+      "shift_at_ga_end": 0
+    },
+    {
+      "delta_from": 183141,
+      "delta_to": 183145,
+      "file_a": "ER0000.sl2 S0 - b25 After Erdtree Burial Watchdog felled EF-30020800 npc_param_id-42600110 lotItemId01-2200 mapTile-m30_02_00",
+      "file_b": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "growth": 4,
+      "insertions": [
+        {
+          "bytes": 4,
+          "offset_from_ga_end": 65735,
+          "shift_from": 0,
+          "shift_to": 4
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 73664,
+          "shift_from": 4,
+          "shift_to": 12
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 76440,
+          "shift_from": 12,
+          "shift_to": 20
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 77018,
+          "shift_from": 20,
+          "shift_to": 4
+        }
+      ],
+      "shift_at_family_base": 4,
+      "shift_at_ga_end": 0
+    },
+    {
+      "delta_from": 183145,
+      "delta_to": 183153,
+      "file_a": "ER0000.sl2 S0 - b33 after felled EF-30030800 rowId-null npc_param_id-41402920 mapTile-m30_03_00",
+      "file_b": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "growth": 8,
+      "insertions": [
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 65739,
+          "shift_from": 0,
+          "shift_to": 8
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 66559,
+          "shift_from": 8,
+          "shift_to": -8
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 67888,
+          "shift_from": -8,
+          "shift_to": 8
+        },
+        {
+          "bytes": -16,
+          "offset_from_ga_end": 68607,
+          "shift_from": 8,
+          "shift_to": -8
+        },
+        {
+          "bytes": 16,
+          "offset_from_ga_end": 69912,
+          "shift_from": -8,
+          "shift_to": 8
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 70892,
+          "shift_from": 8,
+          "shift_to": 16
+        },
+        {
+          "bytes": -8,
+          "offset_from_ga_end": 77038,
+          "shift_from": 16,
+          "shift_to": 8
+        }
+      ],
+      "shift_at_family_base": 8,
+      "shift_at_ga_end": 0
+    },
+    {
+      "delta_from": 183153,
+      "delta_to": 183157,
+      "file_a": "ER0000.sl2 S0 - b38 before discovering Volcano Manor grace EF-71602 rowId-160002 m16_00_00",
+      "file_b": "ER0000.sl2 S0 - b43 before pillaging Perfume Bottle EF-66700 rowId-16000110 mapTile-m16_00_00",
+      "growth": 4,
+      "insertions": [
+        {
+          "bytes": 4,
+          "offset_from_ga_end": 65747,
+          "shift_from": 0,
+          "shift_to": 4
+        },
+        {
+          "bytes": 8,
+          "offset_from_ga_end": 74100,
+          "shift_from": 4,
+          "shift_to": 12
+        },
+        {
+          "bytes": -8,
+          "offset_from_ga_end": 77054,
+          "shift_from": 12,
+          "shift_to": 4
+        }
+      ],
+      "shift_at_family_base": 4,
+      "shift_at_ga_end": 0
+    }
+  ],
+  "question": "WHERE does the save grow between ga_end and the flag families? Each insertion point is a variable-length structure; the one inside the EF region is what moves the family bases.",
+  "schema": "list-hunt/1"
+}

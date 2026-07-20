@@ -3,6 +3,7 @@
 //! Basic validation tests that don't require crate imports.
 //! More comprehensive tests are in the unit test modules within src/.
 
+use sha2::{Digest, Sha256};
 use std::fs;
 use std::path::Path;
 
@@ -22,6 +23,43 @@ fn test_ground_truth_exists() {
     assert!(parsed.get("metadata").is_some(), "Should have metadata section");
     assert!(parsed.get("formulas").is_some(), "Should have formulas section");
     assert!(parsed.get("verified_flags").is_some(), "Should have verified_flags section");
+}
+
+/// Test that ground_truth_offsets.json stays frozen (ADR-0006).
+///
+/// The legacy store is read-only for the duration of the knowledge-base migration: it
+/// keeps feeding the apps family-by-family, and being frozen is what guarantees it
+/// cannot accumulate new contamination. New knowledge belongs in
+/// `knowledge/claims/event-flags.json`, which is pipeline-generated (ADR-0004).
+///
+/// If this test fails you either edited the legacy store (don't - put it in the claims
+/// store instead) or you are deliberately retiring a family, in which case update the
+/// pinned digest in the same commit that records the cutover.
+#[test]
+fn test_ground_truth_is_frozen() {
+    const FROZEN_SHA256: &str =
+        "5b2256d122b6475ac320e3d7beaf97dd1129b2393063d756eb066905474fd480";
+
+    let path = Path::new("ground_truth_offsets.json");
+    let bytes = fs::read(path).expect("Should be able to read ground_truth_offsets.json");
+
+    let digest = Sha256::digest(&bytes);
+    let actual = format!("{:x}", digest);
+
+    assert_eq!(
+        actual, FROZEN_SHA256,
+        "ground_truth_offsets.json is frozen read-only (ADR-0006) but its contents changed.\n\
+         New flag knowledge goes to knowledge/claims/event-flags.json via `knowledge run`.\n\
+         If this change is an intentional family cutover, update FROZEN_SHA256 here."
+    );
+
+    // The freeze marker itself must survive, so readers of the file can see its status.
+    let parsed: serde_json::Value =
+        serde_json::from_slice(&bytes).expect("ground_truth_offsets.json should be valid JSON");
+    assert!(
+        parsed["metadata"]["frozen"].is_object(),
+        "metadata.frozen block should be present to mark this store read-only"
+    );
 }
 
 /// Test that flag_relationships.json exists and is valid JSON

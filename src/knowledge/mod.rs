@@ -13,6 +13,7 @@
 //!                              re-annotation (knowledge/claims/timeline-events.json).
 
 pub mod catalog;
+pub mod family_distances;
 pub mod pipeline;
 pub mod timeline;
 
@@ -22,6 +23,10 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         Some("catalog-verify") => catalog::cmd_verify(&args[1..]),
         Some("run") => pipeline::cmd_run(&args[1..]),
         Some("timeline") => timeline::cmd_timeline(&args[1..]),
+        Some("family-distances") => family_distances::cmd_family_distances(&args[1..]),
+        Some("origin-probe") => family_distances::cmd_origin_probe(&args[1..]),
+        Some("list-hunt") => family_distances::cmd_list_hunt(&args[1..]),
+        Some("validate-origin") => family_distances::cmd_validate_origin(&args[1..]),
         _ => {
             println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
@@ -32,6 +37,14 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("    catalog-update    Fill/refresh machine fields in the evidence catalog");
             println!("    catalog-verify    Verify evidence against the catalog (exit 1 on drift)");
             println!("    run               Regenerate the claims store from evidence (ADR-0004)");
+            println!("    family-distances  Measure every family base per file; test whether");
+            println!("                      the distance BETWEEN families is constant (step 4b)");
+            println!("    origin-probe      Test whether a u32 record count explains the");
+            println!("                      residual family drift (step 4b)");
+            println!("    list-hunt         Locate the variable-length structures that move");
+            println!("                      the flag families (step 4b)");
+            println!("    validate-origin   Out-of-sample test of the origin model on");
+            println!("                      characters it was not derived from (step 4b)");
             println!("    timeline <id>     Replay a sparse-diff timeline target (see");
             println!("                      knowledge/inputs/timeline-targets.json), emit");
             println!("                      knowledge/claims/timeline-events.json");

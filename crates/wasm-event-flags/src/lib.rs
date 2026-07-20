@@ -2585,3 +2585,136 @@ mod tests {
     }
 
 }
+
+// ===========================================================================
+// Event-flag origin resolution
+// ===========================================================================
+//
+// Flag families do not sit at fixed offsets: an append-only u32 list ahead of
+// them grows as the character plays, pushing every family along by 4 bytes per
+// appended record. Measuring from that list's END removes the drift entirely,
+// so a single save with no history can position every family:
+//
+//     family_base = ga_end + flag_list_end + FAMILY_CONSTANT
+//
+// Evidence: docs/BACKLOG.md step 4b, knowledge/claims/{list-hunt,
+// origin-validation}.json. The constants were measured across 47 Confessor
+// captures and validated out-of-sample on V1/V2/V3 (exact expected bit
+// patterns, including CLEAR bits) and on the Wretch slot.
+//
+// This is a bounded structural scan, NOT a full parse of the enclosing section:
+// the list carries no length prefix (the bytes before it are zeros), so its end
+// is found by scanning. Every assumption below is therefore checked, and the
+// resolver returns None rather than a plausible-looking wrong answer — a wrong
+// base reads garbage flags silently, which is the failure mode this whole
+// investigation existed to eliminate.
+
+/// Where to start looking for the list, as an offset from ga_end. Must land in
+/// the zero gap BEFORE the list; observed list starts are 63,187-64,767.
+pub const ORIGIN_PROBE_START: usize = 50_000;
+
+/// A zero run this long terminates the list.
+pub const ORIGIN_ZERO_RUN: usize = 64;
+
+/// Zeros we must actually observe at the probe point before trusting that we
+/// started in the gap rather than in the middle of the list itself.
+pub const ORIGIN_MIN_LEAD_ZEROS: usize = 256;
+
+/// Plausible range for (list_end - ga_end). Observed: 63,629-65,949 across
+/// five characters. A result outside this is a parse failure, not a save with
+/// unusual content.
+pub const ORIGIN_MIN_GAP: usize = 55_000;
+pub const ORIGIN_MAX_GAP: usize = 80_000;
+
+/// Distance from the list's end to each family's base.
+pub const FAMILY_WORLD_STATE_B: i64 = 117_192;
+pub const FAMILY_TILE_PICKUP_ROW_ID: i64 = 454_567;
+pub const FAMILY_LEGACY_DUNGEON_PICKUP: i64 = 1_500_442;
+
+/// End of the append-only u32 list, as an offset from ga_end.
+/// None when the structure cannot be identified with confidence.
+pub fn find_flag_list_end_from(slot_data: &[u8], ga_end: usize) -> Option<usize> {
+    let probe = ga_end.checked_add(ORIGIN_PROBE_START)?;
+    if probe >= slot_data.len() {
+        return None;
+    }
+
+    // The probe must land in the zero gap. If it lands on data we may be inside
+    // the list already, and its "start" would be wherever we happened to enter.
+    let lead = slot_data[probe..]
+        .iter()
+        .take(ORIGIN_MIN_LEAD_ZEROS)
+        .take_while(|&&b| b == 0)
+        .count();
+    if lead < ORIGIN_MIN_LEAD_ZEROS {
+        return None;
+    }
+
+    // Skip the gap to where records resume.
+    let mut i = probe;
+    while i < slot_data.len() && slot_data[i] == 0 {
+        i += 1;
+    }
+    if i >= slot_data.len() {
+        return None;
+    }
+
+    // Then the first run of zeros long enough to end the list.
+    let mut run = 0usize;
+    let mut end = None;
+    while i < slot_data.len() {
+        if slot_data[i] == 0 {
+            run += 1;
+            if run >= ORIGIN_ZERO_RUN {
+                end = Some(i + 1 - run);
+                break;
+            }
+        } else {
+            run = 0;
+        }
+        i += 1;
+    }
+    let end = end?;
+
+    let gap = end.checked_sub(ga_end)?;
+    if !(ORIGIN_MIN_GAP..=ORIGIN_MAX_GAP).contains(&gap) {
+        return None;
+    }
+    Some(gap)
+}
+
+/// As above, parsing ga_end from the slot.
+pub fn find_flag_list_end(slot_data: &[u8]) -> Option<usize> {
+    let ga_end = find_ga_items_end(slot_data)?;
+    find_flag_list_end_from(slot_data, ga_end)
+}
+
+/// Absolute base of a flag family within the slot, from the slot alone.
+/// None when the origin cannot be resolved.
+pub fn resolve_family_base(slot_data: &[u8], family_constant: i64) -> Option<i64> {
+    let ga_end = find_ga_items_end(slot_data)?;
+    let list_end = find_flag_list_end_from(slot_data, ga_end)?;
+    let base = ga_end as i64 + list_end as i64 + family_constant;
+    if base < 0 || base as usize >= slot_data.len() {
+        return None;
+    }
+    Some(base)
+}
+
+/// WASM export: end of the append-only list (offset from ga_end), -1 on failure.
+#[wasm_bindgen]
+pub fn flag_list_end(slot_data: &[u8]) -> i64 {
+    find_flag_list_end(slot_data).map(|v| v as i64).unwrap_or(-1)
+}
+
+/// WASM export: absolute family base, -1 on failure.
+#[wasm_bindgen]
+pub fn family_base(slot_data: &[u8], family_constant: i64) -> i64 {
+    resolve_family_base(slot_data, family_constant).unwrap_or(-1)
+}
+
+/// Public wrapper over the GaItems walk, for conformance tests that need to
+/// pin ga_end and the list end together.
+pub fn find_ga_items_end_pub(slot_data: &[u8]) -> Option<usize> {
+    find_ga_items_end(slot_data)
+}

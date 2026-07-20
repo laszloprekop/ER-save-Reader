@@ -104,5 +104,15 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
 | Save slot feature registry | `save_slot_registry.json` |
 
 **Single Source of Truth**:
-- Offset values: `ground_truth_offsets.json` (never use `flag_formulas.py`, which is deprecated)
+- Flag positions: **resolve them, never hardcode them.** Families sit after an
+  append-only u32 list that grows with progression, so any fixed offset is valid only
+  for the save it was measured on. Use
+  `wasm_event_flags::resolve_family_base(slot, FAMILY_*)` —
+  `family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT`. See
+  `docs/SAVE_FILE_GROUND_TRUTH.md` ("Flag Family Origin") and `docs/BACKLOG.md` 4b.
+- `ground_truth_offsets.json`: **FROZEN read-only** (ADR-0006). Still wired in per
+  family until each cuts over, but never add or edit entries — new knowledge goes to
+  the claims store via `knowledge run`. `flag_formulas.py` remains deprecated.
 - EventFlags detection: `crates/wasm-event-flags/` (shared with elden-map via WASM)
+- Tutorial graces (71800/76100) are NOT universal anchors — they are clear on minimal
+  characters. Never use them as a validity test for a detected offset.

@@ -4,6 +4,85 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.25.0 - Flag family origin: single-save resolution via the append-only list
+
+### Features
+- **Origin resolver in the reference implementation**
+  (`crates/wasm-event-flags/src/lib.rs`): `find_flag_list_end`,
+  `resolve_family_base`, the three family constants, and WASM exports
+  (`flag_list_end`, `family_base`). A save with NO history can now position every
+  flag family — `family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT` —
+  with no before/after pair, no scoring, and no scan of the flag region. This was
+  the blocker on the step-4 per-family cutover (ADR-0006).
+- **`knowledge family-distances`** — measures every family base in every evidence
+  file and tests whether the distance BETWEEN families is constant.
+- **`knowledge origin-probe`** — tests whether a single u32 record count explains
+  the residual family drift (it does not; see Key Findings).
+- **`knowledge list-hunt`** — differential alignment: locates the variable-length
+  structures that move the families, by finding where two captures stop aligning.
+- **`knowledge validate-origin`** — out-of-sample test of the origin model against
+  characters it was not derived from.
+- **`ground_truth_offsets.json` frozen read-only** (ADR-0006, migration step 4a):
+  `metadata.frozen` block records authority, enforcement, the convention warning,
+  per-family cutover state and the known-bad entry classes; enforced by
+  `tests/regression_suite.rs::test_ground_truth_is_frozen`, which pins the file's
+  sha256. Audit finding: nothing in the repo writes this file, so the freeze cost
+  nothing to impose.
+
+### Key Findings
+- **The families are rigidly locked to each other.** Three inter-family distances,
+  ZERO spread across 37 files: tile-pickup→world-state-b = -337,375,
+  legacy-pickup→world-state-b = -1,383,250, legacy-pickup→tile-pickup = -1,045,875.
+  They close the triangle exactly. Locating one family locates all of them.
+- **-337,375 is the tombstoned constant.** Tombstone `tile-base-337375-grace-anchored`
+  correctly retired 337,375 as a tile *base*, but the NUMBER was never wrong: it is
+  the invariant distance between two families. The old ground truth measured a real
+  structural invariant and pinned it to the wrong origin. Some other legacy constants
+  may likewise be real distances wearing the wrong anchor.
+- **What moves the families is an append-only u32 list** at ga_end+~65.7k
+  (grace_rel ~29.2k) — the same structure the pipeline independently identified as
+  "a u32-record LIST, not the flag bitmap" (the old "catacombs" 28-31k span). It
+  grows monotonically with progression, one record per event, always +4 bytes.
+- **The list has no length prefix** (the bytes before it are zeros), which is why the
+  single-count search failed. Record counts track progression: Confessor 291,
+  Wretch 112, V1 111, V2/V3 110.
+- **Measuring from the list end removes the drift entirely** — 117,192 / 454,567 /
+  1,500,442, spread 0. These reproduce the independently measured inter-family
+  distances to the byte: two separate measurement chains agreeing.
+- **Out-of-sample validation**: 9/9 on V1/V2/V3 with exact expected bit patterns
+  INCLUDING the CLEAR bits (a mislocated base fails those first), plus 4/4 on the
+  Wretch slot. Five distinct characters across two backup saves and snapshots-root.
+- **The tutorial "100% reliable" anchors are not universal**: 71800 and 76100 read
+  CLEAR on V1/V2/V3. A +/-4096 search finds no base setting all four, so this is real
+  character state. `docs/SAVE_FILE_GROUND_TRUTH.md` corrected.
+- **Negative results, recorded deliberately**: the golden EF offsets are scan outputs,
+  not structural truth (their tie-break comment calls the plateaus "small shifted
+  echoes"), so the first structural test was inconclusive by construction rather than
+  refuted; and no single u32 count field explains the drift from either anchor across
+  a 190k span.
+- **Method traps worth remembering**: differential alignment silently lies inside zero
+  runs, where EVERY shift matches — the sync window must require real bytes or the
+  sparse bitmap reads as "shift 0" and insertions inside it vanish. And a list-end
+  scan starting inside a zero gap terminates instantly, producing values that look
+  constant (they were exactly `delta - probe_start`).
+
+### Files Modified
+- crates/wasm-event-flags/src/lib.rs: origin resolver, family constants, WASM exports
+- crates/wasm-event-flags/tests/origin_conformance.rs: 6 conformance tests (new)
+- src/knowledge/family_distances.rs: four subcommands, delegating to the reference
+  implementation so pipeline and app cannot drift (new)
+- src/knowledge/pipeline.rs: expose loading/measurement internals to the sibling module
+- src/knowledge/mod.rs: CLI dispatch for the four new subcommands
+- ground_truth_offsets.json: metadata.frozen block (read-only marker)
+- tests/regression_suite.rs: test_ground_truth_is_frozen (sha256 pin)
+- docs/SAVE_FILE_GROUND_TRUTH.md: Flag Family Origin section; corrected the
+  "100% reliable" anchor claim
+- docs/BACKLOG.md: step 4a/4b record including negatives and method bugs
+- knowledge/claims/{family-distances,origin-probe,list-hunt,origin-validation}.json:
+  generated evidence (new)
+
+---
+
 ## v0.24.0 - S2/S7 attributed pairs; timeline replay audit (re-annotation rejected on evidence)
 
 ### Features

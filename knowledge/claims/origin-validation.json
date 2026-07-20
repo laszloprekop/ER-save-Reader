@@ -1,0 +1,262 @@
+{
+  "caveat": "the origin is a bounded structural scan, not a full parse: the list carries no length prefix. The resolver checks its assumptions and returns nothing rather than a plausible wrong answer; constants are measured, not derived.",
+  "constants": {
+    "legacy-dungeon-pickup": 1500442,
+    "tile-pickup-row-id": 454567,
+    "world-state-b": 117192
+  },
+  "fail": 6,
+  "generated_by": "er-save-editor knowledge validate-origin",
+  "model": "family_base = ga_end + find_list_end(slot) + constant(family)",
+  "pass": 13,
+  "question": "Do the list-end origin constants hold on characters that were NOT used to derive them?",
+  "results": [
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V1",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559656,
+      "save_slot": 2,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V1",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559656,
+      "save_slot": 2,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V1",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559656,
+      "save_slot": 2,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V2",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559652,
+      "save_slot": 3,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V2",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559652,
+      "save_slot": 3,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V2",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559652,
+      "save_slot": 3,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V3",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559644,
+      "save_slot": 4,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V3",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - no, rested at The First Step grace",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559644,
+      "save_slot": 4,
+      "test": "multi_slot_differential"
+    },
+    {
+      "bits_correct": 5,
+      "bits_total": 5,
+      "character": "V3",
+      "family": "tile-pickup-row-id",
+      "file": "ER0000.sl2 treasure_m60_44_36_10_1044360310 picked by - V1 yes, V2 - yes, V3 - yes",
+      "mismatches": [],
+      "pass": true,
+      "predicted_base": 559652,
+      "save_slot": 4,
+      "test": "multi_slot_differential"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 4,
+      "anchors_total": 4,
+      "clear_anchors": [],
+      "corpus": "backup-2026-01-11",
+      "family": "world-state-b",
+      "pass": true,
+      "predicted_base": 227671,
+      "save_slot": 0,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 4,
+      "anchors_total": 4,
+      "clear_anchors": [],
+      "corpus": "backup-2026-01-11",
+      "family": "world-state-b",
+      "pass": true,
+      "predicted_base": 222301,
+      "save_slot": 1,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-11",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222281,
+      "save_slot": 2,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-11",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222277,
+      "save_slot": 3,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-11",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222269,
+      "save_slot": 4,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 4,
+      "anchors_total": 4,
+      "clear_anchors": [],
+      "corpus": "backup-2026-01-01",
+      "family": "world-state-b",
+      "pass": true,
+      "predicted_base": 227671,
+      "save_slot": 0,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 4,
+      "anchors_total": 4,
+      "clear_anchors": [],
+      "corpus": "backup-2026-01-01",
+      "family": "world-state-b",
+      "pass": true,
+      "predicted_base": 222301,
+      "save_slot": 1,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-01",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222281,
+      "save_slot": 2,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-01",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222277,
+      "save_slot": 3,
+      "test": "backup_tutorial_anchors"
+    },
+    {
+      "alternative_base_setting_all_anchors": null,
+      "anchors_set": 2,
+      "anchors_total": 4,
+      "clear_anchors": [
+        71800,
+        76100
+      ],
+      "corpus": "backup-2026-01-01",
+      "family": "world-state-b",
+      "pass": false,
+      "predicted_base": 222269,
+      "save_slot": 4,
+      "test": "backup_tutorial_anchors"
+    }
+  ],
+  "schema": "origin-validation/1"
+}
