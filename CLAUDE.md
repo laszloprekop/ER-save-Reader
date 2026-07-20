@@ -70,11 +70,18 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
 - If they disagree: the disagreement IS the clue - don't dismiss it
 - Inseparable evidence (boss + grace, etc.) must be consistent
 
-### Phase 4: Calibration Verification
+### Phase 4: Origin Verification
 
-- Check if calibration is returning correct base offset for THIS save file
-- The ground truth tile base (337375) is constant across saves within the same game version
-- The EF offset varies per character (due to variable GaItems), but tile_base within EF is fixed
+**CORRECTED 2026-07-20.** This phase previously said "the ground truth tile base
+(337375) is constant across saves" and "tile_base within EF is fixed". Both are FALSE
+and now tombstoned. 337,375 is real but it is the *distance between two flag families*,
+not a base. Families sit after an append-only list that grows as the character plays, so
+every family base moves.
+
+- Resolve the origin for THIS save: `wasm_event_flags::resolve_family_base_in_ef`
+- Check the resolver did not refuse (an unresolved origin reads as Unknown, not as
+  "flag not set" — see `CONTEXT.md`, term *Unknown*)
+- Confirm you asked for the right family; a bare tile id does not identify one
 
 ### Only After Evidence Is Gathered
 
@@ -114,5 +121,9 @@ Reference: `docs/CORROBORATION-SYSTEM.md`
   family until each cuts over, but never add or edit entries — new knowledge goes to
   the claims store via `knowledge run`. `flag_formulas.py` remains deprecated.
 - EventFlags detection: `crates/wasm-event-flags/` (shared with elden-map via WASM)
+- A bare 10-digit tile id is AMBIGUOUS between the open-world and pickup families
+  (both localId < 7000, regions 500 bytes apart). The caller must pick
+  `is_tile_world_flag_set` or `is_tile_pickup_set` — routing on the value silently
+  reads the wrong bit. `pickup_data.rs` stores row_ids, not getItemFlagIds.
 - Tutorial graces (71800/76100) are NOT universal anchors — they are clear on minimal
   characters. Never use them as a validity test for a detected offset.

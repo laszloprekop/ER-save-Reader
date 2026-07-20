@@ -1280,6 +1280,92 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         }
     }
 
+    // ---- C: transition test on every verified flag -------------------------
+    // The strongest available check on a read function: the pipeline attributed
+    // these flips to real actions, so the shipped read must see CLEAR before and
+    // SET after. Covers whichever families have a read function; families without
+    // one are reported as skipped rather than silently passing.
+    println!("\n=== C. attributed transitions — shipped reads must go clear -> set");
+    let claims: Value = read_json(&repo_root, CLAIMS)?;
+    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
+    let mut skipped: BTreeMap<String, usize> = BTreeMap::new();
+    let (mut tpass, mut tfail) = (0usize, 0usize);
+
+    let mut hypotheses = 0usize;
+    for f in claims["flags"].as_array().unwrap_or(&vec![]) {
+        // Respect the status ladder (ADR-0004): applications consume
+        // corroborated+verified only. The hypotheses are recorded precisely
+        // BECAUSE their labelled flags do not flip where the label suggests —
+        // asserting on them would be asserting on a known-open question.
+        let status = f["status"].as_str().unwrap_or_default();
+        if !matches!(status, "verified" | "corroborated") {
+            hypotheses += 1;
+            continue;
+        }
+        let family = f["family"].as_str().unwrap_or_default().to_string();
+        let flag = match f["flag"].as_u64() {
+            Some(v) => v,
+            None => continue,
+        };
+        // The claims store addresses the pickup family by row_id; the read
+        // function takes the raw getItemFlagId, so convert back.
+        let read_id: u32 = match family.as_str() {
+            "world-state-b" | "tile-open-world" => flag as u32,
+            "tile-pickup-row-id" => (flag + 7_000) as u32,
+            other => {
+                *skipped.entry(other.to_string()).or_default() += 1;
+                continue;
+            }
+        };
+        let ev = &f["evidence"];
+        let corpus_id = ev["corpus"].as_str().unwrap_or_default().to_string();
+        let save_slot = ev["save_slot"].as_u64().unwrap_or(0) as usize;
+        let (dir, manifest) = match corpora.get(&corpus_id) {
+            Some(v) => v.clone(),
+            None => {
+                let c = match catalog["corpora"].as_array()
+                    .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id.as_str())) {
+                    Some(c) => c, None => continue,
+                };
+                let root = catalog["roots"][c["root"].as_str().unwrap_or("")]
+                    .as_str().unwrap_or("");
+                let dir = Path::new(root).join(c["path"].as_str().unwrap_or(""));
+                let m = load_manifest(&repo_root, c["manifest"].as_str().unwrap_or(""))?;
+                corpora.insert(corpus_id.clone(), (dir.clone(), m.clone()));
+                (dir, m)
+            }
+        };
+
+        let mut states = Vec::new();
+        for side in ["before", "after"] {
+            let name = match ev[side]["file"].as_str() { Some(n) => n, None => break };
+            let sf = match load_save(&dir, name, save_slot, &manifest) { Ok(v) => v, Err(_) => break };
+            let efs = &sf.slot[sf.grace..];
+            // The family is known here, so the read function is chosen
+            // explicitly — a bare tile id cannot tell you which family it is.
+            let state = match family.as_str() {
+                "world-state-b" => wasm_event_flags::is_world_state_flag_set(efs, read_id),
+                "tile-open-world" => wasm_event_flags::is_tile_world_flag_set(efs, read_id),
+                _ => wasm_event_flags::is_tile_pickup_set(efs, read_id),
+            };
+            states.push(state);
+        }
+        if states.len() != 2 { continue; }
+        let ok = states[0] == Some(false) && states[1] == Some(true);
+        if ok { tpass += 1; } else {
+            tfail += 1;
+            println!("    FAIL {:22} flag {:>10}  before={:?} after={:?}",
+                     family, flag, states[0], states[1]);
+        }
+    }
+    println!("    {} verified flags read clear->set, {} did not", tpass, tfail);
+    println!("    {} hypothesis flag(s) not asserted on (status ladder)", hypotheses);
+    for (fam, n) in &skipped {
+        println!("    skipped {} flag(s) in {} (no read function yet)", n, fam);
+    }
+    pass += tpass;
+    fail += tfail;
+
     println!("\n=== RESULT: {} pass, {} fail", pass, fail);
     let out = json!({
         "schema": "origin-validation/1",

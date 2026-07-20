@@ -200,8 +200,16 @@ family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT
 | family | constant | evidence |
 |---|---|---|
 | world-state-b (graces, world state) | 117,192 | 47 captures, spread 0 |
-| tile-pickup-row-id | 454,567 | 38 captures, spread 0 |
+| tile-open-world (overworld boss kills) | 454,067 | 2 attributed pairs, exact agreement |
+| tile-pickup-row-id (world pickups) | 454,567 | 38 captures, spread 0 |
 | legacy-dungeon-pickup | 1,500,442 | 16 captures, spread 0 |
+
+> **A bare 10-digit tile id does not tell you its family.** Open-world flags and pickup
+> row_ids both use localId < 7000 and their regions sit 500 bytes apart, so a function
+> that routes on the id alone will read a plausible wrong bit rather than fail. The
+> caller must choose: `is_tile_world_flag_set` or `is_tile_pickup_set`. Note also that
+> `pickup_data.rs` stores row_ids (its `event_flag` = `item_lot_id`), while the game's
+> param tables use `getItemFlagId` = row_id + 7000.
 
 The families are **rigidly locked to each other**: the distances between them
 (337,375 / 1,383,250 / 1,045,875) were measured through an independent route and agree

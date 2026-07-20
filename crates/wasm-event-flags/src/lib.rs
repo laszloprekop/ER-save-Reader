@@ -2814,3 +2814,82 @@ pub fn world_state_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
         Some(true) => 1,
     }
 }
+
+// ---------------------------------------------------------------------------
+// Tile (open-world) flag reads
+// ---------------------------------------------------------------------------
+//
+// Open-world tiles carry TWO families in separate regions, 500 bytes apart:
+//
+//   tile-open-world     localId <  7000  — boss kills, world state
+//   tile-pickup-row-id  localId >= 7000  — item pickups, addressed by
+//                                          ItemLotParam row_id = flag - 7000
+//
+// Same tile layout (slot * 875), different bases. Sending a pickup flag to the
+// open-world base reads a plausible-looking wrong bit 500 bytes away, so the
+// split is enforced here rather than left to callers.
+
+/// Distance from the list end to the open-world tile family's base.
+/// Measured on two attributed boss-kill pairs (Crucible Knight 1042370800,
+/// Bols 1033450800), both giving exactly this value, and corroborated by the
+/// claims store's independently measured bases sitting 500 bytes apart
+/// (~483,469 vs ~483,969 grace-relative). Thinner evidence than the other
+/// constants: two files rather than dozens.
+pub const FAMILY_TILE_OPEN_WORLD: i64 = 454_067;
+
+/// Open-world tile flags: boss kills, world state. NOT pickups.
+///
+/// A bare 10-digit id with localId < 7000 is AMBIGUOUS — it may be an
+/// open-world flag or an ItemLotParam row_id, and the two live in regions 500
+/// bytes apart. Nothing in the value distinguishes them, so the caller must
+/// choose the family. Guessing here reads a plausible-looking wrong bit.
+pub fn is_tile_world_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+    if !(1_000_000_000..2_000_000_000).contains(&flag_id) || flag_id % 10_000 >= 7_000 {
+        return None;
+    }
+    tile_read(event_flags, flag_id, FAMILY_TILE_OPEN_WORLD)
+}
+
+/// World pickups, addressed by ItemLotParam row_id.
+///
+/// Accepts either form: the row_id itself (localId < 7000, as stored in
+/// `pickup_data.rs`) or the getItemFlagId (row_id + 7000, as used by the game's
+/// param tables). Both normalise to the same row_id.
+pub fn is_tile_pickup_set(event_flags: &[u8], id: u32) -> Option<bool> {
+    if !(1_000_000_000..2_000_000_000).contains(&id) {
+        return None;
+    }
+    let row_id = if id % 10_000 >= 7_000 { id - 7_000 } else { id };
+    tile_read(event_flags, row_id, FAMILY_TILE_PICKUP_ROW_ID)
+}
+
+fn tile_read(event_flags: &[u8], addr_id: u32, family: i64) -> Option<bool> {
+    let off = calculate_tile_pickup_offset_with_base(addr_id, 0);
+    if !off.valid {
+        return None;
+    }
+    let base = resolve_family_base_in_ef(event_flags, family)?;
+    let byte = base.checked_add(off.byte_offset as usize)?;
+    let bit = 7 - (addr_id % 8) as u8;
+    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+}
+
+/// WASM export: open-world tile flag. -1 unresolved, 0 clear, 1 set.
+#[wasm_bindgen]
+pub fn tile_world_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
+    match is_tile_world_flag_set(event_flags, flag_id) {
+        None => -1,
+        Some(false) => 0,
+        Some(true) => 1,
+    }
+}
+
+/// WASM export: world pickup by row_id or getItemFlagId. -1 unresolved.
+#[wasm_bindgen]
+pub fn tile_pickup_state(event_flags: &[u8], id: u32) -> i32 {
+    match is_tile_pickup_set(event_flags, id) {
+        None => -1,
+        Some(false) => 0,
+        Some(true) => 1,
+    }
+}

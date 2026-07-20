@@ -5,6 +5,14 @@ epistemic layer: how facts about the save format are established, stored, and co
 
 ## Language
 
+This is the shared vocabulary. Use these words; prefer them over inventing new ones
+mid-discussion. If a term is missing, add it here rather than relying on context.
+
+Terms deliberately **not** used, because they were tried and confused people:
+*grace surface* (say "the Graces screen" or name the file), *code path* when a plain
+name will do, *ground truth* (say Evidence or Claim — it hides whether something was
+measured or assumed).
+
 ### Epistemics
 
 **Evidence**:
@@ -55,6 +63,51 @@ kills, which made them look like verified flag positions.
 The detected per-save base of one flag family (by default the grace family, which the
 detection fixtures pin). A per-slot measurement, not a convention, and not valid for
 positioning other families.
+
+**Origin** (a.k.a. **List End**):
+The end of the append-only u32 Record List, which is what every Flag Family is
+positioned from: `family_base = list_end + FAMILY_CONSTANT`. The list grows by one
+record as the character plays, pushing every family along, which is why fixed offsets
+drift. Measuring from its end removes the drift entirely. Established 2026-07-20; see
+docs/BACKLOG.md 4b.
+_Avoid_: base offset (ambiguous — say which family), anchor (that is the detected EF
+position, a different thing)
+
+**Family Constant**:
+The fixed distance from the Origin to one family's base. Measured, not derived.
+Currently: world-state-b 117,192 · tile-open-world 454,067 · tile-pickup-row-id
+454,567 · legacy-dungeon-pickup 1,500,442. The families are rigidly locked to each
+other, so these differences reproduce the independently measured inter-family
+distances exactly.
+
+**Resolver**:
+The reference-implementation code that turns a save into family positions
+(`crates/wasm-event-flags`: `find_flag_list_end_in_ef`, `resolve_family_base_in_ef`,
+and the per-family read functions). It validates its assumptions and returns nothing
+rather than a plausible wrong answer. One implementation only (ADR-0005) — the
+pipeline delegates to it so pipeline and app cannot disagree about where a family is.
+
+**Cutover**:
+Moving one Flag Family off the frozen `ground_truth_offsets.json` and onto the
+Resolver, per ADR-0006. Recorded in `metadata.frozen.cutover_state`, which changes the
+file's pinned digest — that is the one legitimate reason to re-pin it. Done so far:
+graces, world pickups. A cutover must move EVERY read path for that family; leaving one
+behind means two screens disagreeing about the same flag.
+
+**Unknown**:
+The third state of a flag read, distinct from set and clear: the position could not be
+resolved, so nothing is known. Must never collapse to "not found" — that failure is
+what made `batch-validate` report 0/110 boss defeats on a finished character. In code:
+`Option<bool>::None` / `GraceStatus::Unreliable`; in the UI: `-`.
+_Avoid_: false, not discovered, 0 (when the truth is that we could not tell)
+
+**Row ID vs getItemFlagId**:
+Two names for the same world pickup. `getItemFlagId = row_id + 7000`; the save stores
+the row_id. `pickup_data.rs` holds row_ids (its `event_flag` field equals
+`item_lot_id`); the game's param tables use getItemFlagIds. Critically, a bare 10-digit
+id with localId < 7000 is AMBIGUOUS between an open-world flag and a pickup row_id —
+the two families sit 500 bytes apart and nothing in the value tells them apart. The
+caller must choose the family; a function that guesses reads a plausible wrong bit.
 
 **Claims Store**:
 The pipeline-generated collection of Claims consumed by the applications (successor of

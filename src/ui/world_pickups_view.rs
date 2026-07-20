@@ -1,9 +1,6 @@
 pub mod world_pickups_view {
     use eframe::egui::{Ui, Color32, RichText};
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
-    use crate::db::pickup_flags::get_flag_offset_calibrated;
-    use crate::calibration::CalibrationService;
-    use crate::util::bit::bit::get_bit;
     use crate::save::common::save_slot::EquipInventoryData;
     use crate::discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
@@ -82,17 +79,17 @@ pub mod world_pickups_view {
     /// # Arguments
     /// * `flag_id` - The event flag ID to check
     /// * `event_flags` - The event flags byte slice from the save
-    /// * `calibrated_tile_base` - The calibrated tile base for this save
-    fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>, calibrated_tile_base: u32) -> Option<bool> {
-        let event_flags = event_flags?;
-
-        if let Some((byte_offset, bit_position)) = get_flag_offset_calibrated(flag_id, calibrated_tile_base) {
-            if (byte_offset as usize) < event_flags.len() {
-                return Some(get_bit(event_flags[byte_offset as usize], bit_position));
-            }
-        }
-
-        None
+    /// CUT OVER 2026-07-20 (ADR-0006, migration step 4): world pickups no longer
+    /// use a calibrated tile base. Position resolves per save from the flag
+    /// region, and the two tile families are separated by local id — pickups
+    /// (localId >= 7000) live in their own region, addressed by row_id, 500 bytes
+    /// from the open-world family. Sending one to the other's base reads a
+    /// plausible-looking wrong bit rather than failing.
+    ///
+    /// `None` means the position could not be resolved: UNKNOWN, not "not
+    /// collected". The table renders that distinctly.
+    fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>) -> Option<bool> {
+        wasm_event_flags::is_tile_pickup_set(event_flags?, flag_id)
     }
 
     /// Check if an item is in the character's inventory based on flag ID
@@ -144,11 +141,6 @@ pub mod world_pickups_view {
         inventory: Option<&EquipInventoryData>,
         detail_panel: &mut DetailPanelState,
     ) {
-        // Calibrate tile base once per frame (if event flags available)
-        let calibrated_tile_base = event_flags
-            .map(|ef| CalibrationService::calibrate(ef).tile_base)
-            .unwrap_or(crate::generated::ground_truth::VERIFIED_TILE_BASE_OFFSET);
-
         // Build region filter options
         let mut regions: Vec<&str> = WORLD_PICKUPS.values()
             .map(|p| p.region)
@@ -210,7 +202,7 @@ pub mod world_pickups_view {
         let mut pickups: Vec<(u32, &crate::db::world_pickups::WorldPickup, Option<bool>, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
             .filter_map(|(id, pickup)| {
                 // Check collected status using calibrated tile base
-                let is_collected = is_pickup_collected(pickup.flag_id, event_flags, calibrated_tile_base);
+                let is_collected = is_pickup_collected(pickup.flag_id, event_flags);
 
                 // Apply collected filter
                 match state.collected_filter {

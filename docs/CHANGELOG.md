@@ -4,6 +4,59 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.28.0 - World pickup cutover; explicit tile family API; shared vocabulary
+
+### Features
+- **World pickups resolve per save** (ADR-0006, migration step 4). `is_tile_pickup_set`
+  positions the `tile-pickup-row-id` family from the Origin; `src/ui/world_pickups_view.rs`
+  no longer calibrates a tile base. Accepts either the ItemLotParam row_id (as stored in
+  `pickup_data.rs`) or the getItemFlagId (row_id + 7000).
+- **`FAMILY_TILE_OPEN_WORLD` = 454,067** established from two attributed boss-kill pairs
+  with exact agreement, corroborated by the claims store's bases sitting 500 bytes apart.
+  Thinner evidence than the other constants (two files, not dozens) and no UI consumer yet.
+- **`knowledge validate-origin` part C**: every verified flag in the claims store must
+  read clear->set through the SHIPPED read functions across its own attributed
+  before/after pair. 23/23 pass. Hypothesis-status flags are excluded by the status
+  ladder rather than asserted on (ADR-0004).
+- **`knowledge grace-dump` reports pickups** alongside graces, per slot.
+
+### Key Findings
+- **A bare 10-digit tile id is AMBIGUOUS.** Open-world flags and pickup row_ids both use
+  localId < 7000 and their regions sit 500 bytes apart, so nothing in the value
+  distinguishes them. The first cut auto-routed on local id and sent 1,753 pickups to
+  the open-world base — reading a plausible wrong bit rather than failing. Caught by a
+  sanity count (11 collected for a mid-game character), NOT by a test. The API is now
+  split and the caller must choose.
+- `pickup_flags::is_flag_set_with_status` was deliberately NOT cut over: it takes a bare
+  id and therefore cannot determine the family.
+- Live-save counts match the documented character designs, including **V3 reading exactly
+  0 pickups** — the character built as a true-negative control.
+- 532 tile ids in `WORLD_PICKUPS` fall outside the open-world tile grid and read Unknown.
+  Unexplained; likely DLC/underground tile numbering. Recorded, not hand-waved.
+
+### Fixes
+- `CLAUDE.md` Phase 4 of the False Negative Protocol instructed future work to believe
+  two tombstoned claims ("tile base 337375 is constant across saves", "tile_base within
+  EF is fixed"). Rewritten to resolve the Origin instead.
+
+### Documentation
+- **`CONTEXT.md` is the project glossary** and now defines the vocabulary this work
+  introduced: Origin / List End, Family Constant, Resolver, Cutover, Unknown, and
+  Row ID vs getItemFlagId. Also lists terms not to use, including one ("grace surface")
+  that was invented mid-discussion and meant nothing.
+
+### Files Modified
+- crates/wasm-event-flags/src/lib.rs: is_tile_pickup_set / is_tile_world_flag_set,
+  FAMILY_TILE_OPEN_WORLD, WASM exports
+- src/ui/world_pickups_view.rs: cutover
+- src/db/pickup_flags.rs: blanket tile routing reverted, with the reason recorded
+- src/knowledge/family_distances.rs: part C transition test, status-ladder filter
+- src/knowledge/dump.rs: pickup counts
+- CONTEXT.md, CLAUDE.md, docs/SAVE_FILE_GROUND_TRUTH.md, docs/BACKLOG.md
+- Cargo.toml: bumped to 0.28.0
+
+---
+
 ## v0.27.0 - Grace name correction; layered dump tool
 
 ### Features

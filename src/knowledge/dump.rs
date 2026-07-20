@@ -103,11 +103,29 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         }
 
         println!(
-            "  totals: {} set, {} clear, {} UNKNOWN (of {})",
+            "  graces:  {} set, {} clear, {} UNKNOWN (of {})",
             set,
             clear,
             unknown,
             GRACES_DATA.len()
+        );
+
+        // World pickups share the tile layout but split by local id into two
+        // regions 500 bytes apart, so this also exercises that routing.
+        let (mut pset, mut pclear, mut punknown) = (0usize, 0usize, 0usize);
+        for pickup in crate::db::pickup_data::WORLD_PICKUPS.iter() {
+            match wasm_event_flags::is_tile_pickup_set(ef, pickup.event_flag) {
+                Some(true) => pset += 1,
+                Some(false) => pclear += 1,
+                None => punknown += 1,
+            }
+        }
+        println!(
+            "  pickups: {} collected, {} not, {} UNKNOWN (of {})",
+            pset,
+            pclear,
+            punknown,
+            crate::db::pickup_data::WORLD_PICKUPS.len()
         );
         if !found_names.is_empty() && found_names.len() <= 12 {
             println!("  set flags:");

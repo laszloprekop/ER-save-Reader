@@ -156,6 +156,41 @@ Steps, in order:
    (cannot become pairs without a flag hypothesis) — data gap, not a mechanism gap;
    the four s7 world-state-b pairs above also remain unresolved pending more/cleaner
    captures; the timeline flip-clustering design above, if someone wants to pursue it.
+### Pickup family cutover — PARTIAL, 2026-07-20
+
+**World pickups CUT OVER** (`tile-pickup-row-id`). `src/ui/world_pickups_view.rs` and
+`knowledge grace-dump` resolve per save via `wasm_event_flags::is_tile_pickup_set`.
+`FAMILY_TILE_OPEN_WORLD` = 454,067 also established (two attributed boss-kill pairs,
+exact agreement, corroborated by the claims store's bases sitting 500 bytes apart) —
+thinner evidence than the other constants, and no UI consumer yet.
+
+**Design finding that cost a bug: a bare 10-digit tile id is AMBIGUOUS.** Open-world
+flags and pickup row_ids both have localId < 7000 and live in regions 500 bytes apart,
+so nothing in the value distinguishes them. The first cut auto-routed on local id and
+sent 1,753 pickups to the open-world base — reading a plausible wrong bit, not failing.
+Caught by a sanity count (11 collected for a mid-game character), not by a test.
+The API is now split — `is_tile_pickup_set` / `is_tile_world_flag_set` — and the caller
+must choose. `pickup_flags::is_flag_set_with_status` was deliberately NOT cut over for
+this reason: it takes a bare id and cannot know the family.
+
+`pickup_data.rs` stores `event_flag` = `item_lot_id` = the ROW ID, not the
+getItemFlagId. `is_tile_pickup_set` accepts either form and normalises.
+
+*Verification.* All 23 verified flags in the claims store read clear->set through the
+shipped functions (`knowledge validate-origin` part C), with the 4 hypotheses correctly
+excluded by the status ladder rather than asserted on. Live-save counts match the
+documented character designs, including V3 reading exactly 0 pickups — the character
+built as a true-negative control.
+
+*Remaining.* Dungeon pickups (`legacy-dungeon-pickup`, constant 1,500,442 known) need
+the eventflagalloclist map->slot table embedded in the reference implementation; the
+layout is `alloclist_slot * 1125 + (flag % 10000) / 8`, local >= 7000. 3,577 of 4,809
+entries in `WORLD_PICKUPS` still read UNKNOWN: 1,996 dungeon flags, 1,049 non-tile
+families, and 532 tile ids outside the open-world tile grid (likely DLC/underground
+maps — unexplained, worth a look before claiming pickup coverage).
+
+---
+
 4. **Freeze `ground_truth_offsets.json` read-only**; per-family cutover to the claims
    store (graces → boss defeats → pickups), legacy entries promoted or tombstoned.
 
