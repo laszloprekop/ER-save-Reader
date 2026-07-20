@@ -4,6 +4,65 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.31.0 - Remove the static-offset wasm exports (ADR-0008, Priority 1b)
+
+### Breaking (wasm crate public API)
+The last place a caller could still get a silently wrong flag bit was the wasm crate's
+exported static-offset entry points. They took a `flag_id` and returned a fixed byte
+offset — a shape the project abandoned once it established that every flag family floats
+per save (each sits after an append-only list that grows as the character plays). There
+is no correct static offset for them to return, so they were removed, not repaired.
+**This breaks elden-map by decision** (ADR-0008): its next vendored build fails to find
+the exports rather than silently reading wrong bits. No in-repo caller was affected.
+
+Removed exports (7): `get_flag_offset`, `get_flag_offset_calibrated`, `is_flag_set`,
+`is_flag_set_calibrated`, `calculate_dungeon_pickup_offset`,
+`calculate_world_pickup_offset_by_row_id`, `calculate_tile_pickup_offset`, plus the
+`get_dungeon_pickup_sections` / `get_tile_base_offset` / `get_world_pickup_row_id_base`
+accessors.
+
+Removed base tables (5): `get_dungeon_general_bases` (the disproven "+3375 per area"
+stride table), `get_sub_block_bases`, `get_main_block_bases`, `get_midrange_bases`,
+`get_dungeon_pickup_section_bases`. Constants `TILE_BASE_OFFSET` (337375, tombstoned —
+it is the *distance between* two families, not a base) and `WORLD_PICKUP_ROW_ID_BASE`
+(a storage model disproven 2026-02-16) are gone. The crate no longer imports `HashMap`.
+
+### The boundary
+An export may not source a flag's position from inside the crate. It must take the
+save/flag bytes and resolve the family for that save, or take the base as a parameter.
+This is why `calculate_tile_pickup_offset_calibrated(flag_id, tile_base)` survives while
+`calculate_tile_pickup_offset(flag_id)` does not — identical arithmetic, but one is
+handed the base and the other invents it. The survivor is load-bearing: `tile_read`
+calls it with base 0 and adds a resolved family base, so it is tile geometry, not a
+claim about where a family sits. Flag reads now go through the region-taking readers:
+`is_world_state_flag_set`, `is_tile_world_flag_set`, `is_tile_pickup_set`,
+`is_dungeon_flag_set`, `is_dungeon_pickup_set` — each returns Unknown rather than false
+when a family cannot be resolved.
+
+### Conformance guard
+New `crates/wasm-event-flags/tests/export_shape_conformance.rs` pins that no exported
+entry point reaches a crate-baked base — the check whose absence let the disproven table
+survive four cutover commits while documented as wrong in five places. Its load-bearing
+test is structural, not a name list: any export answering a flag position/state question
+must receive `&[u8]` or an explicit base, so the model cannot regrow under a new name.
+Each of the three checks was verified by mutation (mutation applied, observed to fail
+the intended test, reverted).
+
+### Files Modified
+- `crates/wasm-event-flags/src/lib.rs`: removed 7 exports, 5 base tables, 2 constants;
+  removed the tests that asserted literal byte offsets (their assertions were the
+  abandoned model restated); preserved carried evidence in comments at removal sites
+- `crates/wasm-event-flags/tests/export_shape_conformance.rs`: new (4 tests)
+- `docs/adr/0008-*.md`: implementation note recording the scope widening past the 3
+  named exports and the emergent boundary rule
+- `docs/BACKLOG.md`: Priority 1b steps 1-3 marked done; step 4 (elden-map) framed as the
+  open cross-repo work; the widened scope tabulated
+- `docs/EVENT-FLAG-GEOGRAPHY.md`: marked the row_id code reference OBSOLETE
+- `docs/SAVE_FILE_GROUND_TRUTH.md`: past-tensed the `get_dungeon_general_bases` reference
+- `CLAUDE.md`: recorded that the crate holds no flag base tables by design
+
+---
+
 ## v0.30.0 - Route pickups by family; the app leaves the frozen store entirely
 
 ### Features

@@ -228,8 +228,10 @@ byte = alloc_slot(map) * 1125 + localId / 8      bit = 7 - flagId % 8
 Slots come from the game's own `eventflagalloclists` (corpus `game-raw-1162`,
 decompressed to `knowledge/game/eventflag-alloclists.json`), mirrored into the
 reference implementation as `LEGACY_ALLOC_SLOTS` with a conformance test that re-reads
-the source file. They do **not** come from `get_dungeon_general_bases()`, whose own
-audit comment records entries disproven by every save on this machine.
+the source file. They did **not** come from `get_dungeon_general_bases()` — the disproven
+"+3375 per area" stride table, whose own audit comment recorded entries contradicted by
+every save on this machine. That table was **deleted 2026-07-20 (ADR-0008)** along with
+every export reaching it; `tests/export_shape_conformance.rs` fails if it reappears.
 
 The same localId split applies as for tiles — `is_dungeon_flag_set` for localId < 7000,
 `is_dungeon_pickup_set` for >= 7000 — and the two regions sit 125 bytes apart.

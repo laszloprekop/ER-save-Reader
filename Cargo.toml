@@ -3,7 +3,7 @@ members = [".", "crates/wasm-event-flags"]
 
 [package]
 name = "er-save-editor"
-version = "0.30.0"
+version = "0.31.0"
 edition = "2021"
 
 [dependencies]

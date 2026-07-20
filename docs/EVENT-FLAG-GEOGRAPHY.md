@@ -369,23 +369,29 @@ bit_position = 7 - ((row_id - WORLD_PICKUP_ROW_ID_BASE) % 8)
 
 #### Code Reference
 
-```rust
-// From crates/wasm-event-flags/src/lib.rs
-pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
-
-pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> FlagOffset {
-    let bit_offset = row_id - WORLD_PICKUP_ROW_ID_BASE;
-    let byte_offset = bit_offset / 8;
-    let bit_position = (7 - (bit_offset % 8)) as u8;
-    FlagOffset::new(byte_offset, bit_position)
-}
-```
+> **OBSOLETE — removed from the code 2026-07-20 (ADR-0008). Do not implement this.**
+>
+> The row_id bitfield model above was superseded on 2026-02-16: world pickups with
+> getItemFlagId local_id >= 7000 are stored in the TILE region at a converted local_id
+> (`flagId - 7000`), not in a separate row_id bitfield. `WORLD_PICKUP_ROW_ID_BASE` and
+> `calculate_world_pickup_offset_by_row_id()` no longer exist —
+> `tests/export_shape_conformance.rs` fails if either returns.
+>
+> The base 1037373320 is doubly wrong: it named a region that is not how the game stores
+> these flags, *and* it was a fixed offset, which nothing in the flag region is. Every
+> family sits after an append-only list that grows as the character plays.
+>
+> **Current reader:** `is_tile_pickup_set(event_flags, id)` — resolves the family for the
+> save it is handed and returns `None` when it cannot, rather than a plausible number.
 
 ### Implications for Save Editing
 
-1. **World pickups ARE trackable** - even those with getItemFlagId local_id >= 7000
-2. **Block flags work** - cookbooks, whetblades, etc. can be read/written via block formula
-3. **Two formulas needed** - tile formula for general tile flags, row_id formula for pickup tracking
+1. **World pickups ARE trackable** - even those with getItemFlagId local_id >= 7000,
+   via the tile region at the converted local_id (NOT via the obsolete row_id formula)
+2. **Block flags work** - cookbooks, whetblades, etc. can be read/written, but their
+   position must be resolved per save; the block base tables were deleted 2026-07-20
+3. **The caller picks the family** - a bare flag id is ambiguous between the open-world
+   and pickup families, so no function routes on the id alone
 
 ---
 

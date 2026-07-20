@@ -20,7 +20,6 @@
 
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 // =============================================================================
 // CONSTANTS
@@ -38,19 +37,17 @@ pub const SEARCH_START: usize = 0x12000;  // 73,728
 pub const MAX_SEARCH_RANGE: usize = 200_000;
 
 /// Tile flag constants (10-digit flags like 1035537020)
-pub const TILE_BASE_OFFSET: u32 = 337375;
 pub const TILE_ROW_BASE: u32 = 33;
 pub const TILE_COL_BASE: u32 = 30;
 pub const TILE_BYTES_PER_SLOT: u32 = 875;
 pub const TILE_SLOTS_PER_ROW: u32 = 40;
 pub const TILE_MAX_LOCAL_ID: u32 = 6999;
 
-/// World pickup row_id base (DEPRECATED — kept for backward compatibility)
-/// CORRECTED (2026-02-16): The row_id formula is NOT how the game stores tile
-/// pickup flags. Pickups with getItemFlagId local_id >= 7000 are stored in the
-/// TILE region at converted local_id (flagId - 7000). See
-/// calculate_tile_flag_offset_unified() for the correct routing.
-pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
+// TILE_BASE_OFFSET (337375) and WORLD_PICKUP_ROW_ID_BASE (1037373320) removed 2026-07-20
+// (ADR-0008). 337375 is real but it is the distance BETWEEN two flag families, never a
+// base — see CLAUDE.md and tombstone `tile-base-337375-grace-anchored`. The row_id base
+// belonged to a storage model disproven 2026-02-16. Neither had a caller left that was
+// not itself being removed.
 
 /// Dungeon section size
 pub const DUNGEON_SECTION_SIZE: u32 = 1125;
@@ -334,272 +331,28 @@ fn detect_event_flags_content_based(slot_data: &[u8]) -> DetectionResult {
 // PICKUP FLAG CALCULATIONS
 // =============================================================================
 
-/// Per-section pickup bases for dungeon flags (local_id >= 7000)
-/// DISCOVERY (2026-02-02): Each (area, section) has its own empirically-discovered base.
-/// The linear formula `base + section * 1125` is WRONG.
-fn get_dungeon_pickup_section_bases() -> HashMap<(u32, u32), u32> {
-    HashMap::from([
-        // Area 10: Stormveil Castle
-        ((10,  0), 31904),
-        ((10,  1),  1787),
-        // Area 11: Leyndell Royal Capital
-        ((11,  0), 31903),
-        ((11,  5),  1835),
-        ((11, 10),  1812),
-        // Area 12: Underground (Siofra, Ainsel, etc.)
-        ((12,  1), 31900),
-        ((12,  2), 31903),
-        ((12,  3), 31902),
-        ((12,  5), 31902),
-        ((12,  7), 31903),
-        // Area 13: Crumbling Farum Azula
-        ((13,  0), 31903),
-        // Area 14: Academy of Raya Lucaria — VERIFIED 2026-04-07 via cross-slot
-        // intersection (8 save slots): Glintstone Key + Longtail Cat Talisman
-        // consistent in all 7 non-empty slots; corroborated by Avionette Ashes
-        // and Longtail Cat Talisman SET at this base in Confessor (slot 0).
-        ((14,  0), 29782),
-        // Area 15: Miquella's Haligtree
-        ((15,  0), 31903),
-        // Area 16: Volcano Manor — VERIFIED 2026-04-07 via unique local_ids
-        // (7940/7000/7010/7030, 4 distinct residues): 2 candidates from
-        // 6-slot intersection; 2194 confirmed with 34/41 flags SET in 3
-        // well-progressed slots vs 17/41 for the only other candidate (2270).
-        ((16,  0), 2194),
-        // Area 18: Roundtable Hold
-        ((18,  0),  3847),
-        // Area 20: Stranded Graveyard
-        ((20,  0), 31903),
-        ((20,  1), 31903),
-        // Area 21: Haligtree (Elphael)
-        ((21,  0), 31903),
-        ((21,  1), 31903),
-        ((21,  2), 31903),
-        // Area 22: Castle Sol
-        ((22,  0), 28962),
-        // Area 28: DLC
-        ((28,  0), 28974),
-        // Area 30: Catacombs (21 sections)
-        ((30,  0),  1790),
-        ((30,  1),  1786),
-        ((30,  2),  1787),
-        ((30,  3),  1835),
-        ((30,  4),  1787),
-        ((30,  5),  1835),
-        ((30,  6),  3827),
-        ((30,  7),  1812),
-        ((30,  8),  1834),
-        ((30,  9),  3764),
-        ((30, 10),  3826),
-        ((30, 11),  1787),
-        ((30, 12),  1787),
-        ((30, 13),  1785),
-        ((30, 14),  1835),
-        ((30, 15),  1787),
-        ((30, 16),  1835),
-        ((30, 17),  1835),
-        ((30, 18),  1787),
-        ((30, 19),  1835),
-        ((30, 20),  3723),
-        // Area 31: Caves (19 sections)
-        ((31,  0),  1787),
-        ((31,  1),  1835),
-        ((31,  2),  1797),
-        ((31,  3),  1787),
-        ((31,  4),  1835),
-        ((31,  5),  3828),
-        ((31,  6),  1787),
-        ((31,  7),  3764),
-        ((31,  9),  1835),
-        ((31, 10),  1790),
-        ((31, 11), 28975),
-        ((31, 12), 28974),
-        ((31, 15),  1786),
-        ((31, 17),  3719),
-        ((31, 18),  3718),
-        ((31, 19), 28974),
-        ((31, 20),  1787),
-        ((31, 21), 31903),
-        ((31, 22),  3827),
-        // Area 32: Tunnels (8 sections)
-        ((32,  0),  3847),
-        ((32,  1),  1835),
-        ((32,  2),  3847),
-        ((32,  4),  1835),
-        ((32,  5),  3723),
-        ((32,  7),  1788),
-        ((32,  8), 28979),
-        ((32, 11),  3725),
-        // Area 34: Divine Towers
-        ((34, 10),  1787),
-        ((34, 11), 31902),
-        ((34, 12), 28974),
-        ((34, 13),  1787),
-        ((34, 14),  1789),
-        // Area 35: Mohgwyn Palace
-        ((35,  0), 31903),
-        // Area 39: Elden Throne
-        ((39, 20), 28974),
-        // Area 40: Hero's Graves
-        ((40,  0), 28986),
-        ((40,  1), 28974),
-        ((40,  2), 28974),
-        // Area 41: Minor Dungeons
-        ((41,  0), 31903),
-        ((41,  1), 31902),
-        ((41,  2), 31903),
-        // Area 42: Crystal Caves
-        ((42,  0),  3708),
-        ((42,  2),  3827),
-        ((42,  3),  3708),
-        // Area 43: Evergaols
-        ((43,  0),  1835),
-        ((43,  1),  1835),
-    ])
-}
+// REMOVED 2026-07-20 (ADR-0008): `get_dungeon_pickup_section_bases()` — 88 per-section
+// bases. See the removal note at `calculate_dungeon_pickup_offset` below.
 
 // =============================================================================
 // BLOCK, MIDRANGE, AND GENERAL DUNGEON BASES
 // =============================================================================
 
-/// Block bases for flags 60000-99999 (special system flags)
-/// Bases derived from common.emevd.js event definitions (see EVENT-FLAG-GEOGRAPHY.md)
-/// Key: block start (e.g., 60000, 71800, 76000)
-/// Value: base offset in event flags array (relative to EF section start)
-///
-/// CORRECTED 2026-02-15: Non-grace block bases were wrong — they had been calibrated
-/// against a false-positive EF offset (0x1A570 in GaItemData section) rather than the
-/// correct structural EF offset. Correct values from game event scripts (common.emevd.js)
-/// and verified via timeline diffs for map fragments (6/6 exact bit matches at base 1500).
-/// Sub-block bases (100-granularity) — checked FIRST in calculate_simple_flag_offset.
-/// These override the main-block when a flag falls in a sub-block range with a
-/// different allocation (e.g., base game cookbooks in DLC blocks, Stormveil graces).
-fn get_sub_block_bases() -> HashMap<u32, u32> {
-    HashMap::from([
-        // Stormveil dungeon graces (71000-71099) — separate allocation region
-        // Verified: 55 flags in ground_truth_offsets.json, base 9315 confirmed
-        (71000, 9315),
-        // Tutorial graces (71800-71899) — VALIDATED via 71800, 71801
-        (71800, 2725),
-        // Base game cookbook sub-block overrides
-        // The DLC introduced SEPARATE flag allocations for blocks 67000/68000.
-        // Base game cookbook flags (getItemFlagId from ItemLotParam_map) are stored
-        // at DIFFERENT byte offsets than DLC cookbook flags in the same nominal block.
-        // Verified empirically: Confessor (4/4 non-ADA), Bee (2/2) match at these bases.
-        (68200, 1500),    // Base game Fevor's/Missionary's[7] cookbooks (base 1475 + 200/8)
-        (68400, 1525),    // Base game Frenzied's cookbooks (base 1475 + 400/8)
-        (67600, 2145),    // Base game Missionary's cookbooks (base 2070 + 600/8)
-    ])
-}
+// REMOVED 2026-07-20 (ADR-0008): `get_sub_block_bases()`, `get_main_block_bases()` and
+// `get_midrange_bases()` — the block and midrange base tables for flags 60000-999999.
+// They became unreachable when the static-offset exports were removed above, and the
+// compiler said so. Each entry was a byte offset measured against one save's layout, so
+// none of them survive a save whose flag list has grown. World-state flags in these
+// ranges now resolve through `is_world_state_flag_set`, which locates the family in the
+// flag region it is handed.
 
-/// Main-block bases (1000-granularity) — fallback when no sub-block matches.
-fn get_main_block_bases() -> HashMap<u32, u32> {
-    HashMap::from([
-        // System flags — emevd hex + 1 for non-map/non-progression blocks
-        // Blocks 60000/62000: emevd hex value IS the correct byte offset
-        // Blocks 65000-69000, 91000-92000: emevd hex + 1 (verified via mod-10 flag alignment)
-        (60000, 1260),    // 0x4ec - Progression flags — VERIFIED (60020,60130,60220 SET)
-        (62000, 1500),    // 0x5dc - Map/Landmarks — VERIFIED via 6 timeline diffs
-        (65000, 1685),    // 0x694+1 - Whetblades & Crystal Tears
-        (66000, 1725),    // 0x6bc+1 - Pot/Perfume Upgrades
-        (67000, 1765),    // 0x6e4+1 - Cookbooks (DLC) — VERIFIED (6/6 flags mod10=0)
-        (68000, 1805),    // 0x70c+1 - Cookbooks continued (DLC) — VERIFIED (16/16 mod10=0)
-        (69000, 1845),    // 0x734+1 - Remembrance/Notes — VERIFIED (20/20 mod10=0)
-        (91000, 2385),    // 0x950+1 - Boss Remembrance — VERIFIED (41/41 mod10=0)
-        (92000, 2425),    // 0x978+1 - Container Upgrades — VERIFIED (16/16 mod10=0)
-        // Dungeon graces (71100-71799) — standard block formula with base 2625
-        // Confirmed by computing all 55 verified flags in ground_truth_offsets.json
-        (71000, 2625),
-        // Grace flags — verified via multi-slot validation
-        (72000, 2750),    // DLC graces (Enir-Ilim) - verified (10+ consistent proven)
-        (73000, 2662),    // Dungeon graces - verified via temporal diff
-        (74000, 3000),    // DLC dungeon graces - verified (8+ consistent proven)
-        (76000, 3250),    // 0xcb2 - World graces - VALIDATED via 76100, 76101
-        (78000, 3500),    // Grace guidance flags - verified (8+ proven flags)
-    ])
-}
-
-/// Midrange block bases for 6-digit flags (100000-999999)
-/// SYNCED with ground_truth_offsets.json verified values from eventFlagService.ts
-fn get_midrange_bases() -> HashMap<u32, u32> {
-    HashMap::from([
-        (510000, 63750),  // Remembrance consumption flags - verified
-        (540000, 67500),  // Sorcery/Incantation/Ash unlock flags - verified (129 flags)
-        (710000, 13875),  // Roundtable Hold NPC progression - verified (41 EMEVD flags)
-    ])
-}
-
-/// General dungeon base offsets (for local_id < 7000)
-/// From eventflagalloclist - formula: base + section * 1125 + local_id / 8
-/// Key format: "XX_YY" where XX is map area, YY is section
-///
-/// VERIFICATION AUDIT (2026-07-05, multi-slot differential + Bee timeline):
-/// - (14,0)=29987 EMPIRICALLY VERIFIED: Red Wolf of Radagon kill (14000850) landed at
-///   exactly 29987+106 bit5 in timeline entry sd_000259, in the same byte-validated EF
-///   window as GT-proven 30040800@32011 and 31020800@30984 (00->ff kill transitions).
-/// - (18,0)=43487 and (19,0)=46862 DISPROVEN and removed: all five test-save slots AND
-///   the byte-validated Bee day-1 state show zero bytes across those 1125-byte spans,
-///   although every character necessarily sets Stranded Graveyard (m18) flags in the
-///   tutorial (Soldier of Godrick 18000850). The m18 *pickup* base is 3847 (calibrated),
-///   so the true m18 general section lies near the 2.5k-4k region, ~40k away from 43487.
-///   These entries came from an unverified "+3375 per area" stride assumption.
-/// - The other m10-m22 entries below stem from the same stride assumption and are
-///   UNVERIFIED; (10,0)/(10,1)/(11,0)/(13,0)/(20,0)/(21,*)/(22,0) spans read all-zero in
-///   every available save. They are retained for now but should not be treated as
-///   verified. Note (35,0) duplicates (20,0) and (39,20) duplicates (21,0) - a further
-///   sign of fabrication. Map comments fixed: m18 = Stranded Graveyard (tutorial),
-///   m19 = Elden Throne (Radagon/Elden Beast 19000800).
-fn get_dungeon_general_bases() -> HashMap<(u32, u32), u32> {
-    HashMap::from([
-        // Stormveil Castle (m10) - UNVERIFIED (stride assumption; no save shows data here)
-        ((10,  0), 4112), ((10,  1), 5237),
-        // Leyndell (m11) - UNVERIFIED - section formula: 8612 + section * 1125
-        ((11,  0), 8612), ((11,  5), 14237), ((11, 10), 19862), ((11, 71), 88487),
-        // Underground areas (m12) - UNVERIFIED
-        ((12,  1), 16487), ((12,  2), 17612), ((12,  3), 18737), ((12,  4), 19862),
-        ((12,  5), 20987), ((12,  6), 22112), ((12,  7), 23237), ((12,  8), 24362), ((12,  9), 25487),
-        // Crumbling Farum Azula (m13) - UNVERIFIED
-        ((13,  0), 26612),
-        // Academy of Raya Lucaria (m14) - VERIFIED 2026-07-05 (Red Wolf kill @30093, see audit above)
-        ((14,  0), 29987),
-        // Miquella's Haligtree (m15) - UNVERIFIED (span overlaps verified (31,4)=33134!)
-        ((15,  0), 33362),
-        // Volcano Manor (m16) - verified (was 36737 - WRONG, corrected to 40517)
-        ((16,  0), 40517),
-        // m18 Stranded Graveyard REMOVED (was ((18,0), 43487)) - DISPROVEN, see audit above.
-        // m19 Elden Throne REMOVED (was ((19,0), 46862)) - DISPROVEN, see audit above.
-        // Missing entries make lookups return invalid -> callers report "unknown"
-        // instead of a silent false "flag not set".
-        // Stranded Graveyard (m20)?? - UNVERIFIED (duplicate of (35,0); area naming suspect)
-        ((20,  0), 50237),
-        // Miquella's Haligtree sections (m21) - UNVERIFIED
-        ((21,  0), 53612), ((21,  1), 54737), ((21,  2), 55862),
-        // Castle Sol (m22) - UNVERIFIED
-        ((22,  0), 59237),
-        // Catacombs (m30) - VERIFIED base 27411
-        ((30,  0), 27411), ((30,  1), 28536), ((30,  2), 29661), ((30,  3), 30786),
-        ((30,  4), 31911), ((30,  5), 33036), ((30,  6), 34161), ((30,  7), 35286),
-        ((30,  8), 36411), ((30,  9), 37536), ((30, 10), 38661), ((30, 11), 39786),
-        ((30, 12), 40911), ((30, 13), 42036), ((30, 14), 43161), ((30, 15), 44286),
-        ((30, 16), 45411), ((30, 17), 46536), ((30, 18), 47661), ((30, 19), 48786), ((30, 20), 49911),
-        // Caves (m31) - VERIFIED base 28634
-        ((31,  0), 28634), ((31,  1), 29759), ((31,  2), 30884), ((31,  3), 32009),
-        ((31,  4), 33134), ((31,  5), 34259), ((31,  6), 35384), ((31,  7), 36509),
-        ((31,  9), 38759), ((31, 10), 39884), ((31, 11), 41009), ((31, 12), 42134),
-        ((31, 15), 45509), ((31, 17), 47759), ((31, 18), 48884), ((31, 19), 50009),
-        ((31, 20), 51134), ((31, 21), 52259), ((31, 22), 53384),
-        // Tunnels (m32) - VERIFIED base 31577
-        ((32,  0), 31577), ((32,  1), 32702), ((32,  2), 33827), ((32,  4), 36077),
-        ((32,  5), 37202), ((32,  7), 39452), ((32,  8), 40577), ((32, 11), 43952),
-        // Divine Towers (m34)
-        ((34, 10), 71612), ((34, 11), 72737), ((34, 12), 73862), ((34, 13), 74987),
-        ((34, 14), 76112), ((34, 15), 77237), ((34, 16), 78362),
-        // Mohgwyn Palace (m35)
-        ((35,  0), 50237),
-        // Elden Throne (m39)
-        ((39, 20), 53612),
-    ])
-}
+// REMOVED 2026-07-20 (ADR-0008): `get_dungeon_general_bases()` — the "+3375 per area"
+// stride table. Its own audit had already disproven (18,0) and (19,0) against every save
+// on this machine and marked most of the m10-m22 entries UNVERIFIED and all-zero, yet the
+// exported readers kept serving offsets from it. Legacy-dungeon general flags now resolve
+// through `is_dungeon_flag_set` / `legacy_alloc_slot`, which take the flag region and
+// return Unknown when they cannot place a family. The dead entries are not preserved here:
+// they were fabricated by a stride assumption, so there is nothing to recover.
 
 /// Result of flag offset calculation
 #[wasm_bindgen(getter_with_clone)]
@@ -620,49 +373,17 @@ impl FlagOffset {
     }
 }
 
-/// Calculate offset for dungeon pickup flags (8-digit, local_id >= 7000)
-///
-/// Uses per-section lookup instead of linear formula.
-/// Returns None if section base is unknown.
-#[wasm_bindgen]
-pub fn calculate_dungeon_pickup_offset(flag_id: u32) -> FlagOffset {
-    calculate_dungeon_pickup_offset_impl(flag_id)
-}
+// REMOVED 2026-07-20 (ADR-0008): `calculate_dungeon_pickup_offset{,_impl}` and the
+// `get_dungeon_pickup_section_bases()` table they read. Same defect as the general
+// dungeon table: 88 per-section byte offsets, each measured against one save's layout,
+// handed out for any flag id. Dungeon pickups now resolve through `is_dungeon_pickup_set`
+// (family FAMILY_LEGACY_DUNGEON_PICKUP), whose geometry comes from the game's own
+// alloclists via `legacy_alloc_slot` rather than from calibration against a save.
 
-pub fn calculate_dungeon_pickup_offset_impl(flag_id: u32) -> FlagOffset {
-    // Must be 8-digit dungeon flag
-    if flag_id < 10_000_000 || flag_id >= 44_000_000 {
-        return FlagOffset::invalid();
-    }
-
-    let area = (flag_id / 1_000_000) % 100;
-    let section = (flag_id / 10_000) % 100;
-    let local_id = flag_id % 10_000;
-
-    // Only handles pickup flags (local_id >= 7000)
-    if local_id < 7000 {
-        return FlagOffset::invalid();
-    }
-
-    let section_bases = get_dungeon_pickup_section_bases();
-
-    if let Some(&section_base) = section_bases.get(&(area, section)) {
-        let byte_offset = section_base + local_id / 8;
-        let bit_position = (7 - (flag_id % 8)) as u8;
-
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit_position);
-        }
-    }
-
-    FlagOffset::invalid()
-}
-
-/// Calculate offset for tile-based world pickup flags (10-digit, 1XXYYZZZZ)
-#[wasm_bindgen]
-pub fn calculate_tile_pickup_offset(flag_id: u32) -> FlagOffset {
-    calculate_tile_pickup_offset_with_base(flag_id, TILE_BASE_OFFSET)
-}
+// REMOVED 2026-07-20 (ADR-0008): `calculate_tile_pickup_offset` — the wrapper that
+// supplied the static TILE_BASE_OFFSET. CLAUDE.md tombstones 337375: it is real, but it
+// is the DISTANCE BETWEEN TWO FAMILIES, not a base. The geometry it wrapped survives
+// below and is what `tile_read` uses, called with base 0 and offset by a resolved family.
 
 /// Calculate offset for tile-based flags with a calibrated base
 #[wasm_bindgen]
@@ -705,53 +426,12 @@ pub fn calculate_tile_pickup_offset_with_base(flag_id: u32, tile_base: u32) -> F
     }
 }
 
-/// Calculate offset for world pickup tracking using ItemLotParam row_id
-///
-/// DISCOVERY (2026-02-02): World pickups with getItemFlagId (local_id >= 7000)
-/// are NOT stored in the tile region. Instead, they're tracked by row_id
-/// in a separate bitfield region at a different offset.
-///
-/// Formula:
-/// - byte_offset = (row_id - WORLD_PICKUP_ROW_ID_BASE) / 8
-/// - bit_position = 7 - ((row_id - WORLD_PICKUP_ROW_ID_BASE) % 8)
-///
-/// NOTE (2026-02-09): Row_ids with local_id < 7000 (like 1044360310) are
-/// actually stored via the TILE formula, not this row_id formula. This formula
-/// applies only to row_ids whose corresponding getItemFlagId would have
-/// local_id >= 7000 AND no valid tile slot (i.e., the tile formula returns
-/// invalid). The unified get_flag_offset() handles routing correctly.
-#[wasm_bindgen]
-pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> FlagOffset {
-    calculate_world_pickup_offset_by_row_id_impl(row_id)
-}
-
-pub fn calculate_world_pickup_offset_by_row_id_impl(row_id: u32) -> FlagOffset {
-    // Only valid for 10-digit row_ids in the 1B range
-    if row_id < 1_000_000_000 || row_id >= 2_000_000_000 {
-        return FlagOffset::invalid();
-    }
-
-    // row_id should have local_id < 7000 (it's the raw ItemLotParam row_id)
-    let local_id = row_id % 10000;
-    if local_id >= 7000 {
-        return FlagOffset::invalid();
-    }
-
-    // Must be >= base to have valid storage
-    if row_id < WORLD_PICKUP_ROW_ID_BASE {
-        return FlagOffset::invalid();
-    }
-
-    let bit_offset = row_id - WORLD_PICKUP_ROW_ID_BASE;
-    let byte_offset = bit_offset / 8;
-    let bit_position = (7 - (bit_offset % 8)) as u8;
-
-    if byte_offset < EVENT_FLAGS_SIZE as u32 {
-        FlagOffset::new(byte_offset, bit_position)
-    } else {
-        FlagOffset::invalid()
-    }
-}
+// REMOVED 2026-07-20 (ADR-0008): `calculate_world_pickup_offset_by_row_id{,_impl}` and
+// the WORLD_PICKUP_ROW_ID_BASE constant. Its own doc comment already recorded that the
+// row_id bitfield model was superseded in 2026-02-16 — world pickups with local_id >= 7000
+// read in the TILE region at a converted local_id, not in a separate row_id bitfield. It
+// survived only because the deleted `get_flag_offset` router was documented as "handling
+// the routing correctly". That router is gone; use `is_tile_pickup_set`.
 
 /// Convert getItemFlagId to storable row_id for tile-based world pickups.
 ///
@@ -789,222 +469,39 @@ pub fn is_tile_pickup_flag(flag_id: u32) -> bool {
     flag_id >= 1_000_000_000
 }
 
-/// Get all known dungeon pickup section keys as JSON
-/// Returns array of [area, section] pairs
-#[wasm_bindgen]
-pub fn get_dungeon_pickup_sections() -> String {
-    let bases = get_dungeon_pickup_section_bases();
-    let keys: Vec<(u32, u32)> = bases.keys().cloned().collect();
-    serde_json::to_string(&keys).unwrap_or_else(|_| "[]".to_string())
-}
+// REMOVED 2026-07-20 (ADR-0008): `get_dungeon_pickup_sections()` — it served the removed
+// table's keys as JSON, letting a caller enumerate and trust bases that no longer exist.
 
 // =============================================================================
-// UNIFIED FLAG OFFSET CALCULATION
+// REMOVED: UNIFIED FLAG OFFSET CALCULATION (2026-07-20, ADR-0008)
 // =============================================================================
+//
+// `get_flag_offset`, `get_flag_offset_calibrated`, `is_flag_set`,
+// `is_flag_set_calibrated` and their shared router `get_flag_offset_with_tile_base`
+// are GONE, along with `calculate_tile_flag_offset_unified` and
+// `calculate_dungeon_flag_offset_unified`.
+//
+// They are not deprecated, re-pointed, or left returning invalid: they are removed.
+// Their signature — flag_id in, static byte offset out — encodes a model this project
+// has abandoned. Every flag family sits at a base that floats per save (it follows an
+// append-only list that grows as the character plays), so there is no correct static
+// offset for these functions to return. An honest replacement must take the flag region
+// so it can resolve the family for THAT save, which makes it a different function.
+//
+// Callers wanting a flag's state use the region-taking readers, which return
+// Option/tri-state and answer Unknown rather than guessing:
+//   world state (6-digit and block flags) .. is_world_state_flag_set / world_state_flag_state
+//   open-world tiles (10-digit, local<7000) is_tile_world_flag_set / tile_world_flag_state
+//   world pickups  (10-digit, local>=7000)  is_tile_pickup_set     / tile_pickup_state
+//   legacy dungeons (8-digit, local<7000) . is_dungeon_flag_set    / dungeon_flag_state
+//   dungeon pickups (8-digit, local>=7000)  is_dungeon_pickup_set  / dungeon_flag_state
+//
+// A bare flag id does not identify a family (see CLAUDE.md): the caller must pick the
+// reader. That is the point — routing on the value silently reads the wrong bit.
 
-/// Calculate byte offset and bit position for ANY event flag.
-///
-/// This is the unified entry point that handles all flag types:
-/// - Simple flags (< 60,000): Direct flag_id / 8 calculation
-/// - Block flags (60,000-99,999): Uses BLOCK_BASES lookup
-/// - Midrange flags (100,000-999,999): Uses MIDRANGE_BASES lookup
-/// - Dungeon flags (10,000,000-43,999,999): General events and pickup flags
-/// - Tile flags (>= 1,000,000,000): Formula-based tile calculation
-///
-/// NOTE: Uses static TILE_BASE_OFFSET. For calibrated tile results, use
-/// get_flag_offset_calibrated() with a per-save calibrated base.
-#[wasm_bindgen]
-pub fn get_flag_offset(flag_id: u32) -> FlagOffset {
-    get_flag_offset_with_tile_base(flag_id, TILE_BASE_OFFSET)
-}
-
-/// Calculate flag offset using a calibrated tile base.
-/// Same as get_flag_offset() but uses a per-save calibrated tile base
-/// for accurate tile flag results.
-#[wasm_bindgen]
-pub fn get_flag_offset_calibrated(flag_id: u32, tile_base: u32) -> FlagOffset {
-    get_flag_offset_with_tile_base(flag_id, tile_base)
-}
-
-fn get_flag_offset_with_tile_base(flag_id: u32, tile_base: u32) -> FlagOffset {
-    // 10-digit open world tile flags (1,000,000,000+)
-    if flag_id >= 1_000_000_000 {
-        return calculate_tile_flag_offset_unified(flag_id, tile_base);
-    }
-
-    // 8-digit dungeon flags (10,000,000-43,999,999)
-    if flag_id >= 10_000_000 && flag_id < 44_000_000 {
-        return calculate_dungeon_flag_offset_unified(flag_id);
-    }
-
-    // 6-digit midrange flags (100,000-999,999)
-    if flag_id >= 100_000 && flag_id < 1_000_000 {
-        return calculate_midrange_flag_offset(flag_id);
-    }
-
-    // Simple and block flags (< 100,000)
-    if flag_id < 100_000 {
-        return calculate_simple_flag_offset(flag_id);
-    }
-
-    // Flags 1,000,000-9,999,999 are not commonly used
-    FlagOffset::invalid()
-}
-
-/// Calculate tile flag offset with getItemFlagId conversion for local_id >= 7000
-///
-/// CORRECTED (2026-02-16): getItemFlagId (local_id >= 7000) is stored in the TILE
-/// region at a converted local_id, NOT in the row_id bitfield region.
-///
-/// Empirically verified with Axe Talisman (getItemFlagId 1045377100, local_id 7100):
-///   - Subtracting 7000 gives 1045370100 (local_id 100)
-///   - Flag IS SET at tile (45,37) local_id=100 in the save file
-///   - Flag is NOT SET at row_id formula offset 999597
-fn calculate_tile_flag_offset_unified(flag_id: u32, tile_base: u32) -> FlagOffset {
-    let local_id = flag_id % 10000;
-
-    // getItemFlagId (local_id >= 7000): convert to tile-storable local_id
-    // by subtracting 7000, then use standard tile formula
-    if local_id > MAX_TILE_LOCAL_ID {
-        let converted = flag_id - 7000;
-        return calculate_tile_pickup_offset_with_base(converted, tile_base);
-    }
-
-    // Standard tile formula
-    calculate_tile_pickup_offset_with_base(flag_id, tile_base)
-}
-
-/// Calculate dungeon flag offset for both general events (local_id < 7000)
-/// and pickup flags (local_id >= 7000)
-fn calculate_dungeon_flag_offset_unified(flag_id: u32) -> FlagOffset {
-    let area = (flag_id / 1_000_000) % 100;
-    let section = (flag_id / 10_000) % 100;
-    let local_id = flag_id % 10_000;
-    let bit_position = (7 - (flag_id % 8)) as u8;
-
-    // Pickup flags (local_id >= 7000) use per-section bases
-    if local_id >= 7000 {
-        return calculate_dungeon_pickup_offset_impl(flag_id);
-    }
-
-    // General dungeon events (local_id < 7000) use dungeon general bases
-    let general_bases = get_dungeon_general_bases();
-
-    // Try exact (area, section) lookup first
-    if let Some(&base) = general_bases.get(&(area, section)) {
-        let byte_offset = base + local_id / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit_position);
-        }
-    }
-
-    // Fall back: calculate from section 0 base using DUNGEON_SECTION_SIZE
-    if let Some(&base_00) = general_bases.get(&(area, 0)) {
-        let byte_offset = base_00 + section * DUNGEON_SECTION_SIZE + local_id / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit_position);
-        }
-    }
-
-    FlagOffset::invalid()
-}
-
-/// Calculate byte offset for simple flags (< 60,000) and block flags (60,000-99,999)
-fn calculate_simple_flag_offset(flag_id: u32) -> FlagOffset {
-    let bit = (7 - (flag_id % 8)) as u8;
-
-    // Simple flags use direct calculation
-    if flag_id < 60000 {
-        let byte_offset = flag_id / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit);
-        }
-        return FlagOffset::invalid();
-    }
-
-    // Block flags (60,000-99,999) - check sub-block (100-rounded) then main block (1000-rounded)
-    let sub_block = (flag_id / 100) * 100;
-    let main_block = (flag_id / 1000) * 1000;
-
-    // Sub-block (100-granularity) — checked first for overrides
-    let sub_bases = get_sub_block_bases();
-    if let Some(&base) = sub_bases.get(&sub_block) {
-        let relative = flag_id - sub_block;
-        let byte_offset = base + relative / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit);
-        }
-    }
-
-    // Main-block (1000-granularity) — fallback
-    let main_bases = get_main_block_bases();
-    if let Some(&base) = main_bases.get(&main_block) {
-        let relative = flag_id - main_block;
-        let byte_offset = base + relative / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit);
-        }
-    }
-
-    FlagOffset::invalid()
-}
-
-/// Calculate byte offset for midrange flags (100,000-999,999)
-fn calculate_midrange_flag_offset(flag_id: u32) -> FlagOffset {
-    let bit = (7 - (flag_id % 8)) as u8;
-    let midrange_bases = get_midrange_bases();
-
-    // Try 10,000-flag block granularity first
-    let block_10k = (flag_id / 10000) * 10000;
-    if let Some(&base) = midrange_bases.get(&block_10k) {
-        let relative = flag_id - block_10k;
-        let byte_offset = base + relative / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit);
-        }
-    }
-
-    // Fall back to 1,000-flag granularity
-    let block_1k = (flag_id / 1000) * 1000;
-    if let Some(&base) = midrange_bases.get(&block_1k) {
-        let relative = flag_id - block_1k;
-        let byte_offset = base + relative / 8;
-        if byte_offset < EVENT_FLAGS_SIZE as u32 {
-            return FlagOffset::new(byte_offset, bit);
-        }
-    }
-
-    FlagOffset::invalid()
-}
-
-/// Check if an event flag is set in the event flags data.
-/// Combines offset calculation + bit checking in one call.
-#[wasm_bindgen]
-pub fn is_flag_set(event_flags: &[u8], flag_id: u32) -> bool {
-    let result = get_flag_offset(flag_id);
-    if !result.valid {
-        return false;
-    }
-    let byte_off = result.byte_offset as usize;
-    if byte_off >= event_flags.len() {
-        return false;
-    }
-    (event_flags[byte_off] & (1 << result.bit_position)) != 0
-}
-
-/// Check if an event flag is set using a calibrated tile base.
-#[wasm_bindgen]
-pub fn is_flag_set_calibrated(event_flags: &[u8], flag_id: u32, tile_base: u32) -> bool {
-    let result = get_flag_offset_calibrated(flag_id, tile_base);
-    if !result.valid {
-        return false;
-    }
-    let byte_off = result.byte_offset as usize;
-    if byte_off >= event_flags.len() {
-        return false;
-    }
-    (event_flags[byte_off] & (1 << result.bit_position)) != 0
-}
+// `is_flag_set` / `is_flag_set_calibrated` removed 2026-07-20 (ADR-0008) — see the
+// removal note above. Both collapsed "could not place this flag" into `false`, which is
+// indistinguishable from "flag not set"; the region-taking readers return Unknown.
 
 // =============================================================================
 // PLAYER POSITION EXTRACTION
@@ -1237,18 +734,8 @@ pub fn get_search_start() -> usize {
 }
 
 #[wasm_bindgen]
-pub fn get_tile_base_offset() -> u32 {
-    TILE_BASE_OFFSET
-}
-
-#[wasm_bindgen]
 pub fn get_tile_max_local_id() -> u32 {
     TILE_MAX_LOCAL_ID
-}
-
-#[wasm_bindgen]
-pub fn get_world_pickup_row_id_base() -> u32 {
-    WORLD_PICKUP_ROW_ID_BASE
 }
 
 #[wasm_bindgen]
@@ -1846,41 +1333,29 @@ mod tests {
         assert_eq!(tier1_count, 4);
     }
 
-    #[test]
-    fn test_dungeon_pickup_offset_stormveil() {
-        // Stormveil Castle section 0, local_id 7000
-        let result = calculate_dungeon_pickup_offset_impl(10007000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 31904 + 7000 / 8); // 32779
-        assert_eq!(result.bit_position, 7);
-    }
+    // test_dungeon_pickup_offset_{stormveil,catacombs,unknown_section} removed
+    // 2026-07-20 (ADR-0008) with the per-section base table they asserted against.
+    // Dungeon-pickup placement is now covered by tests/origin_conformance.rs
+    // (`dungeon_reads_split_by_family_and_refuse_foreign_ids`), which checks the
+    // family split and the refusal path instead of a literal byte offset.
 
-    #[test]
-    fn test_dungeon_pickup_offset_catacombs() {
-        // Catacombs section 6 (Cliffbottom), local_id 7000
-        let result = calculate_dungeon_pickup_offset_impl(30067000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 3827 + 7000 / 8); // 4702
-    }
-
-    #[test]
-    fn test_dungeon_pickup_offset_unknown_section() {
-        // Area 30, section 99 (doesn't exist)
-        let result = calculate_dungeon_pickup_offset_impl(30997000);
-        assert!(!result.valid);
-    }
+    // These now pass base 0, which is how `tile_read` calls the same function: the
+    // result is a FAMILY-RELATIVE offset, and the caller adds a base resolved from the
+    // save. Passing a literal base here would re-assert the tombstoned 337375.
 
     #[test]
     fn test_tile_offset() {
-        // Limgrave tile (42, 36), local_id 10
-        let result = calculate_tile_pickup_offset_with_base(1042360010, TILE_BASE_OFFSET);
+        // Limgrave tile (42, 36), local_id 10 — slot (42-33)*40 + (36-30) = 366
+        let result = calculate_tile_pickup_offset_with_base(1042360010, 0);
         assert!(result.valid);
+        assert_eq!(result.byte_offset, 366 * TILE_BYTES_PER_SLOT + 10 / 8);
+        assert_eq!(result.bit_position, 7 - (1042360010 % 8) as u8);
     }
 
     #[test]
     fn test_tile_offset_high_local_id() {
         // local_id >= 7000 should be invalid (no storage)
-        let result = calculate_tile_pickup_offset_with_base(1042367000, TILE_BASE_OFFSET);
+        let result = calculate_tile_pickup_offset_with_base(1042367000, 0);
         assert!(!result.valid);
     }
 
@@ -1894,52 +1369,12 @@ mod tests {
         assert_eq!(convert_to_row_id(10007000), -1);
     }
 
-    #[test]
-    fn test_section_bases_count() {
-        let bases = get_dungeon_pickup_section_bases();
-        assert!(bases.len() >= 88); // 88+ verified sections
-    }
-
-    #[test]
-    fn test_world_pickup_offset_by_row_id() {
-        // NOTE: These row_ids (1044360310, 1044360340) have local_id < 7000,
-        // so the game actually stores them via the TILE formula, NOT the row_id
-        // formula. The row_id formula produces valid-looking results but at the
-        // WRONG offsets. The unified get_flag_offset() correctly routes these
-        // through the tile formula instead.
-        //
-        // This test verifies the row_id formula's math is correct, but see
-        // test_tile_world_pickup_m60_4_43 for the correct storage locations.
-        let result = calculate_world_pickup_offset_by_row_id_impl(1044360310);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 873373);
-        assert_eq!(result.bit_position, 1);
-
-        let result = calculate_world_pickup_offset_by_row_id_impl(1044360340);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 873377);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_world_pickup_offset_invalid_inputs() {
-        // row_id below base should be invalid
-        let result = calculate_world_pickup_offset_by_row_id_impl(1037373319);
-        assert!(!result.valid);
-
-        // getItemFlagId (local_id >= 7000) should be invalid - must convert first
-        let result = calculate_world_pickup_offset_by_row_id_impl(1044367310);
-        assert!(!result.valid);
-
-        // 8-digit flag should be invalid
-        let result = calculate_world_pickup_offset_by_row_id_impl(10007000);
-        assert!(!result.valid);
-    }
-
-    #[test]
-    fn test_world_pickup_row_id_base() {
-        assert_eq!(WORLD_PICKUP_ROW_ID_BASE, 1037373320);
-    }
+    // test_section_bases_count, test_world_pickup_offset_by_row_id,
+    // test_world_pickup_offset_invalid_inputs and test_world_pickup_row_id_base removed
+    // 2026-07-20 (ADR-0008). The first counted rows in a deleted table. The others pinned
+    // the row_id bitfield formula, and their own comments conceded it "produces
+    // valid-looking results but at the WRONG offsets" — a test asserting the arithmetic
+    // of a storage model known not to be the game's.
 
     #[test]
     fn test_player_coords_constants() {
@@ -2022,263 +1457,23 @@ mod tests {
     }
 
     // =========================================================================
-    // UNIFIED get_flag_offset TESTS
+    // REMOVED: UNIFIED get_flag_offset TESTS (2026-07-20, ADR-0008)
     // =========================================================================
-
-    #[test]
-    fn test_get_flag_offset_simple() {
-        // Flag 300: byte = 300/8 = 37, bit = 7 - (300%8) = 7-4 = 3
-        let result = get_flag_offset(300);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 37);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_get_flag_offset_block_grace() {
-        // Flag 76100 (The First Step): block 76000 base=3250, relative=100
-        // byte = 3250 + 100/8 = 3262, bit = 7 - (76100%8) = 7-4 = 3
-        let result = get_flag_offset(76100);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 3262);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_get_flag_offset_block_cookbook() {
-        // Flag 67000 (Nomadic Warrior's Cookbook [1]): block 67000 base=1765
-        // byte = 1765 + 0/8 = 1765, bit = 7 - (67000%8) = 7-0 = 7
-        let result = get_flag_offset(67000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 1765);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_get_flag_offset_midrange() {
-        // Flag 540000 (sorcery unlock): block 540000 base=67500
-        // byte = 67500 + 0/8 = 67500, bit = 7
-        let result = get_flag_offset(540000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 67500);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_get_flag_offset_dungeon_general() {
-        // Flag 10000800 (Godrick): area=10, section=0, local=800
-        // base = 4112, byte = 4112 + 800/8 = 4212, bit = 7-(800%8) = 7
-        let result = get_flag_offset(10000800);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 4212);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_get_flag_offset_dungeon_general_catacombs() {
-        // Flag 30020800 (Erdtree Burial Watchdog): area=30, section=2, local=800
-        // base for 30_02 = 29661, byte = 29661 + 800/8 = 29761, bit = 7
-        let result = get_flag_offset(30020800);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 29761);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_get_flag_offset_dungeon_pickup() {
-        // Flag 10007000 (Stormveil pickup): local_id=7000, pickup base=31904
-        // byte = 31904 + 7000/8 = 32779, bit = 7
-        let result = get_flag_offset(10007000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 32779);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_get_flag_offset_tile() {
-        // Flag 1043500010 (Smoldering Butterfly): empirical byte=704876, bit=5
-        // Verified via before/after save captures (09/10) and slot 7 captures (135-149).
-        // tile_base(337375) + slot(420)*875 + 10/8 = 337375 + 367500 + 1 = 704876
-        let result = get_flag_offset(1043500010);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 704876);
-        assert_eq!(result.bit_position, 5);
-    }
-
-    #[test]
-    fn test_get_flag_offset_tile_row_id() {
-        // CORRECTED (2026-02-16): getItemFlagId with local_id >= 7000 routes
-        // through tile formula with converted local_id, NOT row_id formula.
-        // 1042377300 → converted = 1042370300, local_id=300
-        // row=42, col=37, slot=(42-33)*40+(37-30)=367
-        // byte = 337375 + 367*875 + 300/8 = 658500 + 37 = 658537, bit = 3
-        let result = get_flag_offset(1042377300);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 658537);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_get_flag_offset_calibrated_tile() {
-        // Using calibrated base 490000 instead of default 337375
-        // Flag 1042360010: row=42,col=36,local=10
-        // slot = (42-33)*40 + (36-30) = 366
-        // byte = 490000 + 366*875 + 10/8 = 490000 + 320250 + 1 = 810251
-        let result = get_flag_offset_calibrated(1042360010, 490000);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 810251);
-    }
-
-    /// Verify tile formula for 5 world pickups at tile (44,36) in m60_4_43.
-    ///
-    /// EMPIRICALLY VERIFIED (2026-02-09) via granular before/after save captures
-    /// (files 119-127, slot 2 / V1 character). All 5 pickups use the TILE formula
-    /// because their local_ids (300-340) are < 7000.
-    ///
-    /// Timeline order of pickups:
-    ///   1. 1044360310 (file 119)
-    ///   2. 1044360340 (file 121)
-    ///   3. 1044360320 (file 123)
-    ///   4. 1044360330 (file 125)
-    ///   5. 1044360300 (file 127 - all 5 accumulated)
-    ///
-    /// Tile slot: (44-33)*40 + (36-30) = 446
-    /// All flags cluster in a 6-byte span at tile_base + 446*875 + 37..42.
-    /// Tile base: 337375 (verified across 3 characters, 6+ tiles, 10+ snapshot diffs).
-    #[test]
-    fn test_tile_world_pickup_m60_4_43() {
-        // These row_ids route through tile formula via get_flag_offset()
-        // because local_id < 7000. Verify with DEFAULT tile base.
-        // slot = (44-33)*40 + (36-30) = 446
-        // slot_offset = 337375 + 446*875 = 727625
-
-        // 1044360300: local_id=300, byte = 727625 + 300/8 = 727662, bit = 7-(300%8) = 3
-        let result = get_flag_offset(1044360300);
-        assert!(result.valid, "1044360300 should use tile formula (local_id=300 < 7000)");
-        assert_eq!(result.byte_offset, 727662);
-        assert_eq!(result.bit_position, 3);
-
-        // 1044360310: local_id=310, byte = 727625 + 310/8 = 727663, bit = 7-(310%8) = 1
-        let result = get_flag_offset(1044360310);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727663);
-        assert_eq!(result.bit_position, 1);
-
-        // 1044360320: local_id=320, byte = 727625 + 320/8 = 727665, bit = 7-(320%8) = 7
-        let result = get_flag_offset(1044360320);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727665);
-        assert_eq!(result.bit_position, 7);
-
-        // 1044360330: local_id=330, byte = 727625 + 330/8 = 727666, bit = 7-(330%8) = 5
-        let result = get_flag_offset(1044360330);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727666);
-        assert_eq!(result.bit_position, 5);
-
-        // 1044360340: local_id=340, byte = 727625 + 340/8 = 727667, bit = 7-(340%8) = 3
-        let result = get_flag_offset(1044360340);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727667);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    /// Same 5 world pickups but with calibrated tile base.
-    /// Empirical tile_base = 337375, verified via before/after save captures
-    /// across Confessor (captures 05-10), V1 (119-127), and Slot 7 (135-149).
-    /// The correct tile_base matches the default TILE_BASE_OFFSET.
-    #[test]
-    fn test_tile_world_pickup_m60_4_43_calibrated() {
-        let tile_base = 337375;
-        // slot_offset = 337375 + 446*875 = 727625
-
-        let result = get_flag_offset_calibrated(1044360300, tile_base);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727662); // 727625 + 37
-        assert_eq!(result.bit_position, 3);
-
-        let result = get_flag_offset_calibrated(1044360310, tile_base);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727663); // 727625 + 38
-        assert_eq!(result.bit_position, 1);
-
-        let result = get_flag_offset_calibrated(1044360320, tile_base);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727665); // 727625 + 40
-        assert_eq!(result.bit_position, 7);
-
-        let result = get_flag_offset_calibrated(1044360330, tile_base);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727666); // 727625 + 41
-        assert_eq!(result.bit_position, 5);
-
-        let result = get_flag_offset_calibrated(1044360340, tile_base);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 727667); // 727625 + 42
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_get_item_flag_id_tile_routing() {
-        // CORRECTED (2026-02-16): getItemFlagId with local_id >= 7000 should route
-        // through tile formula with converted local_id, NOT row_id formula.
-        //
-        // Axe Talisman: getItemFlagId=1045377100, local_id=7100
-        // Converted: 1045377100 - 7000 = 1045370100, local_id=100
-        // Tile: row=45, col=37, slot=(45-33)*40+(37-30)=487
-        // slot_offset = 337375 + 487*875 = 763500
-        // byte = 763500 + 100/8 = 763512, bit = 7-(100%8) = 3
-        let tile_base = 337375;
-        let result = get_flag_offset_calibrated(1045377100, tile_base);
-        assert!(result.valid, "getItemFlagId 1045377100 should be valid via tile formula");
-        assert_eq!(result.byte_offset, 763512);
-        assert_eq!(result.bit_position, 3);
-
-        // Verify the converted flag gives the same result through standard path
-        let result_direct = get_flag_offset_calibrated(1045370100, tile_base);
-        assert!(result_direct.valid);
-        assert_eq!(result_direct.byte_offset, result.byte_offset);
-        assert_eq!(result_direct.bit_position, result.bit_position);
-    }
-
-    #[test]
-    fn test_get_flag_offset_calibrated_non_tile() {
-        // Non-tile flags ignore calibrated base
-        let result_default = get_flag_offset(76100);
-        let result_calibrated = get_flag_offset_calibrated(76100, 999999);
-        assert_eq!(result_default.byte_offset, result_calibrated.byte_offset);
-        assert_eq!(result_default.bit_position, result_calibrated.bit_position);
-    }
-
-    #[test]
-    fn test_is_flag_set_basic() {
-        // Create synthetic event flags data
-        let mut event_flags = vec![0u8; EVENT_FLAGS_SIZE];
-
-        // Set flag 300: byte 37, bit 3
-        event_flags[37] = 0b00001000; // bit 3 set
-
-        assert!(is_flag_set(&event_flags, 300));
-        assert!(!is_flag_set(&event_flags, 301)); // different bit in same byte
-    }
-
-    #[test]
-    fn test_is_flag_set_block_flag() {
-        let mut event_flags = vec![0u8; EVENT_FLAGS_SIZE];
-
-        // Flag 76100 (The First Step): byte 3262, bit 3
-        event_flags[3262] = 0b00001000;
-
-        assert!(is_flag_set(&event_flags, 76100));
-        assert!(!is_flag_set(&event_flags, 76101)); // bit 2, not set
-    }
-
-    #[test]
-    fn test_is_flag_set_unknown_flag() {
-        let event_flags = vec![0xFF; EVENT_FLAGS_SIZE]; // all bits set
-        // Flag in unknown range (1000000-9999999) should return false
-        assert!(!is_flag_set(&event_flags, 5000000));
-    }
+    //
+    // These pinned the static-offset exports that no longer exist. Every one asserted a
+    // literal byte offset for a flag id — exactly the promise the exports could not keep,
+    // since each family's base floats per save. Re-pointing them at the region-taking
+    // readers was not possible: those need a flag region, and these tests had none.
+    //
+    // Two carried real evidence worth not losing, both already recorded outside the code:
+    //   - test_tile_world_pickup_m60_4_43{,_calibrated}: 5 world pickups at tile (44,36),
+    //     captures 119-127 (V1). The tile GEOMETRY they verified (slot = (row-33)*40 +
+    //     (col-30), 875 bytes/slot) survives in `calculate_tile_pickup_offset_with_base`
+    //     and is still covered by `test_tile_offset`; only the static 337375 base is gone.
+    //   - test_get_item_flag_id_tile_routing: getItemFlagId (local>=7000) reads at
+    //     converted local_id, not the row_id bitfield. That routing now lives in the
+    //     split between `is_tile_pickup_set` and `is_tile_world_flag_set`, covered by
+    //     tests/origin_conformance.rs.
 
     // =========================================================================
     // EQUIPMENT EXTRACTION TESTS
@@ -2512,77 +1707,16 @@ mod tests {
     }
 
     // =========================================================================
-    // DUNGEON GRACE RESOLUTION TESTS (sub-block / main-block split)
+    // REMOVED: DUNGEON GRACE RESOLUTION TESTS (2026-07-20, ADR-0008)
     // =========================================================================
+    //
+    // The sub-block/main-block split they exercised is gone with the block base tables.
+    // They asserted fixed byte offsets for grace flags 71000-76100, which held only for
+    // the save the bases were measured against. Note the tutorial graces here (71800) —
+    // CLAUDE.md already records that these are NOT universal anchors; they read clear on
+    // minimal characters, so a test asserting their position proved nothing about a real
+    // save. Grace flags now go through `is_world_state_flag_set`.
 
-    #[test]
-    fn test_stormveil_grace_sub_block() {
-        // Flag 71000: sub_block=71000 → hits sub_bases(9315), relative=0
-        // byte = 9315 + 0/8 = 9315, bit = 7 - (71000%8) = 7
-        let result = get_flag_offset(71000);
-        assert!(result.valid, "Flag 71000 should resolve via Stormveil sub-block");
-        assert_eq!(result.byte_offset, 9315);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_dungeon_grace_main_block_fallback() {
-        // Flag 71120: sub_block=71100 → miss in sub_bases
-        //             main_block=71000 → hits main_bases(2625), relative=120
-        // byte = 2625 + 120/8 = 2640, bit = 7 - (71120%8) = 7
-        let result = get_flag_offset(71120);
-        assert!(result.valid, "Flag 71120 should resolve via main-block fallback");
-        assert_eq!(result.byte_offset, 2640);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_tutorial_grace_sub_block() {
-        // Flag 71800: sub_block=71800 → hits sub_bases(2725), relative=0
-        // byte = 2725, bit = 7 - (71800%8) = 7
-        let result = get_flag_offset(71800);
-        assert!(result.valid, "Flag 71800 should resolve via tutorial sub-block");
-        assert_eq!(result.byte_offset, 2725);
-        assert_eq!(result.bit_position, 7);
-    }
-
-    #[test]
-    fn test_world_grace_unchanged() {
-        // Flag 76100: sub_block=76100 → miss, main_block=76000 → hits(3250)
-        // byte = 3250 + 100/8 = 3262, bit = 3
-        // This must remain unchanged from before the split.
-        let result = get_flag_offset(76100);
-        assert!(result.valid);
-        assert_eq!(result.byte_offset, 3262);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_dungeon_grace_leyndell() {
-        // Flag 71100 (Leyndell range): sub=71100 → miss, main=71000 → 2625
-        // relative = 100, byte = 2625 + 100/8 = 2637, bit = 7-(71100%8) = 3
-        let result = get_flag_offset(71100);
-        assert!(result.valid, "Flag 71100 should resolve via main-block");
-        assert_eq!(result.byte_offset, 2637);
-        assert_eq!(result.bit_position, 3);
-    }
-
-    #[test]
-    fn test_sub_block_bases_no_conflict() {
-        // Verify sub-block and main-block don't share keys
-        let sub = get_sub_block_bases();
-        let main = get_main_block_bases();
-        // Key 71000 is intentionally in BOTH — sub for 100-granularity, main for 1000-granularity
-        // But they resolve at different levels (sub_block=71000 vs main_block=71000)
-        // All other sub-block keys should NOT appear in main-block
-        for &key in sub.keys() {
-            if key == 71000 {
-                continue; // Expected dual presence
-            }
-            assert!(!main.contains_key(&key),
-                "Sub-block key {} should not appear in main-block bases", key);
-        }
-    }
 
 }
 

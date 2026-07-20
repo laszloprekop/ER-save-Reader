@@ -129,7 +129,15 @@ every family base moves.
 - Legacy maps (8-digit ids) split the same way by localId: `is_dungeon_flag_set`
   (< 7000) vs `is_dungeon_pickup_set` (>= 7000), regions 125 bytes apart. Their
   layout is `alloc_slot(map) * 1125 + localId / 8`, with slots from the game's own
-  alloclists — NOT from `get_dungeon_general_bases()`, which is the disproven
-  "+3375 per area" stride table.
+  alloclists — NOT from `get_dungeon_general_bases()`, the disproven "+3375 per area"
+  stride table, **deleted 2026-07-20 (ADR-0008)**.
+- **The wasm crate holds no flag base tables, by design.** All static-offset exports
+  (`get_flag_offset`, `is_flag_set`, `calculate_dungeon_pickup_offset`,
+  `calculate_world_pickup_offset_by_row_id`, …) and all five base tables were removed
+  2026-07-20. An export may not source a flag's position from inside the crate: it takes
+  the save/flag bytes and resolves the family for that save, or takes the base as a
+  parameter. `tests/export_shape_conformance.rs` enforces this — including against the
+  same model regrowing under a new name. Do not reintroduce a `flag_id → byte offset`
+  function; there is no correct value for it to return.
 - Tutorial graces (71800/76100) are NOT universal anchors — they are clear on minimal
   characters. Never use them as a validity test for a detected offset.

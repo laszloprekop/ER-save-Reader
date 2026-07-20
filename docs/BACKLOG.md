@@ -947,19 +947,74 @@ region to locate a family for that save, so any honest replacement takes differe
 arguments. Consumers break either way; the only choice is visibly or silently.
 
 *The work, in order:*
-1. Delete the disproven path — `get_dungeon_general_bases()` and
-   `calculate_dungeon_flag_offset_unified` — and every route into it.
-2. Make `is_flag_set` / `get_flag_offset` / `get_flag_offset_calibrated` refuse:
-   removed outright, or retained returning `FlagOffset::invalid()` / a clear error.
-   Prefer removal — an export that always fails is still an export people call.
-3. Conformance test pinning that no exported entry point reaches a legacy base table,
-   so this cannot silently regrow. This is the check whose absence let the risk survive
-   four cutover commits: the table was documented as disproven in five places, but
-   nothing tested that it was unreachable.
-4. Coordinate elden-map onto the region-taking readers (`is_world_state_flag_set`,
-   `is_tile_pickup_set`, `is_tile_world_flag_set`, `is_dungeon_flag_set`,
-   `is_dungeon_pickup_set`) and their three-state result. Cross-repo, sequence
-   deliberately — but not a reason to keep serving wrong answers first.
+1. ~~Delete the disproven path — `get_dungeon_general_bases()` and
+   `calculate_dungeon_flag_offset_unified` — and every route into it.~~ **DONE 2026-07-20.**
+2. ~~Make `is_flag_set` / `get_flag_offset` / `get_flag_offset_calibrated` refuse.~~
+   **DONE 2026-07-20 — removed outright**, per the ADR's own note that an export which
+   always fails is still an export people call.
+3. ~~Conformance test pinning that no exported entry point reaches a legacy base table.~~
+   **DONE 2026-07-20** — `crates/wasm-event-flags/tests/export_shape_conformance.rs`.
+4. Coordinate elden-map onto the region-taking readers. **STILL OPEN** — see below.
+
+**SCOPE WIDENED DURING THE WORK (2026-07-20).** Steps 1-2 named three exports; seven were
+removed, plus five base tables. Removing only the three named would have left step 3
+unwritable: the conformance test asserts an empty set, and these still reached crate-baked
+bases by exactly the same shape.
+
+| Also removed | Reached | Why it could not stay |
+|---|---|---|
+| `calculate_dungeon_pickup_offset{,_impl}` | `get_dungeon_pickup_section_bases()` (88 per-section bases) | same defect, different table |
+| `get_dungeon_pickup_sections` | same table | served its keys as JSON for callers to trust |
+| `calculate_tile_pickup_offset` | static `TILE_BASE_OFFSET` = 337375 | 337375 is tombstoned — it is the distance *between* two families, not a base |
+| `calculate_world_pickup_offset_by_row_id{,_impl}` | `WORLD_PICKUP_ROW_ID_BASE` | its own doc comment recorded the row_id model as superseded 2026-02-16 |
+| `get_tile_base_offset`, `get_world_pickup_row_id_base` | those two constants | handed the tombstoned bases out directly |
+
+Base tables deleted: `get_dungeon_general_bases`, `get_sub_block_bases`,
+`get_main_block_bases`, `get_midrange_bases`, `get_dungeon_pickup_section_bases`. The
+crate no longer imports `HashMap` — that import going unused is the check that none
+survived. Constants `TILE_BASE_OFFSET` and `WORLD_PICKUP_ROW_ID_BASE` are gone.
+
+*Kept, deliberately:* `calculate_tile_pickup_offset_calibrated(flag_id, tile_base)` — the
+base is a parameter, so it invents nothing. This is tile *geometry*, not family location,
+and it is load-bearing for the correct path: `tile_read` calls it with base 0 and adds a
+resolved family base. Deleting it would push callers to reimplement the slot arithmetic,
+adding an error source rather than removing one.
+
+*What the conformance test guards*, verified by mutation (each mutation was applied,
+observed to fail the intended test, then reverted):
+- a banned symbol reappearing as a definition;
+- a tombstoned literal (337375, 1037373320, 43487, 46862) returning to live code;
+- **a new static-offset export under an unbanned name** — caught by two independent
+  tests (the manifest-equality check and the structural check that any export answering
+  a flag position/state question must receive `&[u8]` or an explicit base). This is the
+  case a banned-names list alone cannot catch, and the one most likely to actually happen.
+
+*Fallout:* none in this repo. No app-side Rust caller referenced any removed export
+(`cargo build` and the full 127-test app suite pass untouched); the removals were felt
+only by tests that asserted literal byte offsets, which were deleted rather than
+re-pointed — their assertions were the abandoned model restated. Evidence those tests
+carried (tile captures 119-127, the getItemFlagId routing correction) is preserved in
+comments at the removal sites and still covered by `tests/origin_conformance.rs`.
+
+**Step 4 (OPEN, cross-repo): coordinate elden-map onto the region-taking readers**
+(`is_world_state_flag_set`, `is_tile_pickup_set`, `is_tile_world_flag_set`,
+`is_dungeon_flag_set`, `is_dungeon_pickup_set`) and their three-state result. Sequence
+deliberately — but this was never a reason to keep serving wrong answers first, which is
+why steps 1-3 went ahead of it.
+
+As of 2026-07-20 elden-map is **knowingly broken against a rebuilt wasm**, by decision,
+not by accident. Its next vendored build will fail to find the exports rather than
+silently read wrong bits. The surface it must move to:
+
+| elden-map called | now calls | note |
+|---|---|---|
+| `is_flag_set(ef, id)` | one of the five readers | a bare id does NOT pick the family; the caller must choose — routing on the value reads the wrong bit |
+| `get_flag_offset(id)` | `family_base(slot, FAMILY_*)` + geometry | no static offset exists to return |
+| `get_tile_base_offset()` | — | 337375 was never a base |
+
+The three-state result is the substance of the change, not a detail: `false` and
+"could not resolve" must reach the map as different things, or the failure this whole
+migration removed reappears in the UI layer.
 
 ### Elden Map Missing Block Bases
 - **Issue**: Elden Map viewer (`eventFlagService.ts`) is missing block bases that Save Editor has
