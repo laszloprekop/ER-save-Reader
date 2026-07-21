@@ -1,5 +1,12 @@
 # WASM Shared Detection Module
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: MOSTLY CURRENT — the resolver is the live path; one section is stale.** This is the doc for today's detection/resolution crate. **Exception:** the "Flag Offset Resolution" section describes `get_sub_block_bases()` / `get_main_block_bases()`, which were **deleted in ADR-0008** (2026-07-20) along with every static base table — the crate now holds no flag base tables. Ignore that section's function names.
+> - **Claims**: the crate is the single reference implementation (ADR-0005) for EF detection and player-coord extraction, shared with elden-map via WASM.
+> - **Evidence**: conformance fixtures (`crates/wasm-event-flags/tests/`) define the coordinate convention (ADR-0003).
+> - **Methodology**: detection + per-save family resolution; positions are resolved, not looked up in a static table.
+> - **Obsolete**: "Flag Offset Resolution" (sub/main-block base lookup) — those functions and the block base tables are gone (ADR-0008); the static-offset exports were removed and are now banned by `tests/export_shape_conformance.rs`. "Constants … sourced from `ground_truth_offsets.json`" reflects the frozen store (ADR-0006), not new truth.
+
 ## Overview
 
 The `wasm-event-flags` crate provides the **single source of truth** for both EventFlags offset detection and player coordinate extraction. This ensures both ER-save-Editor (native Rust) and elden-map (via WebAssembly) use the **exact same algorithms**.

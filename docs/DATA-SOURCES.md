@@ -1,8 +1,15 @@
 # Data sources
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: CURRENT reference.** Human-readable inventory of characters, save snapshots, and game extracts. The authoritative, checksummed inventory is the Evidence Catalog (`knowledge/evidence-catalog.json`, verify with `er-save-editor knowledge catalog-verify`); keep this doc in sync with it.
+> - **Claims**: which characters/slots exist and their progression; which save snapshots and decompiled resources are on disk.
+> - **Evidence**: the files themselves, checksummed in the Evidence Catalog.
+> - **Methodology**: manually maintained.
+> - **Obsolete**: the Slot 0 "Radahn defeated" claim was **corrected 2026-07-20** — in the 2026-01-11 backup Margit and Godrick are defeated and **Radahn is not** (see `CLAUDE.md`); the line below is fixed accordingly.
+
 ## Characters:
 
-Slot 0, Confessor - midgame regions discovered, harvested, Margit, Godrick and Radahn defeated. Hundreds of world pickups completed, Limgrave, Caelid, Altus Plateau, Liurnia, Stormveil Castle explored, multiple questline progressions.
+Slot 0, Confessor - midgame regions discovered, harvested, Margit and Godrick defeated (Radahn **not** defeated — corrected 2026-07-20). Hundreds of world pickups completed, Limgrave, Caelid, Altus Plateau, Liurnia, Stormveil Castle explored, multiple questline progressions.
 
 Slot 1, Wretch - early game, a few graces and pickups completed, only the tutorial enemy is defeated
 

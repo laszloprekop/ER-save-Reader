@@ -2,6 +2,13 @@
 
 A comprehensive guide to empirically discovering and verifying event flag offsets in Elden Ring save files.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: STABLE METHODOLOGY, era-mixed examples.** The *method* — empirical discovery, multi-slot differential, verification — is current and canonical (CONTEXT.md builds on it). The commands, script names, and any fixed-offset examples are the pre-reset Python lab.
+> - **Claims**: how to discover and verify a flag offset empirically.
+> - **Evidence**: the methodology itself; worked examples used period-specific saves.
+> - **Methodology**: this *is* the methodology doc; the live implementation is the knowledge pipeline + resolver, not the `.py` scripts shown.
+> - **Obsolete**: Python script invocations and any hardcoded base/offset in the examples — positions float per save and are resolved (CONTEXT.md → *Origin*, *Resolver*); those scripts are step-5 deletion targets.
+
 ---
 
 ## Prerequisites

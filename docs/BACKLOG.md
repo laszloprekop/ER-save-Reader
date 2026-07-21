@@ -2,6 +2,9 @@
 
 **Last updated**: 2026-07-05
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: LIVING RECORD — the working plan and open questions.** Holds the knowledge-base migration plan (steps 1-6) and the reasoning behind open/closed questions; entries are dated and later ones supersede earlier ones (many carry inline CORRECTED / SETTLED / tombstone notes). Canonical facts live in `CONTEXT.md` + the claims store; this is where the *reasoning and next steps* live. The "Last updated 2026-07-05" stamp understates it — the newest work is dated 2026-07-20.
+
 ---
 
 ## Priority 0: Knowledge Base Reset — Migration Plan (decided 2026-07-05)
@@ -776,10 +779,14 @@ maps — unexplained, worth a look before claiming pickup coverage).
 5. **Distill and delete** the Python lab scripts (~50k lines) and shrink
    `src/discovery` to what the pipeline uses; move `src/db/event_flags.rs` (in-memory
    convention) out of the app into KB inputs as the CE-era Rosetta table.
-6. **Docs audit** — epistemic header on all 14 docs (evidence / claim summary /
+6. ~~**Docs audit** — epistemic header on all 14 docs (evidence / claim summary /
    methodology / obsolete), correct or retire wrong content (EVENT-FLAG-GEOGRAPHY area
    labels, stale CLAUDE.md paths); CLAUDE.md shrinks to workflow rules + pointers to
-   `CONTEXT.md` and the catalog.
+   `CONTEXT.md` and the catalog.~~ **DONE 2026-07-20 (v0.31.1).** All 14 docs headered;
+   *Epistemic Header* defined in `CONTEXT.md`; EVENT-FLAG-GEOGRAPHY area labels + tombstoned
+   literals + stale `.emevd.js` path corrected; DATA-SOURCES Radahn fact fixed;
+   COMMIT-PROTOCOL H1 fixed; CLAUDE.md 144→113 (guardrails kept inline, duplication →
+   pointers). **Step 5 (distill and delete) is next; step 4 (elden-map) stays parked.**
 
 ---
 

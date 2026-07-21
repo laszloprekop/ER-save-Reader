@@ -4,6 +4,13 @@
 
 The chain has two distinct workflows: **Discovery** (finding unknown offsets) and **Verification** (confirming known offsets). They share a common infrastructure layer.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: SUPERSEDED — the pre-reset Python discovery/verification pipeline.** Every entry point listed (`run_verification.py`, `verify_captures.py`, `capture_agent.py`, …) is the old Python lab. Those scripts still exist but are deprecated and are step-5 deletion targets; the live pipeline is `er-save-editor knowledge run` feeding the claims store.
+> - **Claims**: the Python script call-graph for discovery and verification.
+> - **Evidence**: none — an entry-point map of code being retired.
+> - **Methodology**: replaced by the Rust knowledge pipeline (ADR-0004/0007) and the single resolver (ADR-0005). See `CONTEXT.md`, `docs/adr/`.
+> - **Obsolete**: treat the whole file as a historical map; do not build new work on these scripts.
+
 ---
 
 ## Architecture Stack

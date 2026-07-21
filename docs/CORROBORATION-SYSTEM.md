@@ -2,6 +2,13 @@
 
 This document describes the corroboration system for empirical validation of event flag offset formulas.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: STABLE METHODOLOGY, era-mixed examples.** The corroboration principle (independent methods must agree; disagreement is the clue) is current and used by the pipeline. Script names and worked offsets are pre-reset.
+> - **Claims**: how multiple independent signals corroborate a flag offset/state.
+> - **Evidence**: the method; examples used period-specific saves.
+> - **Methodology**: canonical — see CONTEXT.md → *Reward Corroboration*, *Multi-slot Differential*, *Status Ladder*.
+> - **Obsolete**: Python tooling and any static-base offset in the examples; resolve per save.
+
 ---
 
 ## Overview

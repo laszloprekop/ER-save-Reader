@@ -1,5 +1,12 @@
 # Case-Based Verification System: End-to-End Guide
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: STABLE METHODOLOGY, era-mixed examples.** The case model (defend/challenge a hypothesis until it survives) is current and maps onto the Status Ladder. Tooling (`batch_case_verification.py` et al.) and worked offsets are the pre-reset Python lab.
+> - **Claims**: a rigorous case-based process for accepting/rejecting a flag hypothesis.
+> - **Evidence**: the method; examples used period-specific saves.
+> - **Methodology**: maps onto the Status Ladder (CONTEXT.md → *Status Ladder*, *Attributed Transition*); the live implementation is the knowledge pipeline.
+> - **Obsolete**: the `.py` entry points and any hardcoded offsets in examples — step-5 deletion targets; resolve positions per save.
+
 ## Overview
 
 The Case-Based Verification System is a rigorous methodology for discovering and verifying event flag offsets in Elden Ring save files. It treats each flag hypothesis as a **case** that must survive multiple rounds of evidence gathering (defense) and disproof attempts (challenge) before being accepted.

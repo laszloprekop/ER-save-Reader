@@ -2,7 +2,43 @@
 
 All notable changes to ER-save-Editor will be documented in this file.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: LIVING RECORD — chronological, newest first.** Each entry is true as of its date and is not retroactively corrected; later entries supersede earlier ones. For the current canonical state read `CONTEXT.md`, the ADRs, and the claims store — not old entries here.
+
 ---
+
+## v0.31.1 - Docs audit: epistemic headers on every doc (BACKLOG step 6)
+
+### Docs
+- **Epistemic header on all 14 `docs/*.md`** — a block at the top of each file stating,
+  before the body, how far to trust it: one **Status** line (CURRENT / ERA-MIXED /
+  SUPERSEDED / STABLE-METHODOLOGY / LIVING-RECORD) plus **Claims / Evidence / Methodology /
+  Obsolete**. Motivated by era-mixed docs misleading recent sessions (the "tile base 337375
+  is constant" guidance, the Margit/Godrick catalog note, the retracted elden-map advice).
+- **New glossary term** — `CONTEXT.md` now defines *Epistemic Header* (status values + the
+  four fields), so the docs point to one definition instead of re-explaining it.
+- **Wrong content corrected/retired:**
+  - `EVENT-FLAG-GEOGRAPHY.md`: marked the disproven "+per-area stride" base tables obsolete
+    inline; named the tombstoned literals (43487 / 46862 / 50237); corrected the area
+    18/19/20 mislabels (m20/m21 are DLC Belurat / Enir-Ilim, not Roundtable/Chapel/Stranded
+    Graveyard); flagged the stale `event/*.emevd.js` path.
+  - `DATA-SOURCES.md`: fixed the Slot 0 claim — Radahn is **not** defeated in the 2026-01-11
+    backup (only Margit and Godrick).
+  - `COMMIT-PROTOCOL.md`: removed a stray leading `–` that was breaking the H1.
+  - `ARCHITECTURE.md`, `EF-DISCOVERY-VERIFICATION-CHAIN.md`: marked SUPERSEDED (they
+    document the pre-reset Python lab, a migration step-5 deletion target).
+  - `WASM-EVENT-FLAGS.md`: flagged that its "Flag Offset Resolution" section names
+    `get_sub_block_bases` / `get_main_block_bases`, both deleted in ADR-0008.
+- **`CLAUDE.md` shrunk 144 → 113 lines** — duplication of `CONTEXT.md` and the 47-line False
+  Negative Protocol collapsed to pointers, but every behavior-changing guardrail kept inline
+  as a terse rule; added `CONTEXT.md` + `docs/adr/` as top orientation pointers.
+
+### Files Modified
+- All 14 `docs/*.md`: epistemic headers + inline corrections
+- `CONTEXT.md`: *Epistemic Header* glossary entry
+- `CLAUDE.md`: shrunk to workflow rules + pointers
+- `docs/BACKLOG.md`: step 6 marked done
+- `Cargo.toml`, `docs/CHANGELOG.md`: version 0.31.1
 
 ## v0.31.0 - Remove the static-offset wasm exports (ADR-0008, Priority 1b)
 

@@ -137,6 +137,15 @@ Corroborated and Verified only.
 A disproven Claim kept in the store with its refuting evidence, so the idea cannot be
 re-proposed later.
 
+**Epistemic Header**:
+The standard block at the top of every `docs/` file (added in the 2026-07-20 docs audit,
+BACKLOG step 6) that states, before the body, how far to trust the file. One **Status**
+line — CURRENT / ERA-MIXED / SUPERSEDED / STABLE-METHODOLOGY / LIVING-RECORD — plus four
+fields: **Claims** (what it asserts), **Evidence** (what backs it), **Methodology** (how it
+was derived), **Obsolete** (what is superseded, and where the current source now is). Its
+job is to stop an era-mixed doc from misleading a reader who trusts a stale number. When a
+doc is edited, update its header rather than letting body and header drift apart.
+
 ### Instruments
 
 **Snapshot**:

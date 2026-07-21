@@ -1,6 +1,9 @@
-–# Commit Snapshot Protocol
+# Commit Snapshot Protocol
 
 This document defines the standardized process for creating production-ready commit snapshots for ER-save-Editor.
+
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: CURRENT process doc.** The commit/snapshot procedure (invoked via `/snapshot`). Workflow, not evidence — keep in step with the `snapshot` skill and `CLAUDE.md`'s commit protocol.
 
 ## When to Create a Snapshot
 

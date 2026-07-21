@@ -4,6 +4,13 @@
 **Verification Method**: Empirical multi-save analysis using `scripts/run_verification.py`
 **Primary Data Source**: Decompiled game files + empirical save file testing
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: ERA-MIXED — one current section, the rest pre-migration.** The load-bearing part is **"Flag Family Origin (discovered 2026-07-20)"** (CLAUDE.md points here) and the container-structure section; trust those. Treat everything dated 2026-01/02 as historical.
+> - **Claims**: save-file container structure (BND4, slot layout, EF section bounds); the per-save family Origin model; block/tile/dungeon offset formulas; "empirically verified formulas as of 2026-01-11".
+> - **Evidence**: empirical multi-save byte analysis; the family-Origin section is backed by attributed transitions and the resolver.
+> - **Methodology**: the Origin section is current (resolve per save via the resolver). The older formula sections used the pre-reset Python `run_verification.py` and single-save measurements.
+> - **Obsolete**: "Event Flag Formulas" area-specific base offsets and "Empirically Verified Formulas (2026-01-11)" are superseded — positions float per save; resolve via `crates/wasm-event-flags` + `knowledge/claims/event-flags.json`, never hardcode. `run_verification.py` is the pre-reset Python lab (migration step-5 removal target).
+
 ---
 
 ## Executive Summary

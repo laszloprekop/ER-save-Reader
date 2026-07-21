@@ -3,6 +3,13 @@
 **Last updated**: 2026-02-08
 **App Version**: v0.13.1
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: ERA-MIXED — partially refreshed 2026-07-20.** Sections dated 2026-07-20 ("Read Coverage", "Database vs primary source") are current; the base-status and success-rate tables predate the migration. The "Last updated 2026-02-08 / v0.13.1" header applies only to the older sections.
+> - **Claims**: which DB modules cover which game data; DB-vs-primary-source gaps; EF detection success rates by formula/category; block/dungeon base status.
+> - **Evidence**: DB files vs `regulation-bin` param extracts (regulation 1.16.1).
+> - **Methodology**: coverage diffing; the 2026-07-20 sections were audited against the primary source.
+> - **Obsolete**: "Block Base Status" / "Dungeon Base Status" and "success rate by formula type" assume the static-base model deleted in ADR-0008; positions are resolved per save now, so a "success rate" tied to fixed bases is not meaningful.
+
 ---
 
 ## Executive Summary

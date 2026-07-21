@@ -2,6 +2,13 @@
 
 This document describes how Elden Ring event flags are organized geographically and hierarchically, how flags chain together for quests and unlocks, and which game files are the authoritative sources.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: ERA-MIXED — durable concepts, disproven numbers.** Trust the *shapes* here (flag-id formats, the family split, quest/unlock chains, source game files); do **not** lift any numeric base, stride, or byte offset from this doc.
+> - **Claims**: how flags are organized geographically and hierarchically; per-family flag-id formats; block/dungeon/tile base tables; quest, unlock, and reward chains; which game files are authoritative.
+> - **Evidence**: game EMEVD/param/alloclist extracts (corpora `game-raw-1162` / `game-extracts`) back the *structure*; the numeric base tables were single-save empirical measurements from the pre-migration (pre-2026-07-05) era.
+> - **Methodology**: narrative synthesis from game files + community maps — **not** the claims-store pipeline. The positions here were never re-derived per save.
+> - **Obsolete**: every "Event Base / Base Offset / block base" number below is superseded. Flag positions float per save and are *resolved*, never hardcoded — see `CONTEXT.md` (*Origin*, *Family Constant*, *Resolver*), the resolver in `crates/wasm-event-flags/`, and per-family layouts in `knowledge/claims/event-flags.json`. The dungeon "Event Base" column is the disproven "+per-area stride" model **deleted in ADR-0008**; the literals **43487, 46862, 50237** are tombstoned (all-zero in every save; now banned by `export_shape_conformance.rs`). The real legacy layout is `alloc_slot(map)*1125 + localId/8`, slots from the game's own alloclists (`LEGACY_ALLOC_SLOTS` / `knowledge/game/eventflag-alloclists.json`), not this table. **Area labels 18/19/20 are mislabeled** — maps m20/m21 are the DLC areas Belurat / Enir-Ilim (DLC alloclist slots 150-156), not "Roundtable Hold / Chapel of Anticipation / Stranded Graveyard". The `event/*.emevd.js` files in "Decompiled File Location" were **not** regenerated after the 2026-07-05 reset (the pipeline parses raw `.emevd` natively); see `CLAUDE.md`.
+
 ---
 
 ## World Hierarchy
@@ -107,6 +114,10 @@ ML clustering on 799 timeline diffs identified 132 active offsets in EF+1040-125
 
 ### 2. Block-Based Flags (5-6 digit flags)
 
+> **⚠ OBSOLETE NUMBERS (see epistemic header).** The hex base offsets below are single-save
+> measurements from the pre-migration era. Block flags float per save like every other family;
+> resolve them, do not hardcode these values.
+
 Flags in ranges 60000-99999 are organized into 1000-flag blocks that share a base byte offset:
 
 **Offset Formula**:
@@ -152,6 +163,11 @@ Dungeons and special areas use an 8-digit format:
 | `ZZZZ` | Local flag index | 0000-9999 |
 
 #### Legacy Dungeons (Major Story Areas)
+
+> **⚠ OBSOLETE NUMBERS (see epistemic header).** The "Event Base" column is the disproven
+> "+per-area stride" model (ADR-0008). Use `alloc_slot(map)*1125 + localId/8` with slots from
+> `LEGACY_ALLOC_SLOTS`, resolved per save. Area 18/19/20 labels are wrong (m20/m21 = DLC
+> Belurat/Enir-Ilim). The table is kept only for its area-id → name intent, not its numbers.
 
 | Area | Name | Event Base | Pickup Status |
 |------|------|------------|---------------|

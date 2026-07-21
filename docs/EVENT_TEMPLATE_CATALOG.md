@@ -2,6 +2,13 @@
 
 This document catalogs all non-respawning event templates from Elden Ring's `common_func.emevd.js` file. These templates handle permanent progression: boss defeats, item pickups, grace discovery, NPC interactions, and quest states.
 
+> **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
+> **Status: STABLE REFERENCE — game-derived, era-independent.** A catalog of EMEVD event-template semantics (what each template does). This is game knowledge (regulation/EMEVD 1.16.x), not a claim about save-byte positions, so the migration does not affect it.
+> - **Claims**: the behavior of `common_func.emevd.js` event templates (boss defeat, pickup, grace, door, quest).
+> - **Evidence**: the game's EMEVD (raw corpus `game-raw-1162`).
+> - **Methodology**: reading the decompiled/raw event scripts.
+> - **Obsolete**: none substantive. The `.emevd.js` decompiles referenced here were not regenerated after the 2026-07-05 reset — the pipeline now parses raw `.emevd` (see `CLAUDE.md`); template semantics are unchanged.
+
 ## Legend
 
 - **Event ID**: The template function ID
