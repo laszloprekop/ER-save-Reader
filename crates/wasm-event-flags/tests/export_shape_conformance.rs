@@ -151,6 +151,14 @@ const APPROVED_EXPORTS: &[(&str, &str)] = &[
         "tile_base is a parameter. This is tile GEOMETRY, not family location: \
          `tile_read` calls the same code with base 0 and adds a resolved base.",
     ),
+    // --- Takes the flag region; resolves the family per-save, returns invalid otherwise -
+    (
+        "flag_offset_in_ef",
+        "takes event_flags and a family selector; resolves the family's base for THAT \
+         save (via resolve_family_base_in_ef) and returns valid=false when it cannot. \
+         The honest per-save replacement for the removed static-offset exports — invents \
+         no base. Consumer: elden-map's character-explorer hex view.",
+    ),
     // --- Pure id arithmetic and classification: answer no positional question ----------
     ("convert_to_row_id", "id arithmetic (flag_id - 7000); no offset"),
     ("is_dungeon_pickup_flag", "classifies an id by localId; no offset"),

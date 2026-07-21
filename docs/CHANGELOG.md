@@ -7,6 +7,50 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.33.0 - Per-save flag-offset export; elden-map cutover (BACKLOG step 4)
+
+Completes the last migration step: elden-map moves off the removed static-offset
+exports onto the per-save family readers. The only crate change is one new export;
+the bulk of the work is in the elden-map repo (separate commit).
+
+### Features
+- **New WASM export `flag_offset_in_ef(event_flags, flag_id, family)`** — the honest,
+  ADR-0008-compliant replacement for the removed static `get_flag_offset`. Takes the
+  flag region and a family selector (`FAMILY_CODE_*`), resolves that family's base for
+  THIS save via `resolve_family_base_in_ef`, and returns `valid=false` when the id is
+  out of family or the origin cannot be pinned. Invents no base. Its consumer is
+  elden-map's character-explorer hex view, which needs a per-save byte *position*, not
+  just a bit — the one capability the ADR-0008 removals left with no replacement.
+
+### Conformance
+- Added to the `export_shape_conformance` `APPROVED_EXPORTS` manifest (it takes
+  `&[u8]`, so the structural guard passes).
+- Two new parity tests in `origin_conformance.rs`: `flag_offset_in_ef` lands on the
+  EXACT byte/bit the five tri-state readers use (checked both directions across all
+  families on a synthetic region), and refuses on the same out-of-family / unresolvable
+  inputs. This keeps the offset export and the state readers from drifting apart.
+
+### elden-map (separate repo, branch `event-flags-adr0008-cutover`)
+- Rebuilt + vendored the wasm; new `shared/flag-reader.ts` routing layer
+  (`readFlagState` / `resolveFlagOffset`, three-state); deleted every TS static-offset
+  fallback (incl. tombstoned `337375`), four duplicate `calculateFlagLocation` copies,
+  and `CalibrationService` from the read path; re-pointed all consumers (graces, bosses,
+  pickups, detection, the byte-diff engine → per-save state comparison, and the live
+  Character Explorer analysis + hex view). Deprecated the verification/calibration
+  testing subsystem in place; stopped the capture agent baking a fabricated tile base
+  into evidence (ADR-0007).
+- Verified out-of-sample through elden-map's own `parseSaveFile` on the 2026-01-11
+  backup (Confessor slot 0): **179 graces** (exact match to the ER-save-Editor
+  validation), Margit ✓ / Godrick ✓ / Radahn ✗. Client + server typecheck clean;
+  `vite build` succeeds.
+
+### Files Modified
+- crates/wasm-event-flags/src/lib.rs: `flag_offset_in_ef` + `FAMILY_CODE_*` constants
+- crates/wasm-event-flags/tests/export_shape_conformance.rs: manifest entry
+- crates/wasm-event-flags/tests/origin_conformance.rs: two parity tests
+- docs/BACKLOG.md: step 4 marked done; migration plan (steps 1-6) complete
+- docs/CHANGELOG.md, Cargo.toml: v0.33.0
+
 ## v0.32.0 - Distill and delete the pre-reset lab (BACKLOG step 5)
 
 Removes the pre-reset Python lab and its Rust discovery sibling, and moves the CE-era

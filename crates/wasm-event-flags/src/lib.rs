@@ -2185,3 +2185,96 @@ pub fn dungeon_pickup_state(event_flags: &[u8], flag_id: u32) -> i32 {
         Some(true) => 1,
     }
 }
+
+// ---------------------------------------------------------------------------
+// Per-save flag position (for callers that need a byte offset, not just a bit)
+// ---------------------------------------------------------------------------
+//
+// ADR-0008 removed every export that turned a bare flag id into a byte offset:
+// each read a base baked into this crate, and every family floats per save. This
+// is the honest replacement. It takes the flag REGION, resolves the chosen
+// family's base for THAT save from the append-only list, and returns Unknown
+// (`valid = false`) when it cannot — the same contract as the tri-state readers,
+// but yielding the position rather than the bit. Its consumer is elden-map's
+// character-explorer hex view, which overlays flag names on save bytes and so
+// needs the address, not only the state.
+//
+// The caller still chooses the family (FAMILY_CODE_*): a bare 10-digit id is
+// ambiguous between the two tile families, which live in regions 500 bytes
+// apart, so routing on the value would read a plausible wrong byte. Geometry and
+// family selection mirror the tri-state readers above exactly.
+
+/// Family selector for `flag_offset_in_ef`. Stable ABI — do not renumber.
+pub const FAMILY_CODE_WORLD_STATE: u32 = 0;
+pub const FAMILY_CODE_TILE_WORLD: u32 = 1;
+pub const FAMILY_CODE_TILE_PICKUP: u32 = 2;
+pub const FAMILY_CODE_DUNGEON: u32 = 3;
+pub const FAMILY_CODE_DUNGEON_PICKUP: u32 = 4;
+
+/// WASM export: byte+bit position of a flag within the flag region, resolved for
+/// THIS save. `family` is a FAMILY_CODE_*. `valid = false` means the id is out of
+/// the chosen family, or the family's origin cannot be resolved in these bytes.
+/// Takes `event_flags` and invents no base (ADR-0008).
+#[wasm_bindgen]
+pub fn flag_offset_in_ef(event_flags: &[u8], flag_id: u32, family: u32) -> FlagOffset {
+    // (rel byte from the family base, bit position, family constant) — guards and
+    // geometry identical to is_world_state_flag_set / is_tile_*_set / is_dungeon_*_set.
+    let (rel, bit, fam_const): (u64, u8, i64) = match family {
+        FAMILY_CODE_WORLD_STATE => {
+            if !(50_000..80_000).contains(&flag_id) {
+                return FlagOffset::invalid();
+            }
+            (((flag_id - 50_000) / 8) as u64, 7 - (flag_id % 8) as u8, FAMILY_WORLD_STATE_B)
+        }
+        FAMILY_CODE_TILE_WORLD => {
+            if !(1_000_000_000..2_000_000_000).contains(&flag_id) || flag_id % 10_000 >= 7_000 {
+                return FlagOffset::invalid();
+            }
+            let off = calculate_tile_pickup_offset_with_base(flag_id, 0);
+            if !off.valid {
+                return FlagOffset::invalid();
+            }
+            (off.byte_offset as u64, off.bit_position, FAMILY_TILE_OPEN_WORLD)
+        }
+        FAMILY_CODE_TILE_PICKUP => {
+            if !(1_000_000_000..2_000_000_000).contains(&flag_id) {
+                return FlagOffset::invalid();
+            }
+            let row_id = if flag_id % 10_000 >= 7_000 { flag_id - 7_000 } else { flag_id };
+            let off = calculate_tile_pickup_offset_with_base(row_id, 0);
+            if !off.valid {
+                return FlagOffset::invalid();
+            }
+            (off.byte_offset as u64, off.bit_position, FAMILY_TILE_PICKUP_ROW_ID)
+        }
+        FAMILY_CODE_DUNGEON => {
+            if flag_id % 10_000 >= 7_000 {
+                return FlagOffset::invalid();
+            }
+            match legacy_dungeon_rel_byte(flag_id) {
+                Some(rel) => (rel, 7 - (flag_id % 8) as u8, FAMILY_LEGACY_DUNGEON),
+                None => return FlagOffset::invalid(),
+            }
+        }
+        FAMILY_CODE_DUNGEON_PICKUP => {
+            if flag_id % 10_000 < 7_000 {
+                return FlagOffset::invalid();
+            }
+            match legacy_dungeon_rel_byte(flag_id) {
+                Some(rel) => (rel, 7 - (flag_id % 8) as u8, FAMILY_LEGACY_DUNGEON_PICKUP),
+                None => return FlagOffset::invalid(),
+            }
+        }
+        _ => return FlagOffset::invalid(),
+    };
+
+    let base = match resolve_family_base_in_ef(event_flags, fam_const) {
+        Some(b) => b as u64,
+        None => return FlagOffset::invalid(),
+    };
+    let byte = base + rel;
+    if byte >= event_flags.len() as u64 {
+        return FlagOffset::invalid();
+    }
+    FlagOffset::new(byte as u32, bit)
+}

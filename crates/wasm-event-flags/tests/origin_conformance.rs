@@ -17,6 +17,12 @@ use wasm_event_flags::{
     FAMILY_TILE_PICKUP_ROW_ID, FAMILY_WORLD_STATE_B, LEGACY_ALLOC_AMBIGUOUS, ORIGIN_MAX_GAP,
     ORIGIN_MIN_GAP,
 };
+use wasm_event_flags::{
+    dungeon_flag_state, dungeon_pickup_state, flag_offset_in_ef, tile_pickup_state,
+    tile_world_flag_state, world_state_flag_state, FAMILY_CODE_DUNGEON,
+    FAMILY_CODE_DUNGEON_PICKUP, FAMILY_CODE_TILE_PICKUP, FAMILY_CODE_TILE_WORLD,
+    FAMILY_CODE_WORLD_STATE,
+};
 
 /// (fixture, ga_end, list_end offset from ga_end)
 const GOLDEN: &[(&str, usize, usize)] = &[
@@ -35,6 +41,62 @@ fn load(name: &str) -> Vec<u8> {
         .join("tests/fixtures")
         .join(name);
     fs::read(&p).unwrap_or_else(|e| panic!("{}: {}", p.display(), e))
+}
+
+/// Build a synthetic flag region whose append-only list ends in the declared
+/// range, so `resolve_family_base_in_ef` succeeds. A single non-zero marker at
+/// 20_000 sits far from any family base; everything else is zero and can be
+/// poked without disturbing list-end detection.
+fn synthetic_ef(len: usize) -> Vec<u8> {
+    let mut buf = vec![0u8; len];
+    buf[20_000] = 0x01;
+    buf
+}
+
+/// `flag_offset_in_ef` must land on the EXACT byte and bit the tri-state readers
+/// use — it shares their base resolution and geometry, and a drift between the
+/// two would show the hex view a different bit than the readout claims. Checked
+/// in both directions across all five families: set the bit the offset names,
+/// confirm the reader now reports SET; clear it, confirm CLEAR.
+#[test]
+fn offset_export_lands_on_the_same_bit_as_the_readers() {
+    // (flag id, family code, tri-state reader)
+    let cases: &[(u32, u32, fn(&[u8], u32) -> i32)] = &[
+        (76100, FAMILY_CODE_WORLD_STATE, world_state_flag_state),
+        (1_042_370_800, FAMILY_CODE_TILE_WORLD, tile_world_flag_state),
+        (1_044_360_310, FAMILY_CODE_TILE_PICKUP, tile_pickup_state),
+        (30_020_800, FAMILY_CODE_DUNGEON, dungeon_flag_state),
+        (30_027_000, FAMILY_CODE_DUNGEON_PICKUP, dungeon_pickup_state),
+    ];
+    let mut buf = synthetic_ef(2_100_000);
+    for &(id, code, reader) in cases {
+        let off = flag_offset_in_ef(&buf, id, code);
+        assert!(off.valid, "id {id} family {code}: offset should resolve on a valid buffer");
+        let (byte, bit) = (off.byte_offset as usize, off.bit_position);
+
+        buf[byte] |= 1 << bit;
+        assert_eq!(reader(&buf, id), 1, "id {id}: reader must see SET at the offset's bit");
+
+        buf[byte] &= !(1 << bit);
+        assert_eq!(reader(&buf, id), 0, "id {id}: reader must see CLEAR once the bit is cleared");
+    }
+}
+
+/// The offset export refuses on the same inputs the readers refuse on: an id out
+/// of the chosen family, and a buffer whose origin cannot be resolved.
+#[test]
+fn offset_export_refuses_out_of_family_and_unresolvable() {
+    let buf = synthetic_ef(2_100_000);
+    // A world-state id addressed as a tile family, and vice versa.
+    assert!(!flag_offset_in_ef(&buf, 76100, FAMILY_CODE_TILE_PICKUP).valid);
+    assert!(!flag_offset_in_ef(&buf, 1_044_360_310, FAMILY_CODE_WORLD_STATE).valid);
+    // A legacy pickup id (localId >= 7000) addressed as the event family.
+    assert!(!flag_offset_in_ef(&buf, 30_027_000, FAMILY_CODE_DUNGEON).valid);
+    // An unknown family code.
+    assert!(!flag_offset_in_ef(&buf, 76100, 99).valid);
+    // No list end to find -> unresolvable -> invalid (not offset 0 masquerading as valid).
+    assert!(!flag_offset_in_ef(&[], 76100, FAMILY_CODE_WORLD_STATE).valid);
+    assert!(!flag_offset_in_ef(&vec![0u8; 40_000], 76100, FAMILY_CODE_WORLD_STATE).valid);
 }
 
 #[test]
