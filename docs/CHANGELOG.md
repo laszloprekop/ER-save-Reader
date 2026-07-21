@@ -7,6 +7,55 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.32.0 - Distill and delete the pre-reset lab (BACKLOG step 5)
+
+Removes the pre-reset Python lab and its Rust discovery sibling, and moves the CE-era
+Rosetta table out of the shipping app into the knowledge base. Distill-first: every deletion
+was preceded by an epistemic-headed record so the reasoning survives the code (ADR-0004,
+"a recorded dead end is worth more than a deleted one").
+
+### Refactor
+- **Python lab deleted — 209 files** (161 `.py` + the lab's own JSON / case-store artifacts).
+  None were in the evidence catalog and all were consumed only by the deleted `src/discovery`
+  modules. **Distilled first** into `docs/archive/PYTHON-LAB.md` (grouped record of what each
+  script family did, what survived, what replaced it). **Kept:** `scripts/windows/
+  regenerate-game-extracts.ps1` (operational; cited by the `game-extracts` catalog corpus)
+  and `notebooks/` (separately archived).
+- **`src/discovery` shrunk to what the app uses.** The live pipeline (`src/knowledge`) used
+  none of it. The only app dependency was the `inventory_verification` leaf (UNIQUE_ITEMS
+  tables) → relocated to `src/db/inventory_verification.rs`. The other 21 lab modules
+  (~14.5k LOC incl. `cli.rs`), the `discovery` CLI subcommand in `main.rs`, and the orphan
+  root lab JSONs (`discoveries.json`, `param_flags.json`, `unified_flags.json`) were removed.
+- **CE-era Rosetta table moved out of the app.** The 46,076-line `src/db/event_flags.rs`
+  (in-memory byte_offset/bit_position + coords/name/category for 5,751 flags, **unused** by
+  the app) extracted verbatim to `knowledge/reference/ce-era-event-flags-rosetta.json` and
+  deleted. Placed under `knowledge/reference/` (with an `_epistemic` block + README), NOT the
+  evidence catalog — that indexes out-of-repo raw evidence, and this is derived in-repo
+  reference. Distinct from the live `src/db/event_flags_db.rs`, which stays.
+
+### Key Findings
+- The two same-named files were a trap: `db::event_flags` (46k lines, the CE Rosetta table)
+  was dead, while the 782-line `db::event_flags_db` behind the "Event Flags DB" view is live.
+- The `−337,375` lesson recurs: `event_flags.rs`'s offsets are a real in-memory convention
+  (125-byte block model), not save-file positions — preserved as reference, never for reads.
+
+### Validation
+- Main-crate unit tests **116 → 51** — exactly the deleted lab's tests; nothing live lost.
+- Green: main 51, regression 4 (+3 ignored), wasm 22 + anchor 4 + export-shape 4 + origin 11,
+  including the ADR-0008 `export_shape_conformance` guard. `cargo build`/`clippy` clean
+  (pre-existing style warnings only).
+
+### Files Modified
+- `src/discovery/` (deleted, 22 modules) → `inventory_verification.rs` moved to `src/db/`
+- `src/db/event_flags.rs` (deleted) → `knowledge/reference/ce-era-event-flags-rosetta.json`
+- `src/db/mod.rs`, `src/main.rs`: dropped `event_flags` / `discovery` modules + CLI subcommand
+- `src/ui/{events,verification_view,world_pickups_view}.rs`: import paths → `db::inventory_verification`
+- `src/db/*_data.rs`, `pickup_flags.rs`: stale generator headers repointed to the archive doc
+- `scripts/**` (deleted except `windows/`); root `discoveries.json` / `param_flags.json` / `unified_flags.json` deleted
+- `docs/archive/PYTHON-LAB.md`, `knowledge/reference/README.md`: new distillation records
+- `docs/{BACKLOG,ARCHITECTURE,CASE-VERIFICATION-GUIDE,EF-DISCOVERY-VERIFICATION-CHAIN,SAVE_FILE_GROUND_TRUTH}.md`: step 5 done; "removal target" → "removed"
+- `Cargo.toml`, `docs/CHANGELOG.md`: version 0.32.0
+
 ## v0.31.1 - Docs audit: epistemic headers on every doc (BACKLOG step 6)
 
 ### Docs

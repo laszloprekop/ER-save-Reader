@@ -5,7 +5,7 @@
 > - **Claims**: a rigorous case-based process for accepting/rejecting a flag hypothesis.
 > - **Evidence**: the method; examples used period-specific saves.
 > - **Methodology**: maps onto the Status Ladder (CONTEXT.md → *Status Ladder*, *Attributed Transition*); the live implementation is the knowledge pipeline.
-> - **Obsolete**: the `.py` entry points and any hardcoded offsets in examples — step-5 deletion targets; resolve positions per save.
+> - **Obsolete**: the `.py` entry points (removed in step 5, `docs/archive/PYTHON-LAB.md`) and any hardcoded offsets in examples; resolve positions per save.
 
 ## Overview
 

@@ -6,7 +6,7 @@ pub mod verification_view {
         CAT_RED, CAT_GREEN, CAT_YELLOW, CAT_PEACH, CAT_TEAL, CAT_SUBTEXT, CAT_OVERLAY,
     };
     use crate::save::common::save_slot::EquipInventoryData;
-    use crate::discovery::inventory_verification::{
+    use crate::db::inventory_verification::{
         InventoryVerificationService,
         UniqueItemCategory, VerificationConfidence, UNIQUE_ITEMS,
     };

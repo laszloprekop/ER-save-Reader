@@ -3,11 +3,11 @@
 This document describes the structure and design principles of the event flag verification system.
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
-> **Status: SUPERSEDED — documents the pre-reset Python lab, not the live system.** This describes the `ground_truth_offsets.json → ground_truth_loader.py → scripts/verification/` Python architecture. That code still exists but is deprecated and slated for removal (migration step 5). It is **not** how flags are resolved today.
+> **Status: SUPERSEDED — documents the pre-reset Python lab, not the live system.** This describes the `ground_truth_offsets.json → ground_truth_loader.py → scripts/verification/` Python architecture. That Python code was **removed in migration step 5** (2026-07-21; distilled in `docs/archive/PYTHON-LAB.md`). It is **not** how flags are resolved today.
 > - **Claims**: a "single source of truth hierarchy" rooted in `ground_truth_offsets.json` and a Python verification module.
 > - **Evidence**: none new — a design description of the old lab.
 > - **Methodology**: the live methodology is the knowledge pipeline (`er-save-editor knowledge run` → claims store) plus the one reference resolver in `crates/wasm-event-flags` (ADR-0005), consumed by both the app and elden-map. See `docs/WASM-EVENT-FLAGS.md`, `CONTEXT.md`, `docs/adr/`.
-> - **Obsolete**: `ground_truth_offsets.json` is FROZEN read-only (ADR-0006), not the source of truth; `flag_formulas.py` is deprecated; the Python verification scripts are step-5 deletion targets. For today's architecture read the ADRs and `CONTEXT.md`, not this file.
+> - **Obsolete**: `ground_truth_offsets.json` is FROZEN read-only (ADR-0006), not the source of truth; `flag_formulas.py` is deprecated; the Python verification scripts were removed in step 5 (`docs/archive/PYTHON-LAB.md`). For today's architecture read the ADRs and `CONTEXT.md`, not this file.
 
 ---
 

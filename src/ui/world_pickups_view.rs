@@ -2,7 +2,7 @@ pub mod world_pickups_view {
     use eframe::egui::{Ui, Color32, RichText};
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
     use crate::save::common::save_slot::EquipInventoryData;
-    use crate::discovery::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence};
+    use crate::db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
     use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
     use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};

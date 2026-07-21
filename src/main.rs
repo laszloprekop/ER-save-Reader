@@ -8,7 +8,6 @@ mod write;
 mod ui;
 mod db;
 mod generated;
-mod discovery;
 mod knowledge;
 mod calibration;
 
@@ -37,16 +36,6 @@ fn main() -> Result<(), eframe::Error> {
     if args.len() > 1 && args[1] == "knowledge" {
         let cli_args: Vec<String> = args.into_iter().skip(2).collect();
         match knowledge::run_cli(&cli_args) {
-            Ok(()) => std::process::exit(0),
-            Err(e) => {
-                eprintln!("Error: {}", e);
-                std::process::exit(1);
-            }
-        }
-    }
-    if args.len() > 1 && args[1] == "discovery" {
-        let cli_args: Vec<String> = args.into_iter().skip(2).collect();
-        match discovery::cli::run_cli(&cli_args) {
             Ok(()) => std::process::exit(0),
             Err(e) => {
                 eprintln!("Error: {}", e);
