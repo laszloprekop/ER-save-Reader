@@ -7,6 +7,45 @@ All notable changes to ER-save-Editor will be documented in this file.
 
 ---
 
+## v0.34.0 - Regenerate dungeon_pickups from ItemLotParam_map + committed generator
+
+`src/db/dungeon_pickups.rs` is now GENERATED from the primary source, not
+hand-maintained — closing the drift that had accumulated ~8% each way.
+
+### Features
+- **`er-save-editor knowledge gen-dungeon-pickups`** (`src/knowledge/gen_dungeon_pickups.rs`):
+  parses `ItemLotParam_map.param.xml` (regulation 1.16.1, sha256-verified against the
+  evidence catalog) and deterministically emits the dungeon-pickup table. Selection: every
+  row whose `getItemFlagId` is an 8-digit legacy-dungeon flag (10M..44M) with localId >=
+  7000 AND that grants an item (`lotItemId01 != 0`). Names from `paramdexName`, category
+  from a documented classifier over name + `lotItemCategory`.
+- Anti-drift unit test (`committed_table_matches_generator`): the committed file must equal
+  the generator's output for the committed source. Mutation-verified — a hand-edit fails it.
+  Plus a self-contained determinism/correctness test.
+
+### Data changes (2108 -> 2031 entries)
+- **77 removed**: items whose real `getItemFlagId` is not a dungeon-pickup flag (the old
+  table fabricated `item_lot_id + 7000`). Verified all 77: 61 block flags
+  (whetblades/cookbooks/maps — e.g. Iron Whetblade is 65610), 7 dungeon-event flags
+  localId<7000 (m15 Golden Seeds), 7 Great Runes (114/191-196), 2 area-99 junk. Includes
+  the suspect entries 12022995/12022997.
+- **114 event_flags corrected**: lot rows that share one flag — armor sets (Raging Wolf
+  set's four pieces record on 11007985, not per-piece 1100898N). The old per-piece flags
+  read the wrong bit.
+- **112 empty lots excluded** (a flag but no item). Categories also improved (79 Somber
+  stones the old table mislabelled now read SomberStones).
+
+### Verification
+- Structural fields identical to a hand-checked reconciliation (0 flag/item/qty diffs).
+- Runtime (2026-01-11 backup, Confessor slot 0): dungeon 395 collected / 30 UNKNOWN of 2031
+  (up from 382; the 30 UNKNOWN are exactly the two doubly-allocated maps m34_12 / m40_00).
+- Tests: 53 main + 4 regression green; `gen_dungeon_pickups.rs` clippy-clean.
+
+### Files Modified
+- src/knowledge/gen_dungeon_pickups.rs (new), src/knowledge/mod.rs: the generator + wiring
+- src/db/dungeon_pickups.rs: regenerated (2031 entries, provenance header)
+- docs/BACKLOG.md: task marked done; docs/CHANGELOG.md, Cargo.toml: v0.34.0
+
 ## v0.33.0 - Per-save flag-offset export; elden-map cutover (BACKLOG step 4)
 
 Completes the last migration step: elden-map moves off the removed static-offset

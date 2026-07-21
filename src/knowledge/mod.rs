@@ -15,6 +15,7 @@
 pub mod catalog;
 pub mod dump;
 pub mod family_distances;
+pub mod gen_dungeon_pickups;
 pub mod pipeline;
 pub mod timeline;
 
@@ -30,6 +31,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         Some("validate-origin") => family_distances::cmd_validate_origin(&args[1..]),
         Some("family-constants") => family_distances::cmd_family_constants(&args[1..]),
         Some("grace-dump") => dump::cmd_grace_dump(&args[1..]),
+        Some("gen-dungeon-pickups") => gen_dungeon_pickups::cmd_gen_dungeon_pickups(&args[1..]),
         _ => {
             println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
@@ -50,6 +52,10 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("                      characters it was not derived from (step 4b)");
             println!("    family-constants  Measure each family's distance from the origin");
             println!("                      from the attributed flips that pinned its base");
+            println!("    gen-dungeon-pickups [xml] [--out PATH]");
+            println!("                      Regenerate src/db/dungeon_pickups.rs from the");
+            println!("                      primary ItemLotParam_map (anti-drift; the table");
+            println!("                      is generated, not hand-edited)");
             println!("    grace-dump <save> [slot] [--all]");
             println!("                      Dump every grace in a slot, layer by layer:");
             println!("                      raw byte, resolver verdict, database name");

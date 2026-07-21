@@ -707,6 +707,37 @@ maps — unexplained, worth a look before claiming pickup coverage).
    primary source is a data task with its own verification and must NOT be folded into a
    flag-layout change — but the primary source is on this machine, so nothing blocks it.
 
+   **DONE 2026-07-21 — regenerated from the primary source, with a committed generator.**
+   `dungeon_pickups.rs` is now GENERATED, not hand-maintained: `er-save-editor knowledge
+   gen-dungeon-pickups` (`src/knowledge/gen_dungeon_pickups.rs`) parses `ItemLotParam_map`
+   (sha256-verified), selects every row whose `getItemFlagId` is an 8-digit dungeon flag
+   with localId >= 7000 AND that grants an item (`lotItemId01 != 0`), and emits the table
+   deterministically. 2108 -> **2031 entries**. A unit test asserts the committed file equals
+   the generator's output (mutation-verified: a hand-edit fails it), so the drift that made
+   this a task cannot recur.
+
+   The reconciliation was subtler than the audit's headline. Keyed by the natural key
+   (`item_lot_id`): **77 removed, 0 item-granting added, 114 event_flags corrected.** The
+   audit's "189/152" counted `getItemFlagId`s, which conflated three things:
+   - **77 removed** are items whose REAL `getItemFlagId` is not a dungeon-pickup flag at
+     all — the old table fabricated `item_lot_id + 7000`. Verified every one: 61 are block
+     flags (whetblades/cookbooks/maps — Iron Whetblade is flag 65610, not 10007420), 7 are
+     dungeon-EVENT flags localId<7000 (the m15 Golden Seeds — the "seven getItemFlagIds at
+     localId 1200-1290" noted below), 7 are Great Runes (simple flags 114/191-196), 2 are
+     area-99 junk. They read the wrong bit here and are tracked via their real families
+     elsewhere. This includes the two suspect entries `12022995/12022997`.
+   - **114 event_flags corrected**: several lot rows legitimately share ONE flag — armor
+     sets (the Raging Wolf set's four pieces 11001985-988 all record on 11007985, not
+     per-piece 1100898N). The old per-piece flags read unset/wrong bits.
+   - **112 empty lots** (a flag but no item) are not pickups and are excluded.
+
+   *Verified.* Structural fields (flag/item/qty) identical to a hand-checked reconciliation
+   (0 diffs); categories improved (79 Somber stones the old table mislabelled as
+   SmithingStones now read SomberStones; gloveworts/runes it missed now caught). Runtime on
+   the 2026-01-11 backup (Confessor slot 0): dungeon **395 collected / 30 UNKNOWN of 2031**
+   (up from 382, UNKNOWN down from 36) — the 30 UNKNOWN are exactly the two doubly-allocated
+   maps (15x m34_12 + 15x m40_00), `None` by design. All tests green (53 + 4).
+
    **SETTLED 2026-07-20 — the overlap is real, and harmless.** Jump to the resolution
    below; the statement of the question is kept because the reasoning that closed it is
    the reusable part.
