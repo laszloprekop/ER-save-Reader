@@ -7,6 +7,80 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.36.1 - Catalog the 2026-07-21 timeline captures; the chain is not one chain
+
+Evidence intake only — **no code changed**. `catalog-verify` had been exiting 1 since
+2026-07-21 on two corpora, deliberately left drifted until the new captures' provenance
+was examined rather than machine-refreshed (ADR-0007). Examined; absorbed; back to
+exit 0 on all 8 corpora.
+
+### Key findings
+- **The Priority 0c hypothesis is CONFIRMED, and it understated the result.** The
+  guess was that the 39 new captures might carry a *corrected* structural anchor. They
+  carry **no derived claim at all**. Era-1 entries have
+  `structuralOffsets: {gaItemsEnd, eventFlagsOffset, efConfident}` — `sd_003970`, the
+  last cataloged one, still reads `eventFlagsOffset: 228676`, so the poisoned ~223k
+  anchor ran to the very end of era 1. All 39 era-2 entries read
+  `structuralOffsets: null`, `bossesDefeated: []`, `gracesDiscovered: []`,
+  `level: null`, `runes: null`; only raw observation survives (timestamp, slotIndex,
+  characterName, saveType, bytesChanged, diffFile, playerPosition, inventoryDelta).
+  That is ADR-0007/0008 reaching the capture agent: the fix was to **stop emitting the
+  claim, not to correct it** — the outcome that requires no trust.
+- **THE TIMELINE IS NOT ONE CHAIN.** Testing `prev.new == next.old` on overlapping
+  offsets between consecutive sparse diffs: **100.00%** agreement inside a contiguous
+  run (verified in both eras, on overlaps of 250k-415k offsets), collapsing to
+  **1-25%** at a segment boundary. At least **21 boundaries** exist — 20 of the 37
+  inter-capture gaps over 30 minutes, plus `sd_003274 -> sd_003275` whose gap is only
+  **288 seconds**. So a long gap predicts a boundary but does not determine one, and
+  the exhaustive count needs a full scan (only short-gap pairs were sampled).
+- *Why that matters.* The corpus described itself as a single replayable chain and
+  attributed ~0.7% old-value mismatch to "no keyframes". The mismatch is in fact
+  **concentrated at boundaries**, and replay state must be treated as reset at each.
+  This directly constrains the flip-clustering design proposed in BACKLOG step 3:
+  cluster **within** a segment, never across a boundary. Clustering across one compares
+  states with unobserved play between them — the mechanism behind the previous attempt's
+  flags "transitioning" 0->1 up to 69 times.
+
+### Evidence intake
+- **39 new files**, `sd_003971`..`sd_004009`, 2026-07-21 15:00-19:36Z, same subject
+  throughout (slot 5 "Bee", autosave). Verified against the manifest: **39 new, 0
+  cataloged files changed, 0 missing** — pure growth, not tampering.
+- `catalog-verify` printed only 5 drift lines because it caps the listing at `take(5)`
+  (`src/knowledge/catalog.rs:185`); the full account came from diffing the manifest.
+  Worth knowing before trusting that output as a count.
+- `evidence-catalog.json`: `timeline-metadata.trust` split **per era** (era 2 asserts
+  nothing, which makes it honest, not authoritative — `inventoryDelta` keeps the era-1
+  GaItem-churn caveat, same field from the same code path); `timeline-slot-diffs` gains
+  `eras` and `segments` context and its description now spans 2026-02-14 .. 2026-07-21.
+
+### Artifacts regenerated, not hand-edited (ADR-0004)
+- `knowledge catalog-update` -> manifest + machine fields; `catalog-verify` now reports
+  all 8 corpora intact.
+- `knowledge run` re-run twice: **every claim body unchanged**, the only diff is the
+  input catalog's sha256, and the second run reports "claims store unchanged" — so
+  determinism survives the corpus growth.
+- `knowledge timeline bee` re-run over 3,869 entries: 1,208,825,803 records, old-value
+  mismatch 0.68% -> **0.74%** (consistent with adding a hard boundary), confident grace
+  detection 2,735/3,830 -> **2,774/3,869** (all 39 new entries detect confidently),
+  offset range unchanged at 72,609..82,586. It still asserts no flags, by design.
+
+### Fixed
+- `docs/BACKLOG.md:1120` said Priority 1b step 4 was **STILL OPEN** while the detail
+  section 20 lines below recorded it **DONE 2026-07-21** with the full elden-map cutover
+  write-up. The summary line was never updated when the work landed.
+
+### Files Modified
+- `knowledge/evidence-catalog.json`: per-era trust, `eras` + `segments` context, machine
+  fields refreshed
+- `knowledge/manifests/timeline-slot-diffs.sha256`: 3,830 -> 3,869 entries
+- `knowledge/claims/event-flags.json`: input catalog sha256 only (no claim body changed)
+- `knowledge/claims/timeline-replay-audit.json`: re-run over the full corpus
+- `CONTEXT.md`: *Kill Transition* — a window may not cross a segment boundary
+- `docs/BACKLOG.md`: Priority 0c resolved; the 1b step-4 marker corrected
+- `docs/CHANGELOG.md`, `Cargo.toml`: v0.36.1
+
+---
+
 ## v0.36.0 - Regenerate world_pickups; fix 220 pickups that read the wrong bit
 
 `world_pickups.rs` becomes GENERATED from the primary source, joining

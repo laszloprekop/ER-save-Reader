@@ -80,31 +80,34 @@
     },
     {
       "context": {
+        "eras": "TWO capture eras, same subject (slot 5 'Bee', autosave throughout). Era 1: sd_000141..sd_003970, 2026-02-14 .. 2026-05-25 (3,830 files). Era 2: sd_003971..sd_004009, 2026-07-21 15:00-19:36Z (39 files), cataloged 2026-07-22. The eras differ in the METADATA that accompanies them, not in the diff format - see corpus timeline-metadata.",
         "key_entries": "sd_000259 (Red Wolf kill) byte-validated the m14 base (c=0 vs GT catacombs flags); sd_000195 'Rennala' annotation is a flicker artifact.",
         "missing": "Entries sd_000001..sd_000140 were never persisted; the chain starts at sd_000141 whose old-values reflect an unknown prior state.",
-        "replay": "Full-state replay accumulates ~0.7% old-value mismatches; untouched bytes are unknowable (no keyframes - see ADR-0007)."
+        "replay": "Full-state replay accumulates ~0.7% old-value mismatches; untouched bytes are unknowable (no keyframes - see ADR-0007).",
+        "segments": "IT IS NOT ONE CHAIN (found 2026-07-22). Inside a contiguous run, prev.new == next.old for 100.00% of overlapping offsets; at a segment boundary that collapses to 1-25% (occasionally ~80%). At least 21 boundaries exist - 20 among the 37 inter-capture gaps over 30 min, plus sd_003274->sd_003275 whose gap is only 288s, so gap length predicts a boundary but does not determine one and the full count needs an exhaustive scan. The era-1/era-2 join sd_003970->sd_003971 is one such boundary (9.90% over 248,617 overlapping offsets, 56.9-day gap). Consequence: replay state must be treated as reset at each boundary, and the 0.7% mismatch above is concentrated there rather than spread evenly."
       },
-      "description": "Bee timeline (slot 5, 2026-02-14 .. 2026-05-25): 3,830 sparse slot diffs, 6 bytes per changed byte ([u32 LE offset][old][new]). Raw diff records are Evidence.",
-      "files": 3830,
+      "description": "Bee timeline (slot 5, 2026-02-14 .. 2026-07-21): 3,869 sparse slot diffs, 6 bytes per changed byte ([u32 LE offset][old][new]). Raw diff records are Evidence.",
+      "files": 3869,
       "id": "timeline-slot-diffs",
       "kind": "directory",
       "manifest": "knowledge/manifests/timeline-slot-diffs.sha256",
       "path": "Granular snapshots for debugging/timeline/slot_diffs",
       "root": "saves",
-      "total_size": 7166532678
+      "total_size": 7252954818
     },
     {
       "context": {
         "cataloged_as": "file hash only - integrity, not endorsement",
-        "trust": "eventFlagsOffset trustworthy only in the Feb-2026 era (~76k values; deltas 35,111+8k from gaEnd); from sd_000274 (2026-02-14T18:17) onward anchors jumped to ~223k (poisoned structural detection). bossesDefeated partly flicker artifacts. inventoryDelta polluted by GaItem handle churn."
+        "trust": "PER-ERA, and the two eras are not comparable. ERA 1 (sd_000141..sd_003970, Feb-May 2026): eventFlagsOffset trustworthy only in the Feb-2026 window (~76k values; deltas 35,111+8k from gaEnd); from sd_000274 (2026-02-14T18:17) onward anchors jumped to ~223k (poisoned structural detection) and stay there to the end of the era (sd_003970 reads eventFlagsOffset 228676). bossesDefeated partly flicker artifacts. inventoryDelta polluted by GaItem handle churn. ERA 2 (sd_003971..sd_004009, 2026-07-21): THE AGENT NO LONGER ASSERTS ANYTHING DERIVED. structuralOffsets is null, bossesDefeated [], gracesDiscovered [], level null, runes null in all 39 entries; only raw observations remain (timestamp, slotIndex, characterName, saveType, bytesChanged, diffFile, playerPosition, inventoryDelta). This is the ADR-0007/0008 posture landing in the capture agent - there is no poisoned anchor here because there is no anchor claim. inventoryDelta carries the era-1 GaItem-churn caveat unchanged; it is the same field from the same code path.",
+        "trust_verification": "Established 2026-07-22 by reading the file, not by assuming a rebuild: era-2 entries were compared field-by-field against era 1. The Priority 0c hypothesis ('these may be the first captures from a build no longer writing a poisoned anchor') is CONFIRMED and understated - the fix was to stop emitting the claim, not to correct it."
       },
-      "description": "Per-entry capture-agent metadata for the Bee timeline. LEGACY CLAIMS, not evidence (ADR-0001/0007).",
+      "description": "Per-entry capture-agent metadata for the Bee timeline (3,869 entries, two eras). LEGACY CLAIMS, not evidence (ADR-0001/0007).",
       "id": "timeline-metadata",
       "kind": "file",
       "path": "Granular snapshots for debugging/timeline/slot_changes.jsonl",
       "root": "saves",
-      "sha256": "d59a9523e4e085967580ca6dd128f5ce2a727bf54fac6da658d6a1248fb60e19",
-      "size": 4129223
+      "sha256": "e1d9164ae337a44f67b1fbd117a58b5c059c9216348f7522f1278e38865d8e49",
+      "size": 4145702
     },
     {
       "context": {
@@ -144,5 +147,5 @@
     "saves": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files"
   },
   "schema": "evidence-catalog/1",
-  "updated": "2026-07-05"
+  "updated": "2026-07-22"
 }

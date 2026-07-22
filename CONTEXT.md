@@ -196,7 +196,12 @@ Verification method: a byte observed changing at the recorded moment of a specif
 in-game event (e.g. 00→ff on a boss kill) inside one self-consistent EF window. An
 *attributed* kill transition (a labeled before/after capture pair) is Verified on its
 own; an *unattributed* flip inside a timeline window needs a second independent method
-(e.g. Reward Corroboration) to reach Verified.
+(e.g. Reward Corroboration) to reach Verified. **A "window" may not cross a sparse-diff
+segment boundary** (added 2026-07-22): the Bee timeline is not one chain but ≥21
+segments, and across a boundary the previous capture's new-values stop matching the next
+one's old-values (100% agreement within a run, 1-25% across). Play happened unobserved
+there, so a flip spanning a boundary is not a transition — see the `segments` note on
+corpus `timeline-slot-diffs`.
 
 **Reward Corroboration**:
 Verification method: a boss-specific unique item (remembrance, boss soul, unique key

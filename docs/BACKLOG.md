@@ -7,7 +7,58 @@
 
 ---
 
-## Priority 0c: New timeline evidence has arrived uncataloged (found 2026-07-22)
+## Priority 0c: New timeline evidence has arrived uncataloged (found 2026-07-22) — DONE 2026-07-22
+
+> **RESOLVED the same day. The hypothesis below was CONFIRMED, and it understated the
+> result: the new captures do not carry a *corrected* structural anchor, they carry
+> **no derived claim at all**.** Intake done, `catalog-verify` back to exit 0. The
+> statement of the problem is kept because the intake method is the reusable part.
+>
+> **What the metadata actually says** (established by reading `slot_changes.jsonl`
+> field-by-field, not by assuming a rebuild). Era 1 entries carry
+> `structuralOffsets: {gaItemsEnd, eventFlagsOffset, efConfident}` — `sd_003970`, the last
+> cataloged one, reads `eventFlagsOffset: 228676`, the poisoned ~223k anchor the trust note
+> describes, so the poisoning ran to the very end of era 1. All 39 era-2 entries read
+> `structuralOffsets: null`, `bossesDefeated: []`, `gracesDiscovered: []`, `level: null`,
+> `runes: null`. Only raw observation survives: timestamp, slotIndex, characterName,
+> saveType, bytesChanged, diffFile, playerPosition, inventoryDelta. That is the ADR-0007 /
+> ADR-0008 posture reaching the capture agent — the fix was to **stop emitting the claim,
+> not to correct it**, which is the stronger outcome and the one that needs no trust.
+>
+> *Scope of the new evidence:* exactly 39 files, `sd_003971`..`sd_004009`, 2026-07-21
+> 15:00–19:36Z, same subject throughout (slot 5 "Bee", autosave). Verified against the
+> manifest: **39 new, 0 cataloged files changed, 0 missing** — so this is pure growth, not
+> tampering. (`catalog-verify` printed only 5 drift lines because it caps the listing at
+> `take(5)`, `src/knowledge/catalog.rs:185`; the full account came from diffing the
+> manifest.)
+>
+> **NEW FINDING, and it corrects this corpus's own description: the timeline is not one
+> chain.** Testing `prev.new == next.old` on overlapping offsets between consecutive
+> diffs: inside a contiguous run agreement is **100.00%** (checked in both eras, on
+> overlaps of 250k–415k offsets); at a segment boundary it collapses to **1–25%**. At
+> least **21 boundaries** exist — 20 of the 37 inter-capture gaps over 30 minutes, plus
+> `sd_003274 → sd_003275` whose gap is only **288 seconds**, so a long gap predicts a
+> boundary but does not determine one, and the exhaustive count needs a full scan (only
+> short-gap pairs were sampled). The era-1/era-2 join is one such boundary (9.90% over
+> 248,617 overlapping offsets). *Consequence:* replay state must be treated as **reset at
+> each boundary**, and the corpus's "~0.7% old-value mismatch" is not spread evenly — it is
+> concentrated there. This directly constrains the flip-clustering design proposed in
+> step 3: cluster **within** a segment, never across a boundary.
+>
+> *Artifacts regenerated, not hand-edited (ADR-0004):* `evidence-catalog.json` (per-era
+> `trust`, new `eras` and `segments` context) + manifest via `catalog-update`;
+> `catalog-verify` now reports all 8 corpora intact. `knowledge run` re-run twice —
+> **every claim body unchanged**, the only diff is the input catalog's sha256, and the
+> second run reports "claims store unchanged", so determinism survives the corpus growth.
+> `knowledge timeline bee` re-run over 3,869 entries: 1,208,825,803 records, mismatch
+> 0.68% → **0.74%** (consistent with adding a hard boundary), confident grace detection
+> 2,735/3,830 → **2,774/3,869** — i.e. all 39 new entries detect confidently, offset range
+> unchanged at 72,609..82,586.
+>
+> *Still true, and still the reason none of this is promoted to claims:* the metadata is
+> LEGACY CLAIMS, cataloged for integrity, not endorsement. Era 2 asserting nothing makes it
+> honest, not authoritative. `inventoryDelta` keeps the era-1 GaItem-churn caveat — it is
+> the same field from the same code path.
 
 `knowledge catalog-verify` exits 1 on two corpora, and **this drift is not a fault — it is
 new evidence**. The Bee capture agent ran again on 2026-07-21 (newest file `sd_004009.bin`,
@@ -1117,7 +1168,9 @@ arguments. Consumers break either way; the only choice is visibly or silently.
    always fails is still an export people call.
 3. ~~Conformance test pinning that no exported entry point reaches a legacy base table.~~
    **DONE 2026-07-20** — `crates/wasm-event-flags/tests/export_shape_conformance.rs`.
-4. Coordinate elden-map onto the region-taking readers. **STILL OPEN** — see below.
+4. ~~Coordinate elden-map onto the region-taking readers.~~ **DONE 2026-07-21** — see
+   the step 4 write-up below. (This line read "STILL OPEN" until 2026-07-22; the
+   summary was never updated when the work landed.)
 
 **SCOPE WIDENED DURING THE WORK (2026-07-20).** Steps 1-2 named three exports; seven were
 removed, plus five base tables. Removing only the three named would have left step 3
