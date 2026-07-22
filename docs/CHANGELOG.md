@@ -7,6 +7,105 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.36.0 - Regenerate world_pickups; fix 220 pickups that read the wrong bit
+
+`world_pickups.rs` becomes GENERATED from the primary source, joining
+`dungeon_pickups.rs`. Doing it surfaced a silent misread in `pickup_data.rs`: 220
+pickups were resolving to the wrong byte while reporting a confident answer.
+
+### Database
+- **`src/db/world_pickups.rs` regenerated, 4,898 -> 2,867 entries.** New generator
+  `er-save-reader knowledge gen-world-pickups`
+  (`src/knowledge/gen_world_pickups.rs`) selects every item-granting flagged row of
+  `ItemLotParam_map` MINUS the dungeon pickups `gen_dungeon_pickups` owns. The two
+  tables now **partition** the primary source exactly (2,867 + 2,031 = 4,898, no
+  overlap); the old table carried all 4,898, duplicating the Dungeon Pickups view.
+- **Every one of the 2,867 surviving rows had a wrong item name**: 2,603 read
+  `"Unknown Item <id>"`, and 264 named a real but *different* item — lot 20450 said
+  "Immunizing Cured Meat", it is the Gold Scarab. Now 2,837 carry the source name.
+- **`item_type` was wrong for all 2,867.** The old table typed 3,797 of 4,898 rows
+  Armor and recognised 6 weapons in the entire game; it now reads
+  `lotItemCategory01` (2,089 Good / 307 Armor / 289 Weapon / 99 Accessory /
+  79 AshOfWar / 4 Unknown), so the type filter works for the first time.
+- **`tile_x`/`tile_y` were off by one digit on all 1,663 tile rows** — the flag was
+  sliced `[2:3],[3:5]` instead of `[2:4],[4:6]`. The V1/V2 control pickup read tile
+  (4, 43); it is (44, 36) = m60_44_36.
+- `flag_id`, `item_id`, `quantity` and `region` were already correct (0 diffs).
+
+### Fixed
+- **`pickup_data.rs`: 220 pickups read the wrong bit.** The table stored
+  `event_flag = item_lot_id` for the open-world family, which is only correct while
+  `row_id + 7000 == getItemFlagId` — false for 124 of the 1,691 ten-digit rows.
+  Measured at the resolved read address: **97** wrong address within the tile
+  family, **77** a nonexistent tile bit for items actually recorded on block flags
+  (every map fragment, cookbook and Crystal Tear dropped by an open-world lot),
+  **46** Unknown where the real flag is a readable block flag. 0 regressions;
+  4,580 entries resolve identically. `event_flag` now holds the `getItemFlagId` for
+  every entry (1,754 values changed).
+- This reaches the user through the character **Events -> World Pickups** tab, the
+  comparison view, and the JSON/CSV/Markdown export.
+- `src/db/pickup_data.rs` header claimed "Auto-generated - do not edit manually",
+  false on both counts — it is hand/third-party enriched and cannot be regenerated.
+  Rewritten to state what the table actually is and which field is machine-checked.
+
+### Anti-drift
+- `gen_world_pickups::tests::committed_table_matches_generator` — byte-for-byte,
+  same contract as the dungeon table. Plus a disjointness test against
+  `gen_dungeon_pickups` on a fixture, and a self-contained correctness test.
+- `pickup_data::tests::test_event_flags_match_primary_source` re-derives the one
+  structural field from `ItemLotParam_map` on every run. This is what stands in for
+  a generator on a table that cannot have one.
+- Both mutation-verified (a hand-edit fails them). Both skip, rather than fail,
+  where the out-of-repo game extract is absent.
+
+### Key findings
+- **`lotItemCategory` 6 = custom weapon** — an `EquipParamCustomWeapon` row bundling
+  a base weapon, an ash of war and an upgrade level (row 5000 = "Banished Knight's
+  Halberd +8 - Spinning Strikes", `baseWepId` 18030000). Typed Weapon. Category 0
+  (4 rows) is unset in the source and stays `Unknown` rather than guessed.
+- **The row_id/getItemFlagId identity is not universal**, and the codebase treated
+  it as one. `CONTEXT.md` and `CLAUDE.md` both asserted "pickup_data.rs stores
+  row_ids"; that was a bug being documented as a design. Corrected in both.
+- The 9 `pickup_data` lots absent from the primary source are the **Troll Carriage**
+  rows, whose param row id is 9-prefixed (`934490010`) while the table keys them by
+  the storage address (`1034490010`). Their flags were already correct.
+
+### Verified (2026-01-11 backup, multi-slot differential)
+- UNKNOWN fell 1,517 -> 1,471 **on every slot**, exactly the 46 predicted.
+  Confessor 910 -> 976 collected. **V3 unchanged at 2, V1/V2 unchanged at 3** — the
+  true-negative controls gained no false positives.
+- Block-flag probe, Confessor vs V3: Confessor now reads exactly the maps for the
+  regions `DATA-SOURCES.md` says it explored (Limgrave W/E, Weeping Peninsula,
+  Liurnia E/N/W, Altus, Leyndell, Mt. Gelmir, Caelid, Dragonbarrow, Ainsel, Siofra)
+  plus 6 Memory Stones / 2 Talisman Pouches / 9 Crystal Tears, and **none** of the
+  Mountaintops / Consecrated Snowfield / Farum Azula maps — consistent with Radahn
+  not defeated. V3 reads exactly one: Tarnished's Wizened Finger, the starting item
+  every character is given.
+- On `world_pickups.rs`: V1/V2 read flag 1044367310 SET as "Golden Rune [1]" @ tile
+  (44, 36), V3 does not — matching the claims store's reward corroboration on that
+  anchor pair. The old table named the same flag "Type 20", Armor, tile (4, 43).
+- Tests 57 + 4 + 22 + 4 + 4 + 13 green; `cargo check --features save-writeback`
+  clean; clippy clean on all changed files (the 6 pre-existing
+  `enum_clike_unportable_variant` errors in `src/vm/inventory/mod.rs` are untouched).
+
+### Still Unknown, by design
+- The 488 DLC open-world pickups. `is_tile_pickup_set` is scoped to the
+  `1_000_000_000..2_000_000_000` grid and the DLC grid's family base has never been
+  established — reading them would mean guessing.
+
+### Files Modified
+- `src/knowledge/gen_world_pickups.rs` (new): generator + 3 tests
+- `src/knowledge/mod.rs`: `gen-world-pickups` wiring and help
+- `src/db/world_pickups.rs`: regenerated (2,867 entries, provenance header)
+- `src/db/pickup_data.rs`: 1,754 `event_flag` corrections, header, conformance test
+- `src/knowledge/dump.rs`: `world:` census line so the new table is exercised on a
+  real save alongside the other families
+- `CLAUDE.md`, `CONTEXT.md`: the row-id claim corrected in both
+- `docs/BACKLOG.md`, `docs/DATABASE_COVERAGE_ANALYSIS.md`, `docs/CHANGELOG.md`,
+  `Cargo.toml`: v0.36.0
+
+---
+
 ## v0.35.0 - A reader, not an editor: renamed, write path made dormant (ADR-0009)
 
 **BREAKING.** The package, binary and window title are renamed

@@ -102,12 +102,22 @@ what made `batch-validate` report 0/110 boss defeats on a finished character. In
 _Avoid_: false, not discovered, 0 (when the truth is that we could not tell)
 
 **Row ID vs getItemFlagId**:
-Two names for the same world pickup. `getItemFlagId = row_id + 7000`; the save stores
-the row_id. `pickup_data.rs` holds row_ids (its `event_flag` field equals
-`item_lot_id`); the game's param tables use getItemFlagIds. Critically, a bare 10-digit
-id with localId < 7000 is AMBIGUOUS between an open-world flag and a pickup row_id —
-the two families sit 500 bytes apart and nothing in the value tells them apart. The
-caller must choose the family; a function that guesses reads a plausible wrong bit.
+Two names for the same world pickup. The save addresses the pickup at the row_id, the
+param tables name it by `getItemFlagId`, and `getItemFlagId = row_id + 7000` converts
+between them — `is_tile_pickup_set` accepts either form and normalises.
+
+**That identity is not universal, and treating it as one is a bug** (CORRECTED
+2026-07-22). For 124 of the 1,691 ten-digit `ItemLotParam_map` rows the param's own row
+id is NOT `getItemFlagId - 7000` (deltas 5,200 / 6,000 / 6,100 / 6,999 …, and some rows
+whose real flag is a block flag entirely). A table keyed on the row id therefore
+addresses the wrong byte for those, confidently. **Every pickup table stores the
+`getItemFlagId`**; `pickup_data.rs` held row ids until v0.36.0 and read the wrong bit
+for 220 entries.
+
+Critically, a bare 10-digit id with localId < 7000 is AMBIGUOUS between an open-world
+flag and a pickup row_id — the two families sit 500 bytes apart and nothing in the value
+tells them apart. The caller must choose the family; a function that guesses reads a
+plausible wrong bit.
 
 **Claims Store**:
 The pipeline-generated collection of Claims consumed by the applications (successor of

@@ -1,9 +1,19 @@
-//! World Pickup Database
+//! World Pickup Database — the enriched table behind the character-facing views.
 //!
-//! Generated from ItemLotParam_map.param.xml with 4809 pickups.
-//! Each pickup maps an event flag to an item that can be collected in the world.
+//! 4,809 pickups over both flag families (open-world tiles and legacy dungeons),
+//! seeded from `ItemLotParam_map.param.xml` and then ENRICHED by hand and from
+//! third-party sources: `region` (a finer taxonomy than the primary source
+//! carries) and `mapgenie_id` (1,326 entries) exist only here. That enrichment is
+//! why this table is not simply regenerated the way `world_pickups.rs` and
+//! `dungeon_pickups.rs` are.
 //!
-//! Auto-generated - do not edit manually.
+//! **`event_flag` is the row's `getItemFlagId`, always** — never the param row id.
+//! The two coincide for most open-world rows (`getItemFlagId = row_id + 7000`, and
+//! `is_tile_pickup_set` normalises the high-localId form back), which is how a
+//! row-id convention survived here undetected while reading the wrong bit for 220
+//! entries. `test_event_flags_match_primary_source` below pins the convention
+//! against the primary source, so the structural field cannot drift again even
+//! though the enrichment is hand-maintained.
 
 /// A world pickup entry
 #[derive(Debug, Clone)]
@@ -59,7 +69,7 @@ impl PickupCategory {
 pub static WORLD_PICKUPS: &[WorldPickup] = &[
     WorldPickup {
         item_lot_id: 1040520000,
-        event_flag: 1040520000,
+        event_flag: 1040527000,
         item_id: 8142,
         name: "Amber Starlight",
         quantity: 1,
@@ -69,7 +79,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042520040,
-        event_flag: 1042520040,
+        event_flag: 1042527040,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 3,
@@ -79,7 +89,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510030,
-        event_flag: 1040510030,
+        event_flag: 1040517030,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -89,7 +99,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530040,
-        event_flag: 1041530040,
+        event_flag: 1041537040,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -99,7 +109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530010,
-        event_flag: 1040530010,
+        event_flag: 1040537010,
         item_id: 6000000,
         name: "Bloody Helice",
         quantity: 1,
@@ -109,7 +119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042550000,
-        event_flag: 1042550000,
+        event_flag: 1042557000,
         item_id: 12130000,
         name: "Celebrant's Skull",
         quantity: 1,
@@ -119,7 +129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510000,
-        event_flag: 1040510000,
+        event_flag: 1040517000,
         item_id: 2130,
         name: "Celestial Dew",
         quantity: 1,
@@ -129,7 +139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044530200,
-        event_flag: 1044530200,
+        event_flag: 65030,
         item_id: 11003,
         name: "Crimson Crystal Tear",
         quantity: 1,
@@ -139,7 +149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040540050,
-        event_flag: 1040540050,
+        event_flag: 1040547050,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -149,7 +159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530030,
-        event_flag: 1043530030,
+        event_flag: 1043537030,
         item_id: 1530,
         name: "Drawstring Holy Grease",
         quantity: 3,
@@ -159,7 +169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540090,
-        event_flag: 1042540090,
+        event_flag: 1042547090,
         item_id: 1210,
         name: "Exalted Flesh",
         quantity: 2,
@@ -169,7 +179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540000,
-        event_flag: 1042540000,
+        event_flag: 1042547000,
         item_id: 15080,
         name: "Four-Toed Fowl Foot",
         quantity: 3,
@@ -179,7 +189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530030,
-        event_flag: 1040530030,
+        event_flag: 1040537030,
         item_id: 20652,
         name: "Fulgurbloom",
         quantity: 4,
@@ -189,7 +199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042510900,
-        event_flag: 1042510900,
+        event_flag: 1042517900,
         item_id: 15130000,
         name: "Gargoyle's Great Axe",
         quantity: 1,
@@ -199,7 +209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040550000,
-        event_flag: 1040550000,
+        event_flag: 1040557000,
         item_id: 233000,
         name: "Giant Rat Ashes",
         quantity: 1,
@@ -209,7 +219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042500000,
-        event_flag: 1042500000,
+        event_flag: 1042507000,
         item_id: 23110000,
         name: "Giant-Crusher",
         quantity: 1,
@@ -219,7 +229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540070,
-        event_flag: 1042540070,
+        event_flag: 1042547070,
         item_id: 20811,
         name: "Gold Firefly",
         quantity: 1,
@@ -229,7 +239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530040,
-        event_flag: 1040530040,
+        event_flag: 1040537040,
         item_id: 50090000,
         name: "Golden Arrow",
         quantity: 10,
@@ -239,7 +249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540050,
-        event_flag: 1042540050,
+        event_flag: 1042547050,
         item_id: 50090000,
         name: "Golden Arrow",
         quantity: 6,
@@ -249,7 +259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043500000,
-        event_flag: 1043500000,
+        event_flag: 1043507000,
         item_id: 34060000,
         name: "Golden Order Seal",
         quantity: 1,
@@ -259,7 +269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042520030,
-        event_flag: 1042520030,
+        event_flag: 1042527030,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -269,7 +279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530010,
-        event_flag: 1043530010,
+        event_flag: 1043537010,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -279,7 +289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520040,
-        event_flag: 1041520040,
+        event_flag: 1041527040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -289,7 +299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044520020,
-        event_flag: 1044520020,
+        event_flag: 1044527020,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -299,7 +309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520040,
-        event_flag: 1040520040,
+        event_flag: 1040527040,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -309,7 +319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041510000,
-        event_flag: 1041510000,
+        event_flag: 1041517000,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -319,7 +329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520030,
-        event_flag: 1041520030,
+        event_flag: 1041527030,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -329,7 +339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520030,
-        event_flag: 1040520030,
+        event_flag: 1040527030,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -339,7 +349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520050,
-        event_flag: 1040520050,
+        event_flag: 1040527050,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -349,7 +359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520020,
-        event_flag: 1041520020,
+        event_flag: 1041527020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -359,7 +369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042520010,
-        event_flag: 1042520010,
+        event_flag: 1042527010,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -369,7 +379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044530010,
-        event_flag: 1044530010,
+        event_flag: 1044537010,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -379,7 +389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530000,
-        event_flag: 1040530000,
+        event_flag: 1040537000,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -389,7 +399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540010,
-        event_flag: 1042540010,
+        event_flag: 1042547010,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -399,7 +409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043520030,
-        event_flag: 1043520030,
+        event_flag: 1043527030,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -409,7 +419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530050,
-        event_flag: 1043530050,
+        event_flag: 1043537050,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -419,7 +429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520010,
-        event_flag: 1040520010,
+        event_flag: 1040527010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -429,7 +439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520020,
-        event_flag: 1040520020,
+        event_flag: 1040527020,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -439,7 +449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041510010,
-        event_flag: 1041510010,
+        event_flag: 1041517010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -449,7 +459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520010,
-        event_flag: 1041520010,
+        event_flag: 1041527010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -459,7 +469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044520010,
-        event_flag: 1044520010,
+        event_flag: 1044527010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -469,7 +479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530060,
-        event_flag: 1043530060,
+        event_flag: 1043537060,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -479,7 +489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520000,
-        event_flag: 1041520000,
+        event_flag: 1041527000,
         item_id: 2907,
         name: "Golden Rune [8]",
         quantity: 1,
@@ -489,7 +499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530000,
-        event_flag: 1043530000,
+        event_flag: 1043537000,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -499,7 +509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041540400,
-        event_flag: 1041540400,
+        event_flag: 1041547400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -509,7 +519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042500020,
-        event_flag: 1042500020,
+        event_flag: 1042507020,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -519,7 +529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042510400,
-        event_flag: 1042510400,
+        event_flag: 1042517400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -529,7 +539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042510410,
-        event_flag: 1042510410,
+        event_flag: 1042517410,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -539,7 +549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540400,
-        event_flag: 1042540400,
+        event_flag: 1042547400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -549,7 +559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043520400,
-        event_flag: 1043520400,
+        event_flag: 1043527400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -559,7 +569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043520410,
-        event_flag: 1043520410,
+        event_flag: 1043527410,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -569,7 +579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530020,
-        event_flag: 1043530020,
+        event_flag: 1043537020,
         item_id: 2050,
         name: "Grace Mimic",
         quantity: 3,
@@ -579,7 +589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040540010,
-        event_flag: 1040540010,
+        event_flag: 1040547010,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 2,
@@ -589,7 +599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530060,
-        event_flag: 1041530060,
+        event_flag: 1041537060,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 2,
@@ -599,7 +609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045520010,
-        event_flag: 1045520010,
+        event_flag: 1045527010,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 1,
@@ -609,7 +619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041510030,
-        event_flag: 1041510030,
+        event_flag: 1041517030,
         item_id: 3070,
         name: "Gravity Stone Chunk",
         quantity: 2,
@@ -619,7 +629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040500000,
-        event_flag: 1040500000,
+        event_flag: 1040507000,
         item_id: 3060,
         name: "Gravity Stone Fan",
         quantity: 4,
@@ -629,7 +639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045520000,
-        event_flag: 1045520000,
+        event_flag: 1045527000,
         item_id: 3060,
         name: "Gravity Stone Fan",
         quantity: 3,
@@ -639,7 +649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540061,
-        event_flag: 1042540061,
+        event_flag: 1042547060,
         item_id: 51000000,
         name: "Great Arrow",
         quantity: 20,
@@ -649,7 +659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044520000,
-        event_flag: 1044520000,
+        event_flag: 1044527000,
         item_id: 51000000,
         name: "Great Arrow",
         quantity: 10,
@@ -659,7 +669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040540000,
-        event_flag: 1040540000,
+        event_flag: 1040547000,
         item_id: 12180000,
         name: "Great Stars",
         quantity: 1,
@@ -669,7 +679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540060,
-        event_flag: 1042540060,
+        event_flag: 1042547060,
         item_id: 42040000,
         name: "Greatbow",
         quantity: 1,
@@ -679,7 +689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530060,
-        event_flag: 1040530060,
+        event_flag: 1040537060,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 2,
@@ -689,7 +699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540040,
-        event_flag: 1042540040,
+        event_flag: 1042547040,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 10,
@@ -699,7 +709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042510000,
-        event_flag: 1042510000,
+        event_flag: 1042517000,
         item_id: 1430,
         name: "Holy Grease",
         quantity: 2,
@@ -709,7 +719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540020,
-        event_flag: 1042540020,
+        event_flag: 1042547020,
         item_id: 1180,
         name: "Holyproof Dried Liver",
         quantity: 1,
@@ -719,7 +729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530080,
-        event_flag: 1041530080,
+        event_flag: 1041537080,
         item_id: 32140000,
         name: "Icon Shield",
         quantity: 1,
@@ -729,7 +739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530030,
-        event_flag: 1041530030,
+        event_flag: 1041537030,
         item_id: 1320,
         name: "Invigorating White Cured Meat",
         quantity: 1,
@@ -739,7 +749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520080,
-        event_flag: 1041520080,
+        event_flag: 1041527080,
         item_id: 15140,
         name: "Land Octopus Ovary",
         quantity: 1,
@@ -749,7 +759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530100,
-        event_flag: 1043530100,
+        event_flag: 1043537100,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -759,7 +769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540080,
-        event_flag: 1042540080,
+        event_flag: 1042547080,
         item_id: 1410,
         name: "Lightning Grease",
         quantity: 1,
@@ -769,7 +779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510040,
-        event_flag: 1040510040,
+        event_flag: 1040517040,
         item_id: 53010000,
         name: "Lightning Greatbolt",
         quantity: 10,
@@ -779,7 +789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042530000,
-        event_flag: 1042530000,
+        event_flag: 1042537000,
         item_id: 53010000,
         name: "Lightning Greatbolt",
         quantity: 3,
@@ -789,7 +799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043520000,
-        event_flag: 1043520000,
+        event_flag: 1043527000,
         item_id: 10070,
         name: "Lost Ashes of War",
         quantity: 1,
@@ -799,7 +809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530050,
-        event_flag: 1040530050,
+        event_flag: 1040537050,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 3,
@@ -809,7 +819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520070,
-        event_flag: 1041520070,
+        event_flag: 1041527070,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 1,
@@ -819,7 +829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040520500,
-        event_flag: 1040520500,
+        event_flag: 62030,
         item_id: 8606,
         name: "Map: Altus Plateau",
         quantity: 1,
@@ -829,7 +839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042510500,
-        event_flag: 1042510500,
+        event_flag: 62031,
         item_id: 8607,
         name: "Map: Leyndell, Royal Capital",
         quantity: 1,
@@ -839,7 +849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530400,
-        event_flag: 1043530400,
+        event_flag: 1043537400,
         item_id: 8947,
         name: "Medicine Peddler's Bell Bearing",
         quantity: 1,
@@ -849,7 +859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043500030,
-        event_flag: 1043500030,
+        event_flag: 67640,
         item_id: 9364,
         name: "Missionary's Cookbook [4]",
         quantity: 1,
@@ -859,7 +869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530070,
-        event_flag: 1043530070,
+        event_flag: 1043537070,
         item_id: 20760,
         name: "Mushroom",
         quantity: 8,
@@ -869,7 +879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040530020,
-        event_flag: 1040530020,
+        event_flag: 1040537020,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -879,7 +889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550020,
-        event_flag: 1041550020,
+        event_flag: 1041557020,
         item_id: 741000,
         name: "Navy Hood",
         quantity: 1,
@@ -889,7 +899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550022,
-        event_flag: 1041550022,
+        event_flag: 1041557020,
         item_id: 740200,
         name: "Noble's Gloves",
         quantity: 1,
@@ -899,7 +909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550021,
-        event_flag: 1041550021,
+        event_flag: 1041557020,
         item_id: 740100,
         name: "Noble's Traveling Garb",
         quantity: 1,
@@ -909,7 +919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550023,
-        event_flag: 1041550023,
+        event_flag: 1041557020,
         item_id: 740300,
         name: "Noble's Trousers",
         quantity: 1,
@@ -919,7 +929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530050,
-        event_flag: 1041530050,
+        event_flag: 67070,
         item_id: 9307,
         name: "Nomadic Warrior's Cookbook [19]",
         quantity: 1,
@@ -929,7 +939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510010,
-        event_flag: 1040510010,
+        event_flag: 1040517010,
         item_id: 15040,
         name: "Old Fang",
         quantity: 3,
@@ -939,7 +949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042520000,
-        event_flag: 1042520000,
+        event_flag: 1042527000,
         item_id: 15040,
         name: "Old Fang",
         quantity: 3,
@@ -949,7 +959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041540000,
-        event_flag: 1041540000,
+        event_flag: 1041547000,
         item_id: 1460,
         name: "Poison Grease",
         quantity: 1,
@@ -959,7 +969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530010,
-        event_flag: 1041530010,
+        event_flag: 1041537010,
         item_id: 1720,
         name: "Poisonbone Dart",
         quantity: 5,
@@ -969,7 +979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040540090,
-        event_flag: 1040540090,
+        event_flag: 1040547090,
         item_id: 1040000,
         name: "Radiant Gold Mask",
         quantity: 1,
@@ -979,7 +989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042520020,
-        event_flag: 1042520020,
+        event_flag: 1042527020,
         item_id: 2020,
         name: "Rainbow Stone",
         quantity: 4,
@@ -989,7 +999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550010,
-        event_flag: 1041550010,
+        event_flag: 1041557010,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 10,
@@ -999,7 +1009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510400,
-        event_flag: 1040510400,
+        event_flag: 1040517400,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -1009,7 +1019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041510020,
-        event_flag: 1041510020,
+        event_flag: 1041517020,
         item_id: 1190,
         name: "Silver-Pickled Fowl Foot",
         quantity: 1,
@@ -1019,7 +1029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043530040,
-        event_flag: 1043530040,
+        event_flag: 1043537040,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -1029,7 +1039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045520030,
-        event_flag: 1045520030,
+        event_flag: 1045527030,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -1039,7 +1049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045520020,
-        event_flag: 1045520020,
+        event_flag: 1045527020,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 2,
@@ -1049,7 +1059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043500010,
-        event_flag: 1043500010,
+        event_flag: 1043507010,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 3,
@@ -1059,7 +1069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530070,
-        event_flag: 1041530070,
+        event_flag: 1041537070,
         item_id: 2100,
         name: "Soft Cotton",
         quantity: 1,
@@ -1069,7 +1079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042530010,
-        event_flag: 1042530010,
+        event_flag: 1042537010,
         item_id: 10164,
         name: "Somber Smithing Stone [5]",
         quantity: 1,
@@ -1079,7 +1089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040540030,
-        event_flag: 1040540030,
+        event_flag: 1040547030,
         item_id: 930,
         name: "Stimulating Boluses",
         quantity: 2,
@@ -1089,7 +1099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041520090,
-        event_flag: 1041520090,
+        event_flag: 1041527090,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -1099,7 +1109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042540030,
-        event_flag: 1042540030,
+        event_flag: 1042547030,
         item_id: 15430,
         name: "Stormhawk Feather",
         quantity: 3,
@@ -1109,7 +1119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044530201,
-        event_flag: 1044530201,
+        event_flag: 65190,
         item_id: 11019,
         name: "Twiggy Cracked Tear",
         quantity: 1,
@@ -1119,7 +1129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044530300,
-        event_flag: 1044530300,
+        event_flag: 1044537300,
         item_id: 31090000,
         name: "Twinbird Kite Shield",
         quantity: 1,
@@ -1129,7 +1139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041550000,
-        event_flag: 1041550000,
+        event_flag: 1041557000,
         item_id: 10030000,
         name: "Twinned Knight Swords",
         quantity: 1,
@@ -1139,7 +1149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041530020,
-        event_flag: 1041530020,
+        event_flag: 1041537020,
         item_id: 6410,
         name: "Unknown Item 6410",
         quantity: 1,
@@ -1149,7 +1159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040510020,
-        event_flag: 1040510020,
+        event_flag: 1040517020,
         item_id: 6971,
         name: "Unknown Item 6971",
         quantity: 1,
@@ -1159,7 +1169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043520500,
-        event_flag: 1043520500,
+        event_flag: 1043527500,
         item_id: 1021,
         name: "Viridian Amber Medallion +1",
         quantity: 1,
@@ -1169,7 +1179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044530210,
-        event_flag: 1044530210,
+        event_flag: 65120,
         item_id: 11012,
         name: "Winged Crystal Tear",
         quantity: 1,
@@ -1319,7 +1329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380020,
-        event_flag: 1049380020,
+        event_flag: 1049387020,
         item_id: 20801,
         name: "Aeonian Butterfly",
         quantity: 1,
@@ -1329,7 +1339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048360000,
-        event_flag: 1048360000,
+        event_flag: 68030,
         item_id: 9403,
         name: "Ancient Dragon Apostle's Cookbook [3]",
         quantity: 1,
@@ -1339,7 +1349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360010,
-        event_flag: 1051360010,
+        event_flag: 67260,
         item_id: 9326,
         name: "Armorer's Cookbook [4]",
         quantity: 1,
@@ -1349,7 +1359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360120,
-        event_flag: 1051360120,
+        event_flag: 67310,
         item_id: 9331,
         name: "Armorer's Cookbook [5]",
         quantity: 1,
@@ -1359,7 +1369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050360900,
-        event_flag: 1050360900,
+        event_flag: 1050367900,
         item_id: 2150,
         name: "Arrow's Sting Talisman",
         quantity: 1,
@@ -1369,7 +1379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049410040,
-        event_flag: 1049410040,
+        event_flag: 1049417040,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 2,
@@ -1379,7 +1389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410100,
-        event_flag: 1052410100,
+        event_flag: 1052417100,
         item_id: 80100,
         name: "Ash of War: Bloodhound's Step",
         quantity: 1,
@@ -1389,7 +1399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360700,
-        event_flag: 1046360700,
+        event_flag: 1046367700,
         item_id: 20400,
         name: "Ash of War: Bloody Slash",
         quantity: 1,
@@ -1399,7 +1409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380700,
-        event_flag: 1047380700,
+        event_flag: 1047387700,
         item_id: 10000,
         name: "Ash of War: Lion's Claw",
         quantity: 1,
@@ -1409,7 +1419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370100,
-        event_flag: 1049370100,
+        event_flag: 1049377100,
         item_id: 11900,
         name: "Ash of War: Poison Moth Flight",
         quantity: 1,
@@ -1419,7 +1429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045371000,
-        event_flag: 1045371000,
+        event_flag: 1045377100,
         item_id: 2130,
         name: "Axe Talisman",
         quantity: 1,
@@ -1429,7 +1439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390850,
-        event_flag: 1049390850,
+        event_flag: 1049397850,
         item_id: 221000,
         name: "Battlemage Hugues",
         quantity: 1,
@@ -1439,7 +1449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370010,
-        event_flag: 1049370010,
+        event_flag: 1049377010,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -1449,7 +1459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370050,
-        event_flag: 1049370050,
+        event_flag: 1049377050,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 3,
@@ -1459,7 +1469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370701,
-        event_flag: 1049370701,
+        event_flag: 1049377700,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -1469,7 +1479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390090,
-        event_flag: 1050390090,
+        event_flag: 1050397090,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -1479,7 +1489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360701,
-        event_flag: 1051360701,
+        event_flag: 1051367700,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -1489,7 +1499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360801,
-        event_flag: 1051360801,
+        event_flag: 1051367800,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -1499,7 +1509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380040,
-        event_flag: 1049380040,
+        event_flag: 1049387040,
         item_id: 52030000,
         name: "Black-Key Bolt",
         quantity: 20,
@@ -1509,7 +1519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360010,
-        event_flag: 1046360010,
+        event_flag: 1046367010,
         item_id: 20723,
         name: "Bloodrose",
         quantity: 5,
@@ -1519,7 +1529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360030,
-        event_flag: 1046360030,
+        event_flag: 1046367030,
         item_id: 20723,
         name: "Bloodrose",
         quantity: 3,
@@ -1529,7 +1539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390070,
-        event_flag: 1050390070,
+        event_flag: 1050397070,
         item_id: 1920000,
         name: "Cerulean Tear Scarab",
         quantity: 1,
@@ -1539,7 +1549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051430010,
-        event_flag: 1051430010,
+        event_flag: 1051417010,
         item_id: 1110000,
         name: "Cinquedea",
         quantity: 1,
@@ -1549,7 +1559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048370000,
-        event_flag: 1048370000,
+        event_flag: 1048377000,
         item_id: 15130,
         name: "Crab Eggs",
         quantity: 4,
@@ -1559,7 +1569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400010,
-        event_flag: 1047400010,
+        event_flag: 66190,
         item_id: 9500,
         name: "Cracked Pot",
         quantity: 1,
@@ -1569,7 +1579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046380301,
-        event_flag: 1046380301,
+        event_flag: 65020,
         item_id: 11002,
         name: "Crimson Crystal Tear",
         quantity: 1,
@@ -1579,7 +1589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370110,
-        event_flag: 1049370110,
+        event_flag: 1049377110,
         item_id: 3200000,
         name: "Death's Poker",
         quantity: 1,
@@ -1589,7 +1599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360500,
-        event_flag: 1046360500,
+        event_flag: 1046367500,
         item_id: 8105,
         name: "Dectus Medallion (Left)",
         quantity: 1,
@@ -1599,7 +1609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051390900,
-        event_flag: 1051390900,
+        event_flag: 1051397900,
         item_id: 8106,
         name: "Dectus Medallion (Right)",
         quantity: 1,
@@ -1609,7 +1619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050400800,
-        event_flag: 1050400800,
+        event_flag: 1050407800,
         item_id: 10060,
         name: "Dragon Heart",
         quantity: 5,
@@ -1619,7 +1629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051430030,
-        event_flag: 1051430030,
+        event_flag: 1051417030,
         item_id: 4000,
         name: "Dragoncrest Shield Talisman",
         quantity: 1,
@@ -1629,7 +1639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049410070,
-        event_flag: 1049410070,
+        event_flag: 1049417070,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -1639,7 +1649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400070,
-        event_flag: 1047400070,
+        event_flag: 1047407070,
         item_id: 1500,
         name: "Drawstring Fire Grease",
         quantity: 3,
@@ -1649,7 +1659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400060,
-        event_flag: 1046400060,
+        event_flag: 1046407060,
         item_id: 1510,
         name: "Drawstring Lightning Grease",
         quantity: 2,
@@ -1659,7 +1669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050380010,
-        event_flag: 1050380010,
+        event_flag: 1050387010,
         item_id: 1560,
         name: "Drawstring Poison Grease",
         quantity: 3,
@@ -1669,7 +1679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400040,
-        event_flag: 1047400040,
+        event_flag: 1047407040,
         item_id: 52060000,
         name: "Explosive Bolt",
         quantity: 6,
@@ -1679,7 +1689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380130,
-        event_flag: 1047380130,
+        event_flag: 1047387130,
         item_id: 53020000,
         name: "Explosive Greatbolt",
         quantity: 5,
@@ -1689,7 +1699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049360010,
-        event_flag: 1049360010,
+        event_flag: 1049367010,
         item_id: 1750,
         name: "Fan Daggers",
         quantity: 6,
@@ -1699,7 +1709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380010,
-        event_flag: 1045380010,
+        event_flag: 68200,
         item_id: 9420,
         name: "Fevor's Cookbook [1]",
         quantity: 1,
@@ -1709,7 +1719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360130,
-        event_flag: 1051360130,
+        event_flag: 1051367130,
         item_id: 3050000,
         name: "Flamberge",
         quantity: 1,
@@ -1719,7 +1729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046380300,
-        event_flag: 1046380300,
+        event_flag: 60020,
         item_id: 250,
         name: "Flask of Wondrous Physick",
         quantity: 1,
@@ -1729,7 +1739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380120,
-        event_flag: 1049380120,
+        event_flag: 1049387120,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 5,
@@ -1739,7 +1749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370070,
-        event_flag: 1045370070,
+        event_flag: 1045377070,
         item_id: 20830,
         name: "Gold-Tinged Excrement",
         quantity: 5,
@@ -1749,7 +1759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380503,
-        event_flag: 1048380503,
+        event_flag: 1048387500,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -1759,7 +1769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051390040,
-        event_flag: 1051390040,
+        event_flag: 1051397040,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -1769,7 +1779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350000,
-        event_flag: 1045350000,
+        event_flag: 1045357000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1779,7 +1789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350020,
-        event_flag: 1045350020,
+        event_flag: 1045357020,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1789,7 +1799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350060,
-        event_flag: 1045350060,
+        event_flag: 1045357060,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1799,7 +1809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350080,
-        event_flag: 1045350080,
+        event_flag: 1045357080,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1809,7 +1819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350090,
-        event_flag: 1045350090,
+        event_flag: 1045357090,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1819,7 +1829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370050,
-        event_flag: 1045370050,
+        event_flag: 1045377050,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1829,7 +1839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380020,
-        event_flag: 1045380020,
+        event_flag: 1045387020,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1839,7 +1849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380030,
-        event_flag: 1045380030,
+        event_flag: 1045387030,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1849,7 +1859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380040,
-        event_flag: 1045380040,
+        event_flag: 1045387040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1859,7 +1869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390050,
-        event_flag: 1045390050,
+        event_flag: 1045397050,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1869,7 +1879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390060,
-        event_flag: 1045390060,
+        event_flag: 1045397060,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1879,7 +1889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390070,
-        event_flag: 1045390070,
+        event_flag: 1045397070,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1889,7 +1899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390080,
-        event_flag: 1045390080,
+        event_flag: 1045397080,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1899,7 +1909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390110,
-        event_flag: 1045390110,
+        event_flag: 1045397110,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1909,7 +1919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046390000,
-        event_flag: 1046390000,
+        event_flag: 1046397000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1919,7 +1929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370000,
-        event_flag: 1047370000,
+        event_flag: 1047377000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1929,7 +1939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370020,
-        event_flag: 1047370020,
+        event_flag: 1047377020,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1939,7 +1949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400010,
-        event_flag: 1048400010,
+        event_flag: 1048407010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1949,7 +1959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410030,
-        event_flag: 1052410030,
+        event_flag: 1052417030,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -1959,7 +1969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350050,
-        event_flag: 1045350050,
+        event_flag: 1045357050,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -1969,7 +1979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350070,
-        event_flag: 1045350070,
+        event_flag: 1045357070,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -1979,7 +1989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370000,
-        event_flag: 1045370000,
+        event_flag: 1045377000,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -1989,7 +1999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380050,
-        event_flag: 1045380050,
+        event_flag: 1045387050,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -1999,7 +2009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390100,
-        event_flag: 1045390100,
+        event_flag: 1045397100,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -2009,7 +2019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046390010,
-        event_flag: 1046390010,
+        event_flag: 1046397010,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -2019,7 +2029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370030,
-        event_flag: 1047370030,
+        event_flag: 1047377030,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -2029,7 +2039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400030,
-        event_flag: 1048400030,
+        event_flag: 1048407030,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -2039,7 +2049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370070,
-        event_flag: 1049370070,
+        event_flag: 1049377070,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -2049,7 +2059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350040,
-        event_flag: 1045350040,
+        event_flag: 1045357040,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2059,7 +2069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046390020,
-        event_flag: 1046390020,
+        event_flag: 1046397020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2069,7 +2079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400020,
-        event_flag: 1046400020,
+        event_flag: 1046407020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2079,7 +2089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048370020,
-        event_flag: 1048370020,
+        event_flag: 1048377020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2089,7 +2099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380501,
-        event_flag: 1048380501,
+        event_flag: 1048387500,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2099,7 +2109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410020,
-        event_flag: 1052410020,
+        event_flag: 1052417020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -2109,7 +2119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045350030,
-        event_flag: 1045350030,
+        event_flag: 1045357030,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2119,7 +2129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380060,
-        event_flag: 1045380060,
+        event_flag: 1045387060,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2129,7 +2139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380070,
-        event_flag: 1045380070,
+        event_flag: 1045387070,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2139,7 +2149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390000,
-        event_flag: 1045390000,
+        event_flag: 1045397000,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2149,7 +2159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048370030,
-        event_flag: 1048370030,
+        event_flag: 1048377030,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2159,7 +2169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380000,
-        event_flag: 1048380000,
+        event_flag: 1048387000,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2169,7 +2179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380080,
-        event_flag: 1049380080,
+        event_flag: 1049387080,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -2179,7 +2189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370090,
-        event_flag: 1045370090,
+        event_flag: 1045377090,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2189,7 +2199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390090,
-        event_flag: 1045390090,
+        event_flag: 1045397090,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2199,7 +2209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370010,
-        event_flag: 1047370010,
+        event_flag: 1047377010,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2209,7 +2219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400000,
-        event_flag: 1047400000,
+        event_flag: 1047407000,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2219,7 +2229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380502,
-        event_flag: 1048380502,
+        event_flag: 1048387500,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2229,7 +2239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380110,
-        event_flag: 1049380110,
+        event_flag: 1049387110,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2239,7 +2249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049400000,
-        event_flag: 1049400000,
+        event_flag: 1049407000,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2249,7 +2259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050380000,
-        event_flag: 1050380000,
+        event_flag: 1050387000,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -2259,7 +2269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380080,
-        event_flag: 1045380080,
+        event_flag: 1045387080,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -2269,7 +2279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400020,
-        event_flag: 1048400020,
+        event_flag: 1048407020,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -2279,7 +2289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360000,
-        event_flag: 1051360000,
+        event_flag: 1051367000,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -2289,7 +2299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410010,
-        event_flag: 1052410010,
+        event_flag: 1052417010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -2299,7 +2309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410000,
-        event_flag: 1052410000,
+        event_flag: 1052417000,
         item_id: 2907,
         name: "Golden Rune [8]",
         quantity: 1,
@@ -2309,7 +2319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047390040,
-        event_flag: 1047390040,
+        event_flag: 1047397040,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -2319,7 +2329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360100,
-        event_flag: 1046360100,
+        event_flag: 1046367100,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -2329,7 +2339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370020,
-        event_flag: 1049370020,
+        event_flag: 1049377020,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -2339,7 +2349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390100,
-        event_flag: 1050390100,
+        event_flag: 1050397100,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -2349,7 +2359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051430020,
-        event_flag: 1051430020,
+        event_flag: 1051437020,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -2359,7 +2369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049400010,
-        event_flag: 1049400010,
+        event_flag: 1049407010,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 1,
@@ -2369,7 +2379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048410800,
-        event_flag: 1048410800,
+        event_flag: 1048417800,
         item_id: 8948,
         name: "Gravity Stone Peddler's Bell Bearing",
         quantity: 1,
@@ -2379,7 +2389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380030,
-        event_flag: 1047380030,
+        event_flag: 1047387030,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 5,
@@ -2389,7 +2399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048390040,
-        event_flag: 1048390040,
+        event_flag: 1048397040,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 3,
@@ -2399,7 +2409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400920,
-        event_flag: 1047400920,
+        event_flag: 1047407920,
         item_id: 4000000,
         name: "Greatsword",
         quantity: 1,
@@ -2409,7 +2419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390120,
-        event_flag: 1045390120,
+        event_flag: 1045397120,
         item_id: 1150,
         name: "Green Turtle Talisman",
         quantity: 1,
@@ -2419,7 +2429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370301,
-        event_flag: 1045370301,
+        event_flag: 65010,
         item_id: 11001,
         name: "Greenspill Crystal Tear",
         quantity: 1,
@@ -2429,7 +2439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400050,
-        event_flag: 1048400050,
+        event_flag: 1048407050,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 3,
@@ -2439,7 +2449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390910,
-        event_flag: 1050390910,
+        event_flag: 1050397910,
         item_id: 8186,
         name: "Imbued Sword Key",
         quantity: 1,
@@ -2449,7 +2459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380920,
-        event_flag: 1047380920,
+        event_flag: 1047387920,
         item_id: 21100000,
         name: "Katar",
         quantity: 1,
@@ -2459,7 +2469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370100,
-        event_flag: 1047370100,
+        event_flag: 1047377100,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -2469,7 +2479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390900,
-        event_flag: 1049390900,
+        event_flag: 1049397900,
         item_id: 33240000,
         name: "Lusat's Glintstone Staff",
         quantity: 1,
@@ -2479,7 +2489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045380000,
-        event_flag: 1045380000,
+        event_flag: 1045387000,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 1,
@@ -2489,7 +2499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370500,
-        event_flag: 1049370500,
+        event_flag: 62040,
         item_id: 8609,
         name: "Map: Caelid",
         quantity: 1,
@@ -2499,7 +2509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049400500,
-        event_flag: 1049400500,
+        event_flag: 62041,
         item_id: 8610,
         name: "Map: Dragonbarrow",
         quantity: 1,
@@ -2509,7 +2519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370020,
-        event_flag: 1045370020,
+        event_flag: 62012,
         item_id: 8602,
         name: "Map: Limgrave, East",
         quantity: 1,
@@ -2519,7 +2529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045330100,
-        event_flag: 1045330100,
+        event_flag: 60400,
         item_id: 10030,
         name: "Memory Stone",
         quantity: 1,
@@ -2529,7 +2539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052410900,
-        event_flag: 1052410900,
+        event_flag: 60460,
         item_id: 10030,
         name: "Memory Stone",
         quantity: 1,
@@ -2539,7 +2549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380910,
-        event_flag: 1047380910,
+        event_flag: 1047387910,
         item_id: 9030000,
         name: "Meteoric Ore Blade",
         quantity: 1,
@@ -2549,7 +2559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380020,
-        event_flag: 1048380020,
+        event_flag: 1048387020,
         item_id: 33250000,
         name: "Meteorite Staff",
         quantity: 1,
@@ -2559,7 +2569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400030,
-        event_flag: 1046400030,
+        event_flag: 67650,
         item_id: 9365,
         name: "Missionary's Cookbook [3]",
         quantity: 1,
@@ -2569,7 +2579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390020,
-        event_flag: 1045390020,
+        event_flag: 1045397020,
         item_id: 20760,
         name: "Mushroom",
         quantity: 3,
@@ -2579,7 +2589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380110,
-        event_flag: 1047380110,
+        event_flag: 1047387110,
         item_id: 20760,
         name: "Mushroom",
         quantity: 10,
@@ -2589,7 +2599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050360000,
-        event_flag: 1050360000,
+        event_flag: 1050367000,
         item_id: 20760,
         name: "Mushroom",
         quantity: 6,
@@ -2599,7 +2609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400000,
-        event_flag: 1046400000,
+        event_flag: 1046407000,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 2,
@@ -2609,7 +2619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046380010,
-        event_flag: 1046380010,
+        event_flag: 1046387010,
         item_id: 900,
         name: "Neutralizing Boluses",
         quantity: 1,
@@ -2619,7 +2629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051390050,
-        event_flag: 1051390050,
+        event_flag: 1051397050,
         item_id: 900,
         name: "Neutralizing Boluses",
         quantity: 2,
@@ -2629,7 +2639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400050,
-        event_flag: 1046400050,
+        event_flag: 67870,
         item_id: 9387,
         name: "Nomadic Warrior's Cookbook [14]",
         quantity: 1,
@@ -2639,7 +2649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370030,
-        event_flag: 1045370030,
+        event_flag: 67800,
         item_id: 9380,
         name: "Nomadic Warrior's Cookbook [4]",
         quantity: 1,
@@ -2649,7 +2659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360020,
-        event_flag: 1046360020,
+        event_flag: 67020,
         item_id: 9302,
         name: "Nomadic Warrior's Cookbook [6]",
         quantity: 1,
@@ -2659,7 +2669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390800,
-        event_flag: 1049390800,
+        event_flag: 1049397800,
         item_id: 2080000,
         name: "Nox Flowing Sword",
         quantity: 1,
@@ -2669,7 +2679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049410100,
-        event_flag: 1049410100,
+        event_flag: 1049417100,
         item_id: 2913,
         name: "Numen's Rune",
         quantity: 1,
@@ -2679,7 +2689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370702,
-        event_flag: 1049370702,
+        event_flag: 1049377700,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -2689,7 +2699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360702,
-        event_flag: 1051360702,
+        event_flag: 1051367700,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -2699,7 +2709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360802,
-        event_flag: 1051360802,
+        event_flag: 1051367800,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -2709,7 +2719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380010,
-        event_flag: 1048380010,
+        event_flag: 66790,
         item_id: 9510,
         name: "Perfume Bottle",
         quantity: 1,
@@ -2719,7 +2729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380012,
-        event_flag: 1048380012,
+        event_flag: 1048387010,
         item_id: 100100,
         name: "Perfumer's Traveling Garb",
         quantity: 1,
@@ -2729,7 +2739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390000,
-        event_flag: 1050390000,
+        event_flag: 1050397000,
         item_id: 1460,
         name: "Poison Grease",
         quantity: 2,
@@ -2739,7 +2749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370040,
-        event_flag: 1047370040,
+        event_flag: 1047377040,
         item_id: 20650,
         name: "Poisonbloom",
         quantity: 4,
@@ -2749,7 +2759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390010,
-        event_flag: 1049390010,
+        event_flag: 1049397010,
         item_id: 20650,
         name: "Poisonbloom",
         quantity: 5,
@@ -2759,7 +2769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400040,
-        event_flag: 1046400040,
+        event_flag: 1046407040,
         item_id: 940,
         name: "Preserving Boluses",
         quantity: 5,
@@ -2769,7 +2779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051390060,
-        event_flag: 1051390060,
+        event_flag: 1051397060,
         item_id: 1051,
         name: "Radagon's Soreseal",
         quantity: 1,
@@ -2779,7 +2789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051380000,
-        event_flag: 1051380000,
+        event_flag: 1051387000,
         item_id: 51040000,
         name: "Radahn's Spear",
         quantity: 4,
@@ -2789,7 +2799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051380010,
-        event_flag: 1051380010,
+        event_flag: 1051387010,
         item_id: 51040000,
         name: "Radahn's Spear",
         quantity: 6,
@@ -2799,7 +2809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051380020,
-        event_flag: 1051380020,
+        event_flag: 1051387020,
         item_id: 51040000,
         name: "Radahn's Spear",
         quantity: 10,
@@ -2809,7 +2819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360070,
-        event_flag: 1051360070,
+        event_flag: 65640,
         item_id: 8971,
         name: "Red-Hot Whetblade",
         quantity: 1,
@@ -2819,7 +2829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380040,
-        event_flag: 1047380040,
+        event_flag: 1047387040,
         item_id: 1490,
         name: "Rot Grease",
         quantity: 3,
@@ -2829,7 +2839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390040,
-        event_flag: 1049390040,
+        event_flag: 1049397040,
         item_id: 235000,
         name: "Rotten Stray Ashes",
         quantity: 1,
@@ -2839,7 +2849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380500,
-        event_flag: 1048380500,
+        event_flag: 1048387500,
         item_id: 20753,
         name: "Sacramental Bud",
         quantity: 5,
@@ -2849,7 +2859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048390000,
-        event_flag: 1048390000,
+        event_flag: 1048397000,
         item_id: 20753,
         name: "Sacramental Bud",
         quantity: 1,
@@ -2859,7 +2869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400040,
-        event_flag: 1048400040,
+        event_flag: 1048407040,
         item_id: 20753,
         name: "Sacramental Bud",
         quantity: 1,
@@ -2869,7 +2879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380060,
-        event_flag: 1049380060,
+        event_flag: 1049387060,
         item_id: 20753,
         name: "Sacramental Bud",
         quantity: 2,
@@ -2879,7 +2889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046400700,
-        event_flag: 1046400700,
+        event_flag: 1046407700,
         item_id: 2030,
         name: "Sacred Scorpion Charm",
         quantity: 1,
@@ -2889,7 +2899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046380100,
-        event_flag: 1046380100,
+        event_flag: 1046387100,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -2899,7 +2909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050380020,
-        event_flag: 1050380020,
+        event_flag: 1050387020,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -2909,7 +2919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380120,
-        event_flag: 1047380120,
+        event_flag: 1047387120,
         item_id: 6050,
         name: "Shabriri's Woe",
         quantity: 1,
@@ -2919,7 +2929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049400020,
-        event_flag: 1049400020,
+        event_flag: 1049407020,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 3,
@@ -2929,7 +2939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047390080,
-        event_flag: 1047390080,
+        event_flag: 1047397080,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 2,
@@ -2939,7 +2949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390140,
-        event_flag: 1045390140,
+        event_flag: 1045397140,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -2949,7 +2959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046360000,
-        event_flag: 1046360000,
+        event_flag: 1046367000,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -2959,7 +2969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370010,
-        event_flag: 1045370010,
+        event_flag: 1045377010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -2969,7 +2979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045390040,
-        event_flag: 1045390040,
+        event_flag: 1045397040,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -2979,7 +2989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360030,
-        event_flag: 1051360030,
+        event_flag: 1051367030,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -2989,7 +2999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360050,
-        event_flag: 1051360050,
+        event_flag: 1051367050,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -2999,7 +3009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400020,
-        event_flag: 1047400020,
+        event_flag: 1047407020,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -3009,7 +3019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380030,
-        event_flag: 1049380030,
+        event_flag: 1049387030,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 3,
@@ -3019,7 +3029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360040,
-        event_flag: 1051360040,
+        event_flag: 1051367040,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -3029,7 +3039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360090,
-        event_flag: 1051360090,
+        event_flag: 1051367090,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -3039,7 +3049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047390000,
-        event_flag: 1047390000,
+        event_flag: 1047397000,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -3049,7 +3059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049400040,
-        event_flag: 1049400040,
+        event_flag: 1049407040,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 3,
@@ -3059,7 +3069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360060,
-        event_flag: 1051360060,
+        event_flag: 1051367060,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -3069,7 +3079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360080,
-        event_flag: 1051360080,
+        event_flag: 1051367080,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -3079,7 +3089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360020,
-        event_flag: 1051360020,
+        event_flag: 1051367020,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -3089,7 +3099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360100,
-        event_flag: 1051360100,
+        event_flag: 1051367100,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -3099,7 +3109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360910,
-        event_flag: 1051360910,
+        event_flag: 1051367910,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -3109,7 +3119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390020,
-        event_flag: 1050390020,
+        event_flag: 1050397020,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -3119,7 +3129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390030,
-        event_flag: 1050390030,
+        event_flag: 1050397030,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -3129,7 +3139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390050,
-        event_flag: 1050390050,
+        event_flag: 1050397050,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 1,
@@ -3139,7 +3149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380100,
-        event_flag: 1047380100,
+        event_flag: 1047387100,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 6,
@@ -3149,7 +3159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400080,
-        event_flag: 1047400080,
+        event_flag: 1047407080,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 3,
@@ -3159,7 +3169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049360000,
-        event_flag: 1049360000,
+        event_flag: 1049367000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 3,
@@ -3169,7 +3179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051350000,
-        event_flag: 1051350000,
+        event_flag: 1051357000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 8,
@@ -3179,7 +3189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051430000,
-        event_flag: 1051430000,
+        event_flag: 1051417000,
         item_id: 2100,
         name: "Soft Cotton",
         quantity: 3,
@@ -3189,7 +3199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380020,
-        event_flag: 1047380020,
+        event_flag: 1047387010,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3199,7 +3209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400030,
-        event_flag: 1047400030,
+        event_flag: 1047407030,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3209,7 +3219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370700,
-        event_flag: 1049370700,
+        event_flag: 1049377700,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3219,7 +3229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380010,
-        event_flag: 1049380010,
+        event_flag: 1049387010,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3229,7 +3239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360700,
-        event_flag: 1051360700,
+        event_flag: 1051367700,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3239,7 +3249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360800,
-        event_flag: 1051360800,
+        event_flag: 1051367800,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -3249,7 +3259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048390010,
-        event_flag: 1048390010,
+        event_flag: 1048397010,
         item_id: 10164,
         name: "Somber Smithing Stone [5]",
         quantity: 1,
@@ -3259,7 +3269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051360110,
-        event_flag: 1051360110,
+        event_flag: 1051367110,
         item_id: 10164,
         name: "Somber Smithing Stone [5]",
         quantity: 1,
@@ -3269,7 +3279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049410090,
-        event_flag: 1049410090,
+        event_flag: 1049417090,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -3279,7 +3289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390910,
-        event_flag: 1049390910,
+        event_flag: 1049397910,
         item_id: 4011,
         name: "Spelldrake Talisman +1",
         quantity: 1,
@@ -3289,7 +3299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370300,
-        event_flag: 1045370300,
+        event_flag: 65140,
         item_id: 11014,
         name: "Spiked Cracked Tear",
         quantity: 1,
@@ -3299,7 +3309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400060,
-        event_flag: 1048400060,
+        event_flag: 1048407060,
         item_id: 32170000,
         name: "Spiked Palisade Shield",
         quantity: 1,
@@ -3309,7 +3319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390030,
-        event_flag: 1049390030,
+        event_flag: 1049397030,
         item_id: 33280000,
         name: "Staff of Loss",
         quantity: 1,
@@ -3319,7 +3329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045330000,
-        event_flag: 1045330000,
+        event_flag: 1045337000,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -3329,7 +3339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047370050,
-        event_flag: 1047370050,
+        event_flag: 1047377050,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -3339,7 +3349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390060,
-        event_flag: 1050390060,
+        event_flag: 1050397060,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -3349,7 +3359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052430000,
-        event_flag: 1052430000,
+        event_flag: 1052437000,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -3359,7 +3369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380900,
-        event_flag: 1047380900,
+        event_flag: 1047387900,
         item_id: 1060,
         name: "Starscourge Heirloom",
         quantity: 1,
@@ -3369,7 +3379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045340000,
-        event_flag: 1045340000,
+        event_flag: 1045347000,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -3379,7 +3389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048390050,
-        event_flag: 1048390050,
+        event_flag: 1048397050,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -3389,7 +3399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049390000,
-        event_flag: 1049390000,
+        event_flag: 1049397000,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -3399,7 +3409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390040,
-        event_flag: 1050390040,
+        event_flag: 1050397040,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -3409,7 +3419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046370000,
-        event_flag: 1046370000,
+        event_flag: 1046377000,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 3,
@@ -3419,7 +3429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047400910,
-        event_flag: 1047400910,
+        event_flag: 1047407910,
         item_id: 2190000,
         name: "Sword of St. Trina",
         quantity: 1,
@@ -3429,7 +3439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370060,
-        event_flag: 1045370060,
+        event_flag: 1045377060,
         item_id: 15340,
         name: "Thin Beast Bones",
         quantity: 3,
@@ -3439,7 +3449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1045370080,
-        event_flag: 1045370080,
+        event_flag: 1045377080,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 5,
@@ -3449,7 +3459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390010,
-        event_flag: 1050390010,
+        event_flag: 1050397010,
         item_id: 20770,
         name: "Toxic Mushroom",
         quantity: 5,
@@ -3459,7 +3469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380013,
-        event_flag: 1048380013,
+        event_flag: 1048387010,
         item_id: 100200,
         name: "Traveler's Gloves",
         quantity: 1,
@@ -3469,7 +3479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380011,
-        event_flag: 1048380011,
+        event_flag: 1048387010,
         item_id: 100000,
         name: "Traveler's Hat",
         quantity: 1,
@@ -3479,7 +3489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380014,
-        event_flag: 1048380014,
+        event_flag: 1048387010,
         item_id: 100300,
         name: "Traveler's Slops",
         quantity: 1,
@@ -3499,7 +3509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048380010,
-        event_flag: 1048387010,
+        event_flag: 66790,
         item_id: 401,
         name: "Unknown Item 401",
         quantity: 1,
@@ -3529,7 +3539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050390900,
-        event_flag: 1050390900,
+        event_flag: 1050397900,
         item_id: 4620,
         name: "Unknown Item 4620",
         quantity: 1,
@@ -3539,7 +3549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049380000,
-        event_flag: 1049380000,
+        event_flag: 1049387800,
         item_id: 4650,
         name: "Unknown Item 4650",
         quantity: 1,
@@ -3549,7 +3559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048390900,
-        event_flag: 1048390900,
+        event_flag: 1048397900,
         item_id: 4710,
         name: "Unknown Item 4710",
         quantity: 1,
@@ -3559,7 +3569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048400900,
-        event_flag: 1048400900,
+        event_flag: 1048407900,
         item_id: 32160000,
         name: "Visage Shield",
         quantity: 1,
@@ -3569,7 +3579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047380080,
-        event_flag: 1047380080,
+        event_flag: 1047387080,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 2,
@@ -3579,7 +3589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049370000,
-        event_flag: 1049370000,
+        event_flag: 65150,
         item_id: 11015,
         name: "Windy Crystal Tear",
         quantity: 1,
@@ -12109,7 +12119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560300,
-        event_flag: 1049560300,
+        event_flag: 1049567300,
         item_id: 15420,
         name: "Albinauric Bloodclot",
         quantity: 2,
@@ -12119,7 +12129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550700,
-        event_flag: 1048550700,
+        event_flag: 1048557700,
         item_id: 10140,
         name: "Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -12129,7 +12139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560600,
-        event_flag: 1050560600,
+        event_flag: 1050567600,
         item_id: 10140,
         name: "Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -12139,7 +12149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570801,
-        event_flag: 1051570801,
+        event_flag: 1051577800,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -12149,7 +12159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570811,
-        event_flag: 1051570811,
+        event_flag: 1051577810,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -12159,7 +12169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570811,
-        event_flag: 1048570811,
+        event_flag: 1048577810,
         item_id: 180100,
         name: "Black Knife Armor",
         quantity: 1,
@@ -12169,7 +12179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570812,
-        event_flag: 1048570812,
+        event_flag: 1048577810,
         item_id: 180200,
         name: "Black Knife Gauntlets",
         quantity: 1,
@@ -12179,7 +12189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570813,
-        event_flag: 1048570813,
+        event_flag: 1048577810,
         item_id: 180300,
         name: "Black Knife Greaves",
         quantity: 1,
@@ -12189,7 +12199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570810,
-        event_flag: 1048570810,
+        event_flag: 1048577810,
         item_id: 180000,
         name: "Black Knife Hood",
         quantity: 1,
@@ -12199,7 +12209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570070,
-        event_flag: 1051570070,
+        event_flag: 1051577070,
         item_id: 1011,
         name: "Cerulean Amber Medallion +1",
         quantity: 1,
@@ -12209,7 +12219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570700,
-        event_flag: 1048570700,
+        event_flag: 1048577700,
         item_id: 5010,
         name: "Cerulean Seed Talisman",
         quantity: 1,
@@ -12219,7 +12229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560330,
-        event_flag: 1047560330,
+        event_flag: 1047567330,
         item_id: 1740,
         name: "Crystal Dart",
         quantity: 4,
@@ -12229,7 +12239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570060,
-        event_flag: 1048570060,
+        event_flag: 1048577060,
         item_id: 1740,
         name: "Crystal Dart",
         quantity: 5,
@@ -12239,7 +12249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570050,
-        event_flag: 1048570050,
+        event_flag: 1048577050,
         item_id: 3030,
         name: "Cuckoo Glintstone",
         quantity: 8,
@@ -12249,7 +12259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570721,
-        event_flag: 1051570721,
+        event_flag: 1051577720,
         item_id: 2090,
         name: "Deathroot",
         quantity: 1,
@@ -12259,7 +12269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560330,
-        event_flag: 1049560330,
+        event_flag: 1049567330,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 2,
@@ -12269,7 +12279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051550310,
-        event_flag: 1051550310,
+        event_flag: 1051557310,
         item_id: 1530,
         name: "Drawstring Holy Grease",
         quantity: 2,
@@ -12279,7 +12289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570600,
-        event_flag: 1051570600,
+        event_flag: 1051577600,
         item_id: 7100000,
         name: "Eclipse Shotel",
         quantity: 1,
@@ -12289,7 +12299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052560300,
-        event_flag: 1052560300,
+        event_flag: 1052567300,
         item_id: 53020000,
         name: "Explosive Greatbolt",
         quantity: 5,
@@ -12299,7 +12309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570030,
-        event_flag: 1051570030,
+        event_flag: 1051577030,
         item_id: 1750,
         name: "Fan Daggers",
         quantity: 5,
@@ -12309,7 +12319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550320,
-        event_flag: 1049550320,
+        event_flag: 1049557320,
         item_id: 20682,
         name: "Fire Blossom",
         quantity: 6,
@@ -12319,7 +12329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550900,
-        event_flag: 1048550900,
+        event_flag: 1048557900,
         item_id: 7060000,
         name: "Flowing Curved Sword",
         quantity: 1,
@@ -12329,7 +12339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560300,
-        event_flag: 1051560300,
+        event_flag: 1051567300,
         item_id: 20852,
         name: "Formic Rock",
         quantity: 2,
@@ -12339,7 +12349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570040,
-        event_flag: 1048570040,
+        event_flag: 1048577040,
         item_id: 1470,
         name: "Freezing Grease",
         quantity: 2,
@@ -12349,7 +12359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560030,
-        event_flag: 1051560030,
+        event_flag: 1051567030,
         item_id: 1470,
         name: "Freezing Grease",
         quantity: 2,
@@ -12359,7 +12369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570000,
-        event_flag: 1051570000,
+        event_flag: 1051577000,
         item_id: 1470,
         name: "Freezing Grease",
         quantity: 5,
@@ -12369,7 +12379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570160,
-        event_flag: 1051570160,
+        event_flag: 1051577160,
         item_id: 150,
         name: "Furlcalling Finger Remedy",
         quantity: 1,
@@ -12379,7 +12389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570900,
-        event_flag: 1048570900,
+        event_flag: 1048577900,
         item_id: 10918,
         name: "Ghost Glovewort [9]",
         quantity: 1,
@@ -12389,7 +12399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570910,
-        event_flag: 1048570910,
+        event_flag: 1048577910,
         item_id: 10918,
         name: "Ghost Glovewort [9]",
         quantity: 1,
@@ -12399,7 +12409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570920,
-        event_flag: 1048570920,
+        event_flag: 1048577920,
         item_id: 10918,
         name: "Ghost Glovewort [9]",
         quantity: 1,
@@ -12409,7 +12419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570930,
-        event_flag: 1048570930,
+        event_flag: 1048577930,
         item_id: 10918,
         name: "Ghost Glovewort [9]",
         quantity: 1,
@@ -12419,7 +12429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550900,
-        event_flag: 1052550900,
+        event_flag: 1052557900,
         item_id: 8856,
         name: "Giant's Prayerbook",
         quantity: 1,
@@ -12429,7 +12439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560360,
-        event_flag: 1049560360,
+        event_flag: 67440,
         item_id: 9344,
         name: "Glintstone Craftsman's Cookbook [8]",
         quantity: 1,
@@ -12439,7 +12449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570310,
-        event_flag: 1048570310,
+        event_flag: 1048577310,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12449,7 +12459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560320,
-        event_flag: 1051560320,
+        event_flag: 1051567320,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12459,7 +12469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570010,
-        event_flag: 1051570010,
+        event_flag: 1051577010,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12469,7 +12479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570040,
-        event_flag: 1051570040,
+        event_flag: 1051577040,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12479,7 +12489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570050,
-        event_flag: 1051570050,
+        event_flag: 1051577050,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12489,7 +12499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570120,
-        event_flag: 1051570120,
+        event_flag: 1051577120,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12499,7 +12509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570230,
-        event_flag: 1051570230,
+        event_flag: 1051577230,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12509,7 +12519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550020,
-        event_flag: 1052550020,
+        event_flag: 1052557020,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12519,7 +12529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052580820,
-        event_flag: 1052580820,
+        event_flag: 1052587820,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12529,7 +12539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560310,
-        event_flag: 1053560310,
+        event_flag: 1053567310,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -12539,7 +12549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550810,
-        event_flag: 1049550810,
+        event_flag: 1049557810,
         item_id: 2910,
         name: "Golden Rune [11]",
         quantity: 1,
@@ -12549,7 +12559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570140,
-        event_flag: 1051570140,
+        event_flag: 1051577140,
         item_id: 2910,
         name: "Golden Rune [11]",
         quantity: 1,
@@ -12559,7 +12569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053570300,
-        event_flag: 1053570300,
+        event_flag: 1053577300,
         item_id: 2910,
         name: "Golden Rune [11]",
         quantity: 1,
@@ -12569,7 +12579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047570310,
-        event_flag: 1047570310,
+        event_flag: 1047577310,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -12579,7 +12589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570090,
-        event_flag: 1048570090,
+        event_flag: 1048577090,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -12589,7 +12599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560700,
-        event_flag: 1053560700,
+        event_flag: 1053567700,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -12599,7 +12609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560710,
-        event_flag: 1053560710,
+        event_flag: 1053567710,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -12609,7 +12619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560720,
-        event_flag: 1053560720,
+        event_flag: 1053567720,
         item_id: 2911,
         name: "Golden Rune [12]",
         quantity: 1,
@@ -12619,7 +12629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550020,
-        event_flag: 1047550020,
+        event_flag: 1047557020,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12629,7 +12639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550300,
-        event_flag: 1048550300,
+        event_flag: 1048557300,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12639,7 +12649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570010,
-        event_flag: 1048570010,
+        event_flag: 1048577010,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12649,7 +12659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570030,
-        event_flag: 1048570030,
+        event_flag: 1048577030,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12659,7 +12669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048580300,
-        event_flag: 1048580300,
+        event_flag: 1048587300,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12669,7 +12679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051550330,
-        event_flag: 1051550330,
+        event_flag: 1051557330,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -12679,7 +12689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052580800,
-        event_flag: 1052580800,
+        event_flag: 1052587800,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -12689,7 +12699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052580810,
-        event_flag: 1052580810,
+        event_flag: 1052587810,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -12699,7 +12709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550040,
-        event_flag: 1047550040,
+        event_flag: 1047557040,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -12709,7 +12719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047570300,
-        event_flag: 1047570300,
+        event_flag: 1047577300,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -12719,7 +12729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051550300,
-        event_flag: 1051550300,
+        event_flag: 1051557300,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -12729,7 +12739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560800,
-        event_flag: 1053560800,
+        event_flag: 1053567800,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -12739,7 +12749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560810,
-        event_flag: 1053560810,
+        event_flag: 1053567810,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -12749,7 +12759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550300,
-        event_flag: 1052550300,
+        event_flag: 1052557300,
         item_id: 2907,
         name: "Golden Rune [8]",
         quantity: 1,
@@ -12759,7 +12769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050550310,
-        event_flag: 1050550310,
+        event_flag: 1050557310,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -12769,7 +12779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570200,
-        event_flag: 1051570200,
+        event_flag: 1051577200,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -12779,7 +12789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570800,
-        event_flag: 1048570800,
+        event_flag: 1048577800,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -12789,7 +12799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550800,
-        event_flag: 1049550800,
+        event_flag: 1049557800,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -12799,7 +12809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570800,
-        event_flag: 1052570800,
+        event_flag: 1052577800,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -12809,7 +12819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550800,
-        event_flag: 1052550800,
+        event_flag: 1052557800,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 2,
@@ -12819,7 +12829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560820,
-        event_flag: 1050560820,
+        event_flag: 1050567820,
         item_id: 3001,
         name: "Graven-Mass Talisman",
         quantity: 1,
@@ -12829,7 +12839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051580800,
-        event_flag: 1051580800,
+        event_flag: 1051587800,
         item_id: 8175,
         name: "Haligtree Secret Medallion (Left)",
         quantity: 1,
@@ -12839,7 +12849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570020,
-        event_flag: 1048570020,
+        event_flag: 1048577020,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 3,
@@ -12849,7 +12859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050550300,
-        event_flag: 1050550300,
+        event_flag: 1050557300,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 2,
@@ -12859,7 +12869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570720,
-        event_flag: 1051570720,
+        event_flag: 1051577720,
         item_id: 3130000,
         name: "Helphen's Steeple",
         quantity: 1,
@@ -12869,7 +12879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560300,
-        event_flag: 1047560300,
+        event_flag: 1047567300,
         item_id: 2915,
         name: "Hero's Rune [2]",
         quantity: 1,
@@ -12879,7 +12889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560702,
-        event_flag: 1050560702,
+        event_flag: 1050567700,
         item_id: 650100,
         name: "Hoslow's Armor",
         quantity: 1,
@@ -12889,7 +12899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560703,
-        event_flag: 1050560703,
+        event_flag: 1050567700,
         item_id: 650200,
         name: "Hoslow's Gauntlets",
         quantity: 1,
@@ -12899,7 +12909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560704,
-        event_flag: 1050560704,
+        event_flag: 1050567700,
         item_id: 650300,
         name: "Hoslow's Greaves",
         quantity: 1,
@@ -12909,7 +12919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560701,
-        event_flag: 1050560701,
+        event_flag: 1050567700,
         item_id: 650000,
         name: "Hoslow's Helm",
         quantity: 1,
@@ -12919,7 +12929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560700,
-        event_flag: 1050560700,
+        event_flag: 1050567700,
         item_id: 20050000,
         name: "Hoslow's Petal Whip",
         quantity: 1,
@@ -12929,7 +12939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570130,
-        event_flag: 1051570130,
+        event_flag: 1051577130,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 5,
@@ -12939,7 +12949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570300,
-        event_flag: 1048570300,
+        event_flag: 1048577300,
         item_id: 1120,
         name: "Invigorating Cured Meat",
         quantity: 1,
@@ -12949,7 +12959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560510,
-        event_flag: 1050560510,
+        event_flag: 1050567510,
         item_id: 1320,
         name: "Invigorating White Cured Meat",
         quantity: 1,
@@ -12959,7 +12969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550700,
-        event_flag: 1049550700,
+        event_flag: 1049557700,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -12969,7 +12979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050550320,
-        event_flag: 1050550320,
+        event_flag: 1050557320,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 4,
@@ -12979,7 +12989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048560700,
-        event_flag: 1048560700,
+        event_flag: 62052,
         item_id: 8618,
         name: "Map: Consecrated Snowfield",
         quantity: 1,
@@ -12989,7 +12999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550330,
-        event_flag: 1049550330,
+        event_flag: 1049557330,
         item_id: 20653,
         name: "Miquella's Lily",
         quantity: 3,
@@ -12999,7 +13009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560800,
-        event_flag: 1051560800,
+        event_flag: 1051567800,
         item_id: 20653,
         name: "Miquella's Lily",
         quantity: 1,
@@ -13009,7 +13019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560810,
-        event_flag: 1051560810,
+        event_flag: 1051567810,
         item_id: 20653,
         name: "Miquella's Lily",
         quantity: 1,
@@ -13019,7 +13029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560340,
-        event_flag: 1049560340,
+        event_flag: 1049567340,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 3,
@@ -13029,7 +13039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570060,
-        event_flag: 1051570060,
+        event_flag: 1051577060,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -13039,7 +13049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550711,
-        event_flag: 1048550711,
+        event_flag: 1048557710,
         item_id: 230100,
         name: "Night's Cavalry Armor",
         quantity: 1,
@@ -13049,7 +13059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550712,
-        event_flag: 1048550712,
+        event_flag: 1048557710,
         item_id: 230200,
         name: "Night's Cavalry Gauntlets",
         quantity: 1,
@@ -13059,7 +13069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550713,
-        event_flag: 1048550713,
+        event_flag: 1048557710,
         item_id: 230300,
         name: "Night's Cavalry Greaves",
         quantity: 1,
@@ -13069,7 +13079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550710,
-        event_flag: 1048550710,
+        event_flag: 1048557710,
         item_id: 230000,
         name: "Night's Cavalry Helm",
         quantity: 1,
@@ -13079,7 +13089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570070,
-        event_flag: 1048570070,
+        event_flag: 1048577070,
         item_id: 15040,
         name: "Old Fang",
         quantity: 3,
@@ -13089,7 +13099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550310,
-        event_flag: 1049550310,
+        event_flag: 1049557310,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -13099,7 +13109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560310,
-        event_flag: 1049560310,
+        event_flag: 1049567310,
         item_id: 15040,
         name: "Old Fang",
         quantity: 3,
@@ -13109,7 +13119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570802,
-        event_flag: 1051570802,
+        event_flag: 1051577800,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -13119,7 +13129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570812,
-        event_flag: 1051570812,
+        event_flag: 1051577810,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -13129,7 +13139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570310,
-        event_flag: 1052570310,
+        event_flag: 1052577310,
         item_id: 15040,
         name: "Old Fang",
         quantity: 5,
@@ -13139,7 +13149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550700,
-        event_flag: 1052550700,
+        event_flag: 1052557700,
         item_id: 32150000,
         name: "One-Eyed Shield",
         quantity: 1,
@@ -13149,7 +13159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560900,
-        event_flag: 1051560900,
+        event_flag: 1051567900,
         item_id: 3080,
         name: "Primal Glintstone Blade",
         quantity: 1,
@@ -13159,7 +13169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051550320,
-        event_flag: 1051550320,
+        event_flag: 1051557320,
         item_id: 2020,
         name: "Rainbow Stone",
         quantity: 4,
@@ -13169,7 +13179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550010,
-        event_flag: 1047550010,
+        event_flag: 1047557010,
         item_id: 20722,
         name: "Rimed Rowa",
         quantity: 8,
@@ -13179,7 +13189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1054550800,
-        event_flag: 1054550800,
+        event_flag: 1054557800,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -13189,7 +13199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560700,
-        event_flag: 1047560700,
+        event_flag: 1047567700,
         item_id: 320000,
         name: "Sanguine Noble Hood",
         quantity: 1,
@@ -13199,7 +13209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560701,
-        event_flag: 1047560701,
+        event_flag: 1047567700,
         item_id: 320100,
         name: "Sanguine Noble Robe",
         quantity: 1,
@@ -13209,7 +13219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560702,
-        event_flag: 1047560702,
+        event_flag: 1047567700,
         item_id: 320300,
         name: "Sanguine Noble Waistcloth",
         quantity: 1,
@@ -13219,7 +13229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047580800,
-        event_flag: 1047580800,
+        event_flag: 1047587800,
         item_id: 31060000,
         name: "Silver Mirrorshield",
         quantity: 1,
@@ -13229,7 +13239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048570080,
-        event_flag: 1048570080,
+        event_flag: 1048577080,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 3,
@@ -13239,7 +13249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570020,
-        event_flag: 1051570020,
+        event_flag: 1051577020,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -13249,7 +13259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570090,
-        event_flag: 1051570090,
+        event_flag: 1051577090,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -13259,7 +13269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570100,
-        event_flag: 1051570100,
+        event_flag: 1051577100,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -13269,7 +13279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570170,
-        event_flag: 1051570170,
+        event_flag: 1051577170,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -13279,7 +13289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550000,
-        event_flag: 1047550000,
+        event_flag: 1047557000,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -13289,7 +13299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560520,
-        event_flag: 1050560520,
+        event_flag: 1050567520,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -13299,7 +13309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570080,
-        event_flag: 1051570080,
+        event_flag: 1051577080,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -13309,7 +13319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550010,
-        event_flag: 1052550010,
+        event_flag: 1052557010,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -13319,7 +13329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550040,
-        event_flag: 1052550040,
+        event_flag: 1052557040,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -13329,7 +13339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570810,
-        event_flag: 1052570810,
+        event_flag: 1052577810,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -13339,7 +13349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1054550000,
-        event_flag: 1054550000,
+        event_flag: 1054557000,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -13349,7 +13359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560310,
-        event_flag: 1047560310,
+        event_flag: 1047567310,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 1,
@@ -13359,7 +13369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560350,
-        event_flag: 1049560350,
+        event_flag: 1049567350,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 1,
@@ -13369,7 +13379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560800,
-        event_flag: 1050560800,
+        event_flag: 1050567800,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 3,
@@ -13379,7 +13389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550000,
-        event_flag: 1052550000,
+        event_flag: 1052557000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 5,
@@ -13389,7 +13399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550030,
-        event_flag: 1052550030,
+        event_flag: 1052557030,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 6,
@@ -13399,7 +13409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560310,
-        event_flag: 1051560310,
+        event_flag: 1051567310,
         item_id: 2100,
         name: "Soft Cotton",
         quantity: 6,
@@ -13409,7 +13419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048560800,
-        event_flag: 1048560800,
+        event_flag: 1048567800,
         item_id: 10168,
         name: "Somber Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -13419,7 +13429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049570700,
-        event_flag: 1049570700,
+        event_flag: 1049577700,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -13429,7 +13439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570800,
-        event_flag: 1051570800,
+        event_flag: 1051577800,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -13439,7 +13449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570810,
-        event_flag: 1051570810,
+        event_flag: 1051577810,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -13449,7 +13459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049570710,
-        event_flag: 1049570710,
+        event_flag: 1049577710,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13459,7 +13469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050550800,
-        event_flag: 1050550800,
+        event_flag: 1050557800,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13469,7 +13479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560700,
-        event_flag: 1051560700,
+        event_flag: 1051567700,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13479,7 +13489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570110,
-        event_flag: 1051570110,
+        event_flag: 1051577110,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13489,7 +13499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570190,
-        event_flag: 1051570190,
+        event_flag: 1051577190,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13499,7 +13509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1053560300,
-        event_flag: 1053560300,
+        event_flag: 1053567300,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -13509,7 +13519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047580000,
-        event_flag: 1047580000,
+        event_flag: 1047587000,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -13519,7 +13529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049550300,
-        event_flag: 1049550300,
+        event_flag: 1049557300,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -13529,7 +13539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049570720,
-        event_flag: 1049570720,
+        event_flag: 1049577720,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -13539,7 +13549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051560020,
-        event_flag: 1051560020,
+        event_flag: 1051567020,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -13549,7 +13559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1054550310,
-        event_flag: 1054550310,
+        event_flag: 1054557310,
         item_id: 8957,
         name: "Somberstone Miner's Bell Bearing [3]",
         quantity: 1,
@@ -13559,7 +13569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048550600,
-        event_flag: 1048550600,
+        event_flag: 1048557600,
         item_id: 1161,
         name: "Stalwart Horn Charm +1",
         quantity: 1,
@@ -13569,7 +13579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050570800,
-        event_flag: 1050570800,
+        event_flag: 1050577800,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -13579,7 +13589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570000,
-        event_flag: 1052570000,
+        event_flag: 1052577000,
         item_id: 930,
         name: "Stimulating Boluses",
         quantity: 3,
@@ -13589,7 +13599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550030,
-        event_flag: 1047550030,
+        event_flag: 1047557030,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -13599,7 +13609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048560300,
-        event_flag: 1048560300,
+        event_flag: 1048567300,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -13609,7 +13619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570300,
-        event_flag: 1051570300,
+        event_flag: 1051577300,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -13619,7 +13629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052550310,
-        event_flag: 1052550310,
+        event_flag: 1052557310,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -13629,7 +13639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570220,
-        event_flag: 1051570220,
+        event_flag: 1051577220,
         item_id: 14140000,
         name: "Stormhawk Axe",
         quantity: 1,
@@ -13639,7 +13649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049560320,
-        event_flag: 1049560320,
+        event_flag: 1049567320,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 2,
@@ -13649,7 +13659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560300,
-        event_flag: 1050560300,
+        event_flag: 1050567300,
         item_id: 20685,
         name: "Tarnished Golden Sunflower",
         quantity: 3,
@@ -13659,7 +13669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047560320,
-        event_flag: 1047560320,
+        event_flag: 1047567320,
         item_id: 920,
         name: "Thawfrost Boluses",
         quantity: 2,
@@ -13669,7 +13679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570150,
-        event_flag: 1051570150,
+        event_flag: 1051577150,
         item_id: 920,
         name: "Thawfrost Boluses",
         quantity: 3,
@@ -13679,7 +13689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051570180,
-        event_flag: 1051570180,
+        event_flag: 1051577180,
         item_id: 920,
         name: "Thawfrost Boluses",
         quantity: 1,
@@ -13689,7 +13699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570300,
-        event_flag: 1052570300,
+        event_flag: 1052577300,
         item_id: 920,
         name: "Thawfrost Boluses",
         quantity: 2,
@@ -13699,7 +13709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560623,
-        event_flag: 1050560623,
+        event_flag: 1050567620,
         item_id: 900300,
         name: "Traveling Maiden Boots",
         quantity: 1,
@@ -13709,7 +13719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560622,
-        event_flag: 1050560622,
+        event_flag: 1050567620,
         item_id: 900200,
         name: "Traveling Maiden Gloves",
         quantity: 1,
@@ -13719,7 +13729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560620,
-        event_flag: 1050560620,
+        event_flag: 1050567620,
         item_id: 900000,
         name: "Traveling Maiden Hood",
         quantity: 1,
@@ -13729,7 +13739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560621,
-        event_flag: 1050560621,
+        event_flag: 1050567620,
         item_id: 900100,
         name: "Traveling Maiden Robe",
         quantity: 1,
@@ -13739,7 +13749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052570900,
-        event_flag: 1052570900,
+        event_flag: 1052577900,
         item_id: 4210,
         name: "Unknown Item 4210",
         quantity: 1,
@@ -13749,7 +13759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047550900,
-        event_flag: 1047550900,
+        event_flag: 1047557900,
         item_id: 7311,
         name: "Unknown Item 7311",
         quantity: 1,
@@ -13759,7 +13769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050560500,
-        event_flag: 1050560500,
+        event_flag: 1050567500,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 3,
@@ -13769,7 +13779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050570300,
-        event_flag: 1050570300,
+        event_flag: 1050577300,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 4,
@@ -14599,7 +14609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046570300,
-        event_flag: 1046570300,
+        event_flag: 1046577300,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 6,
@@ -14609,7 +14619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046570800,
-        event_flag: 1046570800,
+        event_flag: 1046577800,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -14619,7 +14629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1046570801,
-        event_flag: 1046570801,
+        event_flag: 1046577800,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 1,
@@ -17109,7 +17119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039400000,
-        event_flag: 1039400000,
+        event_flag: 1039407000,
         item_id: 8866,
         name: "Academy Scroll",
         quantity: 1,
@@ -17119,7 +17129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043380000,
-        event_flag: 1043380000,
+        event_flag: 67200,
         item_id: 9320,
         name: "Armorer's Cookbook [1]",
         quantity: 1,
@@ -17129,7 +17139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042371300,
-        event_flag: 1042371300,
+        event_flag: 1042377300,
         item_id: 2100,
         name: "Arrow's Reach Talisman",
         quantity: 1,
@@ -17139,7 +17149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043370020,
-        event_flag: 1043370020,
+        event_flag: 1043377020,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 1,
@@ -17149,7 +17159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038410100,
-        event_flag: 1038410100,
+        event_flag: 1038417100,
         item_id: 1007,
         name: "Ash of War: Gravitas",
         quantity: 1,
@@ -17159,7 +17169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430400,
-        event_flag: 1039430400,
+        event_flag: 1039437400,
         item_id: 20200,
         name: "Ash of War: Ice Spear",
         quantity: 1,
@@ -17169,7 +17179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043370400,
-        event_flag: 1043370400,
+        event_flag: 1043377400,
         item_id: 10900,
         name: "Ash of War: Repeating Thrust",
         quantity: 1,
@@ -17179,7 +17189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042371011,
-        event_flag: 1042371011,
+        event_flag: 1042377110,
         item_id: 50200,
         name: "Ash of War: Storm Stomp",
         quantity: 1,
@@ -17189,7 +17199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042370100,
-        event_flag: 1042370100,
+        event_flag: 1042377100,
         item_id: 5050,
         name: "Assassin's Crimson Dagger",
         quantity: 1,
@@ -17199,7 +17209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037410010,
-        event_flag: 1037410010,
+        event_flag: 1037417010,
         item_id: 53000000,
         name: "Ballista Bolt",
         quantity: 5,
@@ -17209,7 +17219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420040,
-        event_flag: 1039420040,
+        event_flag: 1039427040,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -17219,7 +17229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390900,
-        event_flag: 1042390900,
+        event_flag: 1042397900,
         item_id: 31280000,
         name: "Beast Crest Heater Shield",
         quantity: 1,
@@ -17229,7 +17239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380000,
-        event_flag: 1042380000,
+        event_flag: 1042387000,
         item_id: 15010,
         name: "Beast Liver",
         quantity: 1,
@@ -17239,7 +17249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041382000,
-        event_flag: 1041382000,
+        event_flag: 1041387200,
         item_id: 20723,
         name: "Bloodrose",
         quantity: 3,
@@ -17249,7 +17259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380400,
-        event_flag: 1042380400,
+        event_flag: 1042387400,
         item_id: 4080,
         name: "Blue-Feathered Branchsword",
         quantity: 1,
@@ -17259,7 +17269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380410,
-        event_flag: 1042380410,
+        event_flag: 1042387410,
         item_id: 8945,
         name: "Bone Peddler's Bell Bearing",
         quantity: 1,
@@ -17269,7 +17279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038420020,
-        event_flag: 1038420020,
+        event_flag: 1038427020,
         item_id: 33170000,
         name: "Carian Glintblade Staff",
         quantity: 1,
@@ -17279,7 +17289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035410100,
-        event_flag: 1035410100,
+        event_flag: 1035417100,
         item_id: 1012,
         name: "Cerulean Amber Medallion +2",
         quantity: 1,
@@ -17289,7 +17299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440100,
-        event_flag: 1039440100,
+        event_flag: 66080,
         item_id: 9500,
         name: "Cracked Pot",
         quantity: 1,
@@ -17299,7 +17309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440110,
-        event_flag: 1039440110,
+        event_flag: 66090,
         item_id: 9500,
         name: "Cracked Pot",
         quantity: 1,
@@ -17309,7 +17319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440120,
-        event_flag: 1039440120,
+        event_flag: 66100,
         item_id: 9500,
         name: "Cracked Pot",
         quantity: 1,
@@ -17319,7 +17329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420010,
-        event_flag: 1039420010,
+        event_flag: 1039427010,
         item_id: 1740,
         name: "Crystal Dart",
         quantity: 5,
@@ -17329,7 +17339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410010,
-        event_flag: 1039410010,
+        event_flag: 1039417010,
         item_id: 3030,
         name: "Cuckoo Glintstone",
         quantity: 4,
@@ -17339,7 +17349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036410010,
-        event_flag: 1036410010,
+        event_flag: 1036417010,
         item_id: 1140,
         name: "Dappled Cured Meat",
         quantity: 1,
@@ -17349,7 +17359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038440100,
-        event_flag: 1038440100,
+        event_flag: 1038447100,
         item_id: 8864,
         name: "Dragon Cult Prayerbook",
         quantity: 1,
@@ -17359,7 +17369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033410400,
-        event_flag: 1033410400,
+        event_flag: 1033417400,
         item_id: 10060,
         name: "Dragon Heart",
         quantity: 1,
@@ -17369,7 +17379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033410410,
-        event_flag: 1033410410,
+        event_flag: 1033417410,
         item_id: 10060,
         name: "Dragon Heart",
         quantity: 1,
@@ -17379,7 +17389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042400000,
-        event_flag: 1042400000,
+        event_flag: 60240,
         item_id: 101,
         name: "Duelist's Furled Finger",
         quantity: 1,
@@ -17389,7 +17399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043390010,
-        event_flag: 1043390010,
+        event_flag: 1043397010,
         item_id: 1210,
         name: "Exalted Flesh",
         quantity: 1,
@@ -17399,7 +17409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380020,
-        event_flag: 1042380020,
+        event_flag: 1042387020,
         item_id: 50010000,
         name: "Fire Arrow",
         quantity: 5,
@@ -17409,7 +17419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043370010,
-        event_flag: 1043370010,
+        event_flag: 1043377010,
         item_id: 1400,
         name: "Fire Grease",
         quantity: 1,
@@ -17419,7 +17429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036410000,
-        event_flag: 1036410000,
+        event_flag: 1036417000,
         item_id: 8855,
         name: "Fire Monks' Prayerbook",
         quantity: 1,
@@ -17439,7 +17449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420030,
-        event_flag: 1037420030,
+        event_flag: 1037427030,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -17449,7 +17459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038400010,
-        event_flag: 1038400010,
+        event_flag: 67410,
         item_id: 9341,
         name: "Glintstone Craftsman's Cookbook [1]",
         quantity: 1,
@@ -17459,7 +17469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038410000,
-        event_flag: 1038410000,
+        event_flag: 67450,
         item_id: 9345,
         name: "Glintstone Craftsman's Cookbook [2]",
         quantity: 1,
@@ -17469,7 +17479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038420100,
-        event_flag: 1038420100,
+        event_flag: 67480,
         item_id: 9348,
         name: "Glintstone Craftsman's Cookbook [3]",
         quantity: 1,
@@ -17479,7 +17489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035410010,
-        event_flag: 1035410010,
+        event_flag: 1035417010,
         item_id: 20812,
         name: "Glintstone Firefly",
         quantity: 5,
@@ -17489,7 +17499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041380050,
-        event_flag: 1041380050,
+        event_flag: 1041387050,
         item_id: 250000,
         name: "Godrick Soldier Ashes",
         quantity: 1,
@@ -17499,7 +17509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044372000,
-        event_flag: 1044372000,
+        event_flag: 1044377200,
         item_id: 1200,
         name: "Gold-Pickled Fowl Foot",
         quantity: 1,
@@ -17509,7 +17519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035410000,
-        event_flag: 1035410000,
+        event_flag: 1035417000,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -17519,7 +17529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430030,
-        event_flag: 1039430030,
+        event_flag: 1039437030,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17529,7 +17539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380010,
-        event_flag: 1042380010,
+        event_flag: 1042387010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17539,7 +17549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380040,
-        event_flag: 1042380040,
+        event_flag: 1042387040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17549,7 +17559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380080,
-        event_flag: 1042380080,
+        event_flag: 1042387080,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17559,7 +17569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380100,
-        event_flag: 1042380100,
+        event_flag: 1042387100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17569,7 +17579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380110,
-        event_flag: 1042380110,
+        event_flag: 1042387110,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17579,7 +17589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044370010,
-        event_flag: 1044370010,
+        event_flag: 1044377010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17589,7 +17599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044380100,
-        event_flag: 1044380100,
+        event_flag: 1044387100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -17599,7 +17609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430010,
-        event_flag: 1039430010,
+        event_flag: 1039437010,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17609,7 +17619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430050,
-        event_flag: 1039430050,
+        event_flag: 1039437050,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17619,7 +17629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380070,
-        event_flag: 1042380070,
+        event_flag: 1042387070,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17629,7 +17639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380090,
-        event_flag: 1042380090,
+        event_flag: 1042387090,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17639,7 +17649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380120,
-        event_flag: 1042380120,
+        event_flag: 1042387120,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17649,7 +17659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043380020,
-        event_flag: 1043380020,
+        event_flag: 1043387020,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -17659,7 +17669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420000,
-        event_flag: 1037420000,
+        event_flag: 1037427000,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17669,7 +17679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037430000,
-        event_flag: 1037430000,
+        event_flag: 1037437000,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17679,7 +17689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410000,
-        event_flag: 1039410000,
+        event_flag: 1039417000,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17689,7 +17699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420030,
-        event_flag: 1039420030,
+        event_flag: 1039427030,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17699,7 +17709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430040,
-        event_flag: 1039430040,
+        event_flag: 1039437040,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17709,7 +17719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430060,
-        event_flag: 1039430060,
+        event_flag: 1039437060,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17719,7 +17729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380050,
-        event_flag: 1042380050,
+        event_flag: 1042387050,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17729,7 +17739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043392000,
-        event_flag: 1043392000,
+        event_flag: 1043397200,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -17739,7 +17749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037440000,
-        event_flag: 1037440000,
+        event_flag: 1037447000,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -17749,7 +17759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038420010,
-        event_flag: 1038420010,
+        event_flag: 1038427010,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -17759,7 +17769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380030,
-        event_flag: 1042380030,
+        event_flag: 1042387030,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -17769,7 +17779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038430100,
-        event_flag: 1038430100,
+        event_flag: 1038437100,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -17779,7 +17789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410300,
-        event_flag: 1039410300,
+        event_flag: 1039417300,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -17789,7 +17799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410310,
-        event_flag: 1039410310,
+        event_flag: 1039417310,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -17799,7 +17809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420020,
-        event_flag: 1039420020,
+        event_flag: 1039427020,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -17809,7 +17819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430020,
-        event_flag: 1039430020,
+        event_flag: 1039437020,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -17819,7 +17829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041380100,
-        event_flag: 1041380100,
+        event_flag: 1041387100,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -17829,7 +17839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034410000,
-        event_flag: 1034410000,
+        event_flag: 1034417000,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 5,
@@ -17839,7 +17849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440010,
-        event_flag: 1039440010,
+        event_flag: 1039447010,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 5,
@@ -17849,7 +17859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390700,
-        event_flag: 1042390700,
+        event_flag: 1042397700,
         item_id: 2070,
         name: "Hammer Talisman",
         quantity: 1,
@@ -17859,7 +17869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042370010,
-        event_flag: 1042370010,
+        event_flag: 1042377010,
         item_id: 1730,
         name: "Kukri",
         quantity: 4,
@@ -17869,7 +17879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390010,
-        event_flag: 1042390010,
+        event_flag: 1042397010,
         item_id: 17060000,
         name: "Lance",
         quantity: 1,
@@ -17879,7 +17889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043400010,
-        event_flag: 1043400010,
+        event_flag: 1043407010,
         item_id: 2140,
         name: "Lance Talisman",
         quantity: 1,
@@ -17889,7 +17899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038440040,
-        event_flag: 1038440040,
+        event_flag: 1038447040,
         item_id: 244000,
         name: "Land Squirt Ashes",
         quantity: 1,
@@ -17899,7 +17909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440040,
-        event_flag: 1039440040,
+        event_flag: 1039447040,
         item_id: 15410,
         name: "Living Jar Shard",
         quantity: 1,
@@ -17919,7 +17929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420050,
-        event_flag: 1039420050,
+        event_flag: 1039427050,
         item_id: 18020000,
         name: "Lucerne",
         quantity: 1,
@@ -17929,7 +17939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041390000,
-        event_flag: 1041390000,
+        event_flag: 1041397000,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 1,
@@ -17939,7 +17949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380140,
-        event_flag: 1042380140,
+        event_flag: 1042387140,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 1,
@@ -17949,7 +17959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037440010,
-        event_flag: 1037440010,
+        event_flag: 1037447010,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 1,
@@ -17959,7 +17969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041380010,
-        event_flag: 1041380010,
+        event_flag: 1041387010,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 3,
@@ -17969,7 +17979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042370200,
-        event_flag: 1042370200,
+        event_flag: 62010,
         item_id: 8600,
         name: "Map: Limgrave, West",
         quantity: 1,
@@ -17979,7 +17989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038410200,
-        event_flag: 1038410200,
+        event_flag: 62020,
         item_id: 8603,
         name: "Map: Liurnia, East",
         quantity: 1,
@@ -17989,7 +17999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037440210,
-        event_flag: 1037440210,
+        event_flag: 62021,
         item_id: 8604,
         name: "Map: Liurnia, North",
         quantity: 1,
@@ -17999,7 +18009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039420000,
-        event_flag: 1039420000,
+        event_flag: 1039427000,
         item_id: 20760,
         name: "Mushroom",
         quantity: 5,
@@ -18009,7 +18019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420040,
-        event_flag: 1037420040,
+        event_flag: 67220,
         item_id: 9322,
         name: "Nomadic Warrior's Cookbook [11]",
         quantity: 1,
@@ -18019,7 +18029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040390000,
-        event_flag: 1040390000,
+        event_flag: 67050,
         item_id: 9305,
         name: "Nomadic Warrior's Cookbook [7]",
         quantity: 1,
@@ -18029,7 +18039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044380040,
-        event_flag: 1044380040,
+        event_flag: 1044387040,
         item_id: 20650,
         name: "Poisonbloom",
         quantity: 2,
@@ -18039,7 +18049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033440000,
-        event_flag: 1033440000,
+        event_flag: 1033447000,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -18049,7 +18059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033440010,
-        event_flag: 1033440010,
+        event_flag: 1033447010,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -18059,7 +18069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033440020,
-        event_flag: 1033440020,
+        event_flag: 1033447020,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -18069,7 +18079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033440030,
-        event_flag: 1033440030,
+        event_flag: 1033447030,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -18079,7 +18089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033440040,
-        event_flag: 1033440040,
+        event_flag: 1033447040,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -18089,7 +18099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420400,
-        event_flag: 1037420400,
+        event_flag: 1037427400,
         item_id: 2040,
         name: "Red-Feathered Branchsword",
         quantity: 1,
@@ -18099,7 +18109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042370700,
-        event_flag: 1042370700,
+        event_flag: 1042377700,
         item_id: 1040000,
         name: "Reduvia",
         quantity: 1,
@@ -18109,7 +18119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420100,
-        event_flag: 1037420100,
+        event_flag: 66420,
         item_id: 9501,
         name: "Ritual Pot",
         quantity: 1,
@@ -18119,7 +18129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440130,
-        event_flag: 1039440130,
+        event_flag: 66430,
         item_id: 9501,
         name: "Ritual Pot",
         quantity: 1,
@@ -18129,7 +18139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440140,
-        event_flag: 1039440140,
+        event_flag: 66440,
         item_id: 9501,
         name: "Ritual Pot",
         quantity: 1,
@@ -18139,7 +18149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042370000,
-        event_flag: 1042370000,
+        event_flag: 1042377000,
         item_id: 1760,
         name: "Ruin Fragment",
         quantity: 3,
@@ -18149,7 +18159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039390000,
-        event_flag: 1039390000,
+        event_flag: 1039397000,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -18159,7 +18169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038410010,
-        event_flag: 1038410010,
+        event_flag: 1038417010,
         item_id: 6070,
         name: "Sacrificial Twig",
         quantity: 1,
@@ -18169,7 +18179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044370020,
-        event_flag: 1044370020,
+        event_flag: 1044377020,
         item_id: 6070,
         name: "Sacrificial Twig",
         quantity: 1,
@@ -18179,7 +18189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390501,
-        event_flag: 1042390501,
+        event_flag: 1042397500,
         item_id: 80100,
         name: "Scaled Armor",
         quantity: 1,
@@ -18189,7 +18199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390502,
-        event_flag: 1042390502,
+        event_flag: 1042397500,
         item_id: 80200,
         name: "Scaled Gauntlets",
         quantity: 1,
@@ -18199,7 +18209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390503,
-        event_flag: 1042390503,
+        event_flag: 1042397500,
         item_id: 80300,
         name: "Scaled Greaves",
         quantity: 1,
@@ -18209,7 +18219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390500,
-        event_flag: 1042390500,
+        event_flag: 1042397500,
         item_id: 80000,
         name: "Scaled Helm",
         quantity: 1,
@@ -18219,7 +18229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410200,
-        event_flag: 1039410200,
+        event_flag: 1039417200,
         item_id: 1240,
         name: "Shabriri Grape",
         quantity: 1,
@@ -18229,7 +18239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038430020,
-        event_flag: 1038430020,
+        event_flag: 1038437020,
         item_id: 1190,
         name: "Silver-Pickled Fowl Foot",
         quantity: 3,
@@ -18239,7 +18249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038430010,
-        event_flag: 1038430010,
+        event_flag: 1038437010,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 1,
@@ -18249,7 +18259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042400001,
-        event_flag: 1042400001,
+        event_flag: 60250,
         item_id: 110,
         name: "Small Red Effigy",
         quantity: 1,
@@ -18259,7 +18269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040380000,
-        event_flag: 1040380000,
+        event_flag: 1040387000,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -18269,7 +18279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041380030,
-        event_flag: 1041380030,
+        event_flag: 1041387030,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 3,
@@ -18279,7 +18289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380600,
-        event_flag: 1042380600,
+        event_flag: 1042387600,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 5,
@@ -18289,7 +18299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043370000,
-        event_flag: 1043370000,
+        event_flag: 1043377000,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -18299,7 +18309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043380010,
-        event_flag: 1043380010,
+        event_flag: 1043387010,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -18309,7 +18319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043390020,
-        event_flag: 1043390020,
+        event_flag: 1043397020,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 2,
@@ -18319,7 +18329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044380010,
-        event_flag: 1044380010,
+        event_flag: 1044387010,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -18329,7 +18339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038420000,
-        event_flag: 1038420000,
+        event_flag: 1038427000,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -18339,7 +18349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042380601,
-        event_flag: 1042380601,
+        event_flag: 1042387600,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -18349,7 +18359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420010,
-        event_flag: 1037420010,
+        event_flag: 1037427010,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -18359,7 +18369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037430010,
-        event_flag: 1037430010,
+        event_flag: 1037437010,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -18369,7 +18379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038440030,
-        event_flag: 1038440030,
+        event_flag: 1038447030,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -18379,7 +18389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440000,
-        event_flag: 1039440000,
+        event_flag: 1039447000,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -18389,7 +18399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440030,
-        event_flag: 1039440030,
+        event_flag: 1039447030,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -18399,7 +18409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033410000,
-        event_flag: 1033410000,
+        event_flag: 1033417000,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -18409,7 +18419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033410020,
-        event_flag: 1033410020,
+        event_flag: 1033417020,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 3,
@@ -18419,7 +18429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033410010,
-        event_flag: 1033410010,
+        event_flag: 1033417010,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 3,
@@ -18429,7 +18439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035410110,
-        event_flag: 1035410110,
+        event_flag: 1035417110,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 3,
@@ -18439,7 +18449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038400000,
-        event_flag: 1038400000,
+        event_flag: 1038407000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 6,
@@ -18449,7 +18459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042382000,
-        event_flag: 1042382000,
+        event_flag: 1042387200,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 5,
@@ -18459,7 +18469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410020,
-        event_flag: 1039410020,
+        event_flag: 1039417020,
         item_id: 10161,
         name: "Somber Smithing Stone [2]",
         quantity: 2,
@@ -18469,7 +18479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043400000,
-        event_flag: 1043400000,
+        event_flag: 1043407000,
         item_id: 1450,
         name: "Soporific Grease",
         quantity: 3,
@@ -18479,7 +18489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039430100,
-        event_flag: 1039430100,
+        event_flag: 1039437100,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -18489,7 +18499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041370020,
-        event_flag: 1041370020,
+        event_flag: 1041377020,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -18499,7 +18509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041380040,
-        event_flag: 1041380040,
+        event_flag: 1041387040,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -18509,7 +18519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410030,
-        event_flag: 1039410030,
+        event_flag: 1039417030,
         item_id: 15430,
         name: "Stormhawk Feather",
         quantity: 3,
@@ -18519,7 +18529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042390000,
-        event_flag: 1042390000,
+        event_flag: 65210,
         item_id: 11021,
         name: "Strength-knot Crystal Tear",
         quantity: 1,
@@ -18529,7 +18539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038430000,
-        event_flag: 1038430000,
+        event_flag: 1038437000,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 3,
@@ -18539,7 +18549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041370000,
-        event_flag: 1041370000,
+        event_flag: 1041377000,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 1,
@@ -18549,7 +18559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1040400000,
-        event_flag: 1040400000,
+        event_flag: 1040407000,
         item_id: 17070000,
         name: "Treespear",
         quantity: 1,
@@ -18559,7 +18569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039440020,
-        event_flag: 1039440020,
+        event_flag: 1039447020,
         item_id: 20651,
         name: "Trina's Lily",
         quantity: 1,
@@ -18569,7 +18579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043390030,
-        event_flag: 1043390030,
+        event_flag: 1043397030,
         item_id: 15090,
         name: "Turtle Neck Meat",
         quantity: 1,
@@ -18579,7 +18589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039410100,
-        event_flag: 1039410100,
+        event_flag: 1039417100,
         item_id: 1090,
         name: "Two Fingers Heirloom",
         quantity: 1,
@@ -18609,7 +18619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033400100,
-        event_flag: 1033400100,
+        event_flag: 1033407100,
         item_id: 4361,
         name: "Unknown Item 4361",
         quantity: 1,
@@ -18619,7 +18629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038390000,
-        event_flag: 1038390000,
+        event_flag: 1038397000,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 3,
@@ -18629,7 +18639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042371010,
-        event_flag: 1042371010,
+        event_flag: 60130,
         item_id: 8590,
         name: "Whetstone Knife",
         quantity: 1,
@@ -18639,7 +18649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037420900,
-        event_flag: 1037420900,
+        event_flag: 1037427900,
         item_id: 3080,
         name: "Wraith Calling Bell",
         quantity: 1,
@@ -18649,7 +18659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034450100,
-        event_flag: 1034450100,
+        event_flag: 1034457100,
         item_id: 8109,
         name: "Academy Glintstone Key",
         quantity: 1,
@@ -18659,7 +18669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470900,
-        event_flag: 1033470900,
+        event_flag: 1033477900,
         item_id: 15420,
         name: "Albinauric Bloodclot",
         quantity: 6,
@@ -18669,7 +18679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420020,
-        event_flag: 1034420020,
+        event_flag: 1034427020,
         item_id: 15420,
         name: "Albinauric Bloodclot",
         quantity: 1,
@@ -18679,7 +18689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440010,
-        event_flag: 1036440010,
+        event_flag: 1036447010,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 2,
@@ -18689,7 +18699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037470010,
-        event_flag: 1037470010,
+        event_flag: 1037477010,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 3,
@@ -18699,7 +18709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036480400,
-        event_flag: 1036480400,
+        event_flag: 1036487400,
         item_id: 11600,
         name: "Ash of War: Giant Hunt",
         quantity: 1,
@@ -18709,7 +18719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035460700,
-        event_flag: 1035460700,
+        event_flag: 1035467700,
         item_id: 80200,
         name: "Ash of War: Raptor of the Mists",
         quantity: 1,
@@ -18719,7 +18729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500090,
-        event_flag: 1034500090,
+        event_flag: 1034507090,
         item_id: 170000,
         name: "Black Wolf Mask",
         quantity: 1,
@@ -18729,7 +18739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033460030,
-        event_flag: 1033460030,
+        event_flag: 1033467030,
         item_id: 1440,
         name: "Blood Grease",
         quantity: 3,
@@ -18739,7 +18749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039480100,
-        event_flag: 1039480100,
+        event_flag: 1039487100,
         item_id: 4080,
         name: "Blue-Feathered Branchsword",
         quantity: 1,
@@ -18749,7 +18759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440120,
-        event_flag: 1035440120,
+        event_flag: 1035447120,
         item_id: 30100000,
         name: "Blue-White Wooden Shield",
         quantity: 1,
@@ -18759,7 +18769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038490030,
-        event_flag: 1038490030,
+        event_flag: 1038497030,
         item_id: 52040000,
         name: "Burred Bolt",
         quantity: 5,
@@ -18769,7 +18779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470200,
-        event_flag: 1033470200,
+        event_flag: 1033477200,
         item_id: 2180000,
         name: "Carian Knight's Sword",
         quantity: 1,
@@ -18779,7 +18789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035450000,
-        event_flag: 1035450000,
+        event_flag: 1035457000,
         item_id: 2130,
         name: "Celestial Dew",
         quantity: 1,
@@ -18789,7 +18799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430011,
-        event_flag: 1036430011,
+        event_flag: 1036437010,
         item_id: 880100,
         name: "Confessor Armor",
         quantity: 1,
@@ -18799,7 +18809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430013,
-        event_flag: 1036430013,
+        event_flag: 1036437010,
         item_id: 880300,
         name: "Confessor Boots",
         quantity: 1,
@@ -18809,7 +18819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430012,
-        event_flag: 1036430012,
+        event_flag: 1036437010,
         item_id: 880200,
         name: "Confessor Gloves",
         quantity: 1,
@@ -18819,7 +18829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430010,
-        event_flag: 1036430010,
+        event_flag: 1036437010,
         item_id: 880000,
         name: "Confessor Hood",
         quantity: 1,
@@ -18829,7 +18839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440000,
-        event_flag: 1036440000,
+        event_flag: 1036447000,
         item_id: 20750,
         name: "Crystal Bud",
         quantity: 2,
@@ -18839,7 +18849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036450020,
-        event_flag: 1036450020,
+        event_flag: 1036457020,
         item_id: 20842,
         name: "Crystal Cave Moss",
         quantity: 3,
@@ -18849,7 +18859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039480000,
-        event_flag: 1039480000,
+        event_flag: 1039487000,
         item_id: 1740,
         name: "Crystal Dart",
         quantity: 3,
@@ -18859,7 +18869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420050,
-        event_flag: 1034420050,
+        event_flag: 1034427050,
         item_id: 2150000,
         name: "Crystal Sword",
         quantity: 1,
@@ -18869,7 +18879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470910,
-        event_flag: 1033470910,
+        event_flag: 1033477910,
         item_id: 3030,
         name: "Cuckoo Glintstone",
         quantity: 10,
@@ -18879,7 +18889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034430300,
-        event_flag: 1034430300,
+        event_flag: 1034437300,
         item_id: 3030,
         name: "Cuckoo Glintstone",
         quantity: 5,
@@ -18889,7 +18899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490000,
-        event_flag: 1037490000,
+        event_flag: 1037497000,
         item_id: 3030,
         name: "Cuckoo Glintstone",
         quantity: 3,
@@ -18899,7 +18909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036420000,
-        event_flag: 1036420000,
+        event_flag: 65220,
         item_id: 11022,
         name: "Dexterity-knot Crystal Tear",
         quantity: 1,
@@ -18909,7 +18919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420400,
-        event_flag: 1034420400,
+        event_flag: 1034427400,
         item_id: 10060,
         name: "Dragon Heart",
         quantity: 1,
@@ -18919,7 +18929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033450100,
-        event_flag: 1033450100,
+        event_flag: 1033457100,
         item_id: 9070000,
         name: "Dragonscale Blade",
         quantity: 1,
@@ -18929,7 +18939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034450010,
-        event_flag: 1034450010,
+        event_flag: 1034457010,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -18939,7 +18949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480020,
-        event_flag: 1038480020,
+        event_flag: 1038487020,
         item_id: 20740,
         name: "Eye of Yelough",
         quantity: 3,
@@ -18949,7 +18959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480120,
-        event_flag: 1038480120,
+        event_flag: 1038487120,
         item_id: 20740,
         name: "Eye of Yelough",
         quantity: 1,
@@ -18959,7 +18969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490030,
-        event_flag: 1037490030,
+        event_flag: 1037497030,
         item_id: 902000,
         name: "Finger Maiden Fillet",
         quantity: 1,
@@ -18969,7 +18979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490031,
-        event_flag: 1037490031,
+        event_flag: 1037497030,
         item_id: 902100,
         name: "Finger Maiden Robe",
         quantity: 1,
@@ -18979,7 +18989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490032,
-        event_flag: 1037490032,
+        event_flag: 1037497030,
         item_id: 902300,
         name: "Finger Maiden Shoes",
         quantity: 1,
@@ -18989,7 +18999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490300,
-        event_flag: 1037490300,
+        event_flag: 1037497300,
         item_id: 8126,
         name: "Fingerprint Grape",
         quantity: 1,
@@ -18999,7 +19009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480000,
-        event_flag: 1038480000,
+        event_flag: 68400,
         item_id: 9440,
         name: "Frenzied's Cookbook [1]",
         quantity: 1,
@@ -19009,7 +19019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038470010,
-        event_flag: 1038470010,
+        event_flag: 1038477010,
         item_id: 3311,
         name: "Frenzyflame Stone",
         quantity: 1,
@@ -19019,7 +19029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480130,
-        event_flag: 1038480130,
+        event_flag: 1038487130,
         item_id: 3311,
         name: "Frenzyflame Stone",
         quantity: 1,
@@ -19029,7 +19039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034480100,
-        event_flag: 1034480100,
+        event_flag: 1034487100,
         item_id: 5050000,
         name: "Frozen Needle",
         quantity: 1,
@@ -19039,7 +19049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440100,
-        event_flag: 1036440100,
+        event_flag: 67400,
         item_id: 9340,
         name: "Glintstone Craftsman's Cookbook [4]",
         quantity: 1,
@@ -19049,7 +19059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034480010,
-        event_flag: 1034480010,
+        event_flag: 1034487010,
         item_id: 20812,
         name: "Glintstone Firefly",
         quantity: 4,
@@ -19059,7 +19069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440060,
-        event_flag: 1036440060,
+        event_flag: 1036447060,
         item_id: 20812,
         name: "Glintstone Firefly",
         quantity: 4,
@@ -19069,7 +19079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037460000,
-        event_flag: 1037460000,
+        event_flag: 1037467000,
         item_id: 8162,
         name: "Gold Sewing Needle",
         quantity: 1,
@@ -19079,7 +19089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471010,
-        event_flag: 1034471010,
+        event_flag: 1034477110,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19089,7 +19099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471040,
-        event_flag: 1034471040,
+        event_flag: 1034477140,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19099,7 +19109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500040,
-        event_flag: 1034500040,
+        event_flag: 1034507040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19109,7 +19119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440010,
-        event_flag: 1035440010,
+        event_flag: 1035447010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19119,7 +19129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440070,
-        event_flag: 1035440070,
+        event_flag: 1035447070,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19129,7 +19139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035470000,
-        event_flag: 1035470000,
+        event_flag: 1035477000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19139,7 +19149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036470100,
-        event_flag: 1036470100,
+        event_flag: 1036477100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19149,7 +19159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036480100,
-        event_flag: 1036480100,
+        event_flag: 1036487100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19159,7 +19169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480030,
-        event_flag: 1037480030,
+        event_flag: 1037487030,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19169,7 +19179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480100,
-        event_flag: 1037480100,
+        event_flag: 1037487100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19179,7 +19189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038460400,
-        event_flag: 1038460400,
+        event_flag: 1038467400,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19189,7 +19199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038470100,
-        event_flag: 1038470100,
+        event_flag: 1038477100,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -19199,7 +19209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471070,
-        event_flag: 1034471070,
+        event_flag: 1034477170,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19209,7 +19219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471110,
-        event_flag: 1034471110,
+        event_flag: 1034477210,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19219,7 +19229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471500,
-        event_flag: 1034471500,
+        event_flag: 1034477500,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19229,7 +19239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500070,
-        event_flag: 1034500070,
+        event_flag: 1034507070,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19239,7 +19249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440040,
-        event_flag: 1035440040,
+        event_flag: 1035447040,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19249,7 +19259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440060,
-        event_flag: 1035440060,
+        event_flag: 1035447060,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19259,7 +19269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440090,
-        event_flag: 1035440090,
+        event_flag: 1035447090,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19269,7 +19279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480060,
-        event_flag: 1037480060,
+        event_flag: 1037487060,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -19279,7 +19289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471020,
-        event_flag: 1034471020,
+        event_flag: 1034477120,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19289,7 +19299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471030,
-        event_flag: 1034471030,
+        event_flag: 1034477130,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19299,7 +19309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471060,
-        event_flag: 1034471060,
+        event_flag: 1034477160,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19309,7 +19319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471080,
-        event_flag: 1034471080,
+        event_flag: 1034477180,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19319,7 +19329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471090,
-        event_flag: 1034471090,
+        event_flag: 1034477190,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19329,7 +19339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500010,
-        event_flag: 1034500010,
+        event_flag: 1034507010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19339,7 +19349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500050,
-        event_flag: 1034500050,
+        event_flag: 1034507050,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19349,7 +19359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500060,
-        event_flag: 1034500060,
+        event_flag: 1034507060,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19359,7 +19369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500080,
-        event_flag: 1034500080,
+        event_flag: 1034507080,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19369,7 +19379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440030,
-        event_flag: 1035440030,
+        event_flag: 1035447030,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19379,7 +19389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440100,
-        event_flag: 1035440100,
+        event_flag: 1035447100,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19389,7 +19399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480010,
-        event_flag: 1037480010,
+        event_flag: 1037487010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19399,7 +19409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480020,
-        event_flag: 1037480020,
+        event_flag: 1037487020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19409,7 +19419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480050,
-        event_flag: 1037480050,
+        event_flag: 1037487050,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19419,7 +19429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480080,
-        event_flag: 1037480080,
+        event_flag: 1037487080,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19429,7 +19439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038490040,
-        event_flag: 1038490040,
+        event_flag: 1038497040,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -19439,7 +19449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471100,
-        event_flag: 1034471100,
+        event_flag: 1034477200,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19449,7 +19459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471120,
-        event_flag: 1034471120,
+        event_flag: 1034477220,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19459,7 +19469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500020,
-        event_flag: 1034500020,
+        event_flag: 1034507020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19469,7 +19479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440020,
-        event_flag: 1035440020,
+        event_flag: 1035447020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19479,7 +19489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440050,
-        event_flag: 1035440050,
+        event_flag: 1035447050,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19489,7 +19499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480070,
-        event_flag: 1037480070,
+        event_flag: 1037487070,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -19499,7 +19509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471050,
-        event_flag: 1034471050,
+        event_flag: 1034477150,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -19509,7 +19519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500030,
-        event_flag: 1034500030,
+        event_flag: 1034507030,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -19519,7 +19529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440080,
-        event_flag: 1035440080,
+        event_flag: 1035447080,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -19529,7 +19539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034430200,
-        event_flag: 1034430200,
+        event_flag: 1034437200,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19539,7 +19549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471300,
-        event_flag: 1034471300,
+        event_flag: 1034477300,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19549,7 +19559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034471310,
-        event_flag: 1034471310,
+        event_flag: 1034477310,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19559,7 +19569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034481300,
-        event_flag: 1034481300,
+        event_flag: 1034487300,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19569,7 +19579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034481310,
-        event_flag: 1034481310,
+        event_flag: 1034487310,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19579,7 +19589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035480100,
-        event_flag: 1035480100,
+        event_flag: 1035487100,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -19589,7 +19599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480040,
-        event_flag: 1037480040,
+        event_flag: 1037487040,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -19599,7 +19609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420000,
-        event_flag: 1034420000,
+        event_flag: 1034427000,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -19609,7 +19619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035460100,
-        event_flag: 1035460100,
+        event_flag: 1035467100,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -19619,7 +19629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440300,
-        event_flag: 1036440300,
+        event_flag: 1036447300,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -19629,7 +19639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037460001,
-        event_flag: 1037460001,
+        event_flag: 60150,
         item_id: 8188,
         name: "Golden Tailoring Tools",
         quantity: 1,
@@ -19639,7 +19649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037470000,
-        event_flag: 1037470000,
+        event_flag: 1037477000,
         item_id: 20654,
         name: "Grave Violet",
         quantity: 1,
@@ -19649,7 +19659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490200,
-        event_flag: 1037490200,
+        event_flag: 1037497200,
         item_id: 12060000,
         name: "Great Mace",
         quantity: 1,
@@ -19659,7 +19669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034440900,
-        event_flag: 1034440900,
+        event_flag: 1034447900,
         item_id: 14080000,
         name: "Icerind Hatchet",
         quantity: 1,
@@ -19669,7 +19679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470020,
-        event_flag: 1033470020,
+        event_flag: 1033477020,
         item_id: 8186,
         name: "Imbued Sword Key",
         quantity: 1,
@@ -19679,7 +19689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038460000,
-        event_flag: 1038460000,
+        event_flag: 1038467000,
         item_id: 1310,
         name: "Immunizing White Cured Meat",
         quantity: 1,
@@ -19689,7 +19699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035490000,
-        event_flag: 1035490000,
+        event_flag: 65230,
         item_id: 11023,
         name: "Intelligence-knot Crystal Tear",
         quantity: 1,
@@ -19699,7 +19709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420040,
-        event_flag: 1035420040,
+        event_flag: 1035427040,
         item_id: 1130000,
         name: "Ivory Sickle",
         quantity: 1,
@@ -19709,7 +19719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033460040,
-        event_flag: 1033460040,
+        event_flag: 1033467040,
         item_id: 32120000,
         name: "Jellyfish Shield",
         quantity: 1,
@@ -19719,7 +19729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034450020,
-        event_flag: 1034450020,
+        event_flag: 1034457020,
         item_id: 1730,
         name: "Kukri",
         quantity: 6,
@@ -19729,7 +19739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420060,
-        event_flag: 1034420060,
+        event_flag: 1034427060,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -19739,7 +19749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035430100,
-        event_flag: 1035430100,
+        event_flag: 1035437100,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -19749,7 +19759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038450010,
-        event_flag: 1038450010,
+        event_flag: 1038457010,
         item_id: 6040,
         name: "Longtail Cat Talisman",
         quantity: 1,
@@ -19759,7 +19769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035480030,
-        event_flag: 1035480030,
+        event_flag: 1035487030,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 1,
@@ -19769,7 +19779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420010,
-        event_flag: 1034420010,
+        event_flag: 1034427010,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 1,
@@ -19779,7 +19789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034430000,
-        event_flag: 1034430000,
+        event_flag: 1034437000,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 2,
@@ -19789,7 +19799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034480200,
-        event_flag: 1034480200,
+        event_flag: 62022,
         item_id: 8605,
         name: "Map: Liurnia, West",
         quantity: 1,
@@ -19799,7 +19809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037460400,
-        event_flag: 1037460400,
+        event_flag: 1037467400,
         item_id: 8946,
         name: "Meat Peddler's Bell Bearing",
         quantity: 1,
@@ -19809,7 +19819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035450100,
-        event_flag: 1035450100,
+        event_flag: 1035457100,
         item_id: 8198,
         name: "Meeting Place Map",
         quantity: 1,
@@ -19819,7 +19829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034430100,
-        event_flag: 1034430100,
+        event_flag: 60410,
         item_id: 10030,
         name: "Memory Stone",
         quantity: 1,
@@ -19829,7 +19839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500100,
-        event_flag: 1034500100,
+        event_flag: 60430,
         item_id: 10030,
         name: "Memory Stone",
         quantity: 1,
@@ -19839,7 +19849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035470100,
-        event_flag: 1035470100,
+        event_flag: 60420,
         item_id: 10030,
         name: "Memory Stone",
         quantity: 1,
@@ -19849,7 +19859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036480401,
-        event_flag: 1036480401,
+        event_flag: 1036487400,
         item_id: 18050000,
         name: "Nightrider Glaive",
         quantity: 1,
@@ -19859,7 +19869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440200,
-        event_flag: 1035440200,
+        event_flag: 67060,
         item_id: 9306,
         name: "Nomadic Warrior's Cookbook [12]",
         quantity: 1,
@@ -19869,7 +19879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480040,
-        event_flag: 1038480040,
+        event_flag: 69760,
         item_id: 8716,
         name: "Note: The Lord of Frenzied Flame",
         quantity: 1,
@@ -19879,7 +19889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035480010,
-        event_flag: 1035480010,
+        event_flag: 1035487010,
         item_id: 15040,
         name: "Old Fang",
         quantity: 2,
@@ -19889,7 +19899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430030,
-        event_flag: 1036430030,
+        event_flag: 1036437030,
         item_id: 2020,
         name: "Rainbow Stone",
         quantity: 4,
@@ -19899,7 +19909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034440000,
-        event_flag: 1034440000,
+        event_flag: 1034447000,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 3,
@@ -19909,7 +19919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034480000,
-        event_flag: 1034480000,
+        event_flag: 1034487000,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 8,
@@ -19919,7 +19929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036490000,
-        event_flag: 1036490000,
+        event_flag: 1036497000,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -19929,7 +19939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490100,
-        event_flag: 1037490100,
+        event_flag: 1037497100,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -19939,7 +19949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036480000,
-        event_flag: 1036480000,
+        event_flag: 1036487000,
         item_id: 20795,
         name: "Sanctuary Stone",
         quantity: 3,
@@ -19949,7 +19959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480100,
-        event_flag: 1038480100,
+        event_flag: 1038487100,
         item_id: 6050,
         name: "Shabriri's Woe",
         quantity: 1,
@@ -19959,7 +19969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440050,
-        event_flag: 1036440050,
+        event_flag: 1036447050,
         item_id: 50060000,
         name: "Shattershard Arrow (Fletched)",
         quantity: 6,
@@ -19969,7 +19979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037480000,
-        event_flag: 1037480000,
+        event_flag: 1037487000,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 2,
@@ -19979,7 +19989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420030,
-        event_flag: 1034420030,
+        event_flag: 1034427030,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 2,
@@ -19989,7 +19999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034440010,
-        event_flag: 1034440010,
+        event_flag: 1034447010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -19999,7 +20009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420010,
-        event_flag: 1035420010,
+        event_flag: 1035427010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 2,
@@ -20009,7 +20019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440110,
-        event_flag: 1035440110,
+        event_flag: 1035447110,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -20019,7 +20029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035470010,
-        event_flag: 1035470010,
+        event_flag: 1035477010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -20029,7 +20039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430000,
-        event_flag: 1036430000,
+        event_flag: 1036437000,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -20039,7 +20049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036440040,
-        event_flag: 1036440040,
+        event_flag: 1036447040,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -20049,7 +20059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038490010,
-        event_flag: 1038490010,
+        event_flag: 1038497010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 2,
@@ -20059,7 +20069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034460100,
-        event_flag: 1034460100,
+        event_flag: 1034467100,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -20069,7 +20079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035440000,
-        event_flag: 1035440000,
+        event_flag: 1035447000,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -20079,7 +20089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037450100,
-        event_flag: 1037450100,
+        event_flag: 1037457100,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -20089,7 +20099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470010,
-        event_flag: 1033470010,
+        event_flag: 1033477010,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -20099,7 +20109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038450020,
-        event_flag: 1038450020,
+        event_flag: 1038457020,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -20109,7 +20119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038450000,
-        event_flag: 1038450000,
+        event_flag: 1038457000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 8,
@@ -20119,7 +20129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034510900,
-        event_flag: 1034510900,
+        event_flag: 1034517900,
         item_id: 1010000,
         name: "Snow Witch Hat",
         quantity: 1,
@@ -20129,7 +20139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034510901,
-        event_flag: 1034510901,
+        event_flag: 1034517900,
         item_id: 1010100,
         name: "Snow Witch Robe",
         quantity: 1,
@@ -20139,7 +20149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034510902,
-        event_flag: 1034510902,
+        event_flag: 1034517900,
         item_id: 1010300,
         name: "Snow Witch Skirt",
         quantity: 1,
@@ -20149,7 +20159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035430010,
-        event_flag: 1035430010,
+        event_flag: 1035437010,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 2,
@@ -20159,7 +20169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033470000,
-        event_flag: 1033470000,
+        event_flag: 1033477000,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -20169,7 +20179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036470000,
-        event_flag: 1036470000,
+        event_flag: 1036477000,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -20179,7 +20189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035490020,
-        event_flag: 1035490020,
+        event_flag: 1035497020,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -20189,7 +20199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034420100,
-        event_flag: 1034420100,
+        event_flag: 1034427100,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -20199,7 +20209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035480020,
-        event_flag: 1035480020,
+        event_flag: 1035487020,
         item_id: 1450,
         name: "Soporific Grease",
         quantity: 3,
@@ -20209,7 +20219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037470030,
-        event_flag: 1037470030,
+        event_flag: 1037477030,
         item_id: 30190000,
         name: "Spiralhorn Shield",
         quantity: 1,
@@ -20219,7 +20229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037470020,
-        event_flag: 1037470020,
+        event_flag: 1037477020,
         item_id: 1160,
         name: "Stalwart Horn Charm",
         quantity: 1,
@@ -20229,7 +20239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420100,
-        event_flag: 1035420100,
+        event_flag: 1035427100,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20239,7 +20249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420110,
-        event_flag: 1035420110,
+        event_flag: 1035427110,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20249,7 +20259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420120,
-        event_flag: 1035420120,
+        event_flag: 1035427120,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20259,7 +20269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420130,
-        event_flag: 1035420130,
+        event_flag: 1035427130,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20269,7 +20279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420140,
-        event_flag: 1035420140,
+        event_flag: 1035427140,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20279,7 +20289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420150,
-        event_flag: 1035420150,
+        event_flag: 1035427150,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20289,7 +20299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420160,
-        event_flag: 1035420160,
+        event_flag: 1035427160,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20299,7 +20309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420170,
-        event_flag: 1035420170,
+        event_flag: 1035427170,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20309,7 +20319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420180,
-        event_flag: 1035420180,
+        event_flag: 1035427180,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20319,7 +20329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420190,
-        event_flag: 1035420190,
+        event_flag: 1035427190,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20329,7 +20339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035420200,
-        event_flag: 1035420200,
+        event_flag: 1035427200,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -20339,7 +20349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035460020,
-        event_flag: 1035460020,
+        event_flag: 1035467020,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -20349,7 +20359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036450110,
-        event_flag: 1036450110,
+        event_flag: 1036457110,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -20359,7 +20369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038470030,
-        event_flag: 1038470030,
+        event_flag: 1038477030,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -20369,7 +20379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038480030,
-        event_flag: 1038480030,
+        event_flag: 1038487030,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -20379,7 +20389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037460010,
-        event_flag: 1037460010,
+        event_flag: 1037467010,
         item_id: 15430,
         name: "Stormhawk Feather",
         quantity: 5,
@@ -20389,7 +20399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1033460000,
-        event_flag: 1033460000,
+        event_flag: 1033467000,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 1,
@@ -20399,7 +20409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035450030,
-        event_flag: 1035450030,
+        event_flag: 1035457030,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 2,
@@ -20409,7 +20419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036430020,
-        event_flag: 1036430020,
+        event_flag: 1036437020,
         item_id: 20685,
         name: "Tarnished Golden Sunflower",
         quantity: 4,
@@ -20419,7 +20429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034470000,
-        event_flag: 1034470000,
+        event_flag: 1034477000,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 6,
@@ -20439,7 +20449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039480101,
-        event_flag: 1039480101,
+        event_flag: 1039487100,
         item_id: 4120,
         name: "Unknown Item 4120",
         quantity: 1,
@@ -20449,7 +20459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036450400,
-        event_flag: 1036450400,
+        event_flag: 1036457400,
         item_id: 5001,
         name: "Unknown Item 5001",
         quantity: 1,
@@ -20459,7 +20469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038490900,
-        event_flag: 1038490900,
+        event_flag: 1038497900,
         item_id: 7330,
         name: "Unknown Item 7330",
         quantity: 1,
@@ -20469,7 +20479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1034500200,
-        event_flag: 1034500200,
+        event_flag: 1034507200,
         item_id: 8165,
         name: "Unknown Item 8165",
         quantity: 1,
@@ -20479,7 +20489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037490301,
-        event_flag: 1037490301,
+        event_flag: 1037497300,
         item_id: 17050000,
         name: "Vyke's War Spear",
         quantity: 1,
@@ -20489,7 +20499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038490000,
-        event_flag: 1038490000,
+        event_flag: 1038497000,
         item_id: 20845,
         name: "Yellow Ember",
         quantity: 1,
@@ -21279,7 +21289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530000,
-        event_flag: 1051530000,
+        event_flag: 1051537000,
         item_id: 10140,
         name: "Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -21289,7 +21299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050540800,
-        event_flag: 1050540800,
+        event_flag: 1050547800,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 3,
@@ -21299,7 +21309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048510700,
-        event_flag: 1048510700,
+        event_flag: 1048517700,
         item_id: 22500,
         name: "Ash of War: Phantom Slash",
         quantity: 1,
@@ -21309,7 +21319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530600,
-        event_flag: 1051530600,
+        event_flag: 1051537600,
         item_id: 65300,
         name: "Ash of War: Troll's Roar",
         quantity: 1,
@@ -21319,7 +21329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530300,
-        event_flag: 1049530300,
+        event_flag: 1049537300,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -21329,7 +21339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540790,
-        event_flag: 1052540790,
+        event_flag: 65200,
         item_id: 11020,
         name: "Crimsonwhorl Bubbletear",
         quantity: 1,
@@ -21339,7 +21349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047510300,
-        event_flag: 1047510300,
+        event_flag: 1047517300,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -21349,7 +21359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047510000,
-        event_flag: 1047510000,
+        event_flag: 1047517000,
         item_id: 1500,
         name: "Drawstring Fire Grease",
         quantity: 2,
@@ -21359,7 +21369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530300,
-        event_flag: 1051530300,
+        event_flag: 1051537300,
         item_id: 1530,
         name: "Drawstring Holy Grease",
         quantity: 2,
@@ -21369,7 +21379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051540800,
-        event_flag: 1051540800,
+        event_flag: 1051547800,
         item_id: 1750,
         name: "Fan Daggers",
         quantity: 5,
@@ -21379,7 +21389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049520000,
-        event_flag: 1049520000,
+        event_flag: 1049527000,
         item_id: 1470,
         name: "Freezing Grease",
         quantity: 1,
@@ -21389,7 +21399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530020,
-        event_flag: 1049530020,
+        event_flag: 1049537020,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -21399,7 +21409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052530000,
-        event_flag: 1052530000,
+        event_flag: 1052537000,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -21409,7 +21419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540010,
-        event_flag: 1052540010,
+        event_flag: 1052547010,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -21419,7 +21429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540020,
-        event_flag: 1052540020,
+        event_flag: 1052547020,
         item_id: 2909,
         name: "Golden Rune [10]",
         quantity: 1,
@@ -21429,7 +21439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048540840,
-        event_flag: 1048540840,
+        event_flag: 1048547840,
         item_id: 2910,
         name: "Golden Rune [11]",
         quantity: 1,
@@ -21439,7 +21449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049540310,
-        event_flag: 1049540310,
+        event_flag: 1049547310,
         item_id: 2910,
         name: "Golden Rune [11]",
         quantity: 1,
@@ -21449,7 +21459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049540300,
-        event_flag: 1049540300,
+        event_flag: 1049547300,
         item_id: 2912,
         name: "Golden Rune [13]",
         quantity: 1,
@@ -21459,7 +21469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048540800,
-        event_flag: 1048540800,
+        event_flag: 1048547800,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -21469,7 +21479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048540810,
-        event_flag: 1048540810,
+        event_flag: 1048547810,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -21479,7 +21489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048540820,
-        event_flag: 1048540820,
+        event_flag: 1048547820,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -21489,7 +21499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1047510010,
-        event_flag: 1047510010,
+        event_flag: 1047517010,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -21499,7 +21509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048540830,
-        event_flag: 1048540830,
+        event_flag: 1048547830,
         item_id: 2908,
         name: "Golden Rune [9]",
         quantity: 1,
@@ -21509,7 +21519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049520800,
-        event_flag: 1049520800,
+        event_flag: 1049527800,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -21519,7 +21529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052530800,
-        event_flag: 1052530800,
+        event_flag: 1052537800,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -21529,7 +21539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540000,
-        event_flag: 1052540000,
+        event_flag: 1052547000,
         item_id: 2050,
         name: "Grace Mimic",
         quantity: 3,
@@ -21539,7 +21549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530010,
-        event_flag: 1049530010,
+        event_flag: 1049537010,
         item_id: 1120,
         name: "Invigorating Cured Meat",
         quantity: 1,
@@ -21549,7 +21559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051540000,
-        event_flag: 1051540000,
+        event_flag: 1051547000,
         item_id: 1320,
         name: "Invigorating White Cured Meat",
         quantity: 3,
@@ -21559,7 +21569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050540000,
-        event_flag: 1050540000,
+        event_flag: 1050547000,
         item_id: 10070,
         name: "Lost Ashes of War",
         quantity: 1,
@@ -21569,7 +21579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540700,
-        event_flag: 1052540700,
+        event_flag: 62051,
         item_id: 8612,
         name: "Map: Mountaintops of the Giants, East",
         quantity: 1,
@@ -21579,7 +21589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530700,
-        event_flag: 1049530700,
+        event_flag: 62050,
         item_id: 8611,
         name: "Map: Mountaintops of the Giants, West",
         quantity: 1,
@@ -21589,7 +21599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049540800,
-        event_flag: 1049540800,
+        event_flag: 67090,
         item_id: 9309,
         name: "Nomadic Warrior's Cookbook [23]",
         quantity: 1,
@@ -21599,7 +21609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530501,
-        event_flag: 1051530501,
+        event_flag: 1051537500,
         item_id: 872000,
         name: "Okina Mask",
         quantity: 1,
@@ -21609,7 +21619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530500,
-        event_flag: 1051530500,
+        event_flag: 1051537500,
         item_id: 9040000,
         name: "Rivers of Blood",
         quantity: 1,
@@ -21619,7 +21629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530800,
-        event_flag: 1051530800,
+        event_flag: 1051537800,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -21629,7 +21639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530000,
-        event_flag: 1049530000,
+        event_flag: 1049537000,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 2,
@@ -21639,7 +21649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530010,
-        event_flag: 1051530010,
+        event_flag: 1051537010,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 1,
@@ -21649,7 +21659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530900,
-        event_flag: 1049530900,
+        event_flag: 1049537900,
         item_id: 8953,
         name: "Smithing-Stone Miner's Bell Bearing [3]",
         quantity: 1,
@@ -21659,7 +21669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050530300,
-        event_flag: 1050530300,
+        event_flag: 1050537300,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 4,
@@ -21669,7 +21679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1048510000,
-        event_flag: 1048510000,
+        event_flag: 1048517000,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -21679,7 +21689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050530000,
-        event_flag: 1050530000,
+        event_flag: 1050537000,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -21689,7 +21699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050530700,
-        event_flag: 1050530700,
+        event_flag: 1050537700,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -21699,7 +21709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049540700,
-        event_flag: 1049540700,
+        event_flag: 1049547700,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -21709,7 +21719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530700,
-        event_flag: 1051530700,
+        event_flag: 1051537700,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -21719,7 +21729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049540900,
-        event_flag: 1049540900,
+        event_flag: 1049547900,
         item_id: 24040000,
         name: "St. Trina's Torch",
         quantity: 1,
@@ -21729,7 +21739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1052540800,
-        event_flag: 1052540800,
+        event_flag: 1052547800,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -21739,7 +21749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1049530030,
-        event_flag: 1049530030,
+        event_flag: 1049537030,
         item_id: 4410,
         name: "Unknown Item 4410",
         quantity: 1,
@@ -21749,7 +21759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1050540810,
-        event_flag: 1050540810,
+        event_flag: 1050547810,
         item_id: 4910,
         name: "Unknown Item 4910",
         quantity: 1,
@@ -21759,7 +21769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1051530810,
-        event_flag: 1051530810,
+        event_flag: 1051537810,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 2,
@@ -21769,7 +21779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036500030,
-        event_flag: 1036500030,
+        event_flag: 1036507030,
         item_id: 211000,
         name: "Albinauric Ashes",
         quantity: 1,
@@ -21779,7 +21789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540100,
-        event_flag: 1038540100,
+        event_flag: 1038547100,
         item_id: 5040000,
         name: "Antspur Rapier",
         quantity: 1,
@@ -21789,7 +21799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540030,
-        event_flag: 1035540030,
+        event_flag: 67250,
         item_id: 9325,
         name: "Armorer's Cookbook [7]",
         quantity: 1,
@@ -21799,7 +21809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520020,
-        event_flag: 1037520020,
+        event_flag: 1037527020,
         item_id: 50000000,
         name: "Arrow",
         quantity: 10,
@@ -21809,7 +21819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540060,
-        event_flag: 1038540060,
+        event_flag: 1038547060,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 2,
@@ -21819,7 +21829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500090,
-        event_flag: 1035500090,
+        event_flag: 1035507090,
         item_id: 21800,
         name: "Ash of War: Carian Grandeur",
         quantity: 1,
@@ -21829,7 +21839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510200,
-        event_flag: 1039510200,
+        event_flag: 1039517200,
         item_id: 60500,
         name: "Ash of War: Shared Order",
         quantity: 1,
@@ -21839,7 +21849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540000,
-        event_flag: 1037540000,
+        event_flag: 1037547000,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 3,
@@ -21849,7 +21859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540080,
-        event_flag: 1038540080,
+        event_flag: 1038547080,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -21859,7 +21869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540120,
-        event_flag: 1039540120,
+        event_flag: 1039547120,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 1,
@@ -21869,7 +21879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530701,
-        event_flag: 1039530701,
+        event_flag: 1039537700,
         item_id: 52030000,
         name: "Black-Key Bolt",
         quantity: 20,
@@ -21879,7 +21889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530010,
-        event_flag: 1039530010,
+        event_flag: 1039537010,
         item_id: 1440,
         name: "Blood Grease",
         quantity: 2,
@@ -21889,7 +21899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540000,
-        event_flag: 1038540000,
+        event_flag: 1038547000,
         item_id: 20723,
         name: "Bloodrose",
         quantity: 3,
@@ -21899,7 +21909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520020,
-        event_flag: 1036520020,
+        event_flag: 1036527020,
         item_id: 20841,
         name: "Budding Cave Moss",
         quantity: 4,
@@ -21909,7 +21919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500400,
-        event_flag: 1035500400,
+        event_flag: 66110,
         item_id: 9500,
         name: "Cracked Pot",
         quantity: 1,
@@ -21919,7 +21929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530700,
-        event_flag: 1039530700,
+        event_flag: 1039537700,
         item_id: 6000,
         name: "Crepus's Vial",
         quantity: 1,
@@ -21929,7 +21939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500070,
-        event_flag: 1035500070,
+        event_flag: 1035507070,
         item_id: 1740,
         name: "Crystal Dart",
         quantity: 8,
@@ -21939,7 +21949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520040,
-        event_flag: 1038520040,
+        event_flag: 1038527040,
         item_id: 1340,
         name: "Dappled White Cured Meat",
         quantity: 1,
@@ -21949,7 +21959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540000,
-        event_flag: 1035540000,
+        event_flag: 1035547000,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -21959,7 +21969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038500010,
-        event_flag: 1038500010,
+        event_flag: 1038507010,
         item_id: 1480,
         name: "Dragonwound Grease",
         quantity: 1,
@@ -21969,7 +21979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540130,
-        event_flag: 1037540130,
+        event_flag: 1037547130,
         item_id: 1500,
         name: "Drawstring Fire Grease",
         quantity: 3,
@@ -21979,7 +21989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540100,
-        event_flag: 1039540100,
+        event_flag: 1039547100,
         item_id: 1500,
         name: "Drawstring Fire Grease",
         quantity: 2,
@@ -21989,7 +21999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039520700,
-        event_flag: 1039520700,
+        event_flag: 1039527700,
         item_id: 10050000,
         name: "Eleonora's Poleblade",
         quantity: 1,
@@ -21999,7 +22009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520101,
-        event_flag: 1037520101,
+        event_flag: 1037527100,
         item_id: 990300,
         name: "Errant Sorcerer Boots",
         quantity: 1,
@@ -22009,7 +22019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520100,
-        event_flag: 1037520100,
+        event_flag: 1037527100,
         item_id: 990200,
         name: "Errant Sorcerer Manchettes",
         quantity: 1,
@@ -22019,7 +22029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520102,
-        event_flag: 1037520102,
+        event_flag: 1037527100,
         item_id: 991100,
         name: "Errant Sorcerer Robe (Altered)",
         quantity: 1,
@@ -22029,7 +22039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540010,
-        event_flag: 1038540010,
+        event_flag: 1038547010,
         item_id: 53020000,
         name: "Explosive Greatbolt",
         quantity: 5,
@@ -22039,7 +22049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540040,
-        event_flag: 1037540040,
+        event_flag: 1037547040,
         item_id: 20740,
         name: "Eye of Yelough",
         quantity: 3,
@@ -22049,7 +22059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540120,
-        event_flag: 1037540120,
+        event_flag: 1037547120,
         item_id: 1750,
         name: "Fan Daggers",
         quantity: 5,
@@ -22059,7 +22069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510010,
-        event_flag: 1039510010,
+        event_flag: 1039517010,
         item_id: 1750,
         name: "Fan Daggers",
         quantity: 5,
@@ -22069,7 +22079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540030,
-        event_flag: 1038540030,
+        event_flag: 1038547030,
         item_id: 50010000,
         name: "Fire Arrow",
         quantity: 10,
@@ -22079,7 +22089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540050,
-        event_flag: 1035540050,
+        event_flag: 1035547050,
         item_id: 2020,
         name: "Fire Scorpion Charm",
         quantity: 1,
@@ -22089,7 +22099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540050,
-        event_flag: 1036540050,
+        event_flag: 1036547050,
         item_id: 1160,
         name: "Fireproof Dried Liver",
         quantity: 3,
@@ -22099,7 +22109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037510010,
-        event_flag: 1037510010,
+        event_flag: 1037517010,
         item_id: 20652,
         name: "Fulgurbloom",
         quantity: 5,
@@ -22109,7 +22119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540060,
-        event_flag: 1037540060,
+        event_flag: 1037547060,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -22119,7 +22129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540140,
-        event_flag: 1039540140,
+        event_flag: 1039547140,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 2,
@@ -22129,7 +22139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540220,
-        event_flag: 1039540220,
+        event_flag: 1039547220,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -22139,7 +22149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500040,
-        event_flag: 1035500040,
+        event_flag: 67460,
         item_id: 9346,
         name: "Glintstone Craftsman's Cookbook [6]",
         quantity: 1,
@@ -22149,7 +22159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500190,
-        event_flag: 1035500190,
+        event_flag: 1035507190,
         item_id: 20812,
         name: "Glintstone Firefly",
         quantity: 6,
@@ -22159,7 +22169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039500100,
-        event_flag: 1039500100,
+        event_flag: 1039507100,
         item_id: 3090,
         name: "Godfrey Icon",
         quantity: 1,
@@ -22169,7 +22179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520060,
-        event_flag: 1037520060,
+        event_flag: 1037527060,
         item_id: 20811,
         name: "Gold Firefly",
         quantity: 1,
@@ -22179,7 +22189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540210,
-        event_flag: 1039540210,
+        event_flag: 1039547210,
         item_id: 20811,
         name: "Gold Firefly",
         quantity: 2,
@@ -22189,7 +22199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520050,
-        event_flag: 1037520050,
+        event_flag: 1037527050,
         item_id: 20830,
         name: "Gold-Tinged Excrement",
         quantity: 1,
@@ -22199,7 +22209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540050,
-        event_flag: 1037540050,
+        event_flag: 1037547050,
         item_id: 50090000,
         name: "Golden Arrow",
         quantity: 5,
@@ -22209,7 +22219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035520010,
-        event_flag: 1035520010,
+        event_flag: 1035527010,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -22219,7 +22229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035520030,
-        event_flag: 1035520030,
+        event_flag: 1035527030,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -22229,7 +22239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530000,
-        event_flag: 1038530000,
+        event_flag: 1038537000,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -22239,7 +22249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500060,
-        event_flag: 1035500060,
+        event_flag: 1035507060,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22249,7 +22259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530010,
-        event_flag: 1035530010,
+        event_flag: 1035537010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22259,7 +22269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540010,
-        event_flag: 1035540010,
+        event_flag: 1035547010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22269,7 +22279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036500010,
-        event_flag: 1036500010,
+        event_flag: 1036507010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22279,7 +22289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540000,
-        event_flag: 1036540000,
+        event_flag: 1036547000,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22289,7 +22299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510080,
-        event_flag: 1038510080,
+        event_flag: 1038517080,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22299,7 +22309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520020,
-        event_flag: 1038520020,
+        event_flag: 1038527020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22309,7 +22319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530010,
-        event_flag: 1038530010,
+        event_flag: 1038537010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22319,7 +22329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530040,
-        event_flag: 1038530040,
+        event_flag: 1038537040,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22329,7 +22339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530020,
-        event_flag: 1039530020,
+        event_flag: 1039537020,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22339,7 +22349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530070,
-        event_flag: 1039530070,
+        event_flag: 1039537070,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22349,7 +22359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540010,
-        event_flag: 1039540010,
+        event_flag: 1039547010,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -22359,7 +22369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500010,
-        event_flag: 1035500010,
+        event_flag: 1035507010,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22369,7 +22379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500170,
-        event_flag: 1035500170,
+        event_flag: 1035507170,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22379,7 +22389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035520020,
-        event_flag: 1035520020,
+        event_flag: 1035527020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22389,7 +22399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540140,
-        event_flag: 1037540140,
+        event_flag: 1037547140,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22399,7 +22409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520060,
-        event_flag: 1038520060,
+        event_flag: 1038527060,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22409,7 +22419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530020,
-        event_flag: 1038530020,
+        event_flag: 1038537020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22419,7 +22429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039500020,
-        event_flag: 1039500020,
+        event_flag: 1039507020,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22429,7 +22439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530000,
-        event_flag: 1039530000,
+        event_flag: 1039537000,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22439,7 +22449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540250,
-        event_flag: 1039540250,
+        event_flag: 1039547250,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -22449,7 +22459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530050,
-        event_flag: 1035530050,
+        event_flag: 1035537050,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -22459,7 +22469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036510000,
-        event_flag: 1036510000,
+        event_flag: 1036517000,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -22469,7 +22479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035520040,
-        event_flag: 1035520040,
+        event_flag: 1035527040,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22479,7 +22489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036530000,
-        event_flag: 1036530000,
+        event_flag: 1036537000,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22489,7 +22499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037530010,
-        event_flag: 1037530010,
+        event_flag: 1037537010,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22499,7 +22509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540100,
-        event_flag: 1037540100,
+        event_flag: 1037547100,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22509,7 +22519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540060,
-        event_flag: 1039540060,
+        event_flag: 1039547060,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22519,7 +22529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540110,
-        event_flag: 1039540110,
+        event_flag: 1039547110,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22529,7 +22539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540160,
-        event_flag: 1039540160,
+        event_flag: 1039547160,
         item_id: 2905,
         name: "Golden Rune [6]",
         quantity: 1,
@@ -22539,7 +22549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540020,
-        event_flag: 1036540020,
+        event_flag: 1036547020,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -22549,7 +22559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520030,
-        event_flag: 1038520030,
+        event_flag: 1038527030,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -22559,7 +22569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530030,
-        event_flag: 1038530030,
+        event_flag: 1038537030,
         item_id: 2906,
         name: "Golden Rune [7]",
         quantity: 1,
@@ -22569,7 +22579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540060,
-        event_flag: 1035540060,
+        event_flag: 1035547060,
         item_id: 2907,
         name: "Golden Rune [8]",
         quantity: 1,
@@ -22579,7 +22589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540020,
-        event_flag: 1038540020,
+        event_flag: 1038547020,
         item_id: 2907,
         name: "Golden Rune [8]",
         quantity: 1,
@@ -22589,7 +22599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500300,
-        event_flag: 1035500300,
+        event_flag: 1035507300,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22599,7 +22609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540400,
-        event_flag: 1036540400,
+        event_flag: 1036547400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22609,7 +22619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037500100,
-        event_flag: 1037500100,
+        event_flag: 1037507100,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22619,7 +22629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037530400,
-        event_flag: 1037530400,
+        event_flag: 1037537400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22629,7 +22639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510400,
-        event_flag: 1038510400,
+        event_flag: 1038517400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22639,7 +22649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510400,
-        event_flag: 1039510400,
+        event_flag: 1039517400,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -22649,7 +22659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520040,
-        event_flag: 1036520040,
+        event_flag: 1036527040,
         item_id: 20855,
         name: "Gravel Stone",
         quantity: 1,
@@ -22659,7 +22669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540110,
-        event_flag: 1037540110,
+        event_flag: 1037547110,
         item_id: 51000000,
         name: "Great Arrow",
         quantity: 5,
@@ -22669,7 +22679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510030,
-        event_flag: 1038510030,
+        event_flag: 1038517030,
         item_id: 4100,
         name: "Greatshield Talisman",
         quantity: 1,
@@ -22679,7 +22689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540090,
-        event_flag: 1037540090,
+        event_flag: 1037547090,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 2,
@@ -22689,7 +22699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039500000,
-        event_flag: 1039500000,
+        event_flag: 1039507000,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 2,
@@ -22699,7 +22709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540180,
-        event_flag: 1039540180,
+        event_flag: 1039547180,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 4,
@@ -22709,7 +22719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540030,
-        event_flag: 1037540030,
+        event_flag: 1037547030,
         item_id: 20690,
         name: "Herba",
         quantity: 3,
@@ -22719,7 +22729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520090,
-        event_flag: 1037520090,
+        event_flag: 1037527090,
         item_id: 990000,
         name: "Hierodas Glintstone Crown",
         quantity: 1,
@@ -22729,7 +22739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520070,
-        event_flag: 1038520070,
+        event_flag: 1038527070,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 5,
@@ -22739,7 +22749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039520000,
-        event_flag: 1039520000,
+        event_flag: 1039527000,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 6,
@@ -22749,7 +22759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500200,
-        event_flag: 1035500200,
+        event_flag: 1035507200,
         item_id: 30140000,
         name: "Ice Crest Shield",
         quantity: 1,
@@ -22759,7 +22769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540100,
-        event_flag: 1036540100,
+        event_flag: 1036547100,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -22769,7 +22779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510060,
-        event_flag: 1038510060,
+        event_flag: 1038517060,
         item_id: 1410,
         name: "Lightning Grease",
         quantity: 1,
@@ -22779,7 +22789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510020,
-        event_flag: 1038510020,
+        event_flag: 1038517020,
         item_id: 1170,
         name: "Lightningproof Dried Liver",
         quantity: 1,
@@ -22789,7 +22799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510040,
-        event_flag: 1038510040,
+        event_flag: 1038517040,
         item_id: 1170,
         name: "Lightningproof Dried Liver",
         quantity: 1,
@@ -22799,7 +22809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500220,
-        event_flag: 1035500220,
+        event_flag: 1035507220,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 2,
@@ -22809,7 +22819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039520020,
-        event_flag: 1039520020,
+        event_flag: 1039527020,
         item_id: 1420,
         name: "Magic Grease",
         quantity: 1,
@@ -22819,7 +22829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540500,
-        event_flag: 1036540500,
+        event_flag: 62032,
         item_id: 8608,
         name: "Map: Mt. Gelmir",
         quantity: 1,
@@ -22829,7 +22839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540101,
-        event_flag: 1038540101,
+        event_flag: 1038547100,
         item_id: 963000,
         name: "Marais Mask",
         quantity: 1,
@@ -22839,7 +22849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540102,
-        event_flag: 1038540102,
+        event_flag: 1038547100,
         item_id: 963100,
         name: "Marais Robe",
         quantity: 1,
@@ -22849,7 +22859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530030,
-        event_flag: 1039530030,
+        event_flag: 1039537030,
         item_id: 20653,
         name: "Miquella's Lily",
         quantity: 1,
@@ -22859,7 +22869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530080,
-        event_flag: 1039530080,
+        event_flag: 1039537080,
         item_id: 8660,
         name: "Mirage Riddle",
         quantity: 1,
@@ -22869,7 +22879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530020,
-        event_flag: 1035530020,
+        event_flag: 1035537020,
         item_id: 20760,
         name: "Mushroom",
         quantity: 5,
@@ -22879,7 +22889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037530000,
-        event_flag: 1037530000,
+        event_flag: 1037537000,
         item_id: 20760,
         name: "Mushroom",
         quantity: 6,
@@ -22889,7 +22899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520030,
-        event_flag: 1036520030,
+        event_flag: 1036527030,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -22899,7 +22909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540070,
-        event_flag: 1037540070,
+        event_flag: 1037547070,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -22909,7 +22919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510000,
-        event_flag: 1038510000,
+        event_flag: 1038517000,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -22919,7 +22929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530040,
-        event_flag: 1039530040,
+        event_flag: 1039537040,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 1,
@@ -22929,7 +22939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037500000,
-        event_flag: 1037500000,
+        event_flag: 1037507000,
         item_id: 900,
         name: "Neutralizing Boluses",
         quantity: 5,
@@ -22939,7 +22949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540130,
-        event_flag: 1039540130,
+        event_flag: 1039547130,
         item_id: 900,
         name: "Neutralizing Boluses",
         quantity: 2,
@@ -22949,7 +22959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037500002,
-        event_flag: 1037500002,
+        event_flag: 1037507000,
         item_id: 241000,
         name: "Noble Sorcerer Ashes",
         quantity: 1,
@@ -22959,7 +22969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500180,
-        event_flag: 1035500180,
+        event_flag: 1035507180,
         item_id: 15040,
         name: "Old Fang",
         quantity: 5,
@@ -22969,7 +22979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520000,
-        event_flag: 1038520000,
+        event_flag: 1038527000,
         item_id: 4051,
         name: "Pearldrake Talisman +1",
         quantity: 1,
@@ -22979,7 +22989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036510020,
-        event_flag: 1036510020,
+        event_flag: 66730,
         item_id: 9510,
         name: "Perfume Bottle",
         quantity: 1,
@@ -22989,7 +22999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520070,
-        event_flag: 1036520070,
+        event_flag: 66740,
         item_id: 9510,
         name: "Perfume Bottle",
         quantity: 1,
@@ -22999,7 +23009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510000,
-        event_flag: 1039510000,
+        event_flag: 66760,
         item_id: 9510,
         name: "Perfume Bottle",
         quantity: 1,
@@ -23009,7 +23019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540040,
-        event_flag: 1039540040,
+        event_flag: 66770,
         item_id: 9510,
         name: "Perfume Bottle",
         quantity: 1,
@@ -23019,7 +23029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036510010,
-        event_flag: 1036510010,
+        event_flag: 67840,
         item_id: 9384,
         name: "Perfumer's Cookbook [1]",
         quantity: 1,
@@ -23029,7 +23039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540190,
-        event_flag: 1039540190,
+        event_flag: 67850,
         item_id: 9385,
         name: "Perfumer's Cookbook [2]",
         quantity: 1,
@@ -23039,7 +23049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520010,
-        event_flag: 1036520010,
+        event_flag: 1036527010,
         item_id: 2220,
         name: "Perfumer's Talisman",
         quantity: 1,
@@ -23049,7 +23059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037550000,
-        event_flag: 1037550000,
+        event_flag: 1037557000,
         item_id: 1460,
         name: "Poison Grease",
         quantity: 2,
@@ -23059,7 +23069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540170,
-        event_flag: 1039540170,
+        event_flag: 1039547170,
         item_id: 1460,
         name: "Poison Grease",
         quantity: 1,
@@ -23069,7 +23079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540030,
-        event_flag: 1039540030,
+        event_flag: 1039547030,
         item_id: 20650,
         name: "Poisonbloom",
         quantity: 4,
@@ -23079,7 +23089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540050,
-        event_flag: 1039540050,
+        event_flag: 1039547050,
         item_id: 1720,
         name: "Poisonbone Dart",
         quantity: 5,
@@ -23089,7 +23099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520070,
-        event_flag: 1037520070,
+        event_flag: 1037527070,
         item_id: 2207,
         name: "Prattling Pate \"You're beautiful\"",
         quantity: 1,
@@ -23099,7 +23109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540110,
-        event_flag: 1038540110,
+        event_flag: 1038547110,
         item_id: 41060000,
         name: "Pulley Bow",
         quantity: 1,
@@ -23109,7 +23119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520060,
-        event_flag: 1036520060,
+        event_flag: 1036527060,
         item_id: 43050000,
         name: "Pulley Crossbow",
         quantity: 1,
@@ -23119,7 +23129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540080,
-        event_flag: 1037540080,
+        event_flag: 1037547080,
         item_id: 950,
         name: "Rejuvenating Boluses",
         quantity: 1,
@@ -23129,7 +23139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500120,
-        event_flag: 1035500120,
+        event_flag: 1035507120,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 5,
@@ -23139,7 +23149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500230,
-        event_flag: 1035500230,
+        event_flag: 1035507230,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 5,
@@ -23149,7 +23159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500240,
-        event_flag: 1035500240,
+        event_flag: 1035507240,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 3,
@@ -23159,7 +23169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500250,
-        event_flag: 1035500250,
+        event_flag: 1035507250,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 8,
@@ -23169,7 +23179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500260,
-        event_flag: 1035500260,
+        event_flag: 1035507260,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 3,
@@ -23179,7 +23189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500270,
-        event_flag: 1035500270,
+        event_flag: 1035507270,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 2,
@@ -23189,7 +23199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500280,
-        event_flag: 1035500280,
+        event_flag: 1035507280,
         item_id: 20751,
         name: "Rimed Crystal Bud",
         quantity: 2,
@@ -23199,7 +23209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510050,
-        event_flag: 1038510050,
+        event_flag: 1038517050,
         item_id: 2050,
         name: "Ritual Sword Talisman",
         quantity: 1,
@@ -23209,7 +23219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540000,
-        event_flag: 1039540000,
+        event_flag: 1039570000,
         item_id: 1490,
         name: "Rot Grease",
         quantity: 3,
@@ -23219,7 +23229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037510020,
-        event_flag: 1037510020,
+        event_flag: 1037517020,
         item_id: 961000,
         name: "Ruler's Mask",
         quantity: 1,
@@ -23229,7 +23239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037510021,
-        event_flag: 1037510021,
+        event_flag: 1037517020,
         item_id: 961100,
         name: "Ruler's Robe",
         quantity: 1,
@@ -23239,7 +23249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520030,
-        event_flag: 1037520030,
+        event_flag: 1037527030,
         item_id: 20753,
         name: "Sacramental Bud",
         quantity: 2,
@@ -23249,7 +23259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540700,
-        event_flag: 1038540700,
+        event_flag: 1038547700,
         item_id: 15120700,
         name: "Sacred Butchering Knife",
         quantity: 1,
@@ -23259,7 +23269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039520400,
-        event_flag: 1039520400,
+        event_flag: 1039527400,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -23269,7 +23279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510020,
-        event_flag: 1039510020,
+        event_flag: 1039517020,
         item_id: 6070,
         name: "Sacrificial Twig",
         quantity: 1,
@@ -23279,7 +23289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540150,
-        event_flag: 1037540150,
+        event_flag: 1037547150,
         item_id: 7080000,
         name: "Scavenger's Curved Sword",
         quantity: 1,
@@ -23289,7 +23299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500030,
-        event_flag: 1035500030,
+        event_flag: 1035507030,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 3,
@@ -23299,7 +23309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540070,
-        event_flag: 1035540070,
+        event_flag: 1035547070,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 3,
@@ -23309,7 +23319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530060,
-        event_flag: 1039530060,
+        event_flag: 1039537060,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 5,
@@ -23319,7 +23329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500130,
-        event_flag: 1035500130,
+        event_flag: 1035507130,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -23329,7 +23339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500160,
-        event_flag: 1035500160,
+        event_flag: 1035507160,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 1,
@@ -23339,7 +23349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500080,
-        event_flag: 1035500080,
+        event_flag: 1035507080,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -23349,7 +23359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500140,
-        event_flag: 1035500140,
+        event_flag: 1035507140,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -23359,7 +23369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540070,
-        event_flag: 1039540070,
+        event_flag: 1039547070,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -23369,7 +23379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540260,
-        event_flag: 1039540260,
+        event_flag: 1039547260,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 1,
@@ -23379,7 +23389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037510000,
-        event_flag: 1037510000,
+        event_flag: 1037517000,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23389,7 +23399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037530020,
-        event_flag: 1037530020,
+        event_flag: 1037537020,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23399,7 +23409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038500000,
-        event_flag: 1038500000,
+        event_flag: 1038507000,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23409,7 +23419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520010,
-        event_flag: 1038520010,
+        event_flag: 1038527010,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23419,7 +23429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540090,
-        event_flag: 1038540090,
+        event_flag: 1038547090,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23429,7 +23439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540020,
-        event_flag: 1039540020,
+        event_flag: 1039547020,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23439,7 +23449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540090,
-        event_flag: 1039540090,
+        event_flag: 1039547090,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23449,7 +23459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540200,
-        event_flag: 1039540200,
+        event_flag: 1039547200,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23459,7 +23469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540230,
-        event_flag: 1039540230,
+        event_flag: 1039547230,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23469,7 +23479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540240,
-        event_flag: 1039540240,
+        event_flag: 1039547240,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 1,
@@ -23479,7 +23489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520000,
-        event_flag: 1036520000,
+        event_flag: 1036527000,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 3,
@@ -23489,7 +23499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530000,
-        event_flag: 1035530000,
+        event_flag: 1035537000,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 8,
@@ -23499,7 +23509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530030,
-        event_flag: 1035530030,
+        event_flag: 1035537030,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 2,
@@ -23509,7 +23519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035530040,
-        event_flag: 1035530040,
+        event_flag: 1035537040,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 5,
@@ -23519,7 +23529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540010,
-        event_flag: 1036540010,
+        event_flag: 1036547010,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 4,
@@ -23529,7 +23539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540030,
-        event_flag: 1036540030,
+        event_flag: 1036547030,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 6,
@@ -23539,7 +23549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500050,
-        event_flag: 1035500050,
+        event_flag: 1035507050,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -23549,7 +23559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500100,
-        event_flag: 1035500100,
+        event_flag: 1035507100,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -23559,7 +23569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540080,
-        event_flag: 1039540080,
+        event_flag: 1039547080,
         item_id: 10164,
         name: "Somber Smithing Stone [5]",
         quantity: 1,
@@ -23569,7 +23579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038530050,
-        event_flag: 1038530050,
+        event_flag: 1038537050,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -23579,7 +23589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540020,
-        event_flag: 1037540020,
+        event_flag: 1037547020,
         item_id: 1450,
         name: "Soporific Grease",
         quantity: 2,
@@ -23589,7 +23599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500110,
-        event_flag: 1035500110,
+        event_flag: 1035507110,
         item_id: 1150,
         name: "Spellproof Dried Liver",
         quantity: 1,
@@ -23599,7 +23609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037500001,
-        event_flag: 1037500001,
+        event_flag: 1037507000,
         item_id: 910,
         name: "Stanching Boluses",
         quantity: 5,
@@ -23609,7 +23619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036540040,
-        event_flag: 1036540040,
+        event_flag: 1036547040,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -23619,7 +23629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520080,
-        event_flag: 1037520080,
+        event_flag: 1037527080,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -23629,7 +23639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540350,
-        event_flag: 1039540350,
+        event_flag: 1039547350,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -23639,7 +23649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500020,
-        event_flag: 1035500020,
+        event_flag: 1035507020,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -23649,7 +23659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035540020,
-        event_flag: 1035540020,
+        event_flag: 1035547020,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -23659,7 +23669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037540010,
-        event_flag: 1037540010,
+        event_flag: 1037547010,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -23669,7 +23679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039500010,
-        event_flag: 1039500010,
+        event_flag: 1039507010,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -23679,7 +23689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540150,
-        event_flag: 1039540150,
+        event_flag: 1039547150,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -23689,7 +23699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038520050,
-        event_flag: 1038520050,
+        event_flag: 1038527050,
         item_id: 15430,
         name: "Stormhawk Feather",
         quantity: 4,
@@ -23699,7 +23709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1037520040,
-        event_flag: 1037520040,
+        event_flag: 1037527040,
         item_id: 15400,
         name: "String",
         quantity: 5,
@@ -23709,7 +23719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510010,
-        event_flag: 1038510010,
+        event_flag: 1038517010,
         item_id: 15400,
         name: "String",
         quantity: 5,
@@ -23719,7 +23729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510070,
-        event_flag: 1038510070,
+        event_flag: 1038517070,
         item_id: 15400,
         name: "String",
         quantity: 3,
@@ -23729,7 +23739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500900,
-        event_flag: 1035500900,
+        event_flag: 1035507900,
         item_id: 2140000,
         name: "Sword of Night and Flame",
         quantity: 1,
@@ -23739,7 +23749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036500020,
-        event_flag: 1036500020,
+        event_flag: 1036507020,
         item_id: 920,
         name: "Thawfrost Boluses",
         quantity: 1,
@@ -23749,7 +23759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540070,
-        event_flag: 1038540070,
+        event_flag: 1038547070,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 6,
@@ -23759,7 +23769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038510090,
-        event_flag: 1038510090,
+        event_flag: 1038517090,
         item_id: 4030000,
         name: "Troll's Golden Sword",
         quantity: 1,
@@ -23769,7 +23779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510040,
-        event_flag: 1039510040,
+        event_flag: 1039517040,
         item_id: 15090,
         name: "Turtle Neck Meat",
         quantity: 1,
@@ -23779,7 +23789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530050,
-        event_flag: 1039530050,
+        event_flag: 1039537050,
         item_id: 4660,
         name: "Unknown Item 4660",
         quantity: 1,
@@ -23789,7 +23799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039530051,
-        event_flag: 1039530051,
+        event_flag: 1039537050,
         item_id: 4670,
         name: "Unknown Item 4670",
         quantity: 1,
@@ -23799,7 +23809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1036520050,
-        event_flag: 1036520050,
+        event_flag: 1036527050,
         item_id: 4820,
         name: "Unknown Item 4820",
         quantity: 1,
@@ -23809,7 +23819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1038540050,
-        event_flag: 1038540050,
+        event_flag: 1038547050,
         item_id: 6600,
         name: "Unknown Item 6600",
         quantity: 1,
@@ -23819,7 +23829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1035500150,
-        event_flag: 1035500150,
+        event_flag: 1035507150,
         item_id: 20070000,
         name: "Urumi",
         quantity: 1,
@@ -23829,7 +23839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039540300,
-        event_flag: 1039540300,
+        event_flag: 1039547300,
         item_id: 8977,
         name: "Valkyrie's Prosthesis",
         quantity: 1,
@@ -23839,7 +23849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1039510030,
-        event_flag: 1039510030,
+        event_flag: 1039517030,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 1,
@@ -31999,7 +32009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051410700,
-        event_flag: 2051410700,
+        event_flag: 2051417700,
         item_id: 8060,
         name: "Aged One's Exultation",
         quantity: 1,
@@ -32009,7 +32019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440030,
-        event_flag: 2046440030,
+        event_flag: 2046447030,
         item_id: 8120,
         name: "Ailment Talisman",
         quantity: 1,
@@ -32099,7 +32109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410800,
-        event_flag: 2048410800,
+        event_flag: 2048417800,
         item_id: 10140,
         name: "Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -32109,7 +32119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2054390000,
-        event_flag: 2054390000,
+        event_flag: 2053397000,
         item_id: 10140,
         name: "Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -32129,7 +32139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470700,
-        event_flag: 2046470700,
+        event_flag: 2047477000,
         item_id: 2008028,
         name: "Ancient Ruins Cross Message",
         quantity: 1,
@@ -32139,7 +32149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046480011,
-        event_flag: 2046480011,
+        event_flag: 68860,
         item_id: 2009336,
         name: "Antiquity Scholar's Cookbook [2]",
         quantity: 1,
@@ -32179,7 +32189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450020,
-        event_flag: 2046450020,
+        event_flag: 2046457020,
         item_id: 50000000,
         name: "Arrow",
         quantity: 10,
@@ -32189,7 +32199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400020,
-        event_flag: 2047400020,
+        event_flag: 2047407020,
         item_id: 50000000,
         name: "Arrow",
         quantity: 10,
@@ -32199,7 +32209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440140,
-        event_flag: 2047440140,
+        event_flag: 2047447140,
         item_id: 50000000,
         name: "Arrow",
         quantity: 10,
@@ -32209,7 +32219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049370000,
-        event_flag: 2049370000,
+        event_flag: 2049377000,
         item_id: 50000000,
         name: "Arrow",
         quantity: 10,
@@ -32219,7 +32229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450910,
-        event_flag: 2047450910,
+        event_flag: 2047457910,
         item_id: 8070,
         name: "Arrow's Soaring Sting Talisman",
         quantity: 1,
@@ -32339,7 +32349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470150,
-        event_flag: 2046470150,
+        event_flag: 2046477150,
         item_id: 200000,
         name: "Ash of War: Dryleaf Whirlwind",
         quantity: 1,
@@ -32579,7 +32589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045430700,
-        event_flag: 2045430700,
+        event_flag: 2045437700,
         item_id: 415000,
         name: "Ash of War: Savage Lion's Claw",
         quantity: 1,
@@ -32819,7 +32829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440810,
-        event_flag: 2048440810,
+        event_flag: 2048447810,
         item_id: 412000,
         name: "Ash of War: Wing Stance",
         quantity: 1,
@@ -32849,7 +32859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430000,
-        event_flag: 2046430000,
+        event_flag: 2046437000,
         item_id: 53000000,
         name: "Ballista Bolt",
         quantity: 5,
@@ -32879,7 +32889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430510,
-        event_flag: 2049430510,
+        event_flag: 68820,
         item_id: 2009332,
         name: "Battlefield Priest's Cookbook [2]",
         quantity: 1,
@@ -32889,7 +32899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460020,
-        event_flag: 2048460020,
+        event_flag: 68890,
         item_id: 2009339,
         name: "Battlefield Priest's Cookbook [3]",
         quantity: 1,
@@ -32919,7 +32929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470020,
-        event_flag: 2044470020,
+        event_flag: 2044477020,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -32929,7 +32939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410000,
-        event_flag: 2045410000,
+        event_flag: 2045417000,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 2,
@@ -32939,7 +32949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450030,
-        event_flag: 2046450030,
+        event_flag: 2046457030,
         item_id: 15030,
         name: "Beast Blood",
         quantity: 3,
@@ -32979,7 +32989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460000,
-        event_flag: 2045460000,
+        event_flag: 2045467000,
         item_id: 2015000,
         name: "Beast Horn",
         quantity: 2,
@@ -32989,7 +32999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460910,
-        event_flag: 2045460910,
+        event_flag: 2045467910,
         item_id: 2015000,
         name: "Beast Horn",
         quantity: 2,
@@ -32999,7 +33009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470160,
-        event_flag: 2046470160,
+        event_flag: 2046477160,
         item_id: 2015000,
         name: "Beast Horn",
         quantity: 2,
@@ -33149,7 +33159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440070,
-        event_flag: 2046440070,
+        event_flag: 2046447070,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 2,
@@ -33159,7 +33169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400010,
-        event_flag: 2047400010,
+        event_flag: 2047407010,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 1,
@@ -33169,7 +33179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410000,
-        event_flag: 2047410000,
+        event_flag: 2047417000,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 3,
@@ -33179,7 +33189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410060,
-        event_flag: 2047410060,
+        event_flag: 2047417060,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 3,
@@ -33189,7 +33199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440010,
-        event_flag: 2047440010,
+        event_flag: 2047447010,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 3,
@@ -33199,7 +33209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450000,
-        event_flag: 2047450000,
+        event_flag: 2047457000,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 5,
@@ -33209,7 +33219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048450000,
-        event_flag: 2048450000,
+        event_flag: 2048457000,
         item_id: 2020006,
         name: "Black Pyrefly",
         quantity: 3,
@@ -33219,7 +33229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410980,
-        event_flag: 2048410980,
+        event_flag: 2048417980,
         item_id: 12520000,
         name: "Black Steel Greathammer",
         quantity: 1,
@@ -33229,7 +33239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460710,
-        event_flag: 2048460710,
+        event_flag: 2048467710,
         item_id: 10510000,
         name: "Black Steel Twinblade",
         quantity: 1,
@@ -33249,7 +33259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410800,
-        event_flag: 2047410800,
+        event_flag: 2047417800,
         item_id: 8230,
         name: "Blade of Mercy",
         quantity: 1,
@@ -33259,7 +33269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400700,
-        event_flag: 2046400700,
+        event_flag: 2046407700,
         item_id: 8000,
         name: "Blessed Blue Dew Talisman",
         quantity: 1,
@@ -33289,7 +33299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430210,
-        event_flag: 2049430210,
+        event_flag: 2049437210,
         item_id: 2020031,
         name: "Blessed Bone Shard",
         quantity: 1,
@@ -33299,7 +33309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430310,
-        event_flag: 2049430310,
+        event_flag: 2049437310,
         item_id: 2020031,
         name: "Blessed Bone Shard",
         quantity: 1,
@@ -33309,7 +33319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430920,
-        event_flag: 2049430920,
+        event_flag: 2049437920,
         item_id: 2020031,
         name: "Blessed Bone Shard",
         quantity: 3,
@@ -33319,7 +33329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430930,
-        event_flag: 2049430930,
+        event_flag: 2049437930,
         item_id: 2020031,
         name: "Blessed Bone Shard",
         quantity: 4,
@@ -33329,7 +33339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050470020,
-        event_flag: 2050470020,
+        event_flag: 2050477020,
         item_id: 2020031,
         name: "Blessed Bone Shard",
         quantity: 1,
@@ -33339,7 +33349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410010,
-        event_flag: 2048410010,
+        event_flag: 2048417010,
         item_id: 2000900,
         name: "Blessing of Marika",
         quantity: 1,
@@ -33349,7 +33359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430620,
-        event_flag: 2049430620,
+        event_flag: 2049437620,
         item_id: 2000900,
         name: "Blessing of Marika",
         quantity: 1,
@@ -33379,7 +33389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460501,
-        event_flag: 2050460501,
+        event_flag: 65450,
         item_id: 2011050,
         name: "Bloodsucking Cracked Tear",
         quantity: 1,
@@ -33409,7 +33419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440150,
-        event_flag: 2047440150,
+        event_flag: 2047447150,
         item_id: 52000000,
         name: "Bolt",
         quantity: 10,
@@ -33429,7 +33439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046480010,
-        event_flag: 2046480010,
+        event_flag: 2046487010,
         item_id: 2003000,
         name: "Bondstone",
         quantity: 1,
@@ -33459,7 +33469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440050,
-        event_flag: 2050440050,
+        event_flag: 2050447050,
         item_id: 15510000,
         name: "Bonny Butchering Knife",
         quantity: 1,
@@ -33559,7 +33569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470050,
-        event_flag: 2045470050,
+        event_flag: 2045477050,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33569,7 +33579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440000,
-        event_flag: 2046440000,
+        event_flag: 2046447000,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33579,7 +33589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440030,
-        event_flag: 2047440030,
+        event_flag: 2047447030,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33589,7 +33599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430220,
-        event_flag: 2049430220,
+        event_flag: 2049437220,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33599,7 +33609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430260,
-        event_flag: 2049430260,
+        event_flag: 2049437260,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33609,7 +33619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430320,
-        event_flag: 2049430320,
+        event_flag: 2049437320,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33619,7 +33629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430340,
-        event_flag: 2049430340,
+        event_flag: 2049437340,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33629,7 +33639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430900,
-        event_flag: 2049430900,
+        event_flag: 2049437900,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 5,
@@ -33639,7 +33649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430910,
-        event_flag: 2049430910,
+        event_flag: 2049437910,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 5,
@@ -33649,7 +33659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440090,
-        event_flag: 2050440090,
+        event_flag: 2050447090,
         item_id: 2002951,
         name: "Broken Rune",
         quantity: 1,
@@ -33679,7 +33689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390030,
-        event_flag: 2048390030,
+        event_flag: 2048397030,
         item_id: 2003150,
         name: "Call of Tibia",
         quantity: 1,
@@ -33689,7 +33699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440820,
-        event_flag: 2047440820,
+        event_flag: 2047447820,
         item_id: 2530000,
         name: "Carian Sorcery Sword",
         quantity: 1,
@@ -33709,7 +33719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440710,
-        event_flag: 2047440710,
+        event_flag: 2047447710,
         item_id: 2008027,
         name: "Castle Cross Message",
         quantity: 1,
@@ -33739,7 +33749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053460600,
-        event_flag: 2053460600,
+        event_flag: 2053467600,
         item_id: 7150,
         name: "Cerulean Seed Talisman +1",
         quantity: 1,
@@ -33749,7 +33759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051450701,
-        event_flag: 2051450701,
+        event_flag: 65430,
         item_id: 2011030,
         name: "Cerulean-Sapping Cracked Tear",
         quantity: 1,
@@ -33779,7 +33789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050410010,
-        event_flag: 2050410010,
+        event_flag: 2050417010,
         item_id: 960,
         name: "Clarifying Boluses",
         quantity: 3,
@@ -33789,7 +33799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2052410010,
-        event_flag: 2052410010,
+        event_flag: 2052417010,
         item_id: 960,
         name: "Clarifying Boluses",
         quantity: 1,
@@ -33799,7 +33809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053410020,
-        event_flag: 2053410020,
+        event_flag: 2053417020,
         item_id: 960,
         name: "Clarifying Boluses",
         quantity: 2,
@@ -33879,7 +33889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380040,
-        event_flag: 2046380040,
+        event_flag: 2046387040,
         item_id: 15130,
         name: "Crab Eggs",
         quantity: 2,
@@ -33899,7 +33909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050400000,
-        event_flag: 2050400000,
+        event_flag: 2050407000,
         item_id: 7140,
         name: "Crimson Seed Talisman +1",
         quantity: 1,
@@ -33909,7 +33919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460501,
-        event_flag: 2045460501,
+        event_flag: 65420,
         item_id: 2011020,
         name: "Crimson-Sapping Cracked Tear",
         quantity: 1,
@@ -33919,7 +33929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460700,
-        event_flag: 2048460700,
+        event_flag: 65410,
         item_id: 2011010,
         name: "Crimsonburst Dried Tear",
         quantity: 1,
@@ -33969,7 +33979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470401,
-        event_flag: 2045470401,
+        event_flag: 2045477400,
         item_id: 5310000,
         name: "Crucible Hammer-Helm",
         quantity: 1,
@@ -33999,7 +34009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460010,
-        event_flag: 2044460010,
+        event_flag: 2044467010,
         item_id: 1340,
         name: "Dappled White Cured Meat",
         quantity: 2,
@@ -34089,7 +34099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047360010,
-        event_flag: 2047360010,
+        event_flag: 2047367010,
         item_id: 2020014,
         name: "Deep-Purple Lily",
         quantity: 3,
@@ -34099,7 +34109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048430000,
-        event_flag: 2048430000,
+        event_flag: 2048437000,
         item_id: 2020014,
         name: "Deep-Purple Lily",
         quantity: 1,
@@ -34109,7 +34119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046420981,
-        event_flag: 2046420981,
+        event_flag: 65470,
         item_id: 2011070,
         name: "Deflecting Hardtear",
         quantity: 1,
@@ -34139,7 +34149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470400,
-        event_flag: 2045470400,
+        event_flag: 2045477400,
         item_id: 23500000,
         name: "Devonia's Hammer",
         quantity: 1,
@@ -34169,7 +34179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470060,
-        event_flag: 2045470060,
+        event_flag: 2045477060,
         item_id: 2020005,
         name: "Dewgem",
         quantity: 4,
@@ -34179,7 +34189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470090,
-        event_flag: 2046470090,
+        event_flag: 2046477090,
         item_id: 2020005,
         name: "Dewgem",
         quantity: 2,
@@ -34189,7 +34199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440120,
-        event_flag: 2047440120,
+        event_flag: 2047447120,
         item_id: 2020005,
         name: "Dewgem",
         quantity: 3,
@@ -34199,7 +34209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430290,
-        event_flag: 2049430290,
+        event_flag: 2049437290,
         item_id: 2020005,
         name: "Dewgem",
         quantity: 3,
@@ -34219,7 +34229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450920,
-        event_flag: 2046450920,
+        event_flag: 2046457920,
         item_id: 2213000,
         name: "Divine Bird Warrior Ornis",
         quantity: 1,
@@ -34229,7 +34239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380020,
-        event_flag: 2049380020,
+        event_flag: 2049387020,
         item_id: 2001480,
         name: "Dragon Communion Grease",
         quantity: 1,
@@ -34239,7 +34249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380000,
-        event_flag: 2049380000,
+        event_flag: 2049387000,
         item_id: 2001710,
         name: "Dragon Communion Harpoon",
         quantity: 1,
@@ -34249,7 +34259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380010,
-        event_flag: 2049380010,
+        event_flag: 2049387010,
         item_id: 2001710,
         name: "Dragon Communion Harpoon",
         quantity: 1,
@@ -34259,7 +34269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380030,
-        event_flag: 2049380030,
+        event_flag: 2049387030,
         item_id: 2001710,
         name: "Dragon Communion Harpoon",
         quantity: 1,
@@ -34339,7 +34349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460050,
-        event_flag: 2048460050,
+        event_flag: 2048467050,
         item_id: 2001500,
         name: "Drawstring Messmerfire Grease",
         quantity: 1,
@@ -34349,7 +34359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440200,
-        event_flag: 2047440200,
+        event_flag: 2047447200,
         item_id: 2001520,
         name: "Drawstring Royal Magic Grease",
         quantity: 3,
@@ -34369,7 +34379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440721,
-        event_flag: 2050440721,
+        event_flag: 2050447720,
         item_id: 3000200,
         name: "Dryleaf Arm Wraps",
         quantity: 1,
@@ -34379,7 +34389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440722,
-        event_flag: 2050440722,
+        event_flag: 2050447720,
         item_id: 3000300,
         name: "Dryleaf Cuissardes",
         quantity: 1,
@@ -34389,7 +34399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440720,
-        event_flag: 2050440720,
+        event_flag: 2050447720,
         item_id: 3000100,
         name: "Dryleaf Robe",
         quantity: 1,
@@ -34399,7 +34409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450720,
-        event_flag: 2050450720,
+        event_flag: 2050457020,
         item_id: 34500000,
         name: "Dryleaf Seal",
         quantity: 1,
@@ -34469,7 +34479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460040,
-        event_flag: 2048460040,
+        event_flag: 2048467040,
         item_id: 2020030,
         name: "Ember of Messmer",
         quantity: 6,
@@ -34479,7 +34489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460030,
-        event_flag: 2050460030,
+        event_flag: 2050467030,
         item_id: 2020030,
         name: "Ember of Messmer",
         quantity: 5,
@@ -34519,7 +34529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048420000,
-        event_flag: 2048420000,
+        event_flag: 2048427000,
         item_id: 2001600,
         name: "Festive Grease",
         quantity: 1,
@@ -34529,7 +34539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430380,
-        event_flag: 2049430380,
+        event_flag: 2049437380,
         item_id: 2001600,
         name: "Festive Grease",
         quantity: 2,
@@ -34539,7 +34549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045480000,
-        event_flag: 2045480000,
+        event_flag: 2045487000,
         item_id: 8010,
         name: "Fine Crucible Feather Talisman",
         quantity: 1,
@@ -34549,7 +34559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380050,
-        event_flag: 2049380050,
+        event_flag: 68920,
         item_id: 2009342,
         name: "Finger-Weaver's Cookbook [1]",
         quantity: 1,
@@ -34559,7 +34569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051460010,
-        event_flag: 2051460010,
+        event_flag: 68580,
         item_id: 2009308,
         name: "Finger-Weaver's Cookbook [2]",
         quantity: 1,
@@ -34569,7 +34579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053480000,
-        event_flag: 2053480000,
+        event_flag: 2053487000,
         item_id: 2217000,
         name: "Fingercreeper Ashes",
         quantity: 1,
@@ -34579,7 +34589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051470030,
-        event_flag: 2051470030,
+        event_flag: 2051477030,
         item_id: 2001110,
         name: "Fingerprint Nostrum",
         quantity: 2,
@@ -34599,7 +34609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450080,
-        event_flag: 2047450080,
+        event_flag: 2047457080,
         item_id: 50010000,
         name: "Fire Arrow",
         quantity: 10,
@@ -34639,7 +34649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410000,
-        event_flag: 2048410000,
+        event_flag: 2048417000,
         item_id: 2003180,
         name: "Fire Coil",
         quantity: 2,
@@ -34659,7 +34669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440000,
-        event_flag: 2049440000,
+        event_flag: 68770,
         item_id: 2009327,
         name: "Fire Knight's Cookbook [1]",
         quantity: 1,
@@ -34669,7 +34679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440000,
-        event_flag: 2047440000,
+        event_flag: 68900,
         item_id: 2009340,
         name: "Fire Knight's Cookbook [2]",
         quantity: 1,
@@ -34689,7 +34699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470060,
-        event_flag: 2046470060,
+        event_flag: 2046477060,
         item_id: 2003190,
         name: "Fire Spritestone",
         quantity: 1,
@@ -34749,7 +34759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390030,
-        event_flag: 2046390030,
+        event_flag: 2046397030,
         item_id: 2001130,
         name: "Fireproof Pickled Liver",
         quantity: 1,
@@ -34759,7 +34769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430300,
-        event_flag: 2049430300,
+        event_flag: 2049437300,
         item_id: 2001130,
         name: "Fireproof Pickled Liver",
         quantity: 1,
@@ -34769,7 +34779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430610,
-        event_flag: 2049430610,
+        event_flag: 2049437610,
         item_id: 2001130,
         name: "Fireproof Pickled Liver",
         quantity: 1,
@@ -34779,7 +34789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440840,
-        event_flag: 2047440840,
+        event_flag: 2047447840,
         item_id: 61500000,
         name: "Firespark Perfume Bottle",
         quantity: 1,
@@ -34809,7 +34819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430270,
-        event_flag: 2049430270,
+        event_flag: 2049437270,
         item_id: 7100,
         name: "Flamedrake Talisman +3",
         quantity: 1,
@@ -34829,7 +34839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470020,
-        event_flag: 2045470020,
+        event_flag: 2045477020,
         item_id: 15060,
         name: "Flight Pinion",
         quantity: 2,
@@ -34839,7 +34849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440050,
-        event_flag: 2047440050,
+        event_flag: 2047447050,
         item_id: 15060,
         name: "Flight Pinion",
         quantity: 2,
@@ -34859,7 +34869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460070,
-        event_flag: 2044460070,
+        event_flag: 2044467070,
         item_id: 2015040,
         name: "Fly Mold",
         quantity: 4,
@@ -34869,7 +34879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440020,
-        event_flag: 2046440020,
+        event_flag: 2046447020,
         item_id: 2015040,
         name: "Fly Mold",
         quantity: 3,
@@ -34879,7 +34889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440060,
-        event_flag: 2046440060,
+        event_flag: 2046447060,
         item_id: 2015040,
         name: "Fly Mold",
         quantity: 3,
@@ -34889,7 +34899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450060,
-        event_flag: 2050450060,
+        event_flag: 2050457060,
         item_id: 2015040,
         name: "Fly Mold",
         quantity: 4,
@@ -34899,7 +34909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440030,
-        event_flag: 2051440030,
+        event_flag: 2051447030,
         item_id: 2015040,
         name: "Fly Mold",
         quantity: 3,
@@ -34909,7 +34919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044450010,
-        event_flag: 2044450010,
+        event_flag: 2044457010,
         item_id: 15080,
         name: "Four-Toed Fowl Foot",
         quantity: 3,
@@ -34919,7 +34929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450050,
-        event_flag: 2049450050,
+        event_flag: 2049457050,
         item_id: 15080,
         name: "Four-Toed Fowl Foot",
         quantity: 1,
@@ -34929,7 +34939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053410000,
-        event_flag: 2053410000,
+        event_flag: 2053417000,
         item_id: 61520000,
         name: "Frenzyflame Perfume Bottle",
         quantity: 1,
@@ -34989,7 +34999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410020,
-        event_flag: 2047410020,
+        event_flag: 2047417020,
         item_id: 150,
         name: "Furlcalling Finger Remedy",
         quantity: 2,
@@ -34999,7 +35009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049470000,
-        event_flag: 2049470000,
+        event_flag: 2049477000,
         item_id: 2008025,
         name: "Furnace Keeper's Note",
         quantity: 1,
@@ -35009,7 +35019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460500,
-        event_flag: 2045460500,
+        event_flag: 2045467500,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35019,7 +35029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390060,
-        event_flag: 2046390060,
+        event_flag: 2046397060,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35029,7 +35039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046420980,
-        event_flag: 2046420980,
+        event_flag: 2046427980,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35039,7 +35049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430700,
-        event_flag: 2046430700,
+        event_flag: 2046437700,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35049,7 +35059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430710,
-        event_flag: 2046430710,
+        event_flag: 2046437710,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35059,7 +35069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048400020,
-        event_flag: 2048400020,
+        event_flag: 2048407020,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35069,7 +35079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460701,
-        event_flag: 2048460701,
+        event_flag: 2048467701,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35079,7 +35089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460510,
-        event_flag: 2049460510,
+        event_flag: 2049467510,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35089,7 +35099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460520,
-        event_flag: 2049460520,
+        event_flag: 2049467520,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35099,7 +35109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460530,
-        event_flag: 2049460530,
+        event_flag: 2049467530,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35109,7 +35119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460540,
-        event_flag: 2049460540,
+        event_flag: 2049467540,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35119,7 +35129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460550,
-        event_flag: 2049460550,
+        event_flag: 2049467550,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35129,7 +35139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460560,
-        event_flag: 2049460560,
+        event_flag: 2049467560,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35139,7 +35149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460570,
-        event_flag: 2049460570,
+        event_flag: 2049467570,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35149,7 +35159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460580,
-        event_flag: 2049460580,
+        event_flag: 2049467580,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35159,7 +35169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460590,
-        event_flag: 2049460590,
+        event_flag: 2049467590,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35169,7 +35179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460600,
-        event_flag: 2049460600,
+        event_flag: 2049467600,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35179,7 +35189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049470500,
-        event_flag: 2049470500,
+        event_flag: 2049477500,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35189,7 +35199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049470510,
-        event_flag: 2049470510,
+        event_flag: 2049477510,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35199,7 +35209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460500,
-        event_flag: 2050460500,
+        event_flag: 2050467500,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35209,7 +35219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460510,
-        event_flag: 2050460510,
+        event_flag: 2050467510,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35219,7 +35229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460710,
-        event_flag: 2050460710,
+        event_flag: 2050467710,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35229,7 +35239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460720,
-        event_flag: 2050460720,
+        event_flag: 2050467720,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35239,7 +35249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460730,
-        event_flag: 2050460730,
+        event_flag: 2050467730,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35249,7 +35259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051450700,
-        event_flag: 2051450700,
+        event_flag: 2051457700,
         item_id: 2020035,
         name: "Furnace Visage",
         quantity: 1,
@@ -35299,7 +35309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430330,
-        event_flag: 2049430330,
+        event_flag: 2049437330,
         item_id: 10910,
         name: "Ghost Glovewort [1]",
         quantity: 1,
@@ -35319,7 +35329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470000,
-        event_flag: 2044470000,
+        event_flag: 2044477000,
         item_id: 10911,
         name: "Ghost Glovewort [2]",
         quantity: 1,
@@ -35369,7 +35379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044410000,
-        event_flag: 2044410000,
+        event_flag: 2044417000,
         item_id: 10913,
         name: "Ghost Glovewort [4]",
         quantity: 1,
@@ -35409,7 +35419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400050,
-        event_flag: 2046400050,
+        event_flag: 2046407050,
         item_id: 10916,
         name: "Ghost Glovewort [7]",
         quantity: 1,
@@ -35419,7 +35429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440080,
-        event_flag: 2048440080,
+        event_flag: 2048447080,
         item_id: 10916,
         name: "Ghost Glovewort [7]",
         quantity: 1,
@@ -35429,7 +35439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051410000,
-        event_flag: 2051410000,
+        event_flag: 2051417000,
         item_id: 10916,
         name: "Ghost Glovewort [7]",
         quantity: 1,
@@ -35469,7 +35479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400060,
-        event_flag: 2046400060,
+        event_flag: 2046407060,
         item_id: 10918,
         name: "Ghost Glovewort [9]",
         quantity: 1,
@@ -35479,7 +35489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390050,
-        event_flag: 2047390050,
+        event_flag: 2047397050,
         item_id: 2020021,
         name: "Ghostflame Bloom",
         quantity: 4,
@@ -35539,7 +35549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470140,
-        event_flag: 2046470140,
+        event_flag: 2046477140,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -35549,7 +35559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400000,
-        event_flag: 2047400000,
+        event_flag: 2047407000,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -35559,7 +35569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440070,
-        event_flag: 2050440070,
+        event_flag: 2050447070,
         item_id: 10000,
         name: "Glass Shard",
         quantity: 1,
@@ -35569,7 +35579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051450000,
-        event_flag: 2051450000,
+        event_flag: 2051457000,
         item_id: 2003200,
         name: "Glinting Nail",
         quantity: 2,
@@ -35589,7 +35599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440040,
-        event_flag: 2047440040,
+        event_flag: 2047447040,
         item_id: 2020007,
         name: "Glintslab Firefly",
         quantity: 3,
@@ -35599,7 +35609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440110,
-        event_flag: 2047440110,
+        event_flag: 2047447110,
         item_id: 2020007,
         name: "Glintslab Firefly",
         quantity: 1,
@@ -35609,7 +35619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440170,
-        event_flag: 2047440170,
+        event_flag: 2047447170,
         item_id: 2020007,
         name: "Glintslab Firefly",
         quantity: 1,
@@ -35629,7 +35639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470011,
-        event_flag: 2044470011,
+        event_flag: 2044477010,
         item_id: 5190100,
         name: "Gloried Attire",
         quantity: 1,
@@ -35639,7 +35649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390061,
-        event_flag: 2046390061,
+        event_flag: 65460,
         item_id: 2011060,
         name: "Glovewort Crystal Tear",
         quantity: 1,
@@ -35709,7 +35719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051470510,
-        event_flag: 2051470510,
+        event_flag: 2051477510,
         item_id: 7120,
         name: "Golden Braid",
         quantity: 1,
@@ -35739,7 +35749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460040,
-        event_flag: 2045460040,
+        event_flag: 2045467040,
         item_id: 2001230,
         name: "Golden Horn Tender",
         quantity: 1,
@@ -35749,7 +35759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470010,
-        event_flag: 2047470010,
+        event_flag: 2047477010,
         item_id: 2001230,
         name: "Golden Horn Tender",
         quantity: 1,
@@ -35759,7 +35769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440050,
-        event_flag: 2049440050,
+        event_flag: 2049447050,
         item_id: 2001230,
         name: "Golden Horn Tender",
         quantity: 1,
@@ -35769,7 +35779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440140,
-        event_flag: 2050440140,
+        event_flag: 2050447140,
         item_id: 2001230,
         name: "Golden Horn Tender",
         quantity: 1,
@@ -36039,7 +36049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460010,
-        event_flag: 2048460010,
+        event_flag: 2048467010,
         item_id: 2003170,
         name: "Golden Vow",
         quantity: 2,
@@ -36049,7 +36059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048380000,
-        event_flag: 2048380000,
+        event_flag: 2048387000,
         item_id: 2020022,
         name: "Grave Cricket",
         quantity: 6,
@@ -36059,7 +36069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390010,
-        event_flag: 2048390010,
+        event_flag: 2048397010,
         item_id: 2020022,
         name: "Grave Cricket",
         quantity: 6,
@@ -36109,7 +36119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390000,
-        event_flag: 2046390000,
+        event_flag: 2046397000,
         item_id: 10901,
         name: "Grave Glovewort [2]",
         quantity: 1,
@@ -36139,7 +36149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047420000,
-        event_flag: 2047420000,
+        event_flag: 2047427000,
         item_id: 10902,
         name: "Grave Glovewort [3]",
         quantity: 1,
@@ -36159,7 +36169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440180,
-        event_flag: 2047440180,
+        event_flag: 2047457180,
         item_id: 10903,
         name: "Grave Glovewort [4]",
         quantity: 1,
@@ -36179,7 +36189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045450010,
-        event_flag: 2045450010,
+        event_flag: 2045457010,
         item_id: 10904,
         name: "Grave Glovewort [5]",
         quantity: 1,
@@ -36189,7 +36199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430000,
-        event_flag: 2047430000,
+        event_flag: 2047437000,
         item_id: 10904,
         name: "Grave Glovewort [5]",
         quantity: 1,
@@ -36209,7 +36219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048430030,
-        event_flag: 2048430030,
+        event_flag: 2048437030,
         item_id: 10905,
         name: "Grave Glovewort [6]",
         quantity: 1,
@@ -36219,7 +36229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050470010,
-        event_flag: 2050470010,
+        event_flag: 2050477010,
         item_id: 10905,
         name: "Grave Glovewort [6]",
         quantity: 1,
@@ -36249,7 +36259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047380000,
-        event_flag: 2047380000,
+        event_flag: 2047387000,
         item_id: 10906,
         name: "Grave Glovewort [7]",
         quantity: 1,
@@ -36259,7 +36269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390040,
-        event_flag: 2048390040,
+        event_flag: 2048397040,
         item_id: 10906,
         name: "Grave Glovewort [7]",
         quantity: 1,
@@ -36279,7 +36289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390050,
-        event_flag: 2046390050,
+        event_flag: 2046397050,
         item_id: 10907,
         name: "Grave Glovewort [8]",
         quantity: 1,
@@ -36289,7 +36299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047360000,
-        event_flag: 2047360000,
+        event_flag: 2047367000,
         item_id: 10907,
         name: "Grave Glovewort [8]",
         quantity: 1,
@@ -36299,7 +36309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047380010,
-        event_flag: 2047380010,
+        event_flag: 2047387010,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36309,7 +36319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390040,
-        event_flag: 2047390040,
+        event_flag: 2047397040,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36319,7 +36329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390080,
-        event_flag: 2047390080,
+        event_flag: 2047397080,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36329,7 +36339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370010,
-        event_flag: 2048370010,
+        event_flag: 2048377010,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36339,7 +36349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370030,
-        event_flag: 2048370030,
+        event_flag: 2048377030,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36349,7 +36359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050380010,
-        event_flag: 2050380010,
+        event_flag: 2050387010,
         item_id: 10908,
         name: "Grave Glovewort [9]",
         quantity: 1,
@@ -36359,7 +36369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380060,
-        event_flag: 2046380060,
+        event_flag: 68940,
         item_id: 2009344,
         name: "Grave Keeper's Cookbook [1]",
         quantity: 1,
@@ -36369,7 +36379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380040,
-        event_flag: 2049380040,
+        event_flag: 68850,
         item_id: 2009335,
         name: "Grave Keeper's Cookbook [2]",
         quantity: 1,
@@ -36379,7 +36389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460010,
-        event_flag: 2049460010,
+        event_flag: 2049467010,
         item_id: 5230300,
         name: "Gravebird Anklets",
         quantity: 1,
@@ -36389,7 +36399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045440020,
-        event_flag: 2045440020,
+        event_flag: 2045447020,
         item_id: 5231100,
         name: "Gravebird Armor",
         quantity: 1,
@@ -36399,7 +36409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390040,
-        event_flag: 2046390040,
+        event_flag: 2046397040,
         item_id: 2202000,
         name: "Gravebird Ashes",
         quantity: 1,
@@ -36409,7 +36419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048420020,
-        event_flag: 2048420020,
+        event_flag: 2048427020,
         item_id: 5230200,
         name: "Gravebird Bracelets",
         quantity: 1,
@@ -36429,7 +36439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460070,
-        event_flag: 2045460070,
+        event_flag: 2045467070,
         item_id: 5230100,
         name: "Gravebird's Blackquill Armor",
         quantity: 1,
@@ -36449,7 +36459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051460500,
-        event_flag: 2051460500,
+        event_flag: 2051467500,
         item_id: 2008905,
         name: "Greasemonger's Bell Bearing",
         quantity: 1,
@@ -36459,7 +36469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410050,
-        event_flag: 2045410050,
+        event_flag: 2045417050,
         item_id: 51000000,
         name: "Great Arrow",
         quantity: 10,
@@ -36519,7 +36529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046390020,
-        event_flag: 2046390020,
+        event_flag: 2046397020,
         item_id: 10909,
         name: "Great Grave Glovewort",
         quantity: 1,
@@ -36529,7 +36539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400040,
-        event_flag: 2046400040,
+        event_flag: 2046407040,
         item_id: 10909,
         name: "Great Grave Glovewort",
         quantity: 1,
@@ -36539,7 +36549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370020,
-        event_flag: 2048370020,
+        event_flag: 2048377020,
         item_id: 10909,
         name: "Great Grave Glovewort",
         quantity: 1,
@@ -36549,7 +36559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048380010,
-        event_flag: 2048380010,
+        event_flag: 2048387010,
         item_id: 10909,
         name: "Great Grave Glovewort",
         quantity: 1,
@@ -36559,7 +36569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048380030,
-        event_flag: 2048380030,
+        event_flag: 2048387030,
         item_id: 10909,
         name: "Great Grave Glovewort",
         quantity: 1,
@@ -36579,7 +36589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440040,
-        event_flag: 2046440040,
+        event_flag: 68650,
         item_id: 2009315,
         name: "Greater Potentate's Cookbook [10]",
         quantity: 1,
@@ -36599,7 +36609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047420020,
-        event_flag: 2047420020,
+        event_flag: 68620,
         item_id: 2009312,
         name: "Greater Potentate's Cookbook [12]",
         quantity: 1,
@@ -36619,7 +36629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390030,
-        event_flag: 2047390030,
+        event_flag: 68710,
         item_id: 2009321,
         name: "Greater Potentate's Cookbook [14]",
         quantity: 1,
@@ -36629,7 +36639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410050,
-        event_flag: 2047410050,
+        event_flag: 68590,
         item_id: 2009309,
         name: "Greater Potentate's Cookbook [1]",
         quantity: 1,
@@ -36639,7 +36649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430030,
-        event_flag: 2046430030,
+        event_flag: 68730,
         item_id: 2009323,
         name: "Greater Potentate's Cookbook [2]",
         quantity: 1,
@@ -36649,7 +36659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450030,
-        event_flag: 2047450030,
+        event_flag: 68690,
         item_id: 2009319,
         name: "Greater Potentate's Cookbook [3]",
         quantity: 1,
@@ -36659,7 +36669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051450010,
-        event_flag: 2051450010,
+        event_flag: 68600,
         item_id: 2009310,
         name: "Greater Potentate's Cookbook [4]",
         quantity: 1,
@@ -36669,7 +36679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400010,
-        event_flag: 2046400010,
+        event_flag: 68610,
         item_id: 2009311,
         name: "Greater Potentate's Cookbook [5]",
         quantity: 1,
@@ -36679,7 +36689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051410010,
-        event_flag: 2051410010,
+        event_flag: 68720,
         item_id: 2009322,
         name: "Greater Potentate's Cookbook [6]",
         quantity: 1,
@@ -36689,7 +36699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430400,
-        event_flag: 2049430400,
+        event_flag: 68630,
         item_id: 2009313,
         name: "Greater Potentate's Cookbook [7]",
         quantity: 1,
@@ -36699,7 +36709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045480700,
-        event_flag: 2045480700,
+        event_flag: 68680,
         item_id: 2009318,
         name: "Greater Potentate's Cookbook [8]",
         quantity: 1,
@@ -36709,7 +36719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460100,
-        event_flag: 2044460100,
+        event_flag: 68640,
         item_id: 2009314,
         name: "Greater Potentate's Cookbook [9]",
         quantity: 1,
@@ -36769,7 +36779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440020,
-        event_flag: 2048440020,
+        event_flag: 2048447020,
         item_id: 15341,
         name: "Hefty Beast Bone",
         quantity: 4,
@@ -36839,7 +36849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047370010,
-        event_flag: 2047370010,
+        event_flag: 66990,
         item_id: 2009500,
         name: "Hefty Cracked Pot",
         quantity: 1,
@@ -36849,7 +36859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410030,
-        event_flag: 2047410030,
+        event_flag: 66950,
         item_id: 2009500,
         name: "Hefty Cracked Pot",
         quantity: 1,
@@ -36859,7 +36869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440110,
-        event_flag: 2050440110,
+        event_flag: 66970,
         item_id: 2009500,
         name: "Hefty Cracked Pot",
         quantity: 1,
@@ -36869,7 +36879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440130,
-        event_flag: 2050440130,
+        event_flag: 66960,
         item_id: 2009500,
         name: "Hefty Cracked Pot",
         quantity: 1,
@@ -36889,7 +36899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410710,
-        event_flag: 2047410710,
+        event_flag: 2047407710,
         item_id: 2008902,
         name: "Herbalist's Bell Bearing",
         quantity: 1,
@@ -36899,7 +36909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450201,
-        event_flag: 2049450201,
+        event_flag: 2049457200,
         item_id: 5191100,
         name: "Highland Attire",
         quantity: 1,
@@ -36939,7 +36949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430980,
-        event_flag: 2047430980,
+        event_flag: 2047437980,
         item_id: 2003130,
         name: "Horned Bairn",
         quantity: 1,
@@ -36979,7 +36989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440010,
-        event_flag: 2046440010,
+        event_flag: 2046447010,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 1,
@@ -36989,7 +36999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390020,
-        event_flag: 2048390020,
+        event_flag: 2048397020,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 1,
@@ -36999,7 +37009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440060,
-        event_flag: 2050440060,
+        event_flag: 2050447060,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 2,
@@ -37009,7 +37019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440120,
-        event_flag: 2050440120,
+        event_flag: 2050447120,
         item_id: 15100,
         name: "Human Bone Shard",
         quantity: 1,
@@ -37019,7 +37029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049390010,
-        event_flag: 2049390010,
+        event_flag: 68810,
         item_id: 2009331,
         name: "Igon's Cookbook [1]",
         quantity: 1,
@@ -37029,7 +37039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2054400000,
-        event_flag: 2054400000,
+        event_flag: 68570,
         item_id: 2009307,
         name: "Igon's Cookbook [2]",
         quantity: 1,
@@ -37039,7 +37049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440800,
-        event_flag: 2048440800,
+        event_flag: 2048447800,
         item_id: 8186,
         name: "Imbued Sword Key",
         quantity: 1,
@@ -37049,7 +37059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460020,
-        event_flag: 2044460020,
+        event_flag: 2044467020,
         item_id: 1110,
         name: "Immunizing Cured Meat",
         quantity: 3,
@@ -37169,7 +37179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430940,
-        event_flag: 2049430940,
+        event_flag: 2049437940,
         item_id: 2002130,
         name: "Iris of Occultation",
         quantity: 1,
@@ -37259,7 +37269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460050,
-        event_flag: 2044460050,
+        event_flag: 2044467050,
         item_id: 2020004,
         name: "Knot Resin",
         quantity: 3,
@@ -37269,7 +37279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440210,
-        event_flag: 2047440210,
+        event_flag: 2047447210,
         item_id: 2020004,
         name: "Knot Resin",
         quantity: 3,
@@ -37279,7 +37289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440000,
-        event_flag: 2048440000,
+        event_flag: 2048447000,
         item_id: 2020004,
         name: "Knot Resin",
         quantity: 4,
@@ -37289,7 +37299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430240,
-        event_flag: 2049430240,
+        event_flag: 2049437240,
         item_id: 2020004,
         name: "Knot Resin",
         quantity: 6,
@@ -37309,7 +37319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045450000,
-        event_flag: 2045450000,
+        event_flag: 2045457000,
         item_id: 1730,
         name: "Kukri",
         quantity: 6,
@@ -37319,7 +37329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440100,
-        event_flag: 2050440100,
+        event_flag: 2050447100,
         item_id: 1730,
         name: "Kukri",
         quantity: 5,
@@ -37349,7 +37359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470900,
-        event_flag: 2044470900,
+        event_flag: 2044477900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37359,7 +37369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410900,
-        event_flag: 2045410900,
+        event_flag: 2045417900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37369,7 +37379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440900,
-        event_flag: 2046440900,
+        event_flag: 2046447900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37379,7 +37389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046460800,
-        event_flag: 2046460800,
+        event_flag: 2046467800,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37389,7 +37399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400900,
-        event_flag: 2047400900,
+        event_flag: 2047407900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37399,7 +37409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450800,
-        event_flag: 2047450800,
+        event_flag: 2047457800,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37409,7 +37419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048420900,
-        event_flag: 2048420900,
+        event_flag: 2048427900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37419,7 +37429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049460900,
-        event_flag: 2049460900,
+        event_flag: 2049467900,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37429,7 +37439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460800,
-        event_flag: 2050460800,
+        event_flag: 2050467800,
         item_id: 2008033,
         name: "Larval Tear",
         quantity: 1,
@@ -37439,7 +37449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470012,
-        event_flag: 2044470012,
+        event_flag: 2044477010,
         item_id: 5190200,
         name: "Leather Arm Wraps",
         quantity: 1,
@@ -37449,7 +37459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450202,
-        event_flag: 2049450202,
+        event_flag: 2049457200,
         item_id: 5190200,
         name: "Leather Arm Wraps",
         quantity: 1,
@@ -37459,7 +37469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450200,
-        event_flag: 2049450200,
+        event_flag: 2049457200,
         item_id: 5191000,
         name: "Leather Crown",
         quantity: 1,
@@ -37469,7 +37479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470010,
-        event_flag: 2044470010,
+        event_flag: 2044477010,
         item_id: 5190000,
         name: "Leather Headband",
         quantity: 1,
@@ -37479,7 +37489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470013,
-        event_flag: 2044470013,
+        event_flag: 2044477010,
         item_id: 5190300,
         name: "Leather Leg Wraps",
         quantity: 1,
@@ -37489,7 +37499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450203,
-        event_flag: 2049450203,
+        event_flag: 2049457200,
         item_id: 5190300,
         name: "Leather Leg Wraps",
         quantity: 1,
@@ -37509,7 +37519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048400000,
-        event_flag: 2048400000,
+        event_flag: 2048407000,
         item_id: 61530000,
         name: "Lightning Perfume Bottle",
         quantity: 1,
@@ -37549,7 +37559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440020,
-        event_flag: 2050440020,
+        event_flag: 2050447020,
         item_id: 15410,
         name: "Living Jar Shard",
         quantity: 3,
@@ -37559,7 +37569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440030,
-        event_flag: 2050440030,
+        event_flag: 2050447030,
         item_id: 15410,
         name: "Living Jar Shard",
         quantity: 2,
@@ -37609,7 +37619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380000,
-        event_flag: 2046380000,
+        event_flag: 2046387000,
         item_id: 10070,
         name: "Lost Ashes of War",
         quantity: 1,
@@ -37619,7 +37629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430010,
-        event_flag: 2046430010,
+        event_flag: 2046437010,
         item_id: 10070,
         name: "Lost Ashes of War",
         quantity: 1,
@@ -37629,7 +37639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460020,
-        event_flag: 2050460020,
+        event_flag: 2050467020,
         item_id: 10070,
         name: "Lost Ashes of War",
         quantity: 1,
@@ -37639,7 +37649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440810,
-        event_flag: 2047440810,
+        event_flag: 68790,
         item_id: 2009329,
         name: "Loyal Knight's Cookbook",
         quantity: 1,
@@ -37659,7 +37669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470030,
-        event_flag: 2044470030,
+        event_flag: 2044477030,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 3,
@@ -37669,7 +37679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400030,
-        event_flag: 2047400030,
+        event_flag: 2047407030,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 2,
@@ -37679,7 +37689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440040,
-        event_flag: 2048440040,
+        event_flag: 2048447040,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 2,
@@ -37689,7 +37699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048420010,
-        event_flag: 2048420010,
+        event_flag: 68750,
         item_id: 2009325,
         name: "Mad Craftsman's Cookbook [1]",
         quantity: 1,
@@ -37699,7 +37709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050410000,
-        event_flag: 2050410000,
+        event_flag: 68670,
         item_id: 2009317,
         name: "Mad Craftsman's Cookbook [2]",
         quantity: 1,
@@ -37729,7 +37739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2052420500,
-        event_flag: 2052420500,
+        event_flag: 2052427500,
         item_id: 21530000,
         name: "Madding Hand",
         quantity: 1,
@@ -37749,7 +37759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440710,
-        event_flag: 2050440710,
+        event_flag: 2050447710,
         item_id: 2211000,
         name: "Man-Fly Ashes",
         quantity: 1,
@@ -37759,7 +37769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2052410600,
-        event_flag: 2052410600,
+        event_flag: 62084,
         item_id: 2008604,
         name: "Map: Abyss",
         quantity: 1,
@@ -37769,7 +37779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410900,
-        event_flag: 2047410900,
+        event_flag: 62080,
         item_id: 2008600,
         name: "Map: Gravesite Plain",
         quantity: 1,
@@ -37779,7 +37789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450710,
-        event_flag: 2046450710,
+        event_flag: 62083,
         item_id: 2008603,
         name: "Map: Rauh Ruins",
         quantity: 1,
@@ -37789,7 +37799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048450500,
-        event_flag: 2048450500,
+        event_flag: 62081,
         item_id: 2008601,
         name: "Map: Scadu Altus",
         quantity: 1,
@@ -37799,7 +37809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370040,
-        event_flag: 2048370040,
+        event_flag: 62082,
         item_id: 2008602,
         name: "Map: Southern Shore",
         quantity: 1,
@@ -37819,7 +37829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430250,
-        event_flag: 2049430250,
+        event_flag: 2049437250,
         item_id: 2002960,
         name: "Marika's Rune",
         quantity: 1,
@@ -37829,7 +37839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430230,
-        event_flag: 2049430230,
+        event_flag: 2049437230,
         item_id: 2207000,
         name: "Messmer Soldier Ashes",
         quantity: 1,
@@ -37879,7 +37889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450040,
-        event_flag: 2047450040,
+        event_flag: 2047457040,
         item_id: 2001400,
         name: "Messmerfire Grease",
         quantity: 1,
@@ -37889,7 +37899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440800,
-        event_flag: 2047440800,
+        event_flag: 2047447800,
         item_id: 67500000,
         name: "Milady",
         quantity: 1,
@@ -37899,7 +37909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440730,
-        event_flag: 2050440730,
+        event_flag: 2050447730,
         item_id: 2008906,
         name: "Moldmonger's Bell Bearing",
         quantity: 1,
@@ -37909,7 +37919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048450510,
-        event_flag: 2048450510,
+        event_flag: 2048457510,
         item_id: 2008029,
         name: "Monk's Missive",
         quantity: 1,
@@ -37929,7 +37939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460900,
-        event_flag: 2045460900,
+        event_flag: 2045467900,
         item_id: 7080,
         name: "Mottled Necklace +2",
         quantity: 1,
@@ -37939,7 +37949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440710,
-        event_flag: 2046440710,
+        event_flag: 2046447710,
         item_id: 2008903,
         name: "Mushroom-Seller's Bell Bearing [1]",
         quantity: 1,
@@ -37949,7 +37959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410110,
-        event_flag: 2047410110,
+        event_flag: 2047417110,
         item_id: 2008904,
         name: "Mushroom-Seller's Bell Bearing [2]",
         quantity: 1,
@@ -37969,7 +37979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440010,
-        event_flag: 2051440010,
+        event_flag: 2051447010,
         item_id: 20800,
         name: "Nascent Butterfly",
         quantity: 2,
@@ -38019,7 +38029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450510,
-        event_flag: 2050450510,
+        event_flag: 2050457510,
         item_id: 2009004,
         name: "O Mother",
         quantity: 1,
@@ -38029,7 +38039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400002,
-        event_flag: 2046400002,
+        event_flag: 2046407002,
         item_id: 5002100,
         name: "Oathseeker Knight Armor",
         quantity: 1,
@@ -38039,7 +38049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400003,
-        event_flag: 2046400003,
+        event_flag: 2046407003,
         item_id: 5000200,
         name: "Oathseeker Knight Gauntlets",
         quantity: 1,
@@ -38049,7 +38059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400004,
-        event_flag: 2046400004,
+        event_flag: 2046407004,
         item_id: 5000300,
         name: "Oathseeker Knight Greaves",
         quantity: 1,
@@ -38059,7 +38069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400001,
-        event_flag: 2046400001,
+        event_flag: 2046407001,
         item_id: 5000000,
         name: "Oathseeker Knight Helm",
         quantity: 1,
@@ -38069,7 +38079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460511,
-        event_flag: 2050460511,
+        event_flag: 65440,
         item_id: 2011040,
         name: "Oil-Soaked Tear",
         quantity: 1,
@@ -38099,7 +38109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410800,
-        event_flag: 2045410800,
+        event_flag: 2045417800,
         item_id: 8020,
         name: "Outer God Heirloom",
         quantity: 1,
@@ -38109,7 +38119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046400000,
-        event_flag: 2046400000,
+        event_flag: 2046407000,
         item_id: 21510000,
         name: "Pata",
         quantity: 1,
@@ -38119,7 +38129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470900,
-        event_flag: 2047470900,
+        event_flag: 2047477900,
         item_id: 8090,
         name: "Pearl Shield Talisman",
         quantity: 1,
@@ -38139,7 +38149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051470020,
-        event_flag: 2051470020,
+        event_flag: 2051477020,
         item_id: 2015020,
         name: "Pearlescent Scale",
         quantity: 1,
@@ -38149,7 +38159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380070,
-        event_flag: 2046380070,
+        event_flag: 2046387070,
         item_id: 2003140,
         name: "Perfumed Oil of Ranah",
         quantity: 1,
@@ -38199,7 +38209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460090,
-        event_flag: 2045460090,
+        event_flag: 2045467090,
         item_id: 940,
         name: "Preserving Boluses",
         quantity: 2,
@@ -38219,7 +38229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051460900,
-        event_flag: 2051460900,
+        event_flag: 2051467900,
         item_id: 44500000,
         name: "Rabbath's Cannon",
         quantity: 1,
@@ -40059,7 +40069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470070,
-        event_flag: 2045470070,
+        event_flag: 2045477070,
         item_id: 2020029,
         name: "Rauh Burrow",
         quantity: 5,
@@ -40069,7 +40079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047460010,
-        event_flag: 2047460010,
+        event_flag: 2047467010,
         item_id: 2020029,
         name: "Rauh Burrow",
         quantity: 1,
@@ -40079,7 +40089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047460030,
-        event_flag: 2047460030,
+        event_flag: 2047467030,
         item_id: 2020029,
         name: "Rauh Burrow",
         quantity: 1,
@@ -40099,7 +40109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440040,
-        event_flag: 2050440040,
+        event_flag: 2050447040,
         item_id: 1235,
         name: "Raw Meat Dumpling",
         quantity: 1,
@@ -40109,7 +40119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049390000,
-        event_flag: 2049390000,
+        event_flag: 2049397000,
         item_id: 2020032,
         name: "Red Fulgurbloom",
         quantity: 3,
@@ -40119,7 +40129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053400000,
-        event_flag: 2053400000,
+        event_flag: 2053407000,
         item_id: 2020032,
         name: "Red Fulgurbloom",
         quantity: 8,
@@ -40199,7 +40209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046460010,
-        event_flag: 2046460010,
+        event_flag: 2046467010,
         item_id: 2020002,
         name: "Redflesh Mushroom",
         quantity: 1,
@@ -40209,7 +40219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410040,
-        event_flag: 2047410040,
+        event_flag: 2047417030,
         item_id: 2020002,
         name: "Redflesh Mushroom",
         quantity: 5,
@@ -40219,7 +40229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450070,
-        event_flag: 2047450070,
+        event_flag: 2047457070,
         item_id: 2020002,
         name: "Redflesh Mushroom",
         quantity: 8,
@@ -40229,7 +40239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430350,
-        event_flag: 2049430350,
+        event_flag: 2049437350,
         item_id: 2020002,
         name: "Redflesh Mushroom",
         quantity: 5,
@@ -40269,7 +40279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440700,
-        event_flag: 2047440700,
+        event_flag: 2047447700,
         item_id: 8220,
         name: "Rellana's Cameo",
         quantity: 1,
@@ -40279,7 +40289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430000,
-        event_flag: 2049430000,
+        event_flag: 2049437000,
         item_id: 43500000,
         name: "Repeating Crossbow",
         quantity: 1,
@@ -40369,7 +40379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460000,
-        event_flag: 2044460000,
+        event_flag: 2044467000,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40379,7 +40389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410700,
-        event_flag: 2045410700,
+        event_flag: 2045417700,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40389,7 +40399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440700,
-        event_flag: 2046440700,
+        event_flag: 2046447700,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40399,7 +40409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450720,
-        event_flag: 2046450720,
+        event_flag: 2046457720,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40409,7 +40419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410700,
-        event_flag: 2047410700,
+        event_flag: 2047417700,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40419,7 +40429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430700,
-        event_flag: 2047430700,
+        event_flag: 2047437700,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40429,7 +40439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440500,
-        event_flag: 2049440500,
+        event_flag: 2049447500,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40439,7 +40449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430720,
-        event_flag: 2050430720,
+        event_flag: 2050437720,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40449,7 +40459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440500,
-        event_flag: 2050440500,
+        event_flag: 2050447500,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40459,7 +40469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460700,
-        event_flag: 2050460700,
+        event_flag: 2050467700,
         item_id: 2010100,
         name: "Revered Spirit Ash",
         quantity: 1,
@@ -40499,7 +40509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440901,
-        event_flag: 2047440901,
+        event_flag: 2047447901,
         item_id: 2001420,
         name: "Royal Magic Grease",
         quantity: 3,
@@ -40559,7 +40569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470030,
-        event_flag: 2047470030,
+        event_flag: 2047477030,
         item_id: 2001210,
         name: "Sacred Bloody Flesh",
         quantity: 5,
@@ -40589,7 +40599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410020,
-        event_flag: 2045410020,
+        event_flag: 2045417020,
         item_id: 2020012,
         name: "Sanguine Amaryllis",
         quantity: 2,
@@ -40599,7 +40609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470040,
-        event_flag: 2047470040,
+        event_flag: 2047477040,
         item_id: 2020012,
         name: "Sanguine Amaryllis",
         quantity: 5,
@@ -40699,7 +40709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044450000,
-        event_flag: 2044450000,
+        event_flag: 2044457000,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40709,7 +40719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045420700,
-        event_flag: 2045420700,
+        event_flag: 2045427700,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40719,7 +40729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046420700,
-        event_flag: 2046420700,
+        event_flag: 2046427700,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40729,7 +40739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450040,
-        event_flag: 2046450040,
+        event_flag: 2046457040,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40739,7 +40749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046460000,
-        event_flag: 2046460000,
+        event_flag: 2046467000,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40749,7 +40759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470750,
-        event_flag: 2046470750,
+        event_flag: 2046477750,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40759,7 +40769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390070,
-        event_flag: 2047390070,
+        event_flag: 2047397070,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40769,7 +40779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400100,
-        event_flag: 2047400100,
+        event_flag: 2047407100,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40779,7 +40789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440720,
-        event_flag: 2047440720,
+        event_flag: 2047447720,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40789,7 +40799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440750,
-        event_flag: 2047440750,
+        event_flag: 2047447750,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40799,7 +40809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047460500,
-        event_flag: 2047460500,
+        event_flag: 2047467500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 2,
@@ -40809,7 +40819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370050,
-        event_flag: 2048370050,
+        event_flag: 2048377050,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40819,7 +40829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410700,
-        event_flag: 2048410700,
+        event_flag: 2048417700,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 2,
@@ -40829,7 +40839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048430700,
-        event_flag: 2048430700,
+        event_flag: 2048437700,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40839,7 +40849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440500,
-        event_flag: 2048440500,
+        event_flag: 2048447500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40849,7 +40859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048450520,
-        event_flag: 2048450520,
+        event_flag: 2048457520,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40859,7 +40869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460510,
-        event_flag: 2048460510,
+        event_flag: 2048467510,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40869,7 +40879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440530,
-        event_flag: 2049440530,
+        event_flag: 2049447530,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40879,7 +40889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450510,
-        event_flag: 2049450510,
+        event_flag: 2049457510,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40889,7 +40899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049480000,
-        event_flag: 2049480000,
+        event_flag: 2049487000,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40899,7 +40909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490500,
-        event_flag: 2049490500,
+        event_flag: 2049497500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40909,7 +40919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490520,
-        event_flag: 2049490520,
+        event_flag: 2049497520,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40919,7 +40929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490530,
-        event_flag: 2049490530,
+        event_flag: 2049497530,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40929,7 +40939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490540,
-        event_flag: 2049490540,
+        event_flag: 2049497540,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40939,7 +40949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490550,
-        event_flag: 2049490550,
+        event_flag: 2049497550,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40949,7 +40959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430010,
-        event_flag: 2050430010,
+        event_flag: 2050437010,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40959,7 +40969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430500,
-        event_flag: 2050430500,
+        event_flag: 2050437500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40969,7 +40979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450730,
-        event_flag: 2050450730,
+        event_flag: 2050457730,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40979,7 +40989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440500,
-        event_flag: 2051440500,
+        event_flag: 2051447500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40989,7 +40999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440510,
-        event_flag: 2051440510,
+        event_flag: 2051447510,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -40999,7 +41009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053390020,
-        event_flag: 2053390020,
+        event_flag: 2053397020,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 1,
@@ -41009,7 +41019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053410500,
-        event_flag: 2053410500,
+        event_flag: 2053417500,
         item_id: 2010000,
         name: "Scadutree Fragment",
         quantity: 2,
@@ -41019,7 +41029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460080,
-        event_flag: 2044460080,
+        event_flag: 2044467080,
         item_id: 2020011,
         name: "Scarlet Bud",
         quantity: 6,
@@ -41029,7 +41039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470130,
-        event_flag: 2046470130,
+        event_flag: 2046477130,
         item_id: 2015030,
         name: "Scorpion Liver",
         quantity: 3,
@@ -41039,7 +41049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440040,
-        event_flag: 2051440040,
+        event_flag: 2051447040,
         item_id: 2015030,
         name: "Scorpion Liver",
         quantity: 4,
@@ -41069,7 +41079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450900,
-        event_flag: 2047450900,
+        event_flag: 2047457900,
         item_id: 13500000,
         name: "Serpent Flail",
         quantity: 1,
@@ -41109,7 +41119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045430000,
-        event_flag: 2045430000,
+        event_flag: 2045437000,
         item_id: 2002952,
         name: "Shadow Realm Rune [1]",
         quantity: 1,
@@ -41119,7 +41129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430020,
-        event_flag: 2046430020,
+        event_flag: 2046437020,
         item_id: 2002952,
         name: "Shadow Realm Rune [1]",
         quantity: 1,
@@ -41129,7 +41139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047350000,
-        event_flag: 2047350000,
+        event_flag: 2047357000,
         item_id: 2002952,
         name: "Shadow Realm Rune [1]",
         quantity: 1,
@@ -41139,7 +41149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048430020,
-        event_flag: 2048430020,
+        event_flag: 2048437020,
         item_id: 2002952,
         name: "Shadow Realm Rune [1]",
         quantity: 1,
@@ -41159,7 +41169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410010,
-        event_flag: 2047410010,
+        event_flag: 2047417010,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41169,7 +41179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430040,
-        event_flag: 2047430040,
+        event_flag: 2047437040,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41179,7 +41189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440160,
-        event_flag: 2047440160,
+        event_flag: 2047447160,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41189,7 +41199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440620,
-        event_flag: 2047440620,
+        event_flag: 2047447620,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41199,7 +41209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440010,
-        event_flag: 2048440010,
+        event_flag: 2048447010,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41209,7 +41219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430901,
-        event_flag: 2049430901,
+        event_flag: 2049437901,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41219,7 +41229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430911,
-        event_flag: 2049430911,
+        event_flag: 2049437911,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41229,7 +41239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050380000,
-        event_flag: 2050380000,
+        event_flag: 2050387000,
         item_id: 2002953,
         name: "Shadow Realm Rune [2]",
         quantity: 1,
@@ -41279,7 +41289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380010,
-        event_flag: 2046380010,
+        event_flag: 2046387010,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41289,7 +41299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470070,
-        event_flag: 2047470070,
+        event_flag: 2047477070,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41299,7 +41309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430902,
-        event_flag: 2049430902,
+        event_flag: 2049437902,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41309,7 +41319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430912,
-        event_flag: 2049430912,
+        event_flag: 2049437912,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41319,7 +41329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440040,
-        event_flag: 2049440040,
+        event_flag: 2049447040,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41329,7 +41339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450010,
-        event_flag: 2049450010,
+        event_flag: 2049457010,
         item_id: 2002954,
         name: "Shadow Realm Rune [3]",
         quantity: 1,
@@ -41359,7 +41369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460030,
-        event_flag: 2044460030,
+        event_flag: 2044467030,
         item_id: 2002955,
         name: "Shadow Realm Rune [4]",
         quantity: 1,
@@ -41369,7 +41379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440600,
-        event_flag: 2047440600,
+        event_flag: 2047447600,
         item_id: 2002955,
         name: "Shadow Realm Rune [4]",
         quantity: 1,
@@ -41379,7 +41389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460500,
-        event_flag: 2048460500,
+        event_flag: 2048467500,
         item_id: 2002955,
         name: "Shadow Realm Rune [4]",
         quantity: 1,
@@ -41389,7 +41399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430370,
-        event_flag: 2049430370,
+        event_flag: 2049437370,
         item_id: 2002955,
         name: "Shadow Realm Rune [4]",
         quantity: 1,
@@ -41399,7 +41409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440010,
-        event_flag: 2050440010,
+        event_flag: 2050447010,
         item_id: 2002955,
         name: "Shadow Realm Rune [4]",
         quantity: 1,
@@ -41449,7 +41459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046480000,
-        event_flag: 2046480000,
+        event_flag: 2046487000,
         item_id: 2002956,
         name: "Shadow Realm Rune [5]",
         quantity: 1,
@@ -41479,7 +41489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470010,
-        event_flag: 2046470010,
+        event_flag: 2046477010,
         item_id: 2002957,
         name: "Shadow Realm Rune [6]",
         quantity: 1,
@@ -41489,7 +41499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053480010,
-        event_flag: 2053480010,
+        event_flag: 2053487010,
         item_id: 2002957,
         name: "Shadow Realm Rune [6]",
         quantity: 1,
@@ -41509,7 +41519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460050,
-        event_flag: 2045460050,
+        event_flag: 2045467050,
         item_id: 2002958,
         name: "Shadow Realm Rune [7]",
         quantity: 1,
@@ -41519,7 +41529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470010,
-        event_flag: 2045470010,
+        event_flag: 2045477010,
         item_id: 2002958,
         name: "Shadow Realm Rune [7]",
         quantity: 1,
@@ -41529,7 +41539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051420000,
-        event_flag: 2051420000,
+        event_flag: 2051427000,
         item_id: 2002958,
         name: "Shadow Realm Rune [7]",
         quantity: 1,
@@ -41539,7 +41549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2052410000,
-        event_flag: 2052410000,
+        event_flag: 2052417000,
         item_id: 2002958,
         name: "Shadow Realm Rune [7]",
         quantity: 1,
@@ -41569,7 +41579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460090,
-        event_flag: 2048460090,
+        event_flag: 2048467090,
         item_id: 2020009,
         name: "Shadow Sunflower",
         quantity: 2,
@@ -41579,7 +41589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440020,
-        event_flag: 2049440020,
+        event_flag: 2049447020,
         item_id: 2020009,
         name: "Shadow Sunflower",
         quantity: 4,
@@ -41589,7 +41599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450000,
-        event_flag: 2049450000,
+        event_flag: 2049457000,
         item_id: 2020009,
         name: "Shadow Sunflower",
         quantity: 2,
@@ -41599,7 +41609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051470010,
-        event_flag: 2051470010,
+        event_flag: 2051477010,
         item_id: 2020009,
         name: "Shadow Sunflower",
         quantity: 3,
@@ -41609,7 +41619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049490510,
-        event_flag: 2049490510,
+        event_flag: 2049497510,
         item_id: 8150,
         name: "Sharpshot Talisman",
         quantity: 1,
@@ -41619,7 +41629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440090,
-        event_flag: 2049440090,
+        event_flag: 2049447090,
         item_id: 8030,
         name: "Shattered Stone Talisman",
         quantity: 1,
@@ -41689,7 +41699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046440050,
-        event_flag: 2046440050,
+        event_flag: 2046447050,
         item_id: 2001220,
         name: "Silver Horn Tender",
         quantity: 1,
@@ -41699,7 +41709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430000,
-        event_flag: 2050430000,
+        event_flag: 2050437000,
         item_id: 2001220,
         name: "Silver Horn Tender",
         quantity: 1,
@@ -41729,7 +41739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440060,
-        event_flag: 2047440060,
+        event_flag: 2047447060,
         item_id: 1190,
         name: "Silver-Pickled Fowl Foot",
         quantity: 1,
@@ -41769,7 +41779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470120,
-        event_flag: 2046470120,
+        event_flag: 2046477120,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 2,
@@ -41909,7 +41919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440070,
-        event_flag: 2049440070,
+        event_flag: 2049447070,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 4,
@@ -41919,7 +41929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440020,
-        event_flag: 2051440020,
+        event_flag: 2051447020,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 6,
@@ -41979,7 +41989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460060,
-        event_flag: 2044460060,
+        event_flag: 2044467060,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 8,
@@ -41989,7 +41999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048410030,
-        event_flag: 2048410030,
+        event_flag: 2048417030,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 3,
@@ -41999,7 +42009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049380060,
-        event_flag: 2049380060,
+        event_flag: 2049387060,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 6,
@@ -42049,7 +42059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045420000,
-        event_flag: 2045420000,
+        event_flag: 2045427000,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -42059,7 +42069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450070,
-        event_flag: 2046450070,
+        event_flag: 2046457070,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 2,
@@ -42069,7 +42079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450010,
-        event_flag: 2047450010,
+        event_flag: 2047457010,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 3,
@@ -42079,7 +42089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460060,
-        event_flag: 2048460060,
+        event_flag: 2048467060,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 5,
@@ -42089,7 +42099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440000,
-        event_flag: 2050440000,
+        event_flag: 2050447000,
         item_id: 10102,
         name: "Smithing Stone [3]",
         quantity: 2,
@@ -42149,7 +42159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410040,
-        event_flag: 2045410040,
+        event_flag: 2045417040,
         item_id: 10103,
         name: "Smithing Stone [4]",
         quantity: 4,
@@ -42199,7 +42209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430020,
-        event_flag: 2047430020,
+        event_flag: 2047437020,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 3,
@@ -42209,7 +42219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430600,
-        event_flag: 2049430600,
+        event_flag: 2049437600,
         item_id: 10104,
         name: "Smithing Stone [5]",
         quantity: 7,
@@ -42249,7 +42259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046430040,
-        event_flag: 2046430040,
+        event_flag: 2046437040,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 1,
@@ -42259,7 +42269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390090,
-        event_flag: 2047390090,
+        event_flag: 2047397090,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 3,
@@ -42269,7 +42279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430500,
-        event_flag: 2049430500,
+        event_flag: 2049437500,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 8,
@@ -42279,7 +42289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430220,
-        event_flag: 2050430220,
+        event_flag: 2050437220,
         item_id: 10105,
         name: "Smithing Stone [6]",
         quantity: 8,
@@ -42329,7 +42339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460020,
-        event_flag: 2045460020,
+        event_flag: 2045467020,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 2,
@@ -42339,7 +42349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460060,
-        event_flag: 2045460060,
+        event_flag: 2045467060,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 2,
@@ -42349,7 +42359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450920,
-        event_flag: 2047450920,
+        event_flag: 2047457920,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 8,
@@ -42359,7 +42369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470050,
-        event_flag: 2047470050,
+        event_flag: 2047477050,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 4,
@@ -42369,7 +42379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390000,
-        event_flag: 2048390000,
+        event_flag: 2048397000,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 4,
@@ -42379,7 +42389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050430040,
-        event_flag: 2050430040,
+        event_flag: 2050437040,
         item_id: 10106,
         name: "Smithing Stone [7]",
         quantity: 2,
@@ -42459,7 +42469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046460020,
-        event_flag: 2046460020,
+        event_flag: 2046467020,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 4,
@@ -42469,7 +42479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450700,
-        event_flag: 2047450700,
+        event_flag: 2047457700,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 9,
@@ -42479,7 +42489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430520,
-        event_flag: 2049430520,
+        event_flag: 2049437520,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 4,
@@ -42489,7 +42499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460000,
-        event_flag: 2050460000,
+        event_flag: 2050467000,
         item_id: 10107,
         name: "Smithing Stone [8]",
         quantity: 3,
@@ -42599,7 +42609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2053390010,
-        event_flag: 2053390010,
+        event_flag: 2053397010,
         item_id: 10168,
         name: "Somber Ancient Dragon Smithing Stone",
         quantity: 1,
@@ -42649,7 +42659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470050,
-        event_flag: 2044470050,
+        event_flag: 2044477050,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 1,
@@ -42659,7 +42669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440020,
-        event_flag: 2047440020,
+        event_flag: 2047447020,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 1,
@@ -42669,7 +42679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440130,
-        event_flag: 2047440130,
+        event_flag: 2047447130,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 1,
@@ -42749,7 +42759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440100,
-        event_flag: 2047440100,
+        event_flag: 2047447100,
         item_id: 10161,
         name: "Somber Smithing Stone [2]",
         quantity: 1,
@@ -42759,7 +42769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047450020,
-        event_flag: 2047450020,
+        event_flag: 2047457020,
         item_id: 10161,
         name: "Somber Smithing Stone [2]",
         quantity: 1,
@@ -42809,7 +42819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450060,
-        event_flag: 2046450060,
+        event_flag: 2046457060,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -42819,7 +42829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440070,
-        event_flag: 2047440070,
+        event_flag: 2047447070,
         item_id: 10162,
         name: "Somber Smithing Stone [3]",
         quantity: 1,
@@ -42869,7 +42879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410030,
-        event_flag: 2045410030,
+        event_flag: 2045417030,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -42879,7 +42889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380050,
-        event_flag: 2046380050,
+        event_flag: 2046387050,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -42889,7 +42899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047420030,
-        event_flag: 2047420030,
+        event_flag: 2047427030,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -42899,7 +42909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430050,
-        event_flag: 2047430050,
+        event_flag: 2047437050,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -42909,7 +42919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440070,
-        event_flag: 2048440070,
+        event_flag: 2048447070,
         item_id: 10163,
         name: "Somber Smithing Stone [4]",
         quantity: 1,
@@ -42999,7 +43009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440050,
-        event_flag: 2048440050,
+        event_flag: 2048447050,
         item_id: 10164,
         name: "Somber Smithing Stone [5]",
         quantity: 1,
@@ -43079,7 +43089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470070,
-        event_flag: 2046470070,
+        event_flag: 2046477070,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43089,7 +43099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047420040,
-        event_flag: 2047420040,
+        event_flag: 2047427040,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43099,7 +43109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440080,
-        event_flag: 2047440080,
+        event_flag: 2047447080,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43109,7 +43119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440060,
-        event_flag: 2048440060,
+        event_flag: 2048447060,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43119,7 +43129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048460030,
-        event_flag: 2048460030,
+        event_flag: 2048467030,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43129,7 +43139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2052400010,
-        event_flag: 2052400010,
+        event_flag: 2052407010,
         item_id: 10165,
         name: "Somber Smithing Stone [6]",
         quantity: 1,
@@ -43159,7 +43169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049420010,
-        event_flag: 2049420010,
+        event_flag: 2049427010,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -43169,7 +43179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450080,
-        event_flag: 2050450080,
+        event_flag: 2050457080,
         item_id: 10166,
         name: "Somber Smithing Stone [7]",
         quantity: 1,
@@ -43249,7 +43259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470000,
-        event_flag: 2047470000,
+        event_flag: 2046477700,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -43259,7 +43269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050440740,
-        event_flag: 2050440740,
+        event_flag: 2050447740,
         item_id: 10167,
         name: "Somber Smithing Stone [8]",
         quantity: 1,
@@ -43319,7 +43329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470030,
-        event_flag: 2046470030,
+        event_flag: 2046477030,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -43329,7 +43339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440900,
-        event_flag: 2047440900,
+        event_flag: 2047447900,
         item_id: 10200,
         name: "Somber Smithing Stone [9]",
         quantity: 1,
@@ -43369,7 +43379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440190,
-        event_flag: 2047440190,
+        event_flag: 2047447190,
         item_id: 7090,
         name: "Spelldrake Talisman +3",
         quantity: 1,
@@ -43379,7 +43389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051460020,
-        event_flag: 2051460020,
+        event_flag: 2051467020,
         item_id: 2008908,
         name: "Spellmachinist's Bell Bearing",
         quantity: 1,
@@ -43389,7 +43399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470020,
-        event_flag: 2046470020,
+        event_flag: 2046477020,
         item_id: 2204000,
         name: "Spider Scorpion Ashes",
         quantity: 1,
@@ -43409,7 +43419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045450020,
-        event_flag: 2045450020,
+        event_flag: 2045457020,
         item_id: 2015010,
         name: "Spirit Calculus",
         quantity: 1,
@@ -43419,7 +43429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047470020,
-        event_flag: 2047470020,
+        event_flag: 2047477020,
         item_id: 2015010,
         name: "Spirit Calculus",
         quantity: 1,
@@ -43429,7 +43439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048400010,
-        event_flag: 2048400010,
+        event_flag: 2048407010,
         item_id: 18500000,
         name: "Spirit Glaive",
         quantity: 1,
@@ -43439,7 +43449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047390000,
-        event_flag: 2047390000,
+        event_flag: 2047397000,
         item_id: 7500000,
         name: "Spirit Sword",
         quantity: 1,
@@ -43449,7 +43459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044450020,
-        event_flag: 2044450020,
+        event_flag: 2044457020,
         item_id: 2020028,
         name: "Spiritgrave Stone",
         quantity: 2,
@@ -43459,7 +43469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380030,
-        event_flag: 2046380030,
+        event_flag: 2046387030,
         item_id: 2020028,
         name: "Spiritgrave Stone",
         quantity: 2,
@@ -43469,7 +43479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450050,
-        event_flag: 2046450050,
+        event_flag: 2046457050,
         item_id: 2020028,
         name: "Spiritgrave Stone",
         quantity: 3,
@@ -43479,7 +43489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430280,
-        event_flag: 2049430280,
+        event_flag: 2049437280,
         item_id: 2020028,
         name: "Spiritgrave Stone",
         quantity: 3,
@@ -43489,7 +43499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430010,
-        event_flag: 2047430010,
+        event_flag: 2047437010,
         item_id: 43510000,
         name: "Spread Crossbow",
         quantity: 1,
@@ -43499,7 +43509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048370060,
-        event_flag: 2048370060,
+        event_flag: 68760,
         item_id: 2009326,
         name: "St. Trina Disciple's Cookbook [1]",
         quantity: 1,
@@ -43509,7 +43519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047350010,
-        event_flag: 2047350010,
+        event_flag: 68950,
         item_id: 2009345,
         name: "St. Trina Disciple's Cookbook [2]",
         quantity: 1,
@@ -43569,7 +43579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440610,
-        event_flag: 2047440610,
+        event_flag: 2047447610,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -43579,7 +43589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440730,
-        event_flag: 2047440730,
+        event_flag: 2047447730,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -43589,7 +43599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051450530,
-        event_flag: 2051450530,
+        event_flag: 2051457530,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -43609,7 +43619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470900,
-        event_flag: 2045470900,
+        event_flag: 2045477900,
         item_id: 2540000,
         name: "Stone-Sheathed Sword",
         quantity: 1,
@@ -43619,7 +43629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460900,
-        event_flag: 2050460900,
+        event_flag: 2050467900,
         item_id: 2540000,
         name: "Stone-Sheathed Sword",
         quantity: 1,
@@ -43689,7 +43699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046380020,
-        event_flag: 2046380020,
+        event_flag: 2046387020,
         item_id: 15400,
         name: "String",
         quantity: 3,
@@ -43699,7 +43709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048440030,
-        event_flag: 2048440030,
+        event_flag: 2048447030,
         item_id: 15400,
         name: "String",
         quantity: 3,
@@ -43709,7 +43719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440030,
-        event_flag: 2049440030,
+        event_flag: 2049447030,
         item_id: 15400,
         name: "String",
         quantity: 2,
@@ -43719,7 +43729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410710,
-        event_flag: 2045410710,
+        event_flag: 2045417710,
         item_id: 2008909,
         name: "String-Seller's Bell Bearing",
         quantity: 1,
@@ -43759,7 +43769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047430030,
-        event_flag: 2047430030,
+        event_flag: 2047437030,
         item_id: 16520000,
         name: "Swift Spear",
         quantity: 1,
@@ -43799,7 +43809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049420700,
-        event_flag: 2049420700,
+        event_flag: 2049427700,
         item_id: 2020017,
         name: "Swollen Grape",
         quantity: 1,
@@ -43809,7 +43819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049420720,
-        event_flag: 2049420720,
+        event_flag: 2049427720,
         item_id: 2020017,
         name: "Swollen Grape",
         quantity: 1,
@@ -43819,7 +43829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050410700,
-        event_flag: 2050410700,
+        event_flag: 2050417700,
         item_id: 2020017,
         name: "Swollen Grape",
         quantity: 1,
@@ -43829,7 +43839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050420700,
-        event_flag: 2050420700,
+        event_flag: 2050427700,
         item_id: 2020017,
         name: "Swollen Grape",
         quantity: 1,
@@ -43839,7 +43849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051410710,
-        event_flag: 2051410710,
+        event_flag: 2051417710,
         item_id: 2020017,
         name: "Swollen Grape",
         quantity: 1,
@@ -43849,7 +43859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470700,
-        event_flag: 2045470700,
+        event_flag: 2045477700,
         item_id: 2560000,
         name: "Sword of Darkness",
         quantity: 1,
@@ -43859,7 +43869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470500,
-        event_flag: 2045470500,
+        event_flag: 2045477500,
         item_id: 2550000,
         name: "Sword of Light",
         quantity: 1,
@@ -43869,7 +43879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044450900,
-        event_flag: 2044450900,
+        event_flag: 2044457900,
         item_id: 8240,
         name: "Talisman of All Crucibles",
         quantity: 1,
@@ -43889,7 +43899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049420000,
-        event_flag: 2049420000,
+        event_flag: 2049427000,
         item_id: 8170,
         name: "Talisman of the Dread",
         quantity: 1,
@@ -44009,7 +44019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470100,
-        event_flag: 2046470100,
+        event_flag: 2046477100,
         item_id: 15340,
         name: "Thin Beast Bones",
         quantity: 8,
@@ -44019,7 +44029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047410100,
-        event_flag: 2047410100,
+        event_flag: 2047417100,
         item_id: 15340,
         name: "Thin Beast Bones",
         quantity: 6,
@@ -44029,7 +44039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050450000,
-        event_flag: 2050450000,
+        event_flag: 2050457000,
         item_id: 15340,
         name: "Thin Beast Bones",
         quantity: 6,
@@ -44049,7 +44059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044470040,
-        event_flag: 2044470040,
+        event_flag: 2044477040,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 5,
@@ -44059,7 +44069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470000,
-        event_flag: 2046470000,
+        event_flag: 2046477000,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 5,
@@ -44069,7 +44079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049430360,
-        event_flag: 2049430360,
+        event_flag: 2049437360,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 8,
@@ -44079,7 +44089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048380020,
-        event_flag: 2048380020,
+        event_flag: 68870,
         item_id: 2009337,
         name: "Tibia's Cookbook",
         quantity: 1,
@@ -44089,7 +44099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051440000,
-        event_flag: 2051440000,
+        event_flag: 2051447000,
         item_id: 20500000,
         name: "Tooth Whip",
         quantity: 1,
@@ -44119,7 +44129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048430010,
-        event_flag: 2048430010,
+        event_flag: 2048437010,
         item_id: 2020010,
         name: "Toxic Mossling",
         quantity: 8,
@@ -44149,7 +44159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450910,
-        event_flag: 2046450910,
+        event_flag: 2046457910,
         item_id: 8040,
         name: "Two-Handed Sword Talisman",
         quantity: 1,
@@ -44159,7 +44169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046450000,
-        event_flag: 2046450000,
+        event_flag: 2046457000,
         item_id: 7030,
         name: "Two-Headed Turtle Talisman",
         quantity: 1,
@@ -44169,7 +44179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440090,
-        event_flag: 2047440090,
+        event_flag: 2047447090,
         item_id: 2004310,
         name: "Unknown Item 2004310",
         quantity: 1,
@@ -44199,7 +44209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048390050,
-        event_flag: 2048390050,
+        event_flag: 2048397050,
         item_id: 2005000,
         name: "Unknown Item 2005000",
         quantity: 1,
@@ -44219,7 +44229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049450500,
-        event_flag: 2049450500,
+        event_flag: 2049457500,
         item_id: 2006400,
         name: "Unknown Item 2006400",
         quantity: 1,
@@ -44229,7 +44239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470040,
-        event_flag: 2045470040,
+        event_flag: 2045477040,
         item_id: 2006660,
         name: "Unknown Item 2006660",
         quantity: 1,
@@ -44239,7 +44249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2051470500,
-        event_flag: 2051470500,
+        event_flag: 2051477500,
         item_id: 2006670,
         name: "Unknown Item 2006670",
         quantity: 1,
@@ -44289,7 +44299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460040,
-        event_flag: 2044460040,
+        event_flag: 2044467040,
         item_id: 2007210,
         name: "Unknown Item 2007210",
         quantity: 1,
@@ -44299,7 +44309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440900,
-        event_flag: 2049440900,
+        event_flag: 2049447900,
         item_id: 2007700,
         name: "Unknown Item 2007700",
         quantity: 1,
@@ -44309,7 +44319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460910,
-        event_flag: 2050460910,
+        event_flag: 2050467910,
         item_id: 2007710,
         name: "Unknown Item 2007710",
         quantity: 1,
@@ -44329,7 +44339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2044460110,
-        event_flag: 2044460110,
+        event_flag: 2044467110,
         item_id: 2007740,
         name: "Unknown Item 2007740",
         quantity: 1,
@@ -44359,7 +44369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470510,
-        event_flag: 2045470510,
+        event_flag: 2045477510,
         item_id: 2550001,
         name: "Unknown Item 2550001",
         quantity: 1,
@@ -44369,7 +44379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470520,
-        event_flag: 2045470520,
+        event_flag: 2045477520,
         item_id: 2550002,
         name: "Unknown Item 2550002",
         quantity: 1,
@@ -44379,7 +44389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470530,
-        event_flag: 2045470530,
+        event_flag: 2045477530,
         item_id: 2550003,
         name: "Unknown Item 2550003",
         quantity: 1,
@@ -44389,7 +44399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470540,
-        event_flag: 2045470540,
+        event_flag: 2045477540,
         item_id: 2550004,
         name: "Unknown Item 2550004",
         quantity: 1,
@@ -44399,7 +44409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470550,
-        event_flag: 2045470550,
+        event_flag: 2045477550,
         item_id: 2550005,
         name: "Unknown Item 2550005",
         quantity: 1,
@@ -44409,7 +44419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470560,
-        event_flag: 2045470560,
+        event_flag: 2045477560,
         item_id: 2550006,
         name: "Unknown Item 2550006",
         quantity: 1,
@@ -44419,7 +44429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470570,
-        event_flag: 2045470570,
+        event_flag: 2045477570,
         item_id: 2550007,
         name: "Unknown Item 2550007",
         quantity: 1,
@@ -44429,7 +44439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470580,
-        event_flag: 2045470580,
+        event_flag: 2045477580,
         item_id: 2550008,
         name: "Unknown Item 2550008",
         quantity: 1,
@@ -44439,7 +44449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470590,
-        event_flag: 2045470590,
+        event_flag: 2045477590,
         item_id: 2550009,
         name: "Unknown Item 2550009",
         quantity: 1,
@@ -44449,7 +44459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470600,
-        event_flag: 2045470600,
+        event_flag: 2045477600,
         item_id: 2550010,
         name: "Unknown Item 2550010",
         quantity: 1,
@@ -44459,7 +44469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470710,
-        event_flag: 2045470710,
+        event_flag: 2045477710,
         item_id: 2560001,
         name: "Unknown Item 2560001",
         quantity: 1,
@@ -44469,7 +44479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470720,
-        event_flag: 2045470720,
+        event_flag: 2045477720,
         item_id: 2560002,
         name: "Unknown Item 2560002",
         quantity: 1,
@@ -44479,7 +44489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470730,
-        event_flag: 2045470730,
+        event_flag: 2045477730,
         item_id: 2560003,
         name: "Unknown Item 2560003",
         quantity: 1,
@@ -44489,7 +44499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470740,
-        event_flag: 2045470740,
+        event_flag: 2045477740,
         item_id: 2560004,
         name: "Unknown Item 2560004",
         quantity: 1,
@@ -44499,7 +44509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470750,
-        event_flag: 2045470750,
+        event_flag: 2045477750,
         item_id: 2560005,
         name: "Unknown Item 2560005",
         quantity: 1,
@@ -44509,7 +44519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470760,
-        event_flag: 2045470760,
+        event_flag: 2045477760,
         item_id: 2560006,
         name: "Unknown Item 2560006",
         quantity: 1,
@@ -44519,7 +44529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470770,
-        event_flag: 2045470770,
+        event_flag: 2045477770,
         item_id: 2560007,
         name: "Unknown Item 2560007",
         quantity: 1,
@@ -44529,7 +44539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470780,
-        event_flag: 2045470780,
+        event_flag: 2045477780,
         item_id: 2560008,
         name: "Unknown Item 2560008",
         quantity: 1,
@@ -44539,7 +44549,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470790,
-        event_flag: 2045470790,
+        event_flag: 2045477790,
         item_id: 2560009,
         name: "Unknown Item 2560009",
         quantity: 1,
@@ -44549,7 +44559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045470800,
-        event_flag: 2045470800,
+        event_flag: 2045477800,
         item_id: 2560010,
         name: "Unknown Item 2560010",
         quantity: 1,
@@ -44559,7 +44569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047400980,
-        event_flag: 2047400980,
+        event_flag: 2047407980,
         item_id: 4407062,
         name: "Unknown Item 4407062",
         quantity: 1,
@@ -44569,7 +44579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047420700,
-        event_flag: 2047420700,
+        event_flag: 2047427700,
         item_id: 4409058,
         name: "Unknown Item 4409058",
         quantity: 1,
@@ -44579,7 +44589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045440010,
-        event_flag: 2045440010,
+        event_flag: 2045447010,
         item_id: 4411061,
         name: "Unknown Item 4411061",
         quantity: 1,
@@ -44809,7 +44819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2046470720,
-        event_flag: 2046470720,
+        event_flag: 2046477720,
         item_id: 8210,
         name: "Verdigris Discus",
         quantity: 1,
@@ -44839,7 +44849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2048400021,
-        event_flag: 2048400021,
+        event_flag: 65400,
         item_id: 2011000,
         name: "Viridian Hidden Tear",
         quantity: 1,
@@ -44899,7 +44909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045410010,
-        event_flag: 2045410010,
+        event_flag: 2045417010,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 3,
@@ -44909,7 +44919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045440000,
-        event_flag: 2045440000,
+        event_flag: 2045447000,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 3,
@@ -44919,7 +44929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2045460080,
-        event_flag: 2045460080,
+        event_flag: 2045467080,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 5,
@@ -44929,7 +44939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047370000,
-        event_flag: 2047370000,
+        event_flag: 2047377000,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 4,
@@ -44939,7 +44949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2049440060,
-        event_flag: 2049440060,
+        event_flag: 2049447060,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 3,
@@ -44949,7 +44959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2050460040,
-        event_flag: 2050460040,
+        event_flag: 2050467040,
         item_id: 2020003,
         name: "Whiteflesh Mushroom",
         quantity: 3,
@@ -44979,7 +44989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 2047440830,
-        event_flag: 2047440830,
+        event_flag: 2047447830,
         item_id: 31510000,
         name: "Wolf Crest Shield",
         quantity: 1,
@@ -46879,7 +46889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340000,
-        event_flag: 1043340000,
+        event_flag: 1043347000,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 2,
@@ -46889,7 +46899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043360070,
-        event_flag: 1043360070,
+        event_flag: 1043367070,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 1,
@@ -46899,7 +46909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044310020,
-        event_flag: 1044310020,
+        event_flag: 1044317020,
         item_id: 20691,
         name: "Arteria Leaf",
         quantity: 1,
@@ -46909,7 +46919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320410,
-        event_flag: 1044320410,
+        event_flag: 1044327410,
         item_id: 30100,
         name: "Ash of War: Barricade Shield",
         quantity: 1,
@@ -46919,7 +46929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310360,
-        event_flag: 1043310360,
+        event_flag: 1043317360,
         item_id: 53000000,
         name: "Ballista Bolt",
         quantity: 5,
@@ -46929,7 +46939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340101,
-        event_flag: 1044340101,
+        event_flag: 1044347100,
         item_id: 53000000,
         name: "Ballista Bolt",
         quantity: 5,
@@ -46939,7 +46949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042340010,
-        event_flag: 1042340010,
+        event_flag: 1042347010,
         item_id: 15010,
         name: "Beast Liver",
         quantity: 1,
@@ -46949,7 +46959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042350030,
-        event_flag: 1042350030,
+        event_flag: 1042357030,
         item_id: 3350,
         name: "Bewitching Branch",
         quantity: 3,
@@ -46959,7 +46969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042340000,
-        event_flag: 1042340000,
+        event_flag: 1042347000,
         item_id: 1440,
         name: "Blood Grease",
         quantity: 2,
@@ -46969,7 +46979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310910,
-        event_flag: 1043310910,
+        event_flag: 1043317910,
         item_id: 3180000,
         name: "Claymore",
         quantity: 1,
@@ -46979,7 +46989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042320100,
-        event_flag: 1042320100,
+        event_flag: 1042327100,
         item_id: 40050000,
         name: "Composite Bow",
         quantity: 1,
@@ -46999,7 +47009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043350000,
-        event_flag: 1043350000,
+        event_flag: 1043357000,
         item_id: 15130,
         name: "Crab Eggs",
         quantity: 1,
@@ -47009,7 +47019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043360040,
-        event_flag: 1043360040,
+        event_flag: 1043367040,
         item_id: 15130,
         name: "Crab Eggs",
         quantity: 1,
@@ -47019,7 +47029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350040,
-        event_flag: 1044350040,
+        event_flag: 1044357040,
         item_id: 15130,
         name: "Crab Eggs",
         quantity: 1,
@@ -47029,7 +47039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340400,
-        event_flag: 1043340400,
+        event_flag: 1043347400,
         item_id: 33060000,
         name: "Demi-Human Queen's Staff",
         quantity: 1,
@@ -47039,7 +47049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042330000,
-        event_flag: 1042330000,
+        event_flag: 1042337000,
         item_id: 31310000,
         name: "Eclipse Crest Heater Shield",
         quantity: 1,
@@ -47049,7 +47059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041350020,
-        event_flag: 1041350020,
+        event_flag: 1041357020,
         item_id: 1210,
         name: "Exalted Flesh",
         quantity: 1,
@@ -47059,7 +47069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340020,
-        event_flag: 1043340020,
+        event_flag: 65240,
         item_id: 11024,
         name: "Faith-knot Crystal Tear",
         quantity: 1,
@@ -47069,7 +47079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043300010,
-        event_flag: 1043300010,
+        event_flag: 1043307010,
         item_id: 50010000,
         name: "Fire Arrow",
         quantity: 15,
@@ -47079,7 +47089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310000,
-        event_flag: 1043310000,
+        event_flag: 1043317000,
         item_id: 1400,
         name: "Fire Grease",
         quantity: 2,
@@ -47089,7 +47099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330000,
-        event_flag: 1044330000,
+        event_flag: 1044337000,
         item_id: 31260000,
         name: "Flame Crest Wooden Shield",
         quantity: 1,
@@ -47099,7 +47109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310320,
-        event_flag: 1043310320,
+        event_flag: 1043317320,
         item_id: 150,
         name: "Furlcalling Finger Remedy",
         quantity: 1,
@@ -47109,7 +47119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042340030,
-        event_flag: 1042340030,
+        event_flag: 1042347030,
         item_id: 30130000,
         name: "Gilded Iron Shield",
         quantity: 1,
@@ -47119,7 +47129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360000,
-        event_flag: 1044360000,
+        event_flag: 1044367000,
         item_id: 2030,
         name: "Glowstone",
         quantity: 2,
@@ -47129,7 +47139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042350010,
-        event_flag: 1042350010,
+        event_flag: 1042357010,
         item_id: 1200,
         name: "Gold-Pickled Fowl Foot",
         quantity: 1,
@@ -47139,7 +47149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340040,
-        event_flag: 1043340040,
+        event_flag: 1043347040,
         item_id: 20830,
         name: "Gold-Tinged Excrement",
         quantity: 2,
@@ -47149,7 +47159,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320000,
-        event_flag: 1041320000,
+        event_flag: 1041327000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47159,7 +47169,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320010,
-        event_flag: 1041320010,
+        event_flag: 1041327010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47169,7 +47179,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320030,
-        event_flag: 1041320030,
+        event_flag: 1041327030,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47179,7 +47189,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320040,
-        event_flag: 1041320040,
+        event_flag: 1041327040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47189,7 +47199,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041330000,
-        event_flag: 1041330000,
+        event_flag: 1041337000,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47199,7 +47209,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042331200,
-        event_flag: 1042331200,
+        event_flag: 1042337200,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47209,7 +47219,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042360040,
-        event_flag: 1042360040,
+        event_flag: 1042367040,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47219,7 +47229,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310400,
-        event_flag: 1043310400,
+        event_flag: 1043317400,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47229,7 +47239,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043350010,
-        event_flag: 1043350010,
+        event_flag: 1043357010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47239,7 +47249,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340060,
-        event_flag: 1044340060,
+        event_flag: 1044347060,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 3,
@@ -47249,7 +47259,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340070,
-        event_flag: 1044340070,
+        event_flag: 1044347070,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 3,
@@ -47259,7 +47269,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350020,
-        event_flag: 1044350020,
+        event_flag: 1044357020,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47269,7 +47279,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350060,
-        event_flag: 1044350060,
+        event_flag: 1044357060,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47279,7 +47289,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360010,
-        event_flag: 1044360010,
+        event_flag: 1044367010,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47289,7 +47299,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360300,
-        event_flag: 1044360300,
+        event_flag: 1044367300,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47299,7 +47309,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360310,
-        event_flag: 1044360310,
+        event_flag: 1044367310,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47309,7 +47319,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360330,
-        event_flag: 1044360330,
+        event_flag: 1044367330,
         item_id: 2900,
         name: "Golden Rune [1]",
         quantity: 1,
@@ -47319,7 +47329,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320020,
-        event_flag: 1041320020,
+        event_flag: 1041327020,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47329,7 +47339,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042340020,
-        event_flag: 1042340020,
+        event_flag: 1042347020,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47339,7 +47349,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042360030,
-        event_flag: 1042360030,
+        event_flag: 1042367030,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47349,7 +47359,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310080,
-        event_flag: 1043310080,
+        event_flag: 1043317080,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47359,7 +47369,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310110,
-        event_flag: 1043310110,
+        event_flag: 1043317110,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47369,7 +47379,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043330000,
-        event_flag: 1043330000,
+        event_flag: 1043337000,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47379,7 +47389,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043330010,
-        event_flag: 1043330010,
+        event_flag: 1043337010,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47389,7 +47399,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043360020,
-        event_flag: 1043360020,
+        event_flag: 1043367020,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47399,7 +47409,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330050,
-        event_flag: 1044330050,
+        event_flag: 1044337050,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47409,7 +47419,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330070,
-        event_flag: 1044330070,
+        event_flag: 1044337070,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47419,7 +47429,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350000,
-        event_flag: 1044350000,
+        event_flag: 1044357000,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47429,7 +47439,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360320,
-        event_flag: 1044360320,
+        event_flag: 1044367320,
         item_id: 2901,
         name: "Golden Rune [2]",
         quantity: 1,
@@ -47439,7 +47449,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041320050,
-        event_flag: 1041320050,
+        event_flag: 1041327050,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -47449,7 +47459,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360340,
-        event_flag: 1044360340,
+        event_flag: 1044367340,
         item_id: 2902,
         name: "Golden Rune [3]",
         quantity: 1,
@@ -47459,7 +47469,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044310010,
-        event_flag: 1044310010,
+        event_flag: 1044317010,
         item_id: 2903,
         name: "Golden Rune [4]",
         quantity: 1,
@@ -47469,7 +47479,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041330010,
-        event_flag: 1041330010,
+        event_flag: 1041337010,
         item_id: 2904,
         name: "Golden Rune [5]",
         quantity: 1,
@@ -47479,7 +47489,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320020,
-        event_flag: 1044320020,
+        event_flag: 1044327020,
         item_id: 10010,
         name: "Golden Seed",
         quantity: 1,
@@ -47489,7 +47499,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041330030,
-        event_flag: 1041330030,
+        event_flag: 1041337030,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 1,
@@ -47499,7 +47509,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041350000,
-        event_flag: 1041350000,
+        event_flag: 1041357000,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 4,
@@ -47509,7 +47519,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042320000,
-        event_flag: 1042320000,
+        event_flag: 1042327000,
         item_id: 15110,
         name: "Great Dragonfly Head",
         quantity: 3,
@@ -47519,7 +47529,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350900,
-        event_flag: 1044350900,
+        event_flag: 1044357900,
         item_id: 6020000,
         name: "Great Epee",
         quantity: 1,
@@ -47529,7 +47539,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320040,
-        event_flag: 1044320040,
+        event_flag: 1044327040,
         item_id: 31140000,
         name: "Great Turtle Shell",
         quantity: 1,
@@ -47549,7 +47559,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340100,
-        event_flag: 1044340100,
+        event_flag: 1044347100,
         item_id: 44000000,
         name: "Hand Ballista",
         quantity: 1,
@@ -47559,7 +47569,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360020,
-        event_flag: 1044360020,
+        event_flag: 1044367020,
         item_id: 1110,
         name: "Immunizing Cured Meat",
         quantity: 1,
@@ -47569,7 +47579,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041360000,
-        event_flag: 1041360000,
+        event_flag: 1041367000,
         item_id: 15140,
         name: "Land Octopus Ovary",
         quantity: 1,
@@ -47579,7 +47589,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340080,
-        event_flag: 1044340080,
+        event_flag: 1044347080,
         item_id: 12000000,
         name: "Large Club",
         quantity: 1,
@@ -47589,7 +47599,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350100,
-        event_flag: 1044350100,
+        event_flag: 1044357100,
         item_id: 8185,
         name: "Larval Tear",
         quantity: 1,
@@ -47599,7 +47609,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042350000,
-        event_flag: 1042350000,
+        event_flag: 1042357000,
         item_id: 15020,
         name: "Lump of Flesh",
         quantity: 3,
@@ -47609,7 +47619,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320000,
-        event_flag: 1044320000,
+        event_flag: 62011,
         item_id: 8601,
         name: "Map: Weeping Peninsula",
         quantity: 1,
@@ -47619,7 +47629,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330210,
-        event_flag: 1044330210,
+        event_flag: 1044337210,
         item_id: 11050000,
         name: "Morning Star",
         quantity: 1,
@@ -47629,7 +47639,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042320020,
-        event_flag: 1042320020,
+        event_flag: 1042327020,
         item_id: 20760,
         name: "Mushroom",
         quantity: 4,
@@ -47639,7 +47649,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320411,
-        event_flag: 1044320411,
+        event_flag: 1044327410,
         item_id: 13000000,
         name: "Nightrider Flail",
         quantity: 1,
@@ -47649,7 +47659,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310140,
-        event_flag: 1043310140,
+        event_flag: 1043317140,
         item_id: 1100,
         name: "Pickled Turtle Neck",
         quantity: 1,
@@ -47659,7 +47669,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042330100,
-        event_flag: 1042330100,
+        event_flag: 1042337100,
         item_id: 1050,
         name: "Radagon's Scarseal",
         quantity: 1,
@@ -47669,7 +47679,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330020,
-        event_flag: 1044330020,
+        event_flag: 1044337020,
         item_id: 2020,
         name: "Rainbow Stone",
         quantity: 5,
@@ -47679,7 +47689,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340040,
-        event_flag: 1044340040,
+        event_flag: 1044347040,
         item_id: 2020,
         name: "Rainbow Stone",
         quantity: 1,
@@ -47689,7 +47699,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340401,
-        event_flag: 1043340401,
+        event_flag: 1043347400,
         item_id: 4090,
         name: "Ritual Shield Talisman",
         quantity: 1,
@@ -47699,7 +47709,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350010,
-        event_flag: 1044350010,
+        event_flag: 1044357010,
         item_id: 8851,
         name: "Royal House Scroll",
         quantity: 1,
@@ -47709,7 +47719,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340050,
-        event_flag: 1044340050,
+        event_flag: 1044347050,
         item_id: 1760,
         name: "Ruin Fragment",
         quantity: 3,
@@ -47719,7 +47729,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041330200,
-        event_flag: 1041330200,
+        event_flag: 1041337200,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -47729,7 +47739,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043350100,
-        event_flag: 1043350100,
+        event_flag: 1043357100,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -47739,7 +47749,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330100,
-        event_flag: 1044330100,
+        event_flag: 1044337100,
         item_id: 10020,
         name: "Sacred Tear",
         quantity: 1,
@@ -47749,7 +47759,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320400,
-        event_flag: 1044320400,
+        event_flag: 1044327400,
         item_id: 14110000,
         name: "Sacrificial Axe",
         quantity: 1,
@@ -47759,7 +47769,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340100,
-        event_flag: 1043340100,
+        event_flag: 1043347100,
         item_id: 31170000,
         name: "Shield of the Guilty",
         quantity: 1,
@@ -47769,7 +47779,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042360010,
-        event_flag: 1042360010,
+        event_flag: 1042367010,
         item_id: 1190,
         name: "Silver-Pickled Fowl Foot",
         quantity: 2,
@@ -47779,7 +47789,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042350020,
-        event_flag: 1042350020,
+        event_flag: 1042357020,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 1,
@@ -47789,7 +47799,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043320010,
-        event_flag: 1043320010,
+        event_flag: 1043327010,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 1,
@@ -47799,7 +47809,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350030,
-        event_flag: 1044350030,
+        event_flag: 1044357030,
         item_id: 15000,
         name: "Sliver of Meat",
         quantity: 1,
@@ -47809,7 +47819,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043350030,
-        event_flag: 1043350030,
+        event_flag: 1043357030,
         item_id: 15120,
         name: "Slumbering Egg",
         quantity: 1,
@@ -47819,7 +47829,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042360050,
-        event_flag: 1042360050,
+        event_flag: 1042367050,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -47829,7 +47839,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042360060,
-        event_flag: 1042360060,
+        event_flag: 1042367060,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -47839,7 +47849,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310350,
-        event_flag: 1043310350,
+        event_flag: 1043317350,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 3,
@@ -47849,7 +47859,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310500,
-        event_flag: 1043310500,
+        event_flag: 1043317500,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -47859,7 +47869,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320010,
-        event_flag: 1044320010,
+        event_flag: 1044327010,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 1,
@@ -47869,7 +47879,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340010,
-        event_flag: 1044340010,
+        event_flag: 1044347010,
         item_id: 10100,
         name: "Smithing Stone [1]",
         quantity: 3,
@@ -47879,7 +47889,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041350010,
-        event_flag: 1041350010,
+        event_flag: 1041357010,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -47889,7 +47899,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310020,
-        event_flag: 1043310020,
+        event_flag: 1043317020,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -47899,7 +47909,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310090,
-        event_flag: 1043310090,
+        event_flag: 1043317090,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 2,
@@ -47909,7 +47919,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310240,
-        event_flag: 1043310240,
+        event_flag: 1043317240,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -47919,7 +47929,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330200,
-        event_flag: 1044330200,
+        event_flag: 1044337200,
         item_id: 10101,
         name: "Smithing Stone [2]",
         quantity: 1,
@@ -47929,7 +47939,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360030,
-        event_flag: 1044360030,
+        event_flag: 1044367030,
         item_id: 20802,
         name: "Smoldering Butterfly",
         quantity: 4,
@@ -47939,7 +47949,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043300000,
-        event_flag: 1043300000,
+        event_flag: 1043307000,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 1,
@@ -47949,7 +47959,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360040,
-        event_flag: 1044360040,
+        event_flag: 1044367040,
         item_id: 10160,
         name: "Somber Smithing Stone [1]",
         quantity: 1,
@@ -47959,7 +47969,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044310030,
-        event_flag: 1044310030,
+        event_flag: 1044317030,
         item_id: 10161,
         name: "Somber Smithing Stone [2]",
         quantity: 1,
@@ -47969,7 +47979,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044350070,
-        event_flag: 1044350070,
+        event_flag: 1044357070,
         item_id: 1290,
         name: "Starlight Shards",
         quantity: 1,
@@ -47979,7 +47989,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310330,
-        event_flag: 1043310330,
+        event_flag: 1043317330,
         item_id: 24020000,
         name: "Steel-Wire Torch",
         quantity: 1,
@@ -47989,7 +47999,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310170,
-        event_flag: 1043310170,
+        event_flag: 1043317170,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -47999,7 +48009,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043360010,
-        event_flag: 1043360010,
+        event_flag: 1043367010,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -48009,7 +48019,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044340000,
-        event_flag: 1044340000,
+        event_flag: 1044347000,
         item_id: 8000,
         name: "Stonesword Key",
         quantity: 1,
@@ -48019,7 +48029,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043340050,
-        event_flag: 1043340050,
+        event_flag: 1043347050,
         item_id: 15400,
         name: "String",
         quantity: 5,
@@ -48029,7 +48039,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330030,
-        event_flag: 1044330030,
+        event_flag: 1044337030,
         item_id: 15160,
         name: "Strip of White Flesh",
         quantity: 1,
@@ -48039,7 +48049,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310220,
-        event_flag: 1043310220,
+        event_flag: 1043317220,
         item_id: 20685,
         name: "Tarnished Golden Sunflower",
         quantity: 3,
@@ -48049,7 +48059,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310280,
-        event_flag: 1043310280,
+        event_flag: 1043317280,
         item_id: 1700,
         name: "Throwing Dagger",
         quantity: 8,
@@ -48059,7 +48069,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044360100,
-        event_flag: 1044360100,
+        event_flag: 1044367100,
         item_id: 20651,
         name: "Trina's Lily",
         quantity: 4,
@@ -48069,7 +48079,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043361010,
-        event_flag: 1043361010,
+        event_flag: 1043367110,
         item_id: 10000000,
         name: "Twinblade",
         quantity: 1,
@@ -48079,7 +48089,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310900,
-        event_flag: 1043310900,
+        event_flag: 1043317900,
         item_id: 2120,
         name: "Twinblade Talisman",
         quantity: 1,
@@ -48089,7 +48099,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1041330100,
-        event_flag: 1041330100,
+        event_flag: 1041337100,
         item_id: 4600,
         name: "Type 17",
         quantity: 1,
@@ -48099,7 +48109,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044330080,
-        event_flag: 1044330080,
+        event_flag: 1044337080,
         item_id: 7310,
         name: "Unknown Item 7310",
         quantity: 1,
@@ -48109,7 +48119,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1044320030,
-        event_flag: 1044320030,
+        event_flag: 1044327030,
         item_id: 3310,
         name: "Warming Stone",
         quantity: 2,
@@ -48119,7 +48129,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043310370,
-        event_flag: 1043310370,
+        event_flag: 1043317370,
         item_id: 20000000,
         name: "Whip",
         quantity: 1,
@@ -48129,7 +48139,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1042340100,
-        event_flag: 1042340100,
+        event_flag: 1042347100,
         item_id: 19060000,
         name: "Winged Scythe",
         quantity: 1,
@@ -48139,7 +48149,7 @@ pub static WORLD_PICKUPS: &[WorldPickup] = &[
     },
     WorldPickup {
         item_lot_id: 1043320000,
-        event_flag: 1043320000,
+        event_flag: 1043327000,
         item_id: 20845,
         name: "Yellow Ember",
         quantity: 1,
@@ -48185,4 +48195,84 @@ pub fn get_category_counts() -> Vec<(PickupCategory, usize)> {
     let mut result: Vec<_> = counts.into_iter().collect();
     result.sort_by(|a, b| b.1.cmp(&a.1));
     result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::WORLD_PICKUPS;
+    use crate::knowledge::gen_dungeon_pickups::source_from_catalog;
+    use std::collections::{HashMap, HashSet};
+    use std::path::Path;
+
+    /// Every `event_flag` must be a real `getItemFlagId` from the primary source.
+    ///
+    /// This table cannot be regenerated (its `region` and `mapgenie_id` columns are
+    /// enrichment that the primary source does not carry), so this is what stands in
+    /// for a generator's byte-for-byte check: the one field that decides WHICH BIT
+    /// gets read is re-derived from `ItemLotParam_map` on every test run.
+    ///
+    /// It exists because the field silently held param row ids for part of the
+    /// open-world family. That reads correctly only while `row_id + 7000 ==
+    /// getItemFlagId`, which is false for 124 rows — 220 entries resolved to the
+    /// wrong bit, or to a tile bit for an item actually recorded on a block flag
+    /// (Maps, Cookbooks, Crystal Tears).
+    ///
+    /// Skips (does not fail) when the game extract is absent, since it is
+    /// out-of-repo evidence not present in CI.
+    #[test]
+    fn test_event_flags_match_primary_source() {
+        let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
+        let src = match source_from_catalog(repo_root) {
+            Ok(p) if p.exists() => p,
+            _ => {
+                eprintln!(
+                    "skip test_event_flags_match_primary_source: ItemLotParam_map extract \
+                     absent (game-extracts corpus). Run where the evidence is present."
+                );
+                return;
+            }
+        };
+        let xml = std::fs::read_to_string(&src).expect("read source xml");
+        let doc = roxmltree::Document::parse(&xml).expect("parse source xml");
+
+        let mut by_row: HashMap<u32, u32> = HashMap::new();
+        let mut known_flags: HashSet<u32> = HashSet::new();
+        for n in doc.descendants().filter(|n| n.has_tag_name("row")) {
+            let flag: u32 = match n.attribute("getItemFlagId").and_then(|s| s.parse().ok()) {
+                Some(f) if f != 0 => f,
+                _ => continue,
+            };
+            if let Some(id) = n.attribute("id").and_then(|s| s.parse::<u32>().ok()) {
+                by_row.insert(id, flag);
+            }
+            known_flags.insert(flag);
+        }
+        assert!(!by_row.is_empty(), "primary source yielded no flagged rows");
+
+        let mut wrong: Vec<String> = Vec::new();
+        for p in WORLD_PICKUPS {
+            match by_row.get(&p.item_lot_id) {
+                // The lot is a param row: its flag is authoritative.
+                Some(&flag) if flag != p.event_flag => wrong.push(format!(
+                    "lot {} ({}): event_flag {} but getItemFlagId is {}",
+                    p.item_lot_id, p.name, p.event_flag, flag
+                )),
+                Some(_) => {}
+                // Nine "Troll Carriage" lots are keyed by their storage address
+                // (flag - 7000) rather than the param's own 9-prefixed row id, so
+                // the row lookup misses. The flag itself must still be real.
+                None if !known_flags.contains(&p.event_flag) => wrong.push(format!(
+                    "lot {} ({}): event_flag {} is not a getItemFlagId in the primary source",
+                    p.item_lot_id, p.name, p.event_flag
+                )),
+                None => {}
+            }
+        }
+        assert!(
+            wrong.is_empty(),
+            "{} pickup_data entries carry an event_flag the primary source contradicts:\n{}",
+            wrong.len(),
+            wrong.join("\n")
+        );
+    }
 }

@@ -113,8 +113,12 @@ UNVERIFIED), and propose the fix.
   WASM).
 - A bare 10-digit tile id is AMBIGUOUS between the open-world and pickup families (regions
   500 bytes apart) — the caller must pick `is_tile_world_flag_set` vs `is_tile_pickup_set`;
-  routing on the value silently reads the wrong bit. `pickup_data.rs` stores row_ids, not
-  getItemFlagIds.
+  routing on the value silently reads the wrong bit.
+- **Pickup tables store `getItemFlagId`, never a row id** (`world_pickups.rs`,
+  `dungeon_pickups.rs`, `pickup_data.rs` since v0.36.0). `getItemFlagId = row_id + 7000`
+  holds for most open-world rows but NOT all — 124 rows break it — so a row-id convention
+  reads the wrong bit while looking correct. Each table is machine-checked against
+  `ItemLotParam_map` by a test; do not hand-edit them.
 - Legacy maps (8-digit) split by localId: `is_dungeon_flag_set` (< 7000) vs
   `is_dungeon_pickup_set` (>= 7000), layout `alloc_slot(map) * 1125 + localId / 8` with
   slots from the game's own alloclists — NOT the deleted "+3375 per area" stride table

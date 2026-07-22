@@ -41,9 +41,9 @@ The ER-save-Reader has **40 database modules** cataloging **~22,184 game data en
 | Module | Purpose | Entry Count | Generation |
 |--------|---------|-------------|------------|
 | `event_flags.rs` | Event ID -> (byte, bit) | 5,751 | Auto-generated |
-| `world_pickups.rs` | Overworld pickup tracking | 5,477 | Auto-generated |
-| `pickup_data.rs` | Enriched pickup data | 4,810 | Auto-generated |
-| `dungeon_pickups.rs` | Dungeon pickup tracking | 2,109 | Auto-generated |
+| `world_pickups.rs` | Non-dungeon pickup tracking | 2,867 | **Generated** — `knowledge gen-world-pickups` |
+| `pickup_data.rs` | Enriched pickup data (both families) | 4,809 | Hand/third-party enrichment; `event_flag` machine-checked |
+| `dungeon_pickups.rs` | Dungeon pickup tracking | 2,031 | **Generated** — `knowledge gen-dungeon-pickups` |
 | `pickup_flags.rs` | Formula-based flag offsets | N/A | Hand-maintained |
 | `entity_relationships_data.rs` | Cross-entity relationships | 613 | Auto-generated |
 
@@ -225,12 +225,28 @@ Several data categories have parallel modules that evolved independently:
 
 | Data | Module A | Module B | Issue |
 |------|----------|----------|-------|
-| Pickups | `world_pickups.rs` (5,477) | `pickup_data.rs` (4,810) | Different struct, overlapping data |
+| Pickups | `world_pickups.rs` (2,867) | `pickup_data.rs` (4,809) | Overlapping, but no longer redundant — see below |
 | Graces | `graces.rs` (382 enum) | `graces_data.rs` (421 enriched) | Enum + enriched data split |
 | Bosses | `bosses.rs` (157 enum) | `bosses_data.rs` (205 enriched) | Enum + enriched data split |
 | Shops | `shop_items.rs` (1,372) | `merchants_data.rs` (1,277) | Different grouping of same source |
 
 These pairs serve different purposes (enum-based vs data-enriched) but represent potential consolidation opportunities.
+
+**Pickups, updated 2026-07-22.** The three pickup tables now have distinct, stated jobs
+rather than overlapping by accident:
+
+- `world_pickups.rs` (2,867) + `dungeon_pickups.rs` (2,031) **partition** the primary
+  source's item-granting flagged rows exactly — 4,898 rows, no overlap — and each is
+  regenerated from `ItemLotParam_map` by a committed generator with a byte-for-byte
+  anti-drift test. They back the two Database browser views.
+- `pickup_data.rs` (4,809) spans both families and is the *enriched* table behind the
+  character-facing views: its `region` taxonomy (Limgrave, Caelid, NPCReward, …) and its
+  1,326 `mapgenie_id`s exist nowhere in the primary source, which is why it cannot simply
+  be regenerated. Its one structural field, `event_flag`, IS re-derived from the primary
+  source on every test run (`test_event_flags_match_primary_source`).
+
+Consolidating them would mean lifting the enrichment into a committed overlay keyed by
+`item_lot_id` so `pickup_data.rs` could be generated too. Worthwhile, not yet done.
 
 ---
 

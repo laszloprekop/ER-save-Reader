@@ -127,6 +127,25 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
             punknown,
             crate::db::pickup_data::WORLD_PICKUPS.len()
         );
+        // `db::world_pickups` is the generated complement of `db::dungeon_pickups`
+        // over the primary source, and is keyed on the raw getItemFlagId rather
+        // than pickup_data's row-id convention — counted separately so the two
+        // conventions cannot cover for each other.
+        let (mut wset, mut wclear, mut wunknown) = (0usize, 0usize, 0usize);
+        for p in crate::db::world_pickups::WORLD_PICKUPS.values() {
+            match crate::db::pickup_flags::pickup_flag_state(ef, p.flag_id) {
+                Some(true) => wset += 1,
+                Some(false) => wclear += 1,
+                None => wunknown += 1,
+            }
+        }
+        println!(
+            "  world:   {} collected, {} not, {} UNKNOWN (of {})",
+            wset,
+            wclear,
+            wunknown,
+            crate::db::world_pickups::WORLD_PICKUPS.len()
+        );
         let (mut dset, mut dclear, mut dunknown) = (0usize, 0usize, 0usize);
         for p in crate::db::dungeon_pickups::DUNGEON_PICKUPS.iter() {
             match wasm_event_flags::is_dungeon_pickup_set(ef, p.event_flag) {

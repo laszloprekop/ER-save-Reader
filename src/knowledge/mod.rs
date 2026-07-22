@@ -18,6 +18,7 @@ pub mod catalog;
 pub mod dump;
 pub mod family_distances;
 pub mod gen_dungeon_pickups;
+pub mod gen_world_pickups;
 pub mod pipeline;
 pub mod timeline;
 
@@ -34,6 +35,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         Some("family-constants") => family_distances::cmd_family_constants(&args[1..]),
         Some("grace-dump") => dump::cmd_grace_dump(&args[1..]),
         Some("gen-dungeon-pickups") => gen_dungeon_pickups::cmd_gen_dungeon_pickups(&args[1..]),
+        Some("gen-world-pickups") => gen_world_pickups::cmd_gen_world_pickups(&args[1..]),
         _ => {
             println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
@@ -58,6 +60,10 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("                      Regenerate src/db/dungeon_pickups.rs from the");
             println!("                      primary ItemLotParam_map (anti-drift; the table");
             println!("                      is generated, not hand-edited)");
+            println!("    gen-world-pickups [xml] [--out PATH]");
+            println!("                      Regenerate src/db/world_pickups.rs from the same");
+            println!("                      source; the two tables partition its item-granting");
+            println!("                      flagged rows (world = everything not a dungeon pickup)");
             println!("    grace-dump <save> [slot] [--all]");
             println!("                      Dump every grace in a slot, layer by layer:");
             println!("                      raw byte, resolver verdict, database name");

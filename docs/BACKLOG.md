@@ -204,8 +204,13 @@ The API is now split — `is_tile_pickup_set` / `is_tile_world_flag_set` — and
 must choose. `pickup_flags::is_flag_set_with_status` was deliberately NOT cut over for
 this reason: it takes a bare id and cannot know the family.
 
-`pickup_data.rs` stores `event_flag` = `item_lot_id` = the ROW ID, not the
-getItemFlagId. `is_tile_pickup_set` accepts either form and normalises.
+~~`pickup_data.rs` stores `event_flag` = `item_lot_id` = the ROW ID, not the
+getItemFlagId. `is_tile_pickup_set` accepts either form and normalises.~~
+**CORRECTED 2026-07-22 — that convention was a bug, not a design.** It reads the right
+bit only while `row_id + 7000 == getItemFlagId`, which is false for 124 of the 1,691
+ten-digit rows; 220 entries resolved to the wrong bit or the wrong family. `event_flag`
+now holds the `getItemFlagId` for every entry, pinned to the primary source by
+`test_event_flags_match_primary_source`. See the world-pickup regeneration entry below.
 
 *Verification.* All 23 verified flags in the claims store read clear->set through the
 shipped functions (`knowledge validate-origin` part C), with the 4 hypotheses correctly
@@ -766,6 +771,70 @@ maps — unexplained, worth a look before claiming pickup coverage).
    (up from 382, UNKNOWN down from 36) — the 30 UNKNOWN are exactly the two doubly-allocated
    maps (15x m34_12 + 15x m40_00), `None` by design. All tests green (53 + 4).
 
+   **DONE 2026-07-22 — `world_pickups.rs` regenerated the same way, and it exposed a
+   silent misread in `pickup_data.rs`.**
+
+   *The generator.* `er-save-reader knowledge gen-world-pickups`
+   (`src/knowledge/gen_world_pickups.rs`) selects every item-granting flagged row MINUS
+   the dungeon pickups `gen_dungeon_pickups` owns, so the two tables now **partition** the
+   primary source exactly (2,867 + 2,031 = 4,898, no overlap; a unit test asserts the
+   disjointness on a fixture). The old table carried all 4,898 — it duplicated every
+   dungeon pickup into the world browser, which has its own view.
+
+   *What was wrong in the 2,867 survivors.* `flag_id`, `item_id`, `quantity` and `region`
+   were already correct (0 diffs). Everything else was not: **every single item_name was
+   wrong** — 2,603 read `"Unknown Item <id>"` and 264 named a real but different item (lot
+   20450 said "Immunizing Cured Meat"; it is the Gold Scarab). `item_type` was wrong for
+   all 2,867 (the old table typed 3,797 of 4,898 rows Armor and recognised 6 weapons in
+   the whole game). `tile_x`/`tile_y` were off by one digit on all 1,663 tile rows — the
+   old code sliced the flag `[2:3],[3:5]` instead of `[2:4],[4:6]`, so the V1/V2 control
+   pickup read tile (4, 43) instead of (44, 36) = m60_44_36.
+
+   *New primary-source finding:* `lotItemCategory` **6 = custom weapon**
+   (`EquipParamCustomWeapon` — a base weapon + ash of war + upgrade level; row 5000 =
+   "Banished Knight's Halberd +8 - Spinning Strikes", `baseWepId` 18030000). Typed Weapon.
+   Category 0 (4 rows) is unset in the source and stays `Unknown` rather than guessed.
+
+   *The misread it exposed.* `pickup_data.rs` stored `event_flag = item_lot_id` for the
+   open-world family. Measured at the RESOLVED READ ADDRESS (not the raw value, which
+   overcounts), **220 entries read the wrong thing**: 97 the wrong address within the tile
+   family, 77 a nonexistent tile bit for items actually recorded on block flags (every map
+   fragment / cookbook / Crystal Tear dropped by an open-world lot), 46 Unknown where the
+   real flag is a readable block flag. **0 regressions**; 4,580 entries resolve
+   identically. Fixed by setting `event_flag = getItemFlagId` for all 1,754 entries that
+   differed, making the convention uniform.
+
+   *Anti-drift where a generator isn't possible.* `pickup_data.rs` cannot be regenerated —
+   its `region` taxonomy and 1,326 `mapgenie_id`s are enrichment absent from the primary
+   source. So `test_event_flags_match_primary_source` re-derives the one structural field
+   from `ItemLotParam_map` on every run instead. Both new tests mutation-verified. The
+   file header claimed "Auto-generated - do not edit manually", false on both counts and
+   part of why the row-id convention went unexamined; rewritten.
+
+   *Verified — multi-slot differential on the 2026-01-11 backup.* UNKNOWN fell
+   1,517 → 1,471 **on every slot**, exactly the 46 predicted. Confessor 910 → 976
+   collected; **V3 unchanged at 2 and V1/V2 at 3**, so the true-negative controls gained
+   no false positives. Block-flag probe, Confessor vs V3: Confessor now reads exactly the
+   maps for the regions `DATA-SOURCES.md` says it explored (Limgrave W/E, Weeping
+   Peninsula, Liurnia E/N/W, Altus, Leyndell, Mt. Gelmir, Caelid, Dragonbarrow, Ainsel,
+   Siofra) plus 6 Memory Stones / 2 Talisman Pouches / 9 Crystal Tears, and **none** of
+   the Mountaintops / Consecrated Snowfield / Farum Azula maps — consistent with Radahn
+   not defeated. V3 reads exactly one: Tarnished's Wizened Finger, the universal starting
+   item. On `world_pickups.rs` itself, V1/V2 read flag 1044367310 SET as "Golden Rune [1]"
+   @ tile (44, 36) and V3 does not, matching the claims store's reward corroboration on
+   that anchor pair.
+
+   *Loose end closed.* The 9 `pickup_data` lots absent from the primary source are the
+   **Troll Carriage** rows, whose param row id is 9-prefixed (`934490010`) while
+   `pickup_data` keys them by the storage address (`1034490010`). Their flags were already
+   correct; the test covers them by asserting the flag is a real `getItemFlagId`.
+
+   *Remaining (not done).* The 488 DLC open-world pickups still read Unknown —
+   `is_tile_pickup_set` is scoped to the `1_000_000_000..2_000_000_000` grid and the DLC
+   grid's family base has never been established. And `pickup_data.rs` could become fully
+   generated if its enrichment were lifted into a committed overlay keyed by
+   `item_lot_id`; see `docs/DATABASE_COVERAGE_ANALYSIS.md` → Code Redundancy Notes.
+
    **SETTLED 2026-07-20 — the overlap is real, and harmless.** Jump to the resolution
    below; the statement of the question is kept because the reasoning that closed it is
    the reusable part.
@@ -1147,7 +1216,10 @@ The three-state result was the substance of the change, not a detail: `false` an
 
 ### Module Consolidation (Optional)
 Several data categories have parallel modules (see [DATABASE_COVERAGE_ANALYSIS.md](DATABASE_COVERAGE_ANALYSIS.md#code-redundancy-notes)):
-- `world_pickups.rs` / `pickup_data.rs` (overlapping pickup data)
+- ~~`world_pickups.rs` / `pickup_data.rs` (overlapping pickup data)~~ **RESOLVED
+  2026-07-22** — the three pickup tables now have distinct stated jobs (two generated and
+  disjoint, one enriched); the residual consolidation step is spelled out in
+  `docs/DATABASE_COVERAGE_ANALYSIS.md` → Code Redundancy Notes
 - `graces.rs` / `graces_data.rs` (enum + enriched split)
 - `bosses.rs` / `bosses_data.rs` (enum + enriched split)
 - `shop_items.rs` / `merchants_data.rs` (different grouping)
