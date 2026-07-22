@@ -382,7 +382,19 @@ maps — unexplained, worth a look before claiming pickup coverage).
    measures bases from attributed before/after transition PAIRS (isolated-flip
    analysis), which the app cannot do — it has one save, no pair.
 
-   Nearest existing mechanism is `src/calibration.rs`, which is the right shape
+   > **SUPERSEDED 2026-07-22, and `src/calibration.rs` is deleted.** The paragraph below
+   > held that file up as the right *shape* for the missing single-save detector. That
+   > detector was built instead by pinning the Origin — see `:503` "Next: pin the single
+   > origin. That is now the whole of 4b", established 2026-07-20 — and it lives in
+   > `crates/wasm-event-flags` as `find_flag_list_end_in_ef` /
+   > `resolve_family_base_in_ef`. The bounded-anchor-scan approach was never taken up.
+   > The file was removed because it was unreachable (one `mod` declaration, zero
+   > callers) while asserting the tombstoned premise below as fact in its module doc, and
+   > its tests pinned 337,375 as a base. Kept here because the *reasoning* — why a
+   > pre-reset calibrator could not simply be re-pointed — is what stops it being
+   > re-proposed.
+
+   Nearest existing mechanism ~~is~~ *was* `src/calibration.rs`, which is the right shape
    (bounded anchor scan, ≥3 anchor matches across ≥2 distinct tiles, window
    430k–510k) but is entirely pre-reset:
    - its header comment asserts the tile base "is constant across saves" — the exact

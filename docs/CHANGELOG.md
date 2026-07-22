@@ -7,6 +7,66 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.4 - Delete `src/calibration.rs`; the Origin superseded it
+
+997 lines that were compiled, linted, and reachable from nothing. `src/calibration.rs` had
+exactly one reference in the tree — `mod calibration;` at `src/main.rs:13` — and zero
+callers. It was not dormant (no feature flag) and not dead (it still cost every build and
+every clippy pass; it was last touched the same day, in `5f3daa4 fix(lint): unblock
+clippy`). That unreachable-and-compiled state is precisely what ADR-0009 exists to end.
+
+### Why it could not simply be left
+
+- **Its module doc asserted a tombstoned claim as fact**: *"The tile formula base_offset
+  (337375 …) is constant across saves."* Per `CONTEXT.md`, 337,375 is the distance BETWEEN
+  two flag families, not a base, and every family base floats per save. A reader opening
+  the file was told the opposite.
+- **Its tests pinned the disproven model.** `test_get_tile_offset_calibrated` asserted
+  `get_tile_offset_calibrated(1043500010, 337375) == (704876, 5)` — 337,375 used as a base.
+  `crates/wasm-event-flags/tests/export_shape_conformance.rs` bans that literal from the
+  wasm crate by name; the guard's reach stops at the crate line, so this copy survived.
+
+### Key finding — the capability it was held for had already been built
+
+`docs/BACKLOG.md` step 4b named this file as *"the right shape"* for the missing
+single-save family-base detector. That note was stale, and the BACKLOG's own chain says so:
+step 4b reduced to *"locating ONE family locates all of them"* (`:484`), then *"Next: pin
+the single origin. That is now the whole of 4b"* (`:503`). The Origin was established
+2026-07-20 and the detector shipped as `find_flag_list_end_in_ef` /
+`resolve_family_base_in_ef`. The bounded-anchor-scan approach was never taken up.
+
+The 4b note is amended rather than removed: the *reasoning* — why a pre-reset calibrator
+could not simply be re-pointed at claims-store conventions — is the part that stops the
+idea being re-proposed, and it now records the supersession and the deletion together.
+
+### Also in this entry
+
+- **`docs/ARCHITECTURE-DEEPENING.md`** (new) — the deepening plan from the 2026-07-22
+  architecture review. Four workstreams: the library seam, `FlagState`/`ResolvedFlags`,
+  `Evidence`/`Claims`, and a deferred `Character`/`ScreenState` split. Workstreams 0 and A
+  are decided; B, C and D are explicitly proposals with open questions. Two measurements
+  taken while settling it are recorded there: dead-code analysis is switched off for ~195k
+  of 205k lines by six *inner* `#![allow(dead_code)]` attributes (not the crate-level one,
+  which is vestigial), and lifting them yields 249 warnings — `ui` 130, `db` 91, `vm` 15,
+  `generated` 7, `save` 4, `util` 2.
+
+### Verification
+
+`cargo check` clean · `cargo check --features save-writeback` clean · `cargo clippy
+--workspace` clean · `cargo test --workspace` 108 passing (61 bin + 4 regression + 22 wasm
+unit + 4 anchor + 4 export-shape + 13 origin conformance). Note that `cargo test` without
+`--workspace` runs only the root package and silently skips all 43 conformance tests.
+
+### Files Modified
+- src/calibration.rs: deleted (997 lines)
+- src/main.rs: dropped `mod calibration;`
+- docs/BACKLOG.md: 4b "nearest existing mechanism" note marked superseded
+- docs/ARCHITECTURE-DEEPENING.md: new
+- docs/CHANGELOG.md: version 0.37.4
+- Cargo.toml: bumped to 0.37.4
+
+---
+
 ## v0.37.3 - `read_fix_str` decoded UTF-16 out of a byte-oriented field
 
 Closes the "Known issue, reported not fixed" from v0.37.2. That note guessed the wrong

@@ -10,7 +10,6 @@ mod ui;
 mod db;
 mod generated;
 mod knowledge;
-mod calibration;
 
 use std::{env, path::PathBuf};
 #[cfg(feature = "save-writeback")]
