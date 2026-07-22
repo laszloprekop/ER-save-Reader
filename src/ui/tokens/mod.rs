@@ -7,7 +7,7 @@
 //!
 //! # Usage
 //!
-//! ```rust
+//! ```text
 //! use crate::ui::tokens::{colors, spacing, typography, dimensions};
 //!
 //! // Typography

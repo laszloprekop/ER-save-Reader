@@ -2,7 +2,7 @@
 //!
 //! # Usage
 //!
-//! ```rust
+//! ```text
 //! use crate::ui::components::export::{
 //!     ExportToolbar, ExportFormat, PageExport, PageExportMetadata,
 //!     to_json, to_csv, to_markdown

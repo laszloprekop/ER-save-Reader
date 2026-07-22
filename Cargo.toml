@@ -3,8 +3,16 @@ members = [".", "crates/wasm-event-flags"]
 
 [package]
 name = "er-save-reader"
-version = "0.37.4"
+version = "0.37.5"
 edition = "2021"
+
+[lib]
+name = "er_save_reader"
+path = "src/lib.rs"
+
+[[bin]]
+name = "er-save-reader"
+path = "src/main.rs"
 
 [features]
 default = []

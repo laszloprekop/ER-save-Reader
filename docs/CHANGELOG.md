@@ -7,6 +7,84 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.5 - A library seam: `src/` becomes testable from outside
+
+Until now the crate had no `[lib]` target. Nothing in `src/` had an interface anything
+could cross, and `tests/regression_suite.rs:3` recorded the consequence in a comment:
+*"Basic validation tests that don't require crate imports."* Its tests read JSON off disk
+and check hashes; not one executed a line of application code. Everything testable was
+testable by accident of being inline — 16 `#[cfg(test)] mod tests` blocks that can only
+reach their own file.
+
+### The seam
+- **`[lib] name = "er_save_reader"` + `[[bin]] name = "er-save-reader"`** (`Cargo.toml`).
+- **`src/app.rs`** (new) — `struct App`, both impls, and `pub fn run()`, moved verbatim
+  from `main.rs` with `crate::`-relative paths. **`src/main.rs` is now 9 lines**: the
+  `windows_subsystem` attribute and `er_save_reader::run()`.
+- **`src/lib.rs`** (new) — module declarations plus a deliberately narrow public surface:
+  `run`, `run_cli`, `pickup_flag_state`.
+
+### Why every module is `pub(crate)`
+
+Not bookkeeping. **In a library a `pub` module is reachable API, so dead-code analysis
+stops applying to everything inside it.** As a bin-only crate this codebase had that
+analysis on everywhere; publishing modules wholesale would have switched it off across the
+read path — a regression, and precisely how `src/calibration.rs` survived 997 unreachable
+lines (v0.37.4).
+
+So the binary could not stay fat: `main.rs` referenced db, knowledge, save, ui, util, vm,
+and a bin is a *separate crate* that cannot see `pub(crate)`. Moving `App` into the library
+is what lets the modules stay crate-private. The public surface is opened one item at a
+time by `pub use`, not one module at a time.
+
+Two consequences fell out of the move, both mechanical: `App`'s fields and `App::open`
+became `pub(crate)` (they were root-private, and `ui/menu.rs` and `ui/landing.rs` could see
+them only as descendants of the crate root — they are now siblings), and `crate::App` still
+resolves because the root re-exports it.
+
+### First test across the seam
+- **`tests/flag_state_conformance.rs`** (new, 3 tests) — asserts `pickup_flag_state`
+  returns `None`, not `Some(false)`, for an unresolvable region, a plausible-but-zeroed
+  1MB region, and out-of-family ids (DLC tiles, six-digit ids, `u32::MAX`). Needs no
+  fixture, so it runs on a fresh clone. It guards the tri-state invariant that
+  `src/vm/export.rs:332` was previously the only test defending.
+
+The 21 inline tests in `src/db/pickup_flags.rs` deliberately did **not** move: integration
+tests see only `pub` items, so moving them would force promotions that defeat the point.
+They exercise internal seams; the new file crosses the external one.
+
+### Key finding — six doc examples had never been compiled
+
+A bin crate does not run doctests. Adding `[lib]` turned them on and **six module-doc
+examples failed immediately** (`ui/tokens`, `ui/state`, `ui/components/{export,table,filter}`,
+`generated`). All six use `crate::` paths — invalid in a doctest, which compiles as an
+external crate — plus undefined bindings like `ui` and `data`. They could never have
+compiled; they were prose in code fences. Marked ```` ```text ````, which is what they are.
+
+Worth flagging separately: `src/generated/mod.rs`'s example teaches
+`calculate_tile_flag_offset` + `VERIFIED_TILE_BASE_OFFSET` — the static-offset model
+ADR-0008 removed from the wasm crate, and the tombstoned 337,375. It is left alone here
+because `src/generated/` remains ADR-0006's deliberate mid-migration state, but the guard
+in `export_shape_conformance.rs` stops at the crate line and does not see it.
+
+### Verification
+
+`cargo check` clean · `--features save-writeback` clean · `cargo clippy --workspace
+--all-targets` clean · `cargo test --workspace` **111 passing** · `cargo run -- knowledge
+catalog-verify` exits 0 with all corpora intact, confirming CLI dispatch still reaches the
+pipeline through the library.
+
+### Files Modified
+- Cargo.toml: `[lib]` + `[[bin]]`; bumped to 0.37.5
+- src/lib.rs: new — module declarations, visibility policy, public surface
+- src/app.rs: new — App, impls, `run()`, moved from main.rs
+- src/main.rs: reduced to 9 lines
+- tests/flag_state_conformance.rs: new — 3 tests
+- src/{ui/tokens,ui/state,ui/components/export,ui/components/table,ui/components/filter,generated}/mod.rs: doc fences ```rust → ```text
+- docs/CHANGELOG.md: version 0.37.5
+
+---
+
 ## v0.37.4 - Delete `src/calibration.rs`; the Origin superseded it
 
 997 lines that were compiled, linted, and reachable from nothing. `src/calibration.rs` had

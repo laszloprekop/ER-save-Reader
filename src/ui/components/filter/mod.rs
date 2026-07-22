@@ -2,7 +2,7 @@
 //!
 //! # Usage
 //!
-//! ```rust
+//! ```text
 //! use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption};
 //!
 //! let mut state = FilterBarState::new();

@@ -2,7 +2,7 @@
 //!
 //! # Usage
 //!
-//! ```rust
+//! ```text
 //! use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData};
 //!
 //! let mut state = TableState::new();

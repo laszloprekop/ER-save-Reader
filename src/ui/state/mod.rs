@@ -7,7 +7,7 @@
 //!
 //! In the main App struct:
 //!
-//! ```rust
+//! ```text
 //! use crate::ui::state::UiState;
 //!
 //! struct App {
