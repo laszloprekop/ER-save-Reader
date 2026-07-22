@@ -271,3 +271,52 @@ fn every_export_answering_a_flag_question_receives_bytes_or_an_explicit_base() {
         violations.join("\n  ")
     );
 }
+
+/// The extractor above reads `pub fn` items following a `#[wasm_bindgen]`
+/// attribute, and skips `impl` blocks — `actual_exports` says so itself. That is
+/// a hole: methods on an exported struct answer flag questions without ever
+/// appearing in `APPROVED_EXPORTS` and without tripping the structural check
+/// below, so the guard would silently stop covering the primary reader.
+///
+/// Rather than teach the extractor to parse method bodies, this pins the decision
+/// that keeps the hole closed: **no `#[wasm_bindgen]` impl blocks exist**.
+/// `ResolvedFlags` — the type that now performs every read — is deliberately pure
+/// Rust for exactly this reason, and the exported surface stays the flat
+/// `*_state` functions the manifest can see.
+///
+/// If you need to export a type with methods, the extractor must learn `impl`
+/// blocks FIRST, and this test is where you will find out.
+#[test]
+fn no_wasm_bindgen_impl_blocks_exist() {
+    let code = code_only(SRC);
+    let lines: Vec<&str> = code.lines().collect();
+    let mut offenders = Vec::new();
+
+    for (i, line) in lines.iter().enumerate() {
+        let t = line.trim();
+        if t != "#[wasm_bindgen]" && !t.starts_with("#[wasm_bindgen(") {
+            continue;
+        }
+        // Look past further attributes to the item this one decorates.
+        for next in lines.iter().skip(i + 1).take(12) {
+            let n = next.trim();
+            if n.is_empty() || n.starts_with("#[") {
+                continue;
+            }
+            if n.starts_with("impl ") || n.starts_with("impl<") {
+                offenders.push(format!("line {}: {}", i + 1, n));
+            }
+            break;
+        }
+    }
+
+    assert!(
+        offenders.is_empty(),
+        "`#[wasm_bindgen]` impl block(s) found:\n  {}\n\nMethods inside an impl are \
+         NOT checked against APPROVED_EXPORTS, and are NOT checked by \
+         `every_export_answering_a_flag_question_receives_bytes_or_an_explicit_base`. \
+         Exporting a reader this way reopens exactly the gap ADR-0008 closed. Teach \
+         `actual_exports` to walk impl blocks before adding one.",
+        offenders.join("\n  ")
+    );
+}

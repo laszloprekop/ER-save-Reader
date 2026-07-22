@@ -1929,24 +1929,24 @@ pub fn resolve_family_base_in_ef(event_flags: &[u8], family_constant: i64) -> Op
 /// which is NOT the same as "not set" and must not be rendered as such.
 ///
 /// Covers graces and world-state flags in [50000, 80000).
+#[deprecated(
+    since = "0.37.7",
+    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
+Build a ResolvedFlags once for the region and call its methods, which return \
+FlagState rather than Option<bool>."
+)]
 pub fn is_world_state_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    if !(50_000..80_000).contains(&flag_id) {
-        return None;
-    }
-    let base = resolve_family_base_in_ef(event_flags, FAMILY_WORLD_STATE_B)?;
-    let byte = base.checked_add(((flag_id - 50_000) / 8) as usize)?;
-    let bit = 7 - (flag_id % 8) as u8;
-    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.world_state(flag_id))
+        .into()
 }
 
 /// WASM export: -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
 pub fn world_state_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
-    match is_world_state_flag_set(event_flags, flag_id) {
-        None => -1,
-        Some(false) => 0,
-        Some(true) => 1,
-    }
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.world_state(flag_id))
+        .as_i32()
 }
 
 // ---------------------------------------------------------------------------
@@ -1977,11 +1977,16 @@ pub const FAMILY_TILE_OPEN_WORLD: i64 = 454_067;
 /// open-world flag or an ItemLotParam row_id, and the two live in regions 500
 /// bytes apart. Nothing in the value distinguishes them, so the caller must
 /// choose the family. Guessing here reads a plausible-looking wrong bit.
+#[deprecated(
+    since = "0.37.7",
+    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
+Build a ResolvedFlags once for the region and call its methods, which return \
+FlagState rather than Option<bool>."
+)]
 pub fn is_tile_world_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    if !(1_000_000_000..2_000_000_000).contains(&flag_id) || flag_id % 10_000 >= 7_000 {
-        return None;
-    }
-    tile_read(event_flags, flag_id, FAMILY_TILE_OPEN_WORLD)
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.tile_world(flag_id))
+        .into()
 }
 
 /// World pickups, addressed by ItemLotParam row_id.
@@ -1989,43 +1994,32 @@ pub fn is_tile_world_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> 
 /// Accepts either form: the row_id itself (localId < 7000, as stored in
 /// `pickup_data.rs`) or the getItemFlagId (row_id + 7000, as used by the game's
 /// param tables). Both normalise to the same row_id.
+#[deprecated(
+    since = "0.37.7",
+    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
+Build a ResolvedFlags once for the region and call its methods, which return \
+FlagState rather than Option<bool>."
+)]
 pub fn is_tile_pickup_set(event_flags: &[u8], id: u32) -> Option<bool> {
-    if !(1_000_000_000..2_000_000_000).contains(&id) {
-        return None;
-    }
-    let row_id = if id % 10_000 >= 7_000 { id - 7_000 } else { id };
-    tile_read(event_flags, row_id, FAMILY_TILE_PICKUP_ROW_ID)
-}
-
-fn tile_read(event_flags: &[u8], addr_id: u32, family: i64) -> Option<bool> {
-    let off = calculate_tile_pickup_offset_with_base(addr_id, 0);
-    if !off.valid {
-        return None;
-    }
-    let base = resolve_family_base_in_ef(event_flags, family)?;
-    let byte = base.checked_add(off.byte_offset as usize)?;
-    let bit = 7 - (addr_id % 8) as u8;
-    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.tile_pickup(id))
+        .into()
 }
 
 /// WASM export: open-world tile flag. -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
 pub fn tile_world_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
-    match is_tile_world_flag_set(event_flags, flag_id) {
-        None => -1,
-        Some(false) => 0,
-        Some(true) => 1,
-    }
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.tile_world(flag_id))
+        .as_i32()
 }
 
 /// WASM export: world pickup by row_id or getItemFlagId. -1 unresolved.
 #[wasm_bindgen]
 pub fn tile_pickup_state(event_flags: &[u8], id: u32) -> i32 {
-    match is_tile_pickup_set(event_flags, id) {
-        None => -1,
-        Some(false) => 0,
-        Some(true) => 1,
-    }
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.tile_pickup(id))
+        .as_i32()
 }
 
 // ---------------------------------------------------------------------------
@@ -2076,11 +2070,16 @@ pub const FAMILY_LEGACY_DUNGEON: i64 = 1_500_567;
 ///
 /// `None` means unresolved — an unknown or ambiguously allocated map, an
 /// out-of-family id, or an origin that could not be pinned. It is not "clear".
+#[deprecated(
+    since = "0.37.7",
+    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
+Build a ResolvedFlags once for the region and call its methods, which return \
+FlagState rather than Option<bool>."
+)]
 pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    if flag_id % 10_000 >= 7_000 {
-        return None;
-    }
-    dungeon_read(event_flags, flag_id, FAMILY_LEGACY_DUNGEON)
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.dungeon(flag_id))
+        .into()
 }
 
 /// Legacy-map pickups (localId >= 7000), in their own region below the event
@@ -2103,19 +2102,16 @@ pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
 ///
 /// If a legacy event flag with localId in 6000-6999 is ever found, it collides
 /// with a real pickup and this layout needs revisiting. Nothing else does.
+#[deprecated(
+    since = "0.37.7",
+    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
+Build a ResolvedFlags once for the region and call its methods, which return \
+FlagState rather than Option<bool>."
+)]
 pub fn is_dungeon_pickup_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    if flag_id % 10_000 < 7_000 {
-        return None;
-    }
-    dungeon_read(event_flags, flag_id, FAMILY_LEGACY_DUNGEON_PICKUP)
-}
-
-fn dungeon_read(event_flags: &[u8], flag_id: u32, family: i64) -> Option<bool> {
-    let rel = legacy_dungeon_rel_byte(flag_id)?;
-    let base = resolve_family_base_in_ef(event_flags, family)?;
-    let byte = base.checked_add(rel as usize)?;
-    let bit = 7 - (flag_id % 8) as u8;
-    event_flags.get(byte).map(|b| (b >> bit) & 1 == 1)
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.dungeon_pickup(flag_id))
+        .into()
 }
 
 /// Byte offset of a legacy-map flag from its family's base.
@@ -2169,21 +2165,17 @@ const LEGACY_ALLOC_SLOTS: [(u16, u16); 99] = [
 /// WASM export: legacy-map event flag. -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
 pub fn dungeon_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
-    match is_dungeon_flag_set(event_flags, flag_id) {
-        None => -1,
-        Some(false) => 0,
-        Some(true) => 1,
-    }
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.dungeon(flag_id))
+        .as_i32()
 }
 
 /// WASM export: legacy-map pickup flag. -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
 pub fn dungeon_pickup_state(event_flags: &[u8], flag_id: u32) -> i32 {
-    match is_dungeon_pickup_set(event_flags, flag_id) {
-        None => -1,
-        Some(false) => 0,
-        Some(true) => 1,
-    }
+    ResolvedFlags::from_event_flags(event_flags)
+        .map_or(FlagState::Unknown, |r| r.dungeon_pickup(flag_id))
+        .as_i32()
 }
 
 // ---------------------------------------------------------------------------
@@ -2277,4 +2269,232 @@ pub fn flag_offset_in_ef(event_flags: &[u8], flag_id: u32, family: u32) -> FlagO
         return FlagOffset::invalid();
     }
     FlagOffset::new(byte as u32, bit)
+}
+
+// ---------------------------------------------------------------------------
+// Tri-state reads, resolved once per save
+// ---------------------------------------------------------------------------
+//
+// Every family's base is `origin + FAMILY_CONSTANT`, and the origin is found by
+// scanning from EF+16,000 for the end of the append-only record list — roughly
+// 13,400 bytes of scan. The free reader functions below do that scan once per
+// FLAG, so a screen listing 4,809 pickups repeats it 4,809 times for an answer
+// that cannot change between rows. `ResolvedFlags` pays it once.
+//
+// The second reason is the more important one. `Option<bool>` is a correct
+// tri-state and a poor one: `unwrap_or(false)`, `unwrap_or_default()` and
+// `is_some_and()` all turn "we could not tell" into "no" in a way that compiles,
+// reads naturally, and is wrong. `FlagState` names the third state and offers
+// exactly one way back to a bool, spelled so the call site admits what it is
+// discarding.
+
+/// The three outcomes of reading a flag.
+///
+/// `Unknown` is NOT `Clear` (`CONTEXT.md` → Unknown). It means the position
+/// could not be resolved — an unresolvable origin, an id belonging to no known
+/// family, a DLC tile with no verified layout — so nothing at all is known about
+/// the flag. Rendering it as "not collected" is the failure that made
+/// `batch-validate` report 0/110 boss defeats on a finished character.
+///
+/// There is deliberately no `is_set()`. That method is how the distinction gets
+/// lost: `GraceStatus::is_discovered()` was exactly it, and returned `false` for
+/// the unreliable case.
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+#[must_use]
+pub enum FlagState {
+    Set,
+    Clear,
+    Unknown,
+}
+
+impl FlagState {
+    /// Collapse to a bool, treating `Unknown` as clear.
+    ///
+    /// Every call is a place a real distinction is deliberately discarded, which
+    /// is why it is named rather than spelled `is_set()`: `grep -rn
+    /// 'unknown_as_clear'` is the complete audit list of those places. Legitimate
+    /// when an absent answer and a negative answer genuinely mean the same thing
+    /// to the caller — building a region filter, say, where an unresolved save
+    /// should offer no regions. Not legitimate when a user is reading the value.
+    pub fn unknown_as_clear(self) -> bool {
+        matches!(self, FlagState::Set)
+    }
+
+    /// WASM/FFI encoding: -1 unresolved, 0 clear, 1 set.
+    pub fn as_i32(self) -> i32 {
+        match self {
+            FlagState::Unknown => -1,
+            FlagState::Clear => 0,
+            FlagState::Set => 1,
+        }
+    }
+}
+
+impl From<Option<bool>> for FlagState {
+    fn from(v: Option<bool>) -> Self {
+        match v {
+            None => FlagState::Unknown,
+            Some(false) => FlagState::Clear,
+            Some(true) => FlagState::Set,
+        }
+    }
+}
+
+impl From<FlagState> for Option<bool> {
+    fn from(v: FlagState) -> Self {
+        match v {
+            FlagState::Unknown => None,
+            FlagState::Clear => Some(false),
+            FlagState::Set => Some(true),
+        }
+    }
+}
+
+/// One save's flag region with every family's base already resolved.
+///
+/// Construction is where refusal happens: no origin, no `ResolvedFlags`. Holding
+/// one is a promise that the origin was found — not that any given flag can be
+/// read, which is why the methods still return `FlagState` and can still answer
+/// `Unknown` for an id whose family has no verified layout.
+///
+/// It borrows the flag region rather than copying it, so the resolved bases and
+/// the bytes they were measured from cannot be separated and then recombined
+/// with a different save's.
+///
+/// Deliberately NOT `#[wasm_bindgen]`. Exporting it would put the primary reader
+/// behind `impl` methods, which `tests/export_shape_conformance.rs` does not
+/// scan — the ADR-0008 guard would silently stop covering it. The exported
+/// surface stays the flat `*_state` functions.
+pub struct ResolvedFlags<'a> {
+    ef: &'a [u8],
+    origin: usize,
+    world_state: Option<usize>,
+    tile_world: Option<usize>,
+    tile_pickup: Option<usize>,
+    dungeon: Option<usize>,
+    dungeon_pickup: Option<usize>,
+}
+
+impl<'a> ResolvedFlags<'a> {
+    /// Resolve every family base for this flag region, or refuse.
+    ///
+    /// `None` means the origin could not be pinned, so nothing in this region can
+    /// be read and no caller should pretend otherwise.
+    pub fn from_event_flags(ef: &'a [u8]) -> Option<Self> {
+        let origin = find_flag_list_end_in_ef(ef)?;
+        let base = |c: i64| {
+            let b = origin as i64 + c;
+            (b >= 0 && (b as usize) < ef.len()).then_some(b as usize)
+        };
+        Some(Self {
+            ef,
+            origin,
+            world_state: base(FAMILY_WORLD_STATE_B),
+            tile_world: base(FAMILY_TILE_OPEN_WORLD),
+            tile_pickup: base(FAMILY_TILE_PICKUP_ROW_ID),
+            dungeon: base(FAMILY_LEGACY_DUNGEON),
+            dungeon_pickup: base(FAMILY_LEGACY_DUNGEON_PICKUP),
+        })
+    }
+
+    /// End of the append-only record list, relative to the flag region start.
+    pub fn origin(&self) -> usize {
+        self.origin
+    }
+
+    /// Base of one family, or `None` if it falls outside this region.
+    pub fn family_base(&self, family_constant: i64) -> Option<usize> {
+        match family_constant {
+            FAMILY_WORLD_STATE_B => self.world_state,
+            FAMILY_TILE_OPEN_WORLD => self.tile_world,
+            FAMILY_TILE_PICKUP_ROW_ID => self.tile_pickup,
+            FAMILY_LEGACY_DUNGEON => self.dungeon,
+            FAMILY_LEGACY_DUNGEON_PICKUP => self.dungeon_pickup,
+            _ => None,
+        }
+    }
+
+    fn read(&self, base: Option<usize>, rel: u64, bit: u8) -> FlagState {
+        let Some(base) = base else {
+            return FlagState::Unknown;
+        };
+        let Some(byte) = base.checked_add(rel as usize) else {
+            return FlagState::Unknown;
+        };
+        match self.ef.get(byte) {
+            None => FlagState::Unknown,
+            Some(b) => {
+                if (b >> bit) & 1 == 1 {
+                    FlagState::Set
+                } else {
+                    FlagState::Clear
+                }
+            }
+        }
+    }
+
+    /// Graces and world state, `[50000, 80000)`.
+    pub fn world_state(&self, flag_id: u32) -> FlagState {
+        if !(50_000..80_000).contains(&flag_id) {
+            return FlagState::Unknown;
+        }
+        self.read(
+            self.world_state,
+            ((flag_id - 50_000) / 8) as u64,
+            7 - (flag_id % 8) as u8,
+        )
+    }
+
+    /// Open-world tile flags: boss kills, world state. NOT pickups.
+    ///
+    /// A bare 10-digit id with localId < 7000 is ambiguous between this family
+    /// and `tile_pickup`, whose region sits 500 bytes away. The caller chooses;
+    /// this method never guesses.
+    pub fn tile_world(&self, flag_id: u32) -> FlagState {
+        if !(1_000_000_000..2_000_000_000).contains(&flag_id) || flag_id % 10_000 >= 7_000 {
+            return FlagState::Unknown;
+        }
+        self.tile_read(self.tile_world, flag_id)
+    }
+
+    /// World pickups, addressed by ItemLotParam row_id. Accepts either the
+    /// row_id or the getItemFlagId (row_id + 7000) and normalises.
+    pub fn tile_pickup(&self, id: u32) -> FlagState {
+        if !(1_000_000_000..2_000_000_000).contains(&id) {
+            return FlagState::Unknown;
+        }
+        let row_id = if id % 10_000 >= 7_000 { id - 7_000 } else { id };
+        self.tile_read(self.tile_pickup, row_id)
+    }
+
+    fn tile_read(&self, base: Option<usize>, addr_id: u32) -> FlagState {
+        let off = calculate_tile_pickup_offset_with_base(addr_id, 0);
+        if !off.valid {
+            return FlagState::Unknown;
+        }
+        self.read(base, off.byte_offset as u64, 7 - (addr_id % 8) as u8)
+    }
+
+    /// Legacy-map event flags: boss kills, world state, NPC state. NOT pickups.
+    pub fn dungeon(&self, flag_id: u32) -> FlagState {
+        if flag_id % 10_000 >= 7_000 {
+            return FlagState::Unknown;
+        }
+        self.dungeon_read(self.dungeon, flag_id)
+    }
+
+    /// Legacy-map pickups (localId >= 7000), in their own region.
+    pub fn dungeon_pickup(&self, flag_id: u32) -> FlagState {
+        if flag_id % 10_000 < 7_000 {
+            return FlagState::Unknown;
+        }
+        self.dungeon_read(self.dungeon_pickup, flag_id)
+    }
+
+    fn dungeon_read(&self, base: Option<usize>, flag_id: u32) -> FlagState {
+        match legacy_dungeon_rel_byte(flag_id) {
+            None => FlagState::Unknown,
+            Some(rel) => self.read(base, rel, 7 - (flag_id % 8) as u8),
+        }
+    }
 }

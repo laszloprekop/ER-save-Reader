@@ -7,6 +7,80 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.7 - `FlagState` and `ResolvedFlags`: resolve the Origin once, name the third state
+
+Two problems with one shape. Every flag read re-derived the Origin — a ~13,400-byte scan
+from EF+16,000 — so a screen listing 4,809 pickups repeated it 4,809 times for an answer
+that cannot change between rows. `comparison_view.rs:421` was the only call site that
+noticed, capping itself at `.take(100) // avoid performance issues`. And the tri-state came
+back as `Option<bool>`, whose whole API (`unwrap_or`, `unwrap_or_default`, `is_some_and`)
+turns "we could not tell" into "no" in a way that compiles and reads naturally.
+
+### Added
+
+- **`FlagState { Set, Clear, Unknown }`** — Unknown is a state, not an absence. It has
+  **no `is_set()`**, deliberately: that method is how the distinction gets lost, and
+  `GraceStatus::is_discovered()` (which returns `false` for `Unreliable`) is it, already in
+  the tree. The single narrowing is `unknown_as_clear()`, named so that
+  `grep -rn 'unknown_as_clear'` is the complete audit list of deliberate collapses.
+- **`ResolvedFlags<'a>`** — one save's flag region with all five family bases resolved.
+  Refusal happens once, at construction; the methods still answer `Unknown` for ids with no
+  verified layout, because holding one promises the Origin was found, not that every flag is
+  readable. It borrows the region so bases and bytes cannot be recombined across saves.
+
+Both are pure Rust, **not** `#[wasm_bindgen]`. The `APPROVED_EXPORTS` manifest is
+unchanged, elden-map is unaffected (the exports still return `i32`), and no ADR needs
+amending.
+
+### The five free readers now delegate
+
+`is_world_state_flag_set` and its four siblings became three-line adapters over
+`ResolvedFlags`, so there is one implementation rather than two that can drift — and the
+private `tile_read`/`dungeon_read` helpers are gone. The five `#[wasm_bindgen] *_state`
+exports route through `ResolvedFlags` directly. **All 43 pre-existing conformance tests
+pass unchanged**, which is the evidence that the delegation is behaviour-identical.
+
+The readers are now `#[deprecated]`, pointing at `ResolvedFlags`. They keep returning
+`Option<bool>` on purpose: changing the return type would break all 8 call sites at once,
+and the point of deprecating rather than changing is that B2 ships on its own.
+
+> **This commit deliberately leaves 22 warnings in the default build**, in 8 files:
+> `app.rs`, `db/pickup_flags.rs`, `knowledge/{dump,family_distances}.rs`,
+> `ui/events.rs`, `ui/database/{graces_view,bosses_view}.rs`, `vm/events.rs`. That is the
+> migration checklist, maintained by the compiler instead of by a document. The next commit
+> clears it; the one after deletes the functions. It is not a regression from v0.37.6's
+> zero-warning state, it is the deprecation doing its job.
+
+### Conformance
+
+- **`tests/resolved_flags_conformance.rs`** (new, 8 tests). The load-bearing one asserts
+  the methods return *exactly* what the functions they replace returned, across all five
+  families and out-of-family ids — including with the bits actually SET, since an all-zero
+  region would let a wrong base pass by reading zero either way. Plus: construction refuses
+  exactly where the functions refused; every base is `origin + FAMILY_CONSTANT`; the two
+  tile families stay 500 bytes apart; the wasm exports agree with the methods.
+- **`no_wasm_bindgen_impl_blocks_exist`** in `export_shape_conformance.rs` — closes a hole
+  in the ADR-0008 guard. `actual_exports` reads `pub fn` after a `#[wasm_bindgen]`
+  attribute and skips `impl` blocks, by its own admission, so methods on an exported struct
+  would answer flag questions without appearing in the manifest *or* tripping the
+  structural check. Rather than teach the extractor to parse methods, this pins the
+  decision that keeps the hole shut: there are no `#[wasm_bindgen]` impl blocks, and
+  `ResolvedFlags` stays pure Rust for exactly that reason.
+
+### Vocabulary
+
+`CONTEXT.md` gains **FlagState** and **ResolvedFlags**, and the **Unknown** entry now
+points at `FlagState::Unknown` rather than `Option<bool>::None`.
+
+### Files Modified
+- crates/wasm-event-flags/src/lib.rs: FlagState, ResolvedFlags; 5 readers delegate + deprecated; 5 exports rewired
+- crates/wasm-event-flags/tests/resolved_flags_conformance.rs: new, 8 tests
+- crates/wasm-event-flags/tests/export_shape_conformance.rs: impl-block guard
+- CONTEXT.md: FlagState, ResolvedFlags; Unknown updated
+- docs/CHANGELOG.md, Cargo.toml: version 0.37.7
+
+---
+
 ## v0.37.6 - Turn dead-code analysis back on across the read path
 
 Dead-code analysis was switched off for ~195k of 205k lines — not by the crate-level

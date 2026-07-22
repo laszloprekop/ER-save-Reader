@@ -572,9 +572,9 @@ most demanding form.
 
 | # | Work | Blocked by | Size |
 |---|---|---|---|
-| 0 | 0 — delete `calibration.rs`, amend the BACKLOG 4b note | — | small |
-| 1 | A — `[lib]` + `pub(crate)` + the Unknown-preservation test | — | small, mechanical |
-| 1b | A — lift `vm`/`save/common`/`util` allows, triage the 21 | 1 | small |
+| 0 | ✅ **DONE** v0.37.4 — deleted `calibration.rs`, amended the BACKLOG 4b note | — | small |
+| 1 | ✅ **DONE** v0.37.5 — `[lib]` + `pub(crate)` + the Unknown-preservation test | — | small, mechanical |
+| 1b | ✅ **DONE** v0.37.6 — lifted `vm`/`save/common`/`util` allows, triaged the 21 | 1 | small |
 | 2 | B2 — `ResolvedFlags` in the crate; five exports become adapters | — (parallel with 1) | medium; conformance suites unchanged |
 | 3 | B1 — `FlagState`; fix `ui/events.rs:1721`; retire the four bespoke status shapes | 1, 2 | medium; touches every view that reads a flag |
 | 4 | C1 — `Evidence`; delete six duplicate loaders; close the `gen_*` hash gap | 1 | medium |

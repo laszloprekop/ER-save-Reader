@@ -98,8 +98,33 @@ behind means two screens disagreeing about the same flag.
 The third state of a flag read, distinct from set and clear: the position could not be
 resolved, so nothing is known. Must never collapse to "not found" — that failure is
 what made `batch-validate` report 0/110 boss defeats on a finished character. In code:
-`Option<bool>::None` / `GraceStatus::Unreliable`; in the UI: `-`.
+`FlagState::Unknown` (see below); in the UI: `-`.
 _Avoid_: false, not discovered, 0 (when the truth is that we could not tell)
+
+**FlagState**:
+The type Unknown lives in: `FlagState { Set, Clear, Unknown }`, in
+`crates/wasm-event-flags`. It replaced `Option<bool>`, which was a correct tri-state and
+a poor one — `unwrap_or(false)`, `unwrap_or_default()` and `is_some_and()` all turn "we
+could not tell" into "no" in a way that compiles and reads naturally. It deliberately has
+**no `is_set()`**: that method is how the distinction gets lost, and
+`GraceStatus::is_discovered()` was exactly it. The one way back to a bool is
+`unknown_as_clear()`, named so that `grep -rn 'unknown_as_clear'` is the complete audit
+list of the places a real distinction is being discarded.
+_Avoid_: `Option<bool>` for a flag read (it is still right for genuinely optional values,
+e.g. a user's manual verification mark)
+
+**ResolvedFlags**:
+One save's flag region with every Family Constant already applied — the Resolver's result
+as a value rather than a computation repeated per flag. `ResolvedFlags::from_event_flags`
+finds the Origin once and refuses (`None`) if it cannot; the per-family methods then
+answer `FlagState`, and still answer Unknown for ids with no verified layout. Holding one
+is a promise that the Origin was found, **not** that any given flag can be read. It
+borrows the flag region so the resolved bases cannot be recombined with a different
+save's bytes. Deliberately not `#[wasm_bindgen]`: exporting it would put the primary
+reader behind `impl` methods, which the ADR-0008 guard does not scan (pinned by
+`no_wasm_bindgen_impl_blocks_exist`).
+_Avoid_: calling the deprecated free `is_*_set` functions in new code — each re-scans
+~13,400 bytes to re-derive the same Origin.
 
 **Row ID vs getItemFlagId**:
 Two names for the same world pickup. The save addresses the pickup at the row_id, the
