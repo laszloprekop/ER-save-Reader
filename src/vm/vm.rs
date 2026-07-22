@@ -1,6 +1,19 @@
 pub mod vm {
-    use std::collections::HashMap;
+    use crate::{
+        save::save::save::Save,
+        util::{regulation::Regulation, validator::validator::Validator},
+        vm::{
+            profile_summary::slot_view_model::ProfileSummaryViewModel,
+            regulation::regulation_view_model::RegulationViewModel,
+            slot::slot_view_model::SlotViewModel,
+        },
+    };
 
+    // Only the write-back path (`update_save` and friends) needs to know how a
+    // view model maps back onto save bytes; reading needs none of it (ADR-0009).
+    #[cfg(feature = "save-writeback")]
+    use std::collections::HashMap;
+    #[cfg(feature = "save-writeback")]
     use crate::{
         db::{
             bosses::bosses::BOSSES,
@@ -16,15 +29,11 @@ pub mod vm {
         },
         save::{
             common::save_slot::{EquipInventoryData, EquipInventoryItem},
-            save::save::{Save, SaveType},
+            save::save::SaveType,
         },
-        util::{regulation::Regulation, validator::validator::Validator},
         vm::{
             events::events_view_model::GraceStatus,
             inventory::{InventoryGaitemType, InventoryItemType},
-            profile_summary::slot_view_model::ProfileSummaryViewModel,
-            regulation::regulation_view_model::RegulationViewModel,
-            slot::slot_view_model::SlotViewModel,
         },
     };
 
@@ -83,6 +92,7 @@ pub mod vm {
             vm
         }
 
+        #[cfg(feature = "save-writeback")]
         pub fn update_save(&self, save_type: &mut SaveType) {
             let steam_id = self.steam_id.parse::<u64>().expect("");
             // Update SteamID for UserData10
@@ -122,6 +132,7 @@ pub mod vm {
             }
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_stats(&self, save_type: &mut SaveType, index: usize) {
             let stats_vm = &self.slots[index].stats_vm;
 
@@ -161,6 +172,7 @@ pub mod vm {
             save_type.set_character_spirit_ash_lvl(index, stats_vm.spirit_ash);
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_weapon_match_making_level(&self, save_type: &mut SaveType, index: usize) {
             let general_vm = &self.slots[index].general_vm;
             let inventory_vm = &self.slots[index].inventory_vm;
@@ -270,6 +282,7 @@ pub mod vm {
             }
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_equipment(&self, save_type: &mut SaveType, index: usize) {
             let equipment_vm = &self.slots[index].equipment_vm;
 
@@ -407,6 +420,7 @@ pub mod vm {
             }
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_events(&self, save_type: &mut SaveType, index: usize) {
             // Graces - use formula-based offset calculation
             // Skip unreliable graces to avoid writing potentially incorrect values
@@ -471,6 +485,7 @@ pub mod vm {
             }
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_regions(&self, save_type: &mut SaveType, index: usize) {
             for (region, (activated, _, _, _)) in self.slots[index].regions_vm.regions.iter() {
                 let region_id = REGIONS.lock().unwrap()[region].0;
@@ -482,6 +497,7 @@ pub mod vm {
             }
         }
 
+        #[cfg(feature = "save-writeback")]
         fn update_inventory(&self, save_type: &mut SaveType, index: usize) {
             let inventory_vm = &self.slots[index].inventory_vm;
             let inventory_held = &inventory_vm.storage[0];

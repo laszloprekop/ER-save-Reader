@@ -1,6 +1,6 @@
 # Commit Snapshot Protocol
 
-This document defines the standardized process for creating production-ready commit snapshots for ER-save-Editor.
+This document defines the standardized process for creating production-ready commit snapshots for ER-save-Reader.
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
 > **Status: CURRENT process doc.** The commit/snapshot procedure (invoked via `/snapshot`). Workflow, not evidence — keep in step with the `snapshot` skill and `CLAUDE.md`'s commit protocol.
@@ -107,7 +107,7 @@ After determining the appropriate version number, update `Cargo.toml`:
 **Example:**
 ```toml
 [package]
-name = "er-save-editor"
+name = "er-save-reader"
 version = "0.0.26"  # Changed from 0.0.25
 ```
 

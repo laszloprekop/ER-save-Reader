@@ -57,7 +57,7 @@ impl RecentFilesManager {
         let mut path = std::env::var("HOME")
             .map(PathBuf::from)
             .unwrap_or_else(|_| PathBuf::from("."));
-        path.push(".er-save-editor");
+        path.push(".er-save-reader");
         path.push("config.json");
         path
     }

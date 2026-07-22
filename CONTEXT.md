@@ -1,4 +1,4 @@
-# ER Save Editor — Event Flag Research
+# ER Save Reader — Event Flag Research
 
 Save editor and event-flag research platform for Elden Ring. This context covers the
 epistemic layer: how facts about the save format are established, stored, and consumed.
@@ -112,7 +112,7 @@ caller must choose the family; a function that guesses reads a plausible wrong b
 **Claims Store**:
 The pipeline-generated collection of Claims consumed by the applications (successor of
 ground_truth_offsets.json). Never hand-edited; regenerable from Evidence at any time
-(`er-save-editor knowledge run` → `knowledge/claims/event-flags.json`).
+(`er-save-reader knowledge run` → `knowledge/claims/event-flags.json`).
 _Avoid_: ground truth file
 
 **Attributed Transition**:
@@ -145,6 +145,19 @@ fields: **Claims** (what it asserts), **Evidence** (what backs it), **Methodolog
 was derived), **Obsolete** (what is superseded, and where the current source now is). Its
 job is to stop an era-mixed doc from misleading a reader who trusts a stale number. When a
 doc is edited, update its header rather than letting body and header drift apart.
+
+**Reader**:
+What this project is (ADR-0009). It reconstructs a character's state from a save file the
+way the game loads one, and stops there — it never writes a save back. Say "the reader",
+not "the editor"; the old name described a tool that no longer exists.
+
+**Dormant**:
+Code kept in the tree but excluded from the default build, so it stays resurrectable
+without being live. The save write-back path is dormant behind `feature =
+"save-writeback"` (ADR-0009). Dormant is not the same as dead: dead code would be
+deleted, and dormant code is expected to keep compiling under its flag. It is also not
+the same as unreachable — the write path was unreachable *and* compiled for months, which
+is exactly the state ADR-0009 exists to end.
 
 ### Instruments
 

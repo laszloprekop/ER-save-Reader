@@ -2,9 +2,19 @@
 members = [".", "crates/wasm-event-flags"]
 
 [package]
-name = "er-save-editor"
-version = "0.34.0"
+name = "er-save-reader"
+version = "0.35.0"
 edition = "2021"
+
+[features]
+default = []
+# Dormant save write-back path (ADR-0009). The app is a reader: it reconstructs
+# character state from a save the way the game loads it, and never writes back.
+# Everything that serialises state to bytes — the `Write` trait and its impls,
+# `ViewModel::update_save`, the `SaveType` mutators, the character importer —
+# lives behind this flag so it stays in the tree, resurrectable, but out of the
+# default build. Keep it compiling: `cargo check --features save-writeback`.
+save-writeback = []
 
 [dependencies]
 wasm-event-flags = { path = "crates/wasm-event-flags" }

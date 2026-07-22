@@ -1,7 +1,7 @@
 # Data sources
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
-> **Status: CURRENT reference.** Human-readable inventory of characters, save snapshots, and game extracts. The authoritative, checksummed inventory is the Evidence Catalog (`knowledge/evidence-catalog.json`, verify with `er-save-editor knowledge catalog-verify`); keep this doc in sync with it.
+> **Status: CURRENT reference.** Human-readable inventory of characters, save snapshots, and game extracts. The authoritative, checksummed inventory is the Evidence Catalog (`knowledge/evidence-catalog.json`, verify with `er-save-reader knowledge catalog-verify`); keep this doc in sync with it.
 > - **Claims**: which characters/slots exist and their progression; which save snapshots and decompiled resources are on disk.
 > - **Evidence**: the files themselves, checksummed in the Evidence Catalog.
 > - **Methodology**: manually maintained.
@@ -17,7 +17,14 @@ Slot 2, V1 - test character, very early game, one world pickup: Flag ID 10443673
 Slot 3, V2 - test character, same as V1, just different travel path taken to the same one world pickup Flag ID 1044367310
 Slot 4, V3 - test character, same as V1-V2, traveled to the same location, but did NOT picked up Flag ID 1044367310
 
-Slot 5, Bee - early game, more progress, exploration and world pickups than Slot 1-4. Primary timeline tracking character.
+Slot 5, Bee - **mid/post-mid game and still advancing** (corrected 2026-07-21; the earlier "early
+game" description was measured against the Feb-May timeline captures and is long stale). As of
+2026-07-21 the live save has Bee at **level 112**, in **Leyndell, Royal Capital**, with graces
+across Limgrave, Caelid/Swamp of Aeonia, Altus Plateau, Mt. Gelmir, Capital Outskirts, Leyndell,
+Subterranean Shunning-Grounds and Ainsel River (souls memory 5,123,573). Primary timeline tracking
+character. **This character is expected to reach the endgame first**, so it is the intended source
+of late-game and endgame flag evidence — treat its progression description as a moving target and
+re-check it against the live save rather than citing this line as fixed.
 
 Slot 6, Sam - minimal progression
 
@@ -116,4 +123,4 @@ A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /char
 ## Event flags
 
 Extracted event flag catalog (generated from decompiled game files)
-'/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/scripts/extracted_event_flags.json'
+'/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Reader/scripts/extracted_event_flags.json'

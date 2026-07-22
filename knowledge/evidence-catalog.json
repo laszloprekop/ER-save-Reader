@@ -137,11 +137,10 @@
       "total_size": 20027671
     }
   ],
-  "description": "Integrity index over out-of-repo Evidence (ADR-0001: evidence = raw bytes only). Hand-written fields: description, context, status, excludes. Machine fields (sha256, size, files, total_size, manifest, updated) are owned by `er-save-editor knowledge catalog-update`. In-repo evidence (conformance fixtures) is integrity-covered by git and the fixtures README, not by this catalog.",
+  "description": "Integrity index over out-of-repo Evidence (ADR-0001: evidence = raw bytes only). Hand-written fields: description, context, status, excludes. Machine fields (sha256, size, files, total_size, manifest, updated) are owned by `er-save-reader knowledge catalog-update`. In-repo evidence (conformance fixtures) is integrity-covered by git and the fixtures README, not by this catalog.",
   "roots": {
     "decompiled": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files",
     "game_raw": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring game raw",
-    "repo_scripts": "/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Editor/scripts",
     "saves": "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files"
   },
   "schema": "evidence-catalog/1",

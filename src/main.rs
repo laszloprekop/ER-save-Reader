@@ -4,6 +4,7 @@ mod vm;
 mod save;
 mod util;
 mod read;
+#[cfg(feature = "save-writeback")]
 mod write;
 mod ui;
 mod db;
@@ -11,7 +12,9 @@ mod generated;
 mod knowledge;
 mod calibration;
 
-use std::{env, fs::File, io::Write, path::PathBuf};
+use std::{env, path::PathBuf};
+#[cfg(feature = "save-writeback")]
+use std::{fs::File, io::Write};
 
 use eframe::{egui::{self, Align, Layout, RichText, Rounding}, epaint::Color32};
 use rfd::FileDialog;
@@ -19,7 +22,10 @@ use save::save::save::Save;
 use ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, components::detail_panel::{DetailPanelState, DetailPanelAction, detail_panel}, components::navigation::{NavigationStack, NavigationEntry, EntityReference, navigation_breadcrumb, NavAction}, landing::landing::landing_page, state::RecentFilesManager, database::{items_view, graces_view, merchants_view, bosses_view, event_chains_view, ItemsViewState, GracesViewState, MerchantsViewState, BossesViewState, EventChainsViewState}, comparison::{ComparisonState, comparison_view}, validation::{ValidationState, validation_view}, utilities::icons_view::{icons_view, IconsViewState}};
 use vm::verification_vm::VerificationViewModel;
 use util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
-use vm::{importer::general_view_model::ImporterViewModel, vm::vm::ViewModel};
+use vm::vm::vm::ViewModel;
+#[cfg(feature = "save-writeback")]
+use vm::importer::general_view_model::ImporterViewModel;
+#[cfg(feature = "save-writeback")]
 use crate::write::write::Write as w;
 use rust_embed::RustEmbed;
 
@@ -56,13 +62,13 @@ fn main() -> Result<(), eframe::Error> {
 
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title(format!("ER Save Editor {}", env!("CARGO_PKG_VERSION")))
+            .with_title(format!("ER Save Reader {}", env!("CARGO_PKG_VERSION")))
             .with_inner_size([WINDOW_WIDTH, WINDOW_HEIGHT])
             .with_icon(app_icon),
         ..Default::default()
     };
 
-    eframe::run_native("ER Save Editor", options, Box::new(|creation_context| {
+    eframe::run_native("ER Save Reader", options, Box::new(|creation_context| {
         let mut fonts = egui::FontDefinitions::default();
 
         // IBM Plex font family
@@ -132,7 +138,9 @@ pub struct App {
     vm: ViewModel,
     picked_path: PathBuf,
     current_route: Route,
+    #[cfg(feature = "save-writeback")]
     importer_vm: ImporterViewModel,
+    #[cfg(feature = "save-writeback")]
     importer_open: bool,
     // Database view states
     spells_view_state: SpellsViewState,
@@ -175,7 +183,9 @@ impl App {
             picked_path: Default::default(),
             current_route: Route::Landing,
             vm: ViewModel::default(),
+            #[cfg(feature = "save-writeback")]
             importer_vm: Default::default(),
+            #[cfg(feature = "save-writeback")]
             importer_open: Default::default(),
             // Database view states
             spells_view_state: SpellsViewState::default(),
@@ -311,6 +321,12 @@ impl App {
         self.current_route = Route::CharacterSelect;
     }
 
+    /// Write the reconstructed state back out as a save file.
+    ///
+    /// Dormant (ADR-0009): nothing calls this, and it is not compiled into the
+    /// default build. The app reads a save the way the game loads one — it does
+    /// not write one back.
+    #[cfg(feature = "save-writeback")]
     fn save(&mut self, path: PathBuf) {
         self.vm.update_save(&mut self.save.save_type);
         let mut f = File::create(path).expect("");
@@ -334,6 +350,7 @@ impl App {
         dialog.pick_file()
     }
 
+    #[cfg(feature = "save-writeback")]
     fn save_file_dialog(last_dir: Option<&PathBuf>) -> Option<PathBuf> {
         let mut dialog = FileDialog::new()
             .add_filter("SL2", &["sl2", "Regular Save File"])

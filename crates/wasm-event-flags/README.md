@@ -6,12 +6,12 @@ WebAssembly module for Elden Ring EventFlags offset detection.
 
 This crate is the **single source of truth** for detecting the EventFlags section offset within character slot data. It is used by:
 
-- **ER-save-Editor** - Native Rust (via Cargo dependency)
+- **ER-save-Reader** - Native Rust (via Cargo dependency)
 - **elden-map** - WebAssembly (compiled with wasm-pack)
 
 ## Building
 
-### Native (for ER-save-Editor)
+### Native (for ER-save-Reader)
 
 ```bash
 # From workspace root

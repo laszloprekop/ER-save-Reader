@@ -1,9 +1,100 @@
 # Changelog
 
-All notable changes to ER-save-Editor will be documented in this file.
+All notable changes to ER-save-Reader will be documented in this file.
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
 > **Status: LIVING RECORD — chronological, newest first.** Each entry is true as of its date and is not retroactively corrected; later entries supersede earlier ones. For the current canonical state read `CONTEXT.md`, the ADRs, and the claims store — not old entries here.
+
+---
+
+## v0.35.0 - A reader, not an editor: renamed, write path made dormant (ADR-0009)
+
+**BREAKING.** The package, binary and window title are renamed
+`er-save-editor` → `er-save-reader`, and the save write-back path no longer
+compiles into the default build. The project reconstructs a character's state
+from a save the way the game loads one, and stops there.
+
+### Breaking changes
+- **Package/binary renamed** `er-save-editor` → `er-save-reader` (`Cargo.toml`).
+  Every `knowledge` subcommand is now invoked as `er-save-reader knowledge <cmd>`.
+- **Config directory moved** `~/.er-save-editor/` → `~/.er-save-reader/`
+  (`ui_state.json`, `config.json`). Existing recent-file lists are not migrated;
+  the app starts with an empty list rather than reading the old path.
+- **New Cargo feature `save-writeback`, off by default.** The `Write` trait and its
+  40 impls, the 44 `SaveType` mutators, `ViewModel::update_save` and its fan-out,
+  and the character importer are gated behind it (118 `#[cfg]` sites). They stay in
+  the tree and stay compiling — `cargo check --features save-writeback` — but are
+  absent from the default build.
+
+### Why (ADR-0009)
+The editing had already stopped without anyone saying so: the Save button was
+disabled with a strikethrough, `App::save` had no callers, `InventoryRoute::Add`
+carried "Can't reach this state anymore". What remained was ~1,500 lines of
+machinery that compiled and never ran. The decisive argument is asymmetry of harm:
+a wrong offset *read* produces a plausible-looking wrong answer, a wrong offset
+*written* corrupts someone's character — and the read side has been re-derived
+repeatedly (family Origin, ADR-0008) while the write side never followed. A feature
+gate rather than deletion because the write impls interleave with the `Read` impls
+they mirror; resurrection stays a flag, not a merge.
+
+### Knowledge base brought back in sync with the rename
+The generators emit their own invocation name into their output, so the rename
+desynchronised the claims store from the code that writes it.
+- **Claims store regenerated, not hand-edited** (ADR-0004): all six artifacts via
+  `knowledge run` / `family-distances` / `origin-probe` / `list-hunt` /
+  `validate-origin` / `family-constants`. Re-run confirmed byte-identical, so
+  determinism holds across the rename. **Every claim body is unchanged** — the only
+  diffs are the `generated_by` string and the two input sha256s below.
+- **One real staleness caught by regenerating**: `family-constants.json` recorded
+  `FAMILY_LEGACY_DUNGEON` as `shipped_constant: null`, `"constant; not shipped yet"`.
+  It has been shipped since v0.32.0; the artifact now reads `1500567` /
+  `"AGREES WITH SHIPPED"`, an independent confirmation the artifact was previously
+  too stale to make.
+- Hand-written CLI references updated in `evidence-catalog.json`,
+  `knowledge/inputs/*.json` and `scripts/windows/regenerate-game-extracts.ps1`
+  (the last told the operator to run a command that no longer exists).
+- **Orphan catalog root removed**: `repo_scripts` pointed at
+  `…/ER-save-Editor/scripts`, referenced by no corpus and no code — a leftover from
+  the step-5 Python-lab deletion, and a path that the rename broke outright.
+- `ground_truth_offsets.json` still contains the old name and was **deliberately not
+  touched** — FROZEN read-only (ADR-0006), sha256-pinned by
+  `test_ground_truth_is_frozen`. Likewise `docs/adr/0002` and
+  `SAVE_FILE_GROUND_TRUTH.md`, whose `ER-Save-Editor` references correctly name the
+  *upstream* ClayAmore project, not this one.
+
+### Fixed
+- `src/knowledge/mod.rs` help and module docs advertised that `knowledge timeline`
+  emits `knowledge/claims/timeline-events.json`. It emits
+  `timeline-replay-audit.json`; `timeline-events.json` is the flag re-annotation
+  that was tried and **rejected on evidence** (32,893 bogus events, flags flipping
+  0→1 up to 69 times). The docs promised the artifact the project refused to ship.
+
+### Key findings
+- **New timeline evidence arrived uncataloged, and was left uncataloged.**
+  `catalog-verify` exits 1 on `timeline-slot-diffs` (3,869 files vs 3,830 cataloged)
+  and `timeline-metadata`: the Bee capture agent ran 2026-07-21. Absorbing it via
+  `catalog-update` would re-bless ~39 captures of unexamined provenance, which is
+  what ADR-0007 says not to do. Recorded as BACKLOG Priority 0c with the hypothesis
+  worth checking — these postdate the ADR-0008 cutover, so they may be the first
+  captures from a build no longer writing a poisoned ~223k anchor. Unverified.
+- The pipeline is unaffected by that drift: `knowledge run` verify-on-read passes,
+  because it reads the snapshot corpora, not the timeline corpus.
+
+### Known issues (pre-existing, not introduced here)
+- `cargo clippy` reports 6 deny-level `enum_clike_unportable_variant` errors in
+  `src/vm/inventory/mod.rs:136-171` (`0x80000000`-style discriminants). The file is
+  untouched by this change and `cargo build` / `cargo check` pass.
+
+### Files modified
+- `Cargo.toml`: package renamed; `save-writeback` feature added; bumped to 0.35.0
+- `src/save/**`, `src/vm/**`, `src/main.rs`, `src/ui/**`: write path gated, titles renamed
+- `src/ui/state/{persistence,recent_files}.rs`: config dir → `~/.er-save-reader/`
+- `src/knowledge/mod.rs`: timeline output filename corrected in help + module docs
+- `knowledge/claims/*.json` (6): regenerated
+- `knowledge/evidence-catalog.json`, `knowledge/inputs/*.json`: CLI name, orphan root
+- `docs/adr/0009-a-reader-not-an-editor.md`: new
+- `docs/BACKLOG.md`: Priority 0c added; date stamp 2026-07-05 → 2026-07-22
+- `CLAUDE.md`, `README.md`, `docs/*.md`: renamed throughout
 
 ---
 
@@ -13,7 +104,7 @@ All notable changes to ER-save-Editor will be documented in this file.
 hand-maintained — closing the drift that had accumulated ~8% each way.
 
 ### Features
-- **`er-save-editor knowledge gen-dungeon-pickups`** (`src/knowledge/gen_dungeon_pickups.rs`):
+- **`er-save-reader knowledge gen-dungeon-pickups`** (`src/knowledge/gen_dungeon_pickups.rs`):
   parses `ItemLotParam_map.param.xml` (regulation 1.16.1, sha256-verified against the
   evidence catalog) and deterministically emits the dungeon-pickup table. Selection: every
   row whose `getItemFlagId` is an 8-digit legacy-dungeon flag (10M..44M) with localId >=
@@ -79,7 +170,7 @@ the bulk of the work is in the elden-map repo (separate commit).
   testing subsystem in place; stopped the capture agent baking a fabricated tile base
   into evidence (ADR-0007).
 - Verified out-of-sample through elden-map's own `parseSaveFile` on the 2026-01-11
-  backup (Confessor slot 0): **179 graces** (exact match to the ER-save-Editor
+  backup (Confessor slot 0): **179 graces** (exact match to the ER-save-Reader
   validation), Margit ✓ / Godrick ✓ / Radahn ✗. Client + server typecheck clean;
   `vite build` succeeds.
 
@@ -389,7 +480,7 @@ Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.
 - **`FAMILY_LEGACY_DUNGEON` = 1,500,567** — the last family without an origin constant.
   Measured from the two attributed boss-kill pairs that pinned it (30020800 b24-b25,
   30030800 b32-b33), spread 0 across a drift step.
-- **`er-save-editor knowledge family-constants`** (`src/knowledge/family_distances.rs`,
+- **`er-save-reader knowledge family-constants`** (`src/knowledge/family_distances.rs`,
   emits `knowledge/claims/family-constants.json`). Derives each family's constant from
   the attributed flips that pinned its base:
   `constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)`. It reproduces
@@ -846,7 +937,7 @@ Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.
 ## v0.21.0 - Knowledge pipeline: claims store generated from attributed transitions
 
 ### Features
-- **Knowledge pipeline (migration step 3)**: `er-save-editor knowledge run`
+- **Knowledge pipeline (migration step 3)**: `er-save-reader knowledge run`
   (`src/knowledge/pipeline.rs`) regenerates `knowledge/claims/event-flags.json`
   deterministically (re-run ⇒ byte-identical) from the hand-written hypothesis input
   `knowledge/inputs/attributed-transitions.json` + the alloclist layout + the evidence
@@ -1914,7 +2005,7 @@ Documentation and one doc-comment. No behaviour change; all 189 tests unchanged.
 - **New home view with recent files**
   - Shows list of recently opened save files
   - Displays character names for each save
-  - Persists to `~/.er-save-editor/config.json`
+  - Persists to `~/.er-save-reader/config.json`
   - Supports drag-and-drop file opening
 
 ### Top Menu Bar
@@ -2208,7 +2299,7 @@ The linear section formula assumed contiguous memory allocation, but in reality:
 ### Features
 - **Single source of truth for EventFlags detection**
   - New `wasm-event-flags` crate provides shared detection algorithm
-  - Used by both ER-save-Editor (native Rust) and elden-map (via WASM)
+  - Used by both ER-save-Reader (native Rust) and elden-map (via WASM)
   - Eliminates implementation drift between projects
   - Guarantees identical detection results
 

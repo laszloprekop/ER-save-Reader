@@ -1,9 +1,37 @@
 # Project Backlog
 
-**Last updated**: 2026-07-05
+**Last updated**: 2026-07-22
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
 > **Status: LIVING RECORD — the working plan and open questions.** Holds the knowledge-base migration plan (steps 1-6) and the reasoning behind open/closed questions; entries are dated and later ones supersede earlier ones (many carry inline CORRECTED / SETTLED / tombstone notes). Canonical facts live in `CONTEXT.md` + the claims store; this is where the *reasoning and next steps* live. The "Last updated 2026-07-05" stamp understates it — the newest work is dated 2026-07-20.
+
+---
+
+## Priority 0c: New timeline evidence has arrived uncataloged (found 2026-07-22)
+
+`knowledge catalog-verify` exits 1 on two corpora, and **this drift is not a fault — it is
+new evidence**. The Bee capture agent ran again on 2026-07-21 (newest file `sd_004009.bin`,
+21:36): `timeline-slot-diffs` holds 3,869 files against 3,830 cataloged, and
+`timeline-metadata` (`slot_changes.jsonl`) grew with it.
+
+**Deliberately NOT absorbed during the ADR-0009 rename commit.** Running `catalog-update`
+would re-bless ~39 captures whose provenance has not been examined, which is exactly what
+ADR-0007 says not to do with capture-agent output — and the corpus's hand-written
+`description` and `context` both assert "3,830 sparse slot diffs, 2026-02-14 .. 2026-05-25",
+so they need a human judgment, not a machine refresh.
+
+*Why it may be worth more than a routine re-catalog:* these captures postdate the ADR-0008
+cutover (2026-07-21), so they are plausibly the first ones taken by an elden-map build that
+is no longer writing a poisoned ~223k anchor or a fabricated `calibrated_tile_base`. The
+existing `timeline-metadata` trust note scopes trustworthiness to "the Feb-2026 era only".
+If that holds for the new range, this is the first clean capture-agent evidence in the
+corpus. **Unverified — that is a hypothesis about which build produced them, and it needs
+checking against the agent/wasm version stamps before any of it is trusted.**
+
+*The intake task:* establish which build wrote them, extend or split the corpus entry with
+an honest per-era trust note, then `catalog-update`. Note the pipeline is unaffected either
+way — `knowledge run` verify-on-read passes, because it reads the snapshot corpora, not this
+one.
 
 ---
 
@@ -23,7 +51,7 @@ Steps, in order:
    SaveParser parsing, elden-map `slot-layout.ts`/`ground-truth-formulas.ts`).
 2. ~~Evidence catalog~~ DONE 2026-07-05: `knowledge/evidence-catalog.json` (7 corpora,
    hand context + machine sha256) + per-file manifests under `knowledge/manifests/`
-   (3,997 files, ~12GB) + `er-save-editor knowledge catalog-update|catalog-verify`
+   (3,997 files, ~12GB) + `er-save-reader knowledge catalog-update|catalog-verify`
    (start of the `knowledge` CLI family; verify runs in ~70s, exit 1 on drift).
    Timeline metadata cataloged as LEGACY CLAIMS with trust-era notes. FINDING: the
    decompiled game files corpus is MISSING from this machine (recorded as a `missing`
@@ -50,7 +78,7 @@ Steps, in order:
    Catalog corpus `game-extracts` flipped missing→directory (390 files). Still not
    regenerated (by design): emevd.js decompiles (pipeline parses raw .emevd from
    `game-raw-1162`), MSB XMLs (optional).
-3. **Pipeline** — CORE DONE 2026-07-05: `er-save-editor knowledge run`
+3. **Pipeline** — CORE DONE 2026-07-05: `er-save-reader knowledge run`
    (`src/knowledge/pipeline.rs`) regenerates `knowledge/claims/event-flags.json`
    deterministically (re-run ⇒ byte-identical) from the hand-written hypothesis input
    `knowledge/inputs/attributed-transitions.json` (24 Confessor pairs: the numbered
@@ -131,7 +159,7 @@ Steps, in order:
    All 27 pairs total re-verified deterministic (`knowledge run` reports "claims
    store unchanged" on re-run) and the full test suite (116 main + 3 regression +
    52 wasm + 4 conformance) stays green.
-   TIMELINE RE-ANNOTATION ATTEMPTED 2026-07-06 (`er-save-editor knowledge timeline`,
+   TIMELINE RE-ANNOTATION ATTEMPTED 2026-07-06 (`er-save-reader knowledge timeline`,
    `src/knowledge/timeline.rs`): replays the Bee corpus's sparse-diff chain (slot 5,
    3,830 captures, 2026-02-14..2026-05-25, verify-on-read against the evidence
    catalog) into an in-memory slot buffer and runs the reference grace detector at
@@ -300,7 +328,7 @@ maps — unexplained, worth a look before claiming pickup coverage).
    reduces to pinning a single origin plus reading one record count.
 
    **INTER-FAMILY TEST DONE 2026-07-20 — CONSTANT, and it collapses 4b.**
-   `er-save-editor knowledge family-distances` (`src/knowledge/family_distances.rs`,
+   `er-save-reader knowledge family-distances` (`src/knowledge/family_distances.rs`,
    emits `knowledge/claims/family-distances.json`, byte-identical on re-run). It
    re-measures each family in files where no flag of that family flipped, by finding
    the UNIQUE position in a bounded window at which every expected flag state holds
@@ -343,7 +371,7 @@ maps — unexplained, worth a look before claiming pickup coverage).
    scan that failed in step 3.
 
    **ORIGIN PROBE 2026-07-20 — the drift is monotonic; no count field explains it.**
-   `er-save-editor knowledge origin-probe` (same module, emits
+   `er-save-reader knowledge origin-probe` (same module, emits
    `knowledge/claims/origin-probe.json`, byte-identical on re-run). Origin proxy is
    world-state-b (resolved in 47 files, all `snapshots-confessor`). Its delta from
    ga_end takes 7 distinct values over 183,101–183,157, and they are ordered by
@@ -431,7 +459,7 @@ maps — unexplained, worth a look before claiming pickup coverage).
    the app. (3) The constants are measured, not derived from the format.
 
    **CROSS-CHARACTER VALIDATION 2026-07-20 — the model holds out-of-sample.**
-   `er-save-editor knowledge validate-origin` (emits
+   `er-save-reader knowledge validate-origin` (emits
    `knowledge/claims/origin-validation.json`, byte-identical on re-run). Predicts each
    family base from the slot's own bytes only — `ga_end + find_list_end(slot) +
    constant` — then checks against states established independently of the model.
@@ -572,7 +600,7 @@ maps — unexplained, worth a look before claiming pickup coverage).
    from its table — not because their bases were unknown, but because that particular
    instrument could not see them.
 
-   *What produced it.* `er-save-editor knowledge family-constants`
+   *What produced it.* `er-save-reader knowledge family-constants`
    (`src/knowledge/family_distances.rs`, emits `knowledge/claims/family-constants.json`).
    The pipeline already pins a family base in the pair that established each flag, by
    isolated-flip analysis, and records it — a *stronger* positioning than a windowed
@@ -708,7 +736,7 @@ maps — unexplained, worth a look before claiming pickup coverage).
    flag-layout change — but the primary source is on this machine, so nothing blocks it.
 
    **DONE 2026-07-21 — regenerated from the primary source, with a committed generator.**
-   `dungeon_pickups.rs` is now GENERATED, not hand-maintained: `er-save-editor knowledge
+   `dungeon_pickups.rs` is now GENERATED, not hand-maintained: `er-save-reader knowledge
    gen-dungeon-pickups` (`src/knowledge/gen_dungeon_pickups.rs`) parses `ItemLotParam_map`
    (sha256-verified), selects every row whose `getItemFlagId` is an 8-digit dungeon flag
    with localId >= 7000 AND that grants an item (`lotItemId01 != 0`), and emits the table
@@ -1096,7 +1124,7 @@ await wasm (no static fallback exists now, so a pre-init read would show everyth
 undiscovered).
 
 *Verified out-of-sample.* The real 2026-01-11 backup, Confessor slot 0, through
-elden-map's own `parseSaveFile`: **179 graces** (exact match to the ER-save-Editor
+elden-map's own `parseSaveFile`: **179 graces** (exact match to the ER-save-Reader
 validation), Margit ✓, Godrick ✓, Radahn ✗ — the corrected fact. Client + server
 typecheck clean; `vite build` succeeds.
 

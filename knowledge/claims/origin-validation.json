@@ -8,7 +8,7 @@
     "world-state-b": 117192
   },
   "fail": 6,
-  "generated_by": "er-save-editor knowledge validate-origin",
+  "generated_by": "er-save-reader knowledge validate-origin",
   "model": "family_base = ga_end + find_list_end(slot) + constant(family)",
   "pass": 41,
   "question": "Do the list-end origin constants hold on characters that were NOT used to derive them?",

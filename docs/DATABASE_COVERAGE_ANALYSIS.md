@@ -14,7 +14,7 @@
 
 ## Executive Summary
 
-The ER-save-Editor has **40 database modules** cataloging **~22,184 game data entries** across equipment, world pickups, event flags, NPCs, shops, spells, and more. Coverage for core item/equipment data is excellent (~90-100%). Event flag detection is production-ready for tile and dungeon formulas, with block formula coverage at ~76%.
+The ER-save-Reader has **40 database modules** cataloging **~22,184 game data entries** across equipment, world pickups, event flags, NPCs, shops, spells, and more. Coverage for core item/equipment data is excellent (~90-100%). Event flag detection is production-ready for tile and dungeon formulas, with block formula coverage at ~76%.
 
 **Current State**:
 - 21 UI routes (8 character views, 11 database views, 2 utilities)

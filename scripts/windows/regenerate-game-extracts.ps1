@@ -18,9 +18,9 @@
 #
 # Afterwards: copy -OutDir to the Mac at
 #   '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
-# then in ER-save-Editor: change the `game-extracts` catalog entry kind from
+# then in ER-save-Reader: change the `game-extracts` catalog entry kind from
 # "missing" to "directory" (root pointing at that folder) and run
-#   er-save-editor knowledge catalog-update
+#   er-save-reader knowledge catalog-update
 #
 # Usage (PowerShell):
 #   .\regenerate-game-extracts.ps1 -WitchyExe 'C:\tools\WitchyBND\WitchyBND.exe'
@@ -111,4 +111,4 @@ Write-Host "Output: $OutDir"
 Write-Host "Copy this folder to the Mac as:"
 Write-Host "  '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'"
 Write-Host "then update the evidence catalog (game-extracts entry -> kind 'directory')"
-Write-Host "and run: er-save-editor knowledge catalog-update"
+Write-Host "and run: er-save-reader knowledge catalog-update"

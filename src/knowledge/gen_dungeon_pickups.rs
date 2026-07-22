@@ -209,7 +209,7 @@ fn header(count: usize) -> String {
         "//! Dungeon Pickup Database\n\
 //!\n\
 //! GENERATED — do not hand-edit. Regenerate with\n\
-//!   `er-save-editor knowledge gen-dungeon-pickups`\n\
+//!   `er-save-reader knowledge gen-dungeon-pickups`\n\
 //! (`src/knowledge/gen_dungeon_pickups.rs`). `tests/dungeon_pickups_generated.rs`\n\
 //! asserts this file equals the generator's output for the committed source, so a\n\
 //! hand-edit or a stale table fails the test.\n\

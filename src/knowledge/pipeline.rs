@@ -1250,7 +1250,7 @@ fn build_store(
 
     Ok(json!({
         "schema": "claims-store/1",
-        "generated_by": "er-save-editor knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
+        "generated_by": "er-save-reader knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
         "convention": "grace_rel = bytes relative to the detected grace-family base (copy A, pinned by crates/wasm-event-flags/tests/fixtures). family bases float per save (ADR-0003 amendment): resolve a flag as slot[grace_base + family_base(save) + family_rel_byte], bit 7 - flag % 8.",
         "status_ladder": "hypothesis -> corroborated (one method) -> verified (attributed transition, or two independent methods); tombstones are refuted claims kept so the idea cannot return. Applications consume corroborated+verified only.",
         "inputs": {

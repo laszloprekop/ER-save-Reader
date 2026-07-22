@@ -11,17 +11,32 @@ repeating the mistake.
 
 ---
 
+## What this project is
+
+**A reader, not an editor** (ADR-0009). It reconstructs a character's state from a save
+file the way the game loads one — and stops there. It never writes a save back.
+
+The write-back path still exists but is dormant behind `feature = "save-writeback"`, off
+by default: the `Write` trait and its impls, `ViewModel::update_save`, the `SaveType`
+mutators, and the character importer. **Do not add to it, and do not wire anything back to
+it.** New work belongs on the read side. If you genuinely need the write path, say so
+explicitly first — resurrecting it is a decision, not an implementation detail.
+
+Keep it from rotting when you touch the save structs: `cargo check --features save-writeback`.
+
+---
+
 ## Orientation — read these first
 
 - **Canonical vocabulary / glossary**: `CONTEXT.md` (Evidence, Claim, Origin, Family
   Constant, Resolver, Flag Family, Unknown, Epistemic Header, …). Use these terms; add new
   jargon there rather than inventing it per-conversation.
-- **Decisions**: `docs/adr/` (ADR-0001 … ADR-0008).
+- **Decisions**: `docs/adr/` (ADR-0001 … ADR-0009).
 - **Evidence inventory**: `knowledge/evidence-catalog.json` — sha256 index over all
   out-of-repo evidence with per-corpus trust context. Verify with
-  `er-save-editor knowledge catalog-verify` before relying on any evidence file.
+  `er-save-reader knowledge catalog-verify` before relying on any evidence file.
 - **Claims store**: `knowledge/claims/event-flags.json` — pipeline-generated
-  (`er-save-editor knowledge run`), NEVER hand-edited (ADR-0004). For the families it
+  (`er-save-reader knowledge run`), NEVER hand-edited (ADR-0004). For the families it
   covers it supersedes `ground_truth_offsets.json` and the doc base tables. Check its
   tombstones before re-proposing any offset convention.
 - **Docs**: every file in `docs/` opens with an Epistemic Header (status + claims /

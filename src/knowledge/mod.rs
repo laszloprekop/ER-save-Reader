@@ -9,8 +9,10 @@
 //!   knowledge run              Evidence -> claims pipeline: verify-on-read,
 //!                              attributed-transition analysis, deterministic
 //!                              claims-store emission (knowledge/claims/).
-//!   knowledge timeline <id>    Sparse-diff timeline replay + world-state-b
-//!                              re-annotation (knowledge/claims/timeline-events.json).
+//!   knowledge timeline <id>    Sparse-diff timeline replay + grace detection
+//!                              audit (knowledge/claims/timeline-replay-audit.json).
+//!                              It asserts NO flags: blind re-annotation was tried
+//!                              and rejected on evidence (docs/BACKLOG.md step 3).
 
 pub mod catalog;
 pub mod dump;
@@ -36,7 +38,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("Knowledge pipeline (evidence catalog + claims store)");
             println!();
             println!("USAGE:");
-            println!("    er-save-editor knowledge <COMMAND>");
+            println!("    er-save-reader knowledge <COMMAND>");
             println!();
             println!("COMMANDS:");
             println!("    catalog-update    Fill/refresh machine fields in the evidence catalog");
@@ -61,7 +63,7 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("                      raw byte, resolver verdict, database name");
             println!("    timeline <id>     Replay a sparse-diff timeline target (see");
             println!("                      knowledge/inputs/timeline-targets.json), emit");
-            println!("                      knowledge/claims/timeline-events.json");
+            println!("                      knowledge/claims/timeline-replay-audit.json");
             Ok(())
         }
     }

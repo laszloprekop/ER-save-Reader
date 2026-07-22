@@ -212,7 +212,7 @@ family_base = ga_items_end + flag_list_end + FAMILY_CONSTANT
 | legacy-dungeon (legacy-map boss kills, NPC/world state) | 1,500,567 | 2 attributed pairs, exact agreement |
 | legacy-dungeon-pickup | 1,500,442 | 16 captures, spread 0 |
 
-Re-derive any of these with `er-save-editor knowledge family-constants`, which measures
+Re-derive any of these with `er-save-reader knowledge family-constants`, which measures
 each family from the attributed flips that pinned it (a chain independent of the
 `list-hunt` route that produced the first four) and emits
 `knowledge/claims/family-constants.json`.

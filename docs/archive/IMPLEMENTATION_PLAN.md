@@ -2,7 +2,7 @@
 
 ## Overview
 
-Expand ER-save-Editor's database coverage from ~10% to ~80%+ of trackable game state by implementing missing modules for spells, NPCs, shop items, world pickups, and expanding event flag mappings with coordinate lookup.
+Expand ER-save-Reader's database coverage from ~10% to ~80%+ of trackable game state by implementing missing modules for spells, NPCs, shop items, world pickups, and expanding event flag mappings with coordinate lookup.
 
 ---
 

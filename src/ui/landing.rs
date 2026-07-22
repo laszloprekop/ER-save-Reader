@@ -41,7 +41,7 @@ pub mod landing {
         // Main landing page content
         ui.vertical_centered(|ui| {
             ui.add_space(32.0);
-            ui.heading("ER Save Editor");
+            ui.heading("ER Save Reader");
             ui.add_space(24.0);
 
             // Recent Saves section

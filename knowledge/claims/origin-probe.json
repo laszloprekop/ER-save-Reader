@@ -2,7 +2,7 @@
   "candidates": [],
   "delta_distinct_values": 7,
   "files_used": 47,
-  "generated_by": "er-save-editor knowledge origin-probe",
+  "generated_by": "er-save-reader knowledge origin-probe",
   "method": {
     "base_acceptance": "unique position in a bounded window where every expected flag state matches",
     "expectations": "set-monotonicity from pipeline-verified flips, plus known_set_before_all_pairs anchors",

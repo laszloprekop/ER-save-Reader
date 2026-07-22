@@ -4,11 +4,11 @@
 //! - EventFlags offset detection
 //! - Pickup flag offset calculations (dungeon, tile, block)
 //!
-//! Used by both ER-save-Editor (native Rust) and elden-map (via WASM).
+//! Used by both ER-save-Reader (native Rust) and elden-map (via WASM).
 //!
 //! ## Documentation
 //!
-//! - ER-save-Editor: `docs/WASM-EVENT-FLAGS.md`
+//! - ER-save-Reader: `docs/WASM-EVENT-FLAGS.md`
 //! - elden-map: `docs/WASM-EVENT-FLAGS.md`
 //!
 //! ## Rebuilding WASM
@@ -752,7 +752,7 @@ pub fn get_player_coords_search_end() -> usize {
 // EQUIPMENT DATA EXTRACTION
 // =============================================================================
 
-// Section sizes from ER-save-Editor save_slot.rs (authoritative)
+// Section sizes from ER-save-Reader save_slot.rs (authoritative)
 const PLAYER_GAME_DATA_SIZE: usize = 0x1B0;
 const PRE_EQUIP_PADDING: usize = 0xD0;
 const EQUIP_DATA_STRUCT_SIZE: usize = 0x58; // 22 u32
@@ -1068,11 +1068,11 @@ struct EquipmentExtraction {
 /// WASM export: Extract all equipment data from slot data.
 ///
 /// Parses GaItems to find their end, then sequentially reads all equipment
-/// sections (matching ER-save-Editor save_slot.rs read order). Returns JSON
+/// sections (matching ER-save-Reader save_slot.rs read order). Returns JSON
 /// with computed offsets and parsed equipment data.
 ///
 /// This is the SINGLE SOURCE OF TRUTH for equipment section offsets,
-/// shared between ER-save-Editor and elden-map.
+/// shared between ER-save-Reader and elden-map.
 #[wasm_bindgen]
 pub fn extract_equipment_data(slot_data: &[u8]) -> String {
     match extract_equipment_impl(slot_data) {

@@ -1,12 +1,20 @@
-# ER Save Editor
+# ER Save Reader
 
 <p align="center">
   <a href="https://github.com/ClayAmore/ER-Save-Editor/blob/master/icon/readme.md"><img src="https://github.com/ClayAmore/ER-Save-Editor/assets/131625063/e1d40274-066a-4b72-b010-de9170090b60" /></a>
 </p>
 
-Tool for editing Elden Ring save files. Compatible with PC and Playstation Save Wizard exported saves.
+Reads Elden Ring save files and reconstructs the character state they encode — the same
+state the game itself loads when you continue playing. Compatible with PC and Playstation
+Save Wizard exported saves.
 
-**Use with caution:** This tool should be used responsibly. Always backup your save file before making any edits. This is a hobby project developed during spare time and is intended for easier character build making. I do not endorse or condone cheating online.
+**It is a reader, not an editor** (see [ADR-0009](docs/adr/0009-a-reader-not-an-editor.md)).
+It opens your save and shows you what is in it; it never writes one back. The write-back
+path from the project's editor days is still in the tree but dormant behind the
+`save-writeback` Cargo feature, off by default.
+
+Started as a fork of [ClayAmore/ER-Save-Editor](https://github.com/ClayAmore/ER-Save-Editor)
+and has since diverged into a state-reconstruction and event-flag research tool.
 
 ## Prerequisites
 
@@ -40,7 +48,7 @@ cargo run --release
 
 Or run the compiled binary directly:
 ```bash
-./target/release/er-save-editor
+./target/release/er-save-reader
 ```
 
 ### Using the Editor

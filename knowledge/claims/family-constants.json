@@ -17,12 +17,12 @@
         }
       ],
       "observations": 2,
-      "shipped_constant": null,
+      "shipped_constant": 1500567,
       "spread": 0,
       "values": [
         1500567
       ],
-      "verdict": "constant; not shipped yet"
+      "verdict": "AGREES WITH SHIPPED"
     },
     "legacy-dungeon-pickup": {
       "distinct_files": 3,
@@ -229,7 +229,7 @@
       "verdict": "AGREES WITH SHIPPED"
     }
   },
-  "generated_by": "er-save-editor knowledge family-constants",
+  "generated_by": "er-save-reader knowledge family-constants",
   "method": {
     "formula": "constant = (grace_base + family_base_grace_rel) - (ga_end + list_end)",
     "limits": "coverage is per-family as thin as the flip evidence: a family measured on two files is exactly two independent measurements, and agreement across them is weaker than the 16-47 file agreement behind the other constants.",

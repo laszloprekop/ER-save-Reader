@@ -12,6 +12,7 @@ pub mod stats;
 pub mod inventory;
 pub mod events;
 pub mod regions;
+#[cfg(feature = "save-writeback")]
 pub mod importer;
 pub mod equipment;
 pub mod spells_view;

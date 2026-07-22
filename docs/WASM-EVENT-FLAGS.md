@@ -9,13 +9,13 @@
 
 ## Overview
 
-The `wasm-event-flags` crate provides the **single source of truth** for both EventFlags offset detection and player coordinate extraction. This ensures both ER-save-Editor (native Rust) and elden-map (via WebAssembly) use the **exact same algorithms**.
+The `wasm-event-flags` crate provides the **single source of truth** for both EventFlags offset detection and player coordinate extraction. This ensures both ER-save-Reader (native Rust) and elden-map (via WebAssembly) use the **exact same algorithms**.
 
 ## Why This Matters
 
 The EventFlags section in Elden Ring save files contains ~1.8MB of bit flags tracking game progress (graces discovered, bosses defeated, items collected, etc.). However, its position within slot data is **not fixed** - it varies per character based on inventory size and other factors.
 
-Previously, ER-save-Editor and elden-map had separate implementations of the detection algorithm. This led to:
+Previously, ER-save-Reader and elden-map had separate implementations of the detection algorithm. This led to:
 - **Inconsistent results** - different offsets found for the same save file
 - **Maintenance burden** - bug fixes needed in two codebases
 - **Drift risk** - implementations could diverge over time
@@ -42,7 +42,7 @@ Previously, ER-save-Editor and elden-map had separate implementations of the det
 └────────────────────┬────────────────────┬───────────────────┘
                      │                    │
           ┌──────────▼──────────┐  ┌──────▼──────────────────┐
-          │   ER-save-Editor    │  │      elden-map          │
+          │   ER-save-Reader    │  │      elden-map          │
           │      (Native)       │  │        (WASM)           │
           │                     │  │                         │
           │ Uses Rust crate     │  │ Loads wasm-event-flags  │
@@ -83,7 +83,7 @@ Among candidates, prefer offsets where late-game graces are **NOT SET**:
 1. Return **FIRST** offset with ALL tier-1 positive flags SET and ALL negative flags UNSET
 2. If no perfect match, prefer: highest negative score → highest positive score → lowest offset
 
-## Usage in ER-save-Editor
+## Usage in ER-save-Reader
 
 The main application uses the shared crate through `src/save/common/event_flags_detection.rs`:
 
@@ -108,7 +108,7 @@ pub fn detect_event_flags_offset(slot_data: &[u8], _search_start: usize) -> Even
 After modifying the detection algorithm in `crates/wasm-event-flags/src/lib.rs`:
 
 ```bash
-# From ER-save-Editor root
+# From ER-save-Reader root
 cd crates/wasm-event-flags
 
 # Build WASM package for elden-map

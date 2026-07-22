@@ -21,7 +21,7 @@
 
 The pre-reset workflow: Python scripts read decompiled game files and save snapshots,
 guessed flag offsets by fitting formulas to a few anchors, and recorded "discoveries" into
-JSON stores that a Rust CLI (`er-save-editor discovery …`, also removed in step 5) browsed.
+JSON stores that a Rust CLI (`er-save-reader discovery …`, also removed in step 5) browsed.
 The whole approach assumed flag positions were stable across saves. They are not — that
 finding (per-save family float) is what invalidated the lab and motivated the reset.
 
@@ -31,8 +31,8 @@ finding (per-save family float) is what invalidated the lab and motivated the re
 |---|---|---|---|
 | **Game-file extraction** | `extract_event_flags.py`, `extract_event_graph.py`, `extract_flag_relationships.py`, `extract_pickup_data.py`, `extract_shop_items.py`, `extract_spells.py`, `extract_world_pickups*.py`, `expand_flag_catalog.py`, `build_pickup_section_map.py`, `generate_db.py`, `generate_dungeon_pickups.py` | the committed `src/db/*_data.rs` / `pickup_*.rs` / `spells.rs` / `shop_items.rs` tables (these **survive** in-tree) | the pipeline parses raw `.emevd` / regulation params natively (`docs/DATA-SOURCES.md`) |
 | **Base discovery** | `discover_*_bases.py`, `calibrate_dungeon_bases.py`, `refine_dungeon_bases.py`, `discover_bases_from_snapshots.py` | per-area base offsets & stride tables (all **obsolete** — the "+3375/area" stride was later deleted, ADR-0008) | `wasm_event_flags::resolve_family_base` (per-save origin) |
-| **Verification** | `run_verification.py`, `capture_agent.py`, `verify_*.py`, `diff_precise_snapshots.py`, `scripts/verification/**` (119 py + case JSONs) | the case-based verification store (`scripts/verification/cases/`) | `er-save-editor knowledge run` + conformance fixtures (ADR-0003/0004) |
-| **Timeline** | `timeline_analysis.py`, `timeline_graces_pickups.py`, `timeline_narrative.py` | narrative reconstructions of capture chains | `er-save-editor knowledge timeline` (`src/knowledge/timeline.rs`) |
+| **Verification** | `run_verification.py`, `capture_agent.py`, `verify_*.py`, `diff_precise_snapshots.py`, `scripts/verification/**` (119 py + case JSONs) | the case-based verification store (`scripts/verification/cases/`) | `er-save-reader knowledge run` + conformance fixtures (ADR-0003/0004) |
+| **Timeline** | `timeline_analysis.py`, `timeline_graces_pickups.py`, `timeline_narrative.py` | narrative reconstructions of capture chains | `er-save-reader knowledge timeline` (`src/knowledge/timeline.rs`) |
 | **One-off checks** | `scripts/archive/*.py` (10) | ad-hoc byte probes | — |
 
 ## What survived, and why

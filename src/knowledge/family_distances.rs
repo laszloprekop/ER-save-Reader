@@ -471,7 +471,7 @@ pub fn cmd_family_distances(_args: &[String]) -> Result<(), String> {
 
     let out = json!({
         "schema": "family-distances/1",
-        "generated_by": "er-save-editor knowledge family-distances",
+        "generated_by": "er-save-reader knowledge family-distances",
         "question": "Is the distance between flag families constant across saves? \
                      If so, locating one family locates all of them (BACKLOG step 4b).",
         "method": method_block(),
@@ -608,7 +608,7 @@ pub fn cmd_origin_probe(_args: &[String]) -> Result<(), String> {
 
     let out = json!({
         "schema": "origin-probe/1",
-        "generated_by": "er-save-editor knowledge origin-probe",
+        "generated_by": "er-save-reader knowledge origin-probe",
         "question": "Is the family drift explained by a single u32 record count in the \
                      save, i.e. family_base - ga_end = FIXED + multiplier * count?",
         "method": method_block(),
@@ -920,7 +920,7 @@ pub fn cmd_list_hunt(_args: &[String]) -> Result<(), String> {
 
     let out = json!({
         "schema": "list-hunt/1",
-        "generated_by": "er-save-editor knowledge list-hunt",
+        "generated_by": "er-save-reader knowledge list-hunt",
         "question": "WHERE does the save grow between ga_end and the flag families? \
                      Each insertion point is a variable-length structure; the one \
                      inside the EF region is what moves the family bases.",
@@ -1375,7 +1375,7 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
     println!("\n=== RESULT: {} pass, {} fail", pass, fail);
     let out = json!({
         "schema": "origin-validation/1",
-        "generated_by": "er-save-editor knowledge validate-origin",
+        "generated_by": "er-save-reader knowledge validate-origin",
         "question": "Do the list-end origin constants hold on characters that were \
                      NOT used to derive them?",
         "model": "family_base = ga_end + find_list_end(slot) + constant(family)",
@@ -1574,7 +1574,7 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
 
     let out = json!({
         "schema": "family-constants/1",
-        "generated_by": "er-save-editor knowledge family-constants",
+        "generated_by": "er-save-reader knowledge family-constants",
         "question": "What is each family's distance from the origin, measured from \
                      the attributed flips that pinned its base?",
         "method": {

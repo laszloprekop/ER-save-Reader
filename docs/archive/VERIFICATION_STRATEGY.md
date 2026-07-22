@@ -1,4 +1,4 @@
-# Verification Strategy for ER-save-Editor
+# Verification Strategy for ER-save-Reader
 
 ## Overview
 

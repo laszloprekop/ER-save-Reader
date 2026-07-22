@@ -1,7 +1,7 @@
 //! Dungeon Pickup Database
 //!
 //! GENERATED — do not hand-edit. Regenerate with
-//!   `er-save-editor knowledge gen-dungeon-pickups`
+//!   `er-save-reader knowledge gen-dungeon-pickups`
 //! (`src/knowledge/gen_dungeon_pickups.rs`). `tests/dungeon_pickups_generated.rs`
 //! asserts this file equals the generator's output for the committed source, so a
 //! hand-edit or a stale table fails the test.
