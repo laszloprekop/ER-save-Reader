@@ -9,6 +9,17 @@ pub mod br_ext {
 
     }
 
+    /// Length of the NUL-terminated prefix of a fixed-width field: the index of the
+    /// first NUL byte, or the whole field when it has none.
+    ///
+    /// Both call sites previously open-coded this and both were off by one — see the
+    /// `nul_prefix_len` tests. The BND4 header's 8-byte version field is the case that
+    /// mattered: it holds `11611000` (regulation 11611000 = game 1.16.1) with no NUL at
+    /// all, and the old rule decoded it as `1161100`.
+    pub fn nul_prefix_len(bytes: &[u8]) -> usize {
+        bytes.iter().position(|&b| b == 0).unwrap_or(bytes.len())
+    }
+
     #[allow(unused)]
     impl BinaryReaderExtensions {
 
@@ -121,10 +132,7 @@ pub mod br_ext {
         pub fn read_fix_str(br: &mut BinaryReader, size: usize) -> Result<String, Error> {
             let big_endian = br.endian == Endian::Big;
             let bytes = br.read_bytes(size)?;
-            let terminator = bytes
-                .iter()
-                .position(|&b| b == 0)
-                .unwrap_or(size.saturating_sub(1));
+            let terminator = super::br_ext::nul_prefix_len(bytes);
 
             let string = if big_endian {
                 let (res, _enc, errors) = UTF_16BE.decode(&bytes[0..terminator]);
@@ -183,5 +191,51 @@ pub mod br_ext {
             br.jmp(prev_pos);
             Ok(bytes)
         }
+    }
+}
+#[cfg(test)]
+mod tests {
+    use super::br_ext::nul_prefix_len;
+    use encoding_rs::SHIFT_JIS;
+
+    /// The case that was actually wrong in the field. regulation.bin's BND4 header
+    /// carries its version in 8 bytes with no room left for a terminator; the old rule
+    /// reserved one anyway and dropped the last digit, turning 11611000 (game 1.16.1)
+    /// into 1161100 — wrong, and wrong in a way that still looks like a version.
+    #[test]
+    fn full_width_field_keeps_its_last_byte() {
+        let field = b"11611000";
+        assert_eq!(nul_prefix_len(field), 8);
+        let (decoded, _, had_errors) = SHIFT_JIS.decode(&field[..nul_prefix_len(field)]);
+        assert!(!had_errors);
+        assert_eq!(decoded, "11611000");
+    }
+
+    #[test]
+    fn stops_at_the_first_nul_and_keeps_the_byte_before_it() {
+        assert_eq!(nul_prefix_len(b"BND4\0\0\0\0"), 4);
+        let field = b"BND4\0\0\0\0";
+        let (decoded, _, _) = SHIFT_JIS.decode(&field[..nul_prefix_len(field)]);
+        assert_eq!(decoded, "BND4");
+    }
+
+    #[test]
+    fn a_field_opening_with_nul_is_empty() {
+        assert_eq!(nul_prefix_len(b"\0abcdefg"), 0);
+        assert_eq!(nul_prefix_len(b"\0\0\0\0\0\0\0\0"), 0);
+    }
+
+    #[test]
+    fn single_byte_and_empty_fields_do_not_underflow() {
+        assert_eq!(nul_prefix_len(b""), 0);
+        assert_eq!(nul_prefix_len(b"x"), 1);
+        assert_eq!(nul_prefix_len(b"\0"), 0);
+    }
+
+    /// Trailing content after the terminator is not part of the string, even when the
+    /// field is reused and holds stale bytes.
+    #[test]
+    fn ignores_bytes_after_the_terminator() {
+        assert_eq!(nul_prefix_len(b"ab\0stale"), 2);
     }
 }

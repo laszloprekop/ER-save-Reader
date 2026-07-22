@@ -296,3 +296,45 @@ impl Regulation {
         BND4::from_bytes(bytes)
     }
 }
+#[cfg(test)]
+mod tests {
+    use super::Regulation;
+
+    /// End-to-end guard on the BND4 version field, against the real regulation.bin.
+    ///
+    /// The unit tests in `br_ext` pin the terminator rule; this pins the composition —
+    /// that the rule is applied to the bytes we think it is. `11611000` is regulation
+    /// version 11611000 = game 1.16.1, the version the evidence catalog records for this
+    /// corpus. Before the 2026-07-22 fix this read `1161100`.
+    ///
+    /// Evidence lives outside the repo, so the file is located through the catalog's own
+    /// `roots.game_raw` and the test skips when it is absent.
+    #[test]
+    #[ignore] // Only run when the game-raw corpus is present
+    fn regulation_bnd4_version_is_the_full_eight_digits() {
+        let catalog = match std::fs::read_to_string("knowledge/evidence-catalog.json") {
+            Ok(c) => c,
+            Err(_) => return,
+        };
+        let catalog: serde_json::Value = serde_json::from_str(&catalog).expect("catalog parses");
+        let root = match catalog["roots"]["game_raw"].as_str() {
+            Some(r) => r,
+            None => return,
+        };
+        let path = std::path::Path::new(root).join("regulation.bin");
+        if !path.exists() {
+            return;
+        }
+
+        let bytes = std::fs::read(&path).expect("read regulation.bin");
+        let decrypted = Regulation::decrypt(&bytes).expect("decrypt");
+        let decompressed = Regulation::decompress(&decrypted).expect("decompress");
+        let bnd4 = Regulation::unpack(&decompressed).expect("unpack");
+
+        assert_eq!(
+            bnd4.version, "11611000",
+            "BND4 version field truncated — the 8-byte field has no NUL terminator, so \
+             the whole field is the string"
+        );
+    }
+}

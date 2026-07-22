@@ -7,6 +7,74 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.2 - BND4 header version was truncated to a different, plausible version
+
+Flagged as a known issue in v0.37.1 and deliberately deferred out of that lint pass.
+Investigated against the real `regulation.bin`, and it was worse than the v0.37.1 note
+described.
+
+### Fixes
+- **The BND4 header's 8-byte version field was decoded one byte short**
+  (`src/util/bnd4.rs`). v0.37.1 characterised this as "drops the last character when a
+  NUL is present". The case that actually bites is the *other* branch: **the field has no
+  NUL at all when all 8 bytes are used.** `regulation.bin` stores `11611000` — regulation
+  version 11611000 = game **1.16.1**, the same number `knowledge/evidence-catalog.json`
+  uses to certify the corpus matches the save era. The old rule reserved a terminator byte
+  anyway and produced **`1161100`**: not obviously corrupt, just a different plausible
+  version number. Given how much of this project turns on not mixing eras, that is the
+  dangerous shape of wrong.
+- Both branches of the old rule were wrong: no-NUL dropped the last byte; NUL at index *p*
+  used `p - 1` and dropped the byte before it. Only NUL-at-index-0 was correct, by
+  accident.
+- **`read_fix_str` carried the same defect** in its no-NUL branch (`src/util/br_ext.rs`).
+  Unreachable in practice — param type names are far under the 0x20 field width, so the
+  terminated branch always wins — but it was the same bug and goes with the fix.
+
+### Implementation
+- The rule is now one tested helper, `br_ext::nul_prefix_len`, and both previously
+  open-coded call sites use it:
+  ```rust
+  /// Length of the NUL-terminated prefix of a fixed-width field: the index of the
+  /// first NUL byte, or the whole field when it has none.
+  pub fn nul_prefix_len(bytes: &[u8]) -> usize {
+      bytes.iter().position(|&b| b == 0).unwrap_or(bytes.len())
+  }
+  ```
+
+### Verification (red-green, both levels)
+The tests were watched failing against the old rule before being accepted:
+- **End-to-end** (`src/util/regulation.rs`, decrypt → decompress → unpack the real
+  `regulation.bin`): fails with `left: "1161100"` / `right: "11611000"`, the exact
+  predicted failure. Locates evidence through the catalog's own `roots.game_raw` rather
+  than a hardcoded path, and is `#[ignore]` + skip-if-missing per the existing convention,
+  so it does not break on a machine without the corpus.
+- **Unit** (`src/util/br_ext.rs`): 4 of 5 fail on the old rule; the 5th is the
+  NUL-at-index-0 case that was right by accident.
+- Suite: 109 passing + 4 evidence-backed `--ignored`, clippy 0, `save-writeback` compiles.
+
+### Key Findings
+- **A BND4 fixed-width string field is not NUL-terminated when it is full.** The
+  terminator is not reserved; it is simply absent. Any fixed-width field parser in this
+  codebase should use `nul_prefix_len` rather than open-coding a scan.
+- `BND4::version` and `PARAM::param_type` are both **write-only** — nothing in the
+  codebase reads either. That is why this survived: the truncation had no visible
+  consumer, and would have silently mis-fed the first one to arrive.
+
+### Known issue, reported not fixed
+- `read_fix_str` decodes as **UTF-16** but scans for a *single* zero byte. ASCII in
+  UTF-16LE has a zero high byte on every character, so `"EQUIP…"` would terminate at index
+  1. This looks wrong for its stated encoding, but the function's result is write-only and
+  ER params take the `OffsetParamType` branch instead, so it is never exercised. It needs
+  its own investigation against real bytes rather than a guess folded into this fix.
+
+### Files Modified
+- `src/util/br_ext.rs`: new `nul_prefix_len` helper + 5 unit tests; `read_fix_str` uses it
+- `src/util/bnd4.rs`: version field uses the helper; comment records the real value
+- `src/util/regulation.rs`: end-to-end `#[ignore]` test against the real regulation.bin
+- `Cargo.toml` / `docs/CHANGELOG.md`: version 0.37.2
+
+---
+
 ## v0.37.1 - Clippy compiles again; the Golden Centipede gap closes as a negative
 
 Two independent pieces of work. `cargo clippy` was not merely noisy — it **failed to

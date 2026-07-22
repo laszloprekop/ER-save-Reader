@@ -353,15 +353,12 @@ pub mod bnd4 {
             let file_count = br.read_i32()?;
             assert_eq!(br.read_i64()?, 0x40);
             
+            // 8-byte version field. It is NOT NUL-terminated when all 8 bytes are used:
+            // regulation.bin holds `11611000` (regulation 11611000 = game 1.16.1) with no
+            // NUL, so a rule that reserves a terminator byte silently reads `1161100` —
+            // a different, still plausible-looking version number.
             let bytes = br.read_bytes(8)?;
-            // Index of the last non-NUL byte (0 if the field opens with NUL, 7 if it
-            // has none). NB: the slice below is `[0..terminator]`, so the final
-            // character is dropped. Preserved verbatim — changing it changes what
-            // every BND4 header decodes to.
-            let terminator = bytes
-                .iter()
-                .position(|&b| b == 0)
-                .map_or(7, |p| p.saturating_sub(1));
+            let terminator = crate::util::br_ext::br_ext::nul_prefix_len(bytes);
             let (res, _enc, errors) = SHIFT_JIS.decode(&bytes[0..terminator]);
             if errors {
                 eprintln!("Failed");
