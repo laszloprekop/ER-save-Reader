@@ -7,6 +7,69 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.36.2 - Clear all 12 Dependabot advisories by deleting unreachable dependencies
+
+A save reader was linking a TLS stack, a QUIC implementation, and an AVIF encoder, and
+using none of them. Eleven of the twelve advisories were **unreachable code that should
+never have been compiled in**; one was a genuine transitive patch. No direct dependency
+was upgraded — the fix is subtractive, so `eframe`/`egui` are untouched and the
+dependency churn the backlog entry feared did not happen. **No behaviour changed.**
+
+### Key findings
+- **`reqwest` was a dead direct dependency.** It appeared **exactly once in the entire
+  repository** — the `Cargo.toml` line declaring it — with no `use reqwest` and no call
+  site in `src/`, `crates/`, or `build.rs`. `git log -S"use reqwest" --all` returns
+  **nothing across the whole history**: declared and never called, inherited from the
+  upstream ClayAmore fork. It alone dragged in **10 of the 12 advisories** —
+  `rustls-webpki` ×4, `aws-lc-sys` ×5, `quinn-proto` ×1 — via
+  `reqwest → rustls / hyper-rustls / tokio-rustls / rustls-platform-verifier`.
+- **`image`'s default features pulled in the AVIF *encoder*.** `image = "0.25"` with
+  defaults enables `default-formats → avif → ravif → rav1e → rand 0.9.2`. The reader has
+  exactly two `image` call sites and both are **PNG-only**: an embedded `icon.png`
+  (`src/main.rs:57`) and `MENU_ItemIcon_{:05}.png` with the extension hardcoded into the
+  format string (`src/ui/icons/mod.rs:53`). Nothing is ever *encoded*.
+- **A duplicated GHSA in the alert list means two copies in the lock, not a GitHub
+  glitch.** `rand` had two alerts for the same advisory (GHSA-cq8v-f236-94qc) because its
+  vulnerable ranges are `>= 0.9.0, < 0.9.3` **and** `>= 0.7.0, < 0.8.6`. Killing AVIF
+  removed the 0.9.2 instance but **not** `rand 0.8.5`, which arrives independently via
+  `eframe → egui-winit → accesskit_winit → accesskit_unix → zbus`. Deduplicating the two
+  alerts by eye would have silently left a live one.
+
+### Changed
+- `Cargo.toml`: `reqwest` removed outright; `image` pinned to
+  `default-features = false, features = ["png"]` with a comment recording why.
+- `rand` `0.8.5 → 0.8.6` (the only version bump in this release, and the only advisory
+  fixed by upgrading rather than by deletion).
+- `Cargo.lock`: **1,289 lines / ~120 packages removed** — the whole
+  `rustls`/`tokio`/`hyper`/`quinn`/`aws-lc` stack plus the
+  `rav1e`/`exr`/`gif`/`tiff`/`webp`/`qoi` codec set.
+
+### Verification
+- Advisory crates confirmed absent **from `Cargo.lock` directly**, not from `cargo tree`.
+  Worth knowing: `cargo tree -i` prints *different* messages for a package absent from the
+  tree ("nothing to print") versus absent from the lock ("did not match any packages"), so
+  a grep written for one silently misreports the other. The first pass here did exactly
+  that and claimed "STILL PRESENT" for crates that were already gone.
+- `cargo build`, `cargo check --workspace`, `cargo check --features save-writeback`: clean.
+- **104 tests pass, 0 fail — identical to the pre-change baseline**, measured by stashing
+  the manifest and re-running rather than asserting the count was unaffected.
+
+### Known, pre-existing, NOT fixed here
+- `cargo clippy --workspace` fails with **6 `enum_clike_unportable_variant` errors** in
+  `src/vm/inventory/mod.rs:136,167-171`. Verified pre-existing by stashing and re-running
+  against v0.36.1, which produces the identical 6. The discriminants are the game's own
+  GaItem handle tag bits, so fixing it is a representation change, not a lint suppression
+  — recorded under BACKLOG Priority 4.
+
+### Files Modified
+- `Cargo.toml`: `reqwest` removed, `image` feature-pinned, version -> 0.36.2
+- `Cargo.lock`: ~120 packages dropped
+- `docs/BACKLOG.md`: dependency audit marked DONE with the reachability findings; new
+  Priority 4 entry for the pre-existing clippy failure
+- `docs/CHANGELOG.md`: v0.36.2
+
+---
+
 ## v0.36.1 - Catalog the 2026-07-21 timeline captures; the chain is not one chain
 
 Evidence intake only — **no code changed**. `catalog-verify` had been exiting 1 since

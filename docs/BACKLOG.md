@@ -1279,6 +1279,24 @@ Several data categories have parallel modules (see [DATABASE_COVERAGE_ANALYSIS.m
 
 These work correctly as-is but could be consolidated to reduce maintenance burden.
 
+### `cargo clippy` does not pass (noticed 2026-07-22)
+- **Concept**: `cargo clippy --workspace` fails with **6 errors**, all
+  `enum_clike_unportable_variant` ("C-like enum variant discriminant is not portable to
+  32-bit targets") in `src/vm/inventory/mod.rs:136` (`InventoryItemType::AOW = 0x80000000`)
+  and `:167-171` (`InventoryGaitemType::{WEAPON..AOW} = 0x80000000..0xc0000000`). Both
+  enums also carry a `-1` default variant, so they infer `isize` and the high tags do not
+  fit a 32-bit one.
+- **Status**: NOT STARTED. **Pre-existing and unrelated to any recent commit** — verified
+  by stashing and re-running against `HEAD` (v0.36.1), which produces the identical 6.
+  Recorded here so the next `/snapshot` does not re-discover it and mistake it for new
+  breakage.
+- **Not cosmetic, and not urgent**: these discriminants are the game's own GaItem handle
+  tag bits, so the values are load-bearing and must not be "fixed" by changing them. The
+  correct fix is a representation change (`#[repr(u32)]` with a non-negative sentinel, or
+  widening to `i64`), which touches every `From`/`match` on both enums — a real refactor,
+  not a lint suppression. The app targets 64-bit desktop only, so nothing is actually
+  broken today.
+
 ---
 
 ## Priority 5: Infrastructure (Deferred)
@@ -1293,6 +1311,62 @@ These work correctly as-is but could be consolidated to reduce maintenance burde
 - **Status**: NOT STARTED
 - **Source**: archive/EVIDENCE-BASED-DISCOVERY.md
 - **Rationale**: Deferred - Python scripts work well enough for now
+
+### Dependency vulnerability audit (surfaced 2026-07-22) — DONE 2026-07-22
+- **Concept**: GitHub reported **12 Dependabot advisories on the default branch — 7 high,
+  1 moderate, 4 low** when v0.36.1 was pushed
+  (`github.com/laszloprekop/ER-Save-Editor/security/dependabot`). Unrelated to any commit
+  in that push; no dependency changed. They have been accumulating unreviewed.
+- **Status**: RESOLVED — all 12 cleared, and **not one of them by a version bump of an
+  affected crate**. Eleven were unreachable code that should never have been compiled in;
+  one was a genuine transitive patch.
+- **The actual question is reachability, not the count** — and reachability turned out to
+  be *zero* for almost all of it. The audit found two root causes, both "why is this
+  linked at all", not "which version":
+  1. **`reqwest` was a dead direct dependency.** It appeared **exactly once in the entire
+     repository** — the `Cargo.toml` line declaring it — with no `use reqwest`, no call
+     site, in `src/`, `crates/`, or `build.rs`. `git log -S"use reqwest" --all` returns
+     **nothing across the whole history**: it was declared and never called, inherited
+     from the upstream ClayAmore fork. It alone dragged in **10 of the 12 advisories**
+     (`rustls-webpki` ×4, `aws-lc-sys` ×5, `quinn-proto` ×1) via
+     `reqwest → rustls/hyper-rustls/tokio-rustls/rustls-platform-verifier`. A save reader
+     was linking a TLS stack and a QUIC implementation to do nothing with them.
+  2. **`image`'s default features pulled in the AVIF *encoder*.** `image = "0.25"` with
+     defaults enables `default-formats → avif → ravif → rav1e → rand 0.9.2` (alert 18).
+     The reader has exactly two `image` call sites and both are **PNG-only**: an embedded
+     `icon.png` (`src/main.rs:57`) and `MENU_ItemIcon_{:05}.png` with the extension
+     hardcoded in the format string (`src/ui/icons/mod.rs:53`). Nothing is ever *encoded*.
+     Pinned to `default-features = false, features = ["png"]`.
+- **The one real patch**: `rand` had **two** alerts for the same GHSA (cq8v-f236-94qc),
+  because two different `rand` versions were in the tree. Its ranges are `>= 0.9.0, < 0.9.3`
+  **and** `>= 0.7.0, < 0.8.6` — so killing AVIF removed the 0.9.2 instance (alert 18) but
+  **not** `rand 0.8.5`, which arrives via `eframe → egui-winit → accesskit_winit →
+  accesskit_unix → zbus` (alert 19, patched version 0.8.6). Bumped `0.8.5 → 0.8.6`. Worth
+  remembering: a duplicated GHSA in the alert list means two copies in the lock, not a
+  GitHub glitch — deduplicating the alert would have hidden a live one.
+- **Result**: **1,289 lines / ~120 packages removed from `Cargo.lock`**, including the whole
+  `rustls`/`tokio`/`hyper`/`quinn`/`aws-lc` stack and the `rav1e`/`exr`/`gif`/`tiff`/`webp`
+  codec set. `cargo check --workspace` and `cargo check --features save-writeback` clean;
+  **104 tests pass, 0 fail — identical to the pre-change baseline** (measured by stashing
+  the manifest and re-running, so the count is a comparison, not an assertion).
+- **The egui/eframe churn this entry feared did not happen**: no direct dependency was
+  upgraded and `eframe`/`egui` are untouched. The fix was *subtractive*.
+- **Do not conflate with**: the third-party-resource caution in `CLAUDE.md`, which is about
+  *game-data* provenance, not Rust crates.
+- **If a network feature is ever genuinely wanted** (update check, etc.), re-adding
+  `reqwest` re-adds all 10 advisories' crates. That is a real cost to weigh at that point,
+  not a reason to keep a dead dependency now.
+
+### Repo name still says "Editor" (noted 2026-07-22)
+- **Concept**: The project renamed itself `er-save-editor` -> `er-save-reader` in
+  v0.35.0 (ADR-0009), but the git remote is still
+  `git@github.com:laszloprekop/ER-Save-Editor.git`.
+- **Status**: OPEN DECISION, not a defect — nothing is broken and GitHub redirects renamed
+  repos, so this costs nothing until someone clones from a stale link.
+- **Careful when doing it**: the four in-repo files that mention `ER-Save-Editor`
+  (`README.md`, `docs/SAVE_FILE_GROUND_TRUTH.md`, `docs/adr/0002`, `docs/CHANGELOG.md`)
+  refer to the **upstream ClayAmore project**, which is correctly named and must NOT be
+  rewritten in a rename sweep. The only thing to change is the remote URL.
 
 ---
 
