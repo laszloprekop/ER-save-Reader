@@ -18,10 +18,17 @@ use crate::db::pickup_flags::get_flag_offset;
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VerificationRecord {
+    // `id`, `character_name` and `character_level` are unread by this crate. They
+    // are kept because this struct documents an external JSON contract we do not
+    // own (note the field-rename history above): the schema is the knowledge, and
+    // dropping fields from it would leave no record of what the file carries.
+    #[allow(dead_code)]
     pub id: String,
     pub slot_index: u32,
+    #[allow(dead_code)]
     pub character_name: String,
     #[serde(default)]
+    #[allow(dead_code)]
     pub character_level: u32,
     pub flag_id: u32,
     pub flag_name: String,

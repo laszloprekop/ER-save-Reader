@@ -7,6 +7,82 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.6 - Turn dead-code analysis back on across the read path
+
+Dead-code analysis was switched off for ~195k of 205k lines — not by the crate-level
+`#![allow(dead_code)]`, which turns out to be vestigial (removing it produces zero
+warnings), but by six *inner* attributes at the top of `db/`, `ui/`, `vm/`, `util/`,
+`save/common/` and `generated/` `mod.rs` files, each exempting a whole subtree. That is how
+`src/calibration.rs` kept 997 unreachable lines (v0.37.4).
+
+Lifted for **`vm/`, `save/common/`, `util/`** — the read path. `ui/` (130 warnings) and
+`db/` (91) keep theirs behind a TODO naming them as deferred; theirs are overwhelmingly
+unused accessors on generated tables, a lower-signal job. The read path yielded **21**.
+
+### The rule applied
+
+Not "delete what the compiler flags". In a save-format reader **an unread field is often
+documentation of the format**, and deleting it destroys the only record that the save
+carries that value. Three dispositions, each already backed by an ADR:
+
+**Deleted — encodes an abandoned model or was never wired**
+- `verify_event_flags_offset` + `VALIDATION_FLAGS` (`save/common/event_flags_detection.rs`)
+  — scored a detected offset by testing tutorial graces at *hardcoded* byte positions.
+  `CLAUDE.md` forbids exactly this: those graces are clear on minimal characters, so a
+  correct offset could score zero. The re-export of `POSITIVE_VALIDATION_FLAGS` existed
+  only to feed it and is narrowed to `SEARCH_START`.
+- `flag_id_to_bit_position` — a third copy of `7 - flag % 8`; the wasm crate owns it.
+- `InventorySubTypeRoute` + `current_subtype_route` + `filter_with_subtype` — a
+  self-contained cluster with zero references outside its module.
+- `filtered_projectiles`, `at_storage_box`, `infusions`, `StorageLocation::label`,
+  `ViewModel::with_region`, `VerificationViewModel::loaded`,
+  `EquipmentViewModel::{current_equipped_items, current_index}`.
+
+**Kept + `#[allow(dead_code)]` with a stated reason — documents a format or a schema**
+- `stats.rs::stamina` — sits inside `hp/max_hp/fp/max_fp/stamina/max_stamina`; the UI shows
+  only the max, but the save carries the current value and this is the record of that.
+- `VerificationRecord::{id, character_name, character_level}` — an external JSON contract
+  we do not own, with a field-rename history in its doc comment.
+- `equip_index`, `ProfileSummaryViewModel::character_name`, `GeneralViewModel::steam_id`,
+  `RegulationItemViewModel::{max_held, max_storage}`, `EventFlagsDetectionResult::gap_size`.
+- **`PROGRESSION_GATES`** — nearly deleted before reading `vm/events.rs`'s own note from
+  the 2026-07-20 grace cutover: *"PROGRESSION_GATES is kept: it still documents real
+  prerequisite relationships, just not as a flag mask."* A prior deliberate decision, now
+  recorded at the definition instead of 400 lines away.
+- **`InventoryRoute::{None, Add}`** — never constructed, but still *matched* in
+  `ui/inventory/inventory.rs` (`Add` routes to the item-add screen). Deleting them would
+  delete that screen too, which is a decision about the dormant write path, not a cleanup.
+
+**Gated as dormant (ADR-0009)** — `util/bit.rs::set_bit`, `EquipmentViewModel::changed`
+(read by `update_save`), plus the write path that lifting `vm/` exposed under
+`--features save-writeback`: the `Write` trait, `ViewModel::update_save`, the character
+importer, `App::{save, save_file_dialog, importer_vm, importer_open}`. All annotated so the
+deadness reads as expected rather than accidental — ADR-0009's whole point.
+
+### Correction made during the sweep
+
+Removing `flag_id_to_bit_position` took its `mod tests` with it, and that module also held
+`test_constants_match_shared`, which pins `EVENT_FLAGS_SIZE == 0x1bf99f` and
+`SEARCH_START == 0x12000` against the shared crate. Unrelated to the deletion and worth
+keeping — restored with a note saying so. Test count went 111 → 109 → 110.
+
+### Verification
+
+`cargo check` **0 warnings** · `--features save-writeback` **0 warnings** · `cargo clippy
+--workspace --all-targets` **0 warnings** · `cargo test --workspace` 110 passing ·
+`knowledge catalog-verify` exits 0. Net −149 lines.
+
+### Files Modified
+- src/{vm,save/common,util}/mod.rs: subtree `#![allow(dead_code)]` lifted
+- src/{db,ui}/mod.rs: allow kept, TODO added naming it as deferred
+- src/save/common/event_flags_detection.rs: validator + duplicates deleted; test restored
+- src/vm/inventory/mod.rs: subtype-route cluster deleted; format mirrors annotated
+- src/vm/{events,stats,general,profile_summary,regulation,equipment,export,verification_vm,importer,vm}.rs
+- src/util/{bit,verification_records}.rs · src/write/mod.rs · src/app.rs
+- docs/CHANGELOG.md: version 0.37.6
+
+---
+
 ## v0.37.5 - A library seam: `src/` becomes testable from outside
 
 Until now the crate had no `[lib]` target. Nothing in `src/` had an interface anything

@@ -1,3 +1,8 @@
+// TODO(architecture-deepening, workstream A): this subtree-wide allow is still in
+// place, deliberately. Lifting it yields ~130 warnings, overwhelmingly unused
+// accessors on generated tables and view-state helpers — a lower-signal job than
+// the read path (vm/, save/common/, util/), which was swept on 2026-07-22. See
+// docs/ARCHITECTURE-DEEPENING.md.
 #![allow(dead_code)]
 mod custom;
 pub mod tokens;

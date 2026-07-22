@@ -31,6 +31,10 @@ pub mod stats_view_model {
         pub max_hp: u32,
         pub fp: u32,
         pub max_fp: u32,
+        /// Unread: the UI shows `max_stamina` only. Kept because this block mirrors
+        /// the save's HP/FP/SP triple and the current value is part of that layout —
+        /// deleting it would erase the fact that the save carries one.
+        #[allow(dead_code)]
         pub stamina: u32,
         pub max_stamina: u32,
     }

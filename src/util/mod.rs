@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 pub mod bit;
 pub mod bnd4;
 pub mod params;

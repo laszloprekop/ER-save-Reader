@@ -1,4 +1,3 @@
-#![allow(dead_code)]
 mod profile_summary;
 pub mod slot;
 pub mod general;

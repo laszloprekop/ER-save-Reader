@@ -38,9 +38,9 @@ pub mod equipment_view_model {
 
         pub talisman_count: u32,
 
-        pub current_equipped_items: Vec<u32>,
-        pub current_index: usize,
-
+        /// Read by `ViewModel::update_save`, which is itself dormant (ADR-0009), so
+        /// it is dead in every build. Kept because the write path must keep compiling.
+        #[allow(dead_code)]
         pub changed: bool,
 
         pub table_state: TableState,

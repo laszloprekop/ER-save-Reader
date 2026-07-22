@@ -6,6 +6,12 @@ pub mod events_view_model {
     /// Progression gates for late-game graces (76400+).
     /// Only show graces if prerequisite bosses are defeated.
     /// Format: (flag_range_start, flag_range_end, required_boss_flags)
+    ///
+    /// Unused on purpose. Its consumer `check_progression_gate()` was removed in the
+    /// 2026-07-20 grace cutover (see the note at the end of this module) because it
+    /// overrode a resolved byte with an inference. The table itself is kept as a
+    /// record of real prerequisite relationships — it is documentation, not a mask.
+    #[allow(dead_code)]
     const PROGRESSION_GATES: [(u32, u32, &[u32]); 4] = [
         (76400, 76500, &[]),                        // Caelid late - no gate
         (76500, 76600, &[11000800]),                // Forbidden Lands - Morgott

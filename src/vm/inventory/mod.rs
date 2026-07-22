@@ -9,8 +9,6 @@ use crate::{
     save::common::save_slot::{
         EquipInventoryData, EquipInventoryItem, EquipProjectileData, GaItem, GaItemData, SaveSlot,
     },
-    util::regulation::Regulation,
-    vm::regulation::regulation_view_model::WepType,
     ui::components::{
         table::{TableState, SortDirection},
         filter::FilterBarState,
@@ -18,8 +16,12 @@ use crate::{
     },
 };
 
-use super::regulation::regulation_view_model::GoodsType;
-
+/// `None` and `Add` are never constructed: `Add` routed to the item-add screen,
+/// which ADR-0009 made dormant ("Can't reach this state anymore",
+/// `ui/inventory/inventory.rs:35`). They are still *matched* there, so deleting
+/// them would delete the add screen with them — that is a decision about the
+/// dormant write path, not a dead-code cleanup, and it is not taken here.
+#[allow(dead_code)]
 #[derive(Default, Clone, PartialEq, Copy)]
 pub enum InventoryRoute {
     None,
@@ -35,16 +37,6 @@ pub enum StorageLocation {
     All,
     Equipped,
     StorageBox,
-}
-
-impl StorageLocation {
-    pub fn label(&self) -> &'static str {
-        match self {
-            StorageLocation::All => "All",
-            StorageLocation::Equipped => "Equipped",
-            StorageLocation::StorageBox => "Storage Box",
-        }
-    }
 }
 
 /// View state for inventory browse page
@@ -106,23 +98,6 @@ impl InventoryTypeRoute {
             InventoryTypeRoute::Talismans,
         ]
     }
-}
-
-#[derive(Default, PartialEq, Clone)]
-pub enum InventorySubTypeRoute {
-    #[default]
-    None,
-    WeaponLeft,
-    WeaponRight,
-    Head,
-    Body,
-    Arms,
-    Legs,
-    Arrow,
-    Bolt,
-    Talisman,
-    QuickItem,
-    Pouch,
 }
 
 #[derive(PartialEq, Clone, Default, Copy)]
@@ -192,6 +167,8 @@ pub struct InventoryItemViewModel {
     pub item_name: String,
     pub quantity: u32,
     pub inventory_index: u32,
+    /// Unread by the reader, but part of the save's per-item record.
+    #[allow(dead_code)]
     pub equip_index: u32,
     pub r#type: InventoryGaitemType,
 }
@@ -315,7 +292,6 @@ pub struct InventoryStorage {
     pub filtered_weapons: Vec<InventoryItemViewModel>,
     pub filtered_armors: Vec<InventoryItemViewModel>,
     pub filtered_aows: Vec<InventoryItemViewModel>,
-    pub filtered_projectiles: Vec<InventoryItemViewModel>,
     pub filtered_accessories: Vec<InventoryItemViewModel>,
 
     pub common_item_count: u32,
@@ -327,17 +303,14 @@ pub struct InventoryStorage {
 #[derive(Default, Clone)]
 pub struct InventoryViewModel {
     // Navigation
-    pub at_storage_box: bool,
     pub at_single_items: bool,
     pub current_route: InventoryRoute,
     pub current_type_route: InventoryTypeRoute,
     pub current_bulk_type_route: InventoryTypeRoute,
-    pub current_subtype_route: InventorySubTypeRoute,
 
     // Data
     pub filter_text: String,
     pub storage: Vec<InventoryStorage>,
-    pub infusions: Vec<(i32, String)>,
     pub gaitem_map: Vec<GaItem>,
     pub projectile_list: EquipProjectileData,
     pub gaitem_data: GaItemData,
@@ -807,131 +780,6 @@ impl InventoryViewModel {
         }
     }
 
-    pub fn filter_with_subtype(&mut self) {
-        self.filter();
-        match self.current_subtype_route {
-            InventorySubTypeRoute::None => {}
-            InventorySubTypeRoute::WeaponLeft => {
-                self.current_type_route = InventoryTypeRoute::Weapons;
-                self.storage[0].filtered_weapons = self.storage[0]
-                    .filtered_weapons
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_weapon_params_map()
-                            .get(&((g.item_id / 100) * 100))
-                            .is_some_and(|g| g.data.leftHandEquipable())
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::WeaponRight => {
-                self.current_type_route = InventoryTypeRoute::Weapons;
-                self.storage[0].filtered_weapons = self.storage[0]
-                    .filtered_weapons
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_weapon_params_map()
-                            .get(&((g.item_id / 100) * 100))
-                            .is_some_and(|g| g.data.rightHandEquipable())
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Head => {
-                self.current_type_route = InventoryTypeRoute::Armors;
-                self.storage[0].filtered_armors = self.storage[0]
-                    .filtered_armors
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_protectors_param_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| g.data.equipModelCategory == 5)
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Body => {
-                self.current_type_route = InventoryTypeRoute::Armors;
-                self.storage[0].filtered_armors = self.storage[0]
-                    .filtered_armors
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_protectors_param_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| g.data.equipModelCategory == 2)
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Arms => {
-                self.current_type_route = InventoryTypeRoute::Armors;
-                self.storage[0].filtered_armors = self.storage[0]
-                    .filtered_armors
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_protectors_param_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| g.data.equipModelCategory == 1)
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Legs => {
-                self.current_type_route = InventoryTypeRoute::Armors;
-                self.storage[0].filtered_armors = self.storage[0]
-                    .filtered_armors
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_protectors_param_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| g.data.equipModelCategory == 6)
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Arrow => {
-                self.current_type_route = InventoryTypeRoute::Weapons;
-                self.storage[0].filtered_weapons = self.storage[0]
-                    .filtered_weapons
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_weapon_params_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| {
-                                WepType::from(g.data.wepType) == WepType::Arrow
-                                    || WepType::from(g.data.wepType) == WepType::Greatarrow
-                            })
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Bolt => {
-                self.current_type_route = InventoryTypeRoute::Weapons;
-                self.storage[0].filtered_weapons = self.storage[0]
-                    .filtered_weapons
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_weapon_params_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| {
-                                WepType::from(g.data.wepType) == WepType::Bolt
-                                    || WepType::from(g.data.wepType) == WepType::BallistaBolt
-                            })
-                    }).cloned()
-                    .collect();
-            }
-            InventorySubTypeRoute::Talisman => {
-                self.current_type_route = InventoryTypeRoute::Talismans;
-            }
-            InventorySubTypeRoute::QuickItem | InventorySubTypeRoute::Pouch => {
-                self.current_type_route = InventoryTypeRoute::CommonItems;
-                self.storage[0].filtered_items = self.storage[0]
-                    .filtered_items
-                    .iter()
-                    .filter(|g| {
-                        Regulation::equip_goods_param_map()
-                            .get(&g.item_id)
-                            .is_some_and(|g| {
-                                GoodsType::from(g.data.goodsType) == GoodsType::NormalItem
-                            })
-                    }).cloned()
-                    .collect();
-            }
-        }
-    }
 }
 
 // Splitting up inventory into multiple files

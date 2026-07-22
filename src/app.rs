@@ -134,9 +134,13 @@ pub struct App {
     pub(crate) vm: ViewModel,
     pub(crate) picked_path: PathBuf,
     pub(crate) current_route: Route,
+    // Dormant write path (ADR-0009): held but never read, since nothing reaches
+    // the importer any more.
     #[cfg(feature = "save-writeback")]
+    #[allow(dead_code)]
     pub(crate) importer_vm: ImporterViewModel,
     #[cfg(feature = "save-writeback")]
+    #[allow(dead_code)]
     pub(crate) importer_open: bool,
     // Database view states
     pub(crate) spells_view_state: SpellsViewState,
@@ -323,6 +327,7 @@ impl App {
     /// default build. The app reads a save the way the game loads one — it does
     /// not write one back.
     #[cfg(feature = "save-writeback")]
+    #[allow(dead_code)] // dormant write path (ADR-0009): no callers, by design
     fn save(&mut self, path: PathBuf) {
         self.vm.update_save(&mut self.save.save_type);
         let mut f = File::create(path).expect("");
@@ -347,6 +352,7 @@ impl App {
     }
 
     #[cfg(feature = "save-writeback")]
+    #[allow(dead_code)] // dormant write path (ADR-0009)
     fn save_file_dialog(last_dir: Option<&PathBuf>) -> Option<PathBuf> {
         let mut dialog = FileDialog::new()
             .add_filter("SL2", &["sl2", "Regular Save File"])

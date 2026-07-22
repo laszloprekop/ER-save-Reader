@@ -80,6 +80,9 @@ pub mod general_view_model {
 
     #[derive(Default, Clone)]
     pub struct GeneralViewModel  {
+        /// Unread here — the UI reads `ViewModel::steam_id`. Kept because the save
+        /// carries a steam id per slot, and this mirrors that.
+        #[allow(dead_code)]
         pub steam_id: String,
         pub character_name: String,
         pub gender: Gender,

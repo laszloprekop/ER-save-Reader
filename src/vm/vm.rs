@@ -83,6 +83,7 @@ pub mod vm {
         }
 
         #[cfg(feature = "save-writeback")]
+        #[allow(dead_code)] // dormant write path (ADR-0009)
         pub fn update_save(&self, save_type: &mut SaveType) {
             let steam_id = self.steam_id.parse::<u64>().expect("");
             // Update SteamID for UserData10

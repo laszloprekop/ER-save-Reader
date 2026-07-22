@@ -228,7 +228,11 @@ pub mod regulation_view_model {
     pub struct RegulationItemViewModel {
         pub id: u32,
         pub name: String,
+        // Unread: these mirror EquipParam limits the reader does not enforce. Kept
+        // as a record of what the regulation defines for an item.
+        #[allow(dead_code)]
         pub max_held: i16,
+        #[allow(dead_code)]
         pub max_storage: i16,
         pub infusable: bool,
         pub is_key_item: bool,

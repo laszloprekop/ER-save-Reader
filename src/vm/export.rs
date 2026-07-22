@@ -234,13 +234,6 @@ impl ExportEventItem {
         }
     }
 
-    pub fn with_region(name: &str, discovered: bool, region: &str) -> Self {
-        Self {
-            name: name.to_string(),
-            discovered,
-            region: Some(region.to_string()),
-        }
-    }
 }
 
 #[derive(Serialize)]

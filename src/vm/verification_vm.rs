@@ -72,8 +72,6 @@ pub struct VerificationViewModel {
     pub filter_category: Option<String>,
     /// Current status filter
     pub filter_status: VerificationFilterStatus,
-    /// Whether this view has data loaded
-    pub loaded: bool,
     /// Path to the verification records file
     pub records_path: Option<String>,
     /// Regions with at least one discovered grace
@@ -89,7 +87,6 @@ impl VerificationViewModel {
             records,
             filter_category: None,
             filter_status: VerificationFilterStatus::All,
-            loaded: true,
             records_path: None,
             discovered_regions: HashSet::new(),
             suspicious_detections: Vec::new(),
