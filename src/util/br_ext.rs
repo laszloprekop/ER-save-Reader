@@ -20,6 +20,22 @@ pub mod br_ext {
         bytes.iter().position(|&b| b == 0).unwrap_or(bytes.len())
     }
 
+    /// The UTF-16 counterpart: length in BYTES of the prefix before the first NUL *code
+    /// unit*, or the whole field (truncated to a whole number of code units) when it has
+    /// none.
+    ///
+    /// A single zero byte is not a terminator here — every ASCII character in UTF-16
+    /// carries one — so the scan has to step by pairs. Same trailing-byte trap as
+    /// `nul_prefix_len`: a fully-used field ends without a terminator and the last code
+    /// unit is still part of the string.
+    pub fn nul16_prefix_len(bytes: &[u8]) -> usize {
+        let usable = bytes.len() - bytes.len() % 2;
+        (0..usable)
+            .step_by(2)
+            .find(|&i| bytes[i] == 0 && bytes[i + 1] == 0)
+            .unwrap_or(usable)
+    }
+
     #[allow(unused)]
     impl BinaryReaderExtensions {
 
@@ -76,19 +92,12 @@ pub mod br_ext {
             Ok(string)
         }
 
+        /// Fixed-width **UTF-16** string field. The byte-oriented sibling is
+        /// `read_fix_str`; the `_w` suffix is the whole difference between them.
         pub fn read_fix_str_w(br: &mut BinaryReader, size: usize) -> Result<String, Error> {
             let big_endian = br.endian == Endian::Big;
             let bytes = br.read_bytes(size)?;
-            let mut terminator = 0;
-            for mut i in (0..size).step_by(2) {
-                terminator = i;
-                if i == size -1 {
-                    i -= 1;
-                }
-                else if bytes[i] == 0 && bytes[i + 1] == 0 {
-                    break;
-                }
-            }
+            let terminator = super::br_ext::nul16_prefix_len(bytes);
 
             let string = if big_endian {
                 let (res, _enc, errors) = UTF_16BE.decode(&bytes[0..terminator]);
@@ -129,30 +138,28 @@ pub mod br_ext {
             }
         }
 
+        /// Fixed-width **single-byte** (Shift-JIS) string field, NUL-padded.
+        ///
+        /// The single-zero-byte terminator scan and Shift-JIS go together; they are the
+        /// same assumption stated twice. This used to scan for one zero byte and then
+        /// decode the result as UTF-16, which is broken for every input:
+        /// a real single-byte field ("ACTION_BUTTON_PARAM_ST") came back as the
+        /// mojibake "䍁䥔乏䉟呕佔彎䅐䅒彍呓", and a genuine UTF-16 field came back empty
+        /// because ASCII in UTF-16 has a zero high byte on the first character, so the
+        /// scan stopped at index 1 and the odd single byte failed to decode.
+        /// Endianness does not enter into a byte encoding, so there is no branch on it.
+        /// UTF-16 fields belong in `read_fix_str_w`.
         pub fn read_fix_str(br: &mut BinaryReader, size: usize) -> Result<String, Error> {
-            let big_endian = br.endian == Endian::Big;
             let bytes = br.read_bytes(size)?;
             let terminator = super::br_ext::nul_prefix_len(bytes);
 
-            let string = if big_endian {
-                let (res, _enc, errors) = UTF_16BE.decode(&bytes[0..terminator]);
-                if errors {
-                    eprintln!("Failed");
-                    String::new()
-                } else {
-                    res.to_string()
-                }   
+            let (res, _enc, errors) = SHIFT_JIS.decode(&bytes[0..terminator]);
+            if errors {
+                eprintln!("Failed");
+                Ok(String::new())
+            } else {
+                Ok(res.to_string())
             }
-            else {
-                let (res, _enc, errors) = UTF_16LE.decode(&bytes[0..terminator]);
-                if errors {
-                    eprintln!("Failed");
-                    String::new()
-                } else {
-                    res.to_string()
-                }   
-            };
-            Ok(string)
         }
 
 
@@ -195,8 +202,9 @@ pub mod br_ext {
 }
 #[cfg(test)]
 mod tests {
-    use super::br_ext::nul_prefix_len;
-    use encoding_rs::SHIFT_JIS;
+    use super::br_ext::{nul16_prefix_len, nul_prefix_len, BinaryReaderExtensions};
+    use binary_reader::{BinaryReader, Endian};
+    use encoding_rs::{SHIFT_JIS, UTF_16LE};
 
     /// The case that was actually wrong in the field. regulation.bin's BND4 header
     /// carries its version in 8 bytes with no room left for a terminator; the old rule
@@ -237,5 +245,61 @@ mod tests {
     #[test]
     fn ignores_bytes_after_the_terminator() {
         assert_eq!(nul_prefix_len(b"ab\0stale"), 2);
+    }
+
+    /// The trap that made `read_fix_str` wrong for UTF-16: one zero byte is not a
+    /// terminator, it is the high half of an ASCII character.
+    #[test]
+    fn a_lone_zero_byte_does_not_terminate_utf16() {
+        // "AB" in UTF-16LE, then the terminator.
+        assert_eq!(nul16_prefix_len(b"A\0B\0\0\0"), 4);
+    }
+
+    /// Same off-by-one as `full_width_field_keeps_its_last_byte`, one field wider: a
+    /// fully-used UTF-16 field has no terminator, so the last code unit is still string.
+    /// The old loop returned `size - 2` here and dropped it.
+    #[test]
+    fn full_width_utf16_field_keeps_its_last_code_unit() {
+        assert_eq!(nul16_prefix_len(b"A\0B\0C\0D\0"), 8);
+        let (decoded, _, had_errors) = UTF_16LE.decode(b"A\0B\0C\0D\0");
+        assert!(!had_errors);
+        assert_eq!(decoded, "ABCD");
+    }
+
+    #[test]
+    fn utf16_empty_odd_and_leading_terminator_fields() {
+        assert_eq!(nul16_prefix_len(b""), 0);
+        assert_eq!(nul16_prefix_len(b"\0\0A\0"), 0);
+        // An odd-length field cannot end mid-code-unit; the stray byte is not decodable.
+        assert_eq!(nul16_prefix_len(b"A\0B"), 2);
+        assert_eq!(nul16_prefix_len(b"A"), 0);
+    }
+
+    /// The real shape of a PARAM `param_type` field when the format stores it inline:
+    /// single-byte, NUL-padded to 0x20. Every param in regulation 1.16.1 takes the
+    /// `OffsetParamType` branch instead, so this path is unreached — but the strings it
+    /// would read are the same single-byte ASCII the offset branch points at.
+    #[test]
+    fn a_fixed_param_type_field_decodes_as_bytes_not_utf16() {
+        let mut field = [0u8; 0x20];
+        field[..22].copy_from_slice(b"ACTION_BUTTON_PARAM_ST");
+        let mut br = BinaryReader::from_u8(&field);
+        br.set_endian(Endian::Little);
+
+        let got = BinaryReaderExtensions::read_fix_str(&mut br, 0x20).expect("read");
+        assert_eq!(got, "ACTION_BUTTON_PARAM_ST");
+    }
+
+    #[test]
+    fn read_fix_str_w_keeps_the_last_character_of_a_full_field() {
+        let mut field = [0u8; 8];
+        for (i, c) in b"ABCD".iter().enumerate() {
+            field[i * 2] = *c;
+        }
+        let mut br = BinaryReader::from_u8(&field);
+        br.set_endian(Endian::Little);
+
+        let got = BinaryReaderExtensions::read_fix_str_w(&mut br, 8).expect("read");
+        assert_eq!(got, "ABCD");
     }
 }

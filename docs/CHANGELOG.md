@@ -7,6 +7,84 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.3 - `read_fix_str` decoded UTF-16 out of a byte-oriented field
+
+Closes the "Known issue, reported not fixed" from v0.37.2. That note guessed the wrong
+half. It read the single-zero-byte scan as the defect and the UTF-16 decode as the stated
+intent; the evidence says the opposite — the field is byte-oriented, the scan was right,
+and the **decoder** was the import error.
+
+### Fixes
+- **`read_fix_str` now decodes Shift-JIS, not UTF-16** (`src/util/br_ext.rs`). It is the
+  byte-oriented variant — SoulsFormats' `ReadFixStr`, whose UTF-16 sibling `ReadFixStrW`
+  was ported alongside it as `read_fix_str_w`. The single-byte terminator scan and the
+  single-byte encoding are the same assumption stated twice; only the encoding had drifted.
+  Endianness does not apply to a byte encoding, so the `big_endian` branch is gone.
+- The old form was wrong for **every** input, not just some:
+  - a real single-byte field (`ACTION_BUTTON_PARAM_ST`, NUL-padded to 0x20) came back as
+    the mojibake `䍁䥔乏䉟呕佔彎䅐䅒彍呓` — the scan found the right 22 bytes and the decoder
+    reinterpreted them pairwise;
+  - a genuine UTF-16LE field came back as `""` — exactly the v0.37.2 prediction, the scan
+    stopping at index 1 on the zero high byte, plus an odd single byte that then fails to
+    decode at all. It would have worked only by accident, on text with no ASCII in it.
+- **`read_fix_str_w` carried the v0.37.2 off-by-one, one field wider** (same file). A
+  fully-used UTF-16 field ends without a terminator, and the loop fell out returning
+  `size - 2`: `"ABCD"` in a full 8-byte field read back as `"ABC"`. Same defect as the
+  BND4 version field, same shape, still live — the pair-stepping just hid it from the
+  v0.37.2 sweep. Its `if i == size - 1 { i -= 1 }` odd-size guard also mutated a loop-local
+  copy and did nothing.
+
+### Implementation
+- The v0.37.2 helper gains a UTF-16 counterpart, and `read_fix_str_w`'s open-coded loop is
+  replaced by it. One rule per encoding, each tested:
+  ```rust
+  /// The UTF-16 counterpart: length in BYTES of the prefix before the first NUL *code
+  /// unit*, or the whole field (truncated to a whole number of code units) when it has none.
+  pub fn nul16_prefix_len(bytes: &[u8]) -> usize {
+      let usable = bytes.len() - bytes.len() % 2;
+      (0..usable)
+          .step_by(2)
+          .find(|&i| bytes[i] == 0 && bytes[i + 1] == 0)
+          .unwrap_or(usable)
+  }
+  ```
+
+### Verification (evidence first, per the protocol)
+No fix was written until the real bytes had been read — the v0.37.2 note was itself a
+guess, and it was wrong.
+- **Which branch ER actually takes**, probed against the real `regulation.bin` (decrypt →
+  decompress → unpack, all 194 param files): **194 of 194 take `OffsetParamType`, 0 take
+  the fixed-width branch.** `read_fix_str` is unreachable for Elden Ring, confirmed rather
+  than assumed.
+- **What the field holds**, from the offset branch those params do take: single-byte ASCII
+  — `41 43 54 49 4f 4e ...` = `ACTION_BUTTON_PARAM_ST`, `AI_SOUND_PARAM_ST`,
+  `ASSET_GEOMETORY_PARAM_ST` (sic). That is what settles it: the inline field is the same
+  string in the same encoding, so a byte decoder is correct and a UTF-16 decoder is not.
+- The three failing outputs above were captured from the old code before the fix; the new
+  tests assert their inverses.
+- Suite: 114 passing + 4 evidence-backed `--ignored` (all pass with the corpus present),
+  clippy 0, `save-writeback` compiles.
+
+### Key Findings
+- **All 194 params in regulation 1.16.1 use `OffsetParamType`.** The inline `param_type`
+  field is dead for this game version. Recorded so the next reader does not have to
+  re-derive it from the bytes.
+- **A dead code path is not a harmless one.** Both defects fixed here were in code nothing
+  calls, and both were the kind that returns a plausible-looking value rather than an
+  error. `read_fix_str` was wrong from the original port — no revision ever touched the
+  encoding.
+- **The v0.37.2 note's framing was half right, and the wrong half was the confident half.**
+  It correctly predicted the UTF-16 failure mode and correctly declined to fold a guess
+  into that fix. It also assumed, without checking, that UTF-16 was the field's true
+  encoding. Reporting the symptom was right; the inferred cause was not evidence.
+
+### Files Modified
+- `src/util/br_ext.rs`: `read_fix_str` decodes Shift-JIS; new `nul16_prefix_len` helper;
+  `read_fix_str_w` uses it; 6 new unit tests
+- `Cargo.toml` / `docs/CHANGELOG.md`: version 0.37.3
+
+---
+
 ## v0.37.2 - BND4 header version was truncated to a different, plausible version
 
 Flagged as a known issue in v0.37.1 and deliberately deferred out of that lint pass.
