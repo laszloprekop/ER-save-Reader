@@ -1,10 +1,10 @@
 #![allow(dead_code)]
-/// Verification module for save file accuracy testing
-///
-/// Implements verification processes to ensure accurate parsing:
-/// - V3: Flag formula verification (known flags → expected values)
-/// - V1: Differential snapshot testing (before/after pairs)
-/// - V5: Coverage gap detection (find unmapped flags)
+//! Verification module for save file accuracy testing
+//!
+//! Implements verification processes to ensure accurate parsing:
+//! - V3: Flag formula verification (known flags → expected values)
+//! - V1: Differential snapshot testing (before/after pairs)
+//! - V5: Coverage gap detection (find unmapped flags)
 
 use std::path::PathBuf;
 use std::collections::HashMap;

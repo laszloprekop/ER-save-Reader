@@ -12,6 +12,27 @@
       76101
     ]
   },
+  "excluded_captures": [
+    {
+      "id": "c06-c07, c07-c08",
+      "captures": [
+        "ER0000.sl2 Confessor - 07 after picked up first Golden centipede, 4 more left",
+        "ER0000.sl2 Confessor - 08 after picked up second Golden centipede, 3 more left"
+      ],
+      "established": "2026-07-22",
+      "verdict": "CANNOT BECOME PAIRS — the action sets no event flag. This is a settled negative, not a missing-data item; do not re-open it by capturing more Golden Centipede snapshots.",
+      "why": [
+        "Golden Centipede is goods 20820, a crafting material gathered from an environment asset, not a treasure lot. AssetEnvironmentGeometryParam row 99820 ('Golden Centipede') has isEnableRepick=1 and pickUpItemLotParamId=998200; ItemLotParam_map row 998200 has getItemFlagId=0. No flag is written, which is precisely why the gathering point respawns.",
+        "The only Golden Centipede lot in the game that does carry a flag is ItemLotParam_map row 35000340 (getItemFlagId 35007340), in Subterranean Shunning-Grounds (m35). The character is in m60_43_50 for every one of c05-c10 and the reader reports 35007340 CLEAR in all of them, so that lot is not what these captures recorded."
+      ],
+      "byte_evidence": {
+        "pickups_are_real": "goods 20820 quantity rises 14 (c06) -> 15 (c07) -> 16 (c08) -> 17 (c09); player position moves less than 2 units across c06-c08, consistent with standing in one spot gathering a cluster.",
+        "null_result": "Applying the pipeline's own isolated-flip rule (identical +/-16 neighborhood, grace-aligned) to both centipede pairs yields ZERO isolated pure single-bit 0->1 sets anywhere in the aligned EF region. All three files detect the same ef_offset (81073) and resolve identical bases for all five families, so the alignment is not in question.",
+        "positive_control": "The same test on the two established pairs from the same series does find the flip: c05-c06 (Golden Order Seal 1043500000) and c09-c10 (Smoldering Butterfly 1043500010) each produce an isolated 0->1 set in the tile-pickup region, and the tri-state readers confirm 0->1 with the bit staying SET through c10. Same instrument, same character, same map — so the null above is a measured absence, not a blind spot.",
+        "decoy": "EF-relative byte 1221 increments on every centipede pickup (0x53->0x54->0x55) and looks flag-like, but it also increments across the c09-c10 control (0x62->0x63) and rises by 13 across unobserved play between c08 and c09. It is a counter, not a flag bit. EF-relative 851264 oscillates 0x80/0x00 across c05-c10 and is likewise not set-monotonic."
+      }
+    }
+  ],
   "pairs": [
     {
       "id": "c01-c02",

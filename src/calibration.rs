@@ -91,7 +91,9 @@ pub const DUNGEON_GRACE_ANCHORS: [(u32, u32, u8, &str); 5] = [
 /// Legacy dungeon grace blocks that need individual calibration.
 /// Format: (block_start, ground_truth_base, name, anchors)
 /// where anchors = [(flag_id, bit_position, name), ...]
-pub const LEGACY_DUNGEON_BLOCKS: [(u32, u32, &str, &[(u32, u8, &str)]); 1] = [
+pub type DungeonBlock = (u32, u32, &'static str, &'static [(u32, u8, &'static str)]);
+
+pub const LEGACY_DUNGEON_BLOCKS: [DungeonBlock; 1] = [
     (71000, 9315, "Stormveil Castle", &[
         (71001, 6, "Margit, the Fell Omen"),
         (71002, 5, "Castleward Tunnel"),
@@ -306,7 +308,7 @@ impl CalibrationService {
     /// Option<(byte_offset, bit_position)> or None if invalid flag format
     pub fn get_tile_offset_calibrated(flag_id: u32, calibrated_base: u32) -> Option<(u32, u8)> {
         // Validate format (10-digit tile flag)
-        if flag_id < 1_000_000_000 || flag_id >= 2_000_000_000 {
+        if !(1_000_000_000..2_000_000_000).contains(&flag_id) {
             return None;
         }
 
@@ -410,7 +412,7 @@ impl CalibrationService {
                     || (matches == best_matches && tiles > best_tiles)
                     || (matches == best_matches
                         && tiles == best_tiles
-                        && best_base.map_or(true, |prev| {
+                        && best_base.is_none_or(|prev| {
                             let dist_new =
                                 (base as i64 - VERIFIED_TILE_BASE_OFFSET as i64).unsigned_abs();
                             let dist_prev =
@@ -781,11 +783,10 @@ impl CalibrationService {
             if adjusted_offset >= 0 && (adjusted_offset as usize) < event_flags.len() {
                 let byte_val = event_flags[adjusted_offset as usize];
                 // Skip 0x00 (no flags set - can't validate), but allow 0xFF (all flags set is valid)
-                if byte_val != 0x00 {
-                    if (byte_val >> bit_pos) & 1 == 1 {
+                if byte_val != 0x00
+                    && (byte_val >> bit_pos) & 1 == 1 {
                         matches += 1;
                     }
-                }
             }
         }
 
@@ -898,7 +899,7 @@ impl CalibrationService {
         // Determine block start
         // For 73xxx: all flags use block 73000 (1000-flag granularity)
         // For 71xxx: use 100-flag sub-blocks (71000, 71100, 71600, etc.)
-        let block_start = if flag_id >= 73000 && flag_id < 74000 {
+        let block_start = if (73000..74000).contains(&flag_id) {
             73000  // All 73xxx use the same base
         } else {
             (flag_id / 100) * 100  // 100-flag granularity for 71xxx

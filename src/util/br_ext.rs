@@ -72,7 +72,7 @@ pub mod br_ext {
             for mut i in (0..size).step_by(2) {
                 terminator = i;
                 if i == size -1 {
-                    i = i-1;
+                    i -= 1;
                 }
                 else if bytes[i] == 0 && bytes[i + 1] == 0 {
                     break;
@@ -121,14 +121,10 @@ pub mod br_ext {
         pub fn read_fix_str(br: &mut BinaryReader, size: usize) -> Result<String, Error> {
             let big_endian = br.endian == Endian::Big;
             let bytes = br.read_bytes(size)?;
-            let mut terminator = 0;
-
-            for i in 0..size {
-                terminator = i;
-                if bytes[i] == 0 {
-                    break;
-                }
-            }
+            let terminator = bytes
+                .iter()
+                .position(|&b| b == 0)
+                .unwrap_or(size.saturating_sub(1));
 
             let string = if big_endian {
                 let (res, _enc, errors) = UTF_16BE.decode(&bytes[0..terminator]);

@@ -114,7 +114,7 @@ pub mod event_flags_db_view {
 
         // Build region filter options
         let region_options: Vec<FilterOption> = std::iter::once(FilterOption::all())
-            .chain(state.regions_cache.iter().map(|r| FilterOption::from_str(r)))
+            .chain(state.regions_cache.iter().map(FilterOption::from_str))
             .collect();
 
         // Sync filter state

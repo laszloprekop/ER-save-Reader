@@ -56,7 +56,7 @@ fn generate_offsets_from_json() -> io::Result<()> {
             output.push_str(&format!("//! Generated: {}\n", date));
         }
     }
-    output.push_str("\n");
+    output.push('\n');
     output.push_str("use std::collections::HashMap;\n");
     output.push_str("use once_cell::sync::Lazy;\n\n");
 
@@ -104,7 +104,7 @@ fn generate_offsets_from_json() -> io::Result<()> {
             output.push_str("// ============================================================================\n\n");
 
             if let Some(base) = tile.get("base_offset").and_then(|v| v.as_u64()) {
-                output.push_str(&format!("/// Base offset for tile formula (verified)\n"));
+                output.push_str("/// Base offset for tile formula (verified)\n");
                 output.push_str(&format!("pub const VERIFIED_TILE_BASE_OFFSET: u32 = {};\n\n", base));
             }
             if let Some(bps) = tile.get("bytes_per_slot").and_then(|v| v.as_u64()) {
@@ -122,7 +122,7 @@ fn generate_offsets_from_json() -> io::Result<()> {
             if let Some(max) = tile.get("max_local_id").and_then(|v| v.as_u64()) {
                 output.push_str(&format!("pub const TILE_MAX_LOCAL_ID: u32 = {};\n", max));
             }
-            output.push_str("\n");
+            output.push('\n');
         }
 
         // Generate midrange formula bases (100000-999999 flags like sorceries/incantations)
@@ -251,7 +251,7 @@ fn generate_offsets_from_json() -> io::Result<()> {
     output.push_str("/// Calculate byte offset and bit position for a midrange flag (6-digit, 100000-999999)\n");
     output.push_str("/// Used for sorceries, incantations, ashes of war unlock flags\n");
     output.push_str("pub fn calculate_midrange_flag_offset(flag_id: u32) -> Option<(u32, u8)> {\n");
-    output.push_str("    if flag_id < 100_000 || flag_id >= 1_000_000 { return None; }\n");
+    output.push_str("    if !(100_000..1_000_000).contains(&flag_id) { return None; }\n");
     output.push_str("    \n");
     output.push_str("    // Try exact block match first (1000-flag granularity)\n");
     output.push_str("    let block_start = (flag_id / 1000) * 1000;\n");
@@ -276,7 +276,7 @@ fn generate_offsets_from_json() -> io::Result<()> {
 
     output.push_str("/// Calculate byte offset and bit position for a dungeon-based flag (8-digit)\n");
     output.push_str("pub fn calculate_dungeon_flag_offset(flag_id: u32) -> Option<(u32, u8)> {\n");
-    output.push_str("    if flag_id < 10_000_000 || flag_id >= 100_000_000 { return None; }\n");
+    output.push_str("    if !(10_000_000..100_000_000).contains(&flag_id) { return None; }\n");
     output.push_str("    \n");
     output.push_str("    let area = flag_id / 1_000_000;\n");
     output.push_str("    let section = (flag_id / 10_000) % 100;\n");

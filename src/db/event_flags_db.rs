@@ -1,8 +1,8 @@
-/// Comprehensive Event Flags Database with Region Resolution and JSON Export
-///
-/// This module provides a reference database of all known event flags
-/// with their categories, region/location information, and optional coordinates.
-/// Data is consolidated from all existing database modules.
+//! Comprehensive Event Flags Database with Region Resolution and JSON Export
+//!
+//! This module provides a reference database of all known event flags
+//! with their categories, region/location information, and optional coordinates.
+//! Data is consolidated from all existing database modules.
 
 pub mod event_flags_db {
     use once_cell::sync::Lazy;
@@ -205,10 +205,10 @@ pub mod event_flags_db {
     /// Resolve region name for a flag ID based on its format
     pub fn resolve_region(flag_id: u32) -> &'static str {
         // 10-digit base game world flags (1000000000+)
-        if flag_id >= 1_000_000_000 && flag_id < 2_000_000_000 {
+        if (1_000_000_000..2_000_000_000).contains(&flag_id) {
             let tile_index = (flag_id - 1_000_000_000) / 10000;
-            let tile_x = (tile_index / 100) as u32;
-            let tile_y = (tile_index % 100) as u32;
+            let tile_x = tile_index / 100;
+            let tile_y = tile_index % 100;
             return get_region_name(tile_x, tile_y);
         }
 
@@ -218,14 +218,14 @@ pub mod event_flags_db {
         }
 
         // 8-digit dungeon flags (10000000-43999999)
-        if flag_id >= 10_000_000 && flag_id < 44_000_000 {
+        if (10_000_000..44_000_000).contains(&flag_id) {
             let map_area = flag_id / 1_000_000;
             let section = (flag_id / 10_000) % 100;
             return get_dungeon_name(map_area, section);
         }
 
         // Landmark flags (62100-62999)
-        if flag_id >= 62100 && flag_id < 63000 {
+        if (62100..63000).contains(&flag_id) {
             return get_landmark_region(flag_id);
         }
 
@@ -379,7 +379,7 @@ pub mod event_flags_db {
     pub fn export_to_json() -> Result<String, serde_json::Error> {
         let exports: Vec<EventFlagExport> = EVENT_FLAGS_DB
             .iter()
-            .map(|e| EventFlagExport::from(e))
+            .map(EventFlagExport::from)
             .collect();
         serde_json::to_string_pretty(&exports)
     }
@@ -419,7 +419,7 @@ pub mod event_flags_db {
                 // General flag ranges
                 f if f >= 2_000_000_000 => EventFlagCategory::DLCPickup,
                 f if f >= 1_000_000_000 => EventFlagCategory::WorldPickup,
-                f if f >= 10_000_000 && f < 44_000_000 => EventFlagCategory::DungeonPickup,
+                f if (10_000_000..44_000_000).contains(&f) => EventFlagCategory::DungeonPickup,
                 _ => match pickup.category {
                     PickupCategory::GoldenRunes => EventFlagCategory::WorldPickup,
                     PickupCategory::SmithingStones => EventFlagCategory::WorldPickup,

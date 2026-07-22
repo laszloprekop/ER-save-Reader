@@ -5,7 +5,7 @@
 use eframe::egui::{self, ColorImage, TextureHandle, TextureOptions};
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
 /// Default path to extracted game icons (can be overridden)
@@ -49,7 +49,7 @@ impl IconCache {
 }
 
 /// Get the path to an icon file by icon_id
-fn icon_path(icons_dir: &PathBuf, icon_id: u16) -> PathBuf {
+fn icon_path(icons_dir: &Path, icon_id: u16) -> PathBuf {
     icons_dir.join(format!("MENU_ItemIcon_{:05}.png", icon_id))
 }
 

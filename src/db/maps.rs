@@ -3,6 +3,7 @@ pub mod maps {
     use once_cell::sync::Lazy;
     
     #[derive(PartialEq, Eq, Hash, Clone, Copy, PartialOrd, Ord)]
+    #[allow(clippy::enum_variant_names)] // variants are the in-game map names
     pub enum Map {
         SE,
         NW,

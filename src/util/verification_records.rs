@@ -47,7 +47,7 @@ pub fn load_verification_records(path: &Path) -> Result<Vec<VerificationRecord>,
     let reader = BufReader::new(file);
     let mut records = Vec::new();
 
-    for line in reader.lines().flatten() {
+    for line in reader.lines().map_while(Result::ok) {
         if line.trim().is_empty() {
             continue;
         }

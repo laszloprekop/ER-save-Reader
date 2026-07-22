@@ -24,13 +24,13 @@ pub mod regions {
             
             for map in maps {
                 ui.push_id(map.0, |ui| {
-                    let collapsing = egui::containers::collapsing_header::CollapsingHeader::new(MAP_NAME.lock().unwrap()[&map.0]);
+                    let collapsing = egui::containers::collapsing_header::CollapsingHeader::new(MAP_NAME.lock().unwrap()[map.0]);
                     ui.horizontal(|ui|{
                         let mut state = State::Off;
-                        if map.1.iter().all(|g| regions[&g].0) {
+                        if map.1.iter().all(|g| regions[g].0) {
                             state = State::On;
                         }
-                        else if map.1.iter().any(|g| regions[&g].0) {
+                        else if map.1.iter().any(|g| regions[g].0) {
                             state = State::InBetween;
                         }
 
@@ -38,7 +38,7 @@ pub mod regions {
 
                         collapsing.show(ui, |ui| {
                             for region in map.1 {
-                                let region_info = REGIONS.lock().unwrap()[&region];
+                                let region_info = REGIONS.lock().unwrap()[region];
                                 let on = &mut regions.get_mut(region).expect("").0;
                                 ui.add_enabled(false, egui::Checkbox::new(on, region_info.1.to_string()));
                             }

@@ -492,7 +492,10 @@ pub mod maps {
         ScaduviewHinterland
     }
     
-    pub static GRACES: Lazy<Mutex<HashMap<Grace, (MapName, u32, &str)>>> = Lazy::new(|| {
+    /// (map, event flag, display name)
+    type GraceRow = (MapName, u32, &'static str);
+
+    pub static GRACES: Lazy<Mutex<HashMap<Grace, GraceRow>>> = Lazy::new(|| {
         Mutex::new(HashMap::from([
             // Table of Lost Grace / Roundtable Hold
             (Grace::RoundtableHold, (MapName::RoundtableHold, 71190, "Table of Lost Grace")),

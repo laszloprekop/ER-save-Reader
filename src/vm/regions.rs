@@ -16,8 +16,8 @@ pub mod regions_view_model {
 
             for (region, (_,_, map, is_open_world, is_dungeon, is_boss)) in REGIONS.lock().unwrap().iter() {
                 regions.insert(*region, (false, *is_open_world, *is_dungeon, *is_boss));
-                region_groups.get_mut(&map).expect("").push(*region);
-                region_groups.get_mut(&map).expect("").sort();
+                region_groups.get_mut(map).expect("").push(*region);
+                region_groups.get_mut(map).expect("").sort();
             }
 
             Self { region_groups, regions }

@@ -213,10 +213,12 @@ fn identity_name(identity: &str) -> Option<String> {
 }
 
 /// (gained, lost) identity deltas between two inventories.
+type InventoryDelta = (Vec<(String, i64)>, Vec<(String, i64)>);
+
 fn inventory_delta(
     before: &BTreeMap<String, i64>,
     after: &BTreeMap<String, i64>,
-) -> (Vec<(String, i64)>, Vec<(String, i64)>) {
+) -> InventoryDelta {
     let mut gained = Vec::new();
     let mut lost = Vec::new();
     for (id, qa) in after {

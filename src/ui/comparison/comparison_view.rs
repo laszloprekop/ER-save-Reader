@@ -748,7 +748,7 @@ fn comparison_to_csv(data: &ComparisonExport) -> String {
 
 fn comparison_to_markdown(data: &ComparisonExport) -> String {
     let mut md = String::new();
-    md.push_str(&format!("# Character Comparison\n\n"));
+    md.push_str("# Character Comparison\n\n");
     md.push_str(&format!("**Slot A:** {} (Level {})\n", data.slot_a.name, data.slot_a.level));
     md.push_str(&format!("**Slot B:** {} (Level {})\n\n", data.slot_b.name, data.slot_b.level));
 

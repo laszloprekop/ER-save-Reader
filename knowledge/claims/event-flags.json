@@ -1576,7 +1576,7 @@
   "inputs": {
     "attributed_transitions": {
       "path": "knowledge/inputs/attributed-transitions.json",
-      "sha256": "530b6f596f30b7d65f03af20a330dd9830849a9b25d95b9a9047e9e600b01ea5"
+      "sha256": "b4ddae1aa251e3d043baab78ae2965c95fbc19c3ba19018bef137c5c90c58904"
     },
     "eventflag_alloclists": {
       "path": "knowledge/game/eventflag-alloclists.json",

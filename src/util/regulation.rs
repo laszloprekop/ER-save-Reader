@@ -1,5 +1,4 @@
 use std::{collections::HashMap, io::Error, str::FromStr, sync::{Mutex, RwLock}};
-use std::io::ErrorKind;
 use aes::cipher::{block_padding::NoPadding, BlockDecryptMut, KeyIvInit};
 use binary_reader::{BinaryReader, Endian};
 use once_cell::sync::{Lazy, OnceCell};
@@ -94,12 +93,12 @@ impl Regulation {
     }
 
     pub fn check_save_compression(bytes: &[u8]) -> Result<bool, Error> {
-        let decrypted = Self::decrypt(&bytes)?;
-        Ok(Self::check_compression(&decrypted)?)
+        let decrypted = Self::decrypt(bytes)?;
+        Self::check_compression(&decrypted)
     }
 
     pub fn params_from_regulation(bytes: &[u8]) -> Result<HashMap<Param, Vec<u8>>, Error> {
-        let decrypted = Self::decrypt(&bytes)?;
+        let decrypted = Self::decrypt(bytes)?;
         let decompressed = Self::decompress(&decrypted)?;
         let res = Self::unpack(&decompressed)?;
         let mut params: HashMap<Param, Vec<u8>> = HashMap::new();
@@ -120,7 +119,7 @@ impl Regulation {
         let mut buf = cipher_text[16..cipher_text.len()].to_vec();
         Aes256CbcDec::new(&key.into(), iv.into())
             .decrypt_padded_mut::<NoPadding>(&mut buf)
-            .map_err(|_e| Error::new(ErrorKind::Other, "upps"))
+            .map_err(|_e| Error::other("upps"))
             .map(|pt| pt.to_vec())
     }
     
@@ -196,7 +195,7 @@ impl Regulation {
                 Err(e) => {
                     #[cfg(debug_assertions)]
                     eprintln!("ZSTD decompression error: {:?}", e);
-                    return Err(io::Error::new(io::ErrorKind::Other, format!("ZSTD decompression failed: {:?}", e)));
+                    return Err(io::Error::other(format!("ZSTD decompression failed: {:?}", e)));
                 }
             }
         } else {

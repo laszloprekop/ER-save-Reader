@@ -441,7 +441,7 @@ pub fn calculate_tile_pickup_offset_with_base(flag_id: u32, tile_base: u32) -> F
 #[wasm_bindgen]
 pub fn convert_to_row_id(flag_id: u32) -> i64 {
     // Only applies to 10-digit tile flags (1B range)
-    if flag_id < 1_000_000_000 || flag_id >= 2_000_000_000 {
+    if !(1_000_000_000..2_000_000_000).contains(&flag_id) {
         return -1;
     }
 
@@ -456,7 +456,7 @@ pub fn convert_to_row_id(flag_id: u32) -> i64 {
 /// Check if a flag is a dungeon pickup flag (8-digit, local_id >= 7000)
 #[wasm_bindgen]
 pub fn is_dungeon_pickup_flag(flag_id: u32) -> bool {
-    if flag_id < 10_000_000 || flag_id >= 44_000_000 {
+    if !(10_000_000..44_000_000).contains(&flag_id) {
         return false;
     }
     let local_id = flag_id % 10000;
@@ -1182,8 +1182,8 @@ fn parse_chr_asm_data(data: &[u8], off: usize) -> Option<ChrAsmJson> {
     p += 4; // _0x4_2
 
     let mut talismans = [0u32; 4];
-    for i in 0..4 {
-        talismans[i] = read_u32_le(data, p); p += 4;
+    for t in talismans.iter_mut() {
+        *t = read_u32_le(data, p); p += 4;
     }
     // unk field: p += 4 (not needed)
 
@@ -1280,8 +1280,8 @@ fn parse_equipped_items_data(data: &[u8], off: usize) -> Option<EquippedItemsJso
     p += 4; // _unk3
 
     let mut talismans = [0u32; 4];
-    for i in 0..4 {
-        talismans[i] = read_u32_le(data, p); p += 4;
+    for t in talismans.iter_mut() {
+        *t = read_u32_le(data, p); p += 4;
     }
 
     p += 4; // _unk4 (covenant)

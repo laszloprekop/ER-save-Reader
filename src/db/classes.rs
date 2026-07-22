@@ -36,21 +36,21 @@ pub mod classes {
         }
     }
 
-    impl ToString for ArcheType {
-        fn to_string(&self) -> String {
-            match self {
-                ArcheType::Unknown => "Unknown".to_string(),
-                ArcheType::Vagabond => "Vagabond".to_string(),
-                ArcheType::Warrior => "Warrior".to_string(),
-                ArcheType::Hero => "Hero".to_string(),
-                ArcheType::Bandit => "Bandit".to_string(),
-                ArcheType::Astrologer => "Astrologer".to_string(),
-                ArcheType::Prophet => "Prophet".to_string(),
-                ArcheType::Samurai => "Samurai".to_string(),
-                ArcheType::Prisoner => "Prisoner".to_string(),
-                ArcheType::Confessor => "Confessor".to_string(),
-                ArcheType::Wretch => "Wretch".to_string(),
-            }
+    impl std::fmt::Display for ArcheType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            f.write_str(match self {
+                ArcheType::Unknown => "Unknown",
+                ArcheType::Vagabond => "Vagabond",
+                ArcheType::Warrior => "Warrior",
+                ArcheType::Hero => "Hero",
+                ArcheType::Bandit => "Bandit",
+                ArcheType::Astrologer => "Astrologer",
+                ArcheType::Prophet => "Prophet",
+                ArcheType::Samurai => "Samurai",
+                ArcheType::Prisoner => "Prisoner",
+                ArcheType::Confessor => "Confessor",
+                ArcheType::Wretch => "Wretch",
+            })
         }
     }
 

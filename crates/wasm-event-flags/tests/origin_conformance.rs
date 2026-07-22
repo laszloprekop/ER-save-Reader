@@ -61,7 +61,8 @@ fn synthetic_ef(len: usize) -> Vec<u8> {
 #[test]
 fn offset_export_lands_on_the_same_bit_as_the_readers() {
     // (flag id, family code, tri-state reader)
-    let cases: &[(u32, u32, fn(&[u8], u32) -> i32)] = &[
+    type Case = (u32, u32, fn(&[u8], u32) -> i32);
+    let cases: &[Case] = &[
         (76100, FAMILY_CODE_WORLD_STATE, world_state_flag_state),
         (1_042_370_800, FAMILY_CODE_TILE_WORLD, tile_world_flag_state),
         (1_044_360_310, FAMILY_CODE_TILE_PICKUP, tile_pickup_state),

@@ -58,10 +58,16 @@ pub struct Relationship {
     pub secondary: Option<String>,
 }
 
+/// (shop_id, merchant_name, price)
+pub type SoldBy = (u32, &'static str, u32);
+
+/// (event_flag, name, region, quantity)
+pub type FoundAt = (u32, &'static str, &'static str, u32);
+
 /// Merchants that sell a given item (by item_id).
 /// Key: item_id, Value: Vec<(shop_id, merchant_name, price)>
-pub static ITEM_SOLD_BY: Lazy<HashMap<u32, Vec<(u32, &'static str, u32)>>> = Lazy::new(|| {
-    let mut map: HashMap<u32, Vec<(u32, &'static str, u32)>> = HashMap::new();
+pub static ITEM_SOLD_BY: Lazy<HashMap<u32, Vec<SoldBy>>> = Lazy::new(|| {
+    let mut map: HashMap<u32, Vec<SoldBy>> = HashMap::new();
 
     for (shop_id, item) in MERCHANT_ITEMS.iter() {
         map.entry(item.item_id)
@@ -74,8 +80,8 @@ pub static ITEM_SOLD_BY: Lazy<HashMap<u32, Vec<(u32, &'static str, u32)>>> = Laz
 
 /// World pickup locations for a given item (by item_id).
 /// Key: item_id, Value: Vec<(event_flag, name, region, quantity)>
-pub static ITEM_FOUND_AT: Lazy<HashMap<u32, Vec<(u32, &'static str, &'static str, u32)>>> = Lazy::new(|| {
-    let mut map: HashMap<u32, Vec<(u32, &'static str, &'static str, u32)>> = HashMap::new();
+pub static ITEM_FOUND_AT: Lazy<HashMap<u32, Vec<FoundAt>>> = Lazy::new(|| {
+    let mut map: HashMap<u32, Vec<FoundAt>> = HashMap::new();
 
     for pickup in WORLD_PICKUPS.iter() {
         // Only include pickups with valid event flags

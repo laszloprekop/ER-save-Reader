@@ -3,7 +3,7 @@
 **Last updated**: 2026-07-22
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
-> **Status: LIVING RECORD — the working plan and open questions.** Holds the knowledge-base migration plan (steps 1-6) and the reasoning behind open/closed questions; entries are dated and later ones supersede earlier ones (many carry inline CORRECTED / SETTLED / tombstone notes). Canonical facts live in `CONTEXT.md` + the claims store; this is where the *reasoning and next steps* live. The "Last updated 2026-07-05" stamp understates it — the newest work is dated 2026-07-20.
+> **Status: LIVING RECORD — the working plan and open questions.** Holds the knowledge-base migration plan (steps 1-6) and the reasoning behind open/closed questions; entries are dated and later ones supersede earlier ones (many carry inline CORRECTED / SETTLED / tombstone notes). Canonical facts live in `CONTEXT.md` + the claims store; this is where the *reasoning and next steps* live. Newest work is dated 2026-07-22, matching the stamp above.
 
 ---
 
@@ -234,10 +234,38 @@ Steps, in order:
    isolated flips (reusing the same ±16-neighborhood test from `pipeline.rs`) across
    every consecutive pair in the whole chain, and locate the family base from where
    many independent flips agree, rather than re-deriving a base from a single state.
-   REMAINING in step 3: c06-c08 Golden Centipede pairs still lack flag annotations
-   (cannot become pairs without a flag hypothesis) — data gap, not a mechanism gap;
-   the four s7 world-state-b pairs above also remain unresolved pending more/cleaner
-   captures; the timeline flip-clustering design above, if someone wants to pursue it.
+   REMAINING in step 3: the four s7 world-state-b pairs above remain unresolved pending
+   more/cleaner captures; the timeline flip-clustering design above, if someone wants to
+   pursue it.
+
+   **GOLDEN CENTIPEDE GAP CLOSED — AS A NEGATIVE, 2026-07-22.** c06-c08 was carried here
+   as "lacks a flag annotation — data gap, not a mechanism gap". **That diagnosis was
+   wrong: it is neither.** The action sets no event flag at all, so no quantity of further
+   captures can produce a flag hypothesis. Recorded in
+   `knowledge/inputs/attributed-transitions.json` → `excluded_captures` (an inert key the
+   pipeline ignores) so the pairs are not re-proposed.
+   - **Primary game data.** Golden Centipede is goods 20820, a *crafting material gathered
+     from an environment asset*, not a treasure lot. `AssetEnvironmentGeometryParam` row
+     99820 has `isEnableRepick="1"` and `pickUpItemLotParamId="998200"`; `ItemLotParam_map`
+     row 998200 has **`getItemFlagId="0"`**. Nothing is written — which is exactly why the
+     gathering point respawns. The one flagged Golden Centipede lot in the game (row
+     35000340 → flag 35007340) is in Subterranean Shunning-Grounds; the character is in
+     m60_43_50 for all of c05-c10 and 35007340 reads CLEAR throughout.
+   - **The pickups are real**, so the captures are not mislabeled: goods 20820 quantity
+     rises 14→15→16→17 across c06→c09 while the player moves under 2 units.
+   - **Null result, with the control that makes it mean something.** The pipeline's own
+     isolated-flip rule finds ZERO isolated pure 0→1 single-bit sets in either centipede
+     pair (all three files detect the same `ef_offset` and resolve identical bases for all
+     five families, so alignment is not in question). The *identical* test on the two
+     established pairs of the same series — c05-c06 (Seal 1043500000) and c09-c10
+     (Butterfly 1043500010) — does find the flip, and the readers confirm 0→1 staying SET.
+     Same instrument, same character, same map: a measured absence, not a blind spot.
+   - **Two decoys, named so they are not rediscovered as findings.** EF-relative byte 1221
+     increments on every centipede pickup — but also across the c09-c10 control, and by 13
+     over unobserved play; it is a counter. EF-relative 851264 oscillates 0x80/0x00 across
+     c05-c10 and is not set-monotonic.
+   - **Generalizes**: any pickup whose lot has `getItemFlagId=0` is permanently
+     unattributable. Check that field *before* capturing a pair, not after.
 
    **SEGMENT CENSUS DONE 2026-07-22** (`knowledge timeline-segments`,
    `src/knowledge/timeline_segments.rs` → `knowledge/claims/timeline-segments.json`).

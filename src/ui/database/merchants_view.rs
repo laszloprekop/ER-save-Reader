@@ -75,7 +75,7 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
     state.search = state.filter_state.search.clone();
 
     // Build merchant options
-    let merchant_options: Vec<_> = MERCHANT_NAMES.iter().map(|s| *s).collect();
+    let merchant_options: Vec<_> = MERCHANT_NAMES.to_vec();
 
     // Filter bar
     FilterBar::new("merchants_filter", &mut state.filter_state)
@@ -101,12 +101,11 @@ pub fn merchants_view(ui: &mut Ui, state: &mut MerchantsViewState, detail_panel:
             }
 
             // Search filter
-            if !state.search.is_empty() {
-                if !fuzzy_match_default(item.item_name, &state.search)
+            if !state.search.is_empty()
+                && !fuzzy_match_default(item.item_name, &state.search)
                     && !fuzzy_match_default(item.merchant_name, &state.search) {
                     return None;
                 }
-            }
 
             Some((*shop_id, item))
         })

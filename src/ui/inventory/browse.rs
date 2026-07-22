@@ -84,7 +84,7 @@ pub fn browse_inventory(ui: &mut Ui, vm: &mut ViewModel) {
     let get_items_by_type = |storage: &crate::vm::inventory::InventoryStorage, type_filter: InventoryTypeRoute| -> Vec<InventoryItemViewModel> {
         match type_filter {
             InventoryTypeRoute::CommonItems => storage.common_items.iter()
-                .filter(|i| i.r#type == InventoryGaitemType::ITEM)
+                .filter(|i| i.r#type == InventoryGaitemType::Item)
                 .cloned()
                 .collect(),
             InventoryTypeRoute::KeyItems => storage.key_items.iter()
@@ -92,19 +92,19 @@ pub fn browse_inventory(ui: &mut Ui, vm: &mut ViewModel) {
                 .cloned()
                 .collect(),
             InventoryTypeRoute::Weapons => storage.common_items.iter()
-                .filter(|i| i.r#type == InventoryGaitemType::WEAPON)
+                .filter(|i| i.r#type == InventoryGaitemType::Weapon)
                 .cloned()
                 .collect(),
             InventoryTypeRoute::Armors => storage.common_items.iter()
-                .filter(|i| i.r#type == InventoryGaitemType::ARMOR)
+                .filter(|i| i.r#type == InventoryGaitemType::Armor)
                 .cloned()
                 .collect(),
             InventoryTypeRoute::AshOfWar => storage.common_items.iter()
-                .filter(|i| i.r#type == InventoryGaitemType::AOW)
+                .filter(|i| i.r#type == InventoryGaitemType::Aow)
                 .cloned()
                 .collect(),
             InventoryTypeRoute::Talismans => storage.common_items.iter()
-                .filter(|i| i.r#type == InventoryGaitemType::ACCESSORY)
+                .filter(|i| i.r#type == InventoryGaitemType::Accessory)
                 .cloned()
                 .collect(),
         }
@@ -232,7 +232,7 @@ pub fn browse_inventory(ui: &mut Ui, vm: &mut ViewModel) {
         let content = match export_format {
             ExportFormat::Json => {
                 let export = PageExport::new(
-                    PageExportMetadata::new(&format!("Inventory - {}", type_filter.label()))
+                    PageExportMetadata::new(format!("Inventory - {}", type_filter.label()))
                         .with_counts(total_count, filtered_count),
                     &export_data,
                 );

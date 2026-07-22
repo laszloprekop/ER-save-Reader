@@ -78,12 +78,11 @@ pub mod shop_items_view {
                 }
 
                 // Search filter
-                if !state.search.is_empty() {
-                    if !fuzzy_match_default(&item.item_name, &state.search) &&
-                       !fuzzy_match_default(&item.merchant, &state.search) {
+                if !state.search.is_empty()
+                    && !fuzzy_match_default(item.item_name, &state.search) &&
+                       !fuzzy_match_default(item.merchant, &state.search) {
                         return false;
                     }
-                }
 
                 true
             })
@@ -95,8 +94,8 @@ pub mod shop_items_view {
             let asc = state.table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
                 "id" => items.sort_by(|a, b| if asc { a.0.cmp(&b.0) } else { b.0.cmp(&a.0) }),
-                "merchant" => items.sort_by(|a, b| if asc { a.1.merchant.cmp(&b.1.merchant) } else { b.1.merchant.cmp(&a.1.merchant) }),
-                "item" => items.sort_by(|a, b| if asc { a.1.item_name.cmp(&b.1.item_name) } else { b.1.item_name.cmp(&a.1.item_name) }),
+                "merchant" => items.sort_by(|a, b| if asc { a.1.merchant.cmp(b.1.merchant) } else { b.1.merchant.cmp(a.1.merchant) }),
+                "item" => items.sort_by(|a, b| if asc { a.1.item_name.cmp(b.1.item_name) } else { b.1.item_name.cmp(a.1.item_name) }),
                 "category" => items.sort_by(|a, b| {
                     let ca = format!("{:?}", a.1.category);
                     let cb = format!("{:?}", b.1.category);

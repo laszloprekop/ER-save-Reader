@@ -184,11 +184,10 @@ pub fn validation_view(
             state.set_report(report);
         }
 
-        if state.report.is_some() {
-            if ui.button("Clear Results").clicked() {
+        if state.report.is_some()
+            && ui.button("Clear Results").clicked() {
                 state.reset();
             }
-        }
     });
 
     ui.add_space(spacing::SM);
@@ -290,15 +289,14 @@ pub fn validation_view(
             }
 
             // Filter by search
-            if !search_query.is_empty() {
-                if !fuzzy_match_default(&issue.message, &search_query)
+            if !search_query.is_empty()
+                && !fuzzy_match_default(&issue.message, &search_query)
                     && !fuzzy_match_default(&issue.category, &search_query)
                     && !fuzzy_match_default(&issue.details, &search_query)
                 {
                     idx += 1;
                     continue;
                 }
-            }
 
             show_issue(ui, issue, idx, state);
             idx += 1;

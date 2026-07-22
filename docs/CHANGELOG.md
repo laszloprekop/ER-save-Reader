@@ -7,6 +7,80 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.1 - Clippy compiles again; the Golden Centipede gap closes as a negative
+
+Two independent pieces of work. `cargo clippy` was not merely noisy — it **failed to
+compile**, and had been masking 745 warnings behind 6 hard errors. Separately, a backlog
+item carried since 2026-07-06 as a "data gap" turns out to be a settled negative.
+
+### Fixes
+- **`cargo clippy` failed to compile** (`src/vm/inventory/mod.rs`). Six
+  `enum_clike_unportable_variant` errors: `InventoryItemType` / `InventoryGaitemType`
+  declare discriminants up to `0xc0000000` on the default `isize` repr, which does not fit
+  a 32-bit target. Fixed with `#[repr(i64)]`; every read site casts `as u32`, so the
+  values are unchanged. The lint is `deny`-by-default, which is why this stopped the build
+  rather than warning.
+- Clippy is now **0 warnings, 0 errors** across the workspace (was 745 + 6). The
+  mechanical bulk went through `clippy --fix`; the rest by hand — `ToString` impls to
+  `Display`, `&Vec<T>` to `&[T]`, `is_some()`/`unwrap()` to `if let`, index loops to
+  iterators, type aliases for 10 complex tuples, module docs to `//!`, acronym enum
+  variants renamed (`InventoryItemType::WEAPON` → `::Weapon`, compiler-checked).
+
+### Deliberate suppressions (not fixes)
+Roughly 45 warnings are scope-allowed with a stated reason, because the lint is objecting
+to the shape of the *game's data*, not to the code:
+- `src/db/stats.rs` — `excessive_precision`: the trailing digits are transcribed from the
+  game's stat curves.
+- `src/util/params.rs` — `enum_variant_names`: variants are regulation.bin's own param
+  file names; `PARAM<T>` is the on-disk container's name.
+- `src/util/param_structs.rs` — `derivable_impls`: each `Default` spells out that param's
+  documented defaults; deriving the all-zero ones would hide that they are transcribed.
+- `src/save/**`, `src/util/bnd4.rs` — `field_reassign_with_default`: `Read` impls assign
+  field-by-field **in on-disk byte order**; the sequence is the layout.
+- `module_inception` is allowed workspace-wide in `Cargo.toml` (`foo.rs` containing
+  `pub mod foo` is this crate's layout).
+
+### Key Findings
+- **Golden Centipede (backlog step 3) is not a data gap — the action sets no event flag.**
+  Goods 20820 is a crafting material gathered from an environment asset:
+  `AssetEnvironmentGeometryParam` row 99820 has `isEnableRepick="1"` and
+  `pickUpItemLotParamId="998200"`, and `ItemLotParam_map` row 998200 has
+  **`getItemFlagId="0"`**. Nothing is written, which is precisely why the point respawns.
+  No quantity of further captures can produce a flag hypothesis.
+- **The null result carries a positive control.** The pipeline's own isolated-flip rule
+  finds zero pure 0→1 single-bit sets in either centipede pair; the identical test on the
+  two established pairs of the same series — c05-c06 (Seal 1043500000) and c09-c10
+  (Butterfly 1043500010) — does find the flip, at `grace_rel` 851389 / base 483889, which
+  `knowledge run` independently reproduces. Same character, same map, same instrument: a
+  measured absence, not a blind spot.
+- **The captures are not mislabeled**: goods 20820 rises 14→15→16→17 across c06→c09 while
+  the player moves under 2 units. The pickups happened; they just left no trace.
+- **Two decoys named** so they are not rediscovered as findings: EF-relative byte 1221
+  increments on every centipede pickup but also across the c09-c10 control and by 13 over
+  unobserved play (a counter); EF-relative 851264 oscillates 0x80/0x00 and is not
+  set-monotonic.
+- **Generalizes**: any pickup whose lot has `getItemFlagId=0` is permanently
+  unattributable. `CONTEXT.md` carries this as *Flagless Pickup*.
+
+### Known issue, deliberately not fixed
+- `src/util/bnd4.rs` NUL-terminator scan yields the index of the last *non*-NUL byte and
+  the slice is `[0..terminator]`, so the final character is dropped from every decoded
+  BND4 header string. Preserved verbatim under an explanatory comment — correcting it
+  changes parse output and does not belong in a lint pass.
+
+### Files Modified
+- `src/vm/inventory/mod.rs`: `#[repr(i64)]` on both gaitem enums; variant rename; `Display`
+- `Cargo.toml`: workspace `module_inception` allow; version 0.37.1
+- `build.rs`: emit `(a..b).contains(&x)` in the generated ground-truth range guards
+- 55 further source files: mechanical lint fixes, no behaviour change
+- `knowledge/inputs/attributed-transitions.json`: new `excluded_captures` key (inert — the
+  pipeline indexes only the keys it knows) recording why c06-c08 can never be pairs
+- `knowledge/claims/event-flags.json`: input provenance sha256 only; no claim moved
+- `docs/BACKLOG.md`: step 3 "data gap" entry corrected to a closed negative
+- `CONTEXT.md`: new *Flagless Pickup* term under Instruments
+
+---
+
 ## v0.37.0 - Census the timeline's segments; falsify the flip-clustering premise
 
 Two new `knowledge` commands, and a **retraction**. v0.36.1 found that the Bee timeline

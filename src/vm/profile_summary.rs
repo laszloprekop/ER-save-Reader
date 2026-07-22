@@ -3,19 +3,13 @@ pub mod slot_view_model {
 
 
     #[derive(Clone)]
+    #[derive(Default)]
     pub struct ProfileSummaryViewModel {
         pub active: bool,
         pub character_name: String,
     }
 
-    impl Default for ProfileSummaryViewModel {
-        fn default() -> Self {
-            Self { 
-                active: Default::default(),
-                character_name: Default::default()
-            }
-        }
-    }
+    
     
     impl ProfileSummaryViewModel {
         pub fn from_save(profile_summary: &ProfileSummary) -> Self {

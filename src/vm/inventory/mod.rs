@@ -126,59 +126,61 @@ pub enum InventorySubTypeRoute {
 }
 
 #[derive(PartialEq, Clone, Default, Copy)]
+#[repr(i64)] // discriminants exceed i32; every read site casts `as u32`
 pub enum InventoryItemType {
     #[default]
     None = -1,
-    WEAPON = 0x0,
-    ARMOR = 0x10000000,
-    ACCESSORY = 0x20000000,
-    ITEM = 0x40000000,
-    AOW = 0x80000000,
+    Weapon = 0x0,
+    Armor = 0x10000000,
+    Accessory = 0x20000000,
+    Item = 0x40000000,
+    Aow = 0x80000000,
 }
 impl From<u8> for InventoryItemType {
     fn from(value: u8) -> Self {
         match value {
-            0x0 => InventoryItemType::WEAPON,
-            0x10 => InventoryItemType::ARMOR,
-            0x20 => InventoryItemType::ACCESSORY,
-            0x40 => InventoryItemType::ITEM,
-            0x80 => InventoryItemType::AOW,
+            0x0 => InventoryItemType::Weapon,
+            0x10 => InventoryItemType::Armor,
+            0x20 => InventoryItemType::Accessory,
+            0x40 => InventoryItemType::Item,
+            0x80 => InventoryItemType::Aow,
             _ => InventoryItemType::None,
         }
     }
 }
-impl ToString for InventoryItemType {
-    fn to_string(&self) -> String {
-        match self {
-            InventoryItemType::None => format!("None"),
-            InventoryItemType::WEAPON => format!("WEAPON"),
-            InventoryItemType::ARMOR => format!("ARMOR"),
-            InventoryItemType::ACCESSORY => format!("ACCESSORY"),
-            InventoryItemType::ITEM => format!("ITEM"),
-            InventoryItemType::AOW => format!("AOW"),
-        }
+impl std::fmt::Display for InventoryItemType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(match self {
+            InventoryItemType::None => "None",
+            InventoryItemType::Weapon => "WEAPON",
+            InventoryItemType::Armor => "ARMOR",
+            InventoryItemType::Accessory => "ACCESSORY",
+            InventoryItemType::Item => "ITEM",
+            InventoryItemType::Aow => "AOW",
+        })
     }
 }
 
 #[derive(Default, Clone, PartialEq)]
+#[repr(i64)] // discriminants exceed i32; every read site casts `as u32`
 pub enum InventoryGaitemType {
     #[default]
-    EMPTY = -1,
-    WEAPON = 0x80000000,
-    ARMOR = 0x90000000,
-    ACCESSORY = 0xa0000000,
-    ITEM = 0xb0000000,
-    AOW = 0xc0000000,
+    Empty = -1,
+    Weapon = 0x80000000,
+    Armor = 0x90000000,
+    Accessory = 0xa0000000,
+    Item = 0xb0000000,
+    Aow = 0xc0000000,
 }
 impl From<u32> for InventoryGaitemType {
     fn from(value: u32) -> Self {
         match value {
-            x if x == InventoryGaitemType::WEAPON as u32 => InventoryGaitemType::WEAPON,
-            x if x == InventoryGaitemType::ARMOR as u32 => InventoryGaitemType::ARMOR,
-            x if x == InventoryGaitemType::ACCESSORY as u32 => InventoryGaitemType::ACCESSORY,
-            x if x == InventoryGaitemType::ITEM as u32 => InventoryGaitemType::ITEM,
-            x if x == InventoryGaitemType::AOW as u32 => InventoryGaitemType::AOW,
-            _ => InventoryGaitemType::EMPTY,
+            x if x == InventoryGaitemType::Weapon as u32 => InventoryGaitemType::Weapon,
+            x if x == InventoryGaitemType::Armor as u32 => InventoryGaitemType::Armor,
+            x if x == InventoryGaitemType::Accessory as u32 => InventoryGaitemType::Accessory,
+            x if x == InventoryGaitemType::Item as u32 => InventoryGaitemType::Item,
+            x if x == InventoryGaitemType::Aow as u32 => InventoryGaitemType::Aow,
+            _ => InventoryGaitemType::Empty,
         }
     }
 }
@@ -203,7 +205,7 @@ impl InventoryItemViewModel {
     ) -> Self {
         let gaitem_handle = item_info.ga_item_handle;
         let item_type_specific = match gaitem_type {
-            InventoryGaitemType::WEAPON => {
+            InventoryGaitemType::Weapon => {
                 let id = (gaitem.item_id / 100) * 100;
                 let upgrade_level = gaitem.item_id % 100;
                 (
@@ -224,8 +226,8 @@ impl InventoryItemViewModel {
                     },
                 )
             }
-            InventoryGaitemType::ARMOR => {
-                let id = gaitem.item_id ^ InventoryItemType::ARMOR as u32;
+            InventoryGaitemType::Armor => {
+                let id = gaitem.item_id ^ InventoryItemType::Armor as u32;
                 (
                     id,
                     match ARMOR_NAME.lock().unwrap().get(&id) {
@@ -240,8 +242,8 @@ impl InventoryItemViewModel {
                     },
                 )
             }
-            InventoryGaitemType::ACCESSORY => {
-                let id = gaitem_handle ^ InventoryGaitemType::ACCESSORY as u32;
+            InventoryGaitemType::Accessory => {
+                let id = gaitem_handle ^ InventoryGaitemType::Accessory as u32;
                 (
                     id,
                     match ACCESSORY_NAME.lock().unwrap().get(&id) {
@@ -256,8 +258,8 @@ impl InventoryItemViewModel {
                     },
                 )
             }
-            InventoryGaitemType::ITEM => {
-                let id = gaitem_handle ^ InventoryGaitemType::ITEM as u32;
+            InventoryGaitemType::Item => {
+                let id = gaitem_handle ^ InventoryGaitemType::Item as u32;
                 (
                     id,
                     match ITEM_NAME.lock().unwrap().get(&id) {
@@ -272,8 +274,8 @@ impl InventoryItemViewModel {
                     },
                 )
             }
-            InventoryGaitemType::AOW => {
-                let id = gaitem.item_id ^ InventoryItemType::AOW as u32;
+            InventoryGaitemType::Aow => {
+                let id = gaitem.item_id ^ InventoryItemType::Aow as u32;
                 (
                     id,
                     match AOW_NAME.lock().unwrap().get(&id) {
@@ -288,7 +290,7 @@ impl InventoryItemViewModel {
                     },
                 )
             }
-            InventoryGaitemType::EMPTY => panic!("We shouldn't reach this!"),
+            InventoryGaitemType::Empty => panic!("We shouldn't reach this!"),
         };
 
         Self {
@@ -297,7 +299,7 @@ impl InventoryItemViewModel {
             item_name: item_type_specific.1,
             quantity: item_info.quantity,
             inventory_index: item_info.inventory_index,
-            equip_index: equip_index,
+            equip_index,
             r#type: gaitem_type,
         }
     }
@@ -369,10 +371,12 @@ pub struct InventoryViewModel {
 
 impl InventoryViewModel {
     pub fn from_save(slot: &SaveSlot) -> Self {
-        let mut inventory_vm = InventoryViewModel::default();
-        inventory_vm.at_single_items = true;
-        inventory_vm.current_route = InventoryRoute::Browse; // Default to Browse
-        inventory_vm.storage = vec![InventoryStorage::default(); 2];
+        let mut inventory_vm = InventoryViewModel {
+            at_single_items: true,
+            current_route: InventoryRoute::Browse, // Default to Browse
+            storage: vec![InventoryStorage::default(); 2],
+            ..Default::default()
+        };
         inventory_vm.replace_bulk_items_selected_map(InventoryTypeRoute::CommonItems);
 
         // Gaitem_map
@@ -390,7 +394,7 @@ impl InventoryViewModel {
             .iter()
             .enumerate()
             .for_each(|(index, gaitem)| {
-                if (gaitem.gaitem_handle & 0xF0000000) == InventoryGaitemType::AOW as u32 {
+                if (gaitem.gaitem_handle & 0xF0000000) == InventoryGaitemType::Aow as u32 {
                     inventory_vm.next_aow_index = index;
                 }
                 if (gaitem.gaitem_handle & 0xFFFF) > (inventory_vm.next_gaitem_handle) {
@@ -401,9 +405,9 @@ impl InventoryViewModel {
         inventory_vm.part_gaitem_handle =
             ((inventory_vm.gaitem_map[0].gaitem_handle >> 16) & 0xFF) as u8;
 
-        inventory_vm.next_gaitem_handle = inventory_vm.next_gaitem_handle + 1;
-        inventory_vm.next_aow_index = inventory_vm.next_aow_index + 1;
-        inventory_vm.next_armament_or_armor_index = inventory_vm.next_armament_or_armor_index + 1;
+        inventory_vm.next_gaitem_handle += 1;
+        inventory_vm.next_aow_index += 1;
+        inventory_vm.next_armament_or_armor_index += 1;
 
         inventory_vm.fill_stroage_type(
             &slot.equip_inventory_data,
@@ -438,17 +442,17 @@ impl InventoryViewModel {
             let equip_index = (index as u32) + 0x180;
 
             match inventory_gaitem_type {
-                InventoryGaitemType::WEAPON => {
+                InventoryGaitemType::Weapon => {
                     let gaitem = self
                         .gaitem_map
                         .iter()
                         .find(|gaitem| gaitem.gaitem_handle == item.ga_item_handle)
                         .unwrap();
                     let inventory_item_vm = InventoryItemViewModel::from_save(
-                        &item,
+                        item,
                         equip_index,
-                        &gaitem,
-                        InventoryGaitemType::WEAPON,
+                        gaitem,
+                        InventoryGaitemType::Weapon,
                     );
                     if inventory_item_vm.item_id == 110000 && self.unarmed.item_id != 110000 {
                         self.unarmed = inventory_item_vm.clone();
@@ -458,17 +462,17 @@ impl InventoryViewModel {
                         .push(inventory_item_vm.clone());
                     inventory_storage.filtered_weapons.push(inventory_item_vm);
                 }
-                InventoryGaitemType::ARMOR => {
+                InventoryGaitemType::Armor => {
                     let gaitem = self
                         .gaitem_map
                         .iter()
                         .find(|gaitem| gaitem.gaitem_handle == item.ga_item_handle)
                         .unwrap();
                     let inventory_item_vm = InventoryItemViewModel::from_save(
-                        &item,
+                        item,
                         equip_index,
-                        &gaitem,
-                        InventoryGaitemType::ARMOR,
+                        gaitem,
+                        InventoryGaitemType::Armor,
                     );
                     if inventory_item_vm.item_id == 10000 {
                         self.naked_head = inventory_item_vm.clone();
@@ -484,12 +488,12 @@ impl InventoryViewModel {
                         .push(inventory_item_vm.clone());
                     inventory_storage.filtered_armors.push(inventory_item_vm);
                 }
-                InventoryGaitemType::ACCESSORY => {
+                InventoryGaitemType::Accessory => {
                     let inventory_item_vm = InventoryItemViewModel::from_save(
-                        &item,
+                        item,
                         equip_index,
                         &GaItem::default(),
-                        InventoryGaitemType::ACCESSORY,
+                        InventoryGaitemType::Accessory,
                     );
                     inventory_storage
                         .common_items
@@ -498,36 +502,36 @@ impl InventoryViewModel {
                         .filtered_accessories
                         .push(inventory_item_vm);
                 }
-                InventoryGaitemType::ITEM => {
+                InventoryGaitemType::Item => {
                     let inventory_item_vm = InventoryItemViewModel::from_save(
-                        &item,
+                        item,
                         equip_index,
                         &GaItem::default(),
-                        InventoryGaitemType::ITEM,
+                        InventoryGaitemType::Item,
                     );
                     inventory_storage
                         .common_items
                         .push(inventory_item_vm.clone());
                     inventory_storage.filtered_items.push(inventory_item_vm);
                 }
-                InventoryGaitemType::AOW => {
+                InventoryGaitemType::Aow => {
                     let gaitem = self
                         .gaitem_map
                         .iter()
                         .find(|gaitem| gaitem.gaitem_handle == item.ga_item_handle)
                         .unwrap();
                     let inventory_item_vm = InventoryItemViewModel::from_save(
-                        &item,
+                        item,
                         equip_index,
-                        &gaitem,
-                        InventoryGaitemType::AOW,
+                        gaitem,
+                        InventoryGaitemType::Aow,
                     );
                     inventory_storage
                         .common_items
                         .push(inventory_item_vm.clone());
                     inventory_storage.filtered_aows.push(inventory_item_vm);
                 }
-                InventoryGaitemType::EMPTY => {
+                InventoryGaitemType::Empty => {
                     inventory_storage
                         .common_items
                         .push(InventoryItemViewModel::default());
@@ -540,7 +544,7 @@ impl InventoryViewModel {
                 key_item,
                 0,
                 &GaItem::default(),
-                InventoryGaitemType::ITEM,
+                InventoryGaitemType::Item,
             );
             inventory_storage.key_items.push(inventory_item_vm);
         }
@@ -577,7 +581,7 @@ impl InventoryViewModel {
                 .common_items
                 .iter()
                 .filter(|i| {
-                    if i.r#type != InventoryGaitemType::WEAPON {
+                    if i.r#type != InventoryGaitemType::Weapon {
                         return false;
                     }
                     if self.filter_text.is_empty() {
@@ -594,7 +598,7 @@ impl InventoryViewModel {
                 .common_items
                 .iter()
                 .filter(|i| {
-                    if i.r#type != InventoryGaitemType::ARMOR {
+                    if i.r#type != InventoryGaitemType::Armor {
                         return false;
                     }
                     if self.filter_text.is_empty() {
@@ -611,7 +615,7 @@ impl InventoryViewModel {
                 .common_items
                 .iter()
                 .filter(|i| {
-                    if i.r#type != InventoryGaitemType::ACCESSORY {
+                    if i.r#type != InventoryGaitemType::Accessory {
                         return false;
                     }
                     if self.filter_text.is_empty() {
@@ -628,7 +632,7 @@ impl InventoryViewModel {
                 .common_items
                 .iter()
                 .filter(|i| {
-                    if i.r#type != InventoryGaitemType::ITEM {
+                    if i.r#type != InventoryGaitemType::Item {
                         return false;
                     }
                     if self.filter_text.is_empty() {
@@ -662,7 +666,7 @@ impl InventoryViewModel {
                 .common_items
                 .iter()
                 .filter(|i| {
-                    if i.r#type != InventoryGaitemType::AOW {
+                    if i.r#type != InventoryGaitemType::Aow {
                         return false;
                     }
                     if self.filter_text.is_empty() {
@@ -816,8 +820,7 @@ impl InventoryViewModel {
                         Regulation::equip_weapon_params_map()
                             .get(&((g.item_id / 100) * 100))
                             .is_some_and(|g| g.data.leftHandEquipable())
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::WeaponRight => {
@@ -829,8 +832,7 @@ impl InventoryViewModel {
                         Regulation::equip_weapon_params_map()
                             .get(&((g.item_id / 100) * 100))
                             .is_some_and(|g| g.data.rightHandEquipable())
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Head => {
@@ -842,8 +844,7 @@ impl InventoryViewModel {
                         Regulation::equip_protectors_param_map()
                             .get(&g.item_id)
                             .is_some_and(|g| g.data.equipModelCategory == 5)
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Body => {
@@ -855,8 +856,7 @@ impl InventoryViewModel {
                         Regulation::equip_protectors_param_map()
                             .get(&g.item_id)
                             .is_some_and(|g| g.data.equipModelCategory == 2)
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Arms => {
@@ -868,8 +868,7 @@ impl InventoryViewModel {
                         Regulation::equip_protectors_param_map()
                             .get(&g.item_id)
                             .is_some_and(|g| g.data.equipModelCategory == 1)
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Legs => {
@@ -881,8 +880,7 @@ impl InventoryViewModel {
                         Regulation::equip_protectors_param_map()
                             .get(&g.item_id)
                             .is_some_and(|g| g.data.equipModelCategory == 6)
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Arrow => {
@@ -897,8 +895,7 @@ impl InventoryViewModel {
                                 WepType::from(g.data.wepType) == WepType::Arrow
                                     || WepType::from(g.data.wepType) == WepType::Greatarrow
                             })
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Bolt => {
@@ -913,8 +910,7 @@ impl InventoryViewModel {
                                 WepType::from(g.data.wepType) == WepType::Bolt
                                     || WepType::from(g.data.wepType) == WepType::BallistaBolt
                             })
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
             InventorySubTypeRoute::Talisman => {
@@ -931,8 +927,7 @@ impl InventoryViewModel {
                             .is_some_and(|g| {
                                 GoodsType::from(g.data.goodsType) == GoodsType::NormalItem
                             })
-                    })
-                    .map(|i| i.clone())
+                    }).cloned()
                     .collect();
             }
         }

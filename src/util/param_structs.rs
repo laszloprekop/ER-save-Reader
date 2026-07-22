@@ -1,3 +1,8 @@
+// Each `Default` spells out that param's documented defaults from regulation.bin
+// (`dummyPoly1: -1`, `angle: 180`, …). Some rows happen to be all-zero; deriving
+// those would hide that the values are transcribed, not chosen.
+#![allow(clippy::derivable_impls)]
+
 #[repr(C, packed)]
 #[derive(Clone)]
 #[allow(unused,non_snake_case, non_camel_case_types)]

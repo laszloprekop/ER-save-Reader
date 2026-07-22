@@ -9,6 +9,12 @@ pub mod general_view_model {
         pub index_id: u8,
     }
 
+    impl std::fmt::Display for MapID {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "m{:02}_{:02}_{:02}_{:02}", self.area_id, self.block_id, self.region_id, self.index_id)
+        }
+    }
+
     impl MapID {
         pub fn from_bytes(bytes: &[u8; 4]) -> Self {
             Self {
@@ -17,10 +23,6 @@ pub mod general_view_model {
                 region_id: bytes[2],
                 index_id: bytes[3],
             }
-        }
-
-        pub fn to_string(&self) -> String {
-            format!("m{:02}_{:02}_{:02}_{:02}", self.area_id, self.block_id, self.region_id, self.index_id)
         }
 
         pub fn display_name(&self) -> &'static str {

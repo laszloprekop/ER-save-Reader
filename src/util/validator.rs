@@ -28,7 +28,6 @@ pub mod validator {
             // Map weapons
             let ga_item_weapons = &slot.ga_items.iter()
             .filter(|gaitem| gaitem.gaitem_handle.to_le_bytes()[3] == 0)
-            .map(|g| g)
             .collect::<Vec<&GaItem>>();
 
             // Map gems
@@ -96,10 +95,10 @@ pub mod validator {
             if !Self::validate_armor_piece(arms_protector_id, ProtectorCategory::Arms) {return false;}
             if !Self::validate_armor_piece(legs_protector_id, ProtectorCategory::Legs) {return false;}
 
-            let head_protector_id = save.save_type.get_slot(index).equipped_items.head ^ InventoryItemType::ARMOR as u32;
-            let body_protector_id = save.save_type.get_slot(index).equipped_items.chest ^ InventoryItemType::ARMOR as u32;
-            let arms_protector_id = save.save_type.get_slot(index).equipped_items.arms ^ InventoryItemType::ARMOR as u32;
-            let legs_protector_id = save.save_type.get_slot(index).equipped_items.legs ^ InventoryItemType::ARMOR as u32;
+            let head_protector_id = save.save_type.get_slot(index).equipped_items.head ^ InventoryItemType::Armor as u32;
+            let body_protector_id = save.save_type.get_slot(index).equipped_items.chest ^ InventoryItemType::Armor as u32;
+            let arms_protector_id = save.save_type.get_slot(index).equipped_items.arms ^ InventoryItemType::Armor as u32;
+            let legs_protector_id = save.save_type.get_slot(index).equipped_items.legs ^ InventoryItemType::Armor as u32;
 
             if !Self::validate_armor_piece(head_protector_id, ProtectorCategory::Head) {return false;}
             if !Self::validate_armor_piece(body_protector_id, ProtectorCategory::Body) {return false;}
@@ -118,13 +117,13 @@ pub mod validator {
 
             // Check if physic slot 1 is of type wondrous physics
             if physics_slot1 != u32::MAX {
-                let res_physics1_good = Regulation::equip_goods_param_map().get(&(physics_slot1 ^ InventoryGaitemType::ITEM as u32));
+                let res_physics1_good = Regulation::equip_goods_param_map().get(&(physics_slot1 ^ InventoryGaitemType::Item as u32));
                 if res_physics1_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) { return false; }
             }
             
             // Check if physic slot 2 is of type wondrous physics
             if physics_slot2 != u32::MAX {
-                let res_physics2_good = Regulation::equip_goods_param_map().get(&(physics_slot2 ^ InventoryGaitemType::ITEM as u32));
+                let res_physics2_good = Regulation::equip_goods_param_map().get(&(physics_slot2 ^ InventoryGaitemType::Item as u32));
                 if res_physics2_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) { return false; }
             }
 
@@ -139,7 +138,7 @@ pub mod validator {
             let mut item_ids = HashSet::new();
             for item in quick_slot_items.iter() {
                 if item.item_id == 0 { continue; }
-                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() { println!("Item {} not found", item.item_id); return false; }
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::Item as u32)).is_none() { println!("Item {} not found", item.item_id); return false; }
                 if let Some(_existing_id) = item_ids.get(&item.item_id) {
                     println!("Duplicate item found: {}", _existing_id);
                     return false;
@@ -152,7 +151,7 @@ pub mod validator {
             let mut item_ids = HashSet::new();
             for item in pouch_items.iter() {
                 if item.item_id == 0 { continue; }
-                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() { println!("Item {} not found", item.item_id); return false; }
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::Item as u32)).is_none() { println!("Item {} not found", item.item_id); return false; }
                 if let Some(_existing_id) = item_ids.get(&item.item_id) {
                     println!("Duplicate item found: {}", _existing_id);
                     return false;
@@ -223,7 +222,7 @@ pub mod validator {
         }
 
         // Check if inventory_common_items only has EquipInventoryItem with unique ids
-        fn check_for_duplicate_items(item_list: &Vec<EquipInventoryItem>) -> bool {
+        fn check_for_duplicate_items(item_list: &[EquipInventoryItem]) -> bool {
             let mut item_ids = HashSet::new();
 
             for item in item_list.iter().filter(|i| i.ga_item_handle.to_le_bytes()[3] == 0xB0) {
@@ -329,7 +328,7 @@ pub mod validator {
             inv_valid && storage_valid
         }
 
-        fn check_for_duplicate_items_detailed(item_list: &Vec<EquipInventoryItem>, slot: usize, location: &str, report: &mut ValidationReport) -> bool {
+        fn check_for_duplicate_items_detailed(item_list: &[EquipInventoryItem], slot: usize, location: &str, report: &mut ValidationReport) -> bool {
             let mut item_ids = HashSet::new();
             let mut valid = true;
 
@@ -412,7 +411,7 @@ pub mod validator {
             }
 
             if physics_slot1 != u32::MAX {
-                let res_physics1_good = Regulation::equip_goods_param_map().get(&(physics_slot1 ^ InventoryGaitemType::ITEM as u32));
+                let res_physics1_good = Regulation::equip_goods_param_map().get(&(physics_slot1 ^ InventoryGaitemType::Item as u32));
                 if res_physics1_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) {
                     report.add_error(ValidationIssue::error(
                         "Physics Flask",
@@ -425,7 +424,7 @@ pub mod validator {
             }
 
             if physics_slot2 != u32::MAX {
-                let res_physics2_good = Regulation::equip_goods_param_map().get(&(physics_slot2 ^ InventoryGaitemType::ITEM as u32));
+                let res_physics2_good = Regulation::equip_goods_param_map().get(&(physics_slot2 ^ InventoryGaitemType::Item as u32));
                 if res_physics2_good.is_some_and(|p| GoodsType::from(p.data.goodsType) != GoodsType::WonderousPhysicsTears) {
                     report.add_error(ValidationIssue::error(
                         "Physics Flask",
@@ -450,7 +449,7 @@ pub mod validator {
             let mut item_ids = HashSet::new();
             for item in quick_slot_items.iter() {
                 if item.item_id == 0 { continue; }
-                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() {
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::Item as u32)).is_none() {
                     report.add_error(ValidationIssue::error(
                         "Quick Slots",
                         index,
@@ -476,7 +475,7 @@ pub mod validator {
             let mut item_ids = HashSet::new();
             for item in pouch_items.iter() {
                 if item.item_id == 0 { continue; }
-                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::ITEM as u32)).is_none() {
+                if Regulation::equip_goods_param_map().get(&(item.item_id ^ InventoryGaitemType::Item as u32)).is_none() {
                     report.add_error(ValidationIssue::error(
                         "Pouch",
                         index,

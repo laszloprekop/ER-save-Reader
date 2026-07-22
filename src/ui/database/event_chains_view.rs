@@ -114,11 +114,10 @@ pub fn event_chains_view(ui: &mut Ui, state: &mut EventChainsViewState, detail_p
             }
 
             // NPC filter
-            if state.npc_filter != "All" {
-                if chain.npc_name != Some(state.npc_filter.as_str()) {
+            if state.npc_filter != "All"
+                && chain.npc_name != Some(state.npc_filter.as_str()) {
                     return None;
                 }
-            }
 
             // Search filter
             if !state.search.is_empty() {

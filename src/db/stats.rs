@@ -1,3 +1,6 @@
+// Literals mirror the game's own stat curves; the trailing digits past f32
+// precision are transcribed from the source tables, not chosen here.
+#[allow(clippy::excessive_precision)]
 pub mod stats {
 
     pub const HP: [f32; 793] = [

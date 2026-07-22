@@ -5,6 +5,9 @@ pub mod params {
     use crate::util::br_ext::br_ext::BinaryReaderExtensions as br_ext;
 
     #[allow(non_camel_case_types)]
+    // Variants are the game's own param file names, verbatim. The shared
+    // `…Param` suffix is regulation.bin's naming, not ours to trim.
+    #[allow(clippy::enum_variant_names)]
     #[derive(Clone, PartialEq, Hash, Eq)]
     pub enum Param {
         ActionButtonParam,
@@ -500,6 +503,8 @@ pub mod params {
         }
     }
 
+    // `PARAM` is the on-disk container's own name; `Param` is taken by the enum above.
+    #[allow(clippy::upper_case_acronyms)]
     #[derive(Clone)]
     pub struct PARAM<T> where T: Default + Clone{
         pub big_endian: bool,

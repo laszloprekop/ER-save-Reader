@@ -1,4 +1,7 @@
 #[allow(dead_code)]
+// Header reads default the struct then assign in on-disk field order; the
+// sequence is the layout.
+#[allow(clippy::field_reassign_with_default)]
 pub mod bnd4 {
     use std::io::Error;
     use binary_reader::{BinaryReader, Endian};
@@ -351,13 +354,14 @@ pub mod bnd4 {
             assert_eq!(br.read_i64()?, 0x40);
             
             let bytes = br.read_bytes(8)?;
-            let mut terminator = 0;
-            for i in 0..8 {
-                if bytes[i] == 0 {
-                    break
-                }
-                terminator = i;
-            }
+            // Index of the last non-NUL byte (0 if the field opens with NUL, 7 if it
+            // has none). NB: the slice below is `[0..terminator]`, so the final
+            // character is dropped. Preserved verbatim — changing it changes what
+            // every BND4 header decodes to.
+            let terminator = bytes
+                .iter()
+                .position(|&b| b == 0)
+                .map_or(7, |p| p.saturating_sub(1));
             let (res, _enc, errors) = SHIFT_JIS.decode(&bytes[0..terminator]);
             if errors {
                 eprintln!("Failed");

@@ -3,6 +3,7 @@ pub mod books {
     use once_cell::sync::Lazy;
     
     #[derive(PartialEq, Eq, Hash, Clone, Copy, PartialOrd, Ord)]
+    #[allow(clippy::enum_variant_names)] // variants are the in-game item names
     pub enum Cookbook {
         // Missionary's Cookbook
         MissionarysCookbook1,

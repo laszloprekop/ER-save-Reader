@@ -161,7 +161,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
     state.search = state.filter_state.search.clone();
 
     // Build region options
-    let region_options: Vec<_> = BOSS_REGIONS.iter().map(|s| *s).collect();
+    let region_options: Vec<_> = BOSS_REGIONS.to_vec();
 
     // Filter bar
     FilterBar::new("bosses_filter", &mut state.filter_state)
@@ -204,12 +204,11 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
             }
 
             // Search filter
-            if !state.search.is_empty() {
-                if !fuzzy_match_default(boss.name, &state.search)
+            if !state.search.is_empty()
+                && !fuzzy_match_default(boss.name, &state.search)
                     && !fuzzy_match_default(boss.region, &state.search) {
                     return None;
                 }
-            }
 
             let defeated = is_boss_defeated(*flag, event_flags);
             Some((*flag, boss, defeated))

@@ -10,35 +10,35 @@ impl InventoryViewModel {
             InventoryTypeRoute::KeyItems |
             InventoryTypeRoute::CommonItems => {
                 self.bulk_items_selected.clear();
-                for (_, items) in items() {
+                for items in items().values() {
                     let item_group_map =  items.iter().map(|item| (*item, false)).collect::<HashMap<u32, bool>>();
                     self.bulk_items_selected.push(item_group_map);
                 }
             },
             InventoryTypeRoute::Weapons => {
                 self.bulk_items_selected.clear();
-                for (_, weapons) in weapons() {
+                for weapons in weapons().values() {
                     let weapon_group_map =  weapons.iter().map(|weapon| (*weapon, false)).collect::<HashMap<u32, bool>>();
                     self.bulk_items_selected.push(weapon_group_map);
                 }
             },
             InventoryTypeRoute::Armors => {
                 self.bulk_items_selected.clear();
-                for (_, armor_sets) in armor_sets() {
+                for armor_sets in armor_sets().values() {
                     let armor_set_map =  armor_sets.iter().map(|weapon| (*weapon, false)).collect::<HashMap<u32, bool>>();
                     self.bulk_items_selected.push(armor_set_map);
                 }
             },
             InventoryTypeRoute::AshOfWar => {
                 self.bulk_items_selected.clear();
-                for (_, aows) in aows() {
+                for aows in aows().values() {
                     let aow_map =  aows.iter().map(|aow| (*aow, false)).collect::<HashMap<u32, bool>>();
                     self.bulk_items_selected.push(aow_map);
                 }
             },
             InventoryTypeRoute::Talismans => {
                 self.bulk_items_selected.clear();
-                for (_, talismans) in talismans() {
+                for talismans in talismans().values() {
                     let talisman_map =  talismans.iter().map(|weapon| (*weapon, false)).collect::<HashMap<u32, bool>>();
                     self.bulk_items_selected.push(talisman_map);
                 }
@@ -58,23 +58,23 @@ impl InventoryViewModel {
                 for (index, _) in db::items::items().iter().enumerate() {
                     for (item_id, selected) in self.bulk_items_selected[index].iter_mut() {
                         if *selected {
-                            let item_param = Regulation::equip_goods_param_map().get(&(item_id^InventoryItemType::ITEM as u32)).unwrap();
+                            let item_param = Regulation::equip_goods_param_map().get(&(item_id^InventoryItemType::Item as u32)).unwrap();
 
                             let goods_type = GoodsType::from(item_param.data.goodsType);
                             let quantity = Some({
                                 if self.bulk_items_max_quantity  {
-                                    (item_param.data.maxRepositoryNum) as i16
+                                    item_param.data.maxRepositoryNum 
                                 }
                                 else {
-                                    1 as i16
+                                    1_i16
                                 }
                             });
 
                             items.push(RegulationItemViewModel {
                                 id: item_param.id,
-                                quantity: quantity,
+                                quantity,
                                 is_key_item: goods_type == GoodsType::KeyItem,
-                                item_type: InventoryItemType::ITEM,
+                                item_type: InventoryItemType::Item,
                                 max_held: item_param.data.maxNum,
                                 max_storage: item_param.data.maxRepositoryNum,
                                 name: item_param.name.to_string(),
@@ -90,7 +90,7 @@ impl InventoryViewModel {
                 for (index, _) in weapons().iter().enumerate() {
                     for (weapon_id, selected) in self.bulk_items_selected[index].iter_mut() {
                         if *selected {
-                            let weapon_param = Regulation::equip_weapon_params_map().get(&weapon_id).unwrap();
+                            let weapon_param = Regulation::equip_weapon_params_map().get(weapon_id).unwrap();
 
                             let wep_type = WepType::from(weapon_param.data.wepType);
                             let is_projectile = wep_type == WepType::Arrow || wep_type == WepType::Greatarrow || wep_type == WepType::Bolt || wep_type == WepType::BallistaBolt;
@@ -116,8 +116,8 @@ impl InventoryViewModel {
 
                             items.push(RegulationItemViewModel {
                                 id: weapon_param.id,
-                                quantity: quantity,
-                                item_type: InventoryItemType::WEAPON,
+                                quantity,
+                                item_type: InventoryItemType::Weapon,
                                 upgrade: upgrade_level,
                                 ..Default::default()
                             });
@@ -136,7 +136,7 @@ impl InventoryViewModel {
                             items.push(RegulationItemViewModel {
                                 id: armor_param.id,
                                 name: armor_param.name.to_string(),
-                                item_type: InventoryItemType::ARMOR,
+                                item_type: InventoryItemType::Armor,
                                 ..Default::default()
                             });
                         }
@@ -154,7 +154,7 @@ impl InventoryViewModel {
                             items.push(RegulationItemViewModel {
                                 id: aow_param.id,
                                 name: aow_param.name.to_string(),
-                                item_type: InventoryItemType::AOW,
+                                item_type: InventoryItemType::Aow,
                                 ..Default::default()
                             });
                         }
@@ -172,7 +172,7 @@ impl InventoryViewModel {
                             items.push(RegulationItemViewModel {
                                 id: talisman_param.id,
                                 name: talisman_param.name.to_string(),
-                                item_type: InventoryItemType::ACCESSORY,
+                                item_type: InventoryItemType::Accessory,
                                 ..Default::default()
                             });
                         }

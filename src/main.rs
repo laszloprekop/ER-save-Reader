@@ -365,7 +365,7 @@ impl App {
     fn export_file_dialog(character_name: &str, last_dir: Option<&PathBuf>) -> Option<PathBuf> {
         let mut dialog = FileDialog::new()
             .add_filter("JSON", &["json"])
-            .set_file_name(&format!("{}.json", character_name));
+            .set_file_name(format!("{}.json", character_name));
         if let Some(dir) = last_dir {
             dialog = dialog.set_directory(dir);
         }
@@ -377,34 +377,31 @@ impl App {
         let character_name = self.vm.slots[slot_index].general_vm.character_name.trim_matches('\0');
         let path = Self::export_file_dialog(character_name, self.last_directory.as_ref());
 
-        match path {
-            Some(path) => {
-                let steam_id: u64 = self.vm.steam_id.parse().unwrap_or(0);
-                let event_flags = self.save.save_type.get_event_flags(slot_index);
-                let mut export_data = self.vm.slots[slot_index].to_export_data(slot_index, steam_id, event_flags);
+        if let Some(path) = path {
+            let steam_id: u64 = self.vm.steam_id.parse().unwrap_or(0);
+            let event_flags = self.save.save_type.get_event_flags(slot_index);
+            let mut export_data = self.vm.slots[slot_index].to_export_data(slot_index, steam_id, event_flags);
 
-                // Load verification records if not already loaded for this slot
-                if !self.verification_loaded_slots[slot_index] {
-                    self.load_verification_records_for_slot();
-                }
+            // Load verification records if not already loaded for this slot
+            if !self.verification_loaded_slots[slot_index] {
+                self.load_verification_records_for_slot();
+            }
 
-                // Add verification data to export from slot's events_vm
-                export_data.verification = vm::slot::slot_view_model::SlotViewModel::build_verification_export(
-                    &self.vm.slots[slot_index].events_vm.verification_vm
-                );
+            // Add verification data to export from slot's events_vm
+            export_data.verification = vm::slot::slot_view_model::SlotViewModel::build_verification_export(
+                &self.vm.slots[slot_index].events_vm.verification_vm
+            );
 
-                match serde_json::to_string_pretty(&export_data) {
-                    Ok(json) => {
-                        if let Err(_) = std::fs::write(&path, json) {
-                            // Handle write error silently for now
-                        }
-                    },
-                    Err(_) => {
-                        // Handle serialization error silently for now
+            match serde_json::to_string_pretty(&export_data) {
+                Ok(json) => {
+                    if std::fs::write(&path, json).is_err() {
+                        // Handle write error silently for now
                     }
+                },
+                Err(_) => {
+                    // Handle serialization error silently for now
                 }
-            },
-            None => {},
+            }
         }
     }
 

@@ -15,7 +15,7 @@ pub mod spells_view {
     }
 
     impl SpellFilter {
-        fn to_filter_value(&self) -> &'static str {
+        fn filter_value(&self) -> &'static str {
             match self {
                 SpellFilter::All => "All",
                 SpellFilter::Sorceries => "Sorceries",
@@ -102,11 +102,10 @@ pub mod spells_view {
                 }
 
                 // Search filter
-                if !state.search.is_empty() {
-                    if !fuzzy_match_default(&spell.name, &state.search) {
+                if !state.search.is_empty()
+                    && !fuzzy_match_default(spell.name, &state.search) {
                         return false;
                     }
-                }
 
                 true
             })
@@ -118,7 +117,7 @@ pub mod spells_view {
             let asc = state.table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
                 "id" => spells.sort_by(|a, b| if asc { a.0.cmp(&b.0) } else { b.0.cmp(&a.0) }),
-                "name" => spells.sort_by(|a, b| if asc { a.1.name.cmp(&b.1.name) } else { b.1.name.cmp(&a.1.name) }),
+                "name" => spells.sort_by(|a, b| if asc { a.1.name.cmp(b.1.name) } else { b.1.name.cmp(a.1.name) }),
                 "type" => spells.sort_by(|a, b| {
                     let ta = format!("{:?}", a.1.spell_type);
                     let tb = format!("{:?}", b.1.spell_type);

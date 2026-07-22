@@ -3,7 +3,7 @@ members = [".", "crates/wasm-event-flags"]
 
 [package]
 name = "er-save-reader"
-version = "0.37.0"
+version = "0.37.1"
 edition = "2021"
 
 [features]
@@ -15,6 +15,11 @@ default = []
 # lives behind this flag so it stays in the tree, resurrectable, but out of the
 # default build. Keep it compiling: `cargo check --features save-writeback`.
 save-writeback = []
+
+[lints.clippy]
+# `foo.rs` containing `pub mod foo { … }` is the layout used throughout this
+# crate. Unwinding it would touch every `use` path for no behavioural gain.
+module_inception = "allow"
 
 [dependencies]
 wasm-event-flags = { path = "crates/wasm-event-flags" }

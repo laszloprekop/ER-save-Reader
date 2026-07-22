@@ -217,6 +217,18 @@ Play happened unobserved at a boundary, so a flip spanning one is not a transiti
 > NOT stand is treating it as the explanation for the monotonicity failure. See
 > `docs/BACKLOG.md` step 3 for what the remaining cause is believed to be.
 
+**Flagless Pickup**:
+A pickup whose `ItemLotParam_map` row has **`getItemFlagId = 0`** — the game records
+nothing when it is taken, which is what lets gathering points respawn
+(`AssetEnvironmentGeometryParam.isEnableRepick = 1`). A before/after capture of one can
+never become an attributed pair, however clean the captures are: there is no bit to find.
+**Check `getItemFlagId` before capturing a pair, not after.** Established 2026-07-22 on
+the Confessor c06-c08 Golden Centipede captures (goods 20820 → lot 998200, flag 0), which
+had been carried in `docs/BACKLOG.md` as a "data gap" until the null result was paired
+with a positive control on c05-c06 and c09-c10 — same character, same map, same
+instrument — to show the absence was measured rather than missed. Distinct from a
+*Tombstone* (a disproven claim); this is a claim that can never be made.
+
 **Reward Corroboration**:
 Verification method: a boss-specific unique item (remembrance, boss soul, unique key
 item/weapon) appearing in the parsed inventory in the same capture window as a flag

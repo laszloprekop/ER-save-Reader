@@ -38,6 +38,7 @@ pub mod vm {
     };
 
     #[derive(Clone)]
+    #[derive(Default)]
     pub struct ViewModel {
         pub active: Option<bool>,
         pub index: usize,
@@ -47,18 +48,7 @@ pub mod vm {
         pub regulation: RegulationViewModel,
     }
 
-    impl Default for ViewModel {
-        fn default() -> Self {
-            Self {
-                active: Default::default(),
-                index: Default::default(),
-                steam_id: Default::default(),
-                slots: Default::default(),
-                profile_summary: Default::default(),
-                regulation: Default::default(),
-            }
-        }
-    }
+    
 
     impl ViewModel {
         pub fn from_save(save: &Save) -> Self {
@@ -85,7 +75,7 @@ pub mod vm {
                     vm.profile_summary[index] = ProfileSummaryViewModel::from_save(
                         &save.save_type.get_profile_summary(index),
                     );
-                    vm.slots[index] = SlotViewModel::from_save(&save.save_type.get_slot(index));
+                    vm.slots[index] = SlotViewModel::from_save(save.save_type.get_slot(index));
                 }
             }
 
@@ -209,7 +199,7 @@ pub mod vm {
                 let storage_weapon_res = Regulation::equip_weapon_params_map()
                     .get(&((&storage_item.item_id / 100) * 100));
                 // Check held inventory item
-                if held_item.r#type == InventoryGaitemType::WEAPON {
+                if held_item.r#type == InventoryGaitemType::Weapon {
                     match held_weapon_res {
                         Some(weapon_param) => {
                             // Check if weapon is somber
@@ -243,7 +233,7 @@ pub mod vm {
                 }
 
                 // Check storage box item
-                if storage_item.r#type == InventoryGaitemType::WEAPON {
+                if storage_item.r#type == InventoryGaitemType::Weapon {
                     match storage_weapon_res {
                         Some(weapon_param) => {
                             // Check if weapon is somber
@@ -383,8 +373,8 @@ pub mod vm {
             for (index, quickitem) in equipment_vm.quickitems.iter().enumerate() {
                 if quickitem.id != 0 {
                     quickslots[index] = (
-                        quickitem.id | InventoryGaitemType::ITEM as u32,
-                        quickitem.id | InventoryItemType::ITEM as u32,
+                        quickitem.id | InventoryGaitemType::Item as u32,
+                        quickitem.id | InventoryItemType::Item as u32,
                         quickitem.equip_index,
                     )
                 }
@@ -403,8 +393,8 @@ pub mod vm {
             for (index, pouch) in equipment_vm.pouch.iter().enumerate() {
                 if pouch.id != 0 {
                     pouch_items[index] = (
-                        pouch.id | InventoryGaitemType::ITEM as u32,
-                        pouch.id | InventoryItemType::ITEM as u32,
+                        pouch.id | InventoryGaitemType::Item as u32,
+                        pouch.id | InventoryItemType::Item as u32,
                         pouch.equip_index,
                     )
                 }

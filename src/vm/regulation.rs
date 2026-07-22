@@ -149,34 +149,34 @@ pub mod regulation_view_model {
             *self as i16
         }
     }
-    impl ToString for Affinity {
-        fn to_string(&self) -> String {
-            match self {
-                Affinity::Standard => "Standard".to_string(),
-                Affinity::Heavy => "Heavy".to_string(),
-                Affinity::Keen => "Keen".to_string(),
-                Affinity::Quality => "Quality".to_string(),
-                Affinity::Fire => "Fire".to_string(),
-                Affinity::FlameArt => "FlameArt".to_string(),
-                Affinity::Lightning => "Lightning".to_string(),
-                Affinity::Sacred => "Sacred".to_string(),
-                Affinity::Magic => "Magic".to_string(),
-                Affinity::Cold => "Cold".to_string(),
-                Affinity::Poison => "Poison".to_string(),
-                Affinity::Blood => "Blood".to_string(),
-                Affinity::Occult => "Occult".to_string(),
-                Affinity::Unused13 => "Unused13".to_string(),
-                Affinity::Unused14 => "Unused14".to_string(),
-                Affinity::Unused15 => "Unused15".to_string(),
-                Affinity::Unused16 => "Unused16".to_string(),
-                Affinity::Unused17 => "Unused17".to_string(),
-                Affinity::Unused18 => "Unused18".to_string(),
-                Affinity::Unused19 => "Unused19".to_string(),
-                Affinity::Unused20 => "Unused20".to_string(),
-                Affinity::Unused21 => "Unused21".to_string(),
-                Affinity::Unused22 => "Unused22".to_string(),
-                Affinity::Unused23 => "Unused23".to_string(),
-            }
+    impl std::fmt::Display for Affinity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            f.write_str(match self {
+                Affinity::Standard => "Standard",
+                Affinity::Heavy => "Heavy",
+                Affinity::Keen => "Keen",
+                Affinity::Quality => "Quality",
+                Affinity::Fire => "Fire",
+                Affinity::FlameArt => "FlameArt",
+                Affinity::Lightning => "Lightning",
+                Affinity::Sacred => "Sacred",
+                Affinity::Magic => "Magic",
+                Affinity::Cold => "Cold",
+                Affinity::Poison => "Poison",
+                Affinity::Blood => "Blood",
+                Affinity::Occult => "Occult",
+                Affinity::Unused13 => "Unused13",
+                Affinity::Unused14 => "Unused14",
+                Affinity::Unused15 => "Unused15",
+                Affinity::Unused16 => "Unused16",
+                Affinity::Unused17 => "Unused17",
+                Affinity::Unused18 => "Unused18",
+                Affinity::Unused19 => "Unused19",
+                Affinity::Unused20 => "Unused20",
+                Affinity::Unused21 => "Unused21",
+                Affinity::Unused22 => "Unused22",
+                Affinity::Unused23 => "Unused23",
+            })
         }
     }
 
@@ -401,12 +401,11 @@ pub mod regulation_view_model {
         pub fn update_available_affinities(&mut self) {
             self.available_affinities.clear();
             self.selected_affinity = 0;
-            if self.available_infusions.len() == 0 {
+            if self.available_infusions.is_empty() {
                 return;
             }
             let res = Regulation::equip_gem_param_map().get(&self.available_infusions[self.selected_infusion].id);
-            if res.is_some() {
-                let gem = res.unwrap();
+            if let Some(gem) = res {
                 if gem.data.configurableWepAttr00() {self.available_affinities.push(Affinity::Standard);}
                 if gem.data.configurableWepAttr01() {self.available_affinities.push(Affinity::Heavy);}
                 if gem.data.configurableWepAttr02() {self.available_affinities.push(Affinity::Keen);}
@@ -458,7 +457,7 @@ pub mod regulation_view_model {
                         wep_type: None,
                         quantity: Some(good.data.maxRepositoryNum),
                         is_key_item: GoodsType::from(good.data.goodsType) == GoodsType::KeyItem,
-                        item_type: InventoryItemType::ITEM,
+                        item_type: InventoryItemType::Item,
                         ..Default::default()
                     }).filter(|reg_item_vm|{
                         if filter_text.is_empty() { return true; }
@@ -480,19 +479,17 @@ pub mod regulation_view_model {
                         let distance_b = sorensen_dice(&b.name.to_lowercase(), &filter_text.to_lowercase());
                         if distance_a < distance_b { return Ordering::Greater; }
                         else if distance_a > distance_b { return Ordering::Less; }
-                        return Ordering::Equal;
+                        Ordering::Equal
                     })
                 },
                 InventoryTypeRoute::Weapons => {
-                    self.filtered_weapons = Regulation::equip_weapon_params_map()
-                    .iter()
-                    .map(|(_,weapon)| RegulationItemViewModel{
+                    self.filtered_weapons = Regulation::equip_weapon_params_map().values().map(|weapon| RegulationItemViewModel{
                         id: weapon.id,
                         name: weapon.name.to_string(),
                         max_held: 1,
                         max_storage: 1,
                         infusable: weapon.data.gemMountType == 2,
-                        item_type: InventoryItemType::WEAPON,
+                        item_type: InventoryItemType::Weapon,
                         upgrade: Some(0),
                         wep_type: Some(WepType::from(weapon.data.wepType)),
                         quantity: if WepType::from(weapon.data.wepType) == WepType::Arrow 
@@ -518,18 +515,16 @@ pub mod regulation_view_model {
                         let distance_b = sorensen_dice(&b.name.to_lowercase(), &filter_text.to_lowercase());
                         if distance_a < distance_b { return Ordering::Greater; }
                         else if distance_a > distance_b { return Ordering::Less; }
-                        return Ordering::Equal;
+                        Ordering::Equal
                     })
                 },
                 InventoryTypeRoute::Armors => {
-                    self.filtered_protectors = Regulation::equip_protectors_param_map()
-                    .iter()
-                    .map(|(_, protector)| RegulationItemViewModel{
+                    self.filtered_protectors = Regulation::equip_protectors_param_map().values().map(|protector| RegulationItemViewModel{
                         id: protector.id,
                         name: protector.name.to_string(),
                         max_held: 1,
                         max_storage: 1,
-                        item_type: InventoryItemType::ARMOR,
+                        item_type: InventoryItemType::Armor,
                         ..Default::default()
                     }).filter(|reg_item_vm|{
                         if filter_text.is_empty() { return true; }
@@ -547,18 +542,16 @@ pub mod regulation_view_model {
                         let distance_b = sorensen_dice(&b.name.to_lowercase(), &filter_text.to_lowercase());
                         if distance_a < distance_b { return Ordering::Greater; }
                         else if distance_a > distance_b { return Ordering::Less; }
-                        return Ordering::Equal;
+                        Ordering::Equal
                     })
                 },
                 InventoryTypeRoute::AshOfWar => {
-                    self.filtered_gems = Regulation::equip_gem_param_map()
-                    .iter()
-                    .map(|(_, gem)| RegulationItemViewModel{
+                    self.filtered_gems = Regulation::equip_gem_param_map().values().map(|gem| RegulationItemViewModel{
                         id: gem.id,
                         name: gem.name.to_string(),
                         max_held: 1,
                         max_storage: 1,
-                        item_type: InventoryItemType::AOW,
+                        item_type: InventoryItemType::Aow,
                         ..Default::default()
                     }).filter(|reg_item_vm|{
                         if filter_text.is_empty() { return true; }
@@ -576,18 +569,16 @@ pub mod regulation_view_model {
                         let distance_b = sorensen_dice(&b.name.to_lowercase(), &filter_text.to_lowercase());
                         if distance_a < distance_b { return Ordering::Greater; }
                         else if distance_a > distance_b { return Ordering::Less; }
-                        return Ordering::Equal;
+                        Ordering::Equal
                     })
                 },
                 InventoryTypeRoute::Talismans => {
-                    self.filtered_accessories = Regulation::equip_accessory_param_map()
-                    .iter()
-                    .map(|(_, accessory)| RegulationItemViewModel{
+                    self.filtered_accessories = Regulation::equip_accessory_param_map().values().map(|accessory| RegulationItemViewModel{
                         id: accessory.id,
                         name: accessory.name.to_string(),
                         max_held: 1,
                         max_storage: 1,
-                        item_type: InventoryItemType::ACCESSORY,
+                        item_type: InventoryItemType::Accessory,
                         ..Default::default()
                     }).filter(|reg_item_vm|{
                         if filter_text.is_empty() { return true; }
@@ -603,7 +594,7 @@ pub mod regulation_view_model {
                         let distance_b = sorensen_dice(&b.name.to_lowercase(), &filter_text.to_lowercase());
                         if distance_a < distance_b { return Ordering::Greater; }
                         else if distance_a > distance_b { return Ordering::Less; }
-                        return Ordering::Equal;
+                        Ordering::Equal
                     })
                 },
             }

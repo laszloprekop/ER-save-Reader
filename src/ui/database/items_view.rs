@@ -23,7 +23,7 @@ pub enum ItemCategoryFilter {
 }
 
 impl ItemCategoryFilter {
-    fn to_filter_value(&self) -> &'static str {
+    fn filter_value(&self) -> &'static str {
         match self {
             Self::All => "All",
             Self::Weapon => "Weapon",
@@ -167,11 +167,10 @@ pub fn items_view(ui: &mut Ui, state: &mut ItemsViewState, detail_panel: &mut De
             }
 
             // Search filter
-            if !state.search.is_empty() {
-                if !fuzzy_match_default(item.name, &state.search) {
+            if !state.search.is_empty()
+                && !fuzzy_match_default(item.name, &state.search) {
                     return false;
                 }
-            }
 
             true
         })

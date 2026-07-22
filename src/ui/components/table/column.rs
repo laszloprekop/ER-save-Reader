@@ -37,20 +37,17 @@ impl SortDirection {
 
 /// Column width specification
 #[derive(Clone, Copy, Debug)]
+#[derive(Default)]
 pub enum ColumnWidth {
     /// Fixed width in pixels
     Fixed(f32),
     /// Fraction of remaining space (0.0 - 1.0)
     Fraction(f32),
     /// Auto-size based on content
+    #[default]
     Auto,
 }
 
-impl Default for ColumnWidth {
-    fn default() -> Self {
-        ColumnWidth::Auto
-    }
-}
 
 /// Definition of a table column
 #[derive(Clone)]

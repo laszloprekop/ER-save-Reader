@@ -1,15 +1,15 @@
-/// Module for calculating event flag offsets and tracking item pickups
-///
-/// The EventFlags array (0x1BF99F bytes) uses hierarchical allocation:
-/// - Small flags (0-59999): Direct mapping with base offset
-/// - Midrange flags (100000-999999): Sorcery/incantation unlock flags
-/// - Block flags (60000-99999): Block base + relative offset
-/// - Dungeon flags (10000000-43999999): Map base + local offset
-/// - Open world (1000000000+): Formula-based tile calculation
-///
-/// V4: Added midrange flag support (540xxx sorceries/incantations)
-/// Uses verified ground truth offsets from ground_truth_offsets.json
-/// Generated at build time via build.rs
+//! Module for calculating event flag offsets and tracking item pickups
+//!
+//! The EventFlags array (0x1BF99F bytes) uses hierarchical allocation:
+//! - Small flags (0-59999): Direct mapping with base offset
+//! - Midrange flags (100000-999999): Sorcery/incantation unlock flags
+//! - Block flags (60000-99999): Block base + relative offset
+//! - Dungeon flags (10000000-43999999): Map base + local offset
+//! - Open world (1000000000+): Formula-based tile calculation
+//!
+//! V4: Added midrange flag support (540xxx sorceries/incantations)
+//! Uses verified ground truth offsets from ground_truth_offsets.json
+//! Generated at build time via build.rs
 
 use std::collections::HashMap;
 use once_cell::sync::Lazy;
@@ -76,7 +76,7 @@ pub const WORLD_PICKUP_ROW_ID_BASE: u32 = 1037373320;
 /// The row_id (with localId 0-999) if conversion applies, None otherwise
 pub fn convert_to_row_id(flag_id: u32) -> Option<u32> {
     // Only applies to 10-digit tile flags
-    if flag_id < 1_000_000_000 || flag_id >= 2_000_000_000 {
+    if !(1_000_000_000..2_000_000_000).contains(&flag_id) {
         return None;
     }
 
@@ -270,9 +270,9 @@ pub static DUNGEON_PICKUP_BASES: Lazy<HashMap<u32, u32>> = Lazy::new(|| {
     ])
 });
 
-/// Block bases for flags 60000-99999 (special system flags)
-/// Now uses VERIFIED_BLOCK_BASES from ground_truth_offsets.json
-/// The old hardcoded values were incorrect (e.g., 67000 was 2125, verified is 3546)
+// Block bases for flags 60000-99999 (special system flags)
+// Now uses VERIFIED_BLOCK_BASES from ground_truth_offsets.json
+// The old hardcoded values were incorrect (e.g., 67000 was 2125, verified is 3546)
 
 // ============================================================================
 // FLAG OFFSET CALCULATIONS
@@ -477,12 +477,12 @@ pub fn get_flag_offset(flag_id: u32) -> Option<(u32, u8)> {
     }
 
     // 8-digit dungeon flags (10000000-43999999)
-    if flag_id >= 10_000_000 && flag_id < 44_000_000 {
+    if (10_000_000..44_000_000).contains(&flag_id) {
         return calculate_dungeon_flag_offset(flag_id);
     }
 
     // 6-digit midrange flags (100000-999999) - sorceries, incantations, etc.
-    if flag_id >= 100_000 && flag_id < 1_000_000 {
+    if (100_000..1_000_000).contains(&flag_id) {
         return calculate_midrange_flag_offset(flag_id);
     }
 
@@ -570,7 +570,7 @@ fn calculate_tile_flag_offset_with_base(flag_id: u32, base_offset: u32) -> Optio
 /// Verified via before/after save captures of Golden Rune [1] and [3] pickups.
 pub fn calculate_world_pickup_offset_by_row_id(row_id: u32) -> Option<(u32, u8)> {
     // Only valid for 10-digit row_ids in the 1B range
-    if row_id < 1_000_000_000 || row_id >= 2_000_000_000 {
+    if !(1_000_000_000..2_000_000_000).contains(&row_id) {
         return None;
     }
 
@@ -617,7 +617,7 @@ pub enum VerificationStatus {
 /// Use this to filter out flags that may produce false positives on some saves.
 pub fn is_block_reliable(flag_id: u32) -> bool {
     // Only applies to 5-digit block flags (60000-99999)
-    if flag_id < 60000 || flag_id >= 100000 {
+    if !(60000..100000).contains(&flag_id) {
         return true; // Non-block flags use different formulas
     }
 
@@ -652,7 +652,7 @@ pub fn get_flag_verification_status(flag_id: u32) -> VerificationStatus {
     }
 
     // 8-digit dungeon flags
-    if flag_id >= 10_000_000 && flag_id < 44_000_000 {
+    if (10_000_000..44_000_000).contains(&flag_id) {
         let area = flag_id / 1_000_000;
 
         // Check VERIFIED_DUNGEON_BASES first
@@ -694,7 +694,7 @@ pub fn get_flag_verification_status(flag_id: u32) -> VerificationStatus {
     }
 
     // Midrange flags (100000-999999) - sorceries, incantations, etc.
-    if flag_id >= 100_000 && flag_id < 1_000_000 {
+    if (100_000..1_000_000).contains(&flag_id) {
         // Check 10000-flag granularity
         let block_10k = (flag_id / 10000) * 10000;
         if let Some(midrange_base) = VERIFIED_MIDRANGE_BASES.get(&block_10k) {

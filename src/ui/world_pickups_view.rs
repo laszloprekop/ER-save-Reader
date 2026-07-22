@@ -11,6 +11,13 @@ pub mod world_pickups_view {
     use crate::ui::tokens::spacing;
     use serde::Serialize;
 
+    type PickupRow<'a> = (
+        u32,
+        &'a crate::db::world_pickups::WorldPickup,
+        Option<bool>,
+        Option<(bool, VerificationConfidence)>,
+    );
+
     #[derive(Clone, Copy, PartialEq)]
     pub enum PickupFilter {
         All,
@@ -73,12 +80,14 @@ pub mod world_pickups_view {
         }
     }
 
-    /// Check if a pickup's event flag is set (collected)
-    /// Uses calibrated formula-based offset calculation from pickup_flags.rs
+    /// Check if a pickup's event flag is set (collected).
+    /// Routes by family via `pickup_flags::pickup_flag_state`, which resolves the
+    /// position per save.
     ///
     /// # Arguments
     /// * `flag_id` - The event flag ID to check
     /// * `event_flags` - The event flags byte slice from the save
+    ///
     /// CUT OVER 2026-07-20 (ADR-0006, migration step 4): world pickups no longer
     /// use a calibrated tile base. Position resolves per save from the flag
     /// region, and the two tile families are separated by local id — pickups
@@ -207,7 +216,7 @@ pub mod world_pickups_view {
         // Legend is now shown in the app-wide status bar
 
         // Build filtered data
-        let mut pickups: Vec<(u32, &crate::db::world_pickups::WorldPickup, Option<bool>, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
+        let mut pickups: Vec<PickupRow<'_>> = WORLD_PICKUPS.iter()
             .filter_map(|(id, pickup)| {
                 // Check collected status using calibrated tile base
                 let is_collected = is_pickup_collected(pickup.flag_id, event_flags);
@@ -252,8 +261,8 @@ pub mod world_pickups_view {
 
                 // Apply search using fuzzy match
                 if !state.search.is_empty() {
-                    let matches = fuzzy_match_default(&pickup.item_name, &state.search)
-                        || fuzzy_match_default(&pickup.region, &state.search);
+                    let matches = fuzzy_match_default(pickup.item_name, &state.search)
+                        || fuzzy_match_default(pickup.region, &state.search);
                     if !matches {
                         return None;
                     }
@@ -270,14 +279,14 @@ pub mod world_pickups_view {
             match sort_col.as_str() {
                 "lot_id" => pickups.sort_by(|a, b| if asc { a.0.cmp(&b.0) } else { b.0.cmp(&a.0) }),
                 "flag_id" => pickups.sort_by(|a, b| if asc { a.1.flag_id.cmp(&b.1.flag_id) } else { b.1.flag_id.cmp(&a.1.flag_id) }),
-                "item" => pickups.sort_by(|a, b| if asc { a.1.item_name.cmp(&b.1.item_name) } else { b.1.item_name.cmp(&a.1.item_name) }),
+                "item" => pickups.sort_by(|a, b| if asc { a.1.item_name.cmp(b.1.item_name) } else { b.1.item_name.cmp(a.1.item_name) }),
                 "type" => pickups.sort_by(|a, b| {
                     let ta = format!("{:?}", a.1.item_type);
                     let tb = format!("{:?}", b.1.item_type);
                     if asc { ta.cmp(&tb) } else { tb.cmp(&ta) }
                 }),
                 "qty" => pickups.sort_by(|a, b| if asc { a.1.quantity.cmp(&b.1.quantity) } else { b.1.quantity.cmp(&a.1.quantity) }),
-                "region" => pickups.sort_by(|a, b| if asc { a.1.region.cmp(&b.1.region) } else { b.1.region.cmp(&a.1.region) }),
+                "region" => pickups.sort_by(|a, b| if asc { a.1.region.cmp(b.1.region) } else { b.1.region.cmp(a.1.region) }),
                 "status" => pickups.sort_by(|a, b| {
                     let sa = a.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
                     let sb = b.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
@@ -386,10 +395,10 @@ pub mod world_pickups_view {
             let is_selected = state.selected_id == Some(*id);
 
             // Determine if there's a mismatch between flag and inventory
-            let has_mismatch = match (is_collected, inv_status) {
-                (Some(flag_set), Some((has_item, _))) if *flag_set != *has_item => true,
-                _ => false,
-            };
+            let has_mismatch = matches!(
+                (is_collected, inv_status),
+                (Some(flag_set), Some((has_item, _))) if *flag_set != *has_item
+            );
 
             // Build row cells - include all columns
             let mut cells = vec![];

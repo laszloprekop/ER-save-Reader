@@ -245,12 +245,11 @@ pub fn detail_panel(
                                         .hint_text("Filter relationships...")
                                         .desired_width(ui.available_width() - 24.0)
                                 );
-                                if state.has_search() {
-                                    if ui.small_button(nav_icons::CLOSE).clicked() {
+                                if state.has_search()
+                                    && ui.small_button(nav_icons::CLOSE).clicked() {
                                         state.search_query.clear();
                                         response.request_focus();
                                     }
-                                }
                             });
                             ui.add_space(spacing::SM);
                         }

@@ -19,7 +19,7 @@ impl InventoryViewModel {
 
         // Check if held inventory is full
         if held_inventory_full {
-            self.log.insert(0, format!("Inventory is full."));
+            self.log.insert(0, "Inventory is full.".to_string());
             return;
         }
 
@@ -29,7 +29,7 @@ impl InventoryViewModel {
 
         // Handle item add
         match item.item_type {
-            InventoryItemType::WEAPON => {
+            InventoryItemType::Weapon => {
                 // Fetch weapon param to look up weapon type
                 let weapon_param = Regulation::equip_weapon_params_map().get(&item.id);
                 if weapon_param.is_none() {
@@ -54,13 +54,13 @@ impl InventoryViewModel {
                     self.add_weapon(item.id, item.infusion, item.upgrade, item.affinity);
                 }
             },
-            InventoryItemType::ARMOR => {   
+            InventoryItemType::Armor => {   
                 self.add_armor(item.id);
             },
-            InventoryItemType::ACCESSORY => {
+            InventoryItemType::Accessory => {
                 self.add_talisman(item.id);
             },
-            InventoryItemType::ITEM => {
+            InventoryItemType::Item => {
                 match item.quantity {
                     Some(quantity) => {
                         if item.is_key_item {
@@ -74,7 +74,7 @@ impl InventoryViewModel {
                     None => self.log.insert(0, "Failed to add item. No quantity provided.".to_string()),
                 };
             },
-            InventoryItemType::AOW => {
+            InventoryItemType::Aow => {
                 self.add_aow(item.id);
             },
             InventoryItemType::None => {
@@ -86,8 +86,7 @@ impl InventoryViewModel {
     fn add_weapon(&mut self, id: u32, gem: Option<u32>, upgrade: Option<i16>, affinity: Option<i16>) {
         // If weapon has ash of war then handle adding the ash of war to the inventory
         let mut gem_gaitem_handle = u32::MAX;
-        if gem.is_some() {
-            let gem_id = gem.unwrap();
+        if let Some(gem_id) = gem {
             match Regulation::equip_gem_param_map().get(&gem_id) {
                 Some(gem_param) => { 
                     gem_gaitem_handle = self.add_aow(gem_param.id);
@@ -113,7 +112,7 @@ impl InventoryViewModel {
         // Construct an item_id by combining the different configuration to the weapon
         // Weapon Id + Affinty Id + Upgrade level
         let item_id = id + upgrade_level + affinity_id;
-        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::WEAPON);
+        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::Weapon);
 
         // Add gaitem
         self.add_gaitem(GaItem {
@@ -134,7 +133,7 @@ impl InventoryViewModel {
         };
 
         // Add item to storage
-        self.add_to_storage_common_items(gaitem_handle, item_id, 1, 0, weapon_name.to_string(), InventoryGaitemType::WEAPON);
+        self.add_to_storage_common_items(gaitem_handle, item_id, 1, 0, weapon_name.to_string(), InventoryGaitemType::Weapon);
 
         // Add to gaitem data list if not presenet
         self.upsert_gaitem_data_list(item_id);
@@ -144,15 +143,14 @@ impl InventoryViewModel {
     }
 
     fn add_projectile(&mut self, id: u32, quantity: u32) {
-        let item_id = id | InventoryItemType::WEAPON as u32;
-        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::WEAPON);
+        let item_id = id | InventoryItemType::Weapon as u32;
+        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::Weapon);
         let max_held;
         let max_in_storage;
         
         // Look up projectile in params
         let weapon_params_res = Regulation::equip_weapon_params_map().get(&id);
-        if weapon_params_res.is_some() {
-            let weapon_params = weapon_params_res.unwrap();
+        if let Some(weapon_params) = weapon_params_res {
             max_held = weapon_params.data.maxArrowQuantity as u32;
             max_in_storage = 600;
         }
@@ -164,7 +162,7 @@ impl InventoryViewModel {
 
         // Fetch name
         let name = match WEAPON_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item projectile id {}|{:#x}", id, id));
                 format!("Failed to find name for projectile with id {}|{:#x}", id, id)
@@ -214,7 +212,7 @@ impl InventoryViewModel {
             
             if amount != 0 {
                 // Add new item to storage
-                self.add_to_storage_common_items(gaitem_handle, item_id, amount, 0, name.to_string(), InventoryGaitemType::WEAPON);
+                self.add_to_storage_common_items(gaitem_handle, item_id, amount, 0, name.to_string(), InventoryGaitemType::Weapon);
                 
                 // Update log
                 self.log.insert(0, format!("> Added {} {} to held inventory.", amount, name));
@@ -263,7 +261,7 @@ impl InventoryViewModel {
 
                 if amount != 0 {
                     // Add new item to storage
-                    self.add_to_storage_common_items(gaitem_handle, item_id, amount, 1, name.to_string(), InventoryGaitemType::WEAPON);
+                    self.add_to_storage_common_items(gaitem_handle, item_id, amount, 1, name.to_string(), InventoryGaitemType::Weapon);
                     
                     // Update log
                     self.log.insert(0, format!("> Added {} {} to storage box.", amount, name));
@@ -277,14 +275,14 @@ impl InventoryViewModel {
     }
 
     fn add_normal_item(&mut self, id: u32, quantity: u32) {
-        let item_id = id | InventoryItemType::ITEM as u32;
-        let gaitem_handle = id | InventoryGaitemType::ITEM as u32;
+        let item_id = id | InventoryItemType::Item as u32;
+        let gaitem_handle = id | InventoryGaitemType::Item as u32;
         let max_held;
         let max_in_storage;
 
         // Fetch name
         let name = match ITEM_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item with id {}|{:#x}", item_id, item_id));
                 format!("Failed to find name for item with id {}|{:#x}", item_id, item_id)
@@ -292,8 +290,7 @@ impl InventoryViewModel {
         };
 
         let item_params_res = Regulation::equip_goods_param_map().get(&id);
-        if item_params_res.is_some() {
-            let item_params = item_params_res.unwrap();
+        if let Some(item_params) = item_params_res {
             max_held = item_params.data.maxNum as u32;
             max_in_storage = item_params.data.maxRepositoryNum as u32;
         }
@@ -306,8 +303,8 @@ impl InventoryViewModel {
         // Check if item needs to go straight to storage. In the case of pots, it's easiest to only,
         // limit them to storage to avoid having more pots held than allowed in game.
         // Not the best implementation, but then again none of this code is.
-        let straight_to_storage = items().get("Pots").unwrap().iter().any(|id| *id == item_id) ||
-                                    items().get("Perfumes").unwrap().iter().any(|id| *id == item_id );
+        let straight_to_storage = items().get("Pots").unwrap().contains(&item_id) ||
+                                    items().get("Perfumes").unwrap().contains(&item_id);
 
         // Search for item in held inventory, retrieve position if found
         let held_index_res = self.storage[0].common_items.iter().position(|i| i.ga_item_handle == gaitem_handle);
@@ -346,7 +343,7 @@ impl InventoryViewModel {
                     
                     if amount != 0 {
                         // Add new item to storage
-                        self.add_to_storage_common_items(gaitem_handle, id, amount, 0, name.to_string(), InventoryGaitemType::ITEM);
+                        self.add_to_storage_common_items(gaitem_handle, id, amount, 0, name.to_string(), InventoryGaitemType::Item);
                         
                         // Update log
                         self.log.insert(0, format!("> Added {} {} to held inventory", amount, name));
@@ -388,7 +385,7 @@ impl InventoryViewModel {
                 let amount = min(quantity, max_in_storage);
                 
                 // Add new item to storage
-                self.add_to_storage_common_items(gaitem_handle, id, amount, 1, name.to_string(), InventoryGaitemType::ITEM);
+                self.add_to_storage_common_items(gaitem_handle, id, amount, 1, name.to_string(), InventoryGaitemType::Item);
                 
                 // Update log
                 self.log.insert(0, format!("> Added {} {} to storage box", amount, name));
@@ -398,14 +395,14 @@ impl InventoryViewModel {
     }
 
     fn add_key_item(&mut self, id: u32, quantity: u32) {
-        let item_id = id | InventoryItemType::ITEM as u32;
-        let gaitem_handle = id | InventoryGaitemType::ITEM as u32;
+        let item_id = id | InventoryItemType::Item as u32;
+        let gaitem_handle = id | InventoryGaitemType::Item as u32;
         let max_held;
         let max_in_storage;
 
         // Fetch name
         let name = match ITEM_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item with id {}|{:#x}", item_id, item_id));
                 format!("Failed to find name for item with id {}|{:#x}", item_id, item_id)
@@ -413,8 +410,7 @@ impl InventoryViewModel {
         };
 
         let item_params_res = Regulation::equip_goods_param_map().get(&id);
-        if item_params_res.is_some() {
-            let item_params = item_params_res.unwrap();
+        if let Some(item_params) = item_params_res {
             max_held = item_params.data.maxNum as u32;
             max_in_storage = item_params.data.maxRepositoryNum as u32;
         }
@@ -457,7 +453,7 @@ impl InventoryViewModel {
                 
                 if amount != 0 {
                     // Add new item to storage
-                    self.add_to_storage_key_items(gaitem_handle, id, amount, 0, name.to_string(), InventoryGaitemType::ITEM);
+                    self.add_to_storage_key_items(gaitem_handle, id, amount, 0, name.to_string(), InventoryGaitemType::Item);
     
                     // Update Log
                     self.log.insert(0, format!("> Added {} {} to held inventory", amount, name));
@@ -496,7 +492,7 @@ impl InventoryViewModel {
                 
                 if amount != 0 {
                     // Add new item to storage
-                    self.add_to_storage_key_items(gaitem_handle, id, amount, 1, name.to_string(), InventoryGaitemType::ITEM);
+                    self.add_to_storage_key_items(gaitem_handle, id, amount, 1, name.to_string(), InventoryGaitemType::Item);
                     
                     // Update log
                     self.log.insert(0, format!("> Added {} {} to storage box", amount, name));
@@ -507,8 +503,8 @@ impl InventoryViewModel {
 
     fn add_aow(&mut self, id: u32) -> u32 {
         // Create item id and gaitem handle
-        let item_id = id | InventoryItemType::AOW as u32;
-        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::AOW);
+        let item_id = id | InventoryItemType::Aow as u32;
+        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::Aow);
 
         // Add to gaitem map
         self.add_gaitem(GaItem {
@@ -519,7 +515,7 @@ impl InventoryViewModel {
 
         // Fetch name
         let name = match AOW_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item with id {}|{:#x}", item_id, item_id));
                 format!("Failed to find name for AOW with id {}|{:#x}", item_id, item_id)
@@ -527,7 +523,7 @@ impl InventoryViewModel {
         };
 
         // Add to common items
-        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::AOW);
+        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::Aow);
 
         // Add to gaitem data list if not presenet
         self.upsert_gaitem_data_list(item_id);
@@ -539,8 +535,8 @@ impl InventoryViewModel {
     }
 
     fn add_armor(&mut self, id: u32) {
-        let item_id = id | InventoryItemType::ARMOR as u32;
-        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::ARMOR);
+        let item_id = id | InventoryItemType::Armor as u32;
+        let gaitem_handle = self.generate_gaitem_handle_for_armament(InventoryGaitemType::Armor);
 
         self.add_gaitem(GaItem {
             item_id,
@@ -550,33 +546,33 @@ impl InventoryViewModel {
 
         // Fetch name
         let name = match ARMOR_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item with id {}|{:#x}", item_id, item_id));
                 format!("Failed to find name for Armor with id {}|{:#x}", item_id, item_id)
             },
         };
 
-        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::ARMOR);
+        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::Armor);
         
         // Update log
         self.log.insert(0, format!("> Added {} {} to held inventory", 1, name));
     }
 
     fn add_talisman(&mut self, id: u32) {
-        let item_id = id | InventoryItemType::ACCESSORY as u32;
-        let gaitem_handle = id | InventoryGaitemType::ACCESSORY as u32;
+        let item_id = id | InventoryItemType::Accessory as u32;
+        let gaitem_handle = id | InventoryGaitemType::Accessory as u32;
 
         // Fetch name
         let name = match ACCESSORY_NAME.lock().unwrap().get(&id) {
-            Some(name) => format!("{}",name),            
+            Some(name) => name.to_string(),            
             None => {
                 self.log.insert(0, format!("Failed to find name for item with id {}|{:#x}", item_id, item_id));
                 format!("Failed to find name for Talisman with id {}|{:#x}", item_id, item_id)
             },
         };
 
-        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::ACCESSORY);
+        self.add_to_storage_common_items(gaitem_handle, id, 1, 0, name.to_string(), InventoryGaitemType::Accessory);
 
         // Update log
         self.log.insert(0, format!("> Added {} {} to held inventory", 1, name));
@@ -586,11 +582,11 @@ impl InventoryViewModel {
         match is_aow {
             true => {
                 self.gaitem_map[self.next_aow_index] = gaitem;
-                self.next_aow_index = self.next_aow_index + 1;
+                self.next_aow_index += 1;
             },
             false => {
                 self.gaitem_map[self.next_armament_or_armor_index] = gaitem;
-                self.next_armament_or_armor_index = self.next_armament_or_armor_index + 1;
+                self.next_armament_or_armor_index += 1;
             },
         }
     }
@@ -611,10 +607,10 @@ impl InventoryViewModel {
             ga_item_handle: gaitem_handle,
             item_id: id,
             equip_index: equip_index as u32,
-            quantity: quantity,
+            quantity,
             inventory_index: acquisiton_sort_order_index,
             item_name: name,
-            r#type: r#type
+            r#type
         };
 
         // Storage box equip index starts as 0 on a new character. If items are put in the storage box
@@ -628,9 +624,9 @@ impl InventoryViewModel {
         };
 
         // Increment storage indexes
-        self.storage[storage_index].common_item_count = self.storage[storage_index].common_item_count + 1;
+        self.storage[storage_index].common_item_count += 1;
         self.storage[storage_index].next_equip_index = next_equip_index;
-        self.storage[storage_index].next_acquisition_sort_order_index = self.storage[storage_index].next_acquisition_sort_order_index + 1;
+        self.storage[storage_index].next_acquisition_sort_order_index += 1;
     }
 
     fn add_to_storage_key_items(&mut self, gaitem_handle: u32, id: u32, quantity: u32, storage_index: usize, name: String, r#type: InventoryGaitemType) {
@@ -649,16 +645,16 @@ impl InventoryViewModel {
             ga_item_handle: gaitem_handle,
             item_id: id,
             equip_index: equip_index as u32,
-            quantity: quantity,
+            quantity,
             inventory_index: acquisiton_sort_order_index,
             item_name: name,
-            r#type: r#type
+            r#type
         };
 
         // Increment storage indexes
-        self.storage[storage_index].key_item_count = self.storage[storage_index].key_item_count + 1;
+        self.storage[storage_index].key_item_count += 1;
         self.storage[storage_index].next_equip_index = equip_index + 1;
-        self.storage[storage_index].next_acquisition_sort_order_index = self.storage[storage_index].next_acquisition_sort_order_index + 1;
+        self.storage[storage_index].next_acquisition_sort_order_index += 1;
     }
 
     fn upsert_gaitem_data_list(&mut self, id: u32) {
@@ -667,12 +663,12 @@ impl InventoryViewModel {
         let gaitem_data_items = &mut self.gaitem_data.ga_items;
         if !gaitem_data_items.iter().any(|item| item.id == id) {
             gaitem_data_items[next_gaitem_data_index as usize] = GaItem2{
-                id: id,
+                id,
                 unk: 0,
                 ..Default::default()
             };
             // Increment gaitem data index
-            self.gaitem_data.distinct_aquired_items_count = self.gaitem_data.distinct_aquired_items_count + 1;
+            self.gaitem_data.distinct_aquired_items_count += 1;
         }
     }
 
@@ -685,7 +681,7 @@ impl InventoryViewModel {
                 unk: 1,
             });
             // Increment gaitem data index
-            self.projectile_list.projectile_count = self.projectile_list.projectile_count + 1;
+            self.projectile_list.projectile_count += 1;
 
             // Sort projectile list to keep it consistent with how it usually is in game
             self.projectile_list.projectiles.sort_by(|a,b| a.projectile_id.cmp(&b.projectile_id));
@@ -694,17 +690,17 @@ impl InventoryViewModel {
 
     fn generate_gaitem_handle_for_armament(&mut self, r#type: InventoryGaitemType) -> u32 {
         let gaitem_handle = r#type as u32 | self.next_gaitem_handle | (self.part_gaitem_handle as u32) << 16;
-        self.next_gaitem_handle = self.next_gaitem_handle + 1;
+        self.next_gaitem_handle += 1;
         gaitem_handle
     }
 
     fn get_free_space_for_item_quantity_in_storage(&mut self, id: u32, storage_index: usize, is_projectile: bool, is_key_item: bool) -> Result<u32, String>{
         // Gaitem handle for items created from item id, projectile must be looked up
         let gaitem_handle = if !is_projectile {
-            id | InventoryGaitemType::ITEM as u32
+            id | InventoryGaitemType::Item as u32
         } 
         else {
-            let gaitem_map_res = self.gaitem_map.iter().filter(|gaitem| gaitem.item_id == id).map(|&gaitem| gaitem).collect::<Vec<GaItem>>();
+            let gaitem_map_res = self.gaitem_map.iter().filter(|gaitem| gaitem.item_id == id).copied().collect::<Vec<GaItem>>();
 
             // Shouldn't happen. It's expected that there's at least one instance of 
             // the projectile in the gaitem map by this point
@@ -734,8 +730,7 @@ impl InventoryViewModel {
         // Look up item param to fetch storage limits
         else {
             let item_params_res = Regulation::equip_goods_param_map().get(&id);
-            if item_params_res.is_some() {
-                let item_params = item_params_res.unwrap();
+            if let Some(item_params) = item_params_res {
                 max[0] = item_params.data.maxNum as u32;
                 max[1] = item_params.data.maxRepositoryNum as u32;
             }
@@ -750,9 +745,8 @@ impl InventoryViewModel {
             false => self.storage[storage_index].common_items.iter().find(|i| i.ga_item_handle == gaitem_handle),
         };
 
-        if item_res.is_some() {
+        if let Some(item) = item_res {
             // Fetch item from item list 
-            let item = item_res.unwrap();
             let current_item_quantity = item.quantity;
 
             // Calculate how much free space for item is left in storage 
@@ -772,11 +766,10 @@ impl InventoryViewModel {
             false => self.storage[storage_index].common_items.iter_mut().find(|i| i.item_id == id),
         };
 
-        if item_res.is_some() {
-            let item = item_res.unwrap();
+        if let Some(item) = item_res {
 
             // Change item quantity
-            item.quantity = item.quantity + amount;
+            item.quantity += amount;
         }
         else {
             self.log.insert(0, format!("Failed to update quantity for item {}|{:#x}. Failed to find item!", id, id));

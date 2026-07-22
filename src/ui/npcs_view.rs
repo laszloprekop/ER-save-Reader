@@ -98,12 +98,11 @@ pub mod npcs_view {
                 }
 
                 // Search filter
-                if !state.search.is_empty() {
-                    if !fuzzy_match_default(&npc.name, &state.search) &&
-                       !fuzzy_match_default(&npc.location, &state.search) {
+                if !state.search.is_empty()
+                    && !fuzzy_match_default(npc.name, &state.search) &&
+                       !fuzzy_match_default(npc.location, &state.search) {
                         return false;
                     }
-                }
 
                 true
             })
@@ -115,13 +114,13 @@ pub mod npcs_view {
             let asc = state.table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
                 "id" => npcs.sort_by(|a, b| if asc { a.0.cmp(&b.0) } else { b.0.cmp(&a.0) }),
-                "name" => npcs.sort_by(|a, b| if asc { a.1.name.cmp(&b.1.name) } else { b.1.name.cmp(&a.1.name) }),
+                "name" => npcs.sort_by(|a, b| if asc { a.1.name.cmp(b.1.name) } else { b.1.name.cmp(a.1.name) }),
                 "type" => npcs.sort_by(|a, b| {
                     let ta = format!("{:?}", a.1.npc_type);
                     let tb = format!("{:?}", b.1.npc_type);
                     if asc { ta.cmp(&tb) } else { tb.cmp(&ta) }
                 }),
-                "location" => npcs.sort_by(|a, b| if asc { a.1.location.cmp(&b.1.location) } else { b.1.location.cmp(&a.1.location) }),
+                "location" => npcs.sort_by(|a, b| if asc { a.1.location.cmp(b.1.location) } else { b.1.location.cmp(a.1.location) }),
                 "discovery" => npcs.sort_by(|a, b| if asc { a.1.discovery_flag.cmp(&b.1.discovery_flag) } else { b.1.discovery_flag.cmp(&a.1.discovery_flag) }),
                 "death" => npcs.sort_by(|a, b| if asc { a.1.death_flag.cmp(&b.1.death_flag) } else { b.1.death_flag.cmp(&a.1.death_flag) }),
                 _ => {}

@@ -105,7 +105,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
     state.search = state.filter_state.search.clone();
 
     // Build region options
-    let region_options: Vec<_> = GRACE_REGIONS.iter().map(|s| *s).collect();
+    let region_options: Vec<_> = GRACE_REGIONS.to_vec();
 
     // Filter bar
     FilterBar::new("graces_filter", &mut state.filter_state)
@@ -131,12 +131,11 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
             }
 
             // Search filter
-            if !state.search.is_empty() {
-                if !fuzzy_match_default(grace.name, &state.search)
+            if !state.search.is_empty()
+                && !fuzzy_match_default(grace.name, &state.search)
                     && !fuzzy_match_default(grace.region, &state.search) {
                     return None;
                 }
-            }
 
             let discovered = is_grace_discovered(*flag, event_flags);
             Some((*flag, grace, discovered))

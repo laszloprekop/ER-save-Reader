@@ -633,8 +633,10 @@ pub mod regions {
     });
 
     
-    //key, id, name, map, is_open_world, is_dungeon, is_boss
-    pub static REGIONS: Lazy<Mutex<HashMap<Region, (u32, &str, MapName, bool, bool, bool)>>> = Lazy::new(|| {
+    /// (id, name, map, is_open_world, is_dungeon, is_boss)
+    type RegionRow = (u32, &'static str, MapName, bool, bool, bool);
+
+    pub static REGIONS: Lazy<Mutex<HashMap<Region, RegionRow>>> = Lazy::new(|| {
         Mutex::new(HashMap::from([
             (Region::ChurchofDragonCommunion, (6100090,"Church of Dragon Communion", MapName::Limgrave, true, false, false)),
             (Region::TheFirstStepChurchofElleh, (6100000,"The First Step, Church of Elleh", MapName::Limgrave, true, false, false)),

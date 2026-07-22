@@ -5,6 +5,13 @@ pub mod events {
     use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus, SimpleEventFlagViewState}, vm::vm::ViewModel}};
     use crate::save::common::save_slot::EquipInventoryData;
 
+    type PickupRow<'a> = (
+        &'a crate::db::pickup_data::WorldPickup,
+        bool,
+        crate::db::pickup_flags::VerificationStatus,
+        Option<(bool, VerificationConfidence)>,
+    );
+
     /// Icon size multiplier for table icons (150%)
     const ICON_SIZE_MULTIPLIER: f32 = 1.5;
 
@@ -630,9 +637,7 @@ pub mod events {
             if let Some((_, name, flag_id, discovered)) = items.get(row_idx) {
                 let status_text = if *discovered {
                     if status_verb == "defeated" { "Defeated" } else { "Discovered" }
-                } else {
-                    if status_verb == "defeated" { "Not defeated" } else { "Not discovered" }
-                };
+                } else if status_verb == "defeated" { "Not defeated" } else { "Not discovered" };
                 let row_text = format!("{}\t{}\t{}", status_text, name, flag_id);
                 ui.output_mut(|o| o.copied_text = row_text);
             }
@@ -834,7 +839,7 @@ pub mod events {
         let ef = event_flags.unwrap_or(&[]);
 
         // Build filtered data with inventory status
-        let mut pickups: Vec<(&crate::db::pickup_data::WorldPickup, bool, crate::db::pickup_flags::VerificationStatus, Option<(bool, VerificationConfidence)>)> = WORLD_PICKUPS.iter()
+        let mut pickups: Vec<PickupRow<'_>> = WORLD_PICKUPS.iter()
             .filter_map(|pickup| {
                 // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
                 // family; `Unknown` maps to the existing uncertain status, which
@@ -909,14 +914,14 @@ pub mod events {
             match sort_col.as_str() {
                 "lot_id" => pickups.sort_by(|a, b| if asc { a.0.item_lot_id.cmp(&b.0.item_lot_id) } else { b.0.item_lot_id.cmp(&a.0.item_lot_id) }),
                 "flag_id" => pickups.sort_by(|a, b| if asc { a.0.event_flag.cmp(&b.0.event_flag) } else { b.0.event_flag.cmp(&a.0.event_flag) }),
-                "item" => pickups.sort_by(|a, b| if asc { a.0.name.cmp(&b.0.name) } else { b.0.name.cmp(&a.0.name) }),
+                "item" => pickups.sort_by(|a, b| if asc { a.0.name.cmp(b.0.name) } else { b.0.name.cmp(a.0.name) }),
                 "category" => pickups.sort_by(|a, b| {
                     let ca = a.0.category.display_name();
                     let cb = b.0.category.display_name();
                     if asc { ca.cmp(cb) } else { cb.cmp(ca) }
                 }),
                 "qty" => pickups.sort_by(|a, b| if asc { a.0.quantity.cmp(&b.0.quantity) } else { b.0.quantity.cmp(&a.0.quantity) }),
-                "region" => pickups.sort_by(|a, b| if asc { a.0.region.cmp(&b.0.region) } else { b.0.region.cmp(&a.0.region) }),
+                "region" => pickups.sort_by(|a, b| if asc { a.0.region.cmp(b.0.region) } else { b.0.region.cmp(a.0.region) }),
                 "status" => pickups.sort_by(|a, b| {
                     let sa = if a.1 { 1 } else { 0 };
                     let sb = if b.1 { 1 } else { 0 };
@@ -1079,7 +1084,7 @@ pub mod events {
 
     /// Build export content for world pickups
     fn build_world_pickups_export(
-        pickups: &[(&crate::db::pickup_data::WorldPickup, bool, crate::db::pickup_flags::VerificationStatus, Option<(bool, VerificationConfidence)>)],
+        pickups: &[PickupRow<'_>],
         format: &crate::ui::components::export::ExportFormat,
     ) -> String {
         use crate::ui::components::export::{ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};

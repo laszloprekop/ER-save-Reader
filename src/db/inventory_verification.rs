@@ -125,7 +125,7 @@ pub static UNIQUE_ITEMS_BY_FLAG: Lazy<HashMap<u32, Vec<UniqueItemMapping>>> = La
 
     for item in UNIQUE_ITEMS.iter() {
         m.entry(item.event_flag)
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(item.clone());
     }
 
@@ -138,7 +138,7 @@ pub static FLAGS_BY_ITEM: Lazy<HashMap<u32, Vec<u32>>> = Lazy::new(|| {
 
     for item in UNIQUE_ITEMS.iter() {
         m.entry(item.item_id)
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(item.event_flag);
     }
 

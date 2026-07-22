@@ -126,7 +126,7 @@ pub struct ExportEquipmentItem {
 
 impl ExportEquipmentItem {
     pub fn new(slot_name: &str, gaitem_handle: u32, item_id: u32, item_name: &str) -> Self {
-        let upgrade_level = if item_id > 0 && item_id % 100 != 0 {
+        let upgrade_level = if item_id > 0 && !item_id.is_multiple_of(100) {
             Some(item_id % 100)
         } else {
             None
