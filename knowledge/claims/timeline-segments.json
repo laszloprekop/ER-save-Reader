@@ -1,0 +1,629 @@
+{
+  "ambiguous": [
+    {
+      "entry_index": 1780,
+      "gap_seconds": 178,
+      "next_id": "sd_001921",
+      "pair_agree_pct": 80.2288626194056,
+      "prev_id": "sd_001920",
+      "replay_agree_pct": 87.81143560189082,
+      "shared_offsets": 222142
+    },
+    {
+      "entry_index": 1964,
+      "gap_seconds": 41965,
+      "next_id": "sd_002105",
+      "pair_agree_pct": 80.42302949824528,
+      "prev_id": "sd_002104",
+      "replay_agree_pct": 78.73764933021107,
+      "shared_offsets": 158145
+    }
+  ],
+  "ambiguous_count": 2,
+  "boundaries": [
+    {
+      "entry_index": 81,
+      "gap_seconds": 2981,
+      "next_id": "sd_000222",
+      "pair_agree_pct": 2.3501984010173205,
+      "prev_id": "sd_000221",
+      "replay_agree_pct": 16.145841825338078,
+      "shared_offsets": 254787
+    },
+    {
+      "entry_index": 701,
+      "gap_seconds": 67269,
+      "next_id": "sd_000842",
+      "pair_agree_pct": 3.713527851458886,
+      "prev_id": "sd_000841",
+      "replay_agree_pct": 3.9800995024875623,
+      "shared_offsets": 754
+    },
+    {
+      "entry_index": 703,
+      "gap_seconds": 55603,
+      "next_id": "sd_000844",
+      "pair_agree_pct": 2.2222222222222223,
+      "prev_id": "sd_000843",
+      "replay_agree_pct": 0.6385696040868455,
+      "shared_offsets": 45
+    },
+    {
+      "entry_index": 722,
+      "gap_seconds": 25273,
+      "next_id": "sd_000863",
+      "pair_agree_pct": 9.485031797735381,
+      "prev_id": "sd_000862",
+      "replay_agree_pct": 19.785724914438767,
+      "shared_offsets": 51576
+    },
+    {
+      "entry_index": 799,
+      "gap_seconds": 1205945,
+      "next_id": "sd_000940",
+      "pair_agree_pct": 3.4877280437567073,
+      "prev_id": "sd_000939",
+      "replay_agree_pct": 31.086362601502618,
+      "shared_offsets": 57774
+    },
+    {
+      "entry_index": 858,
+      "gap_seconds": 407606,
+      "next_id": "sd_000999",
+      "pair_agree_pct": 8.720930232558139,
+      "prev_id": "sd_000998",
+      "replay_agree_pct": 19.6846668855707,
+      "shared_offsets": 49364
+    },
+    {
+      "entry_index": 1318,
+      "gap_seconds": 335532,
+      "next_id": "sd_001459",
+      "pair_agree_pct": 24.3752142850524,
+      "prev_id": "sd_001458",
+      "replay_agree_pct": 51.824924996779,
+      "shared_offsets": 107917
+    },
+    {
+      "entry_index": 1392,
+      "gap_seconds": 323604,
+      "next_id": "sd_001533",
+      "pair_agree_pct": 1.1054616162810558,
+      "prev_id": "sd_001532",
+      "replay_agree_pct": 1.470227344118109,
+      "shared_offsets": 380565
+    },
+    {
+      "entry_index": 1406,
+      "gap_seconds": 9061,
+      "next_id": "sd_001547",
+      "pair_agree_pct": 34.40934065934066,
+      "prev_id": "sd_001546",
+      "replay_agree_pct": 31.768231768231768,
+      "shared_offsets": 2912
+    },
+    {
+      "entry_index": 1408,
+      "gap_seconds": 415,
+      "next_id": "sd_001549",
+      "pair_agree_pct": 2.1504016661707825,
+      "prev_id": "sd_001548",
+      "replay_agree_pct": 32.60173289079012,
+      "shared_offsets": 134440
+    },
+    {
+      "entry_index": 2017,
+      "gap_seconds": 2653,
+      "next_id": "sd_002158",
+      "pair_agree_pct": 14.490030907217744,
+      "prev_id": "sd_002157",
+      "replay_agree_pct": 50.67618241781487,
+      "shared_offsets": 165010
+    },
+    {
+      "entry_index": 2083,
+      "gap_seconds": 13028,
+      "next_id": "sd_002224",
+      "pair_agree_pct": 15.384615384615385,
+      "prev_id": "sd_002223",
+      "replay_agree_pct": 16.9811320754717,
+      "shared_offsets": 52
+    },
+    {
+      "entry_index": 2343,
+      "gap_seconds": 70779,
+      "next_id": "sd_002484",
+      "pair_agree_pct": 30.610999206494537,
+      "prev_id": "sd_002483",
+      "replay_agree_pct": 55.471544205308405,
+      "shared_offsets": 16383
+    },
+    {
+      "entry_index": 2357,
+      "gap_seconds": 6436,
+      "next_id": "sd_002498",
+      "pair_agree_pct": 43.822778937601484,
+      "prev_id": "sd_002497",
+      "replay_agree_pct": 85.06152099886492,
+      "shared_offsets": 107775
+    },
+    {
+      "entry_index": 2449,
+      "gap_seconds": 775,
+      "next_id": "sd_002590",
+      "pair_agree_pct": 14.227049787155284,
+      "prev_id": "sd_002589",
+      "replay_agree_pct": 44.77156577422201,
+      "shared_offsets": 172896
+    },
+    {
+      "entry_index": 2536,
+      "gap_seconds": 39439,
+      "next_id": "sd_002677",
+      "pair_agree_pct": 2.54618072890664,
+      "prev_id": "sd_002676",
+      "replay_agree_pct": 39.02475395168506,
+      "shared_offsets": 4006
+    },
+    {
+      "entry_index": 2671,
+      "gap_seconds": 167696,
+      "next_id": "sd_002812",
+      "pair_agree_pct": 7.192374350086655,
+      "prev_id": "sd_002811",
+      "replay_agree_pct": 11.217183770883056,
+      "shared_offsets": 1154
+    },
+    {
+      "entry_index": 2777,
+      "gap_seconds": 344769,
+      "next_id": "sd_002918",
+      "pair_agree_pct": 0.0,
+      "prev_id": "sd_002917",
+      "replay_agree_pct": 7.801639296101531,
+      "shared_offsets": 35
+    },
+    {
+      "entry_index": 2985,
+      "gap_seconds": 339986,
+      "next_id": "sd_003126",
+      "pair_agree_pct": 13.31791907514451,
+      "prev_id": "sd_003125",
+      "replay_agree_pct": 24.80613124121355,
+      "shared_offsets": 4325
+    },
+    {
+      "entry_index": 3071,
+      "gap_seconds": 491090,
+      "next_id": "sd_003212",
+      "pair_agree_pct": 1.0450718353496082,
+      "prev_id": "sd_003211",
+      "replay_agree_pct": 2.0915742070713232,
+      "shared_offsets": 281129
+    },
+    {
+      "entry_index": 3090,
+      "gap_seconds": 1311534,
+      "next_id": "sd_003231",
+      "pair_agree_pct": 2.9411764705882355,
+      "prev_id": "sd_003230",
+      "replay_agree_pct": 19.913770866344844,
+      "shared_offsets": 136
+    },
+    {
+      "entry_index": 3134,
+      "gap_seconds": 288,
+      "next_id": "sd_003275",
+      "pair_agree_pct": 1.3937510653083167,
+      "prev_id": "sd_003274",
+      "replay_agree_pct": 3.8993523241818075,
+      "shared_offsets": 228807
+    },
+    {
+      "entry_index": 3207,
+      "gap_seconds": 1988289,
+      "next_id": "sd_003348",
+      "pair_agree_pct": 16.6326232856726,
+      "prev_id": "sd_003347",
+      "replay_agree_pct": 10.164624855999703,
+      "shared_offsets": 3427
+    },
+    {
+      "entry_index": 3534,
+      "gap_seconds": 33559,
+      "next_id": "sd_003675",
+      "pair_agree_pct": 0.9373458312777504,
+      "prev_id": "sd_003674",
+      "replay_agree_pct": 30.082781456953644,
+      "shared_offsets": 4054
+    },
+    {
+      "entry_index": 3799,
+      "gap_seconds": 72151,
+      "next_id": "sd_003940",
+      "pair_agree_pct": 2.6990457760051605,
+      "prev_id": "sd_003939",
+      "replay_agree_pct": 6.028124104774123,
+      "shared_offsets": 381357
+    },
+    {
+      "entry_index": 3830,
+      "gap_seconds": 4918779,
+      "next_id": "sd_003971",
+      "pair_agree_pct": 9.90439109151828,
+      "prev_id": "sd_003970",
+      "replay_agree_pct": 10.103311050557723,
+      "shared_offsets": 248617
+    },
+    {
+      "entry_index": 3862,
+      "gap_seconds": 332,
+      "next_id": "sd_004003",
+      "pair_agree_pct": 1.0001087074682031,
+      "prev_id": "sd_004002",
+      "replay_agree_pct": 1.5695422970193,
+      "shared_offsets": 377159
+    }
+  ],
+  "boundary_count": 27,
+  "character": "Bee",
+  "consecutive_pairs": 3868,
+  "continuity_is_all_or_nothing": "Every continuous pair agrees on EVERY shared offset — there is no 'mostly continuous'. Continuity is not a matter of degree in this corpus, which is why the threshold's exact value does not matter.",
+  "continuous_pairs": 3837,
+  "data_hygiene": {
+    "files_with_duplicate_offsets": 0,
+    "out_of_range_records": 0
+  },
+  "diff_corpus": "timeline-slot-diffs",
+  "entries": 3869,
+  "localized_count": 2,
+  "localized_discontinuities": [
+    {
+      "entry_index": 1523,
+      "gap_seconds": 228,
+      "next_id": "sd_001664",
+      "pair_agree_pct": 6.451612903225806,
+      "prev_id": "sd_001663",
+      "replay_agree_pct": 99.98284935156256,
+      "shared_offsets": 31
+    },
+    {
+      "entry_index": 2231,
+      "gap_seconds": 35746,
+      "next_id": "sd_002372",
+      "pair_agree_pct": 3.228431904503527,
+      "prev_id": "sd_002371",
+      "replay_agree_pct": 99.00175003645909,
+      "shared_offsets": 3686
+    }
+  ],
+  "long_gap_heuristic": {
+    "long_and_boundary": 23,
+    "long_and_continuous": 14,
+    "short_and_boundary": 4,
+    "short_and_continuous": 3827,
+    "threshold_seconds": 1800
+  },
+  "metadata_corpus": "timeline-metadata",
+  "method": {
+    "ambiguous_band": "Pairs between the two thresholds are reported individually rather than classified. An empty band is evidence the bimodal reading is right; a populated one would falsify it.",
+    "broken_max_pct": 50.0,
+    "continuous_min_pct": 95.0,
+    "localized_vs_boundary": "A pair that fails the local test while the replayed state stays >= replay_intact_pct is NOT a segment cut. Unobserved play makes the save stale everywhere; these are stale in a handful of bytes only. They are reported separately so the timeline is not over-fragmented.",
+    "pair_agree_pct": "prev.new vs next.old over the offsets both captures touch. Local to the pair.",
+    "replay_agree_pct": "full replayed state vs next.old over all of next's offsets. Global, so it inherits damage from every earlier boundary.",
+    "replay_intact_pct": 95.0
+  },
+  "note": "Exhaustive segment-boundary census over a sparse-diff timeline. Asserts NO flags and names NO game events: it describes where the captured record is continuous and where play happened unobserved, so that later analysis can refuse to reason across a discontinuity. Supersedes the v0.36.1 SAMPLE ('at least 21 boundaries', measured on long-gap pairs plus a few short-gap spot checks) with a full scan of every consecutive pair.",
+  "pair_agree_histogram_5pct_buckets": [
+    15,
+    5,
+    3,
+    2,
+    1,
+    0,
+    2,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0,
+    3837
+  ],
+  "pairs_agreeing_exactly_100pct": 3837,
+  "schema": "timeline-segments/1",
+  "segment_count": 28,
+  "segments": [
+    {
+      "duration_seconds": 7262,
+      "end_id": "sd_000221",
+      "end_ts": "2026-02-14T12:45:39.743Z",
+      "entries": 81,
+      "index": 0,
+      "start_entry": 0,
+      "start_id": "sd_000141",
+      "start_ts": "2026-02-14T10:44:37.310Z"
+    },
+    {
+      "duration_seconds": 41633,
+      "end_id": "sd_000841",
+      "end_ts": "2026-02-15T01:09:14.709Z",
+      "entries": 620,
+      "index": 1,
+      "start_entry": 81,
+      "start_id": "sd_000222",
+      "start_ts": "2026-02-14T13:35:20.970Z"
+    },
+    {
+      "duration_seconds": 50,
+      "end_id": "sd_000843",
+      "end_ts": "2026-02-15T19:51:14.005Z",
+      "entries": 2,
+      "index": 2,
+      "start_entry": 701,
+      "start_id": "sd_000842",
+      "start_ts": "2026-02-15T19:50:23.794Z"
+    },
+    {
+      "duration_seconds": 934,
+      "end_id": "sd_000862",
+      "end_ts": "2026-02-16T11:33:32.376Z",
+      "entries": 19,
+      "index": 3,
+      "start_entry": 703,
+      "start_id": "sd_000844",
+      "start_ts": "2026-02-16T11:17:57.820Z"
+    },
+    {
+      "duration_seconds": 4165,
+      "end_id": "sd_000939",
+      "end_ts": "2026-02-16T19:44:11.637Z",
+      "entries": 77,
+      "index": 4,
+      "start_entry": 722,
+      "start_id": "sd_000863",
+      "start_ts": "2026-02-16T18:34:45.841Z"
+    },
+    {
+      "duration_seconds": 3380,
+      "end_id": "sd_000998",
+      "end_ts": "2026-03-02T19:39:37.041Z",
+      "entries": 59,
+      "index": 5,
+      "start_entry": 799,
+      "start_id": "sd_000940",
+      "start_ts": "2026-03-02T18:43:16.754Z"
+    },
+    {
+      "duration_seconds": 31982,
+      "end_id": "sd_001458",
+      "end_ts": "2026-03-07T21:46:05.764Z",
+      "entries": 460,
+      "index": 6,
+      "start_entry": 858,
+      "start_id": "sd_000999",
+      "start_ts": "2026-03-07T12:53:03.576Z"
+    },
+    {
+      "duration_seconds": 4357,
+      "end_id": "sd_001532",
+      "end_ts": "2026-03-11T20:10:56.136Z",
+      "entries": 74,
+      "index": 7,
+      "start_entry": 1318,
+      "start_id": "sd_001459",
+      "start_ts": "2026-03-11T18:58:18.744Z"
+    },
+    {
+      "duration_seconds": 759,
+      "end_id": "sd_001546",
+      "end_ts": "2026-03-15T14:16:59.970Z",
+      "entries": 14,
+      "index": 8,
+      "start_entry": 1392,
+      "start_id": "sd_001533",
+      "start_ts": "2026-03-15T14:04:20.310Z"
+    },
+    {
+      "duration_seconds": 8,
+      "end_id": "sd_001548",
+      "end_ts": "2026-03-15T16:48:09.909Z",
+      "entries": 2,
+      "index": 9,
+      "start_entry": 1406,
+      "start_id": "sd_001547",
+      "start_ts": "2026-03-15T16:48:01.809Z"
+    },
+    {
+      "duration_seconds": 75805,
+      "end_id": "sd_002157",
+      "end_ts": "2026-03-16T13:58:30.822Z",
+      "entries": 609,
+      "index": 10,
+      "start_entry": 1408,
+      "start_id": "sd_001549",
+      "start_ts": "2026-03-15T16:55:05.028Z"
+    },
+    {
+      "duration_seconds": 3758,
+      "end_id": "sd_002223",
+      "end_ts": "2026-03-16T15:45:22.094Z",
+      "entries": 66,
+      "index": 11,
+      "start_entry": 2017,
+      "start_id": "sd_002158",
+      "start_ts": "2026-03-16T14:42:44.010Z"
+    },
+    {
+      "duration_seconds": 91489,
+      "end_id": "sd_002483",
+      "end_ts": "2026-03-17T20:47:19.506Z",
+      "entries": 260,
+      "index": 12,
+      "start_entry": 2083,
+      "start_id": "sd_002224",
+      "start_ts": "2026-03-16T19:22:30.100Z"
+    },
+    {
+      "duration_seconds": 688,
+      "end_id": "sd_002497",
+      "end_ts": "2026-03-18T16:38:27.422Z",
+      "entries": 14,
+      "index": 13,
+      "start_entry": 2343,
+      "start_id": "sd_002484",
+      "start_ts": "2026-03-18T16:26:59.318Z"
+    },
+    {
+      "duration_seconds": 8806,
+      "end_id": "sd_002589",
+      "end_ts": "2026-03-18T20:52:30.190Z",
+      "entries": 92,
+      "index": 14,
+      "start_entry": 2357,
+      "start_id": "sd_002498",
+      "start_ts": "2026-03-18T18:25:43.874Z"
+    },
+    {
+      "duration_seconds": 3535,
+      "end_id": "sd_002676",
+      "end_ts": "2026-03-18T22:04:21.507Z",
+      "entries": 87,
+      "index": 15,
+      "start_entry": 2449,
+      "start_id": "sd_002590",
+      "start_ts": "2026-03-18T21:05:25.881Z"
+    },
+    {
+      "duration_seconds": 181238,
+      "end_id": "sd_002811",
+      "end_ts": "2026-03-21T11:22:19.771Z",
+      "entries": 135,
+      "index": 16,
+      "start_entry": 2536,
+      "start_id": "sd_002677",
+      "start_ts": "2026-03-19T09:01:40.900Z"
+    },
+    {
+      "duration_seconds": 22643,
+      "end_id": "sd_002917",
+      "end_ts": "2026-03-23T16:14:39.078Z",
+      "entries": 106,
+      "index": 17,
+      "start_entry": 2671,
+      "start_id": "sd_002812",
+      "start_ts": "2026-03-23T09:57:15.847Z"
+    },
+    {
+      "duration_seconds": 12493,
+      "end_id": "sd_003125",
+      "end_ts": "2026-03-27T19:29:01.696Z",
+      "entries": 208,
+      "index": 18,
+      "start_entry": 2777,
+      "start_id": "sd_002918",
+      "start_ts": "2026-03-27T16:00:48.601Z"
+    },
+    {
+      "duration_seconds": 4649,
+      "end_id": "sd_003211",
+      "end_ts": "2026-03-31T19:12:57.539Z",
+      "entries": 86,
+      "index": 19,
+      "start_entry": 2985,
+      "start_id": "sd_003126",
+      "start_ts": "2026-03-31T17:55:27.749Z"
+    },
+    {
+      "duration_seconds": 5400,
+      "end_id": "sd_003230",
+      "end_ts": "2026-04-06T13:07:49.379Z",
+      "entries": 19,
+      "index": 20,
+      "start_entry": 3071,
+      "start_id": "sd_003212",
+      "start_ts": "2026-04-06T11:37:48.514Z"
+    },
+    {
+      "duration_seconds": 3005,
+      "end_id": "sd_003274",
+      "end_ts": "2026-04-21T18:16:49.097Z",
+      "entries": 44,
+      "index": 21,
+      "start_entry": 3090,
+      "start_id": "sd_003231",
+      "start_ts": "2026-04-21T17:26:43.562Z"
+    },
+    {
+      "duration_seconds": 4997,
+      "end_id": "sd_003347",
+      "end_ts": "2026-04-21T19:44:54.520Z",
+      "entries": 73,
+      "index": 22,
+      "start_entry": 3134,
+      "start_id": "sd_003275",
+      "start_ts": "2026-04-21T18:21:37.169Z"
+    },
+    {
+      "duration_seconds": 780573,
+      "end_id": "sd_003674",
+      "end_ts": "2026-05-23T20:52:37.096Z",
+      "entries": 327,
+      "index": 23,
+      "start_entry": 3207,
+      "start_id": "sd_003348",
+      "start_ts": "2026-05-14T20:03:03.889Z"
+    },
+    {
+      "duration_seconds": 50607,
+      "end_id": "sd_003939",
+      "end_ts": "2026-05-24T20:15:23.538Z",
+      "entries": 265,
+      "index": 24,
+      "start_entry": 3534,
+      "start_id": "sd_003675",
+      "start_ts": "2026-05-24T06:11:56.485Z"
+    },
+    {
+      "duration_seconds": 1389,
+      "end_id": "sd_003970",
+      "end_ts": "2026-05-25T16:41:04.477Z",
+      "entries": 31,
+      "index": 25,
+      "start_entry": 3799,
+      "start_id": "sd_003940",
+      "start_ts": "2026-05-25T16:17:54.947Z"
+    },
+    {
+      "duration_seconds": 15030,
+      "end_id": "sd_004002",
+      "end_ts": "2026-07-21T19:11:14.694Z",
+      "entries": 32,
+      "index": 26,
+      "start_entry": 3830,
+      "start_id": "sd_003971",
+      "start_ts": "2026-07-21T15:00:43.801Z"
+    },
+    {
+      "duration_seconds": 1199,
+      "end_id": "sd_004009",
+      "end_ts": "2026-07-21T19:36:46.074Z",
+      "entries": 7,
+      "index": 27,
+      "start_entry": 3862,
+      "start_id": "sd_004003",
+      "start_ts": "2026-07-21T19:16:46.959Z"
+    }
+  ],
+  "slot_index": 5,
+  "target": "bee",
+  "undetermined_count": 0
+}

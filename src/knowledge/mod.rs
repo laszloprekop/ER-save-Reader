@@ -21,6 +21,8 @@ pub mod gen_dungeon_pickups;
 pub mod gen_world_pickups;
 pub mod pipeline;
 pub mod timeline;
+pub mod timeline_flips;
+pub mod timeline_segments;
 
 pub fn run_cli(args: &[String]) -> Result<(), String> {
     match args.first().map(|s| s.as_str()) {
@@ -28,6 +30,8 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
         Some("catalog-verify") => catalog::cmd_verify(&args[1..]),
         Some("run") => pipeline::cmd_run(&args[1..]),
         Some("timeline") => timeline::cmd_timeline(&args[1..]),
+        Some("timeline-segments") => timeline_segments::cmd_timeline_segments(&args[1..]),
+        Some("timeline-flips") => timeline_flips::cmd_timeline_flips(&args[1..]),
         Some("family-distances") => family_distances::cmd_family_distances(&args[1..]),
         Some("origin-probe") => family_distances::cmd_origin_probe(&args[1..]),
         Some("list-hunt") => family_distances::cmd_list_hunt(&args[1..]),
@@ -70,6 +74,15 @@ pub fn run_cli(args: &[String]) -> Result<(), String> {
             println!("    timeline <id>     Replay a sparse-diff timeline target (see");
             println!("                      knowledge/inputs/timeline-targets.json), emit");
             println!("                      knowledge/claims/timeline-replay-audit.json");
+            println!("    timeline-segments <id>");
+            println!("                      Exhaustive segment-boundary census: every");
+            println!("                      consecutive pair, not the v0.36.1 long-gap");
+            println!("                      sample. A timeline is not one chain; flip");
+            println!("                      analysis must never reason across a boundary");
+            println!("    timeline-flips <id>");
+            println!("                      Does segment-confinement fix the set-monotonicity");
+            println!("                      violation that sank the 2026-07-06 re-annotation?");
+            println!("                      Runs the same extraction both ways and compares");
             Ok(())
         }
     }

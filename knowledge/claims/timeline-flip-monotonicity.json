@@ -1,0 +1,34 @@
+{
+  "boundaries_ignored": {
+    "distinct_rel_bit": 266328,
+    "pairs": 2735,
+    "repeat_violations": 108215,
+    "transitions_0_to_1": 559376,
+    "worst_repeat_count": 57
+  },
+  "boundaries_respected": {
+    "distinct_rel_bit": 262663,
+    "pairs": 2711,
+    "repeat_violations": 107183,
+    "transitions_0_to_1": 553785,
+    "worst_repeat_count": 57
+  },
+  "boundaries_used": 27,
+  "character": "Bee",
+  "enrichment_test": {
+    "enrichment": 1.0867717044771983,
+    "pct_pairs_excluded": 0.8775137111517367,
+    "pct_violations_removed": 0.9536570715704847,
+    "what_it_measures": "Excluding any pairs must remove some violations, so a raw drop proves nothing. This asks whether boundary pairs are ENRICHED for violations: the ratio of (% violations removed) to (% pairs excluded). ~1.0 means boundary pairs violate at exactly the rate of ordinary pairs, i.e. the boundary is not the mechanism."
+  },
+  "isolation_half_width": 16,
+  "method_note": "The isolated-flip rule is copied verbatim from pipeline.rs (identical +/-16 neighborhood, grace-aligned at each state's own detected offset). Only the segment constraint differs between the two arms, so the comparison is not confounded.",
+  "note": "Internal-consistency experiment, NOT a flag re-annotation. It asserts no flags, resolves no family base, and names no game event. It asks one question: does confining grace-aligned isolated-flip extraction to a single timeline segment remove the set-monotonicity violation that caused the 2026-07-06 re-annotation attempt to be rejected? The same extraction is run with boundaries respected and ignored so the difference is measured, not assumed.",
+  "pairs_skipped_at_boundary": 24,
+  "pairs_skipped_unconfident_detection": 1133,
+  "schema": "timeline-flip-monotonicity/1",
+  "segment_source": "knowledge/claims/timeline-segments.json",
+  "slot_index": 5,
+  "target": "bee",
+  "verdict": "FAIL — segment confinement does not explain the violation; the clustering design needs more than a segment map"
+}

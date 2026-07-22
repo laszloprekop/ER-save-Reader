@@ -25,8 +25,8 @@ and has since diverged into a state-reconstruction and event-flag research tool.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/ER-Save-Editor.git
-   cd ER-Save-Editor
+   git clone https://github.com/laszloprekop/ER-save-Reader.git
+   cd ER-save-Reader
    ```
 
 2. Build the project:

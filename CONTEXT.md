@@ -197,11 +197,25 @@ in-game event (e.g. 00→ff on a boss kill) inside one self-consistent EF window
 *attributed* kill transition (a labeled before/after capture pair) is Verified on its
 own; an *unattributed* flip inside a timeline window needs a second independent method
 (e.g. Reward Corroboration) to reach Verified. **A "window" may not cross a sparse-diff
-segment boundary** (added 2026-07-22): the Bee timeline is not one chain but ≥21
-segments, and across a boundary the previous capture's new-values stop matching the next
-one's old-values (100% agreement within a run, 1-25% across). Play happened unobserved
-there, so a flip spanning a boundary is not a transition — see the `segments` note on
-corpus `timeline-slot-diffs`.
+segment boundary** (added 2026-07-22): the Bee timeline is not one chain but **28
+segments separated by 27 boundaries** (exact census, `knowledge timeline-segments` →
+`knowledge/claims/timeline-segments.json`; this supersedes the "≥21" lower bound, which
+was a long-gap sample). Across a boundary the previous capture's new-values stop matching
+the next one's old-values; within a run agreement is **exactly 100.00% on every one of
+the 3,837 continuous pairs** — continuity is all-or-nothing here, not a matter of degree.
+Play happened unobserved at a boundary, so a flip spanning one is not a transition.
+
+> **CORRECTED 2026-07-22 (same day), and the correction matters more than the rule.**
+> The v0.36.1 entry went further and claimed boundary-crossing was *the mechanism* behind
+> the rejected re-annotation's flags "transitioning" 0→1 up to 69 times. **That causal
+> claim is refuted** (`knowledge timeline-flips` →
+> `knowledge/claims/timeline-flip-monotonicity.json`): excluding boundary pairs removes
+> 0.954% of set-monotonicity violations while excluding 0.878% of pairs — an enrichment of
+> **1.09×**, i.e. boundary pairs violate at the same rate as ordinary ones. 107,183
+> violations survive segment confinement, worst offender unchanged at 57×. The boundary
+> rule above stands on its own evidence (the 100%/collapse contrast is real); what does
+> NOT stand is treating it as the explanation for the monotonicity failure. See
+> `docs/BACKLOG.md` step 3 for what the remaining cause is believed to be.
 
 **Reward Corroboration**:
 Verification method: a boss-specific unique item (remembrance, boss soul, unique key

@@ -7,6 +7,95 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.0 - Census the timeline's segments; falsify the flip-clustering premise
+
+Two new `knowledge` commands, and a **retraction**. v0.36.1 found that the Bee timeline
+is not one chain and went on to claim boundary-crossing was *the mechanism* behind the
+rejected re-annotation's impossible repeated 0->1 transitions. The first claim is now
+exact; **the second is refuted by measurement**. The headline result of this release is a
+negative one, obtained before building the thing it would have invalidated.
+
+### Features
+- **`knowledge timeline-segments <id>`** (`src/knowledge/timeline_segments.rs`) —
+  exhaustive segment-boundary census over a sparse-diff timeline. Replaces v0.36.1's
+  long-gap SAMPLE ("at least 21 boundaries") with all 3,868 consecutive pairs:
+  **27 boundaries, 28 segments**. Emits `knowledge/claims/timeline-segments.json`.
+- **`knowledge timeline-flips <id>`** (`src/knowledge/timeline_flips.rs`) — runs the
+  BACKLOG step-3 flip extraction twice, boundaries respected vs ignored, and reports the
+  set-monotonicity violation rate of each. Emits
+  `knowledge/claims/timeline-flip-monotonicity.json`.
+- `src/knowledge/timeline.rs` grows a shared `load_target` / `read_diff_verified` so all
+  three timeline commands verify-on-read through one path (ADR-0001) and no analysis can
+  run on unverified bytes.
+
+### Key findings
+- **Continuity is all-or-nothing.** Every one of the 3,837 continuous pairs agrees at
+  *exactly* 100.00% — the 95-100% histogram bucket is EMPTY. The classification threshold
+  therefore cannot be wrong, which is a stronger position than defending a chosen cut.
+- **Two pair-test failures are NOT segment cuts.** `sd_001663->sd_001664` reads 6.45%
+  pairwise but **99.98% against the replayed state** (31 shared offsets);
+  `sd_002371->sd_002372` is 3.23% / 99.00%. Unobserved play makes a save stale
+  *everywhere*; these are stale in a handful of bytes. Corroborating the local test
+  against the global one (`docs/CORROBORATION-SYSTEM.md`) is what caught them — the naive
+  count was 29, not 27.
+- **The 30-minute gap heuristic is weak in both directions**: 23 hits, **14 false alarms**
+  (38% of long gaps are not boundaries), **4 boundaries missed** at gaps as short as 228s.
+  Gap length is not a boundary test.
+- **RETRACTION — segment confinement does not fix the monotonicity violation.** Excluding
+  boundary pairs leaves **107,183** repeat-violations (from 108,215), worst offender
+  **unchanged at 57x**. The decisive statistic is not the raw drop, since excluding any
+  pairs must remove some violations: excluding **0.878%** of pairs removed **0.954%** of
+  violations, an **enrichment of 1.09x**. Boundary pairs violate at the same rate as
+  ordinary ones. v0.36.1's boundary *finding* stands on its own evidence; its proposed
+  *consequence* does not.
+- **Where the cause is now believed to lie** (hypothesis, UNVERIFIED): the alignment, not
+  the time window. Both arms align states by a single global
+  `detect_event_flags_offset_impl` anchor, yet this project's own settled finding is that
+  family bases float independently per save — up to ~70 bytes *within one session*. If so,
+  `grace_rel` i in two states is not the same flag, and the design is blocked on per-family
+  base resolution at every replayed state, not on segments. Recorded in
+  `docs/BACKLOG.md` step 3 as the next thing to test, not as a conclusion.
+
+### Corrected
+- `CONTEXT.md` -> *Kill Transition*: the ">=21 segments" lower bound becomes the exact
+  27/28 census, and the refuted causal claim carries an inline correction. The boundary
+  rule itself is kept — it is still true, just not an explanation for the flip failure.
+- `README.md:28-29`: the clone instructions pointed at
+  `github.com/your-username/ER-Save-Editor`. `docs/BACKLOG.md`'s own rename note had
+  asserted all four in-repo `ER-Save-Editor` mentions were upstream ClayAmore references
+  that must not be touched; **one of the six was this self-reference**. The note had been
+  written from a grep count rather than by reading each hit.
+
+### Repository
+- Renamed **`laszloprekop/ER-Save-Editor` -> `laszloprekop/ER-save-Reader`**, matching the
+  name the project already uses for itself (`docs/CHANGELOG.md:3`). The GitHub description
+  still read "Elden Ring Save **Editor**" and was updated too — it contradicted ADR-0009 in
+  the first line a visitor reads. Old links keep working via GitHub's redirect.
+
+### Verification
+- `cargo test --workspace`: **104 passed, 0 failed**.
+- The `cmd_timeline` refactor is behaviour-preserving, checked against the exact figures
+  v0.36.1 recorded: **1,208,825,803 records, 0.74% old-value mismatch, 2,774/3,869
+  confident, offsets 72,609..82,586** — all four reproduced identically.
+- `cargo clippy --workspace` still fails with the **same 6 pre-existing**
+  `enum_clike_unportable_variant` errors (`src/vm/inventory/mod.rs`), warning count
+  unchanged at 745; the new modules add none. Tracked in BACKLOG Priority 4.
+
+### Files Modified
+- `src/knowledge/timeline_segments.rs`: NEW — segment census
+- `src/knowledge/timeline_flips.rs`: NEW — monotonicity falsification experiment
+- `src/knowledge/timeline.rs`: shared verify-on-read target loader; `cmd_timeline`
+  rewritten onto it
+- `src/knowledge/mod.rs`: two new subcommands + help
+- `knowledge/claims/timeline-segments.json`, `knowledge/claims/timeline-flip-monotonicity.json`: NEW generated outputs (ADR-0004)
+- `CONTEXT.md`: exact segment count; retraction of the causal claim
+- `docs/BACKLOG.md`: step 3 census + falsification write-up; rename entry DONE with its
+  own correction
+- `README.md`: clone URL
+- `docs/CHANGELOG.md`, `Cargo.toml`: v0.37.0
+
+---
+
 ## v0.36.2 - Clear all 12 Dependabot advisories by deleting unreachable dependencies
 
 A save reader was linking a TLS stack, a QUIC implementation, and an AVIF encoder, and

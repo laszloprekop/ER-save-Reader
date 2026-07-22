@@ -238,6 +238,56 @@ Steps, in order:
    (cannot become pairs without a flag hypothesis) — data gap, not a mechanism gap;
    the four s7 world-state-b pairs above also remain unresolved pending more/cleaner
    captures; the timeline flip-clustering design above, if someone wants to pursue it.
+
+   **SEGMENT CENSUS DONE 2026-07-22** (`knowledge timeline-segments`,
+   `src/knowledge/timeline_segments.rs` → `knowledge/claims/timeline-segments.json`).
+   Replaces v0.36.1's long-gap SAMPLE ("at least 21 boundaries") with a full scan of all
+   3,868 consecutive pairs: **27 boundaries, 28 segments**. Findings:
+   - **Continuity is all-or-nothing.** All 3,837 continuous pairs agree at *exactly*
+     100.00% — the 95-100% histogram bucket is EMPTY. There is no "mostly continuous",
+     so the classification threshold's exact value is irrelevant, which is a much
+     stronger position than picking a defensible cut.
+   - **Two pair-test failures are NOT segment cuts** (`sd_001663→sd_001664` at 6.45%
+     pair / **99.98% replay**, 31 shared offsets; `sd_002371→sd_002372` at 3.23% /
+     99.00%). Unobserved play makes a save stale *everywhere*; these are stale in a
+     handful of bytes. Corroborating the local test against the global replay
+     (`docs/CORROBORATION-SYSTEM.md`) is what separates them — the naive count was 29.
+   - **The 30-minute gap heuristic is weak in both directions**: 23 hits, **14 false
+     alarms** (38% of long gaps are NOT boundaries) and **4 boundaries missed** at gaps
+     as short as 228s. v0.36.1 already suspected this; the census quantifies it. Do not
+     use gap length as a boundary test.
+   - 2 genuinely ambiguous pairs (~80%) are reported, not classified.
+
+   **FLIP-CLUSTERING PREREQUISITE TESTED AND FAILED 2026-07-22** (`knowledge
+   timeline-flips`, `src/knowledge/timeline_flips.rs` →
+   `knowledge/claims/timeline-flip-monotonicity.json`). Before building the clustering,
+   the cheap falsification: does confining extraction to a segment remove the
+   set-monotonicity violation that sank the 2026-07-06 attempt? **No.**
+   - Same isolated-flip rule as `pipeline.rs` (identical ±16 neighborhood, grace-aligned
+     per state), run twice — boundaries respected vs ignored — so only the segment
+     constraint differs.
+   - Boundaries ignored: 108,215 repeat-violations, worst 57×. Boundaries respected:
+     **107,183**, worst **still 57×**.
+   - **The decisive statistic is enrichment, not the raw drop.** Excluding any pairs must
+     remove some violations. Excluding 0.878% of pairs removed 0.954% of violations —
+     **enrichment 1.09×**. Boundary pairs violate at the same rate as ordinary pairs.
+   - **This refutes the v0.36.1 causal claim** that boundary-crossing was "the mechanism
+     behind the previous attempt's flags transitioning 0→1 up to 69 times". The boundary
+     finding itself stands; its proposed *consequence* does not. `CONTEXT.md` → *Kill
+     Transition* carries the correction.
+   - **Where the cause most likely actually lies** (hypothesis, UNVERIFIED, stated as the
+     next thing to test rather than a conclusion): the alignment, not the time window.
+     Both arms align two states by each state's own `detect_event_flags_offset_impl`
+     result — a single global anchor. But this project's own settled finding is that
+     **every family base floats independently per save, and can drift even between
+     captures within one session** (the s7 ~70-byte intra-session shift, step 3 above;
+     `CLAUDE.md` → Single Source of Truth). If families float relative to the detected
+     anchor, then `grace_rel` i in state A and `grace_rel` i in state B are not the same
+     flag, and a "bit" will appear to set repeatedly because it is not one bit. That
+     would make repeat-violations a property of the *alignment model*, which no amount
+     of time-window discipline can fix. Testing it means per-family base resolution at
+     every replayed state — which is exactly the thing the 2026-07-06 attempt could not
+     do without an attributed anchor. **The design is blocked on that, not on segments.**
 ### Pickup family cutover — PARTIAL, 2026-07-20
 
 **World pickups CUT OVER** (`tile-pickup-row-id`). `src/ui/world_pickups_view.rs` and
@@ -1357,16 +1407,30 @@ These work correctly as-is but could be consolidated to reduce maintenance burde
   `reqwest` re-adds all 10 advisories' crates. That is a real cost to weigh at that point,
   not a reason to keep a dead dependency now.
 
-### Repo name still says "Editor" (noted 2026-07-22)
+### Repo name still says "Editor" (noted 2026-07-22) — DONE 2026-07-22
 - **Concept**: The project renamed itself `er-save-editor` -> `er-save-reader` in
-  v0.35.0 (ADR-0009), but the git remote is still
+  v0.35.0 (ADR-0009), but the git remote was still
   `git@github.com:laszloprekop/ER-Save-Editor.git`.
-- **Status**: OPEN DECISION, not a defect — nothing is broken and GitHub redirects renamed
-  repos, so this costs nothing until someone clones from a stale link.
-- **Careful when doing it**: the four in-repo files that mention `ER-Save-Editor`
-  (`README.md`, `docs/SAVE_FILE_GROUND_TRUTH.md`, `docs/adr/0002`, `docs/CHANGELOG.md`)
-  refer to the **upstream ClayAmore project**, which is correctly named and must NOT be
-  rewritten in a rename sweep. The only thing to change is the remote URL.
+- **Status**: DONE — GitHub repo renamed to **`laszloprekop/ER-save-Reader`** (the casing
+  the project already uses for itself in `docs/CHANGELOG.md:3` and the working directory,
+  rather than a newly invented one). Local `origin` re-pointed; `git fetch` verified
+  against the new URL. The repo `description` was stale in the same way — "Elden Ring Save
+  **Editor**. Compatible with PC and Playstation saves." — and was updated at the same
+  time; it is the first thing a visitor reads and it contradicted ADR-0009.
+- **CORRECTION to this entry's own warning.** It said all four in-repo files mentioning
+  `ER-Save-Editor` refer to the upstream ClayAmore project and that "the only thing to
+  change is the remote URL". That was wrong about one of them: **`README.md:28-29` is a
+  *self*-reference** — the clone instructions for this repo
+  (`git clone .../your-username/ER-Save-Editor.git` / `cd ER-Save-Editor`) — and was
+  updated. The rest of the mentions do correctly name upstream and were left alone:
+  `README.md:4,16,101,106` (ClayAmore links/assets), `docs/SAVE_FILE_GROUND_TRUTH.md:533`
+  (a derived filename), `docs/adr/0002`, and `docs/CHANGELOG.md:298` (a historical entry —
+  the changelog is never retroactively corrected, per its epistemic header).
+- **Lesson worth keeping**: "all N occurrences are upstream" was asserted from a grep
+  *count*, not from reading each hit. One in six was the opposite of what the note claimed.
+- **Not renamed, deliberately**: old `github.com/laszloprekop/ER-Save-Editor` links keep
+  working via GitHub's redirect, and `docs/BACKLOG.md:1318`'s dependabot URL is left as the
+  historical record of where those alerts were reported.
 
 ---
 
