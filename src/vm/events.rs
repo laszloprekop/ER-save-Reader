@@ -240,7 +240,17 @@ pub mod events_view_model {
     }
 
     impl EventsViewModel {
-        pub fn from_save(slot:& SaveSlot) -> Self {
+        pub fn from_save(slot: &SaveSlot) -> Self {
+            Self::from_event_flags(&slot.event_flags.flags)
+        }
+
+        /// Build the events view model from a slot's raw event-flag region.
+        ///
+        /// Split out from `from_save` (which only ever reads `event_flags.flags`)
+        /// so the flag-reading logic is testable against a synthetic region without
+        /// constructing a whole `SaveSlot` — the seam the whetblade regression test
+        /// (frozen offset vs resolved Origin) needs.
+        pub fn from_event_flags(ef: &[u8]) -> Self {
             let mut events_vm = EventsViewModel::default();
 
             // Grace family CUT OVER 2026-07-20 (ADR-0006, migration step 4).
@@ -261,7 +271,7 @@ pub mod events_view_model {
             // from the same world-state-b base, so re-scanning per grace (~13,400
             // bytes each) would repeat the same work ~340 times. If the origin will
             // not resolve, `resolved` is None and every grace reads Unknown.
-            let resolved = ResolvedFlags::from_event_flags(&slot.event_flags.flags);
+            let resolved = ResolvedFlags::from_event_flags(ef);
             for (key, value) in GRACES.lock().unwrap().iter() {
                 let flag_id = value.1;
 
@@ -274,23 +284,33 @@ pub mod events_view_model {
                 events_vm.grace_groups.get_mut(&value.0).expect("").sort();
             }
 
-            // Whetblades
+            // Whetblades — world-state block flags (65610-65720), the same family
+            // as graces. CUT OVER 2026-07-23 from the frozen `get_flag_offset` block
+            // base: that base is a fixed offset valid only for the save it was
+            // measured on, but the family floats per save, so on any other save the
+            // fixed offset reads the wrong bytes. Diagnosed against ER0000.sl2 slot 5,
+            // where the frozen path reported 2 of the 3 owned whetblades (both bits
+            // correct only by coincidence) and missed Iron and Glintstone entirely;
+            // `world_state` resolves the base per save and reads all 7 flags right.
+            //
+            // Unknown (region unresolvable) collapses to not-discovered here because
+            // the shared `simple_event_flag_view` is bool-typed and cannot carry the
+            // third state. That is a known limitation, recorded in the post-mortem —
+            // not a reintroduction of the Unknown-is-Clear bug at the reader layer.
             for (key, value) in WHETBLADES.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
-                        events_vm.whetblades.insert(*key, on);
-                    }
-                }
+                let on = resolved
+                    .as_ref()
+                    .map_or(FlagState::Unknown, |r| r.world_state(value.0))
+                    == FlagState::Set;
+                events_vm.whetblades.insert(*key, on);
             }
 
             // Cookbooks
             for (key, value) in COOKBOKS.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.cookbooks.insert(*key, on);
                     }
                 }
@@ -300,8 +320,8 @@ pub mod events_view_model {
             for (key, value) in MAPS.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.maps.insert(*key, on);
                     }
                 }
@@ -311,8 +331,8 @@ pub mod events_view_model {
             for (key, value) in BOSSES.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.bosses.insert(*key, on);
                     }
                 }
@@ -322,8 +342,8 @@ pub mod events_view_model {
             for (key, value) in SUMMONING_POOLS.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.summoning_pools.insert(*key, on);
                     }
                 }
@@ -333,8 +353,8 @@ pub mod events_view_model {
             for (key, value) in COLOSSEUMS.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.colosseums.insert(*key, on);
                     }
                 }
@@ -344,8 +364,8 @@ pub mod events_view_model {
             for (key, value) in LANDMARKS.lock().unwrap().iter() {
                 let flag_id = value.0;
                 if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < slot.event_flags.flags.len() {
-                        let on = get_bit(slot.event_flags.flags[byte_offset as usize], bit_position);
+                    if (byte_offset as usize) < ef.len() {
+                        let on = get_bit(ef[byte_offset as usize], bit_position);
                         events_vm.landmarks.insert(*key, on);
                     } else {
                         events_vm.landmarks.insert(*key, false);
@@ -367,5 +387,53 @@ pub mod events_view_model {
         // per save (wasm_event_flags::ResolvedFlags::world_state), so both would only
         // layer guesses on top of a verified read. PROGRESSION_GATES is kept: it
         // still documents real prerequisite relationships, just not as a flag mask.
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+        use wasm_event_flags::{resolve_family_base_in_ef, FAMILY_WORLD_STATE_B};
+
+        /// Set a world-state block flag at the position a resolved Origin puts it,
+        /// mirroring `ResolvedFlags::world_state` geometry.
+        fn set_world_state_flag(ef: &mut [u8], base: usize, flag_id: u32) {
+            let byte = base + ((flag_id - 50_000) / 8) as usize;
+            let bit = 7 - (flag_id % 8) as u8;
+            ef[byte] |= 1 << bit;
+        }
+
+        /// Regression (diagnosed on ER0000.sl2 slot 5, 2026-07-23): whetblades must
+        /// read from the per-save resolved Origin, not the frozen block base.
+        ///
+        /// The region below resolves to a world-state base that does NOT coincide
+        /// with the frozen `get_flag_offset` block offset, so only the resolver
+        /// lands on the bits we set. The old path read fixed bytes that are clear
+        /// here and reported the Iron Whetblade as not-owned — exactly the failure
+        /// on the real save, where it saw 2 of 3 owned whetblades (by coincidence)
+        /// and missed Iron and Glintstone entirely.
+        #[test]
+        fn whetblades_read_from_resolved_origin_not_frozen_base() {
+            // A region that resolves — marker puts the list end in the detectable
+            // range, as tests/flag_state_conformance.rs constructs one.
+            let mut ef = vec![0u8; 2_100_000];
+            ef[20_000] = 0x01;
+            let base = resolve_family_base_in_ef(&ef, FAMILY_WORLD_STATE_B)
+                .expect("synthetic region should resolve a world-state base");
+
+            // The three Iron Whetblade affinity flags, set at their RESOLVED
+            // positions; every other whetblade flag left clear.
+            for flag in [65_610, 65_620, 65_630] {
+                set_world_state_flag(&mut ef, base, flag);
+            }
+
+            let vm = EventsViewModel::from_event_flags(&ef);
+
+            // Owned affinities read set...
+            assert_eq!(vm.whetblades.get(&Whetblade::IronWhetbladeHeavy), Some(&true));
+            assert_eq!(vm.whetblades.get(&Whetblade::IronWhetbladeKeen), Some(&true));
+            assert_eq!(vm.whetblades.get(&Whetblade::IronWhetbladeQuality), Some(&true));
+            // ...and an unset one stays clear (guards against "reads everything set").
+            assert_eq!(vm.whetblades.get(&Whetblade::BlackWhetbladeBlood), Some(&false));
+        }
     }
 }

@@ -7,6 +7,33 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.18 - Whetblades read from the resolved Origin, not the frozen block base
+
+The whetblade page was left on the legacy `get_flag_offset` path when graces were cut over to
+the per-save resolver on 2026-07-20. That path reads a *fixed* block base from the frozen
+`ground_truth_offsets.json`, valid only for the save it was measured on; because the world-state
+family floats per save, on any other save it reads misaligned bytes. Diagnosed against ER0000.sl2
+slot 5 (a character owning Iron + Sanctified + Glintstone whetblades = 7 affinity flags): the
+frozen path reported only the 2 Sanctified flags — both correct **by coincidence** — and missed
+Iron ×3 and Glintstone ×2 entirely. Corroborated against an in-game inventory screenshot.
+
+Whetblades now read through `ResolvedFlags::world_state`, exactly as graces do. `world_state`
+already covers the 65610-65720 range (50k-80k world-state block), so no new flag knowledge was
+needed — only the cutover.
+
+To lock it down, `EventsViewModel::from_save` was split into a testable
+`from_event_flags(ef: &[u8])` seam (it only ever read `event_flags.flags`), and a regression test
+sets the Iron flags at their resolved positions on a synthetic region: it goes red on the frozen
+path (reads clear) and green on the resolver.
+
+Not addressed here (same latent bug, separate effort): cookbooks, maps, bosses, summoning pools,
+colosseums, and landmarks still use `get_flag_offset`; and the 171-177 great-rune verification
+mappings use world-drop flags that no resolver family covers. Both are recorded in BACKLOG.
+
+### Files Modified
+- src/vm/events.rs: whetblades cut over to `ResolvedFlags::world_state`; `from_event_flags` seam extracted from `from_save`; regression test added
+- Cargo.toml: bumped to 0.37.18
+
 ## v0.37.17 - Streamline the snapshot protocol; delete `COMMIT-PROTOCOL.md`
 
 The commit routine lived in two places — the `/snapshot` command (`.claude/commands/snapshot.md`,

@@ -1,6 +1,6 @@
 # Project Backlog
 
-**Last updated**: 2026-07-22
+**Last updated**: 2026-07-23
 
 > **Epistemic header** (audited 2026-07-20 · BACKLOG step 6)
 > **Status: LIVING RECORD — the working plan and open questions.** Holds the knowledge-base migration plan (steps 1-6) and the reasoning behind open/closed questions; entries are dated and later ones supersede earlier ones (many carry inline CORRECTED / SETTLED / tombstone notes). Canonical facts live in `CONTEXT.md` + the claims store; this is where the *reasoning and next steps* live. Newest work is dated 2026-07-22, matching the stamp above.
@@ -1186,6 +1186,30 @@ This is the single location for all planned work, remaining gaps, and deferred i
 ---
 
 ## Priority 2: Event Flag Verification
+
+### Finish the resolver cutover for the simple-event-flag cluster (found 2026-07-23)
+- **Context**: graces were cut over to the per-save resolver (`ResolvedFlags::world_state`)
+  on 2026-07-20; whetblades followed on 2026-07-23 (v0.37.18). The rest of the cluster in
+  `EventsViewModel::from_event_flags` (`src/vm/events.rs`) still reads the frozen
+  `get_flag_offset` block base — the same latent bug the whetblade fix removed.
+- **Still on the frozen path**: cookbooks, maps, bosses, summoning pools, colosseums, landmarks.
+- **NOT a blind copy**: route each table to the *correct* family. Cookbooks are world-state
+  block flags (67xxx → `world_state`) like whetblades; bosses split by id width into
+  10-digit tile (`tile_world`) and 8-digit legacy (`dungeon`); the others need their ranges
+  checked before routing.
+- **Guard to add**: nothing stops the VM layer from reading frozen block bases the way
+  ADR-0008 stops the wasm crate. A conformance test that fails if `from_event_flags` sources
+  a position from `get_flag_offset` would prevent regrowth.
+
+### Great-rune verification uses unreadable world-drop flags (found 2026-07-23)
+- **Symptom**: the 171-177 Remembrance/Great-Rune pairs show as false-negatives ("in
+  inventory but flag not detected") in the Verification tab.
+- **Cause**: `src/db/inventory_verification.rs` maps them to the shardbearer *world-drop*
+  flags (171-177), which are <50k simple flags no resolver family covers, so they read via
+  the broken `get_flag_offset` `<60000` branch (`byte = flag/8`, no per-save base). NOT a
+  flag *collision* — each boss legitimately drops both items on the same flag.
+- **Fix path**: re-point each pair to the boss *defeat* flag (e.g. Rennala `14000800`), which
+  the resolver reads via `dungeon(...)`. Design change across the 171-177 set.
 
 ### Boss Flag Verification Improvement
 - **Current**: Great Boss 9.6%, Field Boss 4.3%, Generic Boss 13.8% verified
