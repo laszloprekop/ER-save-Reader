@@ -2,7 +2,7 @@ pub mod general {
     use crate::ui::icons::{icon_with_name, ICON_DISPLAY_SIZE};
     use crate::ui::tokens::{colors, typography};
     use crate::vm::equipment::equipment_view_model::EquipmentItemViewModel;
-    use crate::vm::{general::general_view_model::Gender, vm::vm::ViewModel};
+    use crate::vm::{general::general_view_model::Gender, character::character::Character};
     use eframe::egui::{self, Color32, Frame, RichText, Rounding, Ui};
 
     /// Deep gray card background (darker than app background)
@@ -282,10 +282,10 @@ pub mod general {
         result
     }
 
-    pub fn general(ui: &mut Ui, vm: &mut ViewModel) {
-        let general_vm = &vm.slots[vm.index].general_vm;
-        let stats_vm = &vm.slots[vm.index].stats_vm;
-        let equipment_vm = &vm.slots[vm.index].equipment_vm;
+    pub fn general(ui: &mut Ui, ch: &Character) {
+        let general_vm = &ch.general();
+        let stats_vm = &ch.stats();
+        let equipment_vm = &ch.equipment();
 
         let gender_str = match general_vm.gender {
             Gender::Male => "♂",

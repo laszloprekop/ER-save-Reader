@@ -20,14 +20,18 @@ pub mod character {
     use wasm_event_flags::ResolvedFlags;
 
     use crate::vm::{
+        equipment::equipment_view_model::EquipmentViewModel,
         events::events_view_model::EventsViewModel,
         general::general_view_model::GeneralViewModel,
+        stats::stats_view_model::StatsViewModel,
     };
 
     pub struct Character<'a> {
         index: usize,
-        events: &'a EventsViewModel,
         general: &'a GeneralViewModel,
+        stats: &'a StatsViewModel,
+        equipment: &'a EquipmentViewModel,
+        events: &'a EventsViewModel,
         flag_bytes: Option<&'a [u8]>,
         flags: Option<ResolvedFlags<'a>>,
     }
@@ -35,27 +39,37 @@ pub mod character {
     impl<'a> Character<'a> {
         pub fn new(
             index: usize,
-            events: &'a EventsViewModel,
             general: &'a GeneralViewModel,
+            stats: &'a StatsViewModel,
+            equipment: &'a EquipmentViewModel,
+            events: &'a EventsViewModel,
             event_flags: Option<&'a [u8]>,
         ) -> Self {
             // Resolve the origin ONCE for this save's flag region. `None` means the
             // origin would not resolve, so every flag read is Unknown — refusal at
             // construction, not re-decided per flag (CONTEXT.md → ResolvedFlags).
             let flags = event_flags.and_then(ResolvedFlags::from_event_flags);
-            Self { index, events, general, flag_bytes: event_flags, flags }
+            Self { index, general, stats, equipment, events, flag_bytes: event_flags, flags }
         }
 
         pub fn index(&self) -> usize {
             self.index
         }
 
-        pub fn events(&self) -> &'a EventsViewModel {
-            self.events
-        }
-
         pub fn general(&self) -> &'a GeneralViewModel {
             self.general
+        }
+
+        pub fn stats(&self) -> &'a StatsViewModel {
+            self.stats
+        }
+
+        pub fn equipment(&self) -> &'a EquipmentViewModel {
+            self.equipment
+        }
+
+        pub fn events(&self) -> &'a EventsViewModel {
+            self.events
         }
 
         /// The resolved flag families for this slot, or `None` if the origin did not
@@ -89,9 +103,11 @@ pub mod character {
         /// unresolved read from silently becoming "not collected".
         #[test]
         fn no_flag_bytes_yields_none_not_clear() {
-            let events = EventsViewModel::default();
             let general = GeneralViewModel::default();
-            let ch = Character::new(3, &events, &general, None);
+            let stats = StatsViewModel::default();
+            let equipment = EquipmentViewModel::default();
+            let events = EventsViewModel::default();
+            let ch = Character::new(3, &general, &stats, &equipment, &events, None);
 
             assert!(ch.flags().is_none(), "no bytes -> no resolved flags");
             assert!(ch.flag_bytes().is_none());
@@ -105,10 +121,12 @@ pub mod character {
         /// contract is "Character adds no divergence", not a fixture assertion.
         #[test]
         fn flags_agree_with_a_direct_resolve() {
-            let events = EventsViewModel::default();
             let general = GeneralViewModel::default();
+            let stats = StatsViewModel::default();
+            let equipment = EquipmentViewModel::default();
+            let events = EventsViewModel::default();
             let ef = synthetic_ef();
-            let ch = Character::new(0, &events, &general, Some(&ef));
+            let ch = Character::new(0, &general, &stats, &equipment, &events, Some(&ef));
 
             let direct = ResolvedFlags::from_event_flags(&ef);
             for id in [76_100_u32, 71_800, 1_042_370_800] {
@@ -128,12 +146,16 @@ pub mod character {
         /// `Character` is a lens over the slot, not a copy of it.
         #[test]
         fn accessors_borrow_the_slot_they_were_built_from() {
-            let events = EventsViewModel::default();
             let general = GeneralViewModel::default();
-            let ch = Character::new(1, &events, &general, None);
+            let stats = StatsViewModel::default();
+            let equipment = EquipmentViewModel::default();
+            let events = EventsViewModel::default();
+            let ch = Character::new(1, &general, &stats, &equipment, &events, None);
 
-            assert!(std::ptr::eq(ch.events(), &events));
             assert!(std::ptr::eq(ch.general(), &general));
+            assert!(std::ptr::eq(ch.stats(), &stats));
+            assert!(std::ptr::eq(ch.equipment(), &equipment));
+            assert!(std::ptr::eq(ch.events(), &events));
         }
     }
 }

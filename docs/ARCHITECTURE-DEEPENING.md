@@ -555,9 +555,14 @@ A there is nothing to assert it from.
 >     `events()`'s signature and all of `app.rs` are untouched. The three ad-hoc
 >     `ResolvedFlags::from_event_flags` sites in the cluster collapse to one `ch.flags()`
 >     resolved once per render. Character gets its first test surface (three unit tests).
->   - **D2b** — migrate `general` / `stats` / `equipment` / `inventory` / `regions` to
->     `&Character`, retiring `&mut ViewModel` from the character view layer; grow `Character`
->     to carry those read models; collapse the last build-time flag-byte source.
+>   - **D2b (v0.37.15)** — migrated `general` to `&Character` and grew `Character` to carry
+>     `stats` / `equipment` (`SlotViewModel::as_character` for read-only routes). **Stopped
+>     there by decision (2026-07-23):** of the remaining character views, only `general` is a
+>     pure reader. `stats`, `equipment`, `regions`, and `inventory` each mutate state embedded
+>     in their VM — the same data/widget mix `EventsViewModel` had — so each would first need a
+>     D1-style widget-state extraction. Unlike D2a that buys **consistency only** (retiring
+>     `&mut ViewModel`), not flag-correctness, which D2a already banked. Not worth the churn;
+>     those four stay on `&mut ViewModel`, and the finding is recorded rather than acted on.
 
 ### The problem
 
@@ -635,16 +640,21 @@ most demanding form.
 | 7 | ✅ **DECIDED** 2026-07-23 — three open questions settled (borrow / per-slot / verification_vm→ScreenState). Splitting into D1 (extract `ScreenState`) + D2 (introduce `Character`) | 1, 3 | large |
 | 7a | ✅ **DONE** v0.37.13 — D1: extracted `ScreenState` off `EventsViewModel` onto `SlotViewModel`; 41 sites; mechanical, no behaviour change | 7 | medium |
 | 7b | ✅ **DONE** v0.37.14 — D2a: `Character<'a>` + `SlotViewModel::split`; migrated the `events.rs` view cluster to `(ch, ss)`; collapsed three `ResolvedFlags` sites to one `ch.flags()` per render; 3 Character unit tests | 7a | large |
-| 7c | D2b — migrate `general`/`stats`/`equipment`/`inventory`/`regions` to `&Character`; retire `&mut ViewModel` from the character views; grow `Character`; collapse the last build-time flag-byte source | 7b | large |
+| 7c | ✅ **DONE** v0.37.15 — D2b: migrated `general` to `&Character`; grew `Character` with `stats`/`equipment` + `SlotViewModel::as_character`. **Stopped by decision** — the other four character views mutate embedded VM state (consistency-only to migrate, no correctness gain); finding recorded, not acted on | 7b | small (scoped down) |
 
 Steps 3 and 5 each close a live defect (`events.rs:1721` renders Unknown as clear; three
 claims writers emit no provenance). Steps 1, 2, 4, 6 change no behaviour.
 
 ## Next step
 
-Nothing here is decided. Per workstream, the next move is to grill the open questions —
-they are the points where an implementation would otherwise pick a default silently. Terms
-that survive grilling (`FlagState`, `ResolvedFlags`, `Evidence` as a module rather than a
-concept, `Character`, `ScreenState`) go into `CONTEXT.md` at that point, not before;
-workstreams rejected with a load-bearing reason get an ADR so the next review does not
-re-suggest them.
+**All workstreams (0, A, B, C, D) have landed** (through v0.37.15). This plan is closed.
+
+D2b was deliberately scoped down: `general` is the only remaining character view that is a
+pure reader, so it moved to `&Character`; `stats` / `equipment` / `regions` / `inventory` each
+mutate state embedded in their VM, and migrating them would be consistency-only churn (no
+flag-correctness gain — D2a banked that). If that consistency is ever wanted, each needs its
+own D1-style widget-state extraction first; the finding is recorded here rather than acted on.
+
+The terms that survived grilling (`FlagState`, `ResolvedFlags`, `Evidence`, `Character`,
+`ScreenState`) are now live types; fold any not yet in `CONTEXT.md` into it as they are
+referenced.

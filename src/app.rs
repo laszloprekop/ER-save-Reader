@@ -618,7 +618,11 @@ impl eframe::App for App {
                         ui.label("Select a character from the menu above");
                     });
                 },
-                Route::CharacterGeneral => general(ui, &mut self.vm),
+                Route::CharacterGeneral => {
+                    let idx = self.vm.index;
+                    let ch = self.vm.slots[idx].as_character(idx, None);
+                    general(ui, &ch);
+                },
                 Route::CharacterStats => stats(ui, &mut self.vm),
                 Route::CharacterEquipment => equipment(ui, &mut self.vm),
                 Route::CharacterInventory => inventory(ui, &mut self.vm),

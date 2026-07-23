@@ -79,8 +79,35 @@ pub mod slot_view_model {
             index: usize,
             event_flags: Option<&'a [u8]>,
         ) -> (Character<'a>, &'a mut ScreenState) {
-            let character = Character::new(index, &self.events_vm, &self.general_vm, event_flags);
+            let character = Character::new(
+                index,
+                &self.general_vm,
+                &self.stats_vm,
+                &self.equipment_vm,
+                &self.events_vm,
+                event_flags,
+            );
             (character, &mut self.screen_state)
+        }
+
+        /// A read-only `Character` over this slot, borrowing the whole slot
+        /// immutably. For views that only read the reconstruction and never touch
+        /// `ScreenState` (general/stats/equipment) — no disjoint split needed, so no
+        /// `&mut` involved. Pass `event_flags: None` when the view reads no flags, to
+        /// skip the origin scan `Character::new` would otherwise run.
+        pub fn as_character<'a>(
+            &'a self,
+            index: usize,
+            event_flags: Option<&'a [u8]>,
+        ) -> Character<'a> {
+            Character::new(
+                index,
+                &self.general_vm,
+                &self.stats_vm,
+                &self.equipment_vm,
+                &self.events_vm,
+                event_flags,
+            )
         }
 
         pub fn to_export_data(&self, slot_index: usize, steam_id: u64, event_flags: Option<&[u8]>) -> ExportData {

@@ -7,6 +7,37 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.15 - Workstream D2b: `general` on `Character`; scoped-down close of D
+
+Final stage of Workstream D, and the close of the architecture-deepening plan. D2a moved the
+flag-reading views onto `Character`; D2b takes the reader views on the other side.
+
+### `general` migrated; `Character` grown
+
+`Character` grows `stats()` and `equipment()` accessors (joining `general`/`events`/`flags`),
+and `SlotViewModel::as_character` builds a read-only `Character` over the whole slot for routes
+that never touch `ScreenState` — no disjoint split needed. The `general` view (a pure reader of
+general/stats/equipment) moves to `fn general(ui, ch: &Character)`; its `app.rs` dispatch builds
+the Character with `event_flags: None` (it reads no flags, so the origin scan is skipped).
+
+### Scoped down by decision (2026-07-23)
+
+Migrating `general` surfaced that it is the **only** remaining character view that is a pure
+reader. `stats`, `equipment`, `regions`, and `inventory` each mutate state embedded in their VM
+(`table_state` / `filter_state` / `export_format`; `regions` mutates the region map itself) —
+the same data/widget mix `EventsViewModel` had before D1. Migrating them to `&Character` would
+each require a D1-style widget-state extraction first, and would buy **consistency only**
+(retiring `&mut ViewModel`), not flag-correctness, which D2a already secured. Decision: stop
+here. Those four stay on `&mut ViewModel`; the finding is recorded in the plan, not acted on.
+
+### Files Modified
+- src/vm/character.rs: `Character` grows `stats`/`equipment` fields + accessors; `new` signature reordered (general, stats, equipment, events, event_flags); tests updated
+- src/vm/slot.rs: `split` passes the new fields; new `as_character` (whole-slot read-only Character)
+- src/ui/general.rs: `general(ui, ch: &Character)`; reads via `ch.general()`/`ch.stats()`/`ch.equipment()`
+- src/app.rs: `CharacterGeneral` dispatch builds a Character; `stats`/`equipment` unchanged
+- docs/ARCHITECTURE-DEEPENING.md: D2b recorded + scoped-down decision; plan marked closed
+- Cargo.toml: bumped to 0.37.15
+
 ## v0.37.14 - Workstream D2a: `Character` read model + events-cluster migration
 
 Second stage of Workstream D. D1 (v0.37.13) split the widget state out of `EventsViewModel`
