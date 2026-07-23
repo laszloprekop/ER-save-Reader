@@ -1,5 +1,6 @@
 pub mod events_view_model {
     use std::collections::BTreeMap;
+    use wasm_event_flags::{FlagState, ResolvedFlags};
 
     use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::get_flag_offset}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
 
@@ -79,29 +80,13 @@ pub mod events_view_model {
         Unverified,
     }
 
-    /// Status of a grace discovery check
-    #[derive(Clone, Copy, PartialEq)]
-    pub enum GraceStatus {
-        /// Grace is discovered (verified formula)
-        Discovered,
-        /// Grace is not discovered (verified formula)
-        NotDiscovered,
-        /// Grace is from an unreliable block - cannot determine status
-        Unreliable,
-    }
-
-    impl GraceStatus {
-        /// Returns true if the grace appears to be discovered
-        /// Note: For Unreliable status, this returns false to avoid false positives
-        pub fn is_discovered(&self) -> bool {
-            matches!(self, GraceStatus::Discovered)
-        }
-
-        /// Returns true if this status is from an unreliable block
-        pub fn is_unreliable(&self) -> bool {
-            matches!(self, GraceStatus::Unreliable)
-        }
-    }
+    // A grace's discovery status is a `FlagState` (crate::wasm_event_flags):
+    // Set = discovered, Clear = not discovered, Unknown = origin unresolved. The
+    // old `GraceStatus` enum was a third copy of that tri-state, and its
+    // `is_discovered()` — which returned false for the unreliable case — was one
+    // of the collapse sites this migration removed. The grace-specific wording
+    // ("Discovered" / "Unreliable") lives at the render sites in `ui/events.rs`,
+    // which is where wording belongs.
 
     /// Generic view state for simple event flag pages (whetblades, cookbooks, maps, bosses, etc.)
     #[derive(Clone)]
@@ -225,7 +210,7 @@ pub mod events_view_model {
     pub struct EventsViewModel  {
         pub current_route: EventsRoute,
         pub grace_groups: BTreeMap<MapName, Vec<Grace>>,
-        pub graces: BTreeMap<Grace, GraceStatus>,
+        pub graces: BTreeMap<Grace, FlagState>,
         pub whetblades: BTreeMap<Whetblade, bool>,
         pub cookbooks: BTreeMap<Cookbook, bool>,
         pub maps: BTreeMap<Map, bool>,
@@ -287,32 +272,31 @@ pub mod events_view_model {
         pub fn from_save(slot:& SaveSlot) -> Self {
             let mut events_vm = EventsViewModel::default();
 
-            // Graces - use formula-based offset calculation with reliability check
-            // For unreliable blocks, try calibration first
+            // Grace family CUT OVER 2026-07-20 (ADR-0006, migration step 4).
+            // Positions resolve per save from the flag region (world-state-b),
+            // replacing the reliable/unreliable block split and its calibration
+            // fallback — both of which existed because the legacy offsets were
+            // absolute positions from a single save's layout.
+            //
+            // The 76400-77000 "progression gate" is deliberately gone with them.
+            // It overrode the actual byte with an inference ("prerequisite boss
+            // not defeated, so report not discovered"), which suppressed false
+            // positives produced by wrong offsets. Against a correctly resolved
+            // position that inference can only ever manufacture a false NEGATIVE,
+            // hiding a grace the player really has. Read the byte; if it cannot
+            // be located, say so.
+            //
+            // Resolve the origin ONCE for the whole grace table: every grace reads
+            // from the same world-state-b base, so re-scanning per grace (~13,400
+            // bytes each) would repeat the same work ~340 times. If the origin will
+            // not resolve, `resolved` is None and every grace reads Unknown.
+            let resolved = ResolvedFlags::from_event_flags(&slot.event_flags.flags);
             for (key, value) in GRACES.lock().unwrap().iter() {
                 let flag_id = value.1;
 
-                // Grace family CUT OVER 2026-07-20 (ADR-0006, migration step 4).
-                // Positions resolve per save from the flag region (world-state-b),
-                // replacing the reliable/unreliable block split and its calibration
-                // fallback — both of which existed because the legacy offsets were
-                // absolute positions from a single save's layout.
-                //
-                // The 76400-77000 "progression gate" is deliberately gone with them.
-                // It overrode the actual byte with an inference ("prerequisite boss
-                // not defeated, so report not discovered"), which suppressed false
-                // positives produced by wrong offsets. Against a correctly resolved
-                // position that inference can only ever manufacture a false NEGATIVE,
-                // hiding a grace the player really has. Read the byte; if it cannot
-                // be located, say so.
-                let status = match wasm_event_flags::is_world_state_flag_set(
-                    &slot.event_flags.flags,
-                    flag_id,
-                ) {
-                    Some(true) => GraceStatus::Discovered,
-                    Some(false) => GraceStatus::NotDiscovered,
-                    None => GraceStatus::Unreliable,
-                };
+                let status = resolved
+                    .as_ref()
+                    .map_or(FlagState::Unknown, |r| r.world_state(flag_id));
 
                 events_vm.graces.insert(*key, status);
                 events_vm.grace_groups.get_mut(&value.0).expect("").push(*key);

@@ -18,6 +18,7 @@ use std::path::Path;
 
 use super::pipeline::{CHECKSUM, HEADER, SLOT_SIZE};
 use crate::db::graces_data::GRACES_DATA;
+use wasm_event_flags::{FlagState, ResolvedFlags};
 
 pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
     let path = args
@@ -46,6 +47,8 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
             continue;
         }
         let ef = &slot[det.offset..];
+        // Resolve the origin once for every family read in this slot's dump.
+        let resolved = ResolvedFlags::from_event_flags(ef);
         let list_end = wasm_event_flags::find_flag_list_end_in_ef(ef);
         let base = wasm_event_flags::resolve_family_base_in_ef(
             ef,
@@ -71,7 +74,7 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         let mut found_names: Vec<(u32, &str)> = Vec::new();
 
         for flag in flags {
-            let state = wasm_event_flags::is_world_state_flag_set(ef, flag);
+            let state: Option<bool> = resolved.as_ref().map_or(FlagState::Unknown, |r| r.world_state(flag)).into();
             match state {
                 Some(true) => set += 1,
                 Some(false) => clear += 1,
@@ -114,7 +117,7 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         // regions 500 bytes apart, so this also exercises that routing.
         let (mut pset, mut pclear, mut punknown) = (0usize, 0usize, 0usize);
         for pickup in crate::db::pickup_data::WORLD_PICKUPS.iter() {
-            match crate::db::pickup_flags::pickup_flag_state(ef, pickup.event_flag) {
+            match Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| crate::db::pickup_flags::pickup_state(r, pickup.event_flag))) {
                 Some(true) => pset += 1,
                 Some(false) => pclear += 1,
                 None => punknown += 1,
@@ -133,7 +136,7 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         // conventions cannot cover for each other.
         let (mut wset, mut wclear, mut wunknown) = (0usize, 0usize, 0usize);
         for p in crate::db::world_pickups::WORLD_PICKUPS.values() {
-            match crate::db::pickup_flags::pickup_flag_state(ef, p.flag_id) {
+            match Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| crate::db::pickup_flags::pickup_state(r, p.flag_id))) {
                 Some(true) => wset += 1,
                 Some(false) => wclear += 1,
                 None => wunknown += 1,
@@ -148,7 +151,7 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         );
         let (mut dset, mut dclear, mut dunknown) = (0usize, 0usize, 0usize);
         for p in crate::db::dungeon_pickups::DUNGEON_PICKUPS.iter() {
-            match wasm_event_flags::is_dungeon_pickup_set(ef, p.event_flag) {
+            match Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.dungeon_pickup(p.event_flag))) {
                 Some(true) => dset += 1,
                 Some(false) => dclear += 1,
                 None => dunknown += 1,
@@ -170,9 +173,9 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         for boss in crate::db::bosses_data::BOSSES_DATA.values() {
             let f = boss.defeat_flag;
             let (state, c) = if f >= 1_000_000_000 {
-                (wasm_event_flags::is_tile_world_flag_set(ef, f), &mut btile)
+                (Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.tile_world(f))), &mut btile)
             } else {
-                (wasm_event_flags::is_dungeon_flag_set(ef, f), &mut bleg)
+                (Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.dungeon(f))), &mut bleg)
             };
             match state {
                 Some(true) => c.0 += 1,
@@ -203,9 +206,9 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
         print!("  demigods:");
         for b in demigods {
             let state = if b.defeat_flag >= 1_000_000_000 {
-                wasm_event_flags::is_tile_world_flag_set(ef, b.defeat_flag)
+                Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.tile_world(b.defeat_flag)))
             } else {
-                wasm_event_flags::is_dungeon_flag_set(ef, b.defeat_flag)
+                Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.dungeon(b.defeat_flag)))
             };
             let mark = match state {
                 Some(true) => "YES",

@@ -7,6 +7,86 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.8 - Migrate every flag reader to `FlagState`; delete `GraceStatus`; fix two Unknown-as-clear defects
+
+v0.37.7 added `FlagState`/`ResolvedFlags` and deprecated the five free readers, deliberately
+leaving 22 deprecation warnings across 8 files as a compiler-maintained migration checklist.
+**This clears it to zero.** Every app-side reader now builds one `ResolvedFlags` per region
+and calls its methods; nothing routes through a deprecated per-flag function.
+
+### The two live defects, fixed
+
+- **`ui/events.rs` detail panel rendered Unknown as "NOT COLLECTED".** It took `.0` of a
+  `(bool, _)` pair twenty lines below a doc comment promising it never collapsed the status.
+  The `PickupRow` tuples in both the world- and dungeon-pickup tables now carry `FlagState`
+  instead of `(bool, VerificationStatus)` / `(bool, bool)`, so `.0` is not expressible; the
+  detail panel's Status line shows a third state, `UNKNOWN`.
+- **`ui/comparison/comparison_view.rs` collapsed `Option<GraceStatus>` with `unwrap_or(false)`**
+  at two sites, counting an unresolvable grace as "not discovered" and manufacturing a
+  difference from a failed read. Both grace-diff loops now skip a grace when either save's
+  status is Unknown — the same treatment the pickup diff 60 lines above already gave, made
+  uniform.
+
+### `GraceStatus` deleted
+
+`EventsViewModel::graces` is now `BTreeMap<Grace, FlagState>`. `GraceStatus` was a third copy
+of the tri-state, and its `is_discovered()` — false for the unreliable case — was one of the
+five collapse sites this migration set out to remove. Its grace-specific wording
+("Discovered" / "Unreliable") moved to the render sites in `ui/events.rs`, where wording
+belongs; a pickup says "Collected", a grace says "Discovered", and the state underneath is
+the same `FlagState`.
+
+### Resolve once, not per row
+
+Every migrated table view — world pickups (×2 screens), dungeon pickups, graces, bosses, and
+the grace map in `EventsViewModel::from_save` — now builds `ResolvedFlags` once above its
+loop. Each was previously re-scanning ~13,400 bytes for the origin on every one of hundreds
+to thousands of rows. `comparison_view`'s `.take(100)` cap was a workaround for exactly that
+cost and is now only a display limit (noted in place; lifting it is left to a follow-up).
+
+### The router stays in `db`
+
+`pickup_flag_state(&[u8], u32) -> Option<bool>` became `pickup_state(&ResolvedFlags, u32) ->
+FlagState`. Its id→family routing stays in `db/pickup_flags.rs`, not the wasm crate: which
+families `WORLD_PICKUPS` mixes (of 4,809 entries: 1,232 tiles, 2,010 legacy, 100
+world-state-b, 935 unclassified, 532 DLC) is knowledge about that table, not the save format.
+
+### Knowledge tools
+
+`knowledge/dump.rs` and `knowledge/family_distances.rs` build one `ResolvedFlags` per region
+and convert to `Option<bool>` at the match sites (`.into()`), keeping their existing
+three-way count arms. `family_distances`' shipped-vs-direct agreement check is unchanged in
+meaning — it still compares the shipped reader against a hand-computed offset.
+
+### Tests
+
+`tests/flag_state_conformance.rs` rewritten to the two-stage refusal: an unresolvable region
+yields no `ResolvedFlags` (stage one), and a resolved region still answers `Unknown` for an
+out-of-family id (stage two), while a placeable id reads a definite `Clear`. `src/lib.rs`
+re-exports `FlagState` and `ResolvedFlags` so integration tests can name them. The v0.37.7
+`vm/export.rs` tri-state test and all 43 wasm conformance tests pass unchanged.
+
+### Verification
+
+`cargo check` **0 warnings** (down from 22) · `--features save-writeback` **0** · `cargo
+clippy --workspace --all-targets` **0** · `cargo test --workspace` **119 passing** ·
+`GraceStatus` has zero remaining references.
+
+### Files Modified
+- crates/wasm-event-flags: (unchanged — the deprecated readers remain, deleted in B3)
+- src/db/pickup_flags.rs: `pickup_flag_state` → `pickup_state(&ResolvedFlags,_)->FlagState`
+- src/vm/{events,slot,vm}.rs: `GraceStatus` deleted; graces map → `FlagState`
+- src/ui/events.rs: `PickupRow` carries `FlagState`; detail-panel defect fixed; grace render
+- src/ui/world_pickups_view.rs, src/ui/database/{bosses,graces}_view.rs: hoist + `FlagState`
+- src/ui/comparison/comparison_view.rs: two `unwrap_or(false)` grace defects fixed
+- src/app.rs: region filter via `unknown_as_clear`
+- src/knowledge/{dump,family_distances}.rs: resolve once
+- src/lib.rs: re-export `FlagState`, `ResolvedFlags`; `pickup_state`
+- tests/flag_state_conformance.rs: rewritten to the two-stage refusal
+- docs/CHANGELOG.md, Cargo.toml: version 0.37.8
+
+---
+
 ## v0.37.7 - `FlagState` and `ResolvedFlags`: resolve the Origin once, name the third state
 
 Two problems with one shape. Every flag read re-derived the Origin — a ~13,400-byte scan

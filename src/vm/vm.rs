@@ -31,10 +31,7 @@ pub mod vm {
             common::save_slot::{EquipInventoryData, EquipInventoryItem},
             save::save::SaveType,
         },
-        vm::{
-            events::events_view_model::GraceStatus,
-            inventory::{InventoryGaitemType, InventoryItemType},
-        },
+        vm::inventory::{InventoryGaitemType, InventoryItemType},
     };
 
     #[derive(Clone)]
@@ -416,13 +413,14 @@ pub mod vm {
             // Graces - use formula-based offset calculation
             // Skip unreliable graces to avoid writing potentially incorrect values
             for (grace, status) in self.slots[index].events_vm.graces.iter() {
-                // Only write graces from reliable blocks
-                if *status == GraceStatus::Unreliable {
+                // Skip graces whose position could not be resolved — writing a
+                // guessed bit is worse than leaving it.
+                if *status == wasm_event_flags::FlagState::Unknown {
                     continue;
                 }
                 let grace_info = GRACES.lock().unwrap()[&grace];
                 if let Some((byte_offset, bit_position)) = get_flag_offset(grace_info.1) {
-                    let on = *status == GraceStatus::Discovered;
+                    let on = *status == wasm_event_flags::FlagState::Set;
                     save_type.set_character_event_flag(index, byte_offset as usize, bit_position, on);
                 }
             }

@@ -10,6 +10,7 @@ use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_defau
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
 use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction, mapgenie_section, section_from_relationships};
 use crate::ui::tokens::spacing;
+use wasm_event_flags::{FlagState, ResolvedFlags};
 use serde::Serialize;
 
 #[derive(Clone, Copy, PartialEq, Default)]
@@ -92,15 +93,17 @@ struct BossExportItem {
 /// boss defeat is always an event flag, never a pickup, in whichever map hosts
 /// it. Both reads reject ids outside their own family rather than guessing.
 ///
-/// `None` is UNKNOWN (unresolved origin, or a map with no allocation) and is
-/// rendered as "-", never as "not defeated".
-fn is_boss_defeated(defeat_flag: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-    let flags = event_flags?;
-    if defeat_flag >= 1_000_000_000 {
-        wasm_event_flags::is_tile_world_flag_set(flags, defeat_flag)
-    } else {
-        wasm_event_flags::is_dungeon_flag_set(flags, defeat_flag)
-    }
+/// `FlagState::Unknown` (unresolved origin, or a map with no allocation) is
+/// rendered as "-", never as "not defeated". `resolved` is `None` when the origin
+/// would not resolve, giving Unknown for every boss.
+fn is_boss_defeated(defeat_flag: u32, resolved: Option<&ResolvedFlags>) -> FlagState {
+    resolved.map_or(FlagState::Unknown, |r| {
+        if defeat_flag >= 1_000_000_000 {
+            r.tile_world(defeat_flag)
+        } else {
+            r.dungeon(defeat_flag)
+        }
+    })
 }
 
 /// Build detail panel sections for a boss, including relationships.
@@ -191,7 +194,9 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
     spacing::space_sm(ui);
 
     // Build boss data with filtering and sorting
-    let mut bosses: Vec<(u32, &crate::db::bosses_data::BossData, Option<bool>)> = BOSSES_DATA.iter()
+    // Resolve the origin once for the whole boss table.
+    let resolved = event_flags.and_then(ResolvedFlags::from_event_flags);
+    let mut bosses: Vec<(u32, &crate::db::bosses_data::BossData, FlagState)> = BOSSES_DATA.iter()
         .filter_map(|(flag, boss)| {
             // Region filter
             if state.region_filter != "All" && boss.region != state.region_filter {
@@ -210,7 +215,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                     return None;
                 }
 
-            let defeated = is_boss_defeated(*flag, event_flags);
+            let defeated = is_boss_defeated(*flag, resolved.as_ref());
             Some((*flag, boss, defeated))
         })
         .collect();
@@ -228,8 +233,8 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                 if asc { ta.cmp(tb) } else { tb.cmp(ta) }
             }),
             "status" => bosses.sort_by(|a, b| {
-                let sa = a.2.map(|d| if d { 1 } else { 0 }).unwrap_or(2);
-                let sb = b.2.map(|d| if d { 1 } else { 0 }).unwrap_or(2);
+                let rank = |s: FlagState| match s { FlagState::Clear => 0, FlagState::Set => 1, FlagState::Unknown => 2 };
+                let (sa, sb) = (rank(a.2), rank(b.2));
                 if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
             }),
             _ => {}
@@ -268,9 +273,9 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
         let is_selected = state.selected_flag == Some(*flag);
 
         let status_str = match defeated {
-            Some(true) => "✓",
-            Some(false) => "○",
-            None => "-",
+            FlagState::Set => "✓",
+            FlagState::Clear => "○",
+            FlagState::Unknown => "-",
         };
 
         let mut row = RowData::new(vec![
@@ -283,7 +288,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
 
         if is_selected {
             row = row.with_color(Color32::YELLOW);
-        } else if *defeated == Some(true) {
+        } else if *defeated == FlagState::Set {
             row = row.with_color(Color32::from_rgb(144, 238, 144)); // Light green
         } else if boss.boss_type == BossType::Demigod {
             row = row.with_color(Color32::from_rgb(255, 215, 0)); // Gold
@@ -342,7 +347,7 @@ pub fn bosses_view(ui: &mut Ui, state: &mut BossesViewState, event_flags: Option
                 name: boss.name.to_string(),
                 region: boss.region.to_string(),
                 boss_type: boss.boss_type.as_str().to_string(),
-                defeated: *defeated,
+                defeated: (*defeated).into(),
                 mapgenie_id: boss.mapgenie_id.map(|s| s.to_string()),
             })
             .collect();

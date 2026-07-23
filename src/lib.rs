@@ -37,12 +37,19 @@ pub(crate) use app::App;
 /// Run the reader. `src/main.rs` is a thin wrapper around this.
 pub use app::run;
 
-/// Read one pickup flag, routed to its Flag Family, for one save's flag region.
+/// Read one pickup flag, routed to its Flag Family, from an already-resolved
+/// region.
 ///
-/// Exposed for `tests/flag_state_conformance.rs`. `None` is Unknown — the family
-/// could not be resolved, or the id belongs to no known family — and is never
-/// "not collected" (`CONTEXT.md` → Unknown).
-pub use db::pickup_flags::pickup_flag_state;
+/// Exposed for `tests/flag_state_conformance.rs`. Returns `FlagState::Unknown`
+/// when the id belongs to no known family; a region whose origin never resolved
+/// yields no `ResolvedFlags` to pass, so the caller reads Unknown for everything.
+/// Never "not collected" (`CONTEXT.md` → Unknown).
+pub use db::pickup_flags::pickup_state;
+
+/// The tri-state flag-read types (`CONTEXT.md` → FlagState, ResolvedFlags),
+/// re-exported from the wasm crate so integration tests can name them without
+/// depending on it directly.
+pub use wasm_event_flags::{FlagState, ResolvedFlags};
 
 /// Run the knowledge pipeline CLI (`er-save-reader knowledge …`).
 pub use knowledge::run_cli;

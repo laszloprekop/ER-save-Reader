@@ -2,13 +2,13 @@ pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
     use serde::Serialize;
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, GraceStatus, SimpleEventFlagViewState}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, SimpleEventFlagViewState}, vm::vm::ViewModel}};
+    use wasm_event_flags::{FlagState, ResolvedFlags};
     use crate::save::common::save_slot::EquipInventoryData;
 
     type PickupRow<'a> = (
         &'a crate::db::pickup_data::WorldPickup,
-        bool,
-        crate::db::pickup_flags::VerificationStatus,
+        FlagState,
         Option<(bool, VerificationConfidence)>,
     );
 
@@ -131,19 +131,20 @@ pub mod events {
         let graces_lookup = GRACES.lock().unwrap();
 
         // Build filtered data - flat list with region column
-        let mut items: Vec<(&crate::db::graces::maps::Grace, &str, &str, u32, GraceStatus)> = graces_data.iter()
+        let mut items: Vec<(&crate::db::graces::maps::Grace, &str, &str, u32, FlagState)> = graces_data.iter()
             .filter_map(|(grace, &status)| {
                 let info = graces_lookup.get(grace)?;
                 let region_name = map_name_lock.get(&info.0).cloned().unwrap_or("Unknown");
                 let name = info.2;
                 let flag_id = info.1;
 
-                // Apply collected filter
+                // Apply collected filter. Set = discovered, Unknown = the origin
+                // could not be resolved (shown as its own "unverified" state).
                 match collected_filter {
                     CollectedFilter::All => {},
-                    CollectedFilter::Collected => if !status.is_discovered() { return None; },
-                    CollectedFilter::NotCollected => if status.is_discovered() || status.is_unreliable() { return None; },
-                    CollectedFilter::Unverified => if !status.is_unreliable() { return None; },
+                    CollectedFilter::Collected => if status != FlagState::Set { return None; },
+                    CollectedFilter::NotCollected => if status != FlagState::Clear { return None; },
+                    CollectedFilter::Unverified => if status != FlagState::Unknown { return None; },
                 }
 
                 // Apply region filter
@@ -171,8 +172,8 @@ pub mod events {
                 "region" => items.sort_by(|a, b| if asc { a.2.cmp(b.2) } else { b.2.cmp(a.2) }),
                 "flag_id" => items.sort_by(|a, b| if asc { a.3.cmp(&b.3) } else { b.3.cmp(&a.3) }),
                 "status" => items.sort_by(|a, b| {
-                    let sa = match a.4 { GraceStatus::Discovered => 2, GraceStatus::NotDiscovered => 0, GraceStatus::Unreliable => 1 };
-                    let sb = match b.4 { GraceStatus::Discovered => 2, GraceStatus::NotDiscovered => 0, GraceStatus::Unreliable => 1 };
+                    let rank = |s: FlagState| match s { FlagState::Set => 2, FlagState::Unknown => 1, FlagState::Clear => 0 };
+                    let (sa, sb) = (rank(a.4), rank(b.4));
                     if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
                 }),
                 _ => {}
@@ -180,8 +181,8 @@ pub mod events {
         }
 
         // Summary
-        let discovered_count = graces_data.values().filter(|v| v.is_discovered()).count();
-        let unreliable_count = graces_data.values().filter(|v| v.is_unreliable()).count();
+        let discovered_count = graces_data.values().filter(|&&v| v == FlagState::Set).count();
+        let unreliable_count = graces_data.values().filter(|&&v| v == FlagState::Unknown).count();
         let total_count = graces_data.len();
         let filtered_count = items.len();
         let reliable_total = total_count - unreliable_count;
@@ -204,9 +205,9 @@ pub mod events {
         // Build row data
         let rows: Vec<RowData> = items.iter().map(|(_, name, region, flag_id, status)| {
             let (status_icon, row_color) = match status {
-                GraceStatus::Discovered => (icons::COLLECTED, colors::STATUS_COLLECTED),
-                GraceStatus::NotDiscovered => (icons::NOT_COLLECTED, Color32::LIGHT_GRAY),
-                GraceStatus::Unreliable => (icons::UNKNOWN, colors::STATUS_WARNING),
+                FlagState::Set => (icons::COLLECTED, colors::STATUS_COLLECTED),
+                FlagState::Clear => (icons::NOT_COLLECTED, Color32::LIGHT_GRAY),
+                FlagState::Unknown => (icons::UNKNOWN, colors::STATUS_WARNING),
             };
 
             RowData::new(vec![
@@ -242,9 +243,9 @@ pub mod events {
         if let Some(row_idx) = table_response.double_clicked_row {
             if let Some((_, name, region, flag_id, status)) = items.get(row_idx) {
                 let status_text = match status {
-                    GraceStatus::Discovered => "Discovered",
-                    GraceStatus::NotDiscovered => "Not discovered",
-                    GraceStatus::Unreliable => "Unreliable",
+                    FlagState::Set => "Discovered",
+                    FlagState::Clear => "Not discovered",
+                    FlagState::Unknown => "Unreliable",
                 };
                 let row_text = format!("{}\t{}\t{}\t{}", status_text, name, region, flag_id);
                 ui.output_mut(|o| o.copied_text = row_text);
@@ -259,9 +260,9 @@ pub mod events {
                     region: region.to_string(),
                     flag_id: *flag_id,
                     status: match status {
-                        GraceStatus::Discovered => "Discovered",
-                        GraceStatus::NotDiscovered => "Not Discovered",
-                        GraceStatus::Unreliable => "Unreliable",
+                        FlagState::Set => "Discovered",
+                        FlagState::Clear => "Not Discovered",
+                        FlagState::Unknown => "Unreliable",
                     }.to_string(),
                 })
                 .collect();
@@ -736,17 +737,19 @@ pub mod events {
 
     /// Pickup state in the (collected, status) shape this view already renders.
     ///
-    /// Positions resolve per save via `pickup_flag_state`, which routes by family
-    /// — `WORLD_PICKUPS` mixes open-world tiles, legacy-map pickups and
-    /// world-state-b flags in one table. An unresolvable entry becomes
-    /// `Unverified`, which the table shows as its own state; it is never
-    /// collapsed into "not collected".
-    fn pickup_state(ef: &[u8], flag_id: u32) -> (bool, crate::db::pickup_flags::VerificationStatus) {
-        use crate::db::pickup_flags::{pickup_flag_state, VerificationStatus};
-        match pickup_flag_state(ef, flag_id) {
-            Some(collected) => (collected, VerificationStatus::Verified),
-            None => (false, VerificationStatus::Unverified),
-        }
+    /// Read one pickup's state from an already-resolved region, routing by family
+    /// (`WORLD_PICKUPS` mixes open-world tiles, legacy-map pickups and
+    /// world-state-b flags). `resolved` is `None` when the save's origin would not
+    /// resolve, so every read is `Unknown` — which the table shows as its own
+    /// state, never collapsed into "not collected".
+    ///
+    /// Returns `FlagState`, not a `(bool, _)` pair, deliberately: the detail panel
+    /// used to take `.0` of the pair and render `Unknown` as "not collected". A
+    /// tri-state that cannot be indexed into a bool cannot be misread that way.
+    fn pickup_state(resolved: Option<&ResolvedFlags>, flag_id: u32) -> FlagState {
+        resolved.map_or(FlagState::Unknown, |r| {
+            crate::db::pickup_flags::pickup_state(r, flag_id)
+        })
     }
 
     fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
@@ -837,33 +840,24 @@ pub mod events {
         let search = filter.search.clone();
 
         let ef = event_flags.unwrap_or(&[]);
+        // Resolve the origin ONCE for the whole table (~13,400-byte scan), not per
+        // row. `None` here means the origin did not resolve, so every read is Unknown.
+        let resolved = ResolvedFlags::from_event_flags(ef);
 
         // Build filtered data with inventory status
         let mut pickups: Vec<PickupRow<'_>> = WORLD_PICKUPS.iter()
             .filter_map(|pickup| {
                 // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
-                // family; `Unknown` maps to the existing uncertain status, which
-                // the table already renders as its own state.
-                let (is_collected, status) = pickup_state(ef, pickup.event_flag);
+                // family; `Unknown` is its own state, which the table renders
+                // distinctly rather than as "not collected".
+                let state = pickup_state(resolved.as_ref(), pickup.event_flag);
 
                 // Apply collected filter
                 match collected_filter {
                     CollectedFilter::All => {},
-                    CollectedFilter::Collected => {
-                        if !is_collected {
-                            return None;
-                        }
-                    },
-                    CollectedFilter::NotCollected => {
-                        if is_collected {
-                            return None;
-                        }
-                    },
-                    CollectedFilter::Unverified => {
-                        if !status.is_uncertain() {
-                            return None;
-                        }
-                    },
+                    CollectedFilter::Collected => if state != FlagState::Set { return None; },
+                    CollectedFilter::NotCollected => if state != FlagState::Clear { return None; },
+                    CollectedFilter::Unverified => if state != FlagState::Unknown { return None; },
                 }
 
                 // Apply type filter
@@ -903,7 +897,7 @@ pub mod events {
                 // Check inventory status
                 let inv_status = is_item_in_inventory(pickup.event_flag, inventory);
 
-                Some((pickup, is_collected, status, inv_status))
+                Some((pickup, state, inv_status))
             })
             .collect();
 
@@ -923,8 +917,8 @@ pub mod events {
                 "qty" => pickups.sort_by(|a, b| if asc { a.0.quantity.cmp(&b.0.quantity) } else { b.0.quantity.cmp(&a.0.quantity) }),
                 "region" => pickups.sort_by(|a, b| if asc { a.0.region.cmp(b.0.region) } else { b.0.region.cmp(a.0.region) }),
                 "status" => pickups.sort_by(|a, b| {
-                    let sa = if a.1 { 1 } else { 0 };
-                    let sb = if b.1 { 1 } else { 0 };
+                    let rank = |s: FlagState| match s { FlagState::Set => 2, FlagState::Unknown => 1, FlagState::Clear => 0 };
+                    let (sa, sb) = (rank(a.1), rank(b.1));
                     if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
                 }),
                 _ => {}
@@ -944,13 +938,11 @@ pub mod events {
 
         // Build row data with status colors
         let selected_flag_id = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id;
-        let rows: Vec<RowData> = pickups.iter().map(|(pickup, is_collected, status, inv_status)| {
-            let flag_str = if status.is_uncertain() {
-                icons::MISMATCH
-            } else if *is_collected {
-                icons::COLLECTED
-            } else {
-                icons::NOT_COLLECTED
+        let rows: Vec<RowData> = pickups.iter().map(|(pickup, state, inv_status)| {
+            let flag_str = match state {
+                FlagState::Unknown => icons::MISMATCH,
+                FlagState::Set => icons::COLLECTED,
+                FlagState::Clear => icons::NOT_COLLECTED,
             };
 
             // Inventory status icon (same logic as world_pickups_view.rs)
@@ -964,10 +956,11 @@ pub mod events {
                 None => icons::NO_DATA,
             };
 
-            // Check for mismatch between flag and inventory
-            let has_mismatch = match (is_collected, inv_status) {
-                (true, Some((false, _))) => true,  // Flag says collected but not in inventory
-                (false, Some((true, _))) => true,  // Flag says not collected but in inventory
+            // Check for mismatch between flag and inventory. Only a resolved
+            // flag can mismatch — Unknown asserts nothing to disagree with.
+            let has_mismatch = match (state, inv_status) {
+                (FlagState::Set, Some((false, _))) => true,  // Flag says collected but not in inventory
+                (FlagState::Clear, Some((true, _))) => true, // Flag says not collected but in inventory
                 _ => false,
             };
 
@@ -998,12 +991,12 @@ pub mod events {
                 row = row.with_color(Color32::YELLOW);
             } else if has_mismatch {
                 row = row.with_color(Color32::from_rgb(255, 165, 0)); // Orange for mismatch
-            } else if status.is_uncertain() {
-                row = row.with_color(colors::STATUS_WARNING);
-            } else if *is_collected {
-                row = row.with_color(colors::STATUS_COLLECTED);
             } else {
-                row = row.with_color(Color32::LIGHT_GRAY);
+                row = match state {
+                    FlagState::Unknown => row.with_color(colors::STATUS_WARNING),
+                    FlagState::Set => row.with_color(colors::STATUS_COLLECTED),
+                    FlagState::Clear => row.with_color(Color32::LIGHT_GRAY),
+                };
             }
 
             row
@@ -1042,7 +1035,7 @@ pub mod events {
         // Handle row selection for details panel
         if table_response.sort_changed || vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selection_count() == 1 {
             if let Some(&idx) = vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selected_rows.iter().next() {
-                if let Some((pickup, _, _, _)) = pickups.get(idx) {
+                if let Some((pickup, _, _)) = pickups.get(idx) {
                     vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
@@ -1050,13 +1043,11 @@ pub mod events {
 
         // Handle double-click
         if let Some(row_idx) = table_response.double_clicked_row {
-            if let Some((pickup, is_collected, status, inv_status)) = pickups.get(row_idx) {
-                let status_text = if status.is_uncertain() {
-                    "Unverified"
-                } else if *is_collected {
-                    "Collected"
-                } else {
-                    "Not collected"
+            if let Some((pickup, state, inv_status)) = pickups.get(row_idx) {
+                let status_text = match state {
+                    FlagState::Unknown => "Unverified",
+                    FlagState::Set => "Collected",
+                    FlagState::Clear => "Not collected",
                 };
                 let inv_text = match inv_status {
                     Some((true, _)) => "In Inv",
@@ -1104,15 +1095,15 @@ pub mod events {
         }
 
         let data: Vec<ExportItem> = pickups.iter()
-            .map(|(p, is_collected, status, inv_status)| ExportItem {
+            .map(|(p, state, inv_status)| ExportItem {
                 lot_id: p.item_lot_id,
                 flag_id: p.event_flag,
                 item_name: p.name.to_string(),
                 category: p.category.display_name().to_string(),
                 quantity: p.quantity,
                 region: p.region.to_string(),
-                collected: *is_collected,
-                verified: !status.is_uncertain(),
+                collected: *state == FlagState::Set,
+                verified: *state != FlagState::Unknown,
                 in_inventory: inv_status.map(|(has, _)| has),
             })
             .collect();
@@ -1279,29 +1270,28 @@ pub mod events {
         // encoded in the flag id, so `dungeon_area`/`section` are display data
         // only and can no longer disagree with the flag they label.
         //
-        // Returns (collected, known). `known == false` is UNKNOWN — an
-        // unresolved origin, a map the game allocates twice, or an id outside
-        // the family — and the table already renders that as its own state
-        // rather than as "not collected".
-        fn is_dungeon_pickup_collected(ef: &[u8], pickup: &DungeonPickup) -> (bool, bool) {
-            match wasm_event_flags::is_dungeon_pickup_set(ef, pickup.event_flag) {
-                Some(collected) => (collected, true),
-                None => (false, false),
-            }
+        // `FlagState::Unknown` — an unresolved origin, a map the game allocates
+        // twice, or an id outside the family — is the table's own state, rendered
+        // distinctly rather than as "not collected".
+        fn is_dungeon_pickup_collected(resolved: Option<&ResolvedFlags>, pickup: &DungeonPickup) -> FlagState {
+            resolved.map_or(FlagState::Unknown, |r| r.dungeon_pickup(pickup.event_flag))
         }
 
+        // Resolve the origin once for the whole dungeon-pickup table.
+        let resolved = ResolvedFlags::from_event_flags(ef);
+
         // Build filtered data - flat list
-        let mut items: Vec<(&DungeonPickup, &str, bool, bool)> = DUNGEON_PICKUPS.iter()
+        let mut items: Vec<(&DungeonPickup, &str, FlagState)> = DUNGEON_PICKUPS.iter()
             .filter_map(|pickup| {
-                let (is_collected, is_verified) = is_dungeon_pickup_collected(ef, pickup);
+                let state = is_dungeon_pickup_collected(resolved.as_ref(), pickup);
                 let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
 
                 // Apply collected filter
                 match collected_filter {
                     CollectedFilter::All => {},
-                    CollectedFilter::Collected => if !is_collected { return None; },
-                    CollectedFilter::NotCollected => if is_collected { return None; },
-                    CollectedFilter::Unverified => if is_verified { return None; },
+                    CollectedFilter::Collected => if state != FlagState::Set { return None; },
+                    CollectedFilter::NotCollected => if state != FlagState::Clear { return None; },
+                    CollectedFilter::Unverified => if state != FlagState::Unknown { return None; },
                 }
 
                 // Apply type filter
@@ -1334,7 +1324,7 @@ pub mod events {
                     if !matches { return None; }
                 }
 
-                Some((pickup, dungeon_name, is_collected, is_verified))
+                Some((pickup, dungeon_name, state))
             })
             .collect();
 
@@ -1353,22 +1343,22 @@ pub mod events {
                 "qty" => items.sort_by(|a, b| if asc { a.0.quantity.cmp(&b.0.quantity) } else { b.0.quantity.cmp(&a.0.quantity) }),
                 "dungeon" => items.sort_by(|a, b| if asc { a.1.cmp(b.1) } else { b.1.cmp(a.1) }),
                 "status" => items.sort_by(|a, b| {
-                    let sa = if a.2 { 1 } else { 0 };
-                    let sb = if b.2 { 1 } else { 0 };
+                    let rank = |s: FlagState| match s { FlagState::Set => 2, FlagState::Unknown => 1, FlagState::Clear => 0 };
+                    let (sa, sb) = (rank(a.2), rank(b.2));
                     if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
                 }),
                 _ => {}
             }
         }
 
-        // Count totals
+        // Count totals (reusing the origin resolved once above, not per pickup).
         let total_count = DUNGEON_PICKUPS.len();
         let filtered_count = items.len();
         let collected_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| is_dungeon_pickup_collected(ef, p).0)
+            .filter(|p| is_dungeon_pickup_collected(resolved.as_ref(), p) == FlagState::Set)
             .count();
         let unknown_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| !is_dungeon_pickup_collected(ef, p).1)
+            .filter(|p| is_dungeon_pickup_collected(resolved.as_ref(), p) == FlagState::Unknown)
             .count();
 
         // Summary
@@ -1389,25 +1379,23 @@ pub mod events {
 
         // Build row data
         let selected_flag_id = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id;
-        let rows: Vec<RowData> = items.iter().map(|(pickup, dungeon_name, is_collected, is_verified)| {
-            let status_icon = if !is_verified {
-                icons::MISMATCH
-            } else if *is_collected {
-                icons::COLLECTED
-            } else {
-                icons::NOT_COLLECTED
+        let rows: Vec<RowData> = items.iter().map(|(pickup, dungeon_name, state)| {
+            let status_icon = match state {
+                FlagState::Unknown => icons::MISMATCH,
+                FlagState::Set => icons::COLLECTED,
+                FlagState::Clear => icons::NOT_COLLECTED,
             };
 
             let is_selected = selected_flag_id == Some(pickup.event_flag);
 
             let row_color = if is_selected {
                 Color32::YELLOW
-            } else if !is_verified {
-                colors::STATUS_WARNING
-            } else if *is_collected {
-                colors::STATUS_COLLECTED
             } else {
-                Color32::LIGHT_GRAY
+                match state {
+                    FlagState::Unknown => colors::STATUS_WARNING,
+                    FlagState::Set => colors::STATUS_COLLECTED,
+                    FlagState::Clear => Color32::LIGHT_GRAY,
+                }
             };
 
             RowData::new(vec![
@@ -1447,7 +1435,7 @@ pub mod events {
         // Handle row selection for details panel
         if table_response.sort_changed || vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selection_count() == 1 {
             if let Some(&idx) = vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
-                if let Some((pickup, _, _, _)) = items.get(idx) {
+                if let Some((pickup, _, _)) = items.get(idx) {
                     vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
@@ -1455,13 +1443,11 @@ pub mod events {
 
         // Handle double-click
         if let Some(row_idx) = table_response.double_clicked_row {
-            if let Some((pickup, dungeon_name, is_collected, is_verified)) = items.get(row_idx) {
-                let status_text = if !is_verified {
-                    "Unverified"
-                } else if *is_collected {
-                    "Collected"
-                } else {
-                    "Not collected"
+            if let Some((pickup, dungeon_name, state)) = items.get(row_idx) {
+                let status_text = match state {
+                    FlagState::Unknown => "Unverified",
+                    FlagState::Set => "Collected",
+                    FlagState::Clear => "Not collected",
                 };
                 let row_text = format!(
                     "{}\t{}\t{}\t{}\t{}\t{}",
@@ -1475,14 +1461,14 @@ pub mod events {
         // Handle export
         if export_response.export_clicked || export_response.copy_clicked {
             let export_data: Vec<DungeonPickupExportItem> = items.iter()
-                .map(|(pickup, dungeon_name, is_collected, is_verified)| DungeonPickupExportItem {
+                .map(|(pickup, dungeon_name, state)| DungeonPickupExportItem {
                     flag_id: pickup.event_flag,
                     item_name: pickup.name.to_string(),
                     category: pickup.category.display_name().to_string(),
                     quantity: pickup.quantity,
                     dungeon: dungeon_name.to_string(),
-                    collected: *is_collected,
-                    verified: *is_verified,
+                    collected: *state == FlagState::Set,
+                    verified: *state != FlagState::Unknown,
                 })
                 .collect();
 
@@ -1543,13 +1529,17 @@ pub mod events {
     /// never been representable here as anything but absent.
     fn collect_set_flags(event_flags: Option<&[u8]>) -> std::collections::HashSet<u32> {
         use crate::db::inventory_verification::UNIQUE_ITEMS;
-        use crate::db::pickup_flags::pickup_flag_state;
+        use crate::db::pickup_flags::pickup_state;
 
         let mut set_flags = std::collections::HashSet::new();
 
+        // Membership means "known Set". Unknown is correctly absent — a flag we
+        // could not resolve is not asserted to be set.
         if let Some(ef) = event_flags {
+            let resolved = ResolvedFlags::from_event_flags(ef);
             for item in UNIQUE_ITEMS.iter() {
-                if pickup_flag_state(ef, item.event_flag) == Some(true) {
+                let set = resolved.as_ref().map_or(FlagState::Unknown, |r| pickup_state(r, item.event_flag));
+                if set == FlagState::Set {
                     set_flags.insert(item.event_flag);
                 }
             }
@@ -1691,20 +1681,24 @@ pub mod events {
         storage: Option<&EquipInventoryData>,
         save_path: &str,
     ) {
-        let (selected_flag_id, flag_name, is_collected, is_world_pickup) = match vm.slots[vm.index].events_vm.current_route {
+        // `state` is FlagState, not bool. The detail panel previously took `.0` of
+        // a `(bool, _)` pair here, which rendered Unknown as "NOT COLLECTED" — the
+        // exact collapse this migration removes. `Unknown` is the default when no
+        // flag is selected, which never reaches the status display.
+        let (selected_flag_id, flag_name, state, is_world_pickup) = match vm.slots[vm.index].events_vm.current_route {
             EventsRoute::WorldPickups => {
                 if let Some(flag_id) = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id {
                     // Find the pickup data for this flag
                     let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
-                        let ef = event_flags.unwrap_or(&[]);
-                        let (is_set, _) = pickup_state(ef, flag_id);
-                        (Some(flag_id), p.name.to_string(), is_set, true)
+                        let resolved = ResolvedFlags::from_event_flags(event_flags.unwrap_or(&[]));
+                        let state = pickup_state(resolved.as_ref(), flag_id);
+                        (Some(flag_id), p.name.to_string(), state, true)
                     } else {
-                        (None, String::new(), false, true)
+                        (None, String::new(), FlagState::Unknown, true)
                     }
                 } else {
-                    (None, String::new(), false, true)
+                    (None, String::new(), FlagState::Unknown, true)
                 }
             }
             EventsRoute::DungeonPickups => {
@@ -1717,17 +1711,17 @@ pub mod events {
                         // separate from the table's — so the panel and the row it
                         // was opened from could disagree about the same pickup.
                         // Both now go through the same resolver.
-                        let ef = event_flags.unwrap_or(&[]);
-                        let is_set = pickup_state(ef, p.event_flag).0;
-                        (Some(flag_id), p.name.to_string(), is_set, false)
+                        let resolved = ResolvedFlags::from_event_flags(event_flags.unwrap_or(&[]));
+                        let state = pickup_state(resolved.as_ref(), p.event_flag);
+                        (Some(flag_id), p.name.to_string(), state, false)
                     } else {
-                        (None, String::new(), false, false)
+                        (None, String::new(), FlagState::Unknown, false)
                     }
                 } else {
-                    (None, String::new(), false, false)
+                    (None, String::new(), FlagState::Unknown, false)
                 }
             }
-            _ => (None, String::new(), false, true),
+            _ => (None, String::new(), FlagState::Unknown, true),
         };
 
         let selected_flag_id = match selected_flag_id {
@@ -1768,10 +1762,12 @@ pub mod events {
         });
         ui.horizontal(|ui| {
             ui.label(RichText::new("Status:").color(Color32::LIGHT_GRAY));
-            let (status_text, status_color) = if is_collected {
-                ("COLLECTED", Color32::from_rgb(100, 200, 100))
-            } else {
-                ("NOT COLLECTED", Color32::LIGHT_GRAY)
+            let (status_text, status_color) = match state {
+                FlagState::Set => ("COLLECTED", Color32::from_rgb(100, 200, 100)),
+                FlagState::Clear => ("NOT COLLECTED", Color32::LIGHT_GRAY),
+                // The position could not be resolved: we do not know, and must not
+                // claim "not collected" for a save we failed to read.
+                FlagState::Unknown => ("UNKNOWN", colors::STATUS_WARNING),
             };
             ui.label(RichText::new(status_text).color(status_color));
         });
@@ -1793,7 +1789,7 @@ pub mod events {
                 let (item_name, item_type, raw_item_id) = resolve_inventory_item_name_with_id(item.ga_item_handle);
                 let (is_match, score) = fuzzy_match_item_names(&flag_name, &item_name);
                 if is_match {
-                    let is_supporting = is_collected;
+                    let is_supporting = state == FlagState::Set;
                     matches.push(InventoryMatch {
                         item_name,
                         item_type,
@@ -1832,7 +1828,7 @@ pub mod events {
             matches.sort_by(|a, b| b.match_score.cmp(&a.match_score));
 
             if matches.is_empty() {
-                if is_collected {
+                if state == FlagState::Set {
                     // Flag says collected but no matching item found
                     ui.label(RichText::new("⚠ No matching item in inventory")
                         .color(Color32::from_rgb(255, 200, 100))
@@ -1900,8 +1896,9 @@ pub mod events {
                         }
                     });
 
-                // Summary
-                if !is_collected && !matches.is_empty() {
+                // Summary. Only a resolved Clear contradicts a found item;
+                // Unknown makes no claim to contradict.
+                if state == FlagState::Clear && !matches.is_empty() {
                     spacer(ui);
                     ui.label(RichText::new("⚠ Item found but flag NOT set")
                         .color(Color32::from_rgb(255, 165, 0))
@@ -1940,7 +1937,11 @@ pub mod events {
             details.push_str(&format!("flag_id: {}\n", selected_flag_id));
             details.push_str(&format!("flag_id_hex: 0x{:08X}\n", selected_flag_id));
             details.push_str(&format!("item_name: {}\n", flag_name));
-            details.push_str(&format!("is_collected: {}\n", is_collected));
+            details.push_str(&format!("flag_state: {}\n", match state {
+                FlagState::Set => "set",
+                FlagState::Clear => "clear",
+                FlagState::Unknown => "unknown",
+            }));
             details.push_str(&format!("pickup_type: {}\n", if is_world_pickup { "world" } else { "dungeon" }));
 
             // Add flag offset info if available
@@ -1997,8 +1998,8 @@ pub mod events {
             if let Some(inv) = inventory {
                 details.push_str(&format!("equip_common_count: {}\n", inv.common_inventory_items_distinct_count));
                 details.push_str(&format!("equip_key_count: {}\n", inv.key_inventory_items_distinct_count));
-                scan_items(&inv.common_items, "equip_common", &flag_name, is_collected, &mut match_count, &mut details);
-                scan_items(&inv.key_items, "equip_key", &flag_name, is_collected, &mut match_count, &mut details);
+                scan_items(&inv.common_items, "equip_common", &flag_name, state == FlagState::Set, &mut match_count, &mut details);
+                scan_items(&inv.key_items, "equip_key", &flag_name, state == FlagState::Set, &mut match_count, &mut details);
             } else {
                 details.push_str("equip_inventory: NOT AVAILABLE\n");
             }
@@ -2006,8 +2007,8 @@ pub mod events {
             if let Some(stor) = storage {
                 details.push_str(&format!("storage_common_count: {}\n", stor.common_inventory_items_distinct_count));
                 details.push_str(&format!("storage_key_count: {}\n", stor.key_inventory_items_distinct_count));
-                scan_items(&stor.common_items, "storage_common", &flag_name, is_collected, &mut match_count, &mut details);
-                scan_items(&stor.key_items, "storage_key", &flag_name, is_collected, &mut match_count, &mut details);
+                scan_items(&stor.common_items, "storage_common", &flag_name, state == FlagState::Set, &mut match_count, &mut details);
+                scan_items(&stor.key_items, "storage_key", &flag_name, state == FlagState::Set, &mut match_count, &mut details);
             } else {
                 details.push_str("storage_inventory: NOT AVAILABLE\n");
             }

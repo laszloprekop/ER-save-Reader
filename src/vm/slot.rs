@@ -15,7 +15,7 @@ pub mod slot_view_model {
         save::common::save_slot::SaveSlot,
         vm::{
             equipment::equipment_view_model::EquipmentViewModel,
-            events::events_view_model::{EventsViewModel, GraceStatus},
+            events::events_view_model::EventsViewModel,
             export::{
                 ExportData, ExportEquipment, ExportEquipmentItem, ExportEventItem,
                 ExportEvents, ExportGeneral, ExportInventory, ExportInventoryItem,
@@ -480,8 +480,10 @@ pub mod slot_view_model {
                 .map(|(grace, status)| {
                     let grace_info = graces_lookup.get(grace);
                     let name = grace_info.map(|g| g.2).unwrap_or("Unknown");
-                    // For export, only report Discovered as true; Unreliable exports as false
-                    let discovered = *status == GraceStatus::Discovered;
+                    // This legacy export path carries a bare bool, so Unknown must
+                    // collapse; `unknown_as_clear` names that it does, and reports
+                    // only a resolved Set as discovered.
+                    let discovered = status.unknown_as_clear();
                     ExportEventItem::new(name, discovered)
                 })
                 .collect();
@@ -561,15 +563,21 @@ pub mod slot_view_model {
 
             // World Pickups
             let world_pickups: Vec<ExportWorldPickupItem> = if let Some(flags) = event_flags {
+                // Resolve the origin once for the whole table (§ResolvedFlags).
+                let resolved = wasm_event_flags::ResolvedFlags::from_event_flags(flags);
                 WORLD_PICKUPS
                     .iter()
                     .map(|pickup| {
                         // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and
-                        // routed by family. `None` exports as null: an export that
+                        // routed by family. Unknown exports as null: an export that
                         // says "not collected" for a flag it could not read is
                         // asserting something it does not know.
-                        let collected =
-                            crate::db::pickup_flags::pickup_flag_state(flags, pickup.event_flag);
+                        let collected: Option<bool> = resolved
+                            .as_ref()
+                            .map_or(wasm_event_flags::FlagState::Unknown, |r| {
+                                crate::db::pickup_flags::pickup_state(r, pickup.event_flag)
+                            })
+                            .into();
 
                         let type_str = match pickup.category {
                             PickupCategory::GoldenRunes => "GoldenRunes",

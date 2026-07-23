@@ -10,6 +10,7 @@ use crate::ui::tokens::{colors, spacing};
 use crate::ui::components::legend::{entity_icons, nav_icons};
 
 use super::{ComparisonState, ComparisonTab};
+use wasm_event_flags::{FlagState, ResolvedFlags};
 
 /// Stat difference for display.
 struct StatDiff {
@@ -361,8 +362,17 @@ fn show_event_flags_comparison(
 
     for (grace, status_a) in &slot_a.events_vm.graces {
         let status_b = slot_b.events_vm.graces.get(grace);
-        let in_a = matches!(status_a, crate::vm::events::events_view_model::GraceStatus::Discovered);
-        let in_b = status_b.map(|s| matches!(s, crate::vm::events::events_view_model::GraceStatus::Discovered)).unwrap_or(false);
+        // Skip graces the origin could not resolve in EITHER save: a discovery
+        // status of Unknown says nothing to compare, and collapsing it to
+        // "not discovered" (the old `unwrap_or(false)`) manufactures a difference
+        // that reflects a failed read, not the two characters.
+        let (FlagState::Set | FlagState::Clear, Some(sb @ (FlagState::Set | FlagState::Clear))) =
+            (*status_a, status_b.copied())
+        else {
+            continue;
+        };
+        let in_a = *status_a == FlagState::Set;
+        let in_b = sb == FlagState::Set;
 
         let name = graces_lookup.get(grace)
             .map(|g| g.2.to_string())
@@ -417,19 +427,25 @@ fn show_event_flags_comparison(
 
         let mut pickup_diffs: Vec<FlagDiff> = Vec::new();
 
-        // Sample first 100 pickups to avoid performance issues
+        // Resolve each save's origin ONCE (was per-pickup; the `.take(100)` below
+        // was a workaround for that cost and is now only a display cap).
+        let resolved_a = ResolvedFlags::from_event_flags(flags_a);
+        let resolved_b = ResolvedFlags::from_event_flags(flags_b);
+
+        // Sample first 100 pickups to keep the diff table short.
         for pickup in crate::db::pickup_data::WORLD_PICKUPS.iter().take(100) {
             // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
             // family. A pickup whose position cannot be resolved in EITHER save
             // is skipped rather than reported as a difference: comparing two
             // Unknowns, or an Unknown against a real bit, manufactures diffs that
             // say nothing about the characters.
-            let (Some(in_a), Some(in_b)) = (
-                crate::db::pickup_flags::pickup_flag_state(flags_a, pickup.event_flag),
-                crate::db::pickup_flags::pickup_flag_state(flags_b, pickup.event_flag),
-            ) else {
+            let state_a = resolved_a.as_ref().map_or(FlagState::Unknown, |r| crate::db::pickup_flags::pickup_state(r, pickup.event_flag));
+            let state_b = resolved_b.as_ref().map_or(FlagState::Unknown, |r| crate::db::pickup_flags::pickup_state(r, pickup.event_flag));
+            let (FlagState::Set | FlagState::Clear, FlagState::Set | FlagState::Clear) = (state_a, state_b) else {
                 continue;
             };
+            let in_a = state_a == FlagState::Set;
+            let in_b = state_b == FlagState::Set;
 
             if in_a != in_b || !differences_only {
                 pickup_diffs.push(FlagDiff {
@@ -706,8 +722,16 @@ fn build_comparison_export(
     let graces_lookup = crate::db::graces::maps::GRACES.lock().unwrap();
     for (grace, status_a) in &slot_a.events_vm.graces {
         let status_b = slot_b.events_vm.graces.get(grace);
-        let in_a = matches!(status_a, crate::vm::events::events_view_model::GraceStatus::Discovered);
-        let in_b = status_b.map(|s| matches!(s, crate::vm::events::events_view_model::GraceStatus::Discovered)).unwrap_or(false);
+        // Skip graces unresolved in either save (see the on-screen diff above): an
+        // Unknown status contributes neither to only-A/only-B nor to the common
+        // count, rather than being counted as "not discovered".
+        let (FlagState::Set | FlagState::Clear, Some(sb @ (FlagState::Set | FlagState::Clear))) =
+            (*status_a, status_b.copied())
+        else {
+            continue;
+        };
+        let in_a = *status_a == FlagState::Set;
+        let in_b = sb == FlagState::Set;
 
         let name = graces_lookup.get(grace)
             .map(|g| g.2.to_string())

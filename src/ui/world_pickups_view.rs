@@ -3,6 +3,7 @@ pub mod world_pickups_view {
     use crate::db::world_pickups::{WORLD_PICKUPS, PickupItemType};
     use crate::save::common::save_slot::EquipInventoryData;
     use crate::db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence};
+    use wasm_event_flags::{FlagState, ResolvedFlags};
     use crate::ui::components::table::{UnifiedTable, Column, TableState, RowData, SortDirection};
     use crate::ui::components::filter::{FilterBar, FilterBarState, FilterOption, fuzzy_match_default};
     use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
@@ -14,7 +15,7 @@ pub mod world_pickups_view {
     type PickupRow<'a> = (
         u32,
         &'a crate::db::world_pickups::WorldPickup,
-        Option<bool>,
+        FlagState,
         Option<(bool, VerificationConfidence)>,
     );
 
@@ -99,14 +100,15 @@ pub mod world_pickups_view {
     /// reader, on the assumption that `WORLD_PICKUPS` is all open-world tiles.
     /// It is not — of 4,809 entries only 1,232 are, alongside 2,010 legacy-map
     /// pickups and 100 world-state-b flags — so 3,577 read Unknown. Routing by
-    /// family via `pickup_flag_state` recovers about 2,060 of them. The first cut
+    /// family via `pickup_state` recovers about 2,060 of them. The first cut
     /// was not WRONG (no entry read a wrong bit; the tile reader rejects foreign
     /// ids), it was needlessly blind.
     ///
-    /// `None` means the position could not be resolved: UNKNOWN, not "not
-    /// collected". The table renders that distinctly.
-    fn is_pickup_collected(flag_id: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-        crate::db::pickup_flags::pickup_flag_state(event_flags?, flag_id)
+    /// `FlagState::Unknown` means the position could not be resolved — not "not
+    /// collected". The table renders that distinctly. `resolved` is `None` when
+    /// the origin would not resolve, giving Unknown for every id.
+    fn is_pickup_collected(flag_id: u32, resolved: Option<&ResolvedFlags>) -> FlagState {
+        resolved.map_or(FlagState::Unknown, |r| crate::db::pickup_flags::pickup_state(r, flag_id))
     }
 
     /// Check if an item is in the character's inventory based on flag ID
@@ -215,30 +217,20 @@ pub mod world_pickups_view {
 
         // Legend is now shown in the app-wide status bar
 
+        // Resolve the origin once for the whole table, not per row.
+        let resolved = ResolvedFlags::from_event_flags(event_flags.unwrap_or(&[]));
+
         // Build filtered data
         let mut pickups: Vec<PickupRow<'_>> = WORLD_PICKUPS.iter()
             .filter_map(|(id, pickup)| {
-                // Check collected status using calibrated tile base
-                let is_collected = is_pickup_collected(pickup.flag_id, event_flags);
+                let state_flag = is_pickup_collected(pickup.flag_id, resolved.as_ref());
 
                 // Apply collected filter
                 match state.collected_filter {
                     CollectedFilter::All => {},
-                    CollectedFilter::Collected => {
-                        if is_collected != Some(true) {
-                            return None;
-                        }
-                    },
-                    CollectedFilter::NotCollected => {
-                        if is_collected == Some(true) {
-                            return None;
-                        }
-                    },
-                    CollectedFilter::Unverified => {
-                        if is_collected.is_some() {
-                            return None;
-                        }
-                    },
+                    CollectedFilter::Collected => if state_flag != FlagState::Set { return None; },
+                    CollectedFilter::NotCollected => if state_flag != FlagState::Clear { return None; },
+                    CollectedFilter::Unverified => if state_flag != FlagState::Unknown { return None; },
                 }
 
                 // Apply type filter
@@ -269,7 +261,7 @@ pub mod world_pickups_view {
                 }
 
                 let inv_status = is_item_in_inventory(pickup.flag_id, inventory);
-                Some((*id, pickup, is_collected, inv_status))
+                Some((*id, pickup, state_flag, inv_status))
             })
             .collect();
 
@@ -288,8 +280,8 @@ pub mod world_pickups_view {
                 "qty" => pickups.sort_by(|a, b| if asc { a.1.quantity.cmp(&b.1.quantity) } else { b.1.quantity.cmp(&a.1.quantity) }),
                 "region" => pickups.sort_by(|a, b| if asc { a.1.region.cmp(b.1.region) } else { b.1.region.cmp(a.1.region) }),
                 "status" => pickups.sort_by(|a, b| {
-                    let sa = a.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
-                    let sb = b.2.map(|c| if c { 1 } else { 0 }).unwrap_or(2);
+                    let rank = |s: FlagState| match s { FlagState::Clear => 0, FlagState::Set => 1, FlagState::Unknown => 2 };
+                    let (sa, sb) = (rank(a.2), rank(b.2));
                     if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
                 }),
                 _ => {}
@@ -364,7 +356,7 @@ pub mod world_pickups_view {
         spacing::space_sm(ui);
 
         // Build row data with status colors
-        let rows: Vec<RowData> = pickups.iter().map(|(id, pickup, is_collected, inv_status)| {
+        let rows: Vec<RowData> = pickups.iter().map(|(id, pickup, state_flag, inv_status)| {
             let type_str = match pickup.item_type {
                 PickupItemType::Weapon => "Weapon",
                 PickupItemType::Armor => "Armor",
@@ -376,10 +368,10 @@ pub mod world_pickups_view {
 
             let tile_str = format!("({}, {})", pickup.tile_x, pickup.tile_y);
 
-            let flag_str = match is_collected {
-                Some(true) => icons::COLLECTED,
-                Some(false) => icons::NOT_COLLECTED,
-                None => icons::UNKNOWN,
+            let flag_str = match state_flag {
+                FlagState::Set => icons::COLLECTED,
+                FlagState::Clear => icons::NOT_COLLECTED,
+                FlagState::Unknown => icons::UNKNOWN,
             };
 
             let inv_str = match inv_status {
@@ -394,11 +386,13 @@ pub mod world_pickups_view {
 
             let is_selected = state.selected_id == Some(*id);
 
-            // Determine if there's a mismatch between flag and inventory
-            let has_mismatch = matches!(
-                (is_collected, inv_status),
-                (Some(flag_set), Some((has_item, _))) if *flag_set != *has_item
-            );
+            // Determine if there's a mismatch between flag and inventory. Only a
+            // resolved flag can contradict inventory; Unknown asserts nothing.
+            let has_mismatch = match (state_flag, inv_status) {
+                (FlagState::Set, Some((has_item, _))) => !*has_item,
+                (FlagState::Clear, Some((has_item, _))) => *has_item,
+                _ => false,
+            };
 
             // Build row cells - include all columns
             let mut cells = vec![];
@@ -428,10 +422,10 @@ pub mod world_pickups_view {
             } else if has_mismatch {
                 row = row.with_color(Color32::from_rgb(255, 165, 0)); // Orange for mismatch
             } else {
-                let color = match is_collected {
-                    Some(true) => Color32::from_rgb(100, 200, 100), // Green for collected
-                    Some(false) => Color32::LIGHT_GRAY,
-                    None => Color32::from_rgb(180, 180, 180), // Dim for unknown
+                let color = match state_flag {
+                    FlagState::Set => Color32::from_rgb(100, 200, 100), // Green for collected
+                    FlagState::Clear => Color32::LIGHT_GRAY,
+                    FlagState::Unknown => Color32::from_rgb(180, 180, 180), // Dim for unknown
                 };
                 row = row.with_color(color);
             }
@@ -547,7 +541,7 @@ pub mod world_pickups_view {
         // Handle export
         if export_response.export_clicked || export_response.copy_clicked {
             let data_to_export: Vec<_> = pickups.iter()
-                .map(|(id, pickup, is_collected, inv_status)| WorldPickupExportItem {
+                .map(|(id, pickup, state_flag, inv_status)| WorldPickupExportItem {
                     lot_id: *id,
                     flag_id: pickup.flag_id,
                     item_name: pickup.item_name.to_string(),
@@ -562,7 +556,7 @@ pub mod world_pickups_view {
                     quantity: pickup.quantity as i32,
                     region: pickup.region.to_string(),
                     tile: format!("({}, {})", pickup.tile_x, pickup.tile_y),
-                    collected: *is_collected,
+                    collected: (*state_flag).into(),
                     in_inventory: inv_status.map(|(has, _)| has),
                 })
                 .collect();

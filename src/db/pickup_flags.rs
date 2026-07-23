@@ -13,6 +13,7 @@
 
 use std::collections::HashMap;
 use once_cell::sync::Lazy;
+use wasm_event_flags::{FlagState, ResolvedFlags};
 
 // Import verified constants from generated module
 use crate::generated::ground_truth::{
@@ -780,21 +781,28 @@ pub fn is_tile_pickup_flag_set(event_flags: &[u8], flag_id: u32, calibrated_tile
 ///    8-digit, local >= 7000  legacy-map pickup (alloc-slot layout)
 ///    5-digit, 50000-79999    world-state-b
 ///
-/// `None` is UNKNOWN, never "not collected". It covers DLC tiles (`2xxxxxxxxx`,
-/// no verified layout), the ~935 six-digit ids in `WORLD_PICKUPS` that belong to
-/// no known family, doubly-allocated maps, and any save whose origin will not
-/// resolve.
+/// `FlagState::Unknown` is never "not collected". It covers DLC tiles
+/// (`2xxxxxxxxx`, no verified layout), the ~935 six-digit ids in `WORLD_PICKUPS`
+/// that belong to no known family, doubly-allocated maps, and any save whose
+/// origin will not resolve (in which case the caller holds no `ResolvedFlags` at
+/// all and reads `Unknown` for everything).
 ///
-/// Note `WORLD_PICKUPS` is NOT a single-family table despite its name: of 4,809
-/// entries, 1,232 are open-world tiles, 2,010 legacy-map, 100 world-state-b, 935
-/// unclassified and 532 DLC. Routing the whole table through the tile reader —
-/// which is what shipped in v0.28.0 — left 3,577 of them reading Unknown.
-pub fn pickup_flag_state(event_flags: &[u8], flag_id: u32) -> Option<bool> {
+/// Takes an already-resolved `ResolvedFlags` rather than raw bytes on purpose:
+/// the origin is a ~13,400-byte scan, and a table view calling this per row must
+/// pay it once, not once per pickup. Build one `ResolvedFlags` above the loop.
+///
+/// The id→family routing stays HERE rather than in the wasm crate: `WORLD_PICKUPS`
+/// is NOT a single-family table despite its name (of 4,809 entries: 1,232
+/// open-world tiles, 2,010 legacy-map, 100 world-state-b, 935 unclassified, 532
+/// DLC), so which families it mixes is knowledge about THIS table, not about the
+/// save format. Routing the whole table through the tile reader — which is what
+/// shipped in v0.28.0 — left 3,577 of them reading Unknown.
+pub fn pickup_state(flags: &ResolvedFlags, flag_id: u32) -> FlagState {
     match flag_id {
-        1_000_000_000..=1_999_999_999 => wasm_event_flags::is_tile_pickup_set(event_flags, flag_id),
-        10_000_000..=999_999_999 => wasm_event_flags::is_dungeon_pickup_set(event_flags, flag_id),
-        50_000..=79_999 => wasm_event_flags::is_world_state_flag_set(event_flags, flag_id),
-        _ => None,
+        1_000_000_000..=1_999_999_999 => flags.tile_pickup(flag_id),
+        10_000_000..=999_999_999 => flags.dungeon_pickup(flag_id),
+        50_000..=79_999 => flags.world_state(flag_id),
+        _ => FlagState::Unknown,
     }
 }
 

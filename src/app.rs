@@ -275,15 +275,19 @@ impl App {
             Err(_) => return regions,
         };
 
+        // Resolve the origin once for the whole grace scan.
+        let resolved = wasm_event_flags::ResolvedFlags::from_event_flags(event_flags);
         for (_grace, (map_name, flag_id, _name)) in graces.iter() {
             // Grace family cut over to per-save resolution (ADR-0006, 2026-07-20).
-            // Unresolved reads as "not discovered" HERE specifically because this
-            // builds a region filter: an unresolved save should offer no regions
-            // rather than every region. The tri-state itself is preserved in the
-            // grace table, which is where a user reads state.
-            if wasm_event_flags::is_world_state_flag_set(event_flags, *flag_id)
-                .unwrap_or(false)
-            {
+            // `unknown_as_clear` here is deliberate: this builds a region filter, so
+            // an unresolved save should offer no regions rather than every region.
+            // The tri-state itself is preserved in the grace table, which is where
+            // a user reads state.
+            let discovered = resolved
+                .as_ref()
+                .map_or(wasm_event_flags::FlagState::Unknown, |r| r.world_state(*flag_id))
+                .unknown_as_clear();
+            if discovered {
                 // Get the region name string
                 if let Some(region_str) = map_names.get(map_name) {
                     regions.insert(region_str.to_string());

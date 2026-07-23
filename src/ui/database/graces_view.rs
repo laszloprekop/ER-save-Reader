@@ -10,6 +10,7 @@ use crate::ui::components::filter::{FilterBar, FilterBarState, fuzzy_match_defau
 use crate::ui::components::export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown};
 use crate::ui::components::detail_panel::{DetailPanelState, SelectedEntity, RelationshipSection, RelationshipItem, DetailPanelAction, mapgenie_section, section_from_relationships};
 use crate::ui::tokens::spacing;
+use wasm_event_flags::{FlagState, ResolvedFlags};
 use serde::Serialize;
 
 pub struct GracesViewState {
@@ -62,9 +63,9 @@ struct GraceExportItem {
 /// `None` means the origin could not be resolved and the state is UNKNOWN. It is
 /// deliberately not collapsed to `false`: rendering "not discovered" for a save
 /// we failed to parse is how `batch-validate` came to report 0/110 boss defeats
-/// on a fully progressed character. The table renders this as "-".
-fn is_grace_discovered(event_flag: u32, event_flags: Option<&[u8]>) -> Option<bool> {
-    wasm_event_flags::is_world_state_flag_set(event_flags?, event_flag)
+/// on a fully progressed character. The table renders `Unknown` as "-".
+fn is_grace_discovered(event_flag: u32, resolved: Option<&ResolvedFlags>) -> FlagState {
+    resolved.map_or(FlagState::Unknown, |r| r.world_state(event_flag))
 }
 
 /// Build detail panel sections for a grace, including relationships.
@@ -123,7 +124,9 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
     spacing::space_sm(ui);
 
     // Build grace data with filtering and sorting
-    let mut graces: Vec<(u32, &crate::db::graces_data::GraceData, Option<bool>)> = GRACES_DATA.iter()
+    // Resolve the origin once for the whole grace table.
+    let resolved = event_flags.and_then(ResolvedFlags::from_event_flags);
+    let mut graces: Vec<(u32, &crate::db::graces_data::GraceData, FlagState)> = GRACES_DATA.iter()
         .filter_map(|(flag, grace)| {
             // Region filter
             if state.region_filter != "All" && grace.region != state.region_filter {
@@ -137,7 +140,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
                     return None;
                 }
 
-            let discovered = is_grace_discovered(*flag, event_flags);
+            let discovered = is_grace_discovered(*flag, resolved.as_ref());
             Some((*flag, grace, discovered))
         })
         .collect();
@@ -150,8 +153,8 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
             "name" => graces.sort_by(|a, b| if asc { a.1.name.cmp(b.1.name) } else { b.1.name.cmp(a.1.name) }),
             "region" => graces.sort_by(|a, b| if asc { a.1.region.cmp(b.1.region) } else { b.1.region.cmp(a.1.region) }),
             "status" => graces.sort_by(|a, b| {
-                let sa = a.2.map(|d| if d { 1 } else { 0 }).unwrap_or(2);
-                let sb = b.2.map(|d| if d { 1 } else { 0 }).unwrap_or(2);
+                let rank = |s: FlagState| match s { FlagState::Clear => 0, FlagState::Set => 1, FlagState::Unknown => 2 };
+                let (sa, sb) = (rank(a.2), rank(b.2));
                 if asc { sa.cmp(&sb) } else { sb.cmp(&sa) }
             }),
             _ => {}
@@ -190,9 +193,9 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
         let is_selected = state.selected_flag == Some(*flag);
 
         let status_str = match discovered {
-            Some(true) => "✓",
-            Some(false) => "○",
-            None => "-",
+            FlagState::Set => "✓",
+            FlagState::Clear => "○",
+            FlagState::Unknown => "-",
         };
 
         let position = format!("{:.0}, {:.0}, {:.0}", grace.pos_x, grace.pos_y, grace.pos_z);
@@ -207,7 +210,7 @@ pub fn graces_view(ui: &mut Ui, state: &mut GracesViewState, event_flags: Option
 
         if is_selected {
             row = row.with_color(Color32::YELLOW);
-        } else if *discovered == Some(true) {
+        } else if *discovered == FlagState::Set {
             row = row.with_color(Color32::from_rgb(144, 238, 144)); // Light green
         }
 

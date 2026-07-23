@@ -35,6 +35,7 @@
 //! claims artifact these are generated, never hand-edited (ADR-0004).
 
 use serde_json::{json, Map, Value};
+use wasm_event_flags::{FlagState, ResolvedFlags};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -1214,8 +1215,10 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
             let mut shipped_agrees = true;
             if det.offset > 0 {
                 let ef = &slot[det.offset..];
+                let resolved = ResolvedFlags::from_event_flags(ef);
                 for &flag in &anchors {
-                    let via_shipped = wasm_event_flags::is_world_state_flag_set(ef, flag as u32);
+                    let via_shipped: Option<bool> = resolved.as_ref()
+                        .map_or(FlagState::Unknown, |r| r.world_state(flag as u32)).into();
                     let via_direct = family_rel("world-state-b", flag, &alloc)
                         .ok()
                         .and_then(|rel| slot.get((base + rel as i64) as usize))
@@ -1235,9 +1238,10 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
             // plausible. Mid-game characters should show many; minimal ones few.
             if det.offset > 0 {
                 let ef = &slot[det.offset..];
+                let resolved = ResolvedFlags::from_event_flags(ef);
                 let (mut yes, mut no, mut unknown) = (0usize, 0usize, 0usize);
                 for (flag, _) in crate::db::graces_data::GRACES_DATA.iter() {
-                    match wasm_event_flags::is_world_state_flag_set(ef, *flag) {
+                    match Option::<bool>::from(resolved.as_ref().map_or(FlagState::Unknown, |r| r.world_state(*flag))) {
                         Some(true) => yes += 1,
                         Some(false) => no += 1,
                         None => unknown += 1,
@@ -1345,16 +1349,17 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
             let name = match ev[side]["file"].as_str() { Some(n) => n, None => break };
             let sf = match load_save(&dir, name, save_slot, &manifest) { Ok(v) => v, Err(_) => break };
             let efs = &sf.slot[sf.grace..];
-            // The family is known here, so the read function is chosen
-            // explicitly — a bare tile id cannot tell you which family it is.
-            let state = match family.as_str() {
-                "world-state-b" => wasm_event_flags::is_world_state_flag_set(efs, read_id),
-                "tile-open-world" => wasm_event_flags::is_tile_world_flag_set(efs, read_id),
-                "legacy-dungeon" => wasm_event_flags::is_dungeon_flag_set(efs, read_id),
-                "legacy-dungeon-pickup" => wasm_event_flags::is_dungeon_pickup_set(efs, read_id),
-                _ => wasm_event_flags::is_tile_pickup_set(efs, read_id),
-            };
-            states.push(state);
+            // The family is known here, so the read method is chosen explicitly —
+            // a bare tile id cannot tell you which family it is.
+            let rf = ResolvedFlags::from_event_flags(efs);
+            let fs = rf.as_ref().map_or(FlagState::Unknown, |r| match family.as_str() {
+                "world-state-b" => r.world_state(read_id),
+                "tile-open-world" => r.tile_world(read_id),
+                "legacy-dungeon" => r.dungeon(read_id),
+                "legacy-dungeon-pickup" => r.dungeon_pickup(read_id),
+                _ => r.tile_pickup(read_id),
+            });
+            states.push(Option::<bool>::from(fs));
         }
         if states.len() != 2 { continue; }
         let ok = states[0] == Some(false) && states[1] == Some(true);
