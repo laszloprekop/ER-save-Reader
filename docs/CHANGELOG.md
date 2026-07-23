@@ -7,6 +7,26 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.17 - Streamline the snapshot protocol; delete `COMMIT-PROTOCOL.md`
+
+The commit routine lived in two places — the `/snapshot` command (`.claude/commands/snapshot.md`,
+untracked) and `docs/COMMIT-PROTOCOL.md` (315 lines) — which duplicated the same routine and had
+drifted apart: two contradictory decision tables, references to files that don't exist
+(`IMPLEMENTATION_PLAN.md`, `DEBUGGING-INSIGHTS.md`), the wrong crate name (`er-save-editor`), a stale
+root `DATA-SCHEMAS.md` path, editor-era "verify no save corruption" testing (this is a reader —
+ADR-0009), and worked examples teaching ADR-0008-forbidden hardcoded-offset patterns.
+
+The `/snapshot` command was rewritten self-contained (181 → 53 lines) and made the single source of
+truth; `docs/COMMIT-PROTOCOL.md` is deleted. The rewrite also *adds* two safeguards the old protocol
+lacked: `cargo test --workspace` (the bare form skips the conformance suite) and
+`cargo check --features save-writeback` when save structs are touched. Only the doc deletion is
+version-controlled — the command file lives under the gitignored `.claude/`.
+
+### Files Modified
+- docs/COMMIT-PROTOCOL.md: deleted (redundant with, and drifted from, the `/snapshot` command)
+- .claude/commands/snapshot.md: rewritten self-contained, 181 → 53 lines (untracked — gitignored)
+- Cargo.toml: bumped to 0.37.17
+
 ## v0.37.16 - File-structure cleanup: `DATA-SCHEMAS.md` into `docs/`
 
 A placement-only pass. `DATA-SCHEMAS.md` was the sole documentation file living at the
