@@ -545,8 +545,19 @@ A there is nothing to assert it from.
 >   onto `SlotViewModel`. `EventsViewModel` keeps only the nine reconstructed data maps.
 >   Mechanical; no behaviour change.
 > - **D2** — introduce `Character<'a>` borrowing the slot and holding one `ResolvedFlags`,
->   migrate the fourteen view signatures to `(ch: &Character, ss: &mut ScreenState)`, and
->   collapse the two sources of flag bytes into the one `ResolvedFlags` on `Character`.
+>   migrate the view signatures to `(ch: &Character, ss: &mut ScreenState)`, and collapse
+>   the two sources of flag bytes into the one `ResolvedFlags` on `Character`. Landing in
+>   two parts:
+>   - **D2a (v0.37.14)** — `Character<'a>` + `SlotViewModel::split` (disjoint borrows: the
+>     reconstruction immutably, `ScreenState` mutably). The whole `events.rs` view cluster
+>     (`events` + its eight simple sub-views + `world_pickups` + `dungeon_pickups` + the
+>     detail sidebar) migrated to `(ch, ss)`; the split happens once inside `events()`, so
+>     `events()`'s signature and all of `app.rs` are untouched. The three ad-hoc
+>     `ResolvedFlags::from_event_flags` sites in the cluster collapse to one `ch.flags()`
+>     resolved once per render. Character gets its first test surface (three unit tests).
+>   - **D2b** — migrate `general` / `stats` / `equipment` / `inventory` / `regions` to
+>     `&Character`, retiring `&mut ViewModel` from the character view layer; grow `Character`
+>     to carry those read models; collapse the last build-time flag-byte source.
 
 ### The problem
 
@@ -622,8 +633,9 @@ most demanding form.
 | 5 | ✅ **DONE** v0.37.11 — C2: `Status` enum (5 producer sites, 2 consumer sites, linked at compile time) + `Claims` emitter (owns format + provenance envelope); migrated all five writers. Behaviour-preserving — `knowledge run` unchanged, the five `family_distances` outputs byte-identical. The **three** under-provenanced timeline files (not four — the count predated `family-constants.json`) regenerated with `generated_by`+`inputs`+newline as a separate commit | 4 | medium; one generated-output commit |
 | 6 | ✅ **DONE** v0.37.12 — C3: extracted `origin_model.rs` (measurement + list alignment + origin constants, 4 unit tests) from `family_distances.rs`, which becomes five thin `cmd_*` adapters (−540 net lines); de-duplicated `isolated_flips` into one shared `pipeline::isolated_flips_into`. Pure refactor — every touched claims command regenerates byte-identical | 4, 5 | small once 4 and 5 land |
 | 7 | ✅ **DECIDED** 2026-07-23 — three open questions settled (borrow / per-slot / verification_vm→ScreenState). Splitting into D1 (extract `ScreenState`) + D2 (introduce `Character`) | 1, 3 | large |
-| 7a | D1 — extract `ScreenState` off `EventsViewModel` onto `SlotViewModel`; mechanical, no behaviour change | 7 | medium |
-| 7b | D2 — `Character<'a>` + migrate the fourteen view signatures; one source of flag bytes | 7a | large |
+| 7a | ✅ **DONE** v0.37.13 — D1: extracted `ScreenState` off `EventsViewModel` onto `SlotViewModel`; 41 sites; mechanical, no behaviour change | 7 | medium |
+| 7b | ✅ **DONE** v0.37.14 — D2a: `Character<'a>` + `SlotViewModel::split`; migrated the `events.rs` view cluster to `(ch, ss)`; collapsed three `ResolvedFlags` sites to one `ch.flags()` per render; 3 Character unit tests | 7a | large |
+| 7c | D2b — migrate `general`/`stats`/`equipment`/`inventory`/`regions` to `&Character`; retire `&mut ViewModel` from the character views; grow `Character`; collapse the last build-time flag-byte source | 7b | large |
 
 Steps 3 and 5 each close a live defect (`events.rs:1721` renders Unknown as clear; three
 claims writers emit no provenance). Steps 1, 2, 4, 6 change no behaviour.

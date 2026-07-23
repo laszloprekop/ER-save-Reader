@@ -4,6 +4,7 @@ pub mod general;
 pub mod stats;
 pub mod events;
 pub mod screen_state;
+pub mod character;
 pub mod inventory;
 pub mod regions;
 // Character transplant: copies a slot from one save into another, so it only

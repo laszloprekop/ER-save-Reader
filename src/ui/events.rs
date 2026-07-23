@@ -2,7 +2,7 @@ pub mod events {
 
     use eframe::egui::{self, Ui, Color32, RichText};
     use serde::Serialize;
-    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, SimpleEventFlagViewState}, vm::vm::ViewModel}};
+    use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, SimpleEventFlagViewState}, vm::vm::ViewModel, character::character::Character, screen_state::screen_state::ScreenState}};
     use wasm_event_flags::{FlagState, ResolvedFlags};
     use crate::save::common::save_slot::EquipInventoryData;
 
@@ -16,10 +16,17 @@ pub mod events {
     const ICON_SIZE_MULTIPLIER: f32 = 1.5;
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
+        // Split the active slot into its immutable reconstruction (`ch`, holding one
+        // ResolvedFlags for the whole render) and its mutable widget state (`ss`).
+        // Every view below reads flags through `ch`, so the origin resolves once here
+        // instead of once per view (Workstream D2).
+        let idx = vm.index;
+        let (ch, ss) = vm.slots[idx].split(idx, event_flags);
+
         // Right sidebar for flag details (only show when a flag is selected in world/dungeon pickups)
-        let selected_flag = match vm.slots[vm.index].screen_state.current_route {
-            EventsRoute::WorldPickups => vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id,
-            EventsRoute::DungeonPickups => vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id,
+        let selected_flag = match ss.current_route {
+            EventsRoute::WorldPickups => ss.world_pickups_filter.selected_flag_id,
+            EventsRoute::DungeonPickups => ss.dungeon_pickups_filter.selected_flag_id,
             _ => None,
         };
 
@@ -28,7 +35,7 @@ pub mod events {
                 .default_width(280.0)
                 .min_width(200.0)
                 .show(ui.ctx(), |ui| {
-                    flag_details_sidebar(ui, vm, event_flags, inventory, storage, save_path);
+                    flag_details_sidebar(ui, &ch, ss, inventory, storage, save_path);
                 });
         }
 
@@ -37,33 +44,33 @@ pub mod events {
             .id_salt("events_content")
             .auto_shrink(false)
             .show(ui, |ui| {
-                match vm.slots[vm.index].screen_state.current_route {
+                match ss.current_route {
                     EventsRoute::None => {
                         ui.centered_and_justified(|ui| {
                             ui.label("Select an Event Flags category from the navigation bar above");
                         });
                     },
-                    EventsRoute::SitesOfGrace => {graces(ui, vm);},
-                    EventsRoute::Whetblades => {whetblades(ui, vm);},
-                    EventsRoute::Cookboks => {cookbooks(ui, vm);},
-                    EventsRoute::Maps => {maps(ui, vm);},
-                    EventsRoute::Bosses => {bosses(ui, vm);},
-                    EventsRoute::SummoningPools => {summoning_pools(ui, vm);},
-                    EventsRoute::Colosseums => {colosseums(ui, vm);},
-                    EventsRoute::Landmarks => {landmarks_view(ui, vm);},
-                    EventsRoute::WorldPickups => {world_pickups(ui, vm, event_flags, inventory);},
-                    EventsRoute::DungeonPickups => {dungeon_pickups(ui, vm, event_flags);},
+                    EventsRoute::SitesOfGrace => {graces(ui, &ch, ss);},
+                    EventsRoute::Whetblades => {whetblades(ui, &ch, ss);},
+                    EventsRoute::Cookboks => {cookbooks(ui, &ch, ss);},
+                    EventsRoute::Maps => {maps(ui, &ch, ss);},
+                    EventsRoute::Bosses => {bosses(ui, &ch, ss);},
+                    EventsRoute::SummoningPools => {summoning_pools(ui, &ch, ss);},
+                    EventsRoute::Colosseums => {colosseums(ui, &ch, ss);},
+                    EventsRoute::Landmarks => {landmarks_view(ui, &ch, ss);},
+                    EventsRoute::WorldPickups => {world_pickups(ui, &ch, ss, inventory);},
+                    EventsRoute::DungeonPickups => {dungeon_pickups(ui, &ch, ss);},
                     EventsRoute::Verification => {
                         // Inventory Verification Triangle section first
-                        if inventory.is_some() || event_flags.is_some() {
-                            let set_flags = collect_set_flags(event_flags);
+                        if inventory.is_some() || ch.flag_bytes().is_some() {
+                            let set_flags = collect_set_flags(ch.flag_bytes());
                             inventory_verification_summary(ui, &set_flags, inventory);
                             spacer(ui);
                             ui.add_space(10.0);
                         }
 
                         // Existing flag verification view
-                        verification_view(ui, &mut vm.slots[vm.index].screen_state.verification_vm);
+                        verification_view(ui, &mut ss.verification_vm);
                     },
                 }
             });
@@ -78,9 +85,9 @@ pub mod events {
         status: String,
     }
 
-    fn graces(ui: &mut Ui, vm: &mut ViewModel) {
-        let graces_data = &vm.slots[vm.index].events_vm.graces;
-        let state = &mut vm.slots[vm.index].screen_state.graces_view_state;
+    fn graces(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let graces_data = &ch.events().graces;
+        let state = &mut ss.graces_view_state;
 
         // Build region filter options
         let map_name_lock = MAP_NAME.lock().unwrap();
@@ -308,9 +315,9 @@ pub mod events {
         }
     }
 
-    fn whetblades(ui: &mut Ui, vm: &mut ViewModel) {
-        let whetblades_data = &vm.slots[vm.index].events_vm.whetblades;
-        let state = &mut vm.slots[vm.index].screen_state.whetblades_view_state;
+    fn whetblades(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let whetblades_data = &ch.events().whetblades;
+        let state = &mut ss.whetblades_view_state;
 
         let whetblades_lookup = WHETBLADES.lock().unwrap();
 
@@ -325,9 +332,9 @@ pub mod events {
         );
     }
 
-    fn cookbooks(ui: &mut Ui, vm: &mut ViewModel) {
-        let cookbooks_data = &vm.slots[vm.index].events_vm.cookbooks;
-        let state = &mut vm.slots[vm.index].screen_state.cookbooks_view_state;
+    fn cookbooks(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let cookbooks_data = &ch.events().cookbooks;
+        let state = &mut ss.cookbooks_view_state;
 
         let cookbooks_lookup = COOKBOKS.lock().unwrap();
 
@@ -342,9 +349,9 @@ pub mod events {
         );
     }
 
-    fn maps(ui: &mut Ui, vm: &mut ViewModel) {
-        let maps_data = &vm.slots[vm.index].events_vm.maps;
-        let state = &mut vm.slots[vm.index].screen_state.maps_view_state;
+    fn maps(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let maps_data = &ch.events().maps;
+        let state = &mut ss.maps_view_state;
 
         let maps_lookup = MAPS.lock().unwrap();
 
@@ -359,9 +366,9 @@ pub mod events {
         );
     }
 
-    fn bosses(ui: &mut Ui, vm: &mut ViewModel) {
-        let bosses_data = &vm.slots[vm.index].events_vm.bosses;
-        let state = &mut vm.slots[vm.index].screen_state.bosses_view_state;
+    fn bosses(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let bosses_data = &ch.events().bosses;
+        let state = &mut ss.bosses_view_state;
 
         let bosses_lookup = BOSSES.lock().unwrap();
 
@@ -376,9 +383,9 @@ pub mod events {
         );
     }
 
-    fn summoning_pools(ui: &mut Ui, vm: &mut ViewModel) {
-        let pools_data = &vm.slots[vm.index].events_vm.summoning_pools;
-        let state = &mut vm.slots[vm.index].screen_state.summoning_pools_view_state;
+    fn summoning_pools(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let pools_data = &ch.events().summoning_pools;
+        let state = &mut ss.summoning_pools_view_state;
 
         let pools_lookup = SUMMONING_POOLS.lock().unwrap();
 
@@ -393,9 +400,9 @@ pub mod events {
         );
     }
 
-    fn colosseums(ui: &mut Ui, vm: &mut ViewModel) {
-        let colosseums_data = &vm.slots[vm.index].events_vm.colosseums;
-        let state = &mut vm.slots[vm.index].screen_state.colosseums_view_state;
+    fn colosseums(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let colosseums_data = &ch.events().colosseums;
+        let state = &mut ss.colosseums_view_state;
 
         let colosseums_lookup = COLOSSEUMS.lock().unwrap();
 
@@ -410,9 +417,9 @@ pub mod events {
         );
     }
 
-    fn landmarks_view(ui: &mut Ui, vm: &mut ViewModel) {
-        let landmarks_data = &vm.slots[vm.index].events_vm.landmarks;
-        let state = &mut vm.slots[vm.index].screen_state.landmarks_view_state;
+    fn landmarks_view(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+        let landmarks_data = &ch.events().landmarks;
+        let state = &mut ss.landmarks_view_state;
 
         let landmarks_lookup = LANDMARKS.lock().unwrap();
 
@@ -752,8 +759,8 @@ pub mod events {
         })
     }
 
-    fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
-        let filter = &mut vm.slots[vm.index].screen_state.world_pickups_filter;
+    fn world_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, inventory: Option<&EquipInventoryData>) {
+        let filter = &mut ss.world_pickups_filter;
 
         // Build region filter options
         let mut regions: Vec<&str> = WORLD_PICKUPS.iter()
@@ -839,18 +846,16 @@ pub mod events {
         let region_filter = filter.region_filter.clone();
         let search = filter.search.clone();
 
-        let ef = event_flags.unwrap_or(&[]);
-        // Resolve the origin ONCE for the whole table (~13,400-byte scan), not per
-        // row. `None` here means the origin did not resolve, so every read is Unknown.
-        let resolved = ResolvedFlags::from_event_flags(ef);
-
+        // The origin is resolved ONCE on the Character (~13,400-byte scan), not per
+        // row and not per view. `ch.flags()` is `None` when the origin did not
+        // resolve, so every read is Unknown.
         // Build filtered data with inventory status
         let mut pickups: Vec<PickupRow<'_>> = WORLD_PICKUPS.iter()
             .filter_map(|pickup| {
                 // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
                 // family; `Unknown` is its own state, which the table renders
                 // distinctly rather than as "not collected".
-                let state = pickup_state(resolved.as_ref(), pickup.event_flag);
+                let state = pickup_state(ch.flags(), pickup.event_flag);
 
                 // Apply collected filter
                 match collected_filter {
@@ -902,7 +907,7 @@ pub mod events {
             .collect();
 
         // Apply sorting
-        let table_state = &vm.slots[vm.index].screen_state.world_pickups_filter.table_state;
+        let table_state = &ss.world_pickups_filter.table_state;
         if let Some(sort_col) = &table_state.sort_column {
             let asc = table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
@@ -937,7 +942,7 @@ pub mod events {
         spacing::space_sm(ui);
 
         // Build row data with status colors
-        let selected_flag_id = vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id;
+        let selected_flag_id = ss.world_pickups_filter.selected_flag_id;
         let rows: Vec<RowData> = pickups.iter().map(|(pickup, state, inv_status)| {
             let flag_str = match state {
                 FlagState::Unknown => icons::MISMATCH,
@@ -1019,7 +1024,7 @@ pub mod events {
         ]);
 
         // Show table
-        let table_state = &mut vm.slots[vm.index].screen_state.world_pickups_filter.table_state;
+        let table_state = &mut ss.world_pickups_filter.table_state;
         let table_response = UnifiedTable::new("char_world_pickups_table", table_state)
             .columns(columns)
             .rows(rows)
@@ -1033,10 +1038,10 @@ pub mod events {
         }
 
         // Handle row selection for details panel
-        if table_response.sort_changed || vm.slots[vm.index].screen_state.world_pickups_filter.table_state.selection_count() == 1 {
-            if let Some(&idx) = vm.slots[vm.index].screen_state.world_pickups_filter.table_state.selected_rows.iter().next() {
+        if table_response.sort_changed || ss.world_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = ss.world_pickups_filter.table_state.selected_rows.iter().next() {
                 if let Some((pickup, _, _)) = pickups.get(idx) {
-                    vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                    ss.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
         }
@@ -1065,7 +1070,7 @@ pub mod events {
 
         // Handle export
         if export_response.export_clicked || export_response.copy_clicked {
-            let content = build_world_pickups_export(&pickups, &vm.slots[vm.index].screen_state.world_pickups_filter.export_format);
+            let content = build_world_pickups_export(&pickups, &ss.world_pickups_filter.export_format);
 
             if export_response.copy_clicked {
                 ui.output_mut(|o| o.copied_text = content);
@@ -1166,10 +1171,10 @@ pub mod events {
         verified: bool,
     }
 
-    fn dungeon_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
+    fn dungeon_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
         use crate::db::dungeon_pickups::DungeonPickup;
 
-        let filter = &mut vm.slots[vm.index].screen_state.dungeon_pickups_filter;
+        let filter = &mut ss.dungeon_pickups_filter;
 
         // Build dungeon filter options
         let mut dungeons: Vec<&str> = DUNGEON_PICKUPS.iter()
@@ -1259,8 +1264,6 @@ pub mod events {
         let search = filter.search.clone();
         let export_format = filter.export_format;
 
-        let ef = event_flags.unwrap_or(&[]);
-
         // CUT OVER 2026-07-20 (ADR-0006, migration step 4). This used
         // DUNGEON_PICKUP_BASES — absolute per-area offsets from the frozen
         // legacy store — plus the pickup's own `dungeon_area`/`section` fields.
@@ -1277,13 +1280,11 @@ pub mod events {
             resolved.map_or(FlagState::Unknown, |r| r.dungeon_pickup(pickup.event_flag))
         }
 
-        // Resolve the origin once for the whole dungeon-pickup table.
-        let resolved = ResolvedFlags::from_event_flags(ef);
-
+        // The origin is resolved once on the Character, shared by the whole table.
         // Build filtered data - flat list
         let mut items: Vec<(&DungeonPickup, &str, FlagState)> = DUNGEON_PICKUPS.iter()
             .filter_map(|pickup| {
-                let state = is_dungeon_pickup_collected(resolved.as_ref(), pickup);
+                let state = is_dungeon_pickup_collected(ch.flags(), pickup);
                 let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
 
                 // Apply collected filter
@@ -1329,7 +1330,7 @@ pub mod events {
             .collect();
 
         // Apply sorting
-        let table_state = &vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state;
+        let table_state = &ss.dungeon_pickups_filter.table_state;
         if let Some(sort_col) = &table_state.sort_column {
             let asc = table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
@@ -1355,10 +1356,10 @@ pub mod events {
         let total_count = DUNGEON_PICKUPS.len();
         let filtered_count = items.len();
         let collected_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| is_dungeon_pickup_collected(resolved.as_ref(), p) == FlagState::Set)
+            .filter(|p| is_dungeon_pickup_collected(ch.flags(), p) == FlagState::Set)
             .count();
         let unknown_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| is_dungeon_pickup_collected(resolved.as_ref(), p) == FlagState::Unknown)
+            .filter(|p| is_dungeon_pickup_collected(ch.flags(), p) == FlagState::Unknown)
             .count();
 
         // Summary
@@ -1378,7 +1379,7 @@ pub mod events {
         spacing::space_sm(ui);
 
         // Build row data
-        let selected_flag_id = vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id;
+        let selected_flag_id = ss.dungeon_pickups_filter.selected_flag_id;
         let rows: Vec<RowData> = items.iter().map(|(pickup, dungeon_name, state)| {
             let status_icon = match state {
                 FlagState::Unknown => icons::MISMATCH,
@@ -1419,7 +1420,7 @@ pub mod events {
         ];
 
         // Show table
-        let table_state = &mut vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state;
+        let table_state = &mut ss.dungeon_pickups_filter.table_state;
         let table_response = UnifiedTable::new("dungeon_pickups_table", table_state)
             .columns(columns)
             .rows(rows)
@@ -1433,10 +1434,10 @@ pub mod events {
         }
 
         // Handle row selection for details panel
-        if table_response.sort_changed || vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state.selection_count() == 1 {
-            if let Some(&idx) = vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
+        if table_response.sort_changed || ss.dungeon_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = ss.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
                 if let Some((pickup, _, _)) = items.get(idx) {
-                    vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                    ss.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
         }
@@ -1675,8 +1676,8 @@ pub mod events {
     /// Flag details right sidebar
     fn flag_details_sidebar(
         ui: &mut Ui,
-        vm: &mut ViewModel,
-        event_flags: Option<&[u8]>,
+        ch: &Character,
+        ss: &mut ScreenState,
         inventory: Option<&EquipInventoryData>,
         storage: Option<&EquipInventoryData>,
         save_path: &str,
@@ -1685,14 +1686,13 @@ pub mod events {
         // a `(bool, _)` pair here, which rendered Unknown as "NOT COLLECTED" — the
         // exact collapse this migration removes. `Unknown` is the default when no
         // flag is selected, which never reaches the status display.
-        let (selected_flag_id, flag_name, state, is_world_pickup) = match vm.slots[vm.index].screen_state.current_route {
+        let (selected_flag_id, flag_name, state, is_world_pickup) = match ss.current_route {
             EventsRoute::WorldPickups => {
-                if let Some(flag_id) = vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id {
+                if let Some(flag_id) = ss.world_pickups_filter.selected_flag_id {
                     // Find the pickup data for this flag
                     let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
-                        let resolved = ResolvedFlags::from_event_flags(event_flags.unwrap_or(&[]));
-                        let state = pickup_state(resolved.as_ref(), flag_id);
+                        let state = pickup_state(ch.flags(), flag_id);
                         (Some(flag_id), p.name.to_string(), state, true)
                     } else {
                         (None, String::new(), FlagState::Unknown, true)
@@ -1702,7 +1702,7 @@ pub mod events {
                 }
             }
             EventsRoute::DungeonPickups => {
-                if let Some(flag_id) = vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id {
+                if let Some(flag_id) = ss.dungeon_pickups_filter.selected_flag_id {
                     // Find the dungeon pickup data for this flag
                     let pickup = DUNGEON_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
@@ -1711,8 +1711,7 @@ pub mod events {
                         // separate from the table's — so the panel and the row it
                         // was opened from could disagree about the same pickup.
                         // Both now go through the same resolver.
-                        let resolved = ResolvedFlags::from_event_flags(event_flags.unwrap_or(&[]));
-                        let state = pickup_state(resolved.as_ref(), p.event_flag);
+                        let state = pickup_state(ch.flags(), p.event_flag);
                         (Some(flag_id), p.name.to_string(), state, false)
                     } else {
                         (None, String::new(), FlagState::Unknown, false)
@@ -1738,9 +1737,9 @@ pub mod events {
             if ui.small_button("✕").clicked() {
                 // Clear selection
                 if is_world_pickup {
-                    vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id = None;
+                    ss.world_pickups_filter.selected_flag_id = None;
                 } else {
-                    vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id = None;
+                    ss.dungeon_pickups_filter.selected_flag_id = None;
                 }
             }
         });
@@ -1922,8 +1921,8 @@ pub mod events {
             let mut details = String::new();
 
             // Context metadata for precise understanding
-            let slot_index = vm.index;
-            let character_name = vm.slots[slot_index].general_vm.character_name.trim_matches('\0');
+            let slot_index = ch.index();
+            let character_name = ch.general().character_name.trim_matches('\0');
             let timestamp = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
 
             details.push_str("=== CONTEXT ===\n");
@@ -1931,7 +1930,7 @@ pub mod events {
             details.push_str(&format!("save_file: {}\n", save_path));
             details.push_str(&format!("slot_index: {}\n", slot_index));
             details.push_str(&format!("character_name: {}\n", character_name));
-            details.push_str(&format!("event_flags_size: {}\n", event_flags.map(|ef| ef.len()).unwrap_or(0)));
+            details.push_str(&format!("event_flags_size: {}\n", ch.flag_bytes().map(|ef| ef.len()).unwrap_or(0)));
 
             details.push_str("\n=== FLAG DETAILS ===\n");
             details.push_str(&format!("flag_id: {}\n", selected_flag_id));
@@ -1945,7 +1944,7 @@ pub mod events {
             details.push_str(&format!("pickup_type: {}\n", if is_world_pickup { "world" } else { "dungeon" }));
 
             // Add flag offset info if available
-            if let Some(ef) = event_flags {
+            if let Some(ef) = ch.flag_bytes() {
                 use crate::db::pickup_flags::get_flag_offset;
                 if let Some((byte_off, bit_pos)) = get_flag_offset(selected_flag_id) {
                     details.push_str(&format!("byte_offset: {} (0x{:X})\n", byte_off, byte_off));

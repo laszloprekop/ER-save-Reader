@@ -14,6 +14,7 @@ pub mod slot_view_model {
         },
         save::common::save_slot::SaveSlot,
         vm::{
+            character::character::Character,
             equipment::equipment_view_model::EquipmentViewModel,
             events::events_view_model::EventsViewModel,
             export::{
@@ -65,6 +66,21 @@ pub mod slot_view_model {
                 screen_state: ScreenState::default(),
                 regions_vm,
             }
+        }
+
+        /// Hand out disjoint borrows of this slot: the reconstruction as an
+        /// immutable `Character` (holding one `ResolvedFlags` over `event_flags`)
+        /// and the widget state as `&mut ScreenState`. This is what lets a view take
+        /// `(&Character, &mut ScreenState)` from a single slot — the two are distinct
+        /// fields, so the borrow checker keeps them apart (Workstream D2). `index` is
+        /// the slot's position, carried for the few sites that report it.
+        pub fn split<'a>(
+            &'a mut self,
+            index: usize,
+            event_flags: Option<&'a [u8]>,
+        ) -> (Character<'a>, &'a mut ScreenState) {
+            let character = Character::new(index, &self.events_vm, &self.general_vm, event_flags);
+            (character, &mut self.screen_state)
         }
 
         pub fn to_export_data(&self, slot_index: usize, steam_id: u64, event_flags: Option<&[u8]>) -> ExportData {

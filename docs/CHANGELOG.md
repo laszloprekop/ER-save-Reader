@@ -7,6 +7,48 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.14 - Workstream D2a: `Character` read model + events-cluster migration
+
+Second stage of Workstream D. D1 (v0.37.13) split the widget state out of `EventsViewModel`
+into `ScreenState`; D2a introduces the read model on the other side of that seam and migrates
+the events views onto it.
+
+### `Character<'a>` + `SlotViewModel::split`
+
+`Character` (`src/vm/character.rs`) is one slot's reconstruction read the way the game loads
+one: immutable, no egui, no filters. It borrows the slot's already-built read models and holds
+**one** `ResolvedFlags` over the slot's flag region — so "which bytes" stops being a question
+each view re-answers. Its whole surface (`events`, `general`, `flags`, `flag_bytes`, `index`)
+is what the events cluster consumes; it grows to carry stats/equipment/inventory/regions in D2b.
+
+The lifetime question D was blocked on (B's, "in its most demanding form") is answered by
+`SlotViewModel::split`, which hands out **disjoint borrows of one slot**: the reconstruction as
+an immutable `Character`, the widget state as `&mut ScreenState`. Distinct fields, so the borrow
+checker keeps them apart — which is what lets a view take `(&Character, &mut ScreenState)` at all.
+
+### Events cluster migrated; one resolve per render
+
+`events()` does the split once and dispatches `(&ch, ss)` to its sub-views — so `events()`'s
+own signature and every call site in `app.rs` are untouched. All twelve cluster functions
+(`events`, the eight simple sub-views, `world_pickups`, `dungeon_pickups`, `flag_details_sidebar`)
+now take `(ch: &Character, ss: &mut ScreenState)`. The three ad-hoc
+`ResolvedFlags::from_event_flags` calls in `world_pickups`, `dungeon_pickups`, and the sidebar
+collapse to a single `ch.flags()` resolved once per render (previously ~3 origin scans per frame,
+each ~13,400 bytes). Behaviour-preserving: `get_event_flags(i)` returns the exact bytes the vm
+already read, so the collapse changes no value.
+
+### Key Findings
+- `get_event_flags(index)` and the vm's build-time `slot.event_flags.flags` are the **same byte
+  array** — the "two sources of flag bytes" were two paths to one slice, so unifying them is safe.
+
+### Files Modified
+- src/vm/character.rs: new — `Character<'a>` + 3 unit tests (None≠Clear seam, resolve-agreement with a direct `ResolvedFlags`, borrow-identity of the accessors)
+- src/vm/slot.rs: `SlotViewModel::split` (disjoint borrow → `(Character, &mut ScreenState)`)
+- src/vm/mod.rs: register `character`
+- src/ui/events.rs: twelve view functions migrated to `(ch, ss)`; three `ResolvedFlags` sites → `ch.flags()`; raw-byte sites → `ch.flag_bytes()`; slot index → `ch.index()`
+- docs/ARCHITECTURE-DEEPENING.md: D2 split into D2a (done) / D2b; sequence rows 7a/7b done, 7c added
+- Cargo.toml: bumped to 0.37.14
+
 ## v0.37.13 - Workstream D1: extract `ScreenState` off `EventsViewModel`
 
 Workstream D of the architecture-deepening plan was taken up (A, B, C having landed through
