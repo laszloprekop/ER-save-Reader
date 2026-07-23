@@ -21,6 +21,7 @@ pub mod evidence;
 pub mod family_distances;
 pub mod gen_dungeon_pickups;
 pub mod gen_world_pickups;
+pub mod origin_model;
 pub mod pipeline;
 pub mod timeline;
 pub mod timeline_flips;

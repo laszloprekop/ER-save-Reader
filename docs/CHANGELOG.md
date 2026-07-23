@@ -7,6 +7,55 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.12 - Split `family_distances.rs`: `origin_model` + thin command adapters
+
+Workstream C3, the last of the architecture-deepening plan's workstream C. `family_distances.rs`
+was ~1,560 lines exporting five unrelated `cmd_*` entry points that shared a measurement core,
+a list-alignment algorithm, and the origin constants — none of which had a test surface of its
+own because they were tangled with argv parsing and report printing. This extracts the
+algorithmic content into `src/knowledge/origin_model.rs` and leaves the file as five thin
+adapters.
+
+### `origin_model.rs`
+
+Three layers, each now unit-testable directly:
+
+- **Measurement** — `measure_all` / `search_base`: locate every family base the claims store
+  can constrain, per evidence file.
+- **List alignment** — `scan_list_end`, `aligned_at`, `shift_at`, `narrow`: the differential
+  byte-alignment `list-hunt` uses to find where the save grows between ga_end and the families.
+- **Origin constants** — `ORIGIN_CONSTANTS`, `origin_constant`, `predict_base`: each family's
+  distance past the list end, and a history-free base prediction that delegates to the reference
+  resolver (ADR-0005, ADR-0008) rather than deciding its own positions.
+
+Four unit tests cover the pure algorithms (`origin_constant`, `scan_list_end`, `aligned_at`'s
+informative-bytes guard, `shift_at`'s smallest-magnitude preference) — the point of the split.
+
+### One `isolated_flips`, not two
+
+`timeline_flips.rs` carried a verbatim copy of `pipeline.rs`'s grace-aligned isolated-flip rule,
+labelled as such. Both now call one shared `isolated_flips_into` in `pipeline.rs` (the hardened
+buffer-reuse form) and share the `ISOLATION_W` constant. Keeping a single copy is what lets the
+timeline experiment claim its method is *identical* to the pipeline's rather than merely similar.
+
+### Behaviour-preserving — proven byte-for-byte
+
+A pure refactor: `cargo check`/`clippy` clean, `cargo test --workspace` 72 pass (+4
+`origin_model` tests). Re-running every touched command — `knowledge run`, all five
+`family_distances` commands, and `timeline-flips` — regenerated **byte-identical** claims files.
+`EVENT_FLAGS_SIZE` (0x1BF99F) provably binds the flip search's `max_i` in both `isolated_flips`
+forms, so the hardened variant is a no-op on real saves; the byte-identity check confirms it.
+
+### Files Modified
+
+- `src/knowledge/origin_model.rs`: new — measurement + list alignment + origin constants (4 tests)
+- `src/knowledge/family_distances.rs`: slimmed to the five `cmd_*` adapters (−540 net lines)
+- `src/knowledge/pipeline.rs`: `isolated_flips_into` shared core; `ISOLATION_W` now `pub(super)`
+- `src/knowledge/timeline_flips.rs`: deleted the copied `isolated_flips`; calls the shared one
+- `src/knowledge/mod.rs`: register `origin_model`
+- `docs/ARCHITECTURE-DEEPENING.md`: workstream C step 6 marked done
+- `docs/CHANGELOG.md`, `Cargo.toml`: version 0.37.12
+
 ## v0.37.11 - `Claims` + `Status`: one emitter, the ladder as a type
 
 Workstream C2 of the architecture-deepening plan. Claims emission was **three formats and

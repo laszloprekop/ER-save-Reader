@@ -33,48 +33,11 @@ use std::collections::HashMap;
 use std::fs;
 
 use super::claims::Claims;
+use super::pipeline::{isolated_flips_into, ISOLATION_W};
 use super::timeline::{load_target, read_diff_verified, SLOT_SIZE};
 
 const OUTPUT: &str = "knowledge/claims/timeline-flip-monotonicity.json";
 const SEGMENTS_IN: &str = "knowledge/claims/timeline-segments.json";
-/// Same neighborhood half-width as `pipeline.rs`'s proven isolated-flip test.
-/// Identical ±16 context on both sides rejects the shift illusions that a
-/// growing record list produces.
-const ISOLATION_W: usize = 16;
-
-/// Grace-aligned isolated byte flips between two replayed states, aligned at
-/// each state's own detected offset. Deliberately a copy of `pipeline.rs`'s
-/// rule rather than a new one: the point is to test the SEGMENT constraint, so
-/// every other part of the method must stay identical or the comparison is
-/// confounded.
-fn isolated_flips(
-    before: &[u8],
-    gb: usize,
-    after: &[u8],
-    ga: usize,
-    ef_size: usize,
-    out: &mut Vec<(usize, u8, u8)>,
-) {
-    out.clear();
-    let max_i = ef_size
-        .min(SLOT_SIZE.saturating_sub(ga + ISOLATION_W + 1))
-        .min(SLOT_SIZE.saturating_sub(gb + ISOLATION_W + 1));
-    if gb < ISOLATION_W || ga < ISOLATION_W {
-        return;
-    }
-    for i in 0..max_i {
-        let (pb, pa) = (gb + i, ga + i);
-        if before[pb] == after[pa] {
-            continue;
-        }
-        if before[pb - ISOLATION_W..pb] == after[pa - ISOLATION_W..pa]
-            && before[pb + 1..pb + 1 + ISOLATION_W] == after[pa + 1..pa + 1 + ISOLATION_W]
-        {
-            out.push((i, before[pb], after[pa]));
-        }
-    }
-}
-
 /// Repeat-transition profile for one accounting of the chain.
 struct Profile {
     /// (grace_rel, bit) -> how many times that bit was observed going 0->1.
@@ -177,7 +140,7 @@ pub fn cmd_timeline_flips(args: &[String]) -> Result<(), String> {
         let cur_off = det.confident.then_some(det.offset);
 
         if let (Some(gb), Some(ga), false) = (prev_off, cur_off, prev_state.is_empty()) {
-            isolated_flips(&prev_state, gb, &state, ga, ef_size, &mut flips);
+            isolated_flips_into(&prev_state, gb, &state, ga, ef_size, &mut flips);
             // The old method: every consecutive pair, boundaries invisible.
             ignoring.pairs_considered += 1;
             ignoring.record(&flips);

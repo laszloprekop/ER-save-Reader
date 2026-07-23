@@ -51,8 +51,9 @@ use crate::read::read::Read as _;
 use crate::save::save::save::Save;
 
 const EF_SIZE: usize = wasm_event_flags::EVENT_FLAGS_SIZE;
-/// Neighborhood half-width for the isolated-flip test.
-const ISOLATION_W: usize = 16;
+/// Neighborhood half-width for the isolated-flip test. `pub(super)` because
+/// `timeline-flips` runs the identical rule and reports the same half-width.
+pub(super) const ISOLATION_W: usize = 16;
 
 pub(super) const INPUT_TRANSITIONS: &str = "knowledge/inputs/attributed-transitions.json";
 pub(super) const INPUT_ALLOCLISTS: &str = "knowledge/game/eventflag-alloclists.json";
@@ -296,23 +297,56 @@ pub(super) fn load_save(
 // Flip extraction
 // ---------------------------------------------------------------------------
 
-/// Grace-aligned isolated byte flips: (grace_rel, before_byte, after_byte).
-fn isolated_flips(before: &SaveFile, after: &SaveFile) -> Vec<(usize, u8, u8)> {
-    let (sb, sa) = (&before.slot, &after.slot);
-    let (gb, ga) = (before.grace, after.grace);
-    let mut out = Vec::new();
-    let max_i = EF_SIZE.min(SLOT_SIZE - ga - ISOLATION_W - 1);
+/// Grace-aligned isolated byte flips between two slots, each aligned at its own
+/// grace base: for every position whose byte differs while the ±ISOLATION_W
+/// context on both sides is identical, record `(grace_rel, before_byte,
+/// after_byte)`. The two-sided context rejects the shift illusions a growing
+/// record list produces. Writes into `out` (cleared first) so a caller in a hot
+/// loop reuses one buffer.
+///
+/// This is the single home of the rule. `cmd_run` calls it through the
+/// `SaveFile` wrapper below; `timeline-flips` calls it directly on replayed
+/// states — keeping one copy is what lets that experiment claim its method is
+/// identical to the pipeline's rather than merely similar.
+pub(super) fn isolated_flips_into(
+    before: &[u8],
+    gb: usize,
+    after: &[u8],
+    ga: usize,
+    ef_size: usize,
+    out: &mut Vec<(usize, u8, u8)>,
+) {
+    out.clear();
+    let max_i = ef_size
+        .min(SLOT_SIZE.saturating_sub(ga + ISOLATION_W + 1))
+        .min(SLOT_SIZE.saturating_sub(gb + ISOLATION_W + 1));
+    if gb < ISOLATION_W || ga < ISOLATION_W {
+        return;
+    }
     for i in 0..max_i {
         let (pb, pa) = (gb + i, ga + i);
-        if sb[pb] == sa[pa] {
+        if before[pb] == after[pa] {
             continue;
         }
-        if sb[pb - ISOLATION_W..pb] == sa[pa - ISOLATION_W..pa]
-            && sb[pb + 1..pb + 1 + ISOLATION_W] == sa[pa + 1..pa + 1 + ISOLATION_W]
+        if before[pb - ISOLATION_W..pb] == after[pa - ISOLATION_W..pa]
+            && before[pb + 1..pb + 1 + ISOLATION_W] == after[pa + 1..pa + 1 + ISOLATION_W]
         {
-            out.push((i, sb[pb], sa[pa]));
+            out.push((i, before[pb], after[pa]));
         }
     }
+}
+
+/// Grace-aligned isolated byte flips: (grace_rel, before_byte, after_byte).
+fn isolated_flips(before: &SaveFile, after: &SaveFile) -> Vec<(usize, u8, u8)> {
+    let mut out = Vec::new();
+    isolated_flips_into(
+        &before.slot,
+        before.grace,
+        &after.slot,
+        after.grace,
+        EF_SIZE,
+        &mut out,
+    );
     out
 }
 
