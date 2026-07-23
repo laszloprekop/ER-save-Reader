@@ -21,6 +21,13 @@
     "pct_violations_removed": 0.9536570715704847,
     "what_it_measures": "Excluding any pairs must remove some violations, so a raw drop proves nothing. This asks whether boundary pairs are ENRICHED for violations: the ratio of (% violations removed) to (% pairs excluded). ~1.0 means boundary pairs violate at exactly the rate of ordinary pairs, i.e. the boundary is not the mechanism."
   },
+  "generated_by": "er-save-reader knowledge timeline-flips",
+  "inputs": {
+    "segment_census": {
+      "path": "knowledge/claims/timeline-segments.json",
+      "sha256": "05e4ad99e7e8214e14fdbe59e61d816ef38f9af78a85253c2bc8449ad90509f2"
+    }
+  },
   "isolation_half_width": 16,
   "method_note": "The isolated-flip rule is copied verbatim from pipeline.rs (identical +/-16 neighborhood, grace-aligned at each state's own detected offset). Only the segment constraint differs between the two arms, so the comparison is not confounded.",
   "note": "Internal-consistency experiment, NOT a flag re-annotation. It asserts no flags, resolves no family base, and names no game event. It asks one question: does confining grace-aligned isolated-flip extraction to a single timeline segment remove the set-monotonicity violation that caused the 2026-07-06 re-annotation attempt to be rejected? The same extraction is run with boundaries respected and ignored so the difference is measured, not assumed.",

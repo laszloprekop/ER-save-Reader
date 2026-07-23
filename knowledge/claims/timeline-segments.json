@@ -276,6 +276,13 @@
   },
   "diff_corpus": "timeline-slot-diffs",
   "entries": 3869,
+  "generated_by": "er-save-reader knowledge timeline-segments",
+  "inputs": {
+    "timeline_targets": {
+      "path": "knowledge/inputs/timeline-targets.json",
+      "sha256": "95ad5eebff8b736c90fd2c7b9d68eb1e00aece742046ca1266f34f00f2fe86ec"
+    }
+  },
   "localized_count": 2,
   "localized_discontinuities": [
     {
