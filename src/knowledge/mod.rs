@@ -15,6 +15,7 @@
 //!                              and rejected on evidence (docs/BACKLOG.md step 3).
 
 pub mod catalog;
+pub mod claims;
 pub mod dump;
 pub mod evidence;
 pub mod family_distances;

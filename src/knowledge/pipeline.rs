@@ -39,9 +39,8 @@
 use serde_json::{json, Map, Value};
 use std::collections::BTreeMap;
 use std::fs;
-use std::path::{Path, PathBuf};
 
-use super::catalog::sha256_file;
+use super::claims::{Claims, Status};
 use super::evidence::{slot_slice, Evidence, SLOT_SIZE};
 use crate::db::accessory_name::accessory_name::ACCESSORY_NAME;
 use crate::db::aow_name::aow_name::AOW_NAME;
@@ -701,7 +700,6 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
 
     // --- claims assembly ----------------------------------------------------
     let store = build_store(
-        &repo_root,
         corpus_id,
         save_slot,
         &established,
@@ -713,11 +711,15 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
         &msd_results,
     )?;
 
-    let out_path = repo_root.join(OUTPUT);
-    fs::create_dir_all(out_path.parent().unwrap()).map_err(|e| e.to_string())?;
-    let text = serde_json::to_string_pretty(&store).map_err(|e| e.to_string())? + "\n";
-    let changed = fs::read_to_string(&out_path).map(|old| old != text).unwrap_or(true);
-    fs::write(&out_path, &text).map_err(|e| e.to_string())?;
+    let changed = Claims::new(
+        "claims-store/1",
+        "er-save-reader knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
+    )
+    .input("attributed_transitions", &repo_root, INPUT_TRANSITIONS)?
+    .input("eventflag_alloclists", &repo_root, INPUT_ALLOCLISTS)?
+    .input("evidence_catalog", &repo_root, CATALOG)?
+    .body(store)
+    .write(&repo_root, OUTPUT)?;
     println!(
         "claims store {} ({})",
         if changed { "written" } else { "unchanged" },
@@ -776,7 +778,7 @@ fn run_multi_slot_differentials(
         };
         let Some(r) = resolved.get(&anchor_id) else {
             println!("{}: SKIPPED — anchor pair {} unresolved", id, anchor_id);
-            obj.insert("status".into(), json!("skipped"));
+            obj.insert("status".into(), json!(Status::Skipped));
             obj.insert("diagnostic".into(), json!("anchor pair unresolved"));
             out.push(MsdResult { anchor_pair: anchor_id, method: None, entry });
             continue;
@@ -852,14 +854,14 @@ fn run_multi_slot_differentials(
         }
         obj.insert("slots".into(), Value::Array(slot_reports));
         let method = if all_ok {
-            obj.insert("status".into(), json!("verified"));
+            obj.insert("status".into(), json!(Status::Verified));
             println!("{}: VERIFIED across {} slots", id, d["slots"].as_array().map(|a| a.len()).unwrap_or(0));
             Some(format!(
                 "multi_slot_differential: {} — expected presence/absence pattern matches in every slot at per-slot bases within ±{} of the anchor base",
                 id, WINDOW
             ))
         } else {
-            obj.insert("status".into(), json!("failed"));
+            obj.insert("status".into(), json!(Status::Failed));
             println!("{}: FAILED — see slot diagnostics", id);
             None
         };
@@ -1027,7 +1029,6 @@ fn tombstone_checks(
 
 #[allow(clippy::too_many_arguments)]
 fn build_store(
-    repo_root: &Path,
     _corpus_id: &str,
     _save_slot: usize,
     established: &str,
@@ -1038,10 +1039,6 @@ fn build_store(
     tombstones: Vec<Value>,
     msd: &[MsdResult],
 ) -> Result<Value, String> {
-    let input_hash = |rel: &str| -> Result<String, String> {
-        sha256_file(&PathBuf::from(repo_root).join(rel)).map(|(h, _)| h)
-    };
-
     // flag claims (verified when resolved; hypothesis with diagnostics otherwise)
     let mut flags = Vec::new();
     for p in pairs {
@@ -1110,7 +1107,7 @@ fn build_store(
                     format!("within_file_cross_check: {}", c)
                 }
             }));
-            obj.insert("status".into(), json!("verified"));
+            obj.insert("status".into(), json!(Status::Verified));
             obj.insert("methods".into(), json!(methods));
             obj.insert(
                 "measured".into(),
@@ -1123,7 +1120,7 @@ fn build_store(
             );
             obj.insert("co_set_flags_hypotheses".into(), json!(r.co_set_flags));
         } else {
-            obj.insert("status".into(), json!("hypothesis"));
+            obj.insert("status".into(), json!(Status::Hypothesis));
             obj.insert(
                 "unresolved".into(),
                 json!(diagnostics.get(&p.id).cloned().unwrap_or_default()),
@@ -1192,7 +1189,7 @@ fn build_store(
             "family": family,
             "layout": layout,
             "note": note,
-            "status": if cross_checked && fam_pairs.len() >= 2 { "verified" } else { "corroborated" },
+            "status": if cross_checked && fam_pairs.len() >= 2 { Status::Verified } else { Status::Corroborated },
             "methods": ["attributed_transition", "within_file_cross_check"],
             "established": established,
             "base_is_per_save": true,
@@ -1216,15 +1213,8 @@ fn build_store(
     }
 
     Ok(json!({
-        "schema": "claims-store/1",
-        "generated_by": "er-save-reader knowledge run — DO NOT EDIT (ADR-0004: regenerate from evidence)",
         "convention": "grace_rel = bytes relative to the detected grace-family base (copy A, pinned by crates/wasm-event-flags/tests/fixtures). family bases float per save (ADR-0003 amendment): resolve a flag as slot[grace_base + family_base(save) + family_rel_byte], bit 7 - flag % 8.",
         "status_ladder": "hypothesis -> corroborated (one method) -> verified (attributed transition, or two independent methods); tombstones are refuted claims kept so the idea cannot return. Applications consume corroborated+verified only.",
-        "inputs": {
-            "attributed_transitions": { "path": INPUT_TRANSITIONS, "sha256": input_hash(INPUT_TRANSITIONS)? },
-            "eventflag_alloclists": { "path": INPUT_ALLOCLISTS, "sha256": input_hash(INPUT_ALLOCLISTS)? },
-            "evidence_catalog": { "path": CATALOG, "sha256": input_hash(CATALOG)? },
-        },
         "families": families,
         "flags": flags,
         "multi_slot_differentials": msd.iter().map(|m| m.entry.clone()).collect::<Vec<_>>(),

@@ -61,10 +61,11 @@ use serde_json::json;
 use std::fs;
 use std::path::Path;
 
+use super::claims::Claims;
 use super::evidence::Evidence;
 
 pub use super::evidence::SLOT_SIZE;
-const INPUT_TARGETS: &str = "knowledge/inputs/timeline-targets.json";
+pub(crate) const INPUT_TARGETS: &str = "knowledge/inputs/timeline-targets.json";
 const OUTPUT: &str = "knowledge/claims/timeline-replay-audit.json";
 
 pub struct DiffEntry {
@@ -229,7 +230,6 @@ pub fn cmd_timeline(args: &[String]) -> Result<(), String> {
     );
 
     let out = json!({
-        "schema": "timeline-replay-audit/1",
         "note": "Replay-and-detect audit only, not a flag re-annotation (see the module doc in src/knowledge/timeline.rs for the two anchor-scan designs that were tried and failed the evidence bar: repeated 'first-time' 0->1 transitions on set-monotonic bits proved base misidentification, not real gameplay). This file records that the sparse-diff replay is self-consistent and that the reference grace detector stays confident across the chain; it names no flags and asserts no game events.",
         "target": target_id,
         "character": character,
@@ -244,10 +244,10 @@ pub fn cmd_timeline(args: &[String]) -> Result<(), String> {
         "ef_offset_min": if offset_min == usize::MAX { 0 } else { offset_min },
         "ef_offset_max": offset_max,
     });
-    fs::create_dir_all(repo_root.join("knowledge/claims")).map_err(|e| e.to_string())?;
-    let out_path = repo_root.join(OUTPUT);
-    let text = serde_json::to_string_pretty(&out).map_err(|e| e.to_string())?;
-    fs::write(&out_path, text).map_err(|e| e.to_string())?;
+    Claims::new("timeline-replay-audit/1", "er-save-reader knowledge timeline")
+        .input("timeline_targets", &repo_root, INPUT_TARGETS)?
+        .body(out)
+        .write(&repo_root, OUTPUT)?;
     println!("replay audit written ({})", OUTPUT);
     Ok(())
 }

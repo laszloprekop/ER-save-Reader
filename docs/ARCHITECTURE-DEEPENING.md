@@ -459,12 +459,13 @@ The ladder is string literals typed per site — `json!("verified")` at `pipelin
 comparison in a *different* module at `family_distances.rs:1444`. Nothing connects producer
 to consumer. `Status` does, at compile time.
 
-> **This reformats four committed claims files.** Trailing newlines and added provenance
-> change their bytes. ADR-0004 forbids hand-editing them, so the reformat is performed by
-> **running the commands**, and the diff is reviewed as generated output. Do it as its own
-> commit, separate from the code change, so the byte diff is readable. Confirm first that
+> **This reformats the under-provenanced committed claims files** (v0.37.11: **three**, the
+> timeline trio — the earlier "four" predated `family-constants.json`). Trailing newlines and
+> added provenance change their bytes. ADR-0004 forbids hand-editing them, so the reformat is
+> performed by **running the commands**, and the diff is reviewed as generated output. Done
+> as its own commit, separate from the code change, so the byte diff is readable. Confirmed
 > nothing pins those files' current digests — `tests/regression_suite.rs:39` freezes
-> `ground_truth_offsets.json`, which is a different file, but check.
+> `ground_truth_offsets.json`, a different file.
 
 ### C3 — what is left of `family_distances.rs`
 
@@ -590,7 +591,7 @@ most demanding form.
 | 3 | ✅ **DONE** v0.37.8 — B1: migrated every reader to `FlagState`; deleted `GraceStatus`; fixed `ui/events.rs` detail panel + two `comparison_view` defects | 1, 2 | medium; touched every view that reads a flag |
 | 3b | ✅ **DONE** v0.37.9 — B3: deleted the five deprecated free readers; re-expressed `origin_conformance` against the `*_state` exports and rewrote `resolved_flags_conformance` (exact-bit round-trip replaces old-vs-new comparison); relocated the overlap-band note to `ResolvedFlags::dungeon_pickup` | 3 | small |
 | 4 | ✅ **DONE** v0.37.10 — C1: `Evidence` seam (`bytes`/`sha256`/`slot_slice`/`read_verified`); migrated all six hand-rolled loaders + the file-corpus loop + `dump`; fixed both drifted sites (missing-corpus silent `continue` → hard error; `gen_*` primary source now verified against the manifest). Behaviour-preserving — every knowledge command byte-identical | 1 | medium |
-| 5 | C2 — `Claims` + `Status`; regenerate the four under-provenanced files | 4 | medium; one generated-output commit |
+| 5 | ✅ **DONE** v0.37.11 — C2: `Status` enum (5 producer sites, 2 consumer sites, linked at compile time) + `Claims` emitter (owns format + provenance envelope); migrated all five writers. Behaviour-preserving — `knowledge run` unchanged, the five `family_distances` outputs byte-identical. The **three** under-provenanced timeline files (not four — the count predated `family-constants.json`) regenerated with `generated_by`+`inputs`+newline as a separate commit | 4 | medium; one generated-output commit |
 | 6 | C3 — split `family_distances.rs` | 4, 5 | small once 4 and 5 land |
 | 7 | D — decide, then possibly do | 1, 3 | large |
 

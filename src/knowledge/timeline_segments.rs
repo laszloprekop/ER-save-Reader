@@ -36,9 +36,9 @@
 
 use serde_json::json;
 use std::collections::HashMap;
-use std::fs;
 
-use super::timeline::{load_target, read_diff_verified, SLOT_SIZE};
+use super::claims::Claims;
+use super::timeline::{load_target, read_diff_verified, INPUT_TARGETS, SLOT_SIZE};
 
 const OUTPUT: &str = "knowledge/claims/timeline-segments.json";
 
@@ -367,7 +367,6 @@ pub fn cmd_timeline_segments(args: &[String]) -> Result<(), String> {
         .collect();
 
     let out = json!({
-        "schema": "timeline-segments/1",
         "note": "Exhaustive segment-boundary census over a sparse-diff timeline. Asserts NO flags and names NO game events: it describes where the captured record is continuous and where play happened unobserved, so that later analysis can refuse to reason across a discontinuity. Supersedes the v0.36.1 SAMPLE ('at least 21 boundaries', measured on long-gap pairs plus a few short-gap spot checks) with a full scan of every consecutive pair.",
         "method": {
             "pair_agree_pct": "prev.new vs next.old over the offsets both captures touch. Local to the pair.",
@@ -410,9 +409,10 @@ pub fn cmd_timeline_segments(args: &[String]) -> Result<(), String> {
         "ambiguous": ambiguous_json,
         "segments": segments,
     });
-    fs::create_dir_all(repo_root.join("knowledge/claims")).map_err(|e| e.to_string())?;
-    let text = serde_json::to_string_pretty(&out).map_err(|e| e.to_string())?;
-    fs::write(repo_root.join(OUTPUT), text).map_err(|e| e.to_string())?;
+    Claims::new("timeline-segments/1", "er-save-reader knowledge timeline-segments")
+        .input("timeline_targets", &repo_root, INPUT_TARGETS)?
+        .body(out)
+        .write(&repo_root, OUTPUT)?;
     println!();
     println!("segment census written ({})", OUTPUT);
     Ok(())

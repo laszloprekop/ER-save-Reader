@@ -7,6 +7,59 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.11 - `Claims` + `Status`: one emitter, the ladder as a type
+
+Workstream C2 of the architecture-deepening plan. Claims emission was **three formats and
+three provenance shapes** across five writers — `to_string_pretty`, `format!("{:#}")`, with
+and without a trailing newline; `schema`+`generated_by`+`inputs` in the pipeline, prose-only
+in `family_distances`, schema-only in the three timeline commands — and the Status Ladder
+was string literals typed per site (`json!("verified")` in the producer, `== "verified"` in
+a *different* module's consumer) with nothing connecting the two. This replaces both with one
+module, `src/knowledge/claims.rs`.
+
+### `Status`
+
+The ladder (CONTEXT.md) as an enum — `Hypothesis / Corroborated / Verified / Skipped /
+Failed` — that serialises to the same strings it replaced. The five producer sites in
+`pipeline.rs` emit it; the two consumer sites in `family_distances.rs` (`validate-origin`,
+`family-constants`) read it back through `Status::from_json` and gate on
+`Status::is_consumable()` — the "applications consume corroborated+verified only" rule named
+once instead of restated by string comparison. Producer and consumer are now linked at
+compile time. There is deliberately **no `Tombstoned` variant**: a refuted claim is an entry
+in the `tombstones` array, not a status a live claim carries, so a never-constructed variant
+stays off the enum.
+
+### `Claims`
+
+The one emitter for every file under `knowledge/claims/`. It owns the serialisation format
+(pretty, sorted keys, trailing newline) and guarantees the provenance envelope — `schema`
+and `generated_by` are present by construction, `input(name, repo_root, rel)` records a
+generator input's sha256 (a drifted input is a hard error, so provenance can never point at
+bytes that were not read). A claims file with no provenance is no longer expressible. The
+designed `.note()`/`.field()` builder methods were dropped as unused — `body()` + `input()`
+cover every writer, and shipping unused API fights the dead-code sweep.
+
+### Behaviour-preserving, then a separate regeneration
+
+The code change is byte-for-byte behaviour-preserving where the files were already
+provenanced: `knowledge run` reports **`claims store unchanged`** and the five
+`family_distances` outputs regenerate identically. Only the **three timeline files**
+(`timeline-replay-audit`, `timeline-segments`, `timeline-flip-monotonicity`) were
+under-provenanced; they gain `generated_by` + an `inputs` block + a trailing newline. Per
+ADR-0004 that reformat is performed by re-running the commands and committed **separately**,
+as reviewable generated output. (The plan's "four" files predated `family-constants.json`;
+the true count is three.)
+
+### Files Modified
+
+- `src/knowledge/claims.rs`: new — `Status` enum + `Claims` emitter (3 unit tests)
+- `src/knowledge/mod.rs`: register `claims`
+- `src/knowledge/pipeline.rs`: `Status` at 5 producer sites; emit via `Claims`
+- `src/knowledge/family_distances.rs`: `Status` at 2 consumer sites; `write_json` → `Claims`
+- `src/knowledge/timeline.rs`, `timeline_segments.rs`, `timeline_flips.rs`: emit via `Claims`
+- `docs/ARCHITECTURE-DEEPENING.md`: workstream C step 5 marked done
+- `docs/CHANGELOG.md`, `Cargo.toml`: version 0.37.11
+
 ## v0.37.10 - `Evidence`: one verified read side for the evidence catalog
 
 Workstream C1 of the architecture-deepening plan. "Catalog entry -> verified bytes" was

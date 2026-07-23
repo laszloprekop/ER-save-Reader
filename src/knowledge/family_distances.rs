@@ -40,6 +40,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::Path;
 
+use super::claims::{Claims, Status};
 use super::evidence::{slot_slice, Evidence};
 use super::pipeline::{
     bit_at, bit_of, family_rel, load_save, SaveFile, INPUT_ALLOCLISTS, INPUT_TRANSITIONS,
@@ -453,8 +454,6 @@ pub fn cmd_family_distances(_args: &[String]) -> Result<(), String> {
     }
 
     let out = json!({
-        "schema": "family-distances/1",
-        "generated_by": "er-save-reader knowledge family-distances",
         "question": "Is the distance between flag families constant across saves? \
                      If so, locating one family locates all of them (BACKLOG step 4b).",
         "method": method_block(),
@@ -465,7 +464,13 @@ pub fn cmd_family_distances(_args: &[String]) -> Result<(), String> {
         "inter_family": results,
         "unresolved": m.notes,
     });
-    write_json(&repo_root, OUT_DISTANCES, &out)
+    write_claims(
+        &repo_root,
+        OUT_DISTANCES,
+        "family-distances/1",
+        "er-save-reader knowledge family-distances",
+        out,
+    )
 }
 
 // ---------------------------------------------------------------------------
@@ -590,8 +595,6 @@ pub fn cmd_origin_probe(_args: &[String]) -> Result<(), String> {
     }
 
     let out = json!({
-        "schema": "origin-probe/1",
-        "generated_by": "er-save-reader knowledge origin-probe",
         "question": "Is the family drift explained by a single u32 record count in the \
                      save, i.e. family_base - ga_end = FIXED + multiplier * count?",
         "method": method_block(),
@@ -605,7 +608,13 @@ pub fn cmd_origin_probe(_args: &[String]) -> Result<(), String> {
         })).collect::<Vec<_>>(),
         "unresolved": m.notes,
     });
-    write_json(&repo_root, OUT_ORIGIN, &out)
+    write_claims(
+        &repo_root,
+        OUT_ORIGIN,
+        "origin-probe/1",
+        "er-save-reader knowledge origin-probe",
+        out,
+    )
 }
 
 fn method_block() -> Value {
@@ -623,9 +632,17 @@ fn method_block() -> Value {
     })
 }
 
-fn write_json(repo_root: &Path, rel: &str, v: &Value) -> Result<(), String> {
-    fs::write(repo_root.join(rel), format!("{:#}\n", v))
-        .map_err(|e| format!("{}: {}", rel, e))?;
+/// Emit one analysis output through the shared `Claims` emitter — the single
+/// owner of the claims format and provenance envelope (ADR-0004). `body` is the
+/// command-specific payload; `schema` and `generated_by` are the envelope.
+fn write_claims(
+    repo_root: &Path,
+    rel: &str,
+    schema: &str,
+    generated_by: &str,
+    body: Value,
+) -> Result<(), String> {
+    Claims::new(schema, generated_by).body(body).write(repo_root, rel)?;
     println!("\nwrote {}", rel);
     Ok(())
 }
@@ -902,8 +919,6 @@ pub fn cmd_list_hunt(_args: &[String]) -> Result<(), String> {
     }
 
     let out = json!({
-        "schema": "list-hunt/1",
-        "generated_by": "er-save-reader knowledge list-hunt",
         "question": "WHERE does the save grow between ga_end and the flag families? \
                      Each insertion point is a variable-length structure; the one \
                      inside the EF region is what moves the family bases.",
@@ -940,7 +955,13 @@ pub fn cmd_list_hunt(_args: &[String]) -> Result<(), String> {
             "observations": ends,
         },
     });
-    write_json(&repo_root, OUT_LIST_HUNT, &out)
+    write_claims(
+        &repo_root,
+        OUT_LIST_HUNT,
+        "list-hunt/1",
+        "er-save-reader knowledge list-hunt",
+        out,
+    )
 }
 
 // ---------------------------------------------------------------------------
@@ -1259,8 +1280,7 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         // corroborated+verified only. The hypotheses are recorded precisely
         // BECAUSE their labelled flags do not flip where the label suggests —
         // asserting on them would be asserting on a known-open question.
-        let status = f["status"].as_str().unwrap_or_default();
-        if !matches!(status, "verified" | "corroborated") {
+        if !Status::from_json(&f["status"]).is_some_and(Status::is_consumable) {
             hypotheses += 1;
             continue;
         }
@@ -1323,8 +1343,6 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
 
     println!("\n=== RESULT: {} pass, {} fail", pass, fail);
     let out = json!({
-        "schema": "origin-validation/1",
-        "generated_by": "er-save-reader knowledge validate-origin",
         "question": "Do the list-end origin constants hold on characters that were \
                      NOT used to derive them?",
         "model": "family_base = ga_end + find_list_end(slot) + constant(family)",
@@ -1337,7 +1355,13 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         "pass": pass, "fail": fail,
         "results": results,
     });
-    write_json(&repo_root, OUT_VALIDATE, &out)
+    write_claims(
+        &repo_root,
+        OUT_VALIDATE,
+        "origin-validation/1",
+        "er-save-reader knowledge validate-origin",
+        out,
+    )
 }
 
 // ---------------------------------------------------------------------------
@@ -1389,7 +1413,7 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
     let mut skipped: Vec<Value> = Vec::new();
 
     for f in claims["flags"].as_array().unwrap_or(&vec![]) {
-        if f["status"].as_str() != Some("verified") {
+        if Status::from_json(&f["status"]) != Some(Status::Verified) {
             continue;
         }
         let (Some(family), Some(flag)) = (f["family"].as_str(), f["flag"].as_u64()) else {
@@ -1511,8 +1535,6 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
     );
 
     let out = json!({
-        "schema": "family-constants/1",
-        "generated_by": "er-save-reader knowledge family-constants",
         "question": "What is each family's distance from the origin, measured from \
                      the attributed flips that pinned its base?",
         "method": {
@@ -1533,5 +1555,11 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
         "families": families,
         "skipped": skipped,
     });
-    write_json(&repo_root, OUT_CONSTANTS, &out)
+    write_claims(
+        &repo_root,
+        OUT_CONSTANTS,
+        "family-constants/1",
+        "er-save-reader knowledge family-constants",
+        out,
+    )
 }

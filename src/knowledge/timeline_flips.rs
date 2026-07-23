@@ -32,6 +32,7 @@ use serde_json::json;
 use std::collections::HashMap;
 use std::fs;
 
+use super::claims::Claims;
 use super::timeline::{load_target, read_diff_verified, SLOT_SIZE};
 
 const OUTPUT: &str = "knowledge/claims/timeline-flip-monotonicity.json";
@@ -256,7 +257,6 @@ pub fn cmd_timeline_flips(args: &[String]) -> Result<(), String> {
     println!("  VERDICT: {}", verdict);
 
     let out = json!({
-        "schema": "timeline-flip-monotonicity/1",
         "note": "Internal-consistency experiment, NOT a flag re-annotation. It asserts no flags, resolves no family base, and names no game event. It asks one question: does confining grace-aligned isolated-flip extraction to a single timeline segment remove the set-monotonicity violation that caused the 2026-07-06 re-annotation attempt to be rejected? The same extraction is run with boundaries respected and ignored so the difference is measured, not assumed.",
         "target": t.target_id,
         "character": t.character,
@@ -289,9 +289,13 @@ pub fn cmd_timeline_flips(args: &[String]) -> Result<(), String> {
         },
         "verdict": verdict,
     });
-    fs::create_dir_all(repo_root.join("knowledge/claims")).map_err(|e| e.to_string())?;
-    let text = serde_json::to_string_pretty(&out).map_err(|e| e.to_string())?;
-    fs::write(repo_root.join(OUTPUT), text).map_err(|e| e.to_string())?;
+    Claims::new(
+        "timeline-flip-monotonicity/1",
+        "er-save-reader knowledge timeline-flips",
+    )
+    .input("segment_census", &repo_root, SEGMENTS_IN)?
+    .body(out)
+    .write(&repo_root, OUTPUT)?;
     println!("monotonicity experiment written ({})", OUTPUT);
     Ok(())
 }
