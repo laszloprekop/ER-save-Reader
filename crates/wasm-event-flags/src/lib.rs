@@ -343,14 +343,14 @@ fn detect_event_flags_content_based(slot_data: &[u8]) -> DetectionResult {
 // They became unreachable when the static-offset exports were removed above, and the
 // compiler said so. Each entry was a byte offset measured against one save's layout, so
 // none of them survive a save whose flag list has grown. World-state flags in these
-// ranges now resolve through `is_world_state_flag_set`, which locates the family in the
+// ranges now resolve through `ResolvedFlags::world_state`, which locates the family in the
 // flag region it is handed.
 
 // REMOVED 2026-07-20 (ADR-0008): `get_dungeon_general_bases()` — the "+3375 per area"
 // stride table. Its own audit had already disproven (18,0) and (19,0) against every save
 // on this machine and marked most of the m10-m22 entries UNVERIFIED and all-zero, yet the
 // exported readers kept serving offsets from it. Legacy-dungeon general flags now resolve
-// through `is_dungeon_flag_set` / `legacy_alloc_slot`, which take the flag region and
+// through `ResolvedFlags::dungeon` / `legacy_alloc_slot`, which take the flag region and
 // return Unknown when they cannot place a family. The dead entries are not preserved here:
 // they were fabricated by a stride assumption, so there is nothing to recover.
 
@@ -376,7 +376,7 @@ impl FlagOffset {
 // REMOVED 2026-07-20 (ADR-0008): `calculate_dungeon_pickup_offset{,_impl}` and the
 // `get_dungeon_pickup_section_bases()` table they read. Same defect as the general
 // dungeon table: 88 per-section byte offsets, each measured against one save's layout,
-// handed out for any flag id. Dungeon pickups now resolve through `is_dungeon_pickup_set`
+// handed out for any flag id. Dungeon pickups now resolve through `ResolvedFlags::dungeon_pickup`
 // (family FAMILY_LEGACY_DUNGEON_PICKUP), whose geometry comes from the game's own
 // alloclists via `legacy_alloc_slot` rather than from calibration against a save.
 
@@ -431,7 +431,7 @@ pub fn calculate_tile_pickup_offset_with_base(flag_id: u32, tile_base: u32) -> F
 // row_id bitfield model was superseded in 2026-02-16 — world pickups with local_id >= 7000
 // read in the TILE region at a converted local_id, not in a separate row_id bitfield. It
 // survived only because the deleted `get_flag_offset` router was documented as "handling
-// the routing correctly". That router is gone; use `is_tile_pickup_set`.
+// the routing correctly". That router is gone; use `ResolvedFlags::tile_pickup`.
 
 /// Convert getItemFlagId to storable row_id for tile-based world pickups.
 ///
@@ -488,13 +488,14 @@ pub fn is_tile_pickup_flag(flag_id: u32) -> bool {
 // offset for these functions to return. An honest replacement must take the flag region
 // so it can resolve the family for THAT save, which makes it a different function.
 //
-// Callers wanting a flag's state use the region-taking readers, which return
-// Option/tri-state and answer Unknown rather than guessing:
-//   world state (6-digit and block flags) .. is_world_state_flag_set / world_state_flag_state
-//   open-world tiles (10-digit, local<7000) is_tile_world_flag_set / tile_world_flag_state
-//   world pickups  (10-digit, local>=7000)  is_tile_pickup_set     / tile_pickup_state
-//   legacy dungeons (8-digit, local<7000) . is_dungeon_flag_set    / dungeon_flag_state
-//   dungeon pickups (8-digit, local>=7000)  is_dungeon_pickup_set  / dungeon_flag_state
+// Callers wanting a flag's state build a `ResolvedFlags` (which resolves the origin once)
+// and call the family method, or use the matching `*_state` export; both answer the
+// tri-state `FlagState`/i32 and report Unknown rather than guessing:
+//   world state (6-digit and block flags) .. ResolvedFlags::world_state   / world_state_flag_state
+//   open-world tiles (10-digit, local<7000) ResolvedFlags::tile_world     / tile_world_flag_state
+//   world pickups  (10-digit, local>=7000)  ResolvedFlags::tile_pickup    / tile_pickup_state
+//   legacy dungeons (8-digit, local<7000) . ResolvedFlags::dungeon        / dungeon_flag_state
+//   dungeon pickups (8-digit, local>=7000)  ResolvedFlags::dungeon_pickup / dungeon_pickup_state
 //
 // A bare flag id does not identify a family (see CLAUDE.md): the caller must pick the
 // reader. That is the point — routing on the value silently reads the wrong bit.
@@ -1472,8 +1473,8 @@ mod tests {
     //     and is still covered by `test_tile_offset`; only the static 337375 base is gone.
     //   - test_get_item_flag_id_tile_routing: getItemFlagId (local>=7000) reads at
     //     converted local_id, not the row_id bitfield. That routing now lives in the
-    //     split between `is_tile_pickup_set` and `is_tile_world_flag_set`, covered by
-    //     tests/origin_conformance.rs.
+    //     split between `ResolvedFlags::tile_pickup` and `ResolvedFlags::tile_world`,
+    //     covered by tests/origin_conformance.rs.
 
     // =========================================================================
     // EQUIPMENT EXTRACTION TESTS
@@ -1715,7 +1716,7 @@ mod tests {
     // the save the bases were measured against. Note the tutorial graces here (71800) —
     // CLAUDE.md already records that these are NOT universal anchors; they read clear on
     // minimal characters, so a test asserting their position proved nothing about a real
-    // save. Grace flags now go through `is_world_state_flag_set`.
+    // save. Grace flags now go through `ResolvedFlags::world_state`.
 
 
 }
@@ -1925,22 +1926,6 @@ pub fn resolve_family_base_in_ef(event_flags: &[u8], family_constant: i64) -> Op
     Some(base as usize)
 }
 
-/// Is a world-state-b flag set? `None` means the origin could not be resolved —
-/// which is NOT the same as "not set" and must not be rendered as such.
-///
-/// Covers graces and world-state flags in [50000, 80000).
-#[deprecated(
-    since = "0.37.7",
-    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
-Build a ResolvedFlags once for the region and call its methods, which return \
-FlagState rather than Option<bool>."
-)]
-pub fn is_world_state_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    ResolvedFlags::from_event_flags(event_flags)
-        .map_or(FlagState::Unknown, |r| r.world_state(flag_id))
-        .into()
-}
-
 /// WASM export: -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
 pub fn world_state_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
@@ -1970,41 +1955,6 @@ pub fn world_state_flag_state(event_flags: &[u8], flag_id: u32) -> i32 {
 /// (~483,469 vs ~483,969 grace-relative). Thinner evidence than the other
 /// constants: two files rather than dozens.
 pub const FAMILY_TILE_OPEN_WORLD: i64 = 454_067;
-
-/// Open-world tile flags: boss kills, world state. NOT pickups.
-///
-/// A bare 10-digit id with localId < 7000 is AMBIGUOUS — it may be an
-/// open-world flag or an ItemLotParam row_id, and the two live in regions 500
-/// bytes apart. Nothing in the value distinguishes them, so the caller must
-/// choose the family. Guessing here reads a plausible-looking wrong bit.
-#[deprecated(
-    since = "0.37.7",
-    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
-Build a ResolvedFlags once for the region and call its methods, which return \
-FlagState rather than Option<bool>."
-)]
-pub fn is_tile_world_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    ResolvedFlags::from_event_flags(event_flags)
-        .map_or(FlagState::Unknown, |r| r.tile_world(flag_id))
-        .into()
-}
-
-/// World pickups, addressed by ItemLotParam row_id.
-///
-/// Accepts either form: the row_id itself (localId < 7000, as stored in
-/// `pickup_data.rs`) or the getItemFlagId (row_id + 7000, as used by the game's
-/// param tables). Both normalise to the same row_id.
-#[deprecated(
-    since = "0.37.7",
-    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
-Build a ResolvedFlags once for the region and call its methods, which return \
-FlagState rather than Option<bool>."
-)]
-pub fn is_tile_pickup_set(event_flags: &[u8], id: u32) -> Option<bool> {
-    ResolvedFlags::from_event_flags(event_flags)
-        .map_or(FlagState::Unknown, |r| r.tile_pickup(id))
-        .into()
-}
 
 /// WASM export: open-world tile flag. -1 unresolved, 0 clear, 1 set.
 #[wasm_bindgen]
@@ -2065,54 +2015,6 @@ const LEGACY_SLOT_STRIDE: u64 = 1125;
 /// because "all five slots read zero" at base 43,487. They read zero because
 /// 43,487 was the wrong convention, not because m18 is unallocated.
 pub const FAMILY_LEGACY_DUNGEON: i64 = 1_500_567;
-
-/// Legacy-map event flags: boss kills, world state, NPC state. NOT pickups.
-///
-/// `None` means unresolved — an unknown or ambiguously allocated map, an
-/// out-of-family id, or an origin that could not be pinned. It is not "clear".
-#[deprecated(
-    since = "0.37.7",
-    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
-Build a ResolvedFlags once for the region and call its methods, which return \
-FlagState rather than Option<bool>."
-)]
-pub fn is_dungeon_flag_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    ResolvedFlags::from_event_flags(event_flags)
-        .map_or(FlagState::Unknown, |r| r.dungeon(flag_id))
-        .into()
-}
-
-/// Legacy-map pickups (localId >= 7000), in their own region below the event
-/// flags. Takes the pickup flag id, not an ItemLotParam row id.
-///
-/// SETTLED 2026-07-20 (docs/BACKLOG.md, step 4b). This family's base sits 125
-/// bytes below the event family's while both index by the raw `localId / 8`, so
-/// the two computed address ranges OVERLAP: event localId L and pickup localId
-/// L + 1000 land on the same bit. That is a real property of the layout, not a
-/// modelling error — the single-base alternative was refuted directly, in b33,
-/// where a known-set event flag reads clear at the pickup base and the byte that
-/// actually flipped for pickup 30027000 is at the pickup base.
-///
-/// It is harmless because the overlap band is empty on the event side. Legacy
-/// event flags cluster in localId 0-2999 and pickups in 7000-7999; 6000-6999 is
-/// used by neither. Checked across 4,540 distinct legacy flags from three
-/// independent sources and against the primary `ItemLotParam_map` (regulation
-/// 1.16.1), which has 2,143 legacy getItemFlagIds in 7000-7999 and none in
-/// 6000-6999.
-///
-/// If a legacy event flag with localId in 6000-6999 is ever found, it collides
-/// with a real pickup and this layout needs revisiting. Nothing else does.
-#[deprecated(
-    since = "0.37.7",
-    note = "resolves the origin on every call (a ~13,400-byte scan per flag). \
-Build a ResolvedFlags once for the region and call its methods, which return \
-FlagState rather than Option<bool>."
-)]
-pub fn is_dungeon_pickup_set(event_flags: &[u8], flag_id: u32) -> Option<bool> {
-    ResolvedFlags::from_event_flags(event_flags)
-        .map_or(FlagState::Unknown, |r| r.dungeon_pickup(flag_id))
-        .into()
-}
 
 /// Byte offset of a legacy-map flag from its family's base.
 pub fn legacy_dungeon_rel_byte(flag_id: u32) -> Option<u64> {
@@ -2210,7 +2112,8 @@ pub const FAMILY_CODE_DUNGEON_PICKUP: u32 = 4;
 #[wasm_bindgen]
 pub fn flag_offset_in_ef(event_flags: &[u8], flag_id: u32, family: u32) -> FlagOffset {
     // (rel byte from the family base, bit position, family constant) — guards and
-    // geometry identical to is_world_state_flag_set / is_tile_*_set / is_dungeon_*_set.
+    // geometry identical to the ResolvedFlags family methods (world_state,
+    // tile_world, tile_pickup, dungeon, dungeon_pickup).
     let (rel, bit, fam_const): (u64, u8, i64) = match family {
         FAMILY_CODE_WORLD_STATE => {
             if !(50_000..80_000).contains(&flag_id) {
@@ -2277,9 +2180,12 @@ pub fn flag_offset_in_ef(event_flags: &[u8], flag_id: u32, family: u32) -> FlagO
 //
 // Every family's base is `origin + FAMILY_CONSTANT`, and the origin is found by
 // scanning from EF+16,000 for the end of the append-only record list — roughly
-// 13,400 bytes of scan. The free reader functions below do that scan once per
-// FLAG, so a screen listing 4,809 pickups repeats it 4,809 times for an answer
-// that cannot change between rows. `ResolvedFlags` pays it once.
+// 13,400 bytes of scan. Resolving per FLAG would repeat that scan once per read,
+// so a screen listing 4,809 pickups would pay it 4,809 times for an answer that
+// cannot change between rows. `ResolvedFlags` pays it once and answers each
+// family from a cached base. (Free `is_*_set` readers that resolved per call
+// existed until v0.37.9; they were deleted once every caller held a
+// `ResolvedFlags`.)
 //
 // The second reason is the more important one. `Option<bool>` is a correct
 // tri-state and a poor one: `unwrap_or(false)`, `unwrap_or_default()` and
@@ -2484,6 +2390,24 @@ impl<'a> ResolvedFlags<'a> {
     }
 
     /// Legacy-map pickups (localId >= 7000), in their own region.
+    ///
+    /// SETTLED 2026-07-20 (docs/BACKLOG.md, step 4b). This family's base sits
+    /// 125 bytes below the event family's while both index by the raw
+    /// `localId / 8`, so the two computed address ranges OVERLAP: event localId
+    /// L and pickup localId L + 1000 land on the same bit. That is a real
+    /// property of the layout, not a modelling error — the single-base
+    /// alternative was refuted directly, in b33, where a known-set event flag
+    /// reads clear at the pickup base and the byte that actually flipped for
+    /// pickup 30027000 is at the pickup base.
+    ///
+    /// It is harmless because the overlap band is empty on the event side.
+    /// Legacy event flags cluster in localId 0-2999 and pickups in 7000-7999;
+    /// 6000-6999 is used by neither. Checked across 4,540 distinct legacy flags
+    /// from three independent sources and against the primary `ItemLotParam_map`
+    /// (regulation 1.16.1), which has 2,143 legacy getItemFlagIds in 7000-7999
+    /// and none in 6000-6999. If a legacy event flag with localId in 6000-6999
+    /// is ever found, it collides with a real pickup and this layout needs
+    /// revisiting. Nothing else does.
     pub fn dungeon_pickup(&self, flag_id: u32) -> FlagState {
         if flag_id % 10_000 < 7_000 {
             return FlagState::Unknown;

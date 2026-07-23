@@ -9,7 +9,7 @@
 //!
 //! **`event_flag` is the row's `getItemFlagId`, always** — never the param row id.
 //! The two coincide for most open-world rows (`getItemFlagId = row_id + 7000`, and
-//! `is_tile_pickup_set` normalises the high-localId form back), which is how a
+//! `ResolvedFlags::tile_pickup` normalises the high-localId form back), which is how a
 //! row-id convention survived here undetected while reading the wrong bit for 220
 //! entries. `test_event_flags_match_primary_source` below pins the convention
 //! against the primary source, so the structural field cannot drift again even

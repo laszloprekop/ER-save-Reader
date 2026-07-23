@@ -393,7 +393,7 @@ pub mod events_view_model {
         // compensate for legacy absolute offsets — the first by overriding the
         // byte with an inference about prerequisite bosses, the second by
         // re-deriving a base for "unreliable" blocks. Grace positions now resolve
-        // per save (wasm_event_flags::is_world_state_flag_set), so both would only
+        // per save (wasm_event_flags::ResolvedFlags::world_state), so both would only
         // layer guesses on top of a verified read. PROGRESSION_GATES is kept: it
         // still documents real prerequisite relationships, just not as a flag mask.
     }

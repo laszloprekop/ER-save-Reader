@@ -80,8 +80,10 @@ fn no_removed_base_table_or_static_offset_symbol_is_defined() {
         "ADR-0008 violation: these were removed because they hand out a flag position \
          computed from a base baked into this crate, and every family's base floats per \
          save. They are defined again:\n  {}\n\nIf a caller needs a flag's state, the \
-         reader must take the flag region: is_world_state_flag_set, is_tile_world_flag_set, \
-         is_tile_pickup_set, is_dungeon_flag_set, is_dungeon_pickup_set.",
+         reader must take the flag region: ResolvedFlags::from_event_flags and its \
+         world_state / tile_world / tile_pickup / dungeon / dungeon_pickup methods, or \
+         the world_state_flag_state / tile_world_flag_state / tile_pickup_state / \
+         dungeon_flag_state / dungeon_pickup_state exports.",
         found.join("\n  ")
     );
 }

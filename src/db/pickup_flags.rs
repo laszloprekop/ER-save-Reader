@@ -818,7 +818,7 @@ pub fn is_flag_set_with_status(event_flags: &[u8], flag_id: u32) -> (bool, Verif
     // ambiguous between the open-world and pickup tile families (both use
     // localId < 7000, in regions 500 bytes apart), so this function cannot pick
     // the right one from the value. Callers that know the semantics use
-    // wasm_event_flags::is_tile_pickup_set / is_tile_world_flag_set directly.
+    // wasm_event_flags::ResolvedFlags::tile_pickup / tile_world directly.
     let status = get_flag_verification_status(flag_id);
     let is_set = if let Some((byte_off, bit)) = get_flag_offset(flag_id) {
         if (byte_off as usize) < event_flags.len() {

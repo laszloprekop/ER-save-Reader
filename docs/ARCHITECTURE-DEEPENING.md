@@ -577,7 +577,7 @@ most demanding form.
 | 1b | ✅ **DONE** v0.37.6 — lifted `vm`/`save/common`/`util` allows, triaged the 21 | 1 | small |
 | 2 | ✅ **DONE** v0.37.7 — B2: `ResolvedFlags` + `FlagState` in the crate; five exports become adapters | — (parallel with 1) | medium; conformance suites unchanged |
 | 3 | ✅ **DONE** v0.37.8 — B1: migrated every reader to `FlagState`; deleted `GraceStatus`; fixed `ui/events.rs` detail panel + two `comparison_view` defects | 1, 2 | medium; touched every view that reads a flag |
-| 3b | B3 — delete the five deprecated free readers; re-express the 13 `origin_conformance` asserts in `FlagState` | 3 | small |
+| 3b | ✅ **DONE** v0.37.9 — B3: deleted the five deprecated free readers; re-expressed `origin_conformance` against the `*_state` exports and rewrote `resolved_flags_conformance` (exact-bit round-trip replaces old-vs-new comparison); relocated the overlap-band note to `ResolvedFlags::dungeon_pickup` | 3 | small |
 | 4 | C1 — `Evidence`; delete six duplicate loaders; close the `gen_*` hash gap | 1 | medium |
 | 5 | C2 — `Claims` + `Status`; regenerate the four under-provenanced files | 4 | medium; one generated-output commit |
 | 6 | C3 — split `family_distances.rs` | 4, 5 | small once 4 and 5 land |

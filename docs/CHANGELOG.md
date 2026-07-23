@@ -7,6 +7,68 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.9 - Delete the five deprecated free flag readers; re-express the conformance suite
+
+v0.37.7 deprecated the five free `is_*_set` readers; v0.37.8 migrated every app-side caller
+off them. Nothing outside the wasm crate's own tests called them any more (zero deprecation
+warnings), so **this deletes them**: `is_world_state_flag_set`, `is_tile_world_flag_set`,
+`is_tile_pickup_set`, `is_dungeon_flag_set`, `is_dungeon_pickup_set`. The public ABI is
+unchanged — the `#[wasm_bindgen] *_state` exports and `ResolvedFlags` methods, which the
+readers already delegated to, are the whole surface now.
+
+### Domain knowledge kept, not dropped
+
+The fullest inline account of the legacy pickup/event **overlap band** (SETTLED 2026-07-20:
+the two families' address ranges overlap harmlessly because localId 6000-6999 is empty on the
+event side, checked against 4,540 flags and `ItemLotParam_map`) lived in the doc comment of
+`is_dungeon_pickup_set`. It moved verbatim onto `ResolvedFlags::dungeon_pickup`, the canonical
+reader, so the reasoning stays at the code site rather than dying with the deleted function.
+
+### The conformance suite, re-expressed
+
+- `resolved_flags_conformance.rs` existed to prove the new `ResolvedFlags` methods matched the
+  old free readers bit for bit. With no old path to match, that premise is void. The two
+  old-vs-new comparison tests are gone; the assertions now name the expected `FlagState`
+  directly. The "bits set" test is **stronger** than before: instead of filling 40 KB per
+  base and asserting *some* read came back Set, it resolves each id's exact byte+bit via
+  `flag_offset_in_ef`, sets that one bit, and requires the family method to read it back Set —
+  a full round trip per family, including the tile families whose geometry lands hundreds of
+  KB past the base (the reason the old bounded fill could only assert `any_set`).
+- `origin_conformance.rs` — the ~13 asserts phrased as `== None` / `== Some(bool)` against the
+  deprecated fns now go through the `*_state` exports (the honest 1:1 replacement: both take
+  the flag region and resolve internally), with `-1 == Unknown` standing in for `None`.
+- `export_shape_conformance.rs` — the ADR-0008 violation message pointed callers at the
+  deleted readers; it now names `ResolvedFlags` and the `*_state` exports. `APPROVED_EXPORTS`
+  was already correct (the `#[wasm_bindgen] *_state` exports stay; the free helpers were never
+  in it).
+
+### Housekeeping
+
+Swept the stale comments that named the deleted fns across `lib.rs` and four `src/` files, and
+fixed a pre-existing copy-paste typo in the reader table (dungeon-pickups listed
+`dungeon_flag_state`; corrected to `dungeon_pickup_state`).
+
+### Verification
+
+`cargo test --workspace` → 119 passing, 0 failures; `cargo check --features save-writeback`
+and `cargo clippy --workspace --all-targets` both clean. Zero references to the five deleted
+functions remain in the tree.
+
+### Files Modified
+
+- `crates/wasm-event-flags/src/lib.rs`: deleted the five deprecated readers; relocated the
+  overlap-band note to `ResolvedFlags::dungeon_pickup`; refreshed the reader-table and
+  REMOVED-block comments.
+- `crates/wasm-event-flags/tests/resolved_flags_conformance.rs`: rewritten to assert
+  `FlagState` directly; exact-bit round-trip replaces the bounded-fill `any_set` test.
+- `crates/wasm-event-flags/tests/origin_conformance.rs`: two tests re-expressed against the
+  `*_state` exports.
+- `crates/wasm-event-flags/tests/export_shape_conformance.rs`: updated the violation message.
+- `src/db/pickup_data.rs`, `src/db/pickup_flags.rs`, `src/db/world_pickups.rs`,
+  `src/knowledge/gen_world_pickups.rs`, `src/vm/events.rs`: stale doc-comment references
+  repointed at the surviving API.
+- `Cargo.toml`: bumped to 0.37.9.
+
 ## v0.37.8 - Migrate every flag reader to `FlagState`; delete `GraceStatus`; fix two Unknown-as-clear defects
 
 v0.37.7 added `FlagState`/`ResolvedFlags` and deprecated the five free readers, deliberately

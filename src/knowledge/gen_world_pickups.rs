@@ -13,7 +13,7 @@
 //! source exactly, with no overlap — the previous table duplicated every dungeon
 //! pickup into the world browser, which has its own view.
 //!
-//! `flag_id` is the raw `getItemFlagId`, deliberately: `is_tile_pickup_set`
+//! `flag_id` is the raw `getItemFlagId`, deliberately: `ResolvedFlags::tile_pickup`
 //! accepts either the getItemFlagId or the row_id form and normalises. Do NOT
 //! store a "row id" here — for 124 of the 1,691 ten-digit rows the param's own
 //! row id is not `getItemFlagId - 7000`, so a row-id-keyed table addresses the
@@ -239,7 +239,7 @@ const HEADER: &str = r##"//! World Pickup Database
 //! primary source's item-granting flagged rows exactly; there is no overlap, and
 //! each has its own database view.
 //!
-//! Per row: lot_id = row id, flag_id = getItemFlagId (raw — `is_tile_pickup_set`
+//! Per row: lot_id = row id, flag_id = getItemFlagId (raw — `ResolvedFlags::tile_pickup`
 //! normalises the high-localId form itself; storing a row_id here would read the
 //! wrong bit for the 124 ten-digit rows whose row id is not flag - 7000),
 //! item_id = lotItemId01, quantity = lotItemNum01 (default 1), item_name from

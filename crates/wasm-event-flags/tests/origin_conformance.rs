@@ -228,16 +228,17 @@ fn world_state_reads_are_unknown_not_false_when_unresolvable() {
     // A truncated region cannot place the base. The read must report UNKNOWN.
     // Collapsing that to "not set" is how a fully progressed character came to
     // display 0/110 boss defeats.
-    use wasm_event_flags::is_world_state_flag_set;
-    assert_eq!(is_world_state_flag_set(&[], 76100), None, "empty");
+    // -1 is Unknown; 0 is Clear. The distinction is the whole point.
+    use wasm_event_flags::world_state_flag_state;
+    assert_eq!(world_state_flag_state(&[], 76100), -1, "empty");
     assert_eq!(
-        is_world_state_flag_set(&vec![0u8; 40_000], 76100),
-        None,
-        "region too short to contain the base: must be None, never Some(false)"
+        world_state_flag_state(&vec![0u8; 40_000], 76100),
+        -1,
+        "region too short to contain the base: must be Unknown, never Clear"
     );
     // Out-of-family ids are not this family's business.
-    assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 1_042_370_800), None);
-    assert_eq!(is_world_state_flag_set(&vec![0u8; 300_000], 30_020_800), None);
+    assert_eq!(world_state_flag_state(&vec![0u8; 300_000], 1_042_370_800), -1);
+    assert_eq!(world_state_flag_state(&vec![0u8; 300_000], 30_020_800), -1);
 }
 
 #[test]
@@ -308,25 +309,25 @@ fn legacy_alloc_table_matches_the_game_alloclists() {
 
 #[test]
 fn dungeon_reads_split_by_family_and_refuse_foreign_ids() {
-    use wasm_event_flags::{is_dungeon_flag_set, is_dungeon_pickup_set, legacy_dungeon_rel_byte};
+    use wasm_event_flags::{dungeon_flag_state, dungeon_pickup_state, legacy_dungeon_rel_byte};
 
     // The layout, on the two flags that established the families.
     // m30_02 is alloc slot 82: 82*1125 = 92,250.
     assert_eq!(legacy_dungeon_rel_byte(30_020_800), Some(92_350)); // + 800/8
     assert_eq!(legacy_dungeon_rel_byte(30_027_000), Some(93_125)); // + 7000/8
 
-    // Each function refuses the other family's ids rather than reading 125
-    // bytes into the wrong region.
+    // Each reader refuses the other family's ids rather than reading 125
+    // bytes into the wrong region. -1 is Unknown, not Clear.
     let big = vec![0u8; 300_000];
-    assert_eq!(is_dungeon_flag_set(&big, 30_027_000), None, "pickup id to event reader");
-    assert_eq!(is_dungeon_pickup_set(&big, 30_020_800), None, "event id to pickup reader");
+    assert_eq!(dungeon_flag_state(&big, 30_027_000), -1, "pickup id to event reader");
+    assert_eq!(dungeon_pickup_state(&big, 30_020_800), -1, "event id to pickup reader");
 
     // Open-world tile ids belong to the tile families; their six-digit prefix
     // must not be truncated into a legacy slot lookup.
     assert_eq!(legacy_dungeon_rel_byte(1_042_370_800), None);
-    assert_eq!(is_dungeon_flag_set(&big, 1_042_370_800), None);
+    assert_eq!(dungeon_flag_state(&big, 1_042_370_800), -1);
 
     // Unknown and ambiguous maps are Unknown, never "not set".
     assert_eq!(legacy_dungeon_rel_byte(34_120_800), None, "m34_12 is allocated twice");
-    assert_eq!(is_dungeon_flag_set(&[], 30_020_800), None, "no origin in an empty region");
+    assert_eq!(dungeon_flag_state(&[], 30_020_800), -1, "no origin in an empty region");
 }

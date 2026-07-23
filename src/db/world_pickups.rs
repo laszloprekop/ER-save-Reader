@@ -16,7 +16,7 @@
 //! primary source's item-granting flagged rows exactly; there is no overlap, and
 //! each has its own database view.
 //!
-//! Per row: lot_id = row id, flag_id = getItemFlagId (raw — `is_tile_pickup_set`
+//! Per row: lot_id = row id, flag_id = getItemFlagId (raw — `ResolvedFlags::tile_pickup`
 //! normalises the high-localId form itself; storing a row_id here would read the
 //! wrong bit for the 124 ten-digit rows whose row id is not flag - 7000),
 //! item_id = lotItemId01, quantity = lotItemNum01 (default 1), item_name from
