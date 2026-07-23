@@ -316,7 +316,7 @@ mod tests {
     use super::*;
 
     /// The world-pickup export promises `collected: boolean | null`
-    /// (DATA-SCHEMAS.md, Character Domain). `null` is UNKNOWN — the flag's
+    /// (docs/DATA-SCHEMAS.md, Character Domain). `null` is UNKNOWN — the flag's
     /// position could not be resolved for that save — and must never be emitted
     /// as `false`, because an export that says "not collected" for a flag it
     /// could not read asserts something it does not know. That is precisely the

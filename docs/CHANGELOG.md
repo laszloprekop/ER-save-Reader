@@ -7,6 +7,26 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.16 - File-structure cleanup: `DATA-SCHEMAS.md` into `docs/`
+
+A placement-only pass. `DATA-SCHEMAS.md` was the sole documentation file living at the
+repo root while every other doc sits under `docs/`; moving it there (via `git mv`, history
+preserved) also **fixes** the `./DATA-SCHEMAS.md` links in `docs/COMMIT-PROTOCOL.md`, which
+were broken — they had always assumed the file was a sibling in `docs/`. No content changed.
+
+`ground_truth_offsets.json` and `save_slot_registry.json` stay at the root (CLAUDE.md
+designates them canonical there and `build.rs`/code load them from root); `icon/` and
+`assets/` both stay (each referenced by `build.rs`). Those are not misplaced.
+
+`.gitignore` grows `.pytest_cache/` and `.DS_Store` — both present untracked in the tree
+but not previously ignored.
+
+### Files Modified
+- DATA-SCHEMAS.md → docs/DATA-SCHEMAS.md: moved (git rename, no content change)
+- src/vm/export.rs: doc-comment reference updated to `docs/DATA-SCHEMAS.md`
+- .gitignore: added `.pytest_cache/` and `.DS_Store`
+- Cargo.toml: bumped to 0.37.16
+
 ## v0.37.15 - Workstream D2b: `general` on `Character`; scoped-down close of D
 
 Final stage of Workstream D, and the close of the architecture-deepening plan. D2a moved the
