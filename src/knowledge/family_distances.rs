@@ -38,11 +38,11 @@ use serde_json::{json, Map, Value};
 use wasm_event_flags::{FlagState, ResolvedFlags};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
+use super::evidence::{slot_slice, Evidence};
 use super::pipeline::{
-    bit_at, bit_of, family_rel, load_manifest, load_save, SaveFile, CATALOG, CHECKSUM, HEADER,
-    INPUT_ALLOCLISTS, INPUT_TRANSITIONS, SLOT_SIZE,
+    bit_at, bit_of, family_rel, load_save, SaveFile, INPUT_ALLOCLISTS, INPUT_TRANSITIONS,
 };
 
 const CLAIMS: &str = "knowledge/claims/event-flags.json";
@@ -113,7 +113,7 @@ struct Measurement {
 
 fn measure_all(repo_root: &Path, keep_window: bool) -> Result<Measurement, String> {
     let input: Value = read_json(repo_root, INPUT_TRANSITIONS)?;
-    let catalog: Value = read_json(repo_root, CATALOG)?;
+    let evidence = Evidence::open(repo_root)?;
     let claims: Value = read_json(repo_root, CLAIMS)?;
     let alloc_json: Value = read_json(repo_root, INPUT_ALLOCLISTS)?;
 
@@ -240,29 +240,11 @@ fn measure_all(repo_root: &Path, keep_window: bool) -> Result<Measurement, Strin
     }
 
     // ---- measure every family we can, in every file -------------------------
-    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
     let mut out_files: Vec<Measured> = Vec::new();
     let mut notes: Vec<Value> = Vec::new();
 
     for fr in &files {
-        let (dir, manifest) = match corpora.get(&fr.corpus) {
-            Some(v) => v.clone(),
-            None => {
-                let corpus = catalog["corpora"]
-                    .as_array()
-                    .and_then(|cs| cs.iter().find(|c| c["id"] == fr.corpus.as_str()))
-                    .ok_or_else(|| format!("corpus {} not in evidence catalog", fr.corpus))?;
-                let root_key = corpus["root"].as_str().ok_or("corpus missing root")?;
-                let root = catalog["roots"][root_key].as_str().ok_or("unknown root")?;
-                let dir = Path::new(root).join(corpus["path"].as_str().ok_or("corpus path")?);
-                let manifest_rel = corpus["manifest"].as_str().ok_or("corpus manifest")?;
-                let m = load_manifest(repo_root, manifest_rel)?;
-                corpora.insert(fr.corpus.clone(), (dir.clone(), m.clone()));
-                (dir, m)
-            }
-        };
-
-        let sf: SaveFile = load_save(&dir, &fr.rel_path, fr.save_slot, &manifest)?;
+        let sf: SaveFile = load_save(&evidence, &fr.corpus, &fr.rel_path, fr.save_slot)?;
         let here = *order_of.get(&fr.rel_path).unwrap_or(&0);
 
         let mut exps: BTreeMap<String, Vec<Expectation>> = BTreeMap::new();
@@ -992,7 +974,7 @@ fn predict_base(slot: &[u8], family: &str) -> Option<i64> {
 pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
     let repo_root = std::env::current_dir().map_err(|e| e.to_string())?;
     let input: Value = read_json(&repo_root, INPUT_TRANSITIONS)?;
-    let catalog: Value = read_json(&repo_root, CATALOG)?;
+    let evidence = Evidence::open(&repo_root)?;
     let alloc_json: Value = read_json(&repo_root, INPUT_ALLOCLISTS)?;
 
     let mut alloc = BTreeMap::new();
@@ -1024,21 +1006,12 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
     {
         let family = msd["family"].as_str().unwrap_or_default();
         let corpus_id = msd["corpus"].as_str().unwrap_or_default();
-        let corpus = catalog["corpora"]
-            .as_array()
-            .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id))
-            .ok_or_else(|| format!("corpus {} not in catalog", corpus_id))?;
-        let root = catalog["roots"][corpus["root"].as_str().unwrap_or("")]
-            .as_str()
-            .ok_or("unknown root")?;
-        let dir = Path::new(root).join(corpus["path"].as_str().unwrap_or(""));
-        let manifest = load_manifest(&repo_root, corpus["manifest"].as_str().unwrap_or(""))?;
 
         for slot_entry in msd["slots"].as_array().unwrap_or(&vec![]) {
             let save_slot = slot_entry["save_slot"].as_u64().unwrap_or(0) as usize;
             let character = slot_entry["character"].as_str().unwrap_or("?");
             for (fname, expects) in slot_entry["files"].as_object().into_iter().flatten() {
-                let sf = match load_save(&dir, fname, save_slot, &manifest) {
+                let sf = match load_save(&evidence, corpus_id, fname, save_slot) {
                     Ok(v) => v,
                     Err(e) => {
                         println!("    {} slot {}: {}", character, save_slot, e);
@@ -1111,36 +1084,19 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
         .map(|a| a.iter().filter_map(|v| v.as_u64()).collect())
         .unwrap_or_default();
     for backup_id in ["backup-2026-01-11", "backup-2026-01-01"] {
-        let corpus = match catalog["corpora"]
-            .as_array()
-            .and_then(|cs| cs.iter().find(|c| c["id"] == backup_id))
-        {
-            Some(c) => c,
-            None => continue,
+        // The second backup is optional: skip it if the catalog does not list it.
+        // A cataloged backup that is absent or drifted is still a hard error.
+        let data = match evidence.bytes(backup_id, "") {
+            Ok(d) => d,
+            Err(e) if e.contains("not in evidence catalog") => continue,
+            Err(e) => return Err(e),
         };
-        let root = catalog["roots"][corpus["root"].as_str().unwrap_or("")]
-            .as_str()
-            .ok_or("unknown root")?;
-        let path = Path::new(root).join(corpus["path"].as_str().unwrap_or(""));
-        let (hash, _) = super::catalog::sha256_file(&path)?;
-        match corpus["sha256"].as_str() {
-            Some(exp) if exp == hash => {}
-            Some(exp) => {
-                return Err(format!(
-                    "EVIDENCE DRIFT {}: sha256 {} != cataloged {}",
-                    backup_id, hash, exp
-                ))
-            }
-            None => {}
-        }
-        let data = fs::read(&path).map_err(|e| format!("{}: {}", path.display(), e))?;
         println!("  {}", backup_id);
         for save_slot in 0..5usize {
-            let start = HEADER + save_slot * (CHECKSUM + SLOT_SIZE) + CHECKSUM;
-            if data.len() < start + SLOT_SIZE {
-                continue;
-            }
-            let slot = &data[start..start + SLOT_SIZE];
+            let slot = match slot_slice(&data, save_slot) {
+                Some(s) => s,
+                None => continue,
+            };
             let base = match predict_base(slot, "world-state-b") {
                 Some(b) => b,
                 None => {
@@ -1294,7 +1250,6 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
     // one are reported as skipped rather than silently passing.
     println!("\n=== C. attributed transitions — shipped reads must go clear -> set");
     let claims: Value = read_json(&repo_root, CLAIMS)?;
-    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
     let mut skipped: BTreeMap<String, usize> = BTreeMap::new();
     let (mut tpass, mut tfail) = (0usize, 0usize);
 
@@ -1325,29 +1280,18 @@ pub fn cmd_validate_origin(_args: &[String]) -> Result<(), String> {
                 continue;
             }
         };
-        let ev = &f["evidence"];
-        let corpus_id = ev["corpus"].as_str().unwrap_or_default().to_string();
-        let save_slot = ev["save_slot"].as_u64().unwrap_or(0) as usize;
-        let (dir, manifest) = match corpora.get(&corpus_id) {
-            Some(v) => v.clone(),
-            None => {
-                let c = match catalog["corpora"].as_array()
-                    .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id.as_str())) {
-                    Some(c) => c, None => continue,
-                };
-                let root = catalog["roots"][c["root"].as_str().unwrap_or("")]
-                    .as_str().unwrap_or("");
-                let dir = Path::new(root).join(c["path"].as_str().unwrap_or(""));
-                let m = load_manifest(&repo_root, c["manifest"].as_str().unwrap_or(""))?;
-                corpora.insert(corpus_id.clone(), (dir.clone(), m.clone()));
-                (dir, m)
-            }
-        };
+        let prov = &f["evidence"];
+        let corpus_id = prov["corpus"].as_str().unwrap_or_default();
+        let save_slot = prov["save_slot"].as_u64().unwrap_or(0) as usize;
 
         let mut states = Vec::new();
         for side in ["before", "after"] {
-            let name = match ev[side]["file"].as_str() { Some(n) => n, None => break };
-            let sf = match load_save(&dir, name, save_slot, &manifest) { Ok(v) => v, Err(_) => break };
+            let name = match prov[side]["file"].as_str() { Some(n) => n, None => break };
+            // A flag shipped as verified/corroborated must resolve, verify and
+            // load: a corpus missing from the catalog is a hard error, not a
+            // silently dropped flag (which is how an absent corpus used to read
+            // as an empty one — the divergence this seam removes).
+            let sf = load_save(&evidence, corpus_id, name, save_slot)?;
             let efs = &sf.slot[sf.grace..];
             // The family is known here, so the read method is chosen explicitly —
             // a bare tile id cannot tell you which family it is.
@@ -1431,7 +1375,7 @@ struct ConstantObs {
 pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
     let repo_root = std::env::current_dir().map_err(|e| e.to_string())?;
     let claims: Value = read_json(&repo_root, CLAIMS)?;
-    let catalog: Value = read_json(&repo_root, CATALOG)?;
+    let evidence = Evidence::open(&repo_root)?;
 
     println!("FAMILY CONSTANTS FROM ATTRIBUTED FLIPS");
     println!("Each observation is one pipeline-verified flag whose flip pinned its");
@@ -1441,7 +1385,6 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
     // (corpus, slot, file) -> (grace_base, ga_end, list_end); None = unreadable
     type Origin = Option<(i64, i64, usize)>;
     let mut seen: BTreeMap<(String, usize, String), Origin> = BTreeMap::new();
-    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
     let mut obs: Vec<ConstantObs> = Vec::new();
     let mut skipped: Vec<Value> = Vec::new();
 
@@ -1467,28 +1410,18 @@ pub fn cmd_family_constants(_args: &[String]) -> Result<(), String> {
 
             let key = (corpus_id.clone(), save_slot, name.to_string());
             if !seen.contains_key(&key) {
-                let (dir, manifest) = match corpora.get(&corpus_id) {
-                    Some(v) => v.clone(),
-                    None => {
-                        let c = catalog["corpora"]
-                            .as_array()
-                            .and_then(|cs| cs.iter().find(|c| c["id"] == corpus_id.as_str()))
-                            .ok_or_else(|| format!("corpus {} not in catalog", corpus_id))?;
-                        let root = catalog["roots"][c["root"].as_str().unwrap_or("")]
-                            .as_str()
-                            .ok_or("unknown root")?;
-                        let dir = Path::new(root).join(c["path"].as_str().unwrap_or(""));
-                        let m = load_manifest(&repo_root, c["manifest"].as_str().unwrap_or(""))?;
-                        corpora.insert(corpus_id.clone(), (dir.clone(), m.clone()));
-                        (dir, m)
-                    }
+                // verify-on-read; an unreadable or drifted file is reported as
+                // None, never guessed — but a corpus missing from the catalog is
+                // a malformed claim and stays a hard error.
+                let v = match load_save(&evidence, &corpus_id, name, save_slot) {
+                    Ok(sf) => wasm_event_flags::find_flag_list_end_from(
+                        &sf.slot,
+                        sf.ga_end.max(0) as usize,
+                    )
+                    .map(|end| (sf.grace as i64, sf.ga_end, end)),
+                    Err(e) if e.contains("not in evidence catalog") => return Err(e),
+                    Err(_) => None,
                 };
-                // verify-on-read; an unreadable file is reported, never guessed
-                let v = load_save(&dir, name, save_slot, &manifest).ok().and_then(|sf| {
-                    let end =
-                        wasm_event_flags::find_flag_list_end_from(&sf.slot, sf.ga_end.max(0) as usize)?;
-                    Some((sf.grace as i64, sf.ga_end, end))
-                });
                 seen.insert(key.clone(), v);
             }
 

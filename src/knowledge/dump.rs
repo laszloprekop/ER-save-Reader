@@ -16,7 +16,7 @@
 use std::fs;
 use std::path::Path;
 
-use super::pipeline::{CHECKSUM, HEADER, SLOT_SIZE};
+use super::evidence::slot_slice;
 use crate::db::graces_data::GRACES_DATA;
 use wasm_event_flags::{FlagState, ResolvedFlags};
 
@@ -35,11 +35,10 @@ pub fn cmd_grace_dump(args: &[String]) -> Result<(), String> {
     println!("size: {} bytes\n", data.len());
 
     for slot_index in slots {
-        let start = HEADER + slot_index * (CHECKSUM + SLOT_SIZE) + CHECKSUM;
-        if data.len() < start + SLOT_SIZE {
-            continue;
-        }
-        let slot = &data[start..start + SLOT_SIZE];
+        let slot = match slot_slice(&data, slot_index) {
+            Some(s) => s,
+            None => continue,
+        };
 
         let det = wasm_event_flags::detect_event_flags_offset_impl(slot);
         if det.offset == 0 {

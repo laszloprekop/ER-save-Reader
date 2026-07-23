@@ -284,35 +284,22 @@ fn header(count: usize) -> String {
     HEADER.replace("{COUNT}", &count.to_string())
 }
 
-/// Resolve the primary-source XML path: an explicit argument, or the
-/// `game-extracts` corpus location from the evidence catalog.
-pub fn resolve_source(args: &[String]) -> Result<PathBuf, String> {
-    if let Some(p) = args.iter().find(|a| !a.starts_with("--")) {
-        return Ok(PathBuf::from(p));
-    }
-    crate::knowledge::gen_dungeon_pickups::source_from_catalog(
-        &std::env::current_dir().map_err(|e| e.to_string())?,
-    )
-}
-
 pub fn cmd_gen_world_pickups(args: &[String]) -> Result<(), String> {
-    let src_path = resolve_source(args)?;
+    // Same primary source and verification as the dungeon generator; the two
+    // tables partition `ItemLotParam_map`.
+    let repo_root = std::env::current_dir().map_err(|e| e.to_string())?;
+    let (xml, provenance) =
+        crate::knowledge::gen_dungeon_pickups::source_xml(args, &repo_root)?;
     let out = args
         .windows(2)
         .find(|w| w[0] == "--out")
         .map(|w| PathBuf::from(&w[1]))
         .unwrap_or_else(|| PathBuf::from("src/db/world_pickups.rs"));
 
-    let xml = std::fs::read_to_string(&src_path)
-        .map_err(|e| format!("read {}: {e}", src_path.display()))?;
     let generated = generate(&xml)?;
     let count = generated.matches("map.insert(").count();
     std::fs::write(&out, &generated).map_err(|e| format!("write {}: {e}", out.display()))?;
-    println!(
-        "wrote {} ({count} world pickups) from {}",
-        out.display(),
-        src_path.display()
-    );
+    println!("wrote {} ({count} world pickups) from {}", out.display(), provenance);
     Ok(())
 }
 
@@ -329,9 +316,13 @@ mod tests {
     #[test]
     fn committed_table_matches_generator() {
         let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-        let src = match gen_dungeon_pickups::source_from_catalog(repo_root) {
-            Ok(p) if p.exists() => p,
-            _ => {
+        let xml = match gen_dungeon_pickups::source_xml(&[], repo_root) {
+            Ok((xml, _)) => xml,
+            // Present but drifted is a real failure — that is the gap this closes.
+            Err(e) if e.contains("EVIDENCE DRIFT") => {
+                panic!("primary source drifted from the evidence catalog: {e}")
+            }
+            Err(_) => {
                 eprintln!(
                     "skip committed_table_matches_generator: ItemLotParam_map extract absent \
                      (game-extracts corpus). Run where the evidence is present to check drift."
@@ -339,7 +330,6 @@ mod tests {
                 return;
             }
         };
-        let xml = std::fs::read_to_string(&src).expect("read source xml");
         let generated = generate(&xml).expect("generate");
         let committed = std::fs::read_to_string(repo_root.join("src/db/world_pickups.rs"))
             .expect("read committed table");

@@ -42,16 +42,15 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use super::catalog::sha256_file;
+use super::evidence::{slot_slice, Evidence, SLOT_SIZE};
 use crate::db::accessory_name::accessory_name::ACCESSORY_NAME;
 use crate::db::aow_name::aow_name::AOW_NAME;
 use crate::db::armor_name::armor_name::ARMOR_NAME;
 use crate::db::item_name::item_name::ITEM_NAME;
 use crate::db::weapon_name::weapon_name::WEAPON_NAME;
+use crate::read::read::Read as _;
 use crate::save::save::save::Save;
 
-pub(super) const HEADER: usize = 0x300;
-pub(super) const CHECKSUM: usize = 0x10;
-pub(super) const SLOT_SIZE: usize = 0x280000;
 const EF_SIZE: usize = wasm_event_flags::EVENT_FLAGS_SIZE;
 /// Neighborhood half-width for the isolated-flip test.
 const ISOLATION_W: usize = 16;
@@ -147,9 +146,19 @@ pub(super) struct SaveFile {
 /// Weapon/armor/AoW handles resolve through the slot's ga_items table
 /// (same derivation as the inventory view model); accessory and goods
 /// handles carry the id in their low 28 bits.
-fn inventory_identities(path: &Path, save_slot: usize) -> Result<BTreeMap<String, i64>, String> {
-    let save = Save::from_path(&path.to_path_buf())
-        .map_err(|e| format!("{}: typed save parse failed: {}", path.display(), e))?;
+/// Item identities in one slot, parsed from already-verified save bytes. `label`
+/// names the file in errors (the bytes carry no path). Parses the same way
+/// `Save::from_path` does, straight off the buffer, so no unverified re-read of
+/// the file is needed.
+fn inventory_identities(
+    save_bytes: &[u8],
+    save_slot: usize,
+    label: &str,
+) -> Result<BTreeMap<String, i64>, String> {
+    let mut br = binary_reader::BinaryReader::from_u8(save_bytes);
+    br.set_endian(binary_reader::Endian::Little);
+    let save =
+        Save::read(&mut br).map_err(|e| format!("{}: typed save parse failed: {}", label, e))?;
     let slot = save.save_type.get_slot(save_slot);
     let mut counts: BTreeMap<String, i64> = BTreeMap::new();
     for inv in [&slot.equip_inventory_data, &slot.storage_inventory_data] {
@@ -165,7 +174,7 @@ fn inventory_identities(path: &Path, save_slot: usize) -> Result<BTreeMap<String
                         .iter()
                         .find(|g| g.gaitem_handle == handle)
                         .ok_or_else(|| {
-                            format!("{}: gaitem handle {:#010x} not in ga_items", path.display(), handle)
+                            format!("{}: gaitem handle {:#010x} not in ga_items", label, handle)
                         })?;
                     match handle & 0xf000_0000 {
                         0x8000_0000 => format!("weapon:{}", ga.item_id),
@@ -253,50 +262,29 @@ fn delta_json(delta: &[(String, i64)]) -> Value {
     )
 }
 
-pub(super) fn load_manifest(repo_root: &Path, manifest_rel: &str) -> Result<BTreeMap<String, String>, String> {
-    let text = fs::read_to_string(repo_root.join(manifest_rel))
-        .map_err(|e| format!("{}: {}", manifest_rel, e))?;
-    let mut map = BTreeMap::new();
-    for line in text.lines() {
-        if let Some((hash, rel)) = line.split_once("  ") {
-            map.insert(rel.to_string(), hash.to_string());
-        }
-    }
-    Ok(map)
-}
-
+/// Load and verify one save slot from a corpus file, resolving the corpus and
+/// checking its hash through `Evidence` — no hand-rolled catalog walk or drift
+/// check here. `rel_path` is the file within a directory corpus (ignored for a
+/// file corpus).
 pub(super) fn load_save(
-    dir: &Path,
+    ev: &Evidence,
+    corpus_id: &str,
     rel_path: &str,
     save_slot: usize,
-    manifest: &BTreeMap<String, String>,
 ) -> Result<SaveFile, String> {
-    let path = dir.join(rel_path);
-    let expected = manifest
-        .get(rel_path)
-        .ok_or_else(|| format!("{}: not in evidence manifest", rel_path))?;
-    let (hash, _) = sha256_file(&path)?;
-    if hash != *expected {
-        return Err(format!(
-            "EVIDENCE DRIFT {}: sha256 {} != cataloged {}",
-            rel_path, hash, expected
-        ));
-    }
-    let data = fs::read(&path).map_err(|e| format!("{}: {}", path.display(), e))?;
-    let start = HEADER + save_slot * (CHECKSUM + SLOT_SIZE) + CHECKSUM;
-    if data.len() < start + SLOT_SIZE {
-        return Err(format!("{}: too small for slot {}", rel_path, save_slot));
-    }
-    let slot = data[start..start + SLOT_SIZE].to_vec();
+    let data = ev.bytes(corpus_id, rel_path)?;
+    let slot = slot_slice(&data, save_slot)
+        .ok_or_else(|| format!("{}: too small for slot {}", rel_path, save_slot))?
+        .to_vec();
     let det = wasm_event_flags::detect_event_flags_offset_impl(&slot);
     if det.offset == 0 {
         return Err(format!("{}: grace-base detection failed", rel_path));
     }
     let ga_end = wasm_event_flags::parse_ga_items_end(&slot);
-    let inventory = inventory_identities(&path, save_slot)?;
+    let inventory = inventory_identities(&data, save_slot, rel_path)?;
     Ok(SaveFile {
         rel_path: rel_path.to_string(),
-        sha256: hash,
+        sha256: ev.sha256(corpus_id, rel_path)?,
         slot,
         grace: det.offset,
         ga_end,
@@ -396,9 +384,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     let alloc_text = fs::read_to_string(repo_root.join(INPUT_ALLOCLISTS))
         .map_err(|e| format!("{}: {}", INPUT_ALLOCLISTS, e))?;
     let alloc_json: Value = serde_json::from_str(&alloc_text).map_err(|e| e.to_string())?;
-    let catalog_text = fs::read_to_string(repo_root.join(CATALOG))
-        .map_err(|e| format!("{}: {}", CATALOG, e))?;
-    let catalog: Value = serde_json::from_str(&catalog_text).map_err(|e| e.to_string())?;
+    let evidence = Evidence::open(&repo_root)?;
 
     let mut alloc = BTreeMap::new();
     for list in ["legacymap", "legacymap_dlc02"] {
@@ -413,26 +399,6 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     let corpus_id = input["corpus"].as_str().ok_or("input missing corpus")?;
     let save_slot = input["save_slot"].as_u64().unwrap_or(0) as usize;
     let established = input["established"].as_str().unwrap_or("").to_string();
-
-    // resolve corpus directory + manifest from the evidence catalog (lazily,
-    // per corpus id — pairs and differentials may reference several corpora)
-    let mut corpora: BTreeMap<String, (PathBuf, BTreeMap<String, String>)> = BTreeMap::new();
-    let mut corpus_for = |id: &str| -> Result<(PathBuf, BTreeMap<String, String>), String> {
-        if let Some(v) = corpora.get(id) {
-            return Ok(v.clone());
-        }
-        let corpus = catalog["corpora"]
-            .as_array()
-            .and_then(|cs| cs.iter().find(|c| c["id"] == id))
-            .ok_or_else(|| format!("corpus {} not in evidence catalog", id))?;
-        let root_key = corpus["root"].as_str().ok_or("corpus missing root")?;
-        let root = catalog["roots"][root_key].as_str().ok_or("unknown root")?;
-        let dir = Path::new(root).join(corpus["path"].as_str().ok_or("corpus missing path")?);
-        let manifest_rel = corpus["manifest"].as_str().ok_or("corpus has no manifest")?;
-        let manifest = load_manifest(&repo_root, manifest_rel)?;
-        corpora.insert(id.to_string(), (dir.clone(), manifest.clone()));
-        Ok((dir, manifest))
-    };
 
     let mut pairs: Vec<Pair> = Vec::new();
     for p in input["pairs"].as_array().ok_or("input missing pairs")? {
@@ -471,7 +437,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
     // --- evidence (verify-on-read) ----------------------------------------
     println!("loading evidence (verify-on-read)…");
     let mut files: BTreeMap<String, SaveFile> = BTreeMap::new();
-    let mut load_into = |files: &mut BTreeMap<String, SaveFile>,
+    let load_into = |files: &mut BTreeMap<String, SaveFile>,
                          corpus: &str,
                          slot: usize,
                          rel_path: &str|
@@ -480,8 +446,7 @@ pub fn cmd_run(_args: &[String]) -> Result<(), String> {
         if files.contains_key(&key) {
             return Ok(());
         }
-        let (dir, manifest) = corpus_for(corpus)?;
-        let f = load_save(&dir, rel_path, slot, &manifest)?;
+        let f = load_save(&evidence, corpus, rel_path, slot)?;
         println!(
             "  [{} slot {}] {}… grace={} gaEnd={} confident={}",
             corpus,

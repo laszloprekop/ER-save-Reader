@@ -7,6 +7,81 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.10 - `Evidence`: one verified read side for the evidence catalog
+
+Workstream C1 of the architecture-deepening plan. "Catalog entry -> verified bytes" was
+hand-rolled in **six** places across the knowledge pipeline — find the corpus, join
+`roots[root]` + `path`, load the `*.sha256` manifest, hash the file, compare, slice a save
+slot — with the drift-error string copied verbatim four times and the slot-slice arithmetic
+three. **Two of the copies had already drifted**, which is the argument for the seam. This
+replaces all of them with one module, `src/knowledge/evidence.rs`, whose interface cannot
+return unverified bytes.
+
+### The seam
+
+`Evidence::open(repo_root)` loads the catalog once; `bytes(corpus, rel)` returns verified
+bytes — a file corpus checked against its `sha256`, a file in a directory corpus against its
+manifest line — and `sha256(corpus, rel)` the cataloged hash. Reads are memoized behind a
+`RefCell` so the methods take `&self` (a caller reads many files without threading a mutable
+borrow) and a file is hashed once. Two free helpers concentrate what the struct doesn't:
+`slot_slice` (the save-container geometry, `HEADER + n*(CHECKSUM+SLOT_SIZE) + CHECKSUM`, one
+definition shared by everything that slices a raw `.sl2`) and `read_verified` (the single
+home of the `EVIDENCE DRIFT` contract). There is deliberately no method that skips the hash
+and none that hands out a path to read unverified afterwards.
+
+### The two drifted sites, fixed
+
+- **`family_distances.rs` silently skipped a flag whose corpus was missing from the catalog**
+  (`Some(c) => c, None => continue`), so an absent corpus read as an empty one — a verified
+  claim could pass its "clear -> set" check by being quietly dropped. It is now a hard error:
+  the read goes through `Evidence`, and a missing corpus propagates rather than continuing.
+- **The pickup generators read their primary source (`ItemLotParam_map.param.xml`) straight
+  off `roots.decompiled` with no sha256 check at all.** The generated tables
+  (`world_pickups.rs`, `dungeon_pickups.rs`) were pinned by their round-trip tests to a
+  source that was itself unpinned. `source_xml` now reads it through `Evidence`, verified
+  against the `game-extracts` manifest; the three drift tests skip when the extract is absent
+  but fail on the `EVIDENCE DRIFT` marker when it is present (exercised here — they ran the
+  real path, not the skip).
+
+### Migrations
+
+`pipeline.rs` (`load_save` + `cmd_run`), `family_distances.rs` (four loader sites plus a
+file-corpus slot loop), and `timeline.rs` (`load_target` + `read_diff_verified`, with
+`TimelineTarget` now carrying the `Evidence` instead of a `diff_dir` + manifest) all read
+through the seam; `dump.rs` shares `slot_slice`. `inventory_identities` now parses already-
+verified bytes (`Save::read` off a `BinaryReader`) rather than re-opening the file by path,
+so no unverified re-read escapes. The duplicate `SLOT_SIZE`/`HEADER`/`CHECKSUM` constants and
+the `load_manifest` helper are gone.
+
+### Verification
+
+Five new `Evidence` unit tests (file + directory corpora, drift-is-an-error, missing-corpus-
+is-named, memoization, slot geometry) on a synthetic in-temp-dir catalog — no out-of-repo
+evidence needed. `cargo test --workspace` 124 passing; `cargo check --features
+save-writeback` and `cargo clippy --workspace --all-targets` clean. **Behaviour-preserving:**
+every migrated command — `run`, `family-constants`, `family-distances`, `validate-origin`,
+`timeline`/`-segments`/`-flips`, `grace-dump` — was run against the real evidence on this
+machine and produced **byte-identical** claims output (no `knowledge/claims/` diff).
+
+Deferred to C2 (`Claims` emitter + `Status`) and C3 (split `family_distances.rs`): decided
+this session, C1 shipped alone so its diff stays reviewable.
+
+### Files Modified
+
+- `src/knowledge/evidence.rs`: NEW — the `Evidence` seam, `slot_slice`, `read_verified`.
+- `src/knowledge/pipeline.rs`: `load_save`/`cmd_run` via `Evidence`; `inventory_identities`
+  takes bytes; slot consts and `load_manifest` removed.
+- `src/knowledge/family_distances.rs`: four loader sites + file-corpus loop migrated; the
+  silent missing-corpus `continue` is now a hard error.
+- `src/knowledge/timeline.rs`: `load_target`/`read_diff_verified` via `Evidence`;
+  `TimelineTarget` holds the `Evidence`; `load_metadata` -> pure `parse_metadata`.
+- `src/knowledge/dump.rs`: slot slice via shared `slot_slice`.
+- `src/knowledge/gen_dungeon_pickups.rs`, `gen_world_pickups.rs`: `source_xml` reads the
+  primary source verified; the drift tests fail on drift, skip on absence.
+- `src/db/pickup_data.rs`: its primary-source test uses the verified `source_xml`.
+- `src/knowledge/mod.rs`: register the `evidence` module.
+- `Cargo.toml`: bumped to 0.37.10.
+
 ## v0.37.9 - Delete the five deprecated free flag readers; re-express the conformance suite
 
 v0.37.7 deprecated the five free `is_*_set` readers; v0.37.8 migrated every app-side caller

@@ -59,12 +59,11 @@
 
 use serde_json::json;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 
-use super::catalog::sha256_file;
+use super::evidence::Evidence;
 
-pub const SLOT_SIZE: usize = 0x280000;
-const CATALOG: &str = "knowledge/evidence-catalog.json";
+pub use super::evidence::SLOT_SIZE;
 const INPUT_TARGETS: &str = "knowledge/inputs/timeline-targets.json";
 const OUTPUT: &str = "knowledge/claims/timeline-replay-audit.json";
 
@@ -83,35 +82,22 @@ pub struct TimelineTarget {
     pub meta_corpus_id: String,
     pub slot_index: u64,
     pub entries: Vec<DiffEntry>,
-    pub diff_dir: PathBuf,
-    pub manifest: std::collections::BTreeMap<String, String>,
+    /// The verified read seam, holding the catalog and the per-file memo. Every
+    /// diff file goes through this (`read_diff_verified`) so no analysis can run
+    /// on unverified bytes.
+    evidence: Evidence,
 }
 
 /// Read one capture's sparse diff, refusing on any drift from the cataloged
-/// sha256. Every consumer of this corpus goes through here so that no analysis
-/// can accidentally run on unverified bytes.
+/// sha256. Every consumer of this corpus goes through here — and through
+/// `Evidence` beneath it — so that no analysis can accidentally run on unverified
+/// bytes. The `% 6` check is the sparse-diff format contract, not integrity.
 pub fn read_diff_verified(t: &TimelineTarget, e: &DiffEntry) -> Result<Vec<u8>, String> {
-    let diff_path = t.diff_dir.join(&e.diff_file);
-    let expected = t
-        .manifest
-        .get(e.diff_file.as_str())
-        .ok_or_else(|| format!("{}: not in evidence manifest", e.diff_file))?;
-    let (hash, _) = sha256_file(&diff_path)?;
-    if hash != *expected {
-        return Err(format!(
-            "EVIDENCE DRIFT {}: sha256 {} != cataloged {}",
-            e.diff_file, hash, expected
-        ));
-    }
-    let data = fs::read(&diff_path).map_err(|e2| format!("{}: {}", diff_path.display(), e2))?;
+    let data = t.evidence.bytes(&t.diff_corpus_id, &e.diff_file)?;
     if data.len() % 6 != 0 {
-        return Err(format!(
-            "{}: length {} not a multiple of 6",
-            e.diff_file,
-            data.len()
-        ));
+        return Err(format!("{}: length {} not a multiple of 6", e.diff_file, data.len()));
     }
-    Ok(data)
+    Ok(data.to_vec())
 }
 
 /// Resolve a timeline target from `knowledge/inputs/timeline-targets.json` and
@@ -133,48 +119,14 @@ pub fn load_target(repo_root: &Path, target_id: &str) -> Result<TimelineTarget, 
     let slot_index = target["slot_index"].as_u64().ok_or("target missing slot_index")?;
     let character = target["character"].as_str().unwrap_or("unknown").to_string();
 
-    let catalog_text =
-        fs::read_to_string(repo_root.join(CATALOG)).map_err(|e| format!("{}: {}", CATALOG, e))?;
-    let catalog: serde_json::Value =
-        serde_json::from_str(&catalog_text).map_err(|e| e.to_string())?;
-    let corpus = |id: &str| -> Result<serde_json::Value, String> {
-        catalog["corpora"]
-            .as_array()
-            .and_then(|cs| cs.iter().find(|c| c["id"] == id))
-            .cloned()
-            .ok_or_else(|| format!("corpus {} not in evidence catalog", id))
-    };
-    let root_dir = |c: &serde_json::Value| -> Result<PathBuf, String> {
-        let root_key = c["root"].as_str().ok_or("corpus missing root")?;
-        let root = catalog["roots"][root_key].as_str().ok_or("unknown root")?;
-        Ok(Path::new(root).join(c["path"].as_str().ok_or("corpus missing path")?))
-    };
-
-    let diff_corpus = corpus(diff_corpus_id)?;
-    let diff_dir = root_dir(&diff_corpus)?;
-    let manifest_rel = diff_corpus["manifest"]
-        .as_str()
-        .ok_or("diff corpus has no manifest")?;
-    let manifest_text = fs::read_to_string(repo_root.join(manifest_rel))
-        .map_err(|e| format!("{}: {}", manifest_rel, e))?;
-    let mut manifest: std::collections::BTreeMap<String, String> =
-        std::collections::BTreeMap::new();
-    for line in manifest_text.lines() {
-        if let Some((hash, rel)) = line.split_once("  ") {
-            manifest.insert(rel.to_string(), hash.to_string());
-        }
-    }
-
-    let meta_corpus = corpus(meta_corpus_id)?;
-    let meta_path = Path::new(
-        catalog["roots"][meta_corpus["root"].as_str().unwrap_or_default()]
-            .as_str()
-            .unwrap_or_default(),
-    )
-    .join(meta_corpus["path"].as_str().ok_or("metadata corpus missing path")?);
-    let meta_sha = meta_corpus["sha256"].as_str().ok_or("metadata corpus missing sha256")?;
-
-    let entries = load_metadata(&meta_path, meta_sha, slot_index)?;
+    // The metadata is a file corpus: read and verify it whole, then parse. The
+    // diff files (a directory corpus) are verified per-file at read time through
+    // the same `Evidence`, which the target carries.
+    let evidence = Evidence::open(repo_root)?;
+    let meta_bytes = evidence.bytes(meta_corpus_id, "")?;
+    let meta_text = std::str::from_utf8(&meta_bytes)
+        .map_err(|e| format!("{}: not utf-8: {}", meta_corpus_id, e))?;
+    let entries = parse_metadata(meta_text, slot_index)?;
 
     Ok(TimelineTarget {
         target_id: target_id.to_string(),
@@ -183,29 +135,20 @@ pub fn load_target(repo_root: &Path, target_id: &str) -> Result<TimelineTarget, 
         meta_corpus_id: meta_corpus_id.to_string(),
         slot_index,
         entries,
-        diff_dir,
-        manifest,
+        evidence,
     })
 }
 
-fn load_metadata(path: &Path, expected_sha256: &str, slot_index: u64) -> Result<Vec<DiffEntry>, String> {
-    let (hash, _) = sha256_file(path)?;
-    if hash != expected_sha256 {
-        return Err(format!(
-            "EVIDENCE DRIFT {}: sha256 {} != cataloged {}",
-            path.display(),
-            hash,
-            expected_sha256
-        ));
-    }
-    let text = fs::read_to_string(path).map_err(|e| format!("{}: {}", path.display(), e))?;
+/// Parse capture metadata (one JSON object per line) for a slot. Verification
+/// happens in the caller via `Evidence`; this is the pure format parse.
+fn parse_metadata(text: &str, slot_index: u64) -> Result<Vec<DiffEntry>, String> {
     let mut out = Vec::new();
     for line in text.lines() {
         if line.trim().is_empty() {
             continue;
         }
         let v: serde_json::Value =
-            serde_json::from_str(line).map_err(|e| format!("{}: {}", path.display(), e))?;
+            serde_json::from_str(line).map_err(|e| format!("metadata line: {}", e))?;
         if v["slotIndex"].as_u64() != Some(slot_index) {
             continue;
         }

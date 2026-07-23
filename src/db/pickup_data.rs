@@ -48200,7 +48200,7 @@ pub fn get_category_counts() -> Vec<(PickupCategory, usize)> {
 #[cfg(test)]
 mod tests {
     use super::WORLD_PICKUPS;
-    use crate::knowledge::gen_dungeon_pickups::source_from_catalog;
+    use crate::knowledge::gen_dungeon_pickups::source_xml;
     use std::collections::{HashMap, HashSet};
     use std::path::Path;
 
@@ -48222,9 +48222,13 @@ mod tests {
     #[test]
     fn test_event_flags_match_primary_source() {
         let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-        let src = match source_from_catalog(repo_root) {
-            Ok(p) if p.exists() => p,
-            _ => {
+        let xml = match source_xml(&[], repo_root) {
+            Ok((xml, _)) => xml,
+            // Present but drifted is a real failure — the point of verify-on-read.
+            Err(e) if e.contains("EVIDENCE DRIFT") => {
+                panic!("primary source drifted from the evidence catalog: {e}")
+            }
+            Err(_) => {
                 eprintln!(
                     "skip test_event_flags_match_primary_source: ItemLotParam_map extract \
                      absent (game-extracts corpus). Run where the evidence is present."
@@ -48232,7 +48236,6 @@ mod tests {
                 return;
             }
         };
-        let xml = std::fs::read_to_string(&src).expect("read source xml");
         let doc = roxmltree::Document::parse(&xml).expect("parse source xml");
 
         let mut by_row: HashMap<u32, u32> = HashMap::new();

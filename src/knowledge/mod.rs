@@ -16,6 +16,7 @@
 
 pub mod catalog;
 pub mod dump;
+pub mod evidence;
 pub mod family_distances;
 pub mod gen_dungeon_pickups;
 pub mod gen_world_pickups;

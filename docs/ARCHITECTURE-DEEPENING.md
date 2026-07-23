@@ -486,15 +486,26 @@ Also folded in: `timeline_flips.rs:49`'s `isolated_flips`, copied verbatim from
 1. **`&self` + memo needs interior mutability.** `Arc<[u8]>` returns with a
    `RefCell<HashMap<…>>` inside, or `&mut self` and thread the mutable borrow through?
    The former is nicer to call and slightly more machinery.
+   — **RESOLVED v0.37.10: `&self` + `RefCell`.** The five `cmd_*` readers hold one `Evidence`
+   and read many files without threading a mutable borrow; the byte cache and manifest cache
+   both sit behind `RefCell`.
 2. **Does `Evidence` verify eagerly or lazily?** `catalog-verify` wants every corpus;
    `grace-dump` wants one file. Lazy-per-file with a memo serves both; eager makes
    `catalog-verify` fall out for free.
+   — **RESOLVED v0.37.10: lazy-per-file with a memo.** `open` reads no evidence; each `bytes`
+   call verifies and caches. `catalog-verify` stays in `catalog.rs` (the integrity authority
+   `Evidence` trusts), so it did not need eager verification folded in.
 3. **`grace-dump` reads a user-supplied save, not evidence.** It should stay outside
    `Evidence` — but it should still not carry its own slot-slice arithmetic. Where does the
    slot slicer live: `Evidence`, the wasm crate, or a third place both use?
+   — **RESOLVED v0.37.10: a free `slot_slice` fn in `evidence.rs`.** Not the wasm crate (flag
+   geometry, not container structure) and not `save/` (the typed parser). `grace-dump` calls
+   it on its user bytes; `Evidence` and the pipeline call it on verified bytes.
 4. **Does `Claims` need to read as well as write?** `family_distances.rs:1444` reads
    `event-flags.json` back. A read side makes the schema symmetric and the consumer typed;
    it also doubles the module.
+   — **DECIDED (for C2): write-only.** The one tombstone read-back stays as-is; add a read
+   side only if a second consumer appears. (C2 not yet implemented.)
 
 ---
 
@@ -578,7 +589,7 @@ most demanding form.
 | 2 | ✅ **DONE** v0.37.7 — B2: `ResolvedFlags` + `FlagState` in the crate; five exports become adapters | — (parallel with 1) | medium; conformance suites unchanged |
 | 3 | ✅ **DONE** v0.37.8 — B1: migrated every reader to `FlagState`; deleted `GraceStatus`; fixed `ui/events.rs` detail panel + two `comparison_view` defects | 1, 2 | medium; touched every view that reads a flag |
 | 3b | ✅ **DONE** v0.37.9 — B3: deleted the five deprecated free readers; re-expressed `origin_conformance` against the `*_state` exports and rewrote `resolved_flags_conformance` (exact-bit round-trip replaces old-vs-new comparison); relocated the overlap-band note to `ResolvedFlags::dungeon_pickup` | 3 | small |
-| 4 | C1 — `Evidence`; delete six duplicate loaders; close the `gen_*` hash gap | 1 | medium |
+| 4 | ✅ **DONE** v0.37.10 — C1: `Evidence` seam (`bytes`/`sha256`/`slot_slice`/`read_verified`); migrated all six hand-rolled loaders + the file-corpus loop + `dump`; fixed both drifted sites (missing-corpus silent `continue` → hard error; `gen_*` primary source now verified against the manifest). Behaviour-preserving — every knowledge command byte-identical | 1 | medium |
 | 5 | C2 — `Claims` + `Status`; regenerate the four under-provenanced files | 4 | medium; one generated-output commit |
 | 6 | C3 — split `family_distances.rs` | 4, 5 | small once 4 and 5 land |
 | 7 | D — decide, then possibly do | 1, 3 | large |

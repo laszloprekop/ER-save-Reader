@@ -19,6 +19,8 @@
 use std::collections::{BTreeMap, HashMap};
 use std::path::{Path, PathBuf};
 
+use super::evidence::Evidence;
+
 /// (area number, display name). Single source for both `get_dungeon_area_name`
 /// and each entry's `region`, so they cannot disagree.
 const AREA_NAMES: &[(u32, &str)] = &[
@@ -246,45 +248,45 @@ pub struct DungeonPickup {{\n\
     )
 }
 
-/// Resolve the primary-source XML path: an explicit argument, or the
-/// `game-extracts` corpus location from the evidence catalog.
-pub fn resolve_source(args: &[String]) -> Result<PathBuf, String> {
-    if let Some(p) = args.iter().find(|a| !a.starts_with("--")) {
-        return Ok(PathBuf::from(p));
-    }
-    source_from_catalog(&std::env::current_dir().map_err(|e| e.to_string())?)
-}
+/// Evidence-catalog coordinates of the primary source, shared with the
+/// world-pickup generator (the two tables partition the same `ItemLotParam_map`).
+pub(super) const ITEMLOT_CORPUS: &str = "game-extracts";
+pub(super) const ITEMLOT_REL: &str = "regulation-bin/ItemLotParam_map.param.xml";
 
-/// `<decompiled root>/regulation-bin/ItemLotParam_map.param.xml` from the catalog.
-pub fn source_from_catalog(repo_root: &Path) -> Result<PathBuf, String> {
-    let text = std::fs::read_to_string(repo_root.join("knowledge/evidence-catalog.json"))
-        .map_err(|e| format!("read catalog: {e}"))?;
-    let cat: serde_json::Value =
-        serde_json::from_str(&text).map_err(|e| format!("catalog parse: {e}"))?;
-    let root = cat["roots"]["decompiled"]
-        .as_str()
-        .ok_or("catalog: roots.decompiled missing")?;
-    Ok(Path::new(root).join("regulation-bin/ItemLotParam_map.param.xml"))
+/// The primary-source XML and a provenance label for the run message.
+///
+/// An explicit path argument overrides and is read as-is — the caller's
+/// evidence, the caller's responsibility. Otherwise the `game-extracts` corpus
+/// copy, read through `Evidence` and so VERIFIED against the evidence manifest:
+/// a drifted extract is a hard error. This is what pins generator INPUT to the
+/// catalog. Without it the generated tables were pinned (by their round-trip
+/// tests) to a source that was itself unpinned — read straight off
+/// `roots.decompiled` with no sha256 check, the gap this closes.
+pub fn source_xml(args: &[String], repo_root: &Path) -> Result<(String, String), String> {
+    if let Some(p) = args.iter().find(|a| !a.starts_with("--")) {
+        let xml = std::fs::read_to_string(p).map_err(|e| format!("read {p}: {e}"))?;
+        return Ok((xml, p.clone()));
+    }
+    let ev = Evidence::open(repo_root)?;
+    let bytes = ev.bytes(ITEMLOT_CORPUS, ITEMLOT_REL)?;
+    let xml = String::from_utf8(bytes.to_vec())
+        .map_err(|e| format!("{ITEMLOT_REL}: not utf-8: {e}"))?;
+    Ok((xml, format!("{ITEMLOT_CORPUS}:{ITEMLOT_REL}")))
 }
 
 pub fn cmd_gen_dungeon_pickups(args: &[String]) -> Result<(), String> {
-    let src_path = resolve_source(args)?;
+    let repo_root = std::env::current_dir().map_err(|e| e.to_string())?;
+    let (xml, provenance) = source_xml(args, &repo_root)?;
     let out = args
         .windows(2)
         .find(|w| w[0] == "--out")
         .map(|w| PathBuf::from(&w[1]))
         .unwrap_or_else(|| PathBuf::from("src/db/dungeon_pickups.rs"));
 
-    let xml = std::fs::read_to_string(&src_path)
-        .map_err(|e| format!("read {}: {e}", src_path.display()))?;
     let generated = generate(&xml)?;
     let count = generated.matches("DungeonPickup {").count().saturating_sub(1);
     std::fs::write(&out, &generated).map_err(|e| format!("write {}: {e}", out.display()))?;
-    println!(
-        "wrote {} ({count} dungeon pickups) from {}",
-        out.display(),
-        src_path.display()
-    );
+    println!("wrote {} ({count} dungeon pickups) from {}", out.display(), provenance);
     Ok(())
 }
 
@@ -299,9 +301,13 @@ mod tests {
     #[test]
     fn committed_table_matches_generator() {
         let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-        let src = match source_from_catalog(repo_root) {
-            Ok(p) if p.exists() => p,
-            _ => {
+        let xml = match source_xml(&[], repo_root) {
+            Ok((xml, _)) => xml,
+            // Present but drifted is a real failure — that is the gap this closes.
+            Err(e) if e.contains("EVIDENCE DRIFT") => {
+                panic!("primary source drifted from the evidence catalog: {e}")
+            }
+            Err(_) => {
                 eprintln!(
                     "skip committed_table_matches_generator: ItemLotParam_map extract absent \
                      (game-extracts corpus). Run where the evidence is present to check drift."
@@ -309,7 +315,6 @@ mod tests {
                 return;
             }
         };
-        let xml = std::fs::read_to_string(&src).expect("read source xml");
         let generated = generate(&xml).expect("generate");
         let committed = std::fs::read_to_string(repo_root.join("src/db/dungeon_pickups.rs"))
             .expect("read committed table");
