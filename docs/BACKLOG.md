@@ -1187,29 +1187,54 @@ This is the single location for all planned work, remaining gaps, and deferred i
 
 ## Priority 2: Event Flag Verification
 
-### Finish the resolver cutover for the simple-event-flag cluster (found 2026-07-23)
-- **Context**: graces were cut over to the per-save resolver (`ResolvedFlags::world_state`)
-  on 2026-07-20; whetblades followed on 2026-07-23 (v0.37.18). The rest of the cluster in
-  `EventsViewModel::from_event_flags` (`src/vm/events.rs`) still reads the frozen
-  `get_flag_offset` block base — the same latent bug the whetblade fix removed.
-- **Still on the frozen path**: cookbooks, maps, bosses, summoning pools, colosseums, landmarks.
-- **NOT a blind copy**: route each table to the *correct* family. Cookbooks are world-state
-  block flags (67xxx → `world_state`) like whetblades; bosses split by id width into
-  10-digit tile (`tile_world`) and 8-digit legacy (`dungeon`); the others need their ranges
-  checked before routing.
-- **Guard to add**: nothing stops the VM layer from reading frozen block bases the way
-  ADR-0008 stops the wasm crate. A conformance test that fails if `from_event_flags` sources
-  a position from `get_flag_offset` would prevent regrowth.
+### Resolver cutover for the simple-event-flag cluster — DONE (except summoning pools) 2026-07-23
+- **Context**: graces were cut over to the per-save resolver on 2026-07-20; whetblades
+  followed in v0.37.18. The rest of the cluster in `EventsViewModel::from_event_flags`
+  (`src/vm/events.rs`) then moved off the frozen `get_flag_offset` block base via the new
+  `world_flag_state` router (`src/db/pickup_flags.rs`, the world-semantics sibling of
+  `pickup_state`: same id→family ranges, but `tile_world`/`dungeon` not the `_pickup` readers).
+- **Migrated & verified** against ER0000.sl2 slot 5 (frozen→new set counts): cookbooks 13→38,
+  maps 4→18, bosses 6→57 (demigods Godrick+Rennala match the owned remembrances/runes),
+  colosseums 1→1, landmarks 80→135. World-state-dominated tables share the proven
+  whetblade/grace mechanism; bosses match `grace-dump`'s already-trusted tile/dungeon split.
+
+### Summoning pool flag family is unidentified (found 2026-07-23)
+- **Symptom**: summoning pools are the ONE cluster table left on... nothing — they now read
+  not-discovered unconditionally. On slot 5 the frozen path found 7 set; routing through
+  `world_flag_state` found 0 (158 Clear, 2 Unknown).
+- **Cause**: their flags (120 are 8-digit like `10000040`, 42 are 10-digit) do not parse as
+  valid map-encoded dungeon flags — the resolver *places* them at a bogus slot and reads a
+  false Clear instead of refusing. Neither reader is trustworthy, so per ADR-0008 they are
+  read as not-discovered rather than guessed (`src/vm/events.rs`, summoning-pool loop).
+- **Next**: identify the real family via the multi-slot differential (a save with pools known
+  activated vs not), then route them like the rest. Until then the page under-reports.
+
+### Guard: the VM can still read frozen block bases (found 2026-07-23)
+- Nothing stops `src/vm/events.rs` from calling `get_flag_offset` (frozen legacy store) the
+  way ADR-0008's `export_shape_conformance` stops the wasm crate. A conformance test that
+  fails if `from_event_flags` sources a position from `get_flag_offset` would prevent the
+  cluster from regrowing the bug under a new table. **Generic** — applies to any future VM
+  flag read.
 
 ### Great-rune verification uses unreadable world-drop flags (found 2026-07-23)
 - **Symptom**: the 171-177 Remembrance/Great-Rune pairs show as false-negatives ("in
   inventory but flag not detected") in the Verification tab.
 - **Cause**: `src/db/inventory_verification.rs` maps them to the shardbearer *world-drop*
-  flags (171-177), which are <50k simple flags no resolver family covers, so they read via
-  the broken `get_flag_offset` `<60000` branch (`byte = flag/8`, no per-save base). NOT a
-  flag *collision* — each boss legitimately drops both items on the same flag.
-- **Fix path**: re-point each pair to the boss *defeat* flag (e.g. Rennala `14000800`), which
-  the resolver reads via `dungeon(...)`. Design change across the 171-177 set.
+  flags (171-177), which are <50k. The inventory-verification reader
+  `collect_set_flags` (`src/ui/events.rs`) routes every unique-item flag through
+  `pickup_state`, whose lowest family is world-state at 50,000 — so a <50k id returns
+  Unknown and the item reads not-detected. NOT a flag *collision*: each boss legitimately
+  drops both items on the same flag.
+- **Why it is not a 14-line remap** (investigated 2026-07-23): the obvious fix — re-point
+  each pair to the boss *defeat* flag (e.g. Rennala `14000800`) — does not work through this
+  reader. Defeat flags are dungeon/tile **world** flags, but `pickup_state` would route
+  `14000800` to `dungeon_pickup` (the pickup family, wrong: localId 800 < 7000), and a
+  10-digit defeat flag is ambiguous with the pickup tile family — the exact value-routing
+  CLAUDE.md forbids. A correct fix needs **per-item family metadata** on `UNIQUE_ITEMS`
+  (a `family` field populated for all ~141 items) so `collect_set_flags` can pick
+  `pickup_state` vs `world_flag_state` per item. That is a verification-subsystem change
+  with its own multi-item verification burden — a separate effort, not folded into the
+  v0.37.18/19 cluster cutover.
 
 ### Boss Flag Verification Improvement
 - **Current**: Great Boss 9.6%, Field Boss 4.3%, Generic Boss 13.8% verified

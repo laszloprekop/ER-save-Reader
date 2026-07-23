@@ -2,7 +2,7 @@ pub mod events_view_model {
     use std::collections::BTreeMap;
     use wasm_event_flags::{FlagState, ResolvedFlags};
 
-    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::get_flag_offset}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
+    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::world_flag_state}, save::common::save_slot::SaveSlot, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
 
     /// Progression gates for late-game graces (76400+).
     /// Only show graces if prerequisite bosses are defeated.
@@ -305,75 +305,46 @@ pub mod events_view_model {
                 events_vm.whetblades.insert(*key, on);
             }
 
-            // Cookbooks
+            // The rest of the cluster followed whetblades off the frozen block
+            // base and onto the per-save resolver on 2026-07-23. `world_flag_state`
+            // routes each id to its Flag Family (world-state / tile-world / dungeon)
+            // and resolves the base per save; Set → discovered, Clear/Unknown → not.
+            // Cookbooks and colosseums are pure world-state block flags; maps,
+            // bosses, summoning pools and landmarks mix families, which the router
+            // handles by id range. (Whetblades above still call `world_state`
+            // directly — same result for the 65k block; left as the diagnosed case.)
+            let read = |flag_id: u32| {
+                resolved
+                    .as_ref()
+                    .map_or(FlagState::Unknown, |r| world_flag_state(r, flag_id))
+                    == FlagState::Set
+            };
+
             for (key, value) in COOKBOKS.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.cookbooks.insert(*key, on);
-                    }
-                }
+                events_vm.cookbooks.insert(*key, read(value.0));
             }
-
-            // Maps
             for (key, value) in MAPS.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.maps.insert(*key, on);
-                    }
-                }
+                events_vm.maps.insert(*key, read(value.0));
             }
-
-            // Bosses
             for (key, value) in BOSSES.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.bosses.insert(*key, on);
-                    }
-                }
+                events_vm.bosses.insert(*key, read(value.0));
             }
-
-            // Summoning Pools
-            for (key, value) in SUMMONING_POOLS.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.summoning_pools.insert(*key, on);
-                    }
-                }
+            // Summoning pools are deliberately NOT routed. Their flags (120 are
+            // 8-digit like 10000040, 42 are 10-digit) verify against neither reader:
+            // on slot 5 the frozen path found 7 set, the resolver's dungeon/tile
+            // routing found 0, and ids like 10000040 do not parse as valid
+            // map-encoded dungeon flags — the resolver *places* them at a bogus slot
+            // and reads a false Clear rather than refusing. Until the family is
+            // identified (BACKLOG: "Summoning pool flag family is unidentified"),
+            // read them as not-discovered rather than guess a family (ADR-0008).
+            for (key, _value) in SUMMONING_POOLS.lock().unwrap().iter() {
+                events_vm.summoning_pools.insert(*key, false);
             }
-
-            // Colosseums
             for (key, value) in COLOSSEUMS.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.colosseums.insert(*key, on);
-                    }
-                }
+                events_vm.colosseums.insert(*key, read(value.0));
             }
-
-            // Landmarks
             for (key, value) in LANDMARKS.lock().unwrap().iter() {
-                let flag_id = value.0;
-                if let Some((byte_offset, bit_position)) = get_flag_offset(flag_id) {
-                    if (byte_offset as usize) < ef.len() {
-                        let on = get_bit(ef[byte_offset as usize], bit_position);
-                        events_vm.landmarks.insert(*key, on);
-                    } else {
-                        events_vm.landmarks.insert(*key, false);
-                    }
-                } else {
-                    // Flag not in formula ranges, default to false (not discovered)
-                    events_vm.landmarks.insert(*key, false);
-                }
+                events_vm.landmarks.insert(*key, read(value.0));
             }
 
             events_vm

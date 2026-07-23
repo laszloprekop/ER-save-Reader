@@ -7,6 +7,43 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.19 - Finish the event-flag reader cutover (all cluster tables but summoning pools)
+
+Follow-up to v0.37.18. The rest of the `EventsViewModel::from_event_flags` cluster still read
+the frozen `get_flag_offset` block base that broke whetblades; they now resolve per save.
+
+New `world_flag_state` router in `src/db/pickup_flags.rs` — the world-semantics sibling of
+`pickup_state`: same id→family ranges, but `tile_world`/`dungeon` rather than the `_pickup`
+readers, because these tables mean "boss defeated / area discovered", never "item picked up".
+It holds no base table (delegates to the per-save `ResolvedFlags`), so it does not reintroduce
+the frozen `flag_id → offset` model (ADR-0008).
+
+Migrated and verified against ER0000.sl2 slot 5 (frozen → resolved set counts): cookbooks
+13→38, maps 4→18, bosses 6→57 (demigods Godrick + Rennala match the owned remembrances/runes),
+colosseums 1→1, landmarks 80→135.
+
+**Summoning pools deliberately NOT migrated.** Their flags (120 are 8-digit like 10000040, 42
+are 10-digit) verify against neither reader — frozen found 7 set, the resolver 0 — and ids
+like 10000040 do not parse as valid map-encoded dungeon flags, so the resolver places them at
+a bogus slot and reads a false Clear. Per ADR-0008 they now read not-discovered rather than
+guess a family. Family investigation recorded in BACKLOG.
+
+Also: a conformance guard (`tests/regression_suite.rs`) fails if `src/vm/events.rs` calls
+`get_flag_offset(` again, so the reader cluster cannot regrow the frozen-offset bug under a new
+table; and the now-dead `get_bit` helper (its last caller was the frozen path) is deleted.
+
+Follow-up investigated and deferred (BACKLOG): the 171-177 great-rune verification mappings
+need per-item family metadata on `UNIQUE_ITEMS`, not a flag swap — `pickup_state` cannot read
+boss-defeat flags without reintroducing the tile/pickup ambiguity.
+
+### Files Modified
+- src/db/pickup_flags.rs: `world_flag_state` router (sibling of `pickup_state`)
+- src/vm/events.rs: cookbooks/maps/bosses/colosseums/landmarks → resolver; summoning pools read not-discovered pending family id
+- tests/regression_suite.rs: guard against `get_flag_offset(` in the events reader
+- src/util/bit.rs: delete dead `get_bit`
+- docs/BACKLOG.md: cluster cutover done; summoning-pool + 171-177 + VM-guard items
+- Cargo.toml: bumped to 0.37.19
+
 ## v0.37.18 - Whetblades read from the resolved Origin, not the frozen block base
 
 The whetblade page was left on the legacy `get_flag_offset` path when graces were cut over to

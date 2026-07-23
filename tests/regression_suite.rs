@@ -245,3 +245,30 @@ fn test_discoveries_schema() {
     assert!(parsed.get("metadata").is_some(), "Should have metadata section");
     assert!(parsed.get("discoveries").is_some(), "Should have discoveries section");
 }
+
+/// The event-flag reader cluster must resolve flag positions per save, never read
+/// the frozen legacy offsets.
+///
+/// `get_flag_offset` (src/db/pickup_flags.rs) sources positions from the frozen
+/// `ground_truth_offsets.json`, valid only for the save they were measured on. A
+/// reader table that calls it reads the wrong bytes on every other save — that was
+/// the whetblade bug (v0.37.18), where a level-112 character's three whetblades
+/// read as two by coincidence. Graces, whetblades, cookbooks, maps, bosses,
+/// colosseums and landmarks now route through `ResolvedFlags` / `world_flag_state`.
+///
+/// This guards `EventsViewModel::from_event_flags` against regrowing that call when
+/// a new flag table is added. It scans for the call syntax `get_flag_offset(`, so
+/// prose mentions of the name in comments do not trip it. (The dormant
+/// `#[cfg(feature = "save-writeback")]` write path in vm/vm.rs is out of scope —
+/// ADR-0009 — and lives in a different file.)
+#[test]
+fn vm_events_reader_does_not_use_frozen_offsets() {
+    let src = fs::read_to_string("src/vm/events.rs")
+        .expect("Should be able to read src/vm/events.rs");
+    assert!(
+        !src.contains("get_flag_offset("),
+        "src/vm/events.rs calls get_flag_offset(...): event-flag reader tables must \
+         resolve positions per save via ResolvedFlags / world_flag_state, not the \
+         frozen legacy store (ADR-0006/0008; see the v0.37.18 whetblade fix)."
+    );
+}

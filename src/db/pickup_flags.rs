@@ -806,6 +806,27 @@ pub fn pickup_state(flags: &ResolvedFlags, flag_id: u32) -> FlagState {
     }
 }
 
+/// Route a WORLD-state flag (not a pickup) to its Flag Family and read it from an
+/// already-resolved region. The sibling of `pickup_state`: same id→family ranges,
+/// but the world-semantics readers — `tile_world`/`dungeon`, not the `_pickup`
+/// variants — because the callers (event-flag tables: bosses, maps, summoning
+/// pools, colosseums, landmarks, cookbooks, whetblades) mean "boss defeated /
+/// grace lit / area discovered", never "item picked up".
+///
+/// The tile/pickup ambiguity CLAUDE.md warns about (a bare 10-digit id fits both
+/// families, 500 bytes apart) is resolved HERE by the caller's semantics: these
+/// tables are world flags, so a 10-digit id is `tile_world`. Like `pickup_state`
+/// this holds no base table — it delegates to the per-save `ResolvedFlags`, so it
+/// does not reintroduce the frozen `flag_id → offset` model (ADR-0008).
+pub fn world_flag_state(flags: &ResolvedFlags, flag_id: u32) -> FlagState {
+    match flag_id {
+        1_000_000_000..=1_999_999_999 => flags.tile_world(flag_id),
+        10_000_000..=999_999_999 => flags.dungeon(flag_id),
+        50_000..=79_999 => flags.world_state(flag_id),
+        _ => FlagState::Unknown,
+    }
+}
+
 /// Check if an event flag is set and return verification status
 /// Returns (is_set, verification_status)
 ///
