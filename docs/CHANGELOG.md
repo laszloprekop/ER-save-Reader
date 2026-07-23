@@ -7,6 +7,37 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.13 - Workstream D1: extract `ScreenState` off `EventsViewModel`
+
+Workstream D of the architecture-deepening plan was taken up (A, B, C having landed through
+v0.37.12) and its three open questions settled by decision on 2026-07-23: `Character` **borrows**
+(B already proved the lifetime is free), `ScreenState` is **per slot** (`[ScreenState; 0xA]`,
+preserving today's per-slot filter/sort behaviour), and `verification_vm` is **screen state**
+(keeping its lazy per-slot loading unchanged). D lands in two stages; this is **D1**, the
+mechanical first half.
+
+### `ScreenState`
+
+`EventsViewModel` held 21 fields — nine reconstructed data maps tangled with twelve of pure egui
+widget state. The twelve (`current_route`, `world_pickups_filter`, `dungeon_pickups_filter`,
+`verification_vm`, and the eight `*_view_state` structs) move into a new `ScreenState`
+(`src/vm/screen_state.rs`), carried per slot on `SlotViewModel`. `EventsViewModel` keeps only the
+nine data maps, so the reconstruction is no longer wrapped in the widget state that surrounded it
+— the seam D2 needs to introduce `Character` against.
+
+Behaviour-preserving: `ScreenState` is per slot exactly as the fields were, so each slot keeps its
+own filters/sorts/selection and the `verification_loaded_slots` lazy-load path is untouched. Pure
+field relocation — no read model or flag logic changed.
+
+### Files Modified
+- src/vm/screen_state.rs: new — `ScreenState` (the twelve widget fields) + `Default`
+- src/vm/events.rs: `EventsViewModel` reduced to the nine data maps; dropped the widget fields, their `Default` lines, and the now-unused `VerificationViewModel` import
+- src/vm/slot.rs: `SlotViewModel` gains `screen_state: ScreenState`
+- src/vm/mod.rs: register `screen_state`
+- src/app.rs, src/ui/events.rs, src/ui/menu.rs: 41 access sites `events_vm.<widget>` → `screen_state.<widget>`
+- docs/ARCHITECTURE-DEEPENING.md: D marked decided; open questions settled; sequence table split into 7a/7b
+- Cargo.toml: bumped to 0.37.13
+
 ## v0.37.12 - Split `family_distances.rs`: `origin_model` + thin command adapters
 
 Workstream C3, the last of the architecture-deepening plan's workstream C. `family_distances.rs`

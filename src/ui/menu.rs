@@ -242,7 +242,7 @@ pub mod menu {
             else {
                 if ui.selectable_label(false, char_name).clicked() {
                     app.current_route = Route::CharacterGeneral;
-                    app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
+                    app.vm.slots[app.vm.index].screen_state.current_route = EventsRoute::None;
                 }
 
                 ui.label(caret);
@@ -251,7 +251,7 @@ pub mod menu {
 
                 // Level 4: Area view (not EventFlags or EventFlags without subroute)
                 if matches!(app.current_route, Route::CharacterEventFlags) {
-                    let events_route = &app.vm.slots[app.vm.index].events_vm.current_route;
+                    let events_route = &app.vm.slots[app.vm.index].screen_state.current_route;
                     let subroute_name = events_route.display_name();
 
                     if subroute_name.is_empty() {
@@ -260,7 +260,7 @@ pub mod menu {
                     } else {
                         // Level 5: Has subroute - area name is clickable
                         if ui.selectable_label(false, area_name).clicked() {
-                            app.vm.slots[app.vm.index].events_vm.current_route = EventsRoute::None;
+                            app.vm.slots[app.vm.index].screen_state.current_route = EventsRoute::None;
                         }
                         ui.label(caret);
                         ui.label(egui::RichText::new(subroute_name).strong());
@@ -406,12 +406,12 @@ pub mod menu {
             ("Verification", EventsRoute::Verification),
         ];
 
-        let current_subroute = app.vm.slots[app.vm.index].events_vm.current_route.clone();
+        let current_subroute = app.vm.slots[app.vm.index].screen_state.current_route.clone();
 
         for (label, route) in subroute_buttons {
             let is_selected = std::mem::discriminant(&current_subroute) == std::mem::discriminant(&route);
             if ui.selectable_label(is_selected, label).clicked() {
-                app.vm.slots[app.vm.index].events_vm.current_route = route;
+                app.vm.slots[app.vm.index].screen_state.current_route = route;
             }
         }
     }

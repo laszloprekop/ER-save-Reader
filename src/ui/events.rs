@@ -17,9 +17,9 @@ pub mod events {
 
     pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
         // Right sidebar for flag details (only show when a flag is selected in world/dungeon pickups)
-        let selected_flag = match vm.slots[vm.index].events_vm.current_route {
-            EventsRoute::WorldPickups => vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id,
-            EventsRoute::DungeonPickups => vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id,
+        let selected_flag = match vm.slots[vm.index].screen_state.current_route {
+            EventsRoute::WorldPickups => vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id,
+            EventsRoute::DungeonPickups => vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id,
             _ => None,
         };
 
@@ -37,7 +37,7 @@ pub mod events {
             .id_salt("events_content")
             .auto_shrink(false)
             .show(ui, |ui| {
-                match vm.slots[vm.index].events_vm.current_route {
+                match vm.slots[vm.index].screen_state.current_route {
                     EventsRoute::None => {
                         ui.centered_and_justified(|ui| {
                             ui.label("Select an Event Flags category from the navigation bar above");
@@ -63,7 +63,7 @@ pub mod events {
                         }
 
                         // Existing flag verification view
-                        verification_view(ui, &mut vm.slots[vm.index].events_vm.verification_vm);
+                        verification_view(ui, &mut vm.slots[vm.index].screen_state.verification_vm);
                     },
                 }
             });
@@ -80,7 +80,7 @@ pub mod events {
 
     fn graces(ui: &mut Ui, vm: &mut ViewModel) {
         let graces_data = &vm.slots[vm.index].events_vm.graces;
-        let state = &mut vm.slots[vm.index].events_vm.graces_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.graces_view_state;
 
         // Build region filter options
         let map_name_lock = MAP_NAME.lock().unwrap();
@@ -310,7 +310,7 @@ pub mod events {
 
     fn whetblades(ui: &mut Ui, vm: &mut ViewModel) {
         let whetblades_data = &vm.slots[vm.index].events_vm.whetblades;
-        let state = &mut vm.slots[vm.index].events_vm.whetblades_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.whetblades_view_state;
 
         let whetblades_lookup = WHETBLADES.lock().unwrap();
 
@@ -327,7 +327,7 @@ pub mod events {
 
     fn cookbooks(ui: &mut Ui, vm: &mut ViewModel) {
         let cookbooks_data = &vm.slots[vm.index].events_vm.cookbooks;
-        let state = &mut vm.slots[vm.index].events_vm.cookbooks_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.cookbooks_view_state;
 
         let cookbooks_lookup = COOKBOKS.lock().unwrap();
 
@@ -344,7 +344,7 @@ pub mod events {
 
     fn maps(ui: &mut Ui, vm: &mut ViewModel) {
         let maps_data = &vm.slots[vm.index].events_vm.maps;
-        let state = &mut vm.slots[vm.index].events_vm.maps_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.maps_view_state;
 
         let maps_lookup = MAPS.lock().unwrap();
 
@@ -361,7 +361,7 @@ pub mod events {
 
     fn bosses(ui: &mut Ui, vm: &mut ViewModel) {
         let bosses_data = &vm.slots[vm.index].events_vm.bosses;
-        let state = &mut vm.slots[vm.index].events_vm.bosses_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.bosses_view_state;
 
         let bosses_lookup = BOSSES.lock().unwrap();
 
@@ -378,7 +378,7 @@ pub mod events {
 
     fn summoning_pools(ui: &mut Ui, vm: &mut ViewModel) {
         let pools_data = &vm.slots[vm.index].events_vm.summoning_pools;
-        let state = &mut vm.slots[vm.index].events_vm.summoning_pools_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.summoning_pools_view_state;
 
         let pools_lookup = SUMMONING_POOLS.lock().unwrap();
 
@@ -395,7 +395,7 @@ pub mod events {
 
     fn colosseums(ui: &mut Ui, vm: &mut ViewModel) {
         let colosseums_data = &vm.slots[vm.index].events_vm.colosseums;
-        let state = &mut vm.slots[vm.index].events_vm.colosseums_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.colosseums_view_state;
 
         let colosseums_lookup = COLOSSEUMS.lock().unwrap();
 
@@ -412,7 +412,7 @@ pub mod events {
 
     fn landmarks_view(ui: &mut Ui, vm: &mut ViewModel) {
         let landmarks_data = &vm.slots[vm.index].events_vm.landmarks;
-        let state = &mut vm.slots[vm.index].events_vm.landmarks_view_state;
+        let state = &mut vm.slots[vm.index].screen_state.landmarks_view_state;
 
         let landmarks_lookup = LANDMARKS.lock().unwrap();
 
@@ -753,7 +753,7 @@ pub mod events {
     }
 
     fn world_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>) {
-        let filter = &mut vm.slots[vm.index].events_vm.world_pickups_filter;
+        let filter = &mut vm.slots[vm.index].screen_state.world_pickups_filter;
 
         // Build region filter options
         let mut regions: Vec<&str> = WORLD_PICKUPS.iter()
@@ -902,7 +902,7 @@ pub mod events {
             .collect();
 
         // Apply sorting
-        let table_state = &vm.slots[vm.index].events_vm.world_pickups_filter.table_state;
+        let table_state = &vm.slots[vm.index].screen_state.world_pickups_filter.table_state;
         if let Some(sort_col) = &table_state.sort_column {
             let asc = table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
@@ -937,7 +937,7 @@ pub mod events {
         spacing::space_sm(ui);
 
         // Build row data with status colors
-        let selected_flag_id = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id;
+        let selected_flag_id = vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id;
         let rows: Vec<RowData> = pickups.iter().map(|(pickup, state, inv_status)| {
             let flag_str = match state {
                 FlagState::Unknown => icons::MISMATCH,
@@ -1019,7 +1019,7 @@ pub mod events {
         ]);
 
         // Show table
-        let table_state = &mut vm.slots[vm.index].events_vm.world_pickups_filter.table_state;
+        let table_state = &mut vm.slots[vm.index].screen_state.world_pickups_filter.table_state;
         let table_response = UnifiedTable::new("char_world_pickups_table", table_state)
             .columns(columns)
             .rows(rows)
@@ -1033,10 +1033,10 @@ pub mod events {
         }
 
         // Handle row selection for details panel
-        if table_response.sort_changed || vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selection_count() == 1 {
-            if let Some(&idx) = vm.slots[vm.index].events_vm.world_pickups_filter.table_state.selected_rows.iter().next() {
+        if table_response.sort_changed || vm.slots[vm.index].screen_state.world_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = vm.slots[vm.index].screen_state.world_pickups_filter.table_state.selected_rows.iter().next() {
                 if let Some((pickup, _, _)) = pickups.get(idx) {
-                    vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                    vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
         }
@@ -1065,7 +1065,7 @@ pub mod events {
 
         // Handle export
         if export_response.export_clicked || export_response.copy_clicked {
-            let content = build_world_pickups_export(&pickups, &vm.slots[vm.index].events_vm.world_pickups_filter.export_format);
+            let content = build_world_pickups_export(&pickups, &vm.slots[vm.index].screen_state.world_pickups_filter.export_format);
 
             if export_response.copy_clicked {
                 ui.output_mut(|o| o.copied_text = content);
@@ -1169,7 +1169,7 @@ pub mod events {
     fn dungeon_pickups(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>) {
         use crate::db::dungeon_pickups::DungeonPickup;
 
-        let filter = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter;
+        let filter = &mut vm.slots[vm.index].screen_state.dungeon_pickups_filter;
 
         // Build dungeon filter options
         let mut dungeons: Vec<&str> = DUNGEON_PICKUPS.iter()
@@ -1329,7 +1329,7 @@ pub mod events {
             .collect();
 
         // Apply sorting
-        let table_state = &vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state;
+        let table_state = &vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state;
         if let Some(sort_col) = &table_state.sort_column {
             let asc = table_state.sort_direction == SortDirection::Ascending;
             match sort_col.as_str() {
@@ -1378,7 +1378,7 @@ pub mod events {
         spacing::space_sm(ui);
 
         // Build row data
-        let selected_flag_id = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id;
+        let selected_flag_id = vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id;
         let rows: Vec<RowData> = items.iter().map(|(pickup, dungeon_name, state)| {
             let status_icon = match state {
                 FlagState::Unknown => icons::MISMATCH,
@@ -1419,7 +1419,7 @@ pub mod events {
         ];
 
         // Show table
-        let table_state = &mut vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state;
+        let table_state = &mut vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state;
         let table_response = UnifiedTable::new("dungeon_pickups_table", table_state)
             .columns(columns)
             .rows(rows)
@@ -1433,10 +1433,10 @@ pub mod events {
         }
 
         // Handle row selection for details panel
-        if table_response.sort_changed || vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selection_count() == 1 {
-            if let Some(&idx) = vm.slots[vm.index].events_vm.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
+        if table_response.sort_changed || vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state.selection_count() == 1 {
+            if let Some(&idx) = vm.slots[vm.index].screen_state.dungeon_pickups_filter.table_state.selected_rows.iter().next() {
                 if let Some((pickup, _, _)) = items.get(idx) {
-                    vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
+                    vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id = Some(pickup.event_flag);
                 }
             }
         }
@@ -1685,9 +1685,9 @@ pub mod events {
         // a `(bool, _)` pair here, which rendered Unknown as "NOT COLLECTED" — the
         // exact collapse this migration removes. `Unknown` is the default when no
         // flag is selected, which never reaches the status display.
-        let (selected_flag_id, flag_name, state, is_world_pickup) = match vm.slots[vm.index].events_vm.current_route {
+        let (selected_flag_id, flag_name, state, is_world_pickup) = match vm.slots[vm.index].screen_state.current_route {
             EventsRoute::WorldPickups => {
-                if let Some(flag_id) = vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id {
+                if let Some(flag_id) = vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id {
                     // Find the pickup data for this flag
                     let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
@@ -1702,7 +1702,7 @@ pub mod events {
                 }
             }
             EventsRoute::DungeonPickups => {
-                if let Some(flag_id) = vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id {
+                if let Some(flag_id) = vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id {
                     // Find the dungeon pickup data for this flag
                     let pickup = DUNGEON_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
@@ -1738,9 +1738,9 @@ pub mod events {
             if ui.small_button("✕").clicked() {
                 // Clear selection
                 if is_world_pickup {
-                    vm.slots[vm.index].events_vm.world_pickups_filter.selected_flag_id = None;
+                    vm.slots[vm.index].screen_state.world_pickups_filter.selected_flag_id = None;
                 } else {
-                    vm.slots[vm.index].events_vm.dungeon_pickups_filter.selected_flag_id = None;
+                    vm.slots[vm.index].screen_state.dungeon_pickups_filter.selected_flag_id = None;
                 }
             }
         });

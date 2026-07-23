@@ -2,7 +2,7 @@ pub mod events_view_model {
     use std::collections::BTreeMap;
     use wasm_event_flags::{FlagState, ResolvedFlags};
 
-    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::get_flag_offset}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, vm::verification_vm::VerificationViewModel, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
+    use crate::{db::{bosses::bosses::{Boss, BOSSES}, colosseums::colosseums::{Colosseum, COLOSSEUMS}, cookbooks::books::{Cookbook, COOKBOKS}, graces::maps::{Grace, GRACES}, landmarks::landmarks::{Landmark, LANDMARKS}, map_name::map_name::{MapName, MAP_NAME}, maps::maps::{Map, MAPS}, summoning_pools::summoning_pools::{SummoningPool, SUMMONING_POOLS}, whetblades::whetblades::{Whetblade, WHETBLADES}, pickup_flags::get_flag_offset}, save::common::save_slot::SaveSlot, util::bit::bit::get_bit, ui::components::{table::{TableState, SortDirection}, filter::FilterBarState, export::ExportFormat}};
 
     /// Progression gates for late-game graces (76400+).
     /// Only show graces if prerequisite bosses are defeated.
@@ -206,9 +206,12 @@ pub mod events_view_model {
         }
     }
 
+    /// The nine reconstructed data maps for one slot's event flags. Widget state
+    /// (navigation, filters, sorts, the verification view) lives in `ScreenState`
+    /// (`vm/screen_state.rs`), split out in D1 (2026-07-23) so the reconstruction
+    /// can be read without the egui state that used to surround it.
     #[derive(Clone)]
     pub struct EventsViewModel  {
-        pub current_route: EventsRoute,
         pub grace_groups: BTreeMap<MapName, Vec<Grace>>,
         pub graces: BTreeMap<Grace, FlagState>,
         pub whetblades: BTreeMap<Whetblade, bool>,
@@ -218,32 +221,11 @@ pub mod events_view_model {
         pub summoning_pools: BTreeMap<SummoningPool, bool>,
         pub colosseums: BTreeMap<Colosseum, bool>,
         pub landmarks: BTreeMap<Landmark, bool>,
-        pub world_pickups_filter: WorldPickupsFilter,
-        pub dungeon_pickups_filter: DungeonPickupsFilter,
-        /// Verification comparison view model (per-slot)
-        pub verification_vm: VerificationViewModel,
-        /// View state for Sites of Grace
-        pub graces_view_state: GracesViewState,
-        /// View state for Whetblades
-        pub whetblades_view_state: SimpleEventFlagViewState,
-        /// View state for Cookbooks
-        pub cookbooks_view_state: SimpleEventFlagViewState,
-        /// View state for Maps
-        pub maps_view_state: SimpleEventFlagViewState,
-        /// View state for Bosses
-        pub bosses_view_state: SimpleEventFlagViewState,
-        /// View state for Summoning Pools
-        pub summoning_pools_view_state: SimpleEventFlagViewState,
-        /// View state for Colosseums
-        pub colosseums_view_state: SimpleEventFlagViewState,
-        /// View state for Landmarks
-        pub landmarks_view_state: SimpleEventFlagViewState,
     }
 
     impl Default for EventsViewModel {
         fn default() -> Self {
             Self {
-                current_route: EventsRoute::None,
                 grace_groups: MAP_NAME.lock().unwrap().iter().map(|m| (*m.0, Vec::new())).collect::<BTreeMap<_,_>>(),
                 graces: Default::default(),
                 whetblades: Default::default(),
@@ -253,17 +235,6 @@ pub mod events_view_model {
                 summoning_pools: Default::default(),
                 colosseums: Default::default(),
                 landmarks: Default::default(),
-                world_pickups_filter: Default::default(),
-                dungeon_pickups_filter: Default::default(),
-                verification_vm: Default::default(),
-                graces_view_state: Default::default(),
-                whetblades_view_state: Default::default(),
-                cookbooks_view_state: Default::default(),
-                maps_view_state: Default::default(),
-                bosses_view_state: Default::default(),
-                summoning_pools_view_state: Default::default(),
-                colosseums_view_state: Default::default(),
-                landmarks_view_state: Default::default(),
              }
         }
     }

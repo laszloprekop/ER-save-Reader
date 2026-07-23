@@ -25,6 +25,7 @@ pub mod slot_view_model {
             general::general_view_model::{Gender, GeneralViewModel},
             inventory::InventoryViewModel,
             regions::regions_view_model::RegionsViewModel,
+            screen_state::screen_state::ScreenState,
             stats::stats_view_model::StatsViewModel,
         },
     };
@@ -37,6 +38,9 @@ pub mod slot_view_model {
         pub equipment_vm: EquipmentViewModel,
         pub inventory_vm: InventoryViewModel,
         pub events_vm: EventsViewModel,
+        /// Per-slot mutable widget state (navigation, filters, sorts, verification
+        /// view). Split out of `events_vm` in D1; see `vm/screen_state.rs`.
+        pub screen_state: ScreenState,
         pub regions_vm: RegionsViewModel,
     }
 
@@ -58,6 +62,7 @@ pub mod slot_view_model {
                 equipment_vm,
                 inventory_vm,
                 events_vm,
+                screen_state: ScreenState::default(),
                 regions_vm,
             }
         }

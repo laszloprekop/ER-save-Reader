@@ -1,9 +1,10 @@
 # Architecture Deepening Plan
 
-**Last updated**: 2026-07-22
+**Last updated**: 2026-07-23
 
 > **Epistemic header**
-> **Status: LIVING RECORD — workstreams 0 and A are decided; B, C, D are proposals.**
+> **Status: LIVING RECORD — workstreams 0, A, B, C are decided and landed; D is decided
+> (2026-07-23) and in progress.**
 > Deepenings for shallow modules found in the 2026-07-22 architecture review. **0 and A**
 > were settled by grilling on 2026-07-22 and their sections record decisions, several of
 > them grounded in measurements taken during it (the 249-warning dead-code census, the
@@ -510,7 +511,7 @@ Also folded in: `timeline_flips.rs:49`'s `isolated_flips`, copied verbatim from
 
 ---
 
-## Workstream D — `Character` and `ScreenState` (designed, deferred)
+## Workstream D — `Character` and `ScreenState` (DECIDED 2026-07-23, in progress)
 
 **Deepening**: one mutable struct holding both the reconstructed character and every
 screen's widget state becomes two modules with a seam between them.
@@ -518,6 +519,34 @@ screen's widget state becomes two modules with a seam between them.
 Designed here so the cost is visible. **Going ahead is a separate decision, to be taken
 after A lands** — the whole benefit is "the reconstruction becomes assertable", and until
 A there is nothing to assert it from.
+
+> **DECISIONS (2026-07-23).** A, B and C have landed (through v0.37.12), so D was taken up
+> and its three open questions settled:
+>
+> 1. **`Character` borrows** (`Character<'a>`). B already proved the lifetime is free
+>    (open question B.1, answered 2026-07-22): `get_event_flags` borrows `self.save`, not
+>    `self.vm`. Owning would re-introduce a second copy of parsed state and a "when is it
+>    rebuilt" question that borrowing never has. Invisible to users either way.
+> 2. **`ScreenState` is per slot** (`[ScreenState; 10]`, carried on `SlotViewModel`).
+>    Preserves today's behaviour exactly — each slot keeps its own filter/sort/selection
+>    across slot switches. The "one for the active slot" alternative would have been a UX
+>    change (switching slots resets filters), which is not in scope for a refactor.
+> 3. **`verification_vm` is screen state** — the whole `VerificationViewModel` moves into
+>    `ScreenState`. It is a comparison *view* with its own widget state and lazy per-slot
+>    loading (guarded by `verification_loaded_slots`); the per-slot `ScreenState` choice
+>    keeps that lazy-load working unchanged, and `Character` stays pure reconstruction with
+>    no records-path dependency. Splitting its derived results out is a possible follow-up,
+>    not a blocker.
+>
+> **Sequencing.** D lands in stages, each compiling and behaviour-preserving, mirroring how
+> B (B1/B2/B3) and C (C1/C2/C3) landed:
+> - **D1** — extract `ScreenState` (the twelve widget fields: `current_route`, the two
+>   pickup filters, `verification_vm`, the eight `*_view_state`) out of `EventsViewModel`
+>   onto `SlotViewModel`. `EventsViewModel` keeps only the nine reconstructed data maps.
+>   Mechanical; no behaviour change.
+> - **D2** — introduce `Character<'a>` borrowing the slot and holding one `ResolvedFlags`,
+>   migrate the fourteen view signatures to `(ch: &Character, ss: &mut ScreenState)`, and
+>   collapse the two sources of flag bytes into the one `ResolvedFlags` on `Character`.
 
 ### The problem
 
@@ -566,17 +595,16 @@ This is the large one. It should not start until A has landed and B has settled,
 `Character` holding a `ResolvedFlags` is B's lifetime question (open question B.1) in its
 most demanding form.
 
-### Open questions
+### Open questions — ALL SETTLED 2026-07-23 (see DECISIONS box above)
 
-1. **Does `Character` borrow or own?** Borrowing the slot makes it cheap and makes the
-   lifetime question acute. Owning means copying parsed state and re-answering "when is it
-   rebuilt".
-2. **Where does `ScreenState` live — per slot, or one for the active slot?** Ten copies is
-   today's behaviour; one is the honest amount. Switching slots would then reset filters,
-   which is a UX change, not just a refactor.
-3. **Is `verification_vm` read model or screen state?** It is lazily loaded per slot at
-   `main.rs:248` behind a `verification_loaded_slots: [bool; 10]` guard, so it is neither
-   cleanly.
+1. ~~**Does `Character` borrow or own?**~~ **Borrows** (`Character<'a>`) — B proved the
+   lifetime is free; owning re-introduces a copy and a rebuild question.
+2. ~~**Where does `ScreenState` live — per slot, or one for the active slot?**~~ **Per slot**
+   (`[ScreenState; 10]` on `SlotViewModel`) — preserves today's per-slot filter behaviour;
+   "one for the active slot" was a UX change out of scope.
+3. ~~**Is `verification_vm` read model or screen state?**~~ **Screen state** — the whole
+   `VerificationViewModel` moves into `ScreenState`; the per-slot choice keeps its lazy
+   per-slot loading (`verification_loaded_slots`, now at `app.rs:248`) working unchanged.
 
 ---
 
@@ -593,7 +621,9 @@ most demanding form.
 | 4 | ✅ **DONE** v0.37.10 — C1: `Evidence` seam (`bytes`/`sha256`/`slot_slice`/`read_verified`); migrated all six hand-rolled loaders + the file-corpus loop + `dump`; fixed both drifted sites (missing-corpus silent `continue` → hard error; `gen_*` primary source now verified against the manifest). Behaviour-preserving — every knowledge command byte-identical | 1 | medium |
 | 5 | ✅ **DONE** v0.37.11 — C2: `Status` enum (5 producer sites, 2 consumer sites, linked at compile time) + `Claims` emitter (owns format + provenance envelope); migrated all five writers. Behaviour-preserving — `knowledge run` unchanged, the five `family_distances` outputs byte-identical. The **three** under-provenanced timeline files (not four — the count predated `family-constants.json`) regenerated with `generated_by`+`inputs`+newline as a separate commit | 4 | medium; one generated-output commit |
 | 6 | ✅ **DONE** v0.37.12 — C3: extracted `origin_model.rs` (measurement + list alignment + origin constants, 4 unit tests) from `family_distances.rs`, which becomes five thin `cmd_*` adapters (−540 net lines); de-duplicated `isolated_flips` into one shared `pipeline::isolated_flips_into`. Pure refactor — every touched claims command regenerates byte-identical | 4, 5 | small once 4 and 5 land |
-| 7 | D — decide, then possibly do | 1, 3 | large |
+| 7 | ✅ **DECIDED** 2026-07-23 — three open questions settled (borrow / per-slot / verification_vm→ScreenState). Splitting into D1 (extract `ScreenState`) + D2 (introduce `Character`) | 1, 3 | large |
+| 7a | D1 — extract `ScreenState` off `EventsViewModel` onto `SlotViewModel`; mechanical, no behaviour change | 7 | medium |
+| 7b | D2 — `Character<'a>` + migrate the fourteen view signatures; one source of flag bytes | 7a | large |
 
 Steps 3 and 5 each close a live defect (`events.rs:1721` renders Unknown as clear; three
 claims writers emit no provenance). Steps 1, 2, 4, 6 change no behaviour.

@@ -245,9 +245,9 @@ impl App {
             let discovered_regions = self.get_discovered_regions();
             verification_vm.set_discovered_regions(discovered_regions);
 
-            self.vm.slots[slot_index].events_vm.verification_vm = verification_vm;
+            self.vm.slots[slot_index].screen_state.verification_vm = verification_vm;
         } else {
-            self.vm.slots[slot_index].events_vm.verification_vm = VerificationViewModel::default();
+            self.vm.slots[slot_index].screen_state.verification_vm = VerificationViewModel::default();
         }
         self.verification_loaded_slots[slot_index] = true;
     }
@@ -395,7 +395,7 @@ impl App {
 
             // Add verification data to export from slot's events_vm
             export_data.verification = crate::vm::slot::slot_view_model::SlotViewModel::build_verification_export(
-                &self.vm.slots[slot_index].events_vm.verification_vm
+                &self.vm.slots[slot_index].screen_state.verification_vm
             );
 
             match serde_json::to_string_pretty(&export_data) {
