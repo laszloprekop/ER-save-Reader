@@ -147,15 +147,18 @@ pub static FLAGS_BY_ITEM: Lazy<HashMap<u32, Vec<u32>>> = Lazy::new(|| {
 
 /// Static list of unique items for Phase 1
 ///
-/// IMPORTANT: Use BOSS DEFEAT FLAGS for remembrances/great runes, not 510xxx consumption flags.
-/// - 510xxx flags = SET when remembrance is USED at Enia (consumption)
-/// - 171-180 flags = SET when boss is DEFEATED (obtainment)
-/// - The item is in inventory when boss defeat flag is SET
+/// IMPORTANT: remembrances/great runes are verified against the SOURCE BOSS'S DEFEAT FLAG
+/// (from `bosses_data`), not the low 171-180 "world drop" ids that earlier versions used.
+/// Those 171-180 ids are < 50,000, so no resolver family covers them and they always read
+/// Unknown (the false-negatives fixed in v0.37.20/21). The defeat flags are 8-digit dungeon
+/// or 10-digit tile ids, read via `world_flag_state` in `collect_set_flags` (`src/ui/events.rs`).
+/// Defeat-flag semantics are also what let the triangle flag a *consumed* remembrance as
+/// flag-set-but-absent. (510xxx consumption flags — set when the remembrance is spent at Enia —
+/// are deliberately NOT used.)
 pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     // ========================================================================
     // REMEMBRANCES (Boss defeat rewards - VERY HIGH confidence)
-    // Uses BOSS DEFEAT FLAGS (171-180) which are SET when you obtain the remembrance
-    // NOT 510xxx which are SET when you USE the remembrance at Enia
+    // event_flag = the source boss's defeat flag from bosses_data (world_flag_state)
     // ========================================================================
     UniqueItemMapping {
         item_id: 2950,
@@ -202,21 +205,21 @@ pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     UniqueItemMapping {
         item_id: 2956,
         name: "Remembrance of the Black Blade",
-        event_flag: 178, // Maliketh defeat
+        event_flag: 13000800, // Maliketh defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2957,
         name: "Remembrance of Hoarah Loux",
-        event_flag: 179, // Hoarah Loux defeat
+        event_flag: 11050800, // Hoarah Loux defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2958,
         name: "Remembrance of the Dragonlord",
-        event_flag: 9108, // Dragonlord - needs verification, using EMEVD flag
+        event_flag: 13000830, // Placidusax defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::Medium, // Lower confidence until verified
     },
@@ -230,35 +233,35 @@ pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     UniqueItemMapping {
         item_id: 2960,
         name: "Remembrance of the Lichdragon",
-        event_flag: 9110, // Lichdragon - needs verification
+        event_flag: 12030850, // Fortissax defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::Medium,
     },
     UniqueItemMapping {
         item_id: 2961,
         name: "Remembrance of the Fire Giant",
-        event_flag: 9111, // Fire Giant - needs verification
+        event_flag: 1052520800, // Fire Giant defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::Medium,
     },
     UniqueItemMapping {
         item_id: 2962,
         name: "Remembrance of the Regal Ancestor",
-        event_flag: 9112, // Regal Ancestor - needs verification
+        event_flag: 12090800, // Regal Ancestor defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::Medium,
     },
     UniqueItemMapping {
         item_id: 2963,
         name: "Elden Remembrance",
-        event_flag: 180, // Elden Beast defeat
+        event_flag: 19000800, // Elden Beast defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2964,
         name: "Remembrance of the Naturalborn",
-        event_flag: 9114, // Naturalborn - needs verification
+        event_flag: 12040800, // Astel Naturalborn defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::Medium,
     },

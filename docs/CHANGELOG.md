@@ -7,6 +7,28 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.21 - The remaining 8 remembrances verify against boss-defeat flags
+
+Completes the remembrance cutover started in v0.37.20. The eight non-shardbearer Remembrances
+were still on <50k flags (178/179/180 world-drop ids, and 9108-9114 "needs verification" EMEVD
+guesses), so they read Unknown through `world_flag_state` and showed as false-negatives.
+
+Re-pointed each to its source boss's defeat flag from `bosses_data`:
+Black Blade→Maliketh (13000800), Hoarah Loux (11050800), Elden→Elden Beast (19000800),
+Dragonlord→Placidusax (13000830), Lichdragon→Fortissax (12030850), Fire Giant (1052520800),
+Regal Ancestor (12090800), Naturalborn→Astel (12040800). No routing change — v0.37.20 already
+sends the Remembrance/GreatRune categories through `world_flag_state`.
+
+Verified on ER0000.sl2 slot 5: **0 Unknown** across all 15 Remembrances + 7 Great Runes (was
+8), Godrick and Rennala Set, the rest Clear. The `UNIQUE_ITEMS` header comment was corrected —
+it had claimed the 171-180 world-drop ids were defeat flags, the original misconception behind
+the bug.
+
+### Files Modified
+- src/db/inventory_verification.rs: 8 remembrances → boss-defeat flags; header comment corrected
+- docs/BACKLOG.md: remembrance block marked resolver-clean
+- Cargo.toml: bumped to 0.37.21
+
 ## v0.37.20 - Great runes & shardbearer remembrances verify against boss-defeat flags
 
 Follow-up 2 to the v0.37.18 whetblade diagnosis. In the Inventory Verification triangle the

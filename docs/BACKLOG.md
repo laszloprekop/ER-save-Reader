@@ -1224,12 +1224,13 @@ This is the single location for all planned work, remaining gaps, and deferred i
   `world_flag_state` instead of `pickup_state`. Verified on ER0000.sl2 slot 5: Godrick's and
   Rennala's items read Set (owned + defeated), the other five Clear — the three items the
   user saw as false-negatives (Grafted, Full Moon Queen, Unborn) now match.
-- **STILL BROKEN — the other 8 Remembrances**: Black Blade (178), Hoarah Loux (179),
-  Elden (180), Dragonlord (9108), Lichdragon (9110), Fire Giant (9111), Regal Ancestor
-  (9112), Naturalborn (9114) are still on <50k flags (several marked "needs verification" in
-  the source) and read Unknown. The routing infra is now in place, so the fix is just
-  re-pointing each to its boss's defeat flag from `bosses_data` + verifying — no design work
-  left. Do this next to close Remembrances.
+- **The other 8 Remembrances — DONE 2026-07-24 (v0.37.21)**: Black Blade→Maliketh 13000800,
+  Hoarah Loux→11050800, Elden→Elden Beast 19000800, Dragonlord→Placidusax 13000830,
+  Lichdragon→Fortissax 12030850, Fire Giant→1052520800, Regal Ancestor→12090800,
+  Naturalborn→Astel 12040800. Re-pointed from the <50k flags (several were "needs
+  verification" EMEVD guesses) to `bosses_data` defeat flags. Verified on ER0000.sl2 slot 5:
+  **0 Unknown** across all 15 Remembrances + 7 Great Runes (was 8 Unknown); Godrick + Rennala
+  Set, the rest Clear. The whole Remembrance/Great-Rune verification block is now resolver-clean.
 
 <!-- superseded 2026-07-24; original statement of the problem kept below for the record -->
 ### (superseded) Great-rune verification uses unreadable world-drop flags (found 2026-07-23)

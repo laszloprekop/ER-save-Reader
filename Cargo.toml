@@ -3,7 +3,7 @@ members = [".", "crates/wasm-event-flags"]
 
 [package]
 name = "er-save-reader"
-version = "0.37.20"
+version = "0.37.21"
 edition = "2021"
 
 [lib]
