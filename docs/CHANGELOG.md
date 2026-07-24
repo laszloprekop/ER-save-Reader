@@ -7,6 +7,25 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.38.0 - Capture Output baselines (ticket #11)
+
+New headless subcommand `er-save-reader baseline <save.sl2> <out-dir>`: dumps each
+active slot's `ExportData` as deterministic JSON — the reader half of the Output
+baseline (ADR-0010, ticket #11). It pins today's reconstructed output *before* it
+migrates to the shared core, so each later migration slice can be diffed against it
+as a change-detector (never an oracle — see baselines/README.md). Snapshots are
+byte-stable across runs (`export_date` pinned, `steam_id` zeroed for privacy) and
+were corroborated against the known V1/V2/V3 world-pickup differential (flag
+1044367310: collected for V1/V2, not V3). Captured 6 slots for the 2026-01-11 backup
+and 5 for 2026-01-01. The elden-map half lives in that repo
+(scripts/capture-output-baseline.ts, snapshotting parseSaveFile output).
+
+### Files Modified
+- src/baseline.rs: new — headless ExportData capture per active slot
+- src/app.rs: `baseline` subcommand; extracted a shared `dispatch_subcommand` helper (dedups the `knowledge`/`baseline` arms)
+- src/lib.rs: register the baseline module
+- baselines/: reader snapshots + README documenting the triage workflow
+
 ## v0.37.24 - Record the shared reconstruction core decision (ADR-0010)
 
 Groundwork for unifying character reconstruction across the reader and elden-map so

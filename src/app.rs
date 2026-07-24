@@ -31,13 +31,17 @@ struct Asset;
 const WINDOW_WIDTH: f32 = 1920.;
 const WINDOW_HEIGHT: f32 = 1200.;
 
-/// Run the reader. The binary is a thin wrapper around this.
-pub fn run() -> Result<(), eframe::Error> {
-    // Check for CLI commands
-    let args: Vec<String> = env::args().collect();
-    if args.len() > 1 && args[1] == "knowledge" {
-        let cli_args: Vec<String> = args.into_iter().skip(2).collect();
-        match crate::knowledge::run_cli(&cli_args) {
+/// Run a headless CLI subcommand when `args[1]` names it, then exit the process;
+/// return normally (falling through to the GUI) only when the verb doesn't match.
+/// The `run_cli` entry points differ only in error type, so this is generic over
+/// `E: Display`.
+fn dispatch_subcommand<E: std::fmt::Display>(
+    args: &[String],
+    name: &str,
+    run: fn(&[String]) -> Result<(), E>,
+) {
+    if args.len() > 1 && args[1] == name {
+        match run(&args[2..]) {
             Ok(()) => std::process::exit(0),
             Err(e) => {
                 eprintln!("Error: {}", e);
@@ -45,6 +49,18 @@ pub fn run() -> Result<(), eframe::Error> {
             }
         }
     }
+}
+
+/// Run the reader. The binary is a thin wrapper around this.
+pub fn run() -> Result<(), eframe::Error> {
+    // Check for CLI commands
+    let args: Vec<String> = env::args().collect();
+    // Headless CLI subcommands, dispatched before the GUI starts. Each consumes
+    // the args after its verb and exits the process; control falls through to the
+    // GUI only when no verb matches. `baseline` is the Output baseline capture
+    // (ticket #11); `knowledge` is the claims pipeline.
+    dispatch_subcommand(&args, "knowledge", crate::knowledge::run_cli);
+    dispatch_subcommand(&args, "baseline", crate::baseline::run_cli);
 
     // App Icon
     let mut app_icon = egui::IconData::default();

@@ -17,6 +17,7 @@
 //! There is no external consumer to break: elden-map depends on
 //! `crates/wasm-event-flags`, which is its own crate with its own `[lib]`.
 
+pub(crate) mod baseline;
 pub(crate) mod db;
 pub(crate) mod generated;
 pub(crate) mod knowledge;
