@@ -89,17 +89,34 @@ uncalibrated Consecrated-Snowfield tile `1248550800` honestly Unknown).
 computation retired), and elden-map resolves them via WASM + deletes its grace/boss
 TS — both gated behind #3 (browser-calls-core), so deferred.
 
-## 06 — Pickups (world + dungeon)
+## 06 — Pickups (world + dungeon)  *(core CARRIES world+dungeon now — issue #5 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| world pickup flags | ✓ (`world_pickups`) | ✓ | flag state per `getItemFlagId` |
-| dungeon pickup flags | ✓ | ✓ | flag state, split by localId (ADR-0008) |
-| summoning pools | ✓ | – | append: flag state per pool id |
+| world pickup flags | ✓ (`world_pickups`) | ✓ | ✅ `world_pickups: Vec<FlagFact>` — state per `getItemFlagId` |
+| dungeon pickup flags | ✓ | ✓ | ✅ `dungeon_pickups: Vec<FlagFact>` — state, legacy-dungeon family (ADR-0008) |
+| summoning pools | ✓ | – | append: flag state per pool id — **deferred** (family mis-identified) |
 
 Tables store `getItemFlagId`, never a row id (CLAUDE.md); the core takes the
 same rule. A bare 10-digit tile id stays ambiguous between families — the caller
 picks world vs pickup, never the value.
+
+**Status (2026-07-24, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `world_pickups` (2438 unique ids) and `dungeon_pickups` (1950) as
+`Vec<FlagFact { id, state }>`, ascending, resolved per save via `wasm-event-flags`
+(the same shared origin scan as #4). A `pickup_family_state` router mirrors the
+reader's `pickup_state` (`tile_pickup` / `dungeon_pickup` / `world_state`, else
+`Unknown`). The id **selection** moved into the core (`src/facts/pickup_ids.rs`),
+extracted sorted/deduped from the reader's machine-checked `world_pickups.rs`
+(`flag_id`) and `dungeon_pickups.rs` (`event_flag`); the reader's
+`gen-world-pickups` test stays the source-of-truth machine-check, and the core
+arrays are a regenerated derivative. Corpus guards pickups three ways: table
+totals, known-truth differential bounds (L93 slot 593 world / 386 dungeon vs L9
+slot 3 / 1), and monotonic collected anchors. **Summoning pools stay deferred** —
+the reader itself reads them `false` because the family is mis-identified
+(`events.rs`; ADR-0008 refuse-don't-guess), so no honest fact exists to move yet.
+**Still open for #5:** reader renders pickups from these facts; elden-map WASM + TS
+delete — both gated behind #3.
 
 ## 07 — Inventory
 

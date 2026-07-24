@@ -10,7 +10,7 @@ wasm-event-flags = { path = "crates/wasm-event-flags" }
 
 [package]
 name = "er-save-reader"
-version = "0.39.2"
+version = "0.39.3"
 edition = "2021"
 
 [lib]

@@ -7,6 +7,24 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.3 - Record slice #5 core landing (world + dungeon pickups as facts)
+
+Documentation only. The shared core (`er-reconstruct`) now carries **world** and
+**dungeon pickup** facts — the core side of ADR-0010 slice #5. `reconstruct()`
+returns `world_pickups` (2438 ids) / `dungeon_pickups` (1950) as
+`Vec<FlagFact { id, state }>`, keyed by `getItemFlagId`, routed to the pickup
+families and resolved per save (no baked-in positions, ADR-0008). The id
+*selection* was extracted from the reader's machine-checked `world_pickups.rs` /
+`dungeon_pickups.rs` (the `gen-world-pickups` test stays the source-of-truth
+check; the core arrays are a regenerated derivative). Summoning pools stay
+deferred — the reader itself refuses them (family mis-identified). No reader code
+changed: the reader still pins the core by git rev and won't consume these facts
+until a deliberate pin bump.
+
+### Files Modified
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: §06 marked core-carried; remaining-work note
+- Cargo.toml: version 0.39.2 → 0.39.3
+
 ## v0.39.2 - Record slice #4 core landing (graces + bosses as facts)
 
 Documentation only. The shared core (`er-reconstruct`) now carries **grace** and
