@@ -96,8 +96,18 @@ If you encounter any bugs or issues while using the save editor, please report t
 ## Credits
 <a href="https://github.com/nordgaren/"><img src="https://github.com/ClayAmore/ER-Save-Editor/assets/131625063/710c9ee6-c3df-4665-be6b-d96bce1ebf46"/></a>
 
+## Maintainers & Attribution
+
+Maintained by **Laszlo Prekop**.
+
+Originally derived from [ER-Save-Editor](https://github.com/ClayAmore/ER-Save-Editor)
+by **ClayAmore**; save-parsing contributions by **ClayAmore** and **groobybugs**.
+Original authorship is preserved in the git history and the copyright notices
+(dual-licensed MIT / Apache-2.0). This project has since diverged into a *reader*
+(see `docs/adr/0009-a-reader-not-an-editor.md`), and its save-reconstruction core
+now lives in [er-reconstruct](https://github.com/laszloprekop/er-reconstruct).
+
 ## Disclaimer
 
 This project is not affiliated with FromSoftware or Bandai Namco Entertainment. Elden Ring is a trademark of FromSoftware and Bandai Namco Entertainment. All rights reserved.
-This code is a fork of the original project by [ClayAmore](https://github.com/ClayAmore/ER-Save-Editor) and is intended for add DLC support to the original project. Meanwhile, 
-the original project is updated, so I will try to keep this project updated with the latest DLC features.
+This code is derived from the original project by [ClayAmore](https://github.com/ClayAmore/ER-Save-Editor). See **Maintainers & Attribution** above.
