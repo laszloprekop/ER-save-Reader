@@ -7,6 +7,40 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.0 - Shared reconstruction core, walking skeleton (ticket #1)
+
+The save-parsing was extracted into a new **er-reconstruct** crate — its own
+repository, history preserved via `git subtree split` — and this reader now links
+it as a pinned git dependency, the first slice of ADR-0010's shared reconstruction
+core. `reconstruct(bytes, slot) -> ReconstructedCharacter` returns character
+identity as **facts** (name, level, raw class id — no display strings baked in); the
+general view renders identity from those facts, with the id→name mapping staying in
+the reader's Enrichment. A re-export facade (`crate::save`/`crate::write`) keeps the
+rest of the reader compiling during the transition. ADR-0008 holds: the seed reads
+no flags and carries no flag base tables. A `[patch]` unifies `wasm-event-flags` so
+the git-fetched core and this reader share one copy. `docs/RECONSTRUCTION-FACT-INVENTORY.md`
+orders the remaining slices (04–09) by the union of what this reader and elden-map
+each reconstruct.
+
+Also, since both repositories are public: a privacy sweep lifts personal/local data
+out of tracked files — the Steam ID is redacted, `/Users/…` absolute paths become
+`~/`, the icon path reads `ER_ICONS_PATH`, evidence-catalog roots move to an
+untracked local override, and the per-character output baselines are untracked
+(kept on disk). Git history still contains the old values (HEAD-only sweep).
+
+### Files Modified
+- Cargo.toml: add er-reconstruct git dep + `[patch]` unifying wasm-event-flags
+- .cargo/config.toml: git-fetch-with-cli for the git dependency
+- src/lib.rs: re-export facade `pub(crate) use er_reconstruct::{save, write}`
+- src/app.rs: reconstruct identity per active slot into `App.facts` on load
+- src/ui/general.rs: render name/level/class from `ReconstructedCharacter`
+- src/knowledge/pipeline.rs: use `Save::from_bytes`
+- src/ui/icons/mod.rs, src/knowledge/catalog.rs: externalize personal paths
+- knowledge/evidence-catalog.json: placeholder roots (+ untracked local override)
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: new; docs & scripts path-sanitized
+- src/save/, src/write/, src/read/: removed (moved to er-reconstruct)
+- baselines/reader/: untracked (personal save data)
+
 ## v0.38.0 - Capture Output baselines (ticket #11)
 
 New headless subcommand `er-save-reader baseline <save.sl2> <out-dir>`: dumps each
