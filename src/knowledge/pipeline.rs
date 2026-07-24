@@ -47,7 +47,6 @@ use crate::db::aow_name::aow_name::AOW_NAME;
 use crate::db::armor_name::armor_name::ARMOR_NAME;
 use crate::db::item_name::item_name::ITEM_NAME;
 use crate::db::weapon_name::weapon_name::WEAPON_NAME;
-use crate::read::read::Read as _;
 use crate::save::save::save::Save;
 
 const EF_SIZE: usize = wasm_event_flags::EVENT_FLAGS_SIZE;
@@ -155,10 +154,8 @@ fn inventory_identities(
     save_slot: usize,
     label: &str,
 ) -> Result<BTreeMap<String, i64>, String> {
-    let mut br = binary_reader::BinaryReader::from_u8(save_bytes);
-    br.set_endian(binary_reader::Endian::Little);
-    let save =
-        Save::read(&mut br).map_err(|e| format!("{}: typed save parse failed: {}", label, e))?;
+    let save = Save::from_bytes(save_bytes)
+        .map_err(|e| format!("{}: typed save parse failed: {}", label, e))?;
     let slot = save.save_type.get_slot(save_slot);
     let mut counts: BTreeMap<String, i64> = BTreeMap::new();
     for inv in [&slot.equip_inventory_data, &slot.storage_inventory_data] {

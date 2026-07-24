@@ -13,7 +13,9 @@ use std::{fs::File, io::Write};
 
 use eframe::{egui::{self, Align, Layout, RichText, Rounding}, epaint::Color32};
 use rfd::FileDialog;
+use std::collections::HashMap;
 use crate::save::save::save::Save;
+use er_reconstruct::ReconstructedCharacter;
 use crate::ui::{equipment::equipment::equipment, events::events::events, general::general::general, inventory::inventory::inventory::inventory, menu::menu::{Route, breadcrumb_bar, navigation_buttons}, regions::regions::regions, stats::stats::stats, spells_view::spells_view::{spells_view, SpellsViewState}, npcs_view::npcs_view::{npcs_view, NpcsViewState}, shop_items_view::shop_items_view::{shop_items_view, ShopItemsViewState}, world_pickups_view::world_pickups_view::{world_pickups_view, WorldPickupsViewState}, event_flags_db_view::event_flags_db_view::{event_flags_db_view, EventFlagsDbViewState}, components::status_bar::show_status_bar, components::detail_panel::{DetailPanelState, DetailPanelAction, detail_panel}, components::navigation::{NavigationStack, NavigationEntry, EntityReference, navigation_breadcrumb, NavAction}, landing::landing::landing_page, state::RecentFilesManager, database::{items_view, graces_view, merchants_view, bosses_view, event_chains_view, ItemsViewState, GracesViewState, MerchantsViewState, BossesViewState, EventChainsViewState}, comparison::{ComparisonState, comparison_view}, validation::{ValidationState, validation_view}, utilities::icons_view::{icons_view, IconsViewState}};
 use crate::vm::verification_vm::VerificationViewModel;
 use crate::util::verification_records::{load_verification_records, get_records_for_slot, recompute_auto_status};
@@ -147,6 +149,10 @@ pub fn run() -> Result<(), eframe::Error> {
 
 pub struct App {
     pub(crate) save: Save,
+    // Identity facts reconstructed from the loaded save's bytes, per active slot
+    // (ADR-0010). The general view renders name/level/class from these rather than
+    // the ViewModel, proving the reader consumes the shared core's facts.
+    pub(crate) facts: HashMap<usize, ReconstructedCharacter>,
     pub(crate) vm: ViewModel,
     pub(crate) picked_path: PathBuf,
     pub(crate) current_route: Route,
@@ -196,6 +202,7 @@ impl App {
 
         Self {
             save: Save::default(),
+            facts: HashMap::new(),
             picked_path: Default::default(),
             current_route: Route::Landing,
             vm: ViewModel::default(),
@@ -315,8 +322,22 @@ impl App {
     }
 
     pub(crate) fn open(&mut self, path: PathBuf) {
-        self.save = Save::from_path(&path).expect("Failed to read save");
+        // Read the bytes once: the reader parses its `Save` from them and hands the
+        // same bytes to the reconstruction core (ADR-0010), so identity is derived
+        // through the shared entry point, not re-read or re-parsed independently.
+        let bytes = std::fs::read(&path).expect("Failed to read save");
+        self.save = Save::from_bytes(&bytes).expect("Failed to parse save");
         self.vm = ViewModel::from_save(&self.save);
+
+        // Reconstruct identity facts for each active slot from those bytes.
+        self.facts.clear();
+        for (slot, active) in self.save.save_type.active_slots().iter().enumerate() {
+            if *active {
+                if let Ok(character) = er_reconstruct::reconstruct(&bytes, slot) {
+                    self.facts.insert(slot, character);
+                }
+            }
+        }
         // Remember the parent directory for next file dialog
         if let Some(parent) = path.parent() {
             self.last_directory = Some(parent.to_path_buf());
@@ -637,7 +658,7 @@ impl eframe::App for App {
                 Route::CharacterGeneral => {
                     let idx = self.vm.index;
                     let ch = self.vm.slots[idx].as_character(idx, None);
-                    general(ui, &ch);
+                    general(ui, &ch, self.facts.get(&idx));
                 },
                 Route::CharacterStats => stats(ui, &mut self.vm),
                 Route::CharacterEquipment => equipment(ui, &mut self.vm),

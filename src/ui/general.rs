@@ -3,6 +3,8 @@ pub mod general {
     use crate::ui::tokens::{colors, typography};
     use crate::vm::equipment::equipment_view_model::EquipmentItemViewModel;
     use crate::vm::{general::general_view_model::Gender, character::character::Character};
+    use crate::db::classes::classes::ArcheType;
+    use er_reconstruct::ReconstructedCharacter;
     use eframe::egui::{self, Color32, Frame, RichText, Rounding, Ui};
 
     /// Deep gray card background (darker than app background)
@@ -282,7 +284,7 @@ pub mod general {
         result
     }
 
-    pub fn general(ui: &mut Ui, ch: &Character) {
+    pub fn general(ui: &mut Ui, ch: &Character, facts: Option<&ReconstructedCharacter>) {
         let general_vm = &ch.general();
         let stats_vm = &ch.stats();
         let equipment_vm = &ch.equipment();
@@ -291,6 +293,26 @@ pub mod general {
             Gender::Male => "♂",
             Gender::Female => "♀",
             Gender::Uknown => "?",
+        };
+
+        // Identity is rendered from the reconstruction core's facts (ADR-0010) when
+        // present: `name`/`level` verbatim, and `class_id` mapped to its Canonical
+        // Name here in the reader's Enrichment (the core keeps the raw id, no
+        // display string). Falls back to the ViewModel only for the empty/default
+        // state, where no save has been reconstructed yet.
+        let (name_str, level_val, class_str): (String, u32, String) = match facts {
+            Some(f) => (
+                f.name.clone(),
+                f.level,
+                ArcheType::try_from(f.class_id)
+                    .map(|a| a.to_string())
+                    .unwrap_or_else(|_| "Unknown".to_string()),
+            ),
+            None => (
+                general_vm.character_name.trim_matches('\0').to_string(),
+                stats_vm.level,
+                stats_vm.arche_type.to_string(),
+            ),
         };
 
         // Main content: three columns with auto-width
@@ -312,7 +334,7 @@ pub mod general {
                             // Character Header
                             ui.horizontal(|ui| {
                                 ui.label(
-                                    RichText::new(general_vm.character_name.trim_matches('\0'))
+                                    RichText::new(&name_str)
                                         .size(typography::HEADING_MD)
                                         .color(colors::CAT_TEXT)
                                         .strong(),
@@ -325,13 +347,13 @@ pub mod general {
                             });
                             ui.horizontal(|ui| {
                                 ui.label(
-                                    RichText::new(format!("Lv. {}", stats_vm.level))
+                                    RichText::new(format!("Lv. {}", level_val))
                                         .size(typography::HEADING_SM)
                                         .color(colors::CAT_YELLOW)
                                         .strong(),
                                 );
                                 ui.label(
-                                    RichText::new(stats_vm.arche_type.to_string())
+                                    RichText::new(&class_str)
                                         .size(typography::TEXT_SM)
                                         .color(colors::CAT_SUBTEXT0),
                                 );

@@ -1,6 +1,13 @@
 [workspace]
 members = [".", "crates/wasm-event-flags"]
 
+# `er-reconstruct` (git dep) declares wasm-event-flags from ER-save-Reader.git.
+# Redirect that to this repo's own copy so the graph holds a single
+# wasm-event-flags — the git-fetched core and this reader share one instance,
+# not two that fail to unify at the type level (ADR-0010).
+[patch."https://github.com/laszloprekop/ER-save-Reader.git"]
+wasm-event-flags = { path = "crates/wasm-event-flags" }
+
 [package]
 name = "er-save-reader"
 version = "0.38.0"
@@ -22,7 +29,10 @@ default = []
 # `ViewModel::update_save`, the `SaveType` mutators, the character importer —
 # lives behind this flag so it stays in the tree, resurrectable, but out of the
 # default build. Keep it compiling: `cargo check --features save-writeback`.
-save-writeback = []
+# The reconstruction core now owns the extracted `save/` code, including its
+# dormant mutators and `impl Write` blocks, so the reader's write-back build must
+# turn the feature on there too.
+save-writeback = ["er-reconstruct/save-writeback"]
 
 [lints.clippy]
 # `foo.rs` containing `pub mod foo { … }` is the layout used throughout this
@@ -31,6 +41,13 @@ module_inception = "allow"
 
 [dependencies]
 wasm-event-flags = { path = "crates/wasm-event-flags" }
+# The shared reconstruction core (ADR-0010). Owns the extracted `save/` parsing
+# and the `reconstruct(bytes, slot) -> ReconstructedCharacter` entry point; the
+# reader links it natively and re-exports its `save`/`write` modules as a facade
+# during the transition. Pinned to a rev (drift-proof): adopting a core fix is a
+# deliberate rev bump, never silent. The `[patch]` below unifies wasm-event-flags
+# so the git-fetched core and this reader share one copy.
+er-reconstruct = { git = "https://github.com/laszloprekop/er-reconstruct.git", rev = "9e800f1c04a35e999bf8d1d4a3e33b342af1e03c" }
 aes = "0.8.4"
 binary-reader = "0.4.5"
 bitflags = "2.4.2"

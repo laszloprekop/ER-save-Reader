@@ -1,0 +1,8 @@
+# `er-reconstruct` is consumed as a git dependency (ADR-0010), and it declares
+# wasm-event-flags from ER-save-Reader.git — a private repo. Cargo's built-in git
+# fetcher cannot authenticate to it, so use the git CLI (which has the developer's
+# and CI's credentials). The `[patch]` in Cargo.toml still redirects that dep to
+# this repo's local `crates/wasm-event-flags`, so no second copy enters the graph;
+# the CLI fetch only lets cargo resolve the patched source.
+[net]
+git-fetch-with-cli = true

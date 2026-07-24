@@ -1261,6 +1261,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
+name = "er-reconstruct"
+version = "0.1.0"
+source = "git+https://github.com/laszloprekop/er-reconstruct.git?rev=9e800f1c04a35e999bf8d1d4a3e33b342af1e03c#9e800f1c04a35e999bf8d1d4a3e33b342af1e03c"
+dependencies = [
+ "aes",
+ "binary-reader",
+ "cbc",
+ "md5",
+ "wasm-event-flags",
+]
+
+[[package]]
 name = "er-save-reader"
 version = "0.38.0"
 dependencies = [
@@ -1274,6 +1286,7 @@ dependencies = [
  "egui_extras",
  "encoding_rs",
  "env_logger",
+ "er-reconstruct",
  "flate2",
  "image",
  "md5",

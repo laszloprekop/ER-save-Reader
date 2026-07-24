@@ -21,13 +21,18 @@ pub(crate) mod baseline;
 pub(crate) mod db;
 pub(crate) mod generated;
 pub(crate) mod knowledge;
-pub(crate) mod read;
-pub(crate) mod save;
+// The `save/` parsing was extracted into the `er-reconstruct` crate with its
+// history (ADR-0010). This facade keeps every `crate::save::…` path in the reader
+// compiling unchanged during the transition; new work consumes facts via
+// `er_reconstruct::reconstruct` instead of reaching through these structs.
+pub(crate) use er_reconstruct::save;
 pub(crate) mod ui;
 pub(crate) mod util;
 pub(crate) mod vm;
+// The dormant write-back path's trait and `impl`s moved with `save/`; re-export
+// them so `crate::write::…` still resolves under the feature.
 #[cfg(feature = "save-writeback")]
-pub(crate) mod write;
+pub(crate) use er_reconstruct::write;
 
 mod app;
 

@@ -92,11 +92,6 @@ impl Regulation {
         });
     }
 
-    pub fn check_save_compression(bytes: &[u8]) -> Result<bool, Error> {
-        let decrypted = Self::decrypt(bytes)?;
-        Self::check_compression(&decrypted)
-    }
-
     pub fn params_from_regulation(bytes: &[u8]) -> Result<HashMap<Param, Vec<u8>>, Error> {
         let decrypted = Self::decrypt(bytes)?;
         let decompressed = Self::decompress(&decrypted)?;
@@ -232,63 +227,6 @@ impl Regulation {
         }
 
         Ok(decompressed)
-    }
-
-    fn check_compression(bytes: &[u8]) -> Result<bool, Error> {
-        let mut br = BinaryReader::from_u8(bytes);
-        br.endian = Endian::Big;
-
-        // Define a helper macro to reduce redundancy
-        macro_rules! check {
-            ($expr:expr, $expected:expr) => {
-                if $expr? != $expected {
-                    return Ok(false);
-                }
-            };
-        }
-
-        // Perform the existing checks using the helper macro
-        check!(br.read_bytes(4), b"DCX\0");
-        check!(br.read_i32(), 0x11000);
-        check!(br.read_i32(), 0x18);
-        check!(br.read_i32(), 0x24);
-        check!(br.read_i32(), 0x44);
-        check!(br.read_i32(), 0x4c);
-        check!(br.read_bytes(4), b"DCS\0");
-
-        // Read decompressed and compressed sizes (used later if needed)
-        let _decompressed_size = br.read_i32()?;
-        let _compressed_size = br.read_i32()?;
-
-        // Check for compression type (either ZSTD or DFLT)
-        check!(br.read_bytes(4), b"DCP\0");
-        let compression_type = br.read_bytes(4)?;
-        if compression_type != b"ZSTD" && compression_type != b"DFLT" {
-            return Ok(false);
-        }
-
-        check!(br.read_i32(), 0x20);
-
-        // Read the compression level (no specific assertion here)
-        let _compression_level = br.read_u8()?;
-
-        // Read remaining header values without strict assertions
-        let _unknown1 = br.read_u8()?;
-        let _unknown2 = br.read_u8()?;
-        let _unknown3 = br.read_u8()?;
-        let _unknown4 = br.read_i32()?;
-        let _unknown5 = br.read_u8()?;
-        let _unknown6 = br.read_u8()?;
-        let _unknown7 = br.read_u8()?;
-        let _unknown8 = br.read_u8()?;
-        let _unknown9 = br.read_i32()?;
-        let _unknown10 = br.read_i32()?;
-
-        // Final checks
-        check!(br.read_bytes(4), b"DCA\0");
-        check!(br.read_i32(), 8);
-
-        Ok(true)
     }
 
     // Unpack the decrypted and decompressed regulation file (BND4)
