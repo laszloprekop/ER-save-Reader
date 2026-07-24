@@ -16,13 +16,24 @@ repeating the mistake.
 **A reader, not an editor** (ADR-0009). It reconstructs a character's state from a save
 file the way the game loads one — and stops there. It never writes a save back.
 
-The write-back path still exists but is dormant behind `feature = "save-writeback"`, off
-by default: the `Write` trait and its impls, `ViewModel::update_save`, the `SaveType`
-mutators, and the character importer. **Do not add to it, and do not wire anything back to
-it.** New work belongs on the read side. If you genuinely need the write path, say so
-explicitly first — resurrecting it is a decision, not an implementation detail.
+**Reconstruction is a shared core now** (ADR-0010). The `save/` parsing was extracted (with
+history) into the separate **`er-reconstruct`** crate, consumed here as a pinned git
+dependency and by elden-map as WASM, so a fix to a faulty reconstruction reflects in both
+apps. This reader keeps a re-export facade (`crate::save` / `crate::write` →
+`er_reconstruct::…`) during the migration. **New reconstruction work — any new fact —
+belongs in `er-reconstruct` behind `reconstruct(bytes, slot) -> ReconstructedCharacter`,
+not in the reader's ViewModel.** The fact set grows one slice at a time;
+`docs/RECONSTRUCTION-FACT-INVENTORY.md` orders them.
 
-Keep it from rotting when you touch the save structs: `cargo check --features save-writeback`.
+The write-back path still exists but is dormant behind `feature = "save-writeback"`, off by
+default. The `Write` trait, its impls, and the `SaveType` mutators moved with `save/` into
+`er-reconstruct` (behind that crate's matching feature); `ViewModel::update_save` and the
+character importer stay here. **Do not add to it, and do not wire anything back to it.** New
+work belongs on the read side. If you genuinely need the write path, say so explicitly
+first — resurrecting it is a decision, not an implementation detail.
+
+Keep it from rotting when you touch the save structs (which now live in `er-reconstruct`):
+`cargo check --features save-writeback` in **both** repos.
 
 ---
 
@@ -31,7 +42,11 @@ Keep it from rotting when you touch the save structs: `cargo check --features sa
 - **Canonical vocabulary / glossary**: `CONTEXT.md` (Evidence, Claim, Origin, Family
   Constant, Resolver, Flag Family, Unknown, Epistemic Header, …). Use these terms; add new
   jargon there rather than inventing it per-conversation.
-- **Decisions**: `docs/adr/` (ADR-0001 … ADR-0009).
+- **Decisions**: `docs/adr/` (ADR-0001 … ADR-0010).
+- **Shared reconstruction core**: `er-reconstruct` (separate repo, ADR-0010) owns save
+  parsing and `reconstruct(bytes, slot) -> ReconstructedCharacter`. Consumed here as a
+  pinned git dep unified with `crates/wasm-event-flags` via a `[patch]`; the fact set grows
+  one slice at a time (`docs/RECONSTRUCTION-FACT-INVENTORY.md`).
 - **Evidence inventory**: `knowledge/evidence-catalog.json` — sha256 index over all
   out-of-repo evidence with per-corpus trust context. Verify with
   `er-save-reader knowledge catalog-verify` before relying on any evidence file.
@@ -91,6 +106,7 @@ UNVERIFIED), and propose the fix.
 |-------|----------|
 | **Canonical vocabulary** | `CONTEXT.md` |
 | **Decisions** | `docs/adr/` |
+| **Shared reconstruction core** | `er-reconstruct` repo; `docs/RECONSTRUCTION-FACT-INVENTORY.md` |
 | System architecture (live) | `docs/WASM-EVENT-FLAGS.md` — note `docs/ARCHITECTURE.md` is SUPERSEDED |
 | Event flag geography | `docs/EVENT-FLAG-GEOGRAPHY.md` (era-mixed — numbers obsolete) |
 | Discovery / verification methodology | `docs/discovery-verification-cycle.md`, `docs/CORROBORATION-SYSTEM.md`, `docs/CASE-VERIFICATION-GUIDE.md` |

@@ -7,6 +7,17 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.1 - Sync CLAUDE.md to the extraction
+
+CLAUDE.md now reflects ADR-0010: reconstruction is a shared core (`er-reconstruct`),
+save parsing and the write-back trait/mutators moved there, new facts belong in the
+core (not the ViewModel), and `cargo check --features save-writeback` applies to
+both repos.
+
+### Files Modified
+- CLAUDE.md: shared-core orientation, write-back relocation, ADR range → 0010
+- Cargo.toml: version 0.39.0 → 0.39.1
+
 ## v0.39.0 - Shared reconstruction core, walking skeleton (ticket #1)
 
 The save-parsing was extracted into a new **er-reconstruct** crate — its own
