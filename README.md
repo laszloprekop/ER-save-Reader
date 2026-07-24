@@ -1,9 +1,5 @@
 # ER Save Reader
 
-<p align="center">
-  <a href="https://github.com/ClayAmore/ER-Save-Editor/blob/master/icon/readme.md"><img src="https://github.com/ClayAmore/ER-Save-Editor/assets/131625063/e1d40274-066a-4b72-b010-de9170090b60" /></a>
-</p>
-
 Reads Elden Ring save files and reconstructs the character state they encode — the same
 state the game itself loads when you continue playing. Compatible with PC and Playstation
 Save Wizard exported saves.
