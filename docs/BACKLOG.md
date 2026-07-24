@@ -1209,8 +1209,19 @@ This is the single location for all planned work, remaining gaps, and deferred i
   LIVE at those maps' localIds or are a separate family reusing ids in the dungeon numeric
   space. Frozen found 7 set, the resolver 0; neither is trustworthy, so per ADR-0008 they are
   read as not-discovered rather than guessed (`src/vm/events.rs`, summoning-pool loop).
-- **Next**: identify the real family via the multi-slot differential (a save with pools known
-  activated vs not), then route them like the rest. Until then the page under-reports.
+- **Differential attempted 2026-07-24 — routing confirmed WRONG, page hidden**: read all 162
+  pool ids through `world_flag_state` across every slot of ER0000.sl2. **0 set on every slot**,
+  including slot 0, which the owner reports has a pool activated in-game. Since the resolver
+  reads bosses/graces correctly on those same slots, 0-everywhere means the ids in
+  `summoning_pools.rs` (placeholder `Name_` labels) are not the bits that flip on activation —
+  the family is genuinely mis-identified, not merely a character with no pools.
+- **Why it can't be located from this save**: a clean differential needs the SAME character
+  before/after activating a pool (a timeline capture). The 10 slots are independent
+  playthroughs differing in thousands of flags, so XOR-ing two of them isolates nothing.
+- **Decision (owner, 2026-07-24): put aside.** Low-value info. The nav entry is hidden
+  (`src/ui/menu.rs`) so the app no longer shows a permanently-empty page; route/VM/view are
+  kept. Re-enable only if a before/after pool-activation capture is added and the family is
+  pinned. Value of doing so is confidence in the detection mechanism, not the feature itself.
 
 ### (investigated, NOT a bug 2026-07-24) `dungeon()` and the summoning-pool "false Clear"
 - **Hypothesis was**: `dungeon(10000040)` place-and-reads a false Clear for an unallocated id

@@ -398,7 +398,10 @@ pub mod menu {
             ("Cookbooks", EventsRoute::Cookboks),
             ("Maps", EventsRoute::Maps),
             ("Bosses", EventsRoute::Bosses),
-            ("Summoning Pools", EventsRoute::SummoningPools),
+            // Summoning Pools hidden 2026-07-24: their flag family is unidentified, so the
+            // page could only ever show "none" (the flag ids read 0 on every slot, incl. one
+            // with a pool known-activated in-game). Low-value info; re-enable once the family
+            // is found via a targeted differential. Route/VM/view kept, just not surfaced.
             ("Colosseums", EventsRoute::Colosseums),
             ("Landmarks", EventsRoute::Landmarks),
             ("World Pickups", EventsRoute::WorldPickups),

@@ -7,6 +7,29 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.23 - Hide the Summoning Pools page (flag family unidentified)
+
+The differential closed the summoning-pool question the only way this save allows. Reading all
+162 pool ids through `world_flag_state` across every slot of ER0000.sl2 returns **0 set on every
+slot** — including slot 0, which the owner reports has a pool activated in-game. The resolver
+reads bosses/graces correctly on those same slots, so 0-everywhere means the ids in
+`summoning_pools.rs` (placeholder `Name_` labels) are not the bits that flip on activation: the
+family is mis-identified. It cannot be located from this save — a clean differential needs the
+same character before/after activating a pool, and the 10 slots are independent playthroughs.
+
+Per owner decision (low-value info): the Summoning Pools nav entry is hidden (`src/ui/menu.rs`)
+so the app no longer shows a permanently-empty page. The route/view/VM are kept (the
+`EventsRoute::SummoningPools` variant is `#[allow(dead_code)]`) so re-adding the menu entry
+restores it once the family is pinned. The v0.37.19 comment claiming a "bogus slot / false
+Clear" was corrected — `dungeon()` places these at real maps; the family, not the reader, is
+the problem.
+
+### Files Modified
+- src/ui/menu.rs: Summoning Pools nav entry removed (hidden)
+- src/vm/events.rs: corrected summoning-pool comment; `SummoningPools` route variant allow(dead_code)
+- docs/BACKLOG.md: differential result + hide decision recorded
+- Cargo.toml: bumped to 0.37.23
+
 ## v0.37.22 - Fix flaky evidence-test fixture; record cluster-cutover follow-up findings
 
 Test-infra + planning. `knowledge::evidence::tests::bytes_are_memoized_...` failed

@@ -28,6 +28,11 @@ pub mod events_view_model {
         Cookboks,
         Maps,
         Bosses,
+        /// Never constructed while the Summoning Pools nav entry is hidden
+        /// (`src/ui/menu.rs`, 2026-07-24) — its flag family is unidentified. The
+        /// route/view/VM are kept for when it is pinned; re-adding the menu entry
+        /// reconstructs it. See BACKLOG "Summoning pool flag family".
+        #[allow(dead_code)]
         SummoningPools,
         Colosseums,
         Landmarks,
@@ -329,14 +334,13 @@ pub mod events_view_model {
             for (key, value) in BOSSES.lock().unwrap().iter() {
                 events_vm.bosses.insert(*key, read(value.0));
             }
-            // Summoning pools are deliberately NOT routed. Their flags (120 are
-            // 8-digit like 10000040, 42 are 10-digit) verify against neither reader:
-            // on slot 5 the frozen path found 7 set, the resolver's dungeon/tile
-            // routing found 0, and ids like 10000040 do not parse as valid
-            // map-encoded dungeon flags — the resolver *places* them at a bogus slot
-            // and reads a false Clear rather than refusing. Until the family is
-            // identified (BACKLOG: "Summoning pool flag family is unidentified"),
-            // read them as not-discovered rather than guess a family (ADR-0008).
+            // Summoning pools are deliberately NOT routed. Their flags read 0 on
+            // every slot of the reference save (incl. one with a pool activated
+            // in-game), so the ids in `summoning_pools.rs` are not the bits that flip
+            // on activation — the family is mis-identified, and a clean differential
+            // needs a before/after capture this save cannot give. Read as
+            // not-discovered rather than guess a family (ADR-0008). The nav entry is
+            // hidden (`src/ui/menu.rs`); see BACKLOG "Summoning pool flag family".
             for (key, _value) in SUMMONING_POOLS.lock().unwrap().iter() {
                 events_vm.summoning_pools.insert(*key, false);
             }
