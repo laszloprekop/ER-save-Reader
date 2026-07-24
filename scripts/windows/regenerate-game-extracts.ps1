@@ -17,7 +17,7 @@
 # Mac (ooz); EMEVD parsing happens in the knowledge pipeline.
 #
 # Afterwards: copy -OutDir to the Mac at
-#   '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
+#   '~/dev/Elden Ring stuff/Elden Ring decompiled game files'
 # then in ER-save-Reader: change the `game-extracts` catalog entry kind from
 # "missing" to "directory" (root pointing at that folder) and run
 #   er-save-reader knowledge catalog-update
@@ -109,6 +109,6 @@ Write-Host ''
 Write-Host '=== DONE ==='
 Write-Host "Output: $OutDir"
 Write-Host "Copy this folder to the Mac as:"
-Write-Host "  '/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'"
+Write-Host "  '~/dev/Elden Ring stuff/Elden Ring decompiled game files'"
 Write-Host "then update the evidence catalog (game-extracts entry -> kind 'directory')"
 Write-Host "and run: er-save-reader knowledge catalog-update"

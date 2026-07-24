@@ -8,8 +8,13 @@ use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
-/// Default path to extracted game icons (can be overridden)
-const DEFAULT_ICONS_PATH: &str = "/Users/laszloprekop/dev/Elden Ring stuff ARCHIVE/Elden-map references/reference-images/Elden Ring v1.14 Item Images and Maps/hi_01_common-tpf-dcx_split";
+/// Default path to extracted game icons. This is a personal/local asset location,
+/// so it is read from the `ER_ICONS_PATH` environment variable rather than baked
+/// in. Absent, `icons_path` is empty and icons fall back to the placeholder — the
+/// app runs fine without the reference images.
+fn default_icons_path() -> PathBuf {
+    std::env::var("ER_ICONS_PATH").map(PathBuf::from).unwrap_or_default()
+}
 
 /// Icon size for display (smaller than original 160x160)
 pub const ICON_DISPLAY_SIZE: f32 = 64.0;
@@ -30,7 +35,7 @@ impl IconCache {
     fn new() -> Self {
         Self {
             textures: HashMap::new(),
-            icons_path: PathBuf::from(DEFAULT_ICONS_PATH),
+            icons_path: default_icons_path(),
             placeholder_loaded: false,
         }
     }

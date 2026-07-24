@@ -35,23 +35,23 @@ The save files are legitimate, unaltered files saved by the game.
 ### Latest
 
 (might contain fresher save slots than the Manual completion log):
-'/Users/laszloprekop/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/76561197969778805/ER0000.sl2'
+'~/Library/Application Support/CrossOver/Bottles/Elden Ring/drive_c/users/crossover/AppData/Roaming/EldenRing/<STEAM_ID>/ER0000.sl2'
 
 ### Archived:
 
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files'
+'~/dev/Elden Ring stuff/Elden Ring save files'
 
 ### Progressive, before-after save file snapshots for diff
 
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging'
+'~/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging'
 
 #### Confessor capture pairs (Slot 0)
 
 66 full save file snapshots for before/after verification of pickups, graces, and bosses:
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/slot 0 Confessor'
+'~/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/slot 0 Confessor'
 
 Capture catalog (149 captures, 52 pairs):
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/capture_catalog.json'
+'~/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/capture_catalog.json'
 
 #### s5-Bee timeline (Slot 5)
 
@@ -59,10 +59,10 @@ Capture catalog (149 captures, 52 pairs):
 (6 bytes per changed byte: `[u32_LE offset][u8 old][u8 new]`), NOT raw slot data.
 
 Metadata:
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_changes.jsonl'
+'~/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_changes.jsonl'
 
 Binary diffs:
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_diffs/'
+'~/dev/Elden Ring stuff/Elden Ring save files/Granular snapshots for debugging/timeline/slot_diffs/'
 
 Key fields in slot_changes.jsonl:
 - `structuralOffsets.eventFlagsOffset`: EF offset within slot (available from ~entry 50+)
@@ -81,7 +81,7 @@ Key fields in slot_changes.jsonl:
 >
 > **RAW SOURCES RESTORED (2026-07-05):** flag-relevant raw game files were copied from
 > the Steam install (exe ProductVersion 2.6.2 ≈ game 1.16.x) into
-> `'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring game raw'` and cataloged as
+> `'~/dev/Elden Ring stuff/Elden Ring game raw'` and cataloged as
 > corpus `game-raw-1162`. Extraction levels:
 > - **Level 0 (raw .dcx)**: DONE — event/ (590 EMEVD + 4 eventflagalloclists),
 >   regulation.bin, map/mapstudio MSBs; integrity-verified via the evidence catalog.
@@ -103,7 +103,7 @@ Key fields in slot_changes.jsonl:
 >   - MSB: only needed for region names; WitchyBND supports MSB serialization
 >     (comparison-grade) — covered by the same script via `-IncludeMsb`.
 
-'/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files'
+'~/dev/Elden Ring stuff/Elden Ring decompiled game files'
 
 Key files:
 - `regulation-bin/ItemLotParam_map.param.xml` - World pickup definitions
@@ -118,9 +118,9 @@ Key files:
 ## Manually maintained completion log
 
 A.k.a. User sets completed checkbox to true, then saved via Elden-map apps /character-game-data page. Coverage only for early stage characters, for Slot 0 - Confessor, mostly graces, unique item pickups, boss drops are checked.
-'/Users/laszloprekop/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl'
+'~/dev/Elden Ring stuff/elden-map/server/data/flag-correlation-candidates.jsonl'
 
 ## Event flags
 
 Extracted event flag catalog (generated from decompiled game files)
-'/Users/laszloprekop/dev/Elden Ring stuff/ER-save-Reader/scripts/extracted_event_flags.json'
+'~/dev/Elden Ring stuff/ER-save-Reader/scripts/extracted_event_flags.json'

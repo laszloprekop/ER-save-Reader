@@ -55,7 +55,7 @@ EVENT_FLAGS_SEARCH_MIN = 0x10000
 EVENT_FLAGS_SEARCH_MAX = 0x20000
 
 # File paths
-DEFAULT_SAVE_DIR = "/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring save files"
+DEFAULT_SAVE_DIR = "~/dev/Elden Ring stuff/Elden Ring save files"
 ```
 
 ### 3. Methodology Documents

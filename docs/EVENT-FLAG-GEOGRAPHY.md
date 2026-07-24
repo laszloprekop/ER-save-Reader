@@ -602,7 +602,7 @@ Boss defeats trigger multiple flag types:
 
 All source files are in:
 ```
-/Users/laszloprekop/dev/Elden Ring stuff/Elden Ring decompiled game files/
+~/dev/Elden Ring stuff/Elden Ring decompiled game files/
 ├── event/
 │   ├── common.emevd.js
 │   ├── openmap.eventflagalloclist

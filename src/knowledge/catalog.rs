@@ -14,6 +14,9 @@ use std::path::{Path, PathBuf};
 
 const CATALOG_PATH: &str = "knowledge/evidence-catalog.json";
 const MANIFEST_DIR: &str = "knowledge/manifests";
+/// Untracked, per-machine overrides for `roots` (absolute Evidence paths are
+/// personal/local, so they live here, gitignored, not in the tracked catalog).
+const LOCAL_CATALOG_PATH: &str = "knowledge/evidence-catalog.local.json";
 
 pub(crate) fn sha256_file(path: &Path) -> Result<(String, u64), String> {
     let mut f = fs::File::open(path).map_err(|e| format!("{}: {}", path.display(), e))?;
@@ -60,7 +63,28 @@ fn walk_sorted(dir: &Path, excludes: &[String]) -> Result<Vec<PathBuf>, String> 
 fn load_catalog(repo_root: &Path) -> Result<Value, String> {
     let path = repo_root.join(CATALOG_PATH);
     let text = fs::read_to_string(&path).map_err(|e| format!("{}: {}", path.display(), e))?;
-    serde_json::from_str(&text).map_err(|e| format!("catalog parse: {}", e))
+    let mut catalog: Value =
+        serde_json::from_str(&text).map_err(|e| format!("catalog parse: {}", e))?;
+
+    // The tracked catalog carries placeholder `roots`; real absolute Evidence
+    // paths are personal, so they live in an untracked local override. Merge it
+    // over the placeholders when present so `catalog-verify` resolves on this
+    // machine without committing anyone's home directory.
+    let local_path = repo_root.join(LOCAL_CATALOG_PATH);
+    if let Ok(local_text) = fs::read_to_string(&local_path) {
+        let local: Value = serde_json::from_str(&local_text)
+            .map_err(|e| format!("{}: parse: {}", local_path.display(), e))?;
+        if let Some(local_roots) = local.get("roots").and_then(|r| r.as_object()) {
+            let roots = catalog["roots"]
+                .as_object_mut()
+                .ok_or("catalog has no roots object")?;
+            for (key, value) in local_roots {
+                roots.insert(key.clone(), value.clone());
+            }
+        }
+    }
+
+    Ok(catalog)
 }
 
 fn corpus_dir(roots: &Value, corpus: &Value) -> Result<PathBuf, String> {
