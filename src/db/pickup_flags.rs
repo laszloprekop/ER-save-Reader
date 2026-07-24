@@ -1011,6 +1011,32 @@ pub fn get_dungeon_name(map_area: u32, section: u32) -> &'static str {
 mod tests {
     use super::*;
 
+    /// `world_flag_state` routes by id range to the world-semantics families and
+    /// refuses (Unknown) outside them — never collapsing an unrouted id to Clear.
+    /// Guards the router the event-flag reader cluster and the remembrance/great-rune
+    /// verification both depend on (v0.37.19-20).
+    #[test]
+    fn world_flag_state_routes_and_refuses() {
+        use wasm_event_flags::{resolve_family_base_in_ef, FAMILY_WORLD_STATE_B};
+
+        // Out-of-family ids refuse, never Clear.
+        let mut ef = vec![0u8; 2_100_000];
+        ef[20_000] = 0x01; // marker → list end in detectable range → region resolves
+        let flags = ResolvedFlags::from_event_flags(&ef).unwrap();
+        assert_eq!(world_flag_state(&flags, 0), FlagState::Unknown);
+        assert_eq!(world_flag_state(&flags, 49_999), FlagState::Unknown);
+        assert_eq!(world_flag_state(&flags, 2_000_000_001), FlagState::Unknown);
+
+        // A world-state block flag set at its resolved position reads Set through the
+        // router; a sibling left clear reads a definite Clear, not Unknown.
+        let base = resolve_family_base_in_ef(&ef, FAMILY_WORLD_STATE_B).unwrap();
+        let flag = 65_610u32;
+        ef[base + ((flag - 50_000) / 8) as usize] |= 1 << (7 - (flag % 8) as u8);
+        let flags = ResolvedFlags::from_event_flags(&ef).unwrap();
+        assert_eq!(world_flag_state(&flags, flag), FlagState::Set);
+        assert_eq!(world_flag_state(&flags, 65_700), FlagState::Clear);
+    }
+
     #[test]
     fn test_small_flag_offset() {
         // Flag 300 should be at byte 37, bit 3

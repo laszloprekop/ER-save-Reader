@@ -160,42 +160,42 @@ pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     UniqueItemMapping {
         item_id: 2950,
         name: "Remembrance of the Grafted",
-        event_flag: 171, // Boss defeat = item obtained
+        event_flag: 10000800, // Boss defeat = item obtained
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2951,
         name: "Remembrance of the Starscourge",
-        event_flag: 173, // Radahn defeat
+        event_flag: 1052380800, // Radahn defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2952,
         name: "Remembrance of the Omen King",
-        event_flag: 175, // Morgott defeat
+        event_flag: 11000800, // Morgott defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2953,
         name: "Remembrance of the Blasphemous",
-        event_flag: 174, // Rykard defeat
+        event_flag: 16000800, // Rykard defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2954,
         name: "Remembrance of the Rot Goddess",
-        event_flag: 177, // Malenia defeat
+        event_flag: 15000800, // Malenia defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 2955,
         name: "Remembrance of the Blood Lord",
-        event_flag: 176, // Mohg defeat
+        event_flag: 12050800, // Mohg defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
@@ -223,7 +223,7 @@ pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     UniqueItemMapping {
         item_id: 2959,
         name: "Remembrance of the Full Moon Queen",
-        event_flag: 172, // Rennala defeat
+        event_flag: 14000800, // Rennala defeat
         category: UniqueItemCategory::Remembrance,
         confidence: VerificationConfidence::VeryHigh,
     },
@@ -270,49 +270,49 @@ pub static UNIQUE_ITEMS: &[UniqueItemMapping] = &[
     UniqueItemMapping {
         item_id: 8148,
         name: "Godrick's Great Rune",
-        event_flag: 171, // Boss defeat flag
+        event_flag: 10000800, // Boss defeat flag
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 8149,
         name: "Radahn's Great Rune",
-        event_flag: 173, // Radahn defeat
+        event_flag: 1052380800, // Radahn defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 8150,
         name: "Morgott's Great Rune",
-        event_flag: 175, // Morgott defeat
+        event_flag: 11000800, // Morgott defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 8151,
         name: "Rykard's Great Rune",
-        event_flag: 174, // Rykard defeat
+        event_flag: 16000800, // Rykard defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 8152,
         name: "Mohg's Great Rune",
-        event_flag: 176, // Mohg defeat
+        event_flag: 12050800, // Mohg defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 8153,
         name: "Malenia's Great Rune",
-        event_flag: 177, // Malenia defeat
+        event_flag: 15000800, // Malenia defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
     UniqueItemMapping {
         item_id: 10080,
         name: "Great Rune of the Unborn",
-        event_flag: 172, // Rennala defeat
+        event_flag: 14000800, // Rennala defeat
         category: UniqueItemCategory::GreatRune,
         confidence: VerificationConfidence::VeryHigh,
     },
@@ -1482,16 +1482,18 @@ mod tests {
 
     #[test]
     fn test_flag_lookup() {
-        // Godrick's Great Rune should be mapped to flag 171
-        let mappings = UNIQUE_ITEMS_BY_FLAG.get(&171).unwrap();
+        // Godrick's Great Rune maps to Godrick's DEFEAT flag (10000800), not the
+        // old <50k world-drop flag 171 — see the 2026-07-24 remembrance/great-rune
+        // cutover to boss-defeat flags read via world_flag_state.
+        let mappings = UNIQUE_ITEMS_BY_FLAG.get(&10000800).unwrap();
         assert!(mappings.iter().any(|m| m.item_id == 8148));
     }
 
     #[test]
     fn test_item_lookup() {
-        // Item 8148 (Godrick's Great Rune) should map to flag 171
+        // Item 8148 (Godrick's Great Rune) maps to Godrick's defeat flag 10000800.
         let flags = FLAGS_BY_ITEM.get(&8148).unwrap();
-        assert!(flags.contains(&171));
+        assert!(flags.contains(&10000800));
     }
 
     #[test]

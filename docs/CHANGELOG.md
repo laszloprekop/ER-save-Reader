@@ -7,6 +7,39 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.20 - Great runes & shardbearer remembrances verify against boss-defeat flags
+
+Follow-up 2 to the v0.37.18 whetblade diagnosis. In the Inventory Verification triangle the
+seven shardbearer Remembrance/Great-Rune pairs showed as false-negatives ("in inventory but
+flag not detected") because they were mapped to the <50k world-drop flags 171-177, which no
+resolver family covers — `collect_set_flags` routes every unique item through `pickup_state`,
+whose lowest family starts at 50,000, so those ids read Unknown.
+
+Re-pointed all 14 (7 Great Runes + 7 shardbearer Remembrances) to the boss *defeat* flags
+from `bosses_data` (Godrick 10000800, Rennala 14000800, Radahn 1052380800, Rykard 16000800,
+Morgott 11000800, Mohg 12050800, Malenia 15000800), and taught `collect_set_flags`
+(`src/ui/events.rs`) to route the `Remembrance`/`GreatRune` categories through
+`world_flag_state` (tile_world/dungeon) rather than `pickup_state`. Routing on the item's
+category avoids the tile/pickup value-ambiguity CLAUDE.md forbids. Boss-defeat semantics also
+let the triangle correctly flag a *consumed* remembrance as flag-set-but-absent.
+
+Verified against ER0000.sl2 slot 5: Godrick's and Rennala's items now read Set (owned +
+defeated), the other five Clear — the three items the report showed as false-negatives
+(Remembrance of the Grafted, Remembrance of the Full Moon Queen, Great Rune of the Unborn)
+now match. A unit test guards the `world_flag_state` router (routes by family, refuses out of
+range); the two `UNIQUE_ITEMS` lookup tests were updated to the new Godrick flag.
+
+Not fixed (BACKLOG): the other 8 Remembrances (178/179/180 + 9108-9114) are still on <50k
+flags — the routing is now in place, so the remaining work is re-pointing each to its boss's
+defeat flag. Also noted: an intermittent flake in the evidence memoization test.
+
+### Files Modified
+- src/db/inventory_verification.rs: 171-177 → shardbearer defeat flags; lookup tests updated
+- src/ui/events.rs: `collect_set_flags` routes Remembrance/GreatRune via `world_flag_state`
+- src/db/pickup_flags.rs: unit test for the `world_flag_state` router
+- docs/BACKLOG.md: 7 shardbearers done; remaining 8 Remembrances + flaky-test items
+- Cargo.toml: bumped to 0.37.20
+
 ## v0.37.19 - Finish the event-flag reader cutover (all cluster tables but summoning pools)
 
 Follow-up to v0.37.18. The rest of the `EventsViewModel::from_event_flags` cluster still read

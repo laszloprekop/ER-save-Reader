@@ -1529,18 +1529,32 @@ pub mod events {
     /// they were before — a set of flags observed SET — so an unknown flag has
     /// never been representable here as anything but absent.
     fn collect_set_flags(event_flags: Option<&[u8]>) -> std::collections::HashSet<u32> {
-        use crate::db::inventory_verification::UNIQUE_ITEMS;
-        use crate::db::pickup_flags::pickup_state;
+        use crate::db::inventory_verification::{UNIQUE_ITEMS, UniqueItemCategory};
+        use crate::db::pickup_flags::{pickup_state, world_flag_state};
 
         let mut set_flags = std::collections::HashSet::new();
 
         // Membership means "known Set". Unknown is correctly absent — a flag we
         // could not resolve is not asserted to be set.
+        //
+        // Remembrances and Great Runes are verified against their source boss's
+        // DEFEAT flag (a world/dungeon flag), not a pickup: "you beat the boss, so
+        // you were granted this", which also lets the triangle flag a consumed or
+        // traded remembrance as flag-set-but-absent. They route through
+        // `world_flag_state` (tile_world/dungeon). Every other category is an item
+        // acquisition addressed by its own pickup flag and routes through
+        // `pickup_state`. Routing on the value would hit the tile/pickup ambiguity
+        // (CLAUDE.md); routing on the item's own category does not.
         if let Some(ef) = event_flags {
             let resolved = ResolvedFlags::from_event_flags(ef);
             for item in UNIQUE_ITEMS.iter() {
-                let set = resolved.as_ref().map_or(FlagState::Unknown, |r| pickup_state(r, item.event_flag));
-                if set == FlagState::Set {
+                let state = resolved.as_ref().map_or(FlagState::Unknown, |r| match item.category {
+                    UniqueItemCategory::Remembrance | UniqueItemCategory::GreatRune => {
+                        world_flag_state(r, item.event_flag)
+                    }
+                    _ => pickup_state(r, item.event_flag),
+                });
+                if state == FlagState::Set {
                     set_flags.insert(item.event_flag);
                 }
             }

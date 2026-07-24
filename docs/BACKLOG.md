@@ -1216,7 +1216,23 @@ This is the single location for all planned work, remaining gaps, and deferred i
   cluster from regrowing the bug under a new table. **Generic** — applies to any future VM
   flag read.
 
-### Great-rune verification uses unreadable world-drop flags (found 2026-07-23)
+### Great-rune verification uses unreadable world-drop flags — 7 shardbearers DONE 2026-07-24
+- **Fixed (v0.37.20)**: the 7 shardbearer pairs (all 7 Great Runes + their 7 Remembrances)
+  were re-pointed from the <50k world-drop flags 171-177 to the boss *defeat* flags from
+  `bosses_data` (Godrick 10000800 … Radahn 1052380800), and `collect_set_flags`
+  (`src/ui/events.rs`) now routes the `Remembrance`/`GreatRune` categories through
+  `world_flag_state` instead of `pickup_state`. Verified on ER0000.sl2 slot 5: Godrick's and
+  Rennala's items read Set (owned + defeated), the other five Clear — the three items the
+  user saw as false-negatives (Grafted, Full Moon Queen, Unborn) now match.
+- **STILL BROKEN — the other 8 Remembrances**: Black Blade (178), Hoarah Loux (179),
+  Elden (180), Dragonlord (9108), Lichdragon (9110), Fire Giant (9111), Regal Ancestor
+  (9112), Naturalborn (9114) are still on <50k flags (several marked "needs verification" in
+  the source) and read Unknown. The routing infra is now in place, so the fix is just
+  re-pointing each to its boss's defeat flag from `bosses_data` + verifying — no design work
+  left. Do this next to close Remembrances.
+
+<!-- superseded 2026-07-24; original statement of the problem kept below for the record -->
+### (superseded) Great-rune verification uses unreadable world-drop flags (found 2026-07-23)
 - **Symptom**: the 171-177 Remembrance/Great-Rune pairs show as false-negatives ("in
   inventory but flag not detected") in the Verification tab.
 - **Cause**: `src/db/inventory_verification.rs` maps them to the shardbearer *world-drop*
@@ -1435,6 +1451,16 @@ These work correctly as-is but could be consolidated to reduce maintenance burde
   widening to `i64`), which touches every `From`/`match` on both enums — a real refactor,
   not a lint suppression. The app targets 64-bit desktop only, so nothing is actually
   broken today.
+
+### Flaky test: `evidence::tests::bytes_are_memoized_so_a_file_is_hashed_once` (observed 2026-07-24)
+- **Symptom**: `knowledge::evidence::tests::bytes_are_memoized_so_a_file_is_hashed_once`
+  (`src/knowledge/evidence.rs:283`) failed on one `cargo test --workspace` run and passed on
+  the next with no code change in between — a flake, not a real failure.
+- **Likely cause**: the memoization it asserts (a file is hashed once) is backed by shared
+  state (a global/once cache or a hash-count) that other tests touch, so under parallel
+  execution the count is non-deterministic. Confirm, then isolate the cache per test or
+  serialize with a mutex / `--test-threads` guard.
+- **Impact**: intermittently reddens the mandatory `cargo test --workspace` snapshot gate.
 
 ---
 
