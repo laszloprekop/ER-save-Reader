@@ -64,16 +64,30 @@ never baked into the fact. Same for gender id → "♂/♀".
 Union = superset of both. elden-map is the only source for the derived
 hp/fp/stamina triples; this reader is the only source for the DLC blessing levels.
 
-## 05 — Bosses & graces (event flags)  *(flag layer already shared)*
+## 05 — Bosses & graces (event flags)  *(core CARRIES these now — issue #4 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| boss defeat flags | ✓ | ✓ | flag state per boss id, resolved per save |
-| grace (site of grace) flags | ✓ | ✓ | flag state per grace id |
+| boss defeat flags | ✓ | ✓ | ✅ `bosses: Vec<FlagFact>` — state per boss id, resolved per save |
+| grace (site of grace) flags | ✓ | ✓ | ✅ `graces: Vec<FlagFact>` — state per grace id |
 
 Both already route through `wasm-event-flags` for offset **resolution** (ADR-0008);
 this slice moves the *selection of which ids mean "boss"/"grace"* into the core.
 No flag base tables enter the core — positions stay resolved per save.
+
+**Status (2026-07-24, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `graces` and `bosses` as `Vec<FlagFact { id, state }>`, ascending by id, the
+tri-state (`Set`/`Clear`/`Unknown`) resolved per save via `wasm-event-flags`
+(`ResolvedFlags`, one shared origin scan). The grace/boss id **selection** moved
+into the core (`src/facts/flag_ids.rs`, extracted from the reader's `GRACES`/`BOSSES`
+id columns; names stayed behind as Enrichment). A boss id→family router
+(`boss_family_state`) mirrors the reader's `world_flag_state`. Conformance corpus
+gained grace/boss expectations, cross-checked against the reader's independent
+`discovered` tally (slot 0: 179 graces / 49 bosses; Godrick + Margit Set; the
+uncalibrated Consecrated-Snowfield tile `1248550800` honestly Unknown).
+**Still open for #4:** reader renders graces/bosses *from these facts* (its own
+computation retired), and elden-map resolves them via WASM + deletes its grace/boss
+TS — both gated behind #3 (browser-calls-core), so deferred.
 
 ## 06 — Pickups (world + dungeon)
 

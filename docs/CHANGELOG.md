@@ -7,6 +7,22 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.2 - Record slice #4 core landing (graces + bosses as facts)
+
+Documentation only. The shared core (`er-reconstruct`) now carries **grace** and
+**boss-defeat** facts — the core side of ADR-0010 slice #4. `reconstruct()` returns
+`graces`/`bosses` as `Vec<FlagFact { id, state }>`, the tri-state resolved per save
+via `wasm-event-flags` (no baked-in positions, ADR-0008); the id *selection* moved
+into the core, names stayed here as Enrichment. `RECONSTRUCTION-FACT-INVENTORY.md`
+§05 is updated to mark the core-side status and to spell out what remains for #4
+(reader renders from these facts; elden-map WASM + TS delete — both gated behind #3).
+No reader code changed: the reader still pins the core by git rev and won't consume
+these facts until a deliberate pin bump.
+
+### Files Modified
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: §05 marked core-carried; remaining-work note
+- Cargo.toml: version 0.39.1 → 0.39.2
+
 ## v0.39.1 - Sync CLAUDE.md to the extraction
 
 CLAUDE.md now reflects ADR-0010: reconstruction is a shared core (`er-reconstruct`),
