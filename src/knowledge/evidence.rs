@@ -204,11 +204,20 @@ mod tests {
 
     impl Fixture {
         fn new(file_body: &[u8], dir_body: &[u8]) -> Self {
+            // Unique per call, not just per wall-clock instant. Under parallel test
+            // threads `as_nanos()` can collide (coarse clock resolution); two fixtures
+            // then share one temp dir and one's Drop (`remove_dir_all`) deletes it out
+            // from under the other's `Evidence::open`, which is the intermittent panic
+            // this test used to hit. The atomic counter guarantees a distinct path.
+            use std::sync::atomic::{AtomicU64, Ordering};
+            static COUNTER: AtomicU64 = AtomicU64::new(0);
             let uniq = std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
                 .unwrap()
                 .as_nanos();
-            let root = std::env::temp_dir().join(format!("er-evidence-test-{uniq}"));
+            let seq = COUNTER.fetch_add(1, Ordering::Relaxed);
+            let root = std::env::temp_dir()
+                .join(format!("er-evidence-test-{uniq}-{}-{seq}", std::process::id()));
             let data = root.join("data");
             let dir = data.join("dir");
             fs::create_dir_all(&dir).unwrap();

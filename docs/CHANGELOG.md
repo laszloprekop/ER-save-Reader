@@ -7,6 +7,27 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.22 - Fix flaky evidence-test fixture; record cluster-cutover follow-up findings
+
+Test-infra + planning. `knowledge::evidence::tests::bytes_are_memoized_...` failed
+intermittently on `cargo test --workspace`. The cause was the shared test `Fixture`, not the
+memoization it asserts: `Fixture::new` keyed its temp dir on `SystemTime::as_nanos()` alone,
+which collides under parallel test threads, so two fixtures shared one dir and one's `Drop`
+(`remove_dir_all`) deleted it out from under the other's `Evidence::open`. `Fixture::new` now
+appends a per-call `AtomicU64` counter + pid; verified with 30 stress runs, 0 failures.
+
+BACKLOG also records two findings from the v0.37.18-21 cutover: (1) an investigation that
+DISPROVED a suspected shared-crate bug — `ResolvedFlags::dungeon()` correctly places allocated
+maps (10000040 → Stormveil m10_00) and already refuses unallocated ones, so there is no
+upstream fix and elden-map gains no code; the summoning-pool question is purely which family
+those flags belong to. (2) the portable corrections elden-map could apply if it mirrors the
+app's tables (boss-defeat flags for remembrances; route by category, not flag value).
+
+### Files Modified
+- src/knowledge/evidence.rs: `Fixture::new` uses an atomic counter + pid for a unique temp dir
+- docs/BACKLOG.md: flaky test resolved; dungeon() investigation (not a bug); elden-map notes
+- Cargo.toml: bumped to 0.37.22
+
 ## v0.37.21 - The remaining 8 remembrances verify against boss-defeat flags
 
 Completes the remembrance cutover started in v0.37.20. The eight non-shardbearer Remembrances

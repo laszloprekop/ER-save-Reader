@@ -1202,12 +1202,42 @@ This is the single location for all planned work, remaining gaps, and deferred i
 - **Symptom**: summoning pools are the ONE cluster table left on... nothing — they now read
   not-discovered unconditionally. On slot 5 the frozen path found 7 set; routing through
   `world_flag_state` found 0 (158 Clear, 2 Unknown).
-- **Cause**: their flags (120 are 8-digit like `10000040`, 42 are 10-digit) do not parse as
-  valid map-encoded dungeon flags — the resolver *places* them at a bogus slot and reads a
-  false Clear instead of refusing. Neither reader is trustworthy, so per ADR-0008 they are
+- **Cause (refined 2026-07-24)**: their flags (120 are 8-digit like `10000040`, 42 are
+  10-digit) parse as dungeon/tile flags for REAL maps (`10000040` → Stormveil m10_00 localId 40),
+  so `dungeon()` places and reads them — it is not a bogus slot, and `dungeon()` is not buggy
+  (see the investigated entry below). What is unknown is whether summoning-pool flags actually
+  LIVE at those maps' localIds or are a separate family reusing ids in the dungeon numeric
+  space. Frozen found 7 set, the resolver 0; neither is trustworthy, so per ADR-0008 they are
   read as not-discovered rather than guessed (`src/vm/events.rs`, summoning-pool loop).
 - **Next**: identify the real family via the multi-slot differential (a save with pools known
   activated vs not), then route them like the rest. Until then the page under-reports.
+
+### (investigated, NOT a bug 2026-07-24) `dungeon()` and the summoning-pool "false Clear"
+- **Hypothesis was**: `dungeon(10000040)` place-and-reads a false Clear for an unallocated id
+  — a shared-crate refuse-don't-guess violation that would also affect elden-map.
+- **Disproven by reading the code**: `10000040 / 10_000 = 1000`, and prefix `1000` IS in
+  `LEGACY_ALLOC_SLOTS` (`crates/wasm-event-flags/src/lib.rs:2051`, `(1000, 0)` = Stormveil
+  m10_00). `dungeon()` places it at a *real* slot, and `legacy_alloc_slot` already returns
+  `None` → `Unknown` for genuinely unallocated prefixes. So `dungeon()` is correct and there
+  is **no upstream fix** — elden-map gains nothing here.
+- **The real question is semantic, not a crate defect** (folds into the summoning-pool entry
+  above): do summoning-pool flags actually live at these maps' localId ~40, or are they a
+  separate family reusing ids in the dungeon numeric space? `dungeon()` cannot know; only the
+  multi-slot differential (a save with pools known-activated vs not) can. Nothing to fix in
+  the wasm crate until that is answered.
+
+### Elden-map: portable corrections from the app-side cutover (found 2026-07-24)
+- Elden-map already did its ADR-0008 resolver cutover, and the shared wasm crate was not
+  touched by the 2026-07-23/24 work, so elden-map receives NO code from it. These are
+  corrections it could *apply* if it mirrors the app's tables:
+  - **Boss-derived items key off the boss DEFEAT flag** (`bosses_data`, e.g. Rennala 14000800),
+    never the `<50k` "world-drop" ids 171-180 — those are unreadable by any resolver family.
+    If elden-map mirrors an item/verification table it likely carries the same wrong ids
+    (fixed app-side in v0.37.20-21).
+  - **Route by item semantics/category, never by flag value**: a 10-digit id is ambiguous
+    between tile-world and tile-pickup. This is what `world_flag_state` vs `pickup_state`
+    encodes (`src/db/pickup_flags.rs`); elden-map's `shared/flag-reader.ts` should make the
+    same world-vs-pickup split by caller intent.
 
 ### Guard: the VM can still read frozen block bases (found 2026-07-23)
 - Nothing stops `src/vm/events.rs` from calling `get_flag_offset` (frozen legacy store) the
@@ -1453,15 +1483,15 @@ These work correctly as-is but could be consolidated to reduce maintenance burde
   not a lint suppression. The app targets 64-bit desktop only, so nothing is actually
   broken today.
 
-### Flaky test: `evidence::tests::bytes_are_memoized_so_a_file_is_hashed_once` (observed 2026-07-24)
-- **Symptom**: `knowledge::evidence::tests::bytes_are_memoized_so_a_file_is_hashed_once`
-  (`src/knowledge/evidence.rs:283`) failed on one `cargo test --workspace` run and passed on
-  the next with no code change in between — a flake, not a real failure.
-- **Likely cause**: the memoization it asserts (a file is hashed once) is backed by shared
-  state (a global/once cache or a hash-count) that other tests touch, so under parallel
-  execution the count is non-deterministic. Confirm, then isolate the cache per test or
-  serialize with a mutex / `--test-threads` guard.
-- **Impact**: intermittently reddens the mandatory `cargo test --workspace` snapshot gate.
+### Flaky evidence test — DONE 2026-07-24 (v0.37.22)
+- **Was**: `knowledge::evidence::tests::bytes_are_memoized_so_a_file_is_hashed_once` failed
+  intermittently. Root cause was NOT the memoization it asserts — it was the shared `Fixture`:
+  `Fixture::new` keyed its temp dir only on `SystemTime::as_nanos()`, which collides under
+  parallel test threads, so two fixtures shared one dir and one's `Drop` (`remove_dir_all`)
+  deleted it out from under the other's `Evidence::open` (the panic was at the `open().unwrap()`,
+  not the `ptr_eq` assert).
+- **Fix**: `Fixture::new` now appends a per-call `AtomicU64` counter + pid to the path, so
+  every fixture gets a distinct dir. Verified with 30 consecutive stress runs, 0 failures.
 
 ---
 
