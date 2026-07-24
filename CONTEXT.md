@@ -263,3 +263,67 @@ deltas must be computed by item identity, never by GaItem handle (handles churn)
 **Keyframe**:
 A periodic full-slot snapshot inside the Timeline (plus per-entry state checksums),
 making diff-chain replay verifiable and re-startable. Evidence.
+
+### Reconstruction architecture
+
+Vocabulary for the shared core that both this reader and elden-map consume (ADR-0010).
+The dividing question throughout is **shared game-knowledge vs. app-specific projection**.
+
+**Character Reconstructor**:
+The pure black box that turns one slot of a save into facts: `(save bytes, slot index)
+→ ReconstructedCharacter`. Deterministic, no I/O, no timers, no file-watching, no
+rendering — the caller owns all of that. This is what makes it safe to share across
+apps and to compile both native and WASM.
+_Avoid_: "parser" (it does more than parse), "the backend" (it is a library, not a
+running service).
+
+**ReconstructedCharacter**:
+The output of the Character Reconstructor: ID-keyed resolved state for one slot — stats
+by value, bosses/graces/pickups by flag state, inventory as `{itemId, count}`, world
+position. **Facts only.** No names, no map coordinates, no display strings baked in.
+_Avoid_: "the character model" when you mean the rendered view; that is per-app.
+
+**Three tiers** (the boundary that decides what lives in the core):
+1. *Reconstructed facts* — computed from **this save's bytes**. Shared core.
+2. *Game reference data* — id → **Canonical Name** / metadata, from the game's own files,
+   identical for every save. Shared core, exposed as a **separate lookup** (`nameOf(id)`),
+   not baked into the facts.
+3. *App-specific projection* — map coordinates, community POI labels, UI layout. Never
+   enters the core; stays in each app's Enrichment stage.
+
+**Canonical Name**:
+The game's own name for an id (FMG/param-derived), single-sourced from the core's name
+lookup so both apps resolve the same id to the same string. An app may still apply its
+own **display label** on top for its UI (elden-map's community POI labels), but the
+canonical source is shared — this is what "centralize name resolution" means.
+
+**Enrichment**:
+The app-owned stage that runs **after** the Character Reconstructor: turning facts into
+what a given app renders — naming for display, map placement, elden-map's community POI
+merge. Enrichment differs per app by design and is never shared.
+
+**Drift-proof**:
+The property that a consumed WASM artifact can never disagree with the source it claims
+to be built from, because it is **built from pinned source in CI, never a hand-committed
+blob**. Distinct from *zero-human-action*: adopting a fix is still a deliberate pin bump,
+but a *stale or divergent* artifact is structurally impossible. This — not silent
+propagation — is the target for keeping the two apps in agreement.
+
+**Conformance corpus**:
+Real save files paired with their expected ReconstructedCharacter, built with the
+Multi-slot Differential method. Serves three roles: oracle during the strangler migration
+(the core must match known truth), parity gate (`native facts == WASM facts`), and
+permanent CI regression guard. Tests **facts**, and its baseline is **known truth**.
+Contrast the Output baseline.
+
+**Output baseline**:
+A snapshot of each app's **enriched output** (reader `ExportData`; elden-map's enriched
+POI/character output), captured before migration for the same saves as the Conformance
+corpus. It is a **change-detector, not a correctness oracle**: it surfaces every
+behavioral delta the rework produces so a human can **triage** it — regression (fix) vs.
+improvement (re-bless the baseline). It must **never** be treated as truth, because
+elden-map's current output is known to be partly wrong (see Timeline) and the rework's
+whole premise (ADR-0010) is that its reconstruction is the less-trustworthy one. A
+migration scaffold, not a permanent gate.
+_Avoid_: calling it a "golden master" without the change-detector caveat — that invites
+enshrining the current (partly wrong) output as the target.

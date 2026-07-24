@@ -7,6 +7,23 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.37.24 - Record the shared reconstruction core decision (ADR-0010)
+
+Groundwork for unifying character reconstruction across the reader and elden-map so
+a fix to a faulty reconstruction reflects in both. ADR-0010 records the decision: one
+Rust core compiled native + WASM, returning facts plus a separate canonical-name
+lookup; drift-proof via CI-built WASM (not a committed blob); migrated concern-by-
+concern (strangler) behind a differential conformance corpus; elden-map's TypeScript
+reconstruction deleted. CONTEXT.md gains the Reconstruction-architecture vocabulary
+(Character Reconstructor, ReconstructedCharacter, the three tiers, Canonical Name,
+Enrichment, Drift-proof, Conformance corpus, Output baseline). No code behaviour
+changes — decision record and glossary only. The workstream is tracked as issues
+#1–#11.
+
+### Files Modified
+- docs/adr/0010-a-shared-reconstruction-core.md: new decision record
+- CONTEXT.md: Reconstruction-architecture vocabulary section
+
 ## v0.37.23 - Hide the Summoning Pools page (flag family unidentified)
 
 The differential closed the summoning-pool question the only way this save allows. Reading all
