@@ -7,6 +7,38 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.5 - Record slice 08 core landing (equipment facts)
+
+Documentation only. The shared core (`er-reconstruct`, commit `cb154f1`) now
+carries **equipment** as facts — the positional counterpart to held inventory,
+built on the #6 GaItem-decode foundation. `reconstruct()` returns `equipment` as
+a flat `Vec<EquipmentFact { slot, item_id, upgrade }>` (an `EquipSlot` enum:
+right/left hands ×3, arrows/bolts ×2, head/chest/arms/legs, talismans ×4), with
+**only occupied slots** emitted — the flat-Vec shape chosen by the user over a
+fixed struct (append-only contract). Weapons and projectiles indirect through the
+gaitem map (weapon `item_id` full/reinforced, `upgrade = id % 100`; projectiles
+carry no upgrade), armor clears its item-type tag off the indirected id, and
+talismans XOR-decode straight from the handle — reusing `facts::inventory`'s
+now-`pub(crate)` decode (one decode, two callers). Empty slots carry one of two
+sentinels (`0` or `u32::MAX`, a cleared slot); both are dropped, which is where a
+cleared quiver otherwise leaks a bogus `item_id 4294967295` (caught by a corpus
+case). Quick-slots and pouch are not equipment facts. "Ashes of war" from the
+issue title are satisfied via #6 held inventory's `Aow` category — equipped AoW
+is not a `chr_asm2` slot. Corpus guards it against the reader's own export
+(exact occupied count + targeted per-slot known-truth). The reader still pins the
+old core rev, so its equipment ViewModel is unchanged; the render-from-facts +
+elden-map tail stays gated behind #3, as with #4/#5/#6.
+
+The docs page updated is `docs/RECONSTRUCTION-FACT-INVENTORY.md` (§08 marked
+core-side done).
+
+### Files Modified
+
+- `Cargo.toml`: version bump to v0.39.5
+- `docs/RECONSTRUCTION-FACT-INVENTORY.md`: §08 Equipment marked core-side landed,
+  with the decode/sentinel/corpus status block; "Last updated" note
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.4 - Record slice #6 core landing (held inventory + GaItem-decode foundation)
 
 Documentation only. The shared core (`er-reconstruct`, commit `cce0e1c`) now

@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-25
+**Last updated**: 2026-07-25 (slice 08 equipment core side)
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -145,16 +145,37 @@ item Crafting Kit, Longsword, Memory of Grace). **Storage box deferred** — sam
 different list, a later slice. **Still open for #6:** reader renders held inventory from
 these facts; elden-map WASM + TS delete — both gated behind #3.
 
-## 08 — Equipment
+## 08 — Equipment  *(core CARRIES equipment now — issue #9 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| right hand ×3, left hand ×2/3 | ✓ | ✓ | `{ item_id, upgrade }` per slot |
-| arrows ×2, bolts ×2 | ✓ | ✓ | `{ item_id }` per slot |
-| head / chest / arms / legs | ✓ | ✓ | `{ item_id }` per slot |
-| talismans ×4 | ✓ | ✓ | `{ item_id }` per slot |
+| right hand ×3, left hand ×2/3 | ✓ | ✓ | ✅ `{ slot, item_id, upgrade }` per occupied slot |
+| arrows ×2, bolts ×2 | ✓ | ✓ | ✅ same shape, `upgrade` 0 |
+| head / chest / arms / legs | ✓ | ✓ | ✅ same shape, `upgrade` 0 |
+| talismans ×4 | ✓ | ✓ | ✅ same shape, `upgrade` 0 |
 
 Item id + upgrade level only; the name is Enrichment.
+
+**Status (2026-07-25, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `equipment` as a flat `Vec<EquipmentFact { slot, item_id, upgrade }>` — the
+**positional** counterpart to held inventory, built on the #6 GaItem-decode foundation
+(`src/facts/equipment.rs`, mirroring the reader's `EquipmentViewModel::from_save`). The
+flat-Vec-with-`EquipSlot`-enum shape was chosen by the USER over a fixed struct
+(append-only contract), consistent with the prior Vec facts; **only occupied slots**
+appear. Weapons and projectiles indirect through the gaitem map (weapon `item_id` is the
+full reinforced value, `upgrade = item_id % 100`; projectiles carry no upgrade); armor
+clears the armor tag off the indirected id; talismans XOR-decode straight from the
+handle — reusing `inventory`'s now-`pub(crate)` `map_item_id` + key constants (one
+decode, two callers). A new `get_chr_asm2` accessor exposes the loadout handles. Empty
+slots carry one of **two sentinels** — `0` or `u32::MAX` (`0xFFFFFFFF`, a *cleared* slot
+whose gaitem-map entry indirects to `u32::MAX` too) — both dropped; missing the second is
+how a cleared quiver leaks a bogus `item_id 4294967295` (caught by the V1-backup corpus
+case). Quick-slots and pouch are **not** equipment facts (a later slice may append them).
+Corpus guards it two ways: exact `equipment_count` vs the reader export's occupied
+fact-relevant slots (Confessor slot 0 = 17 incl. 3 Unarmed hands; V1 slot 2 = 10), and
+targeted per-slot `equipment` known-truth (Curved Club +14, Magic Brass Shield +13,
+Confessor Hood, Gold Scarab; V1's +0 starting gear). **Still open for #9:** reader renders
+equipment from these facts; elden-map WASM + TS delete — both gated behind #3, deferred.
 
 ## 09 — World position  *(elden-map only today — ported INTO the core)*
 
