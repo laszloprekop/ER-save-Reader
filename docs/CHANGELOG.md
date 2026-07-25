@@ -7,6 +7,35 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.6 - Record slice 04 core landing (stats facts)
+
+Documentation only. The shared core (`er-reconstruct`, commit `b6a7d1a`) now
+carries **stats** as facts. `reconstruct()` returns `stats: Stats` — a single
+scalar struct (stats is a fixed record, not a list) holding all 21 values: the
+eight attributes, runes held + lifetime, the hp/fp/stamina current/max/base-max
+triples, and the two DLC blessing levels. It is the plainest fact family — no
+flag resolution, no GaItem decode, just the character sheet read straight off
+`PlayerGameData` at documented offsets, mirroring the reader's
+`StatsViewModel::from_save`. The only translation is the union naming: the
+save's `souls`/`soulsmemory`/`sp` become the fact's `runes`/`runes_memory`/
+`stamina`. `level` and `class_id` stay in identity, not duplicated. The union
+widens the reader's sheet with the `base_max` values only elden-map surfaced.
+Corpus cross-checks the export-oracled fields exactly and guards the rest
+(base-max has no export oracle) with universal invariants (maxes > 0, current ≤
+max, base-max ≤ max, lifetime runes ≥ held). The reader still pins the old core
+rev, so its stats ViewModel is unchanged; the render-from-facts + elden-map tail
+stays gated behind #3, as with #4/#5/#6/#9.
+
+The docs page updated is `docs/RECONSTRUCTION-FACT-INVENTORY.md` (§04 marked
+core-side done).
+
+### Files Modified
+
+- `Cargo.toml`: version bump to v0.39.6
+- `docs/RECONSTRUCTION-FACT-INVENTORY.md`: §04 Stats marked core-side landed,
+  with the field-set / naming / corpus status block; "Last updated" note
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.5 - Record slice 08 core landing (equipment facts)
 
 Documentation only. The shared core (`er-reconstruct`, commit `cb154f1`) now

@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-25 (slice 08 equipment core side)
+**Last updated**: 2026-07-25 (slice 04 stats core side)
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -51,18 +51,34 @@ name, a coordinate label, or a UI string is Enrichment and stays in each app.
 Class id → "Vagabond"/"Astrologer" is a **Canonical Name** lookup (Enrichment),
 never baked into the fact. Same for gender id → "♂/♀".
 
-## 04 — Stats
+## 04 — Stats  *(core CARRIES stats now — issue #7 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane | ✓ | ✓ | 8 × `u32` |
-| level (derived/stored) | ✓ | ✓ | already in identity |
-| runes held / runes memory | ✓ (`souls`, `souls_memory`) | ✓ (`runes`, `runesMemory`) | `runes: u32`, `runes_memory: u32` |
-| hp / fp / stamina — current, max, base-max | – | ✓ | append all three × three |
-| scadutree level, spirit-ash (revered) level | ✓ | – | append: `u8` each (DLC) |
+| vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane | ✓ | ✓ | ✅ 8 × `u32` |
+| level (derived/stored) | ✓ | ✓ | already in identity (not re-added) |
+| runes held / runes memory | ✓ (`souls`, `souls_memory`) | ✓ (`runes`, `runesMemory`) | ✅ `runes: u32`, `runes_memory: u32` |
+| hp / fp / stamina — current, max, base-max | – | ✓ | ✅ all three × three (`u32`) |
+| scadutree level, spirit-ash (revered) level | ✓ | – | ✅ `u8` each (DLC) |
 
 Union = superset of both. elden-map is the only source for the derived
 hp/fp/stamina triples; this reader is the only source for the DLC blessing levels.
+
+**Status (2026-07-25, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `stats: Stats` — a single scalar struct (not a Vec: stats is a fixed record,
+so one named field per the slice-per-field pattern, holding all 21 values). The plainest
+family: **no** flag resolution and **no** GaItem decode, just the character sheet read
+straight off `PlayerGameData` at documented offsets (`src/facts/stats.rs`, mirroring the
+reader's `StatsViewModel::from_save`). The only translation is the union naming —
+save `souls`/`soulsmemory`/`sp` → fact `runes`/`runes_memory`/`stamina`. `level`/`class_id`
+stay in identity (§01), not duplicated. Every field always present (a non-DLC save simply
+reports `scadutree_level`/`spirit_ash_level` 0), so no `Option`. Corpus cross-checks the
+export-oracled fields **exactly** (8 attributes + DLC from `ExportStats`, runes from the
+export's general block, and — on newer exports — hp/fp/stamina current+max; all confirmed
+identical in the backup by reconstructing it), and guards the rest (base-max has no export
+oracle) with universal known-truth **invariants**: maxes > 0, current ≤ max, base-max ≤
+max, runes_memory ≥ runes. **Still open for #7:** reader renders stats from these facts;
+elden-map WASM + TS delete — both gated behind #3, deferred.
 
 ## 05 — Bosses & graces (event flags)  *(core CARRIES these now — issue #4 core side)*
 
