@@ -7,6 +7,26 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.9 - Bump er-reconstruct pin to the full-facts core (827f232)
+
+Dependency pin bump. The reader's `er-reconstruct` git dependency moves from the
+walking-skeleton rev `9e800f1c` (identity only) to `827f232` — the core that now
+reconstructs the full ADR-0010 fact set (graces, bosses, pickups, held + storage
+inventory, equipment, stats, world position). The reader's own ViewModels still
+compute these independently; this bump only makes `reconstruct()` and the
+`crate::save`/`crate::write` facade see the current core, the prerequisite for the
+per-concern render-from-facts tails. No behaviour change: `cargo check`, `cargo test
+--workspace` (all conformance suites), `cargo check --features save-writeback`, and
+`cargo clippy --workspace` all pass against the bumped core — the core's `Eq` drop on
+`ReconstructedCharacter` (world_position carries `f32`) and its new `SaveSlot.raw_slot_start`
+field are additive/compatible with the reader.
+
+### Files Modified
+
+- `Cargo.toml`: `er-reconstruct` rev `9e800f1c` → `827f232`; version bump to v0.39.9
+- `Cargo.lock`: regenerated for the new pin
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.8 - Record storage-box tail landing (the #6 inventory follow-on)
 
 Documentation only. The shared core (`er-reconstruct`, commit `827f232`) now
