@@ -664,7 +664,10 @@ impl eframe::App for App {
                     let idx = self.vm.index;
                     stats(ui, &mut self.vm, self.facts.get(&idx));
                 },
-                Route::CharacterEquipment => equipment(ui, &mut self.vm),
+                Route::CharacterEquipment => {
+                    let idx = self.vm.index;
+                    equipment(ui, &mut self.vm, self.facts.get(&idx));
+                },
                 Route::CharacterInventory => {
                     let idx = self.vm.index;
                     inventory(ui, &mut self.vm, self.facts.get(&idx));

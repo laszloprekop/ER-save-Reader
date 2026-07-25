@@ -22,6 +22,42 @@ pub mod equipment_view_model {
         pub icon_id: u16,
     }
 
+    /// Which Regulation param table an equipped item's id names against. Weapons and
+    /// projectiles share the weapon table; the id decode differs (a weapon keys off its
+    /// base id, a projectile off its id directly), so they are distinct kinds.
+    #[derive(Clone, Copy)]
+    pub enum EquipItemKind {
+        Weapon,
+        Projectile,
+        Armor,
+        Talisman,
+    }
+
+    /// A Regulation row's name for `id`, or "Empty" when absent — the fallback the
+    /// equipment view has always shown for an unpopulated slot.
+    fn param_name<T: Default + Clone>(map: &HashMap<u32, Row<T>>, id: u32) -> String {
+        map.get(&id)
+            .map(|row| row.name.to_string())
+            .unwrap_or_else(|| "Empty".to_string())
+    }
+
+    /// The reader's display name (Enrichment, ADR-0010) for an equipped item's kind and
+    /// its already-decoded id. This is the **single source** shared by
+    /// [`EquipmentViewModel`]'s decode and the facts-sourced equipment view, so the two
+    /// cannot drift about an item's name. Weapons key off the base id (reinforcement
+    /// stripped); the others look the id up directly. The id-decode stays with the
+    /// caller; only the name (Enrichment) lives here.
+    pub fn resolve_equip_name(kind: EquipItemKind, id: u32) -> String {
+        match kind {
+            EquipItemKind::Weapon => {
+                param_name(Regulation::equip_weapon_params_map(), (id / 100) * 100)
+            }
+            EquipItemKind::Projectile => param_name(Regulation::equip_weapon_params_map(), id),
+            EquipItemKind::Armor => param_name(Regulation::equip_protectors_param_map(), id),
+            EquipItemKind::Talisman => param_name(Regulation::equip_accessory_param_map(), id),
+        }
+    }
+
     #[derive(Default, Clone)]
     pub struct EquipmentViewModel  {
         pub left_hand_armaments: [EquipmentItemViewModel; 3],
@@ -140,9 +176,9 @@ pub mod equipment_view_model {
             weapon.gaitem_handle = *gaitem_handle;
             weapon.id = gaitem_map[gaitem_handle].item_id;
             weapon.equip_index = Self::equip_index(slot, *gaitem_handle);
-            let base_id = (weapon.id/100)*100;
-            weapon.name = Self::name_or_empty(Regulation::equip_weapon_params_map(), base_id);
+            weapon.name = resolve_equip_name(EquipItemKind::Weapon, weapon.id);
             // Get icon_id from param data
+            let base_id = (weapon.id/100)*100;
             if let Some(row) = Regulation::equip_weapon_params_map().get(&base_id) {
                 weapon.icon_id = row.data.iconId as u16;
             }
@@ -152,7 +188,7 @@ pub mod equipment_view_model {
             projectile.gaitem_handle = *gaitem_handle;
             projectile.id = if gaitem_map.get(gaitem_handle).is_some() {gaitem_map[gaitem_handle].item_id} else {0};
             projectile.equip_index = Self::equip_index(slot, *gaitem_handle);
-            projectile.name = Self::name_or_empty(Regulation::equip_weapon_params_map(), projectile.id);
+            projectile.name = resolve_equip_name(EquipItemKind::Projectile, projectile.id);
             // Get icon_id from param data
             if let Some(row) = Regulation::equip_weapon_params_map().get(&projectile.id) {
                 projectile.icon_id = row.data.iconId as u16;
@@ -164,7 +200,7 @@ pub mod equipment_view_model {
             armor.gaitem_handle = *gaitem_handle;
             armor.id = if gaitem_map[gaitem_handle].item_id  != 0 {gaitem_map[gaitem_handle].item_id  ^ 0x10000000} else {0};
             armor.equip_index=  Self::equip_index(slot, *gaitem_handle);
-            armor.name = Self::name_or_empty(Regulation::equip_protectors_param_map(), armor.id);
+            armor.name = resolve_equip_name(EquipItemKind::Armor, armor.id);
             // Get icon_id from param data (use male icon)
             if let Some(row) = Regulation::equip_protectors_param_map().get(&armor.id) {
                 armor.icon_id = row.data.iconIdM as u16;
@@ -176,7 +212,7 @@ pub mod equipment_view_model {
             talisman.gaitem_handle = gaitem_handle;
             talisman.id = if gaitem_handle != 0 {gaitem_handle ^ 0xA0000000} else {0};
             talisman.equip_index = Self::equip_index(slot, gaitem_handle);
-            talisman.name = Self::name_or_empty(Regulation::equip_accessory_param_map(), talisman.id);
+            talisman.name = resolve_equip_name(EquipItemKind::Talisman, talisman.id);
             // Get icon_id from param data
             if let Some(row) = Regulation::equip_accessory_param_map().get(&talisman.id) {
                 talisman.icon_id = row.data.iconId as u16;
@@ -187,7 +223,7 @@ pub mod equipment_view_model {
             item.gaitem_handle = gaitem_handle;
             item.id = if gaitem_handle != 0 {gaitem_handle ^ InventoryGaitemType::Item as u32} else {0};
             item.equip_index = Self::equip_index(slot, gaitem_handle);
-            item.name = Self::name_or_empty(Regulation::equip_goods_param_map(), item.id);
+            item.name = param_name(Regulation::equip_goods_param_map(), item.id);
             // Get icon_id from param data
             if let Some(row) = Regulation::equip_goods_param_map().get(&item.id) {
                 item.icon_id = row.data.iconId as u16;
@@ -199,14 +235,6 @@ pub mod equipment_view_model {
             match slot.equip_inventory_data.common_items.iter().position(|i| i.ga_item_handle == gaitem_handle) {
                 Some(index) => index as u32 + 0x180,
                 None => 0,
-            }
-        }
-
-        fn name_or_empty<T>(map: &HashMap<u32, Row<T>>, id: u32) -> String where T: Default + Clone{
-            let res = map.get(&id);
-            match res {
-                Some(row) => row.name.to_string(),
-                None => "Empty".to_string(),
             }
         }
     }

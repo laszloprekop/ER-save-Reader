@@ -7,6 +7,46 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.15 - Equipment renders from the shared core — reader render tails complete (ADR-0010 #10)
+
+The equipment view now renders its 18 equipment slots (three per hand, two arrow / two
+bolt, four armor, four talisman) from `reconstruct()`'s `equipment` facts
+(`EquipmentFact { slot, item_id, upgrade }`): each slot matched by `EquipSlot`, item id
+straight from the fact, name via a new shared `resolve_equip_name`. The ViewModel is the
+empty-state fallback. `facts` is threaded through `equipment()`.
+
+**Visible change (deliberate, user-approved):** three things leave the equipment view —
+the **"GA Handle" column** (per-save churn), and the **Quick Items** and **Pouch** rows.
+Quick-slots and pouch are not equipment facts (ADR-0010 §08 — a later slice may append
+them), so the reader no longer surfaces them here. The 18 equipment slots, their names,
+ids, ordering, and empty-slot greying (including Unarmed hands) are unchanged.
+
+**Single-source name resolution (mirrors the inventory tail):** the per-slot name lookup
+(Regulation param tables, weapon base-id split, "Empty" fallback) is extracted into one
+shared `resolve_equip_name(kind, id)` in `vm/equipment`. Both `EquipmentViewModel`'s
+decode methods and the view call it, so they cannot drift; the decode methods keep the
+id-decode and icon lookups and delegate only the name. A duplicate `name_or_empty` helper
+was folded into it. Review-driven: the slot→kind and slot→category maps were unified into
+one `EQUIP_SLOTS` table (no parallel switch to drift).
+
+**Milestone:** with equipment landed, every reader-side render tail of ADR-0010 #10 is
+done — identity, stats, bosses/graces, world/dungeon pickups, held+storage inventory, and
+equipment all render from the shared `er-reconstruct` core. What remains for #10 is the
+elden-map consumer side (WASM + TypeScript deletion), gated behind #3.
+
+Verified: cargo build, cargo clippy, and cargo test --workspace (all suites) pass,
+including new tests locking the slot table (18 slots, kind/category consistency) and the
+empty-slot rule.
+
+### Files Modified
+- src/ui/equipment.rs: render the 18 equip slots from the core's facts (`EQUIP_SLOTS` /
+  `equip_data_from_facts`, ViewModel fallback); GA Handle column and Quick Items / Pouch
+  rows removed; tests for the slot table and empty rule
+- src/vm/equipment.rs: new shared `resolve_equip_name` + `EquipItemKind`; decode methods
+  delegate the name to it (keeping id-decode + icon lookups); dead `name_or_empty` removed
+- src/app.rs: thread `facts` into the equipment view
+- Cargo.toml, docs/CHANGELOG.md: v0.39.15
+
 ## v0.39.14 - Inventory browse renders from the shared core (ADR-0010 #10 tail)
 
 The inventory **Browse** view now builds its rows from `reconstruct()`'s
