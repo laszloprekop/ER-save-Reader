@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-24
+**Last updated**: 2026-07-25
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -118,15 +118,32 @@ the reader itself reads them `false` because the family is mis-identified
 **Still open for #5:** reader renders pickups from these facts; elden-map WASM + TS
 delete — both gated behind #3.
 
-## 07 — Inventory
+## 07 — Inventory  *(core CARRIES held inventory now — issue #6 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| held inventory | ✓ | ✓ | `Vec<{ item_id, count }>` |
-| storage box inventory | ✓ | ✓ (GaItems map) | `Vec<{ item_id, count }>` |
+| held inventory | ✓ | ✓ | ✅ `held_inventory` + `held_key_items`: `Vec<InventoryFact { category, item_id, quantity }>` |
+| storage box inventory | ✓ | ✓ (GaItems map) | append: same shape — **deferred** (`storage_inventory_data`, a later slice) |
 
 Keyed by **item identity**, never GaItem handle (handles churn — CONTEXT.md).
 elden-map's handle→itemId resolution collapses into item identity in the core.
+
+**Status (2026-07-25, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `held_inventory` (the common list) and `held_key_items` (the key-item list) as
+`Vec<InventoryFact { category, item_id, quantity }>`, in save order. This is the first
+**non-flag** fact and the reusable **GaItem-decode foundation** (`src/facts/inventory.rs`,
+mirroring the reader's `InventoryItemViewModel::from_save`): a weapon/armor/ash handle
+indirects through the slot's gaitem map (new `get_ga_items` accessor) to its param id;
+accessory/consumable ids XOR-decode from the handle. `category` (Weapon/Armor/Accessory/
+Item/Aow) is carried because id → name resolves against a different DB per category and
+weapon/item ids overlap numerically — fact shape chosen deliberately over the bare
+`{item_id, count}` (append-only contract). The handle and per-save `inventory_index` are
+dropped (churny, not identity). Corpus guards it two ways: exact `held_common_count` /
+`held_key_count` against the reader export's distinct counts (694/103 Confessor slot 0,
+18/0 V1 slot 2), and targeted `items` per-id known-truth (Academy Glintstone Staff, key
+item Crafting Kit, Longsword, Memory of Grace). **Storage box deferred** — same decode,
+different list, a later slice. **Still open for #6:** reader renders held inventory from
+these facts; elden-map WASM + TS delete — both gated behind #3.
 
 ## 08 — Equipment
 

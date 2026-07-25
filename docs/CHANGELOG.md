@@ -7,6 +7,27 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.4 - Record slice #6 core landing (held inventory + GaItem-decode foundation)
+
+Documentation only. The shared core (`er-reconstruct`, commit `cce0e1c`) now
+carries **held inventory** as facts — the first **non-flag** reconstructed fact.
+`reconstruct()` returns `held_inventory` (common list) and `held_key_items` (key
+list) as `Vec<InventoryFact { category, item_id, quantity }>`, keyed by item
+identity, never the GaItem handle (handles churn — `CONTEXT.md`). The new
+`src/facts/inventory.rs` is the reusable **GaItem-decode foundation** that
+equipment (#7) and a later storage-box slice will reuse: a weapon/armor/ash
+handle indirects through the slot's gaitem map to its param id; accessory and
+consumable ids XOR-decode from the handle. Fact shape carries `category` because
+id → name resolves against a different DB per category and weapon/item ids
+overlap numerically. Storage box is deferred (same decode, a later slice). Corpus
+guards it against the reader's own export (distinct counts + targeted items). The
+reader still pins the old core rev, so its inventory ViewModel is unchanged; the
+render-from-facts + elden-map tail stays gated behind #3, as with #4/#5.
+
+### Files Modified
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: §07 marked ✅ for held inventory (storage
+  box deferred), with the core-side status note and the fact-shape decision
+
 ## v0.39.3 - Record slice #5 core landing (world + dungeon pickups as facts)
 
 Documentation only. The shared core (`er-reconstruct`) now carries **world** and
