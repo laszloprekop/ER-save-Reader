@@ -7,6 +7,44 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.7 - Record slice 09 core landing (world position — all core-widening slices done)
+
+Documentation only. The shared core (`er-reconstruct`, commit `95dbd80`) now
+carries **player world position** as a fact, and with it **every core-widening
+slice has landed**. `reconstruct()` returns `world_position:
+Option<WorldPosition>` — coordinates (primary + secondary), facing angle, and
+the map/block id. It is the archetypal ADR-0010 union-add: the reader never
+surfaced position, elden-map needs it for its map, so the fact is ported into
+the core rather than dropped. It is also the only slice with no reader oracle —
+so instead of re-implementing anything, the core surfaces the same resolver
+elden-map already trusts, `wasm_event_flags::extract_player_position` (the crate
+the core already depends on), exactly as graces/bosses surface `ResolvedFlags`.
+Calling the identical function guarantees the core's value equals elden-map's,
+so elden-map can later delete its extractor with no drift. Position sits at a
+dynamic offset, so the core's own structural `player_coords` field (which reads
+zero) is unused; the scan runs over the raw slot blob, re-sliced from the save
+bytes via an offset captured during parse. Because coordinates are `f32`,
+`ReconstructedCharacter` is now `PartialEq` rather than `Eq`. The corpus pins
+the map id exactly and the coordinates as loose anchors. The reader still pins
+the old core rev, so its behaviour is unchanged; the render-from-facts +
+elden-map tails stay gated behind #3.
+
+With this, the shared core reconstructs identity, stats, flags, pickups, held
+inventory, equipment, and world position. The remaining ADR-0010 work is the
+consumer migration (reader render-from-facts + elden-map WASM/TS deletion,
+gated behind #3) and the deferred storage-box list — not new fact-widening.
+
+The docs page updated is `docs/RECONSTRUCTION-FACT-INVENTORY.md` (§09 marked
+core-side done, with a note that all core-widening slices have landed).
+
+### Files Modified
+
+- `Cargo.toml`: version bump to v0.39.7
+- `docs/RECONSTRUCTION-FACT-INVENTORY.md`: §09 World position marked core-side
+  landed, with the resolver / dynamic-offset / corpus status block; an
+  all-slices-landed note; "Last updated" line
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.6 - Record slice 04 core landing (stats facts)
 
 Documentation only. The shared core (`er-reconstruct`, commit `b6a7d1a`) now

@@ -1274,7 +1274,7 @@ dependencies = [
 
 [[package]]
 name = "er-save-reader"
-version = "0.39.6"
+version = "0.39.7"
 dependencies = [
  "aes",
  "binary-reader",

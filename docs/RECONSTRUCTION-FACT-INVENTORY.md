@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-25 (slice 04 stats core side)
+**Last updated**: 2026-07-25 (slice 09 world position core side — all core-widening slices landed)
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -193,16 +193,43 @@ targeted per-slot `equipment` known-truth (Curved Club +14, Magic Brass Shield +
 Confessor Hood, Gold Scarab; V1's +0 starting gear). **Still open for #9:** reader renders
 equipment from these facts; elden-map WASM + TS delete — both gated behind #3, deferred.
 
-## 09 — World position  *(elden-map only today — ported INTO the core)*
+## 09 — World position  *(core CARRIES position now — issue #8 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
-| player world position | – | ✓ (`playerPosition`) | append: coordinates + map/block id |
+| player world position | – | ✓ (`playerPosition`) | ✅ `Option<WorldPosition { x,y,z, x2,y2,z2, facing_angle, map_id }>` |
 
 This is the archetypal ADR-0010 union-add: the reader has no reason to surface it,
 elden-map needs it for its map, so it is **ported into the core, not dropped**. The
 raw coordinates are facts; turning them into a map pin (POI labels, grid overlay)
 is elden-map's Enrichment and never enters a reader crate.
+
+**Status (2026-07-25, core side landed in `er-reconstruct`):** `reconstruct()` now
+returns `world_position: Option<WorldPosition>`. The **only slice with no reader oracle**
+— elden-map's extractor is the sole prior art, and its *single source of truth* is the
+signature scan `wasm_event_flags::extract_player_position` (the crate the core already
+depends on). So the core does **not** re-implement the scan: it *surfaces the same
+resolver as a fact* (`src/facts/world_position.rs`), exactly as graces/bosses surface
+`ResolvedFlags` — calling the identical function is what guarantees the core's value
+equals elden-map's today, so elden-map can later delete its copy with no drift. Position
+sits at a **dynamic** offset (it trails the per-save event-flags region), so the core's
+own *structural* `player_coords` field reads zero and is unused; the scan needs the whole
+`0x280000` slot blob, which `reconstruct` re-slices from the save bytes via a
+`raw_slot_start` offset captured during parse (no 2.5 MB-per-slot retention). Coordinates
+are `f32`, so `WorldPosition` and `ReconstructedCharacter` are now `PartialEq` (not `Eq`);
+`None` is an honest "no position", never guessed zeros. Corpus pins `map_id` exactly and
+`x/y/z` as loose anchors (the oracle is the same shared scan, so this mainly guards the
+raw-blob offset plumbing): slot 0 map `[0,0,11,31]` ~(8.09,164.43,189.06), slot 2 map
+`[0,36,42,60]` ~(−11.48,90.59,−57.03). **Still open for #8:** elden-map consumes position
+from the core via WASM + deletes its extractor — gated behind #3, deferred.
+
+---
+
+> **All core-widening slices have now landed** (§01 identity, §04 stats, §05 flags,
+> §06 pickups, §07 held inventory, §08 equipment, §09 world position). What remains is
+> not new fact-widening but the **consumer migration**: the per-slice reader-render +
+> elden-map tails (gated behind #3), the deferred storage-box inventory list, and the
+> final TS deletion (#10).
 
 ---
 
