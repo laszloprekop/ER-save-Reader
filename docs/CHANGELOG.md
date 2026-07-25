@@ -7,6 +7,37 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.19 - Correct 3 wrong-suffix boss-defeat ids in BOSSES (ADR-0010)
+
+Three `BOSSES` ids were wrong-suffix guesses that appear in **no** `GameAreaParam`
+boss-flag field. Corrected each to the game's authoritative `defeatBossFlagId`:
+
+- Radagon / Elden Beast (final boss, m19_0): `19000810` → `19000800`
+- Death Rite Bird (Liurnia North, m60_36): `1036450800` → `1036450340`
+- Deathbird (Liurnia South, m60_37): `1037420800` → `1037420340`
+
+Names unchanged; still 164 unique boss ids (3 swapped, none added/removed).
+
+**Verification.** `GameAreaParam.defeatBossFlagId` (regulation 1.16.1) names these exact
+ids as the defeat flags — Elden Beast corroborated by `bonusSoul 500000` at m19_0 — while
+the prior reader ids occur zero times across every GameAreaParam boss-flag field. elden-map
+independently carries the corrected ids, so this also removes that divergence.
+**Confidence LIKELY, not VERIFIED:** the flag identity is authoritative, but the
+gold-standard multi-slot differential could not run — every available save reads these
+bosses Clear (undefeated), so the Set-on-defeat flip is unobserved (`defeatBossFlagId` is
+definitionally set on defeat, so it is implied). A save with these bosses defeated would
+upgrade to VERIFIED. Recorded inline in `bosses.rs` so it stays revisitable.
+
+The core correction landed in **er-reconstruct `5b96576`** (regenerated `BOSS_FLAG_IDS`).
+The reader's er-reconstruct pin is **not** bumped here, so the reader's boss view (rendered
+from the pinned core facts) is unchanged until a later pin bump — this commit updates the
+source table only. Corpus `bosses_set` unchanged (52; all three read Clear either way).
+
+### Files Modified
+- src/db/bosses.rs: 3 boss-defeat ids corrected to their GameAreaParam flags, with an
+  inline confidence note
+- Cargo.toml, docs/CHANGELOG.md: v0.39.19
+
 ## v0.39.18 - Add 10 real boss-defeat flags missing from the BOSSES table (ADR-0010)
 
 `src/db/bosses.rs` — the generation source for er-reconstruct's `BOSS_FLAG_IDS` — was

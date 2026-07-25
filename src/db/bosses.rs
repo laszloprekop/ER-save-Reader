@@ -266,8 +266,12 @@ pub mod bosses {
             (Boss::CleanrotKnightStillwaterCave, (31040800,"Cleanrot Knight (Stillwater Cave)")),
             (Boss::CrystalianRayaLucariaCrystalTunnel, (32020800,"Crystalian (Raya Lucaria Crystal Tunnel)")),
             (Boss::CrystalianSpearCrystalianStaffAcademyCrystalCave, (31060800,"Crystalian Spear Crystalian Staff (Academy Crystal Cave)")),
-            (Boss::DeathbirdLiurniaSouth, (1037420800,"Deathbird (Liurnia South)")),
-            (Boss::DeathRiteBirdLiurniaNorth, (1036450800,"Death Rite Bird (Liurnia North)")),
+            // ids corrected to the game's GameAreaParam.defeatBossFlagId (the reader's
+            // prior …800 ids were wrong-suffix guesses absent from every GameAreaParam
+            // boss-flag field). Confidence LIKELY: authoritative flag identity, but the
+            // Set-on-defeat flip is unobserved (no corpus save has these bosses defeated).
+            (Boss::DeathbirdLiurniaSouth, (1037420340,"Deathbird (Liurnia South)")),
+            (Boss::DeathRiteBirdLiurniaNorth, (1036450340,"Death Rite Bird (Liurnia North)")),
             (Boss::ErdtreeAvatarLiurniaNortheast, (1038480800,"Erdtree Avatar (Liurnia Northeast)")),
             (Boss::ErdtreeAvatarLiurniaSouthwest, (1033430800,"Erdtree Avatar (Liurnia Southwest)")),
             (Boss::ErdtreeBurialWatchdogCliffbottomCatacombs, (30060800,"Erdtree Burial Watchdog (Cliffbottom Catacombs)")),
@@ -421,7 +425,10 @@ pub mod bosses {
             (Boss::SirGideonOfnirtheAllKnowing, (11050850,"Sir Gideon Ofnir, the All-Knowing")),
 
             // Elden Throne
-            (Boss::RadagonoftheGoldenOrderEldenBeast, (19000810,"Radagon of the Golden Order / Elden Beast")),
+            // id corrected 19000810 → 19000800: the game's defeatBossFlagId for the final
+            // boss (m19_0, bonusSoul 500000); the prior 19000810 is in no GameAreaParam
+            // boss-flag field. Confidence LIKELY (flip unobserved — no defeated corpus save).
+            (Boss::RadagonoftheGoldenOrderEldenBeast, (19000800,"Radagon of the Golden Order / Elden Beast")),
 
             // Bosses reconciled against GameAreaParam.defeatBossFlagId (ADR-0010 boss-fact
             // widening). Every id below is a real boss-defeat flag confirmed in
