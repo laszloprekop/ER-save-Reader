@@ -259,13 +259,21 @@ from the core via WASM + deletes its extractor — gated behind #3, deferred.
 > inventory, and equipment from the shared core's facts. World position has no reader
 > consumer (§09), so it has no reader tail.
 >
-> What remains for #10 is the **elden-map consumer side only**: each concern resolved in
-> the browser via WASM and its parallel TypeScript deleted — all gated behind #3
-> (browser-calls-core), so deferred and tracked in that repo, not here. The reader's
-> ViewModel `from_save` paths are not yet retired (they still back the empty state and the
-> non-fact concerns — whetblades/maps/quick-slots/pouch/Sort-ID); retiring them fully is a
-> later step, not a render tail. (Summoning pools stay deferred until their flag family is
-> identified — ADR-0008.)
+> What remains for #10 is the **elden-map consumer side only**, tracked in that repo.
+> Its prerequisites are already done there: `#2` (server calls the core via WASM) and
+> `#3` (browser calls the core via in-browser WASM) both landed, with native==WASM parity
+> CI across all facts — so the tails are **unblocked, not deferred**. What is left there
+> is per-concern: widen the browser's `reconstructService` to surface each fact set, move
+> each consumer off the old TypeScript reconstruction (`server/src/saveParser.ts` +
+> `shared/types.ts`/`slot-schema.ts`/`slot-layout.ts`) onto the facts, and delete the dead
+> TS. (Verified 2026-07-25 by reading the elden-map repo directly; the earlier
+> "gated behind #3" framing was stale.)
+>
+> The reader's ViewModel `from_save` paths are not yet retired (they still back the empty
+> state, the export oracle the core is validated *against*, and the non-fact concerns —
+> whetblades/maps/quick-slots/pouch/Sort-ID); retiring them fully is a later step gated on
+> further core-widening, not a render tail. (Summoning pools stay deferred until their flag
+> family is identified — ADR-0008.)
 
 ---
 

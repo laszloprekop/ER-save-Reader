@@ -7,6 +7,21 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.17 - Correct the #10 remainder note: elden-map #3 is done, tails unblocked
+
+Documentation only. Verified against the elden-map repo directly: its `#2` (server calls
+the core via WASM) and `#3` (browser calls the core via in-browser WASM) both landed, with
+native==WASM parity CI across all facts. So the fact inventory's "elden-map tails gated
+behind #3, deferred" note (added in v0.39.16, inherited from a stale assumption) was wrong
+— the tails are **unblocked**. The remaining #10 work there is per-concern: widen the
+browser's `reconstructService` to surface each fact set, move each consumer off the old
+TypeScript reconstruction, and delete the dead TS. Corrected the closing note accordingly.
+
+### Files Modified
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: closing note corrected — elden-map #2/#3 done,
+  tails unblocked (not deferred); remaining work restated as the per-concern TS migration
+- Cargo.toml, docs/CHANGELOG.md: v0.39.17
+
 ## v0.39.16 - Record the reader-side render tails as complete (ADR-0010 #10)
 
 Documentation only. `docs/RECONSTRUCTION-FACT-INVENTORY.md` now records that every
