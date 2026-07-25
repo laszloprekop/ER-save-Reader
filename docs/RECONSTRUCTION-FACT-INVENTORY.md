@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-25 (storage-box tail — all core-widening slices + the #6 storage tail landed)
+**Last updated**: 2026-07-25 (all reader-side render tails landed, v0.39.10–.15 — reader now renders every concern from the shared core; only the elden-map consumer side of #10 remains)
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -77,8 +77,10 @@ export-oracled fields **exactly** (8 attributes + DLC from `ExportStats`, runes 
 export's general block, and — on newer exports — hp/fp/stamina current+max; all confirmed
 identical in the backup by reconstructing it), and guards the rest (base-max has no export
 oracle) with universal known-truth **invariants**: maxes > 0, current ≤ max, base-max ≤
-max, runes_memory ≥ runes. **Still open for #7:** reader renders stats from these facts;
-elden-map WASM + TS delete — both gated behind #3, deferred.
+max, runes_memory ≥ runes. **Reader render LANDED** (v0.39.10–.11, 2026-07-25): the
+character-overview panel and the stats table both read attributes, vitals, runes and DLC
+blessings from these facts (StatsViewModel kept only as the empty-state fallback). **Still
+open for #7:** elden-map WASM + TS delete — gated behind #3, deferred.
 
 ## 05 — Bosses & graces (event flags)  *(core CARRIES these now — issue #4 core side)*
 
@@ -101,9 +103,13 @@ id columns; names stayed behind as Enrichment). A boss id→family router
 gained grace/boss expectations, cross-checked against the reader's independent
 `discovered` tally (slot 0: 179 graces / 49 bosses; Godrick + Margit Set; the
 uncalibrated Consecrated-Snowfield tile `1248550800` honestly Unknown).
-**Still open for #4:** reader renders graces/bosses *from these facts* (its own
-computation retired), and elden-map resolves them via WASM + deletes its grace/boss
-TS — both gated behind #3 (browser-calls-core), so deferred.
+**Reader render LANDED** (v0.39.12, 2026-07-25): the Sites of Grace and Bosses views
+render each flag's tri-state from these facts (`graces_from_facts` / `bosses_from_facts`,
+ViewModel fallback for the empty state); the ViewModel's own `from_save` is not yet
+retired (still the fallback and the source for whetblades/cookbooks/maps/colosseums/
+landmarks, which are not core facts). **Still open for #4:** elden-map resolves graces/
+bosses via WASM + deletes its grace/boss TS — gated behind #3 (browser-calls-core), so
+deferred.
 
 ## 06 — Pickups (world + dungeon)  *(core CARRIES world+dungeon now — issue #5 core side)*
 
@@ -131,8 +137,11 @@ totals, known-truth differential bounds (L93 slot 593 world / 386 dungeon vs L9
 slot 3 / 1), and monotonic collected anchors. **Summoning pools stay deferred** —
 the reader itself reads them `false` because the family is mis-identified
 (`events.rs`; ADR-0008 refuse-don't-guess), so no honest fact exists to move yet.
-**Still open for #5:** reader renders pickups from these facts; elden-map WASM + TS
-delete — both gated behind #3.
+**Reader render LANDED** (v0.39.13, 2026-07-25): the World Pickups and Dungeon Pickups
+views (and the shared detail sidebar) render each pickup's state from these facts —
+world+dungeon merged into one `getItemFlagId`-keyed map (ranges disjoint), the per-save
+resolver kept as a behavior-preserving fallback for the enriched table's world-state rows.
+**Still open for #5:** elden-map WASM + TS delete — gated behind #3.
 
 ## 07 — Inventory  *(core CARRIES held + storage now — issue #6 core side)*
 
@@ -167,8 +176,13 @@ reader decodes held and storage through one `fill_stroage_type`; the core reuses
 No new decode. No export lists the box's contents, so the corpus cross-checks the decoded
 list length against the save's own `storage_inventory_data` **distinct-count header** (a
 field independent of the decode): Confessor slot 0 = 30 common / 0 key (stored ammo &
-consumables), V1 slot 2 = empty. **Still open for #6:** reader renders held inventory from
-these facts; elden-map WASM + TS delete — both gated behind #3.
+consumables), V1 slot 2 = empty. **Reader render LANDED** (v0.39.14, 2026-07-25): the
+inventory Browse view builds its rows from `held_inventory`/`held_key_items`/
+`storage_inventory`/`storage_key_items` — identity from the facts, names via a shared
+`resolve_item_name` Enrichment resolver (now the single source, used by the ViewModel's
+`from_save` too). This is the first render tail with a visible change: the per-save "Sort
+ID" column (`inventory_index`, churn) was dropped. **Still open for #6:** elden-map WASM +
+TS delete — gated behind #3.
 
 ## 08 — Equipment  *(core CARRIES equipment now — issue #9 core side)*
 
@@ -199,8 +213,12 @@ case). Quick-slots and pouch are **not** equipment facts (a later slice may appe
 Corpus guards it two ways: exact `equipment_count` vs the reader export's occupied
 fact-relevant slots (Confessor slot 0 = 17 incl. 3 Unarmed hands; V1 slot 2 = 10), and
 targeted per-slot `equipment` known-truth (Curved Club +14, Magic Brass Shield +13,
-Confessor Hood, Gold Scarab; V1's +0 starting gear). **Still open for #9:** reader renders
-equipment from these facts; elden-map WASM + TS delete — both gated behind #3, deferred.
+Confessor Hood, Gold Scarab; V1's +0 starting gear). **Reader render LANDED** (v0.39.15,
+2026-07-25): the equipment view renders its 18 slots from these facts (`EQUIP_SLOTS` +
+`equip_data_from_facts`), names via a shared `resolve_equip_name` (used by the ViewModel's
+decode too). Visible change: the GA Handle column and the Quick Items / Pouch rows were
+dropped (churn / not-yet-facts). **Still open for #9:** elden-map WASM + TS delete — gated
+behind #3, deferred.
 
 ## 09 — World position  *(core CARRIES position now — issue #8 core side)*
 
@@ -235,10 +253,19 @@ from the core via WASM + deletes its extractor — gated behind #3, deferred.
 ---
 
 > **All core-widening slices have now landed** (§01 identity, §04 stats, §05 flags,
-> §06 pickups, §07 held **and storage** inventory, §08 equipment, §09 world position).
-> What remains is not new fact-widening but the **consumer migration**: the per-slice
-> reader-render + elden-map tails (gated behind #3) and the final TS deletion (#10).
-> (Summoning pools stay deferred until their flag family is identified — ADR-0008.)
+> §06 pickups, §07 held **and storage** inventory, §08 equipment, §09 world position),
+> **and every reader-side render tail has landed too** (v0.39.10–.15, 2026-07-25): this
+> reader now renders identity, stats, bosses/graces, world+dungeon pickups, held+storage
+> inventory, and equipment from the shared core's facts. World position has no reader
+> consumer (§09), so it has no reader tail.
+>
+> What remains for #10 is the **elden-map consumer side only**: each concern resolved in
+> the browser via WASM and its parallel TypeScript deleted — all gated behind #3
+> (browser-calls-core), so deferred and tracked in that repo, not here. The reader's
+> ViewModel `from_save` paths are not yet retired (they still back the empty state and the
+> non-fact concerns — whetblades/maps/quick-slots/pouch/Sort-ID); retiring them fully is a
+> later step, not a render tail. (Summoning pools stay deferred until their flag family is
+> identified — ADR-0008.)
 
 ---
 

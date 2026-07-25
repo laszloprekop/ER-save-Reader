@@ -7,6 +7,22 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.16 - Record the reader-side render tails as complete (ADR-0010 #10)
+
+Documentation only. `docs/RECONSTRUCTION-FACT-INVENTORY.md` now records that every
+reader-side render tail has landed (v0.39.10–.15): each slice's "Still open: reader
+renders X from these facts" note is marked LANDED with its version, and the closing
+summary re-scopes the remaining #10 work to the elden-map consumer side alone (browser
+WASM + TypeScript deletion, gated behind #3, tracked in that repo). Also notes explicitly
+that the reader's ViewModel `from_save` paths are not yet retired — they still back the
+empty state and the non-fact concerns (whetblades/maps/quick-slots/pouch/Sort-ID) — so
+retiring them is a later step, not a render tail.
+
+### Files Modified
+- docs/RECONSTRUCTION-FACT-INVENTORY.md: per-slice status notes (§04–§08) marked reader-
+  render LANDED; closing note + header re-scoped to the elden-map-only remainder
+- Cargo.toml, docs/CHANGELOG.md: v0.39.16
+
 ## v0.39.15 - Equipment renders from the shared core — reader render tails complete (ADR-0010 #10)
 
 The equipment view now renders its 18 equipment slots (three per hand, two arrow / two
