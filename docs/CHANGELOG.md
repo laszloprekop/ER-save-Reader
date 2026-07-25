@@ -7,6 +7,49 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.14 - Inventory browse renders from the shared core (ADR-0010 #10 tail)
+
+The inventory **Browse** view now builds its rows from `reconstruct()`'s
+`held_inventory` / `held_key_items` / `storage_inventory` / `storage_key_items` facts
+(ADR-0010) — item identity (id / quantity / category) straight from the core — instead
+of the reader's own `InventoryItemViewModel` decode, resolving each name via the
+reader's Enrichment tables. The ViewModel's storage remains only the empty-state
+fallback. `facts` is threaded through `inventory()` → `browse_inventory()`.
+
+**Visible change (deliberate, user-approved):** the **"Sort ID" column is gone** from
+the Browse table, its sort option, the row copy, and the export. `inventory_index` is
+the per-save acquisition order — churn, not reconstructed identity (ADR-0010) — so the
+core does not carry it and the view no longer surfaces it. This is the first render
+tail that is not "no visible change"; item id / name / quantity / storage / type and
+all filters are unchanged.
+
+Chose "Option 2" (render from facts) over keeping the ViewModel as the source: for a
+list view with per-item enrichment, sourcing identity from facts while pairing back to
+the ViewModel for name+index would have changed nothing observable and retired
+nothing. Rendering from the facts (names re-resolved via Enrichment, index dropped) is
+the migration with teeth.
+
+**Single-source name resolution (review-driven):** item-name lookup — the per-category
+tables, weapon base-id + `+upgrade` split, and the `[UNKOWN_{id}]` fallback — was
+extracted into one shared `resolve_item_name(gaitem_type, id)` in `vm/inventory`. Both
+`InventoryItemViewModel::from_save` and the browse view's `resolve_fact_name` now call
+it, so the two cannot silently drift about a name. `from_save` keeps the id-decode (the
+reconstruction) and delegates only the name (Enrichment) — the ADR-0010 split made
+explicit.
+
+Verified: cargo build, cargo clippy, and cargo test --workspace (all suites) pass,
+including three new tests locking the fact→row mapping (identity carried, per-save index
+dropped, every category mapped, weapon `+upgrade` formatting).
+
+### Files Modified
+- src/ui/inventory/browse.rs: browse renders from the core's inventory facts
+  (`item_from_fact` / `storage_from_facts` / `resolve_fact_name`); Sort ID column, sort,
+  copy, and export field removed; tests for the mapping
+- src/vm/inventory/mod.rs: new shared `resolve_item_name` Enrichment resolver;
+  `from_save` refactored to decode the id then delegate the name to it
+- src/ui/inventory/inventory.rs, src/app.rs: thread `facts` into the inventory view
+- Cargo.toml, docs/CHANGELOG.md: v0.39.14
+
 ## v0.39.13 - World & Dungeon Pickups render from the shared core (ADR-0010 #10 tail)
 
 The event-flags World Pickups and Dungeon Pickups views — and the shared pickup

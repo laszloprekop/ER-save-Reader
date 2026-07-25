@@ -665,7 +665,10 @@ impl eframe::App for App {
                     stats(ui, &mut self.vm, self.facts.get(&idx));
                 },
                 Route::CharacterEquipment => equipment(ui, &mut self.vm),
-                Route::CharacterInventory => inventory(ui, &mut self.vm),
+                Route::CharacterInventory => {
+                    let idx = self.vm.index;
+                    inventory(ui, &mut self.vm, self.facts.get(&idx));
+                },
                 Route::CharacterEventFlags => {
                     // Load verification records on demand for current slot
                     if !self.verification_loaded_slots[self.vm.index] {

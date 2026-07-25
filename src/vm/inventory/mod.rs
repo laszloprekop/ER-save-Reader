@@ -173,6 +173,48 @@ pub struct InventoryItemViewModel {
     pub r#type: InventoryGaitemType,
 }
 
+/// A table name for `id`, or the `[UNKOWN_{id}]` fallback for a missing or empty
+/// entry (spelling kept deliberately for output stability).
+fn name_or_unknown(found: Option<&&str>, id: u32) -> String {
+    match found {
+        Some(name) if !name.is_empty() => name.to_string(),
+        _ => format!("[UNKOWN_{}]", id),
+    }
+}
+
+/// The reader's display name (Enrichment, ADR-0010) for an inventory item's gaitem
+/// type and its already-decoded id. This is the **single source** shared by
+/// [`InventoryItemViewModel::from_save`] and the facts-sourced inventory browse view,
+/// so the two cannot drift about an item's name. Weapons key off the base id and show
+/// the reinforcement level (`id % 100`, from the full reinforced id); the other
+/// families look the id up directly. The id-decode (the reconstruction) stays with the
+/// caller; only the name (Enrichment) lives here.
+pub fn resolve_item_name(gaitem_type: &InventoryGaitemType, id: u32) -> String {
+    match gaitem_type {
+        InventoryGaitemType::Weapon => {
+            let base = (id / 100) * 100;
+            let upgrade = id % 100;
+            match WEAPON_NAME.lock().unwrap().get(&base) {
+                Some(name) if !name.is_empty() => {
+                    if upgrade > 0 {
+                        format!("{} +{}", name, upgrade)
+                    } else {
+                        name.to_string()
+                    }
+                }
+                _ => format!("[UNKOWN_{}]", base),
+            }
+        }
+        InventoryGaitemType::Armor => name_or_unknown(ARMOR_NAME.lock().unwrap().get(&id), id),
+        InventoryGaitemType::Accessory => {
+            name_or_unknown(ACCESSORY_NAME.lock().unwrap().get(&id), id)
+        }
+        InventoryGaitemType::Item => name_or_unknown(ITEM_NAME.lock().unwrap().get(&id), id),
+        InventoryGaitemType::Aow => name_or_unknown(AOW_NAME.lock().unwrap().get(&id), id),
+        InventoryGaitemType::Empty => String::new(),
+    }
+}
+
 impl InventoryItemViewModel {
     pub fn from_save(
         item_info: &EquipInventoryItem,
@@ -181,99 +223,24 @@ impl InventoryItemViewModel {
         gaitem_type: InventoryGaitemType,
     ) -> Self {
         let gaitem_handle = item_info.ga_item_handle;
-        let item_type_specific = match gaitem_type {
-            InventoryGaitemType::Weapon => {
-                let id = (gaitem.item_id / 100) * 100;
-                let upgrade_level = gaitem.item_id % 100;
-                (
-                    gaitem.item_id,
-                    match WEAPON_NAME.lock().unwrap().get(&id) {
-                        Some(name) => {
-                            if !name.is_empty() {
-                                if upgrade_level > 0 {
-                                    format!("{} +{}", name, upgrade_level)
-                                } else {
-                                    name.to_string()
-                                }
-                            } else {
-                                format!("[UNKOWN_{}]", id)
-                            }
-                        }
-                        None => format!("[UNKOWN_{}]", id),
-                    },
-                )
-            }
-            InventoryGaitemType::Armor => {
-                let id = gaitem.item_id ^ InventoryItemType::Armor as u32;
-                (
-                    id,
-                    match ARMOR_NAME.lock().unwrap().get(&id) {
-                        Some(name) => {
-                            if !name.is_empty() {
-                                name.to_string()
-                            } else {
-                                format!("[UNKOWN_{}]", id)
-                            }
-                        }
-                        None => format!("[UNKOWN_{}]", id),
-                    },
-                )
-            }
-            InventoryGaitemType::Accessory => {
-                let id = gaitem_handle ^ InventoryGaitemType::Accessory as u32;
-                (
-                    id,
-                    match ACCESSORY_NAME.lock().unwrap().get(&id) {
-                        Some(name) => {
-                            if !name.is_empty() {
-                                name.to_string()
-                            } else {
-                                format!("[UNKOWN_{}]", id)
-                            }
-                        }
-                        None => format!("[UNKOWN_{}]", id),
-                    },
-                )
-            }
-            InventoryGaitemType::Item => {
-                let id = gaitem_handle ^ InventoryGaitemType::Item as u32;
-                (
-                    id,
-                    match ITEM_NAME.lock().unwrap().get(&id) {
-                        Some(name) => {
-                            if !name.is_empty() {
-                                name.to_string()
-                            } else {
-                                format!("[UNKOWN_{}]", id)
-                            }
-                        }
-                        None => format!("[UNKOWN_{}]", id),
-                    },
-                )
-            }
-            InventoryGaitemType::Aow => {
-                let id = gaitem.item_id ^ InventoryItemType::Aow as u32;
-                (
-                    id,
-                    match AOW_NAME.lock().unwrap().get(&id) {
-                        Some(name) => {
-                            if !name.is_empty() {
-                                name.to_string()
-                            } else {
-                                format!("[UNKOWN_{}]", id)
-                            }
-                        }
-                        None => format!("[UNKOWN_{}]", id),
-                    },
-                )
-            }
+
+        // Decode the item id per family (this is the reconstruction). A weapon keeps
+        // its full reinforced id; the others clear their type tag. The display name
+        // then comes from the shared Enrichment resolver, so this ViewModel and the
+        // browse view (rendering from the core's facts) resolve names identically.
+        let item_id = match gaitem_type {
+            InventoryGaitemType::Weapon => gaitem.item_id,
+            InventoryGaitemType::Armor => gaitem.item_id ^ InventoryItemType::Armor as u32,
+            InventoryGaitemType::Accessory => gaitem_handle ^ InventoryGaitemType::Accessory as u32,
+            InventoryGaitemType::Item => gaitem_handle ^ InventoryGaitemType::Item as u32,
+            InventoryGaitemType::Aow => gaitem.item_id ^ InventoryItemType::Aow as u32,
             InventoryGaitemType::Empty => panic!("We shouldn't reach this!"),
         };
 
         Self {
             ga_item_handle: item_info.ga_item_handle,
-            item_id: item_type_specific.0,
-            item_name: item_type_specific.1,
+            item_id,
+            item_name: resolve_item_name(&gaitem_type, item_id),
             quantity: item_info.quantity,
             inventory_index: item_info.inventory_index,
             equip_index,
