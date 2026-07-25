@@ -7,6 +7,32 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.10 - Character overview renders stats from the shared core (first #10 render tail)
+
+The first render-from-facts tail (ADR-0010 #10) beyond identity. The character
+overview panel (`src/ui/general.rs`) now sources the attributes (vigor…arcane),
+derived vitals (HP/FP/Stamina), runes held/total, and DLC blessings from
+`reconstruct()`'s `stats` fact when a save is loaded — the same pattern the panel
+already uses for identity (name/level/class). It falls back to the ViewModel only
+for the empty/default state.
+
+No visible change: the core's `stats` fact was built to mirror the reader's
+`StatsViewModel::from_save`, and the values are cross-checked identical in
+er-reconstruct's conformance corpus and elden-map's native==WASM parity — so this
+simply makes the shared core the single source for this panel. The reader's
+`StatsViewModel` is not yet retired (the dedicated stats table view
+`src/ui/stats.rs` still reads it and would need facts threaded in); that is the
+remaining half of the stats tail. `cargo build`, `cargo test --workspace`, and
+`cargo clippy` all pass.
+
+### Files Modified
+
+- `src/ui/general.rs`: render attributes/vitals/runes/DLC from the core's `stats`
+  fact (a local `RenderStats` sourced from facts-or-ViewModel), mirroring the
+  existing identity render-from-facts
+- `Cargo.toml`: version bump to v0.39.10
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.9 - Bump er-reconstruct pin to the full-facts core (827f232)
 
 Dependency pin bump. The reader's `er-reconstruct` git dependency moves from the

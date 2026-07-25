@@ -315,6 +315,37 @@ pub mod general {
             ),
         };
 
+        // Attributes, derived vitals, runes, and DLC blessings likewise render from
+        // the core's `stats` facts (ADR-0010) when present — the values are identical
+        // to the ViewModel's, so this simply makes the shared core the single source
+        // and retires the reader's parallel compute for this panel. The ViewModel is
+        // the fallback for the empty/default state only.
+        struct RenderStats {
+            vigor: u32, mind: u32, endurance: u32, strength: u32,
+            dexterity: u32, intelligence: u32, faith: u32, arcane: u32,
+            hp: u32, max_hp: u32, fp: u32, max_fp: u32, max_stamina: u32,
+            runes: u32, runes_memory: u32, scadutree: u32, spirit_ash: u32,
+        }
+        let s = match facts {
+            Some(f) => {
+                let st = &f.stats;
+                RenderStats {
+                    vigor: st.vigor, mind: st.mind, endurance: st.endurance, strength: st.strength,
+                    dexterity: st.dexterity, intelligence: st.intelligence, faith: st.faith, arcane: st.arcane,
+                    hp: st.hp, max_hp: st.max_hp, fp: st.fp, max_fp: st.max_fp, max_stamina: st.max_stamina,
+                    runes: st.runes, runes_memory: st.runes_memory,
+                    scadutree: u32::from(st.scadutree_level), spirit_ash: u32::from(st.spirit_ash_level),
+                }
+            }
+            None => RenderStats {
+                vigor: stats_vm.vigor, mind: stats_vm.mind, endurance: stats_vm.endurance, strength: stats_vm.strength,
+                dexterity: stats_vm.dexterity, intelligence: stats_vm.intelligence, faith: stats_vm.faith, arcane: stats_vm.arcane,
+                hp: stats_vm.hp, max_hp: stats_vm.max_hp, fp: stats_vm.fp, max_fp: stats_vm.max_fp, max_stamina: stats_vm.max_stamina,
+                runes: stats_vm.souls, runes_memory: stats_vm.soulsmemory,
+                scadutree: stats_vm.scadutree, spirit_ash: stats_vm.spirit_ash,
+            },
+        };
+
         // Main content: three columns with auto-width
         egui::Grid::new("general_main_layout")
             .num_columns(3)
@@ -365,51 +396,51 @@ pub mod general {
 
                             section_header(ui, "ATTRIBUTES");
 
-                            stat_row(ui, "Vigor", &stats_vm.vigor.to_string());
-                            stat_row(ui, "Mind", &stats_vm.mind.to_string());
-                            stat_row(ui, "Endurance", &stats_vm.endurance.to_string());
-                            stat_row(ui, "Strength", &stats_vm.strength.to_string());
-                            stat_row(ui, "Dexterity", &stats_vm.dexterity.to_string());
-                            stat_row(ui, "Intelligence", &stats_vm.intelligence.to_string());
-                            stat_row(ui, "Faith", &stats_vm.faith.to_string());
-                            stat_row(ui, "Arcane", &stats_vm.arcane.to_string());
+                            stat_row(ui, "Vigor", &s.vigor.to_string());
+                            stat_row(ui, "Mind", &s.mind.to_string());
+                            stat_row(ui, "Endurance", &s.endurance.to_string());
+                            stat_row(ui, "Strength", &s.strength.to_string());
+                            stat_row(ui, "Dexterity", &s.dexterity.to_string());
+                            stat_row(ui, "Intelligence", &s.intelligence.to_string());
+                            stat_row(ui, "Faith", &s.faith.to_string());
+                            stat_row(ui, "Arcane", &s.arcane.to_string());
 
                             ui.add_space(4.0);
                             ui.separator();
                             ui.add_space(4.0);
 
                             // Derived stats
-                            stat_row_dual(ui, "HP", stats_vm.hp, stats_vm.max_hp);
-                            stat_row_dual(ui, "FP", stats_vm.fp, stats_vm.max_fp);
-                            stat_row(ui, "Stamina", &stats_vm.max_stamina.to_string());
+                            stat_row_dual(ui, "HP", s.hp, s.max_hp);
+                            stat_row_dual(ui, "FP", s.fp, s.max_fp);
+                            stat_row(ui, "Stamina", &s.max_stamina.to_string());
 
                             ui.add_space(4.0);
                             ui.separator();
                             ui.add_space(4.0);
 
                             // Additional info
-                            stat_row(ui, "Runes Held", &format_number(stats_vm.souls));
-                            stat_row(ui, "Total Runes", &format_number(stats_vm.soulsmemory));
+                            stat_row(ui, "Runes Held", &format_number(s.runes));
+                            stat_row(ui, "Total Runes", &format_number(s.runes_memory));
                             stat_row(ui, "Weapon Level", &general_vm.weapon_level.to_string());
 
                             // DLC Blessings (only show if > 0)
-                            if stats_vm.scadutree > 0 || stats_vm.spirit_ash > 0 {
+                            if s.scadutree > 0 || s.spirit_ash > 0 {
                                 ui.add_space(4.0);
                                 ui.separator();
                                 ui.add_space(4.0);
 
-                                if stats_vm.scadutree > 0 {
+                                if s.scadutree > 0 {
                                     stat_row(
                                         ui,
                                         "Scadutree",
-                                        &format!("{}/20", stats_vm.scadutree),
+                                        &format!("{}/20", s.scadutree),
                                     );
                                 }
-                                if stats_vm.spirit_ash > 0 {
+                                if s.spirit_ash > 0 {
                                     stat_row(
                                         ui,
                                         "Spirit Ash",
-                                        &format!("{}/10", stats_vm.spirit_ash),
+                                        &format!("{}/10", s.spirit_ash),
                                     );
                                 }
                             }
