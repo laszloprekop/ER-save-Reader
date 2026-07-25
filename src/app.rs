@@ -671,11 +671,12 @@ impl eframe::App for App {
                     if !self.verification_loaded_slots[self.vm.index] {
                         self.load_verification_records_for_slot();
                     }
-                    let event_flags = self.save.save_type.get_event_flags(self.vm.index);
-                    let inventory = self.save.save_type.get_inventory(self.vm.index);
-                    let storage = self.save.save_type.get_storage_inventory(self.vm.index);
+                    let idx = self.vm.index;
+                    let event_flags = self.save.save_type.get_event_flags(idx);
+                    let inventory = self.save.save_type.get_inventory(idx);
+                    let storage = self.save.save_type.get_storage_inventory(idx);
                     let save_path = self.picked_path.to_string_lossy().to_string();
-                    events(ui, &mut self.vm, event_flags, inventory, storage, &save_path);
+                    events(ui, &mut self.vm, event_flags, inventory, storage, &save_path, self.facts.get(&idx));
                 },
                 Route::CharacterRegions => regions(ui, &mut self.vm),
                 Route::CharacterComparison => {

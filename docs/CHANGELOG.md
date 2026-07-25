@@ -7,6 +7,37 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.12 - Sites of Grace & Bosses render from the shared core (ADR-0010 #10 tail)
+
+The event-flags views for Sites of Grace and Bosses now source their per-flag state
+from `reconstruct()`'s `graces`/`bosses` facts (ADR-0010) when a save is loaded —
+the same facts-or-ViewModel pattern the stats/identity panels use — with the
+ViewModel's own reconstruction kept only as the empty-state fallback. `facts` is
+threaded through `events()` into `graces()` and `bosses()`.
+
+No visible change: the core's grace/boss facts mirror the reader's own resolution
+(cross-checked identical in er-reconstruct's conformance corpus — slot 0 = 179
+graces / 49 bosses, Godrick + Margit Set), so this just makes the shared core the
+single source for these two views. Grace tri-state is preserved end to end; a grace
+id the core did not carry reads Unknown, never a guessed Clear (CONTEXT.md → *Unknown*).
+Bosses stay bool-typed (Set → defeated, else not), matching the existing view.
+
+The other event-flag categories (whetblades, cookbooks, maps, colosseums, landmarks,
+summoning pools) are not in the core and remain on the ViewModel — this is the
+slice-at-a-time migration, not a rewrite. The EventsViewModel is NOT yet retired
+(still the fallback and the source for those six); that is the migration's endgame.
+
+Verified: cargo build, cargo clippy, and cargo test --workspace (all suites) pass,
+including three new tests locking the fact→view mapping (`graces_from_facts` /
+`bosses_from_facts`: state-by-id, Clear preserved, Unknown/absent → not-defeated).
+
+### Files Modified
+- src/ui/events.rs: new `graces_from_facts` / `bosses_from_facts` / `core_flag_state`
+  helpers; `graces()` and `bosses()` take `facts` and render from it (ViewModel
+  fallback); `events()` threads `facts` through; test module for the mapping
+- src/app.rs: CharacterEventFlags route passes `self.facts.get(&idx)` into `events()`
+- Cargo.toml, docs/CHANGELOG.md: v0.39.12
+
 ## v0.39.11 - Stats table renders from the shared core (stats #10 tail complete)
 
 Completes the stats render-from-facts tail (ADR-0010 #10) that v0.39.10 began: the

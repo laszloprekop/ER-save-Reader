@@ -5,6 +5,10 @@ pub mod events {
     use crate::{db::{bosses::bosses::BOSSES, colosseums::colosseums::COLOSSEUMS, cookbooks::books::COOKBOKS, graces::maps::GRACES, landmarks::landmarks::LANDMARKS, map_name::map_name::MAP_NAME, maps::maps::MAPS, summoning_pools::summoning_pools::SUMMONING_POOLS, whetblades::whetblades::WHETBLADES, pickup_data::{WORLD_PICKUPS, PickupCategory}, pickup_flags::get_flag_verification_status, dungeon_pickups::{DUNGEON_PICKUPS, get_dungeon_area_name}, item_name::item_name::ITEM_NAME, weapon_name::weapon_name::WEAPON_NAME, armor_name::armor_name::ARMOR_NAME, accessory_name::accessory_name::ACCESSORY_NAME, aow_name::aow_name::AOW_NAME}, db::inventory_verification::{UNIQUE_ITEMS_BY_FLAG, VerificationConfidence}, ui::{verification_view::verification_view::{verification_view, inventory_verification_summary}, style::{TABLE_MONO_SIZE, spacer}, components::{legend::icons, table::{UnifiedTable, Column, RowData, SortDirection}, filter::{FilterBar, FilterOption, fuzzy_match_default}, export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown}}, tokens::{colors, spacing}}, vm::{events::events_view_model::{EventsRoute, PickupTypeFilter, CollectedFilter, SimpleEventFlagViewState}, vm::vm::ViewModel, character::character::Character, screen_state::screen_state::ScreenState}};
     use wasm_event_flags::{FlagState, ResolvedFlags};
     use crate::save::common::save_slot::EquipInventoryData;
+    use std::collections::{BTreeMap, HashMap, HashSet};
+    use er_reconstruct::{ReconstructedCharacter, FlagFact, FlagStatus};
+    use crate::db::graces::maps::Grace;
+    use crate::db::bosses::bosses::Boss;
 
     type PickupRow<'a> = (
         &'a crate::db::pickup_data::WorldPickup,
@@ -15,7 +19,7 @@ pub mod events {
     /// Icon size multiplier for table icons (150%)
     const ICON_SIZE_MULTIPLIER: f32 = 1.5;
 
-    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str) {
+    pub fn events(ui: &mut Ui, vm: &mut ViewModel, event_flags: Option<&[u8]>, inventory: Option<&EquipInventoryData>, storage: Option<&EquipInventoryData>, save_path: &str, facts: Option<&ReconstructedCharacter>) {
         // Split the active slot into its immutable reconstruction (`ch`, holding one
         // ResolvedFlags for the whole render) and its mutable widget state (`ss`).
         // Every view below reads flags through `ch`, so the origin resolves once here
@@ -50,11 +54,11 @@ pub mod events {
                             ui.label("Select an Event Flags category from the navigation bar above");
                         });
                     },
-                    EventsRoute::SitesOfGrace => {graces(ui, &ch, ss);},
+                    EventsRoute::SitesOfGrace => {graces(ui, &ch, ss, facts);},
                     EventsRoute::Whetblades => {whetblades(ui, &ch, ss);},
                     EventsRoute::Cookboks => {cookbooks(ui, &ch, ss);},
                     EventsRoute::Maps => {maps(ui, &ch, ss);},
-                    EventsRoute::Bosses => {bosses(ui, &ch, ss);},
+                    EventsRoute::Bosses => {bosses(ui, &ch, ss, facts);},
                     EventsRoute::SummoningPools => {summoning_pools(ui, &ch, ss);},
                     EventsRoute::Colosseums => {colosseums(ui, &ch, ss);},
                     EventsRoute::Landmarks => {landmarks_view(ui, &ch, ss);},
@@ -85,8 +89,59 @@ pub mod events {
         status: String,
     }
 
-    fn graces(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
-        let graces_data = &ch.events().graces;
+    /// The shared core's `FlagStatus` as the reader's `wasm_event_flags::FlagState`.
+    fn core_flag_state(s: FlagStatus) -> FlagState {
+        match s {
+            FlagStatus::Set => FlagState::Set,
+            FlagStatus::Clear => FlagState::Clear,
+            FlagStatus::Unknown => FlagState::Unknown,
+        }
+    }
+
+    /// Map the shared reconstruction core's grace facts (ADR-0010) into the reader's
+    /// per-`Grace` status map, so the Sites of Grace view can render from the core
+    /// instead of the ViewModel. Each `Grace`'s state is looked up by its flag id in
+    /// the facts; an id the core did not carry reads `Unknown` — never a guessed
+    /// `Clear` (CONTEXT.md → *Unknown*). The tri-state is preserved end to end.
+    fn graces_from_facts(grace_facts: &[FlagFact]) -> BTreeMap<Grace, FlagState> {
+        let by_id: HashMap<u32, FlagState> = grace_facts
+            .iter()
+            .map(|f| (f.id, core_flag_state(f.state)))
+            .collect();
+        GRACES
+            .lock()
+            .unwrap()
+            .iter()
+            .map(|(grace, row)| (*grace, by_id.get(&row.1).copied().unwrap_or(FlagState::Unknown)))
+            .collect()
+    }
+
+    /// Map the core's boss-defeat facts into the reader's per-`Boss` defeated map.
+    /// A boss reads defeated iff its flag id is carried `Set`; `Clear`/`Unknown`/absent
+    /// all read `false`, matching the ViewModel's bool collapse for this bool-typed
+    /// view (the third state is not surfaced here — see the whetblade note in
+    /// `vm/events.rs`).
+    fn bosses_from_facts(boss_facts: &[FlagFact]) -> BTreeMap<Boss, bool> {
+        let set_ids: HashSet<u32> = boss_facts
+            .iter()
+            .filter(|f| f.state == FlagStatus::Set)
+            .map(|f| f.id)
+            .collect();
+        BOSSES
+            .lock()
+            .unwrap()
+            .iter()
+            .map(|(boss, row)| (*boss, set_ids.contains(&row.0)))
+            .collect()
+    }
+
+    fn graces(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, facts: Option<&ReconstructedCharacter>) {
+        // Grace states come from the shared reconstruction core (ADR-0010) when a
+        // save is loaded, mirroring the stats/identity panels; the ViewModel's own
+        // reconstruction is the fallback for the empty/default state only.
+        let facts_graces = facts.map(|f| graces_from_facts(&f.graces));
+        let graces_data: &BTreeMap<Grace, FlagState> =
+            facts_graces.as_ref().unwrap_or(&ch.events().graces);
         let state = &mut ss.graces_view_state;
 
         // Build region filter options
@@ -366,8 +421,12 @@ pub mod events {
         );
     }
 
-    fn bosses(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
-        let bosses_data = &ch.events().bosses;
+    fn bosses(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, facts: Option<&ReconstructedCharacter>) {
+        // Boss-defeat states come from the shared core (ADR-0010) when a save is
+        // loaded; the ViewModel is the fallback for the empty/default state.
+        let facts_bosses = facts.map(|f| bosses_from_facts(&f.bosses));
+        let bosses_data: &BTreeMap<Boss, bool> =
+            facts_bosses.as_ref().unwrap_or(&ch.events().bosses);
         let state = &mut ss.bosses_view_state;
 
         let bosses_lookup = BOSSES.lock().unwrap();
@@ -2033,6 +2092,65 @@ pub mod events {
             }
 
             ui.output_mut(|o| o.copied_text = details);
+        }
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        /// A grace whose flag id the core carried `Set` reads `Set`; a grace the core
+        /// did not carry reads `Unknown` (never a guessed `Clear`). Ids are pulled from
+        /// the live `GRACES` table so the test does not hard-code table contents.
+        #[test]
+        fn graces_from_facts_maps_state_by_id_else_unknown() {
+            let (grace_set, id_set, grace_absent) = {
+                let lock = GRACES.lock().unwrap();
+                let mut it = lock.iter();
+                let (g0, row0) = it.next().expect("GRACES is non-empty");
+                let (g1, _) = it.next().expect("GRACES has >= 2 entries");
+                (*g0, row0.1, *g1)
+            };
+
+            let map = graces_from_facts(&[FlagFact { id: id_set, state: FlagStatus::Set }]);
+
+            assert_eq!(map.get(&grace_set), Some(&FlagState::Set));
+            assert_eq!(map.get(&grace_absent), Some(&FlagState::Unknown));
+        }
+
+        /// A `Clear` grace fact reads `Clear` (not collapsed to `Unknown`).
+        #[test]
+        fn graces_from_facts_preserves_clear() {
+            let (grace, id) = {
+                let lock = GRACES.lock().unwrap();
+                let (g, row) = lock.iter().next().expect("GRACES is non-empty");
+                (*g, row.1)
+            };
+            let map = graces_from_facts(&[FlagFact { id, state: FlagStatus::Clear }]);
+            assert_eq!(map.get(&grace), Some(&FlagState::Clear));
+        }
+
+        /// A boss reads defeated only when its flag id is carried `Set`; an `Unknown`
+        /// fact and an id the core did not carry both read `false`.
+        #[test]
+        fn bosses_from_facts_sets_only_set_ids() {
+            let (boss_set, id_set, boss_unknown, id_unknown, boss_absent) = {
+                let lock = BOSSES.lock().unwrap();
+                let mut it = lock.iter();
+                let (b0, row0) = it.next().expect("BOSSES is non-empty");
+                let (b1, row1) = it.next().expect("BOSSES has >= 2 entries");
+                let (b2, _) = it.next().expect("BOSSES has >= 3 entries");
+                (*b0, row0.0, *b1, row1.0, *b2)
+            };
+
+            let map = bosses_from_facts(&[
+                FlagFact { id: id_set, state: FlagStatus::Set },
+                FlagFact { id: id_unknown, state: FlagStatus::Unknown },
+            ]);
+
+            assert_eq!(map.get(&boss_set), Some(&true));
+            assert_eq!(map.get(&boss_unknown), Some(&false));
+            assert_eq!(map.get(&boss_absent), Some(&false));
         }
     }
 }
