@@ -7,6 +7,40 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.13 - World & Dungeon Pickups render from the shared core (ADR-0010 #10 tail)
+
+The event-flags World Pickups and Dungeon Pickups views — and the shared pickup
+detail sidebar — now source their per-flag collected/not/unknown state from
+`reconstruct()`'s `world_pickups` / `dungeon_pickups` facts (ADR-0010) when a save
+is loaded, falling back to the per-save resolver (`pickup_state` /
+`is_dungeon_pickup_collected`) for any id the facts do not carry. `facts` is threaded
+through `world_pickups()`, `dungeon_pickups()`, and `flag_details_sidebar()`.
+
+New helper `pickup_facts_map(world, dungeon)` merges the two fact lists into one
+`getItemFlagId -> FlagState` lookup — safe because the families' id ranges are
+disjoint (10-digit tile, 8-digit legacy, 5-digit world-state; CLAUDE.md) — with a
+thin `pickup_facts_of(&ReconstructedCharacter)` wrapper so the three view call sites
+don't repeat the two-field unpack.
+
+No visible change, and it cannot regress a row to Unknown: the enriched
+`pickup_data::WORLD_PICKUPS` table spans more families than the core's world facts
+(its world-state rows are not pickup facts), so those ids miss the map and fall back
+to the resolver — which the core's `pickup_family_state` mirrors, so the fallback is
+behavior-preserving and only widens where the facts source the value. The Dungeon
+Pickups page shares its source table with the core's dungeon facts, so every row is
+fact-sourced there. Unknown stays first-class throughout (`core_flag_state` maps
+Unknown → Unknown, never a guessed Clear).
+
+Verified: cargo build, cargo clippy, and cargo test --workspace (all suites) pass,
+including a new test (`pickup_facts_map_merges_world_and_dungeon_by_id`) locking the
+disjoint merge, id-miss-absent, and Unknown-carries-through contract.
+
+### Files Modified
+- src/ui/events.rs: new `pickup_facts_map` / `pickup_facts_of` helpers; `world_pickups()`,
+  `dungeon_pickups()`, and `flag_details_sidebar()` take `facts` and render pickup state
+  from it (resolver fallback); `events()` threads `facts` through; test for the merge
+- Cargo.toml, docs/CHANGELOG.md: v0.39.13
+
 ## v0.39.12 - Sites of Grace & Bosses render from the shared core (ADR-0010 #10 tail)
 
 The event-flags views for Sites of Grace and Bosses now source their per-flag state

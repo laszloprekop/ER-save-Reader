@@ -39,7 +39,7 @@ pub mod events {
                 .default_width(280.0)
                 .min_width(200.0)
                 .show(ui.ctx(), |ui| {
-                    flag_details_sidebar(ui, &ch, ss, inventory, storage, save_path);
+                    flag_details_sidebar(ui, &ch, ss, inventory, storage, save_path, facts);
                 });
         }
 
@@ -62,8 +62,8 @@ pub mod events {
                     EventsRoute::SummoningPools => {summoning_pools(ui, &ch, ss);},
                     EventsRoute::Colosseums => {colosseums(ui, &ch, ss);},
                     EventsRoute::Landmarks => {landmarks_view(ui, &ch, ss);},
-                    EventsRoute::WorldPickups => {world_pickups(ui, &ch, ss, inventory);},
-                    EventsRoute::DungeonPickups => {dungeon_pickups(ui, &ch, ss);},
+                    EventsRoute::WorldPickups => {world_pickups(ui, &ch, ss, inventory, facts);},
+                    EventsRoute::DungeonPickups => {dungeon_pickups(ui, &ch, ss, facts);},
                     EventsRoute::Verification => {
                         // Inventory Verification Triangle section first
                         if inventory.is_some() || ch.flag_bytes().is_some() {
@@ -818,7 +818,35 @@ pub mod events {
         })
     }
 
-    fn world_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, inventory: Option<&EquipInventoryData>) {
+    /// Build a `getItemFlagId -> state` lookup from the shared core's pickup facts
+    /// (ADR-0010), merging the world-tile (`world_pickups`) and legacy-dungeon
+    /// (`dungeon_pickups`) families — their id ranges are disjoint (10-digit tile vs
+    /// 8-digit legacy; CLAUDE.md), so one map is unambiguous. The pickup views render
+    /// their state from this map; an id the facts do not carry (e.g. a world-state
+    /// family row in the enriched `WORLD_PICKUPS` table) is simply absent and the
+    /// caller falls back to the per-save resolver — which the core's
+    /// `pickup_family_state` mirrors, so the fallback preserves behavior and only
+    /// widens coverage past the pickup fact lists.
+    fn pickup_facts_map(world: &[FlagFact], dungeon: &[FlagFact]) -> HashMap<u32, FlagState> {
+        world
+            .iter()
+            .chain(dungeon.iter())
+            .map(|f| (f.id, core_flag_state(f.state)))
+            .collect()
+    }
+
+    /// The merged pickup-state lookup for a whole reconstruction — the shape every
+    /// pickup view consumes (see [`pickup_facts_map`]). Keeps the two-field unpack in
+    /// one place so the view call sites don't repeat it.
+    fn pickup_facts_of(facts: &ReconstructedCharacter) -> HashMap<u32, FlagState> {
+        pickup_facts_map(&facts.world_pickups, &facts.dungeon_pickups)
+    }
+
+    fn world_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, inventory: Option<&EquipInventoryData>, facts: Option<&ReconstructedCharacter>) {
+        // Pickup state comes from the shared core (ADR-0010) when a save is loaded;
+        // ids the pickup facts do not carry (world-state rows in this enriched table)
+        // fall back to the per-save resolver, which the facts mirror.
+        let facts_states = facts.map(pickup_facts_of);
         let filter = &mut ss.world_pickups_filter;
 
         // Build region filter options
@@ -913,8 +941,12 @@ pub mod events {
             .filter_map(|pickup| {
                 // CUT OVER 2026-07-20 (ADR-0006). Resolved per save and routed by
                 // family; `Unknown` is its own state, which the table renders
-                // distinctly rather than as "not collected".
-                let state = pickup_state(ch.flags(), pickup.event_flag);
+                // distinctly rather than as "not collected". Sourced from the core's
+                // facts (ADR-0010) when carried, else the per-save resolver.
+                let state = facts_states
+                    .as_ref()
+                    .and_then(|m| m.get(&pickup.event_flag).copied())
+                    .unwrap_or_else(|| pickup_state(ch.flags(), pickup.event_flag));
 
                 // Apply collected filter
                 match collected_filter {
@@ -1230,9 +1262,14 @@ pub mod events {
         verified: bool,
     }
 
-    fn dungeon_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState) {
+    fn dungeon_pickups(ui: &mut Ui, ch: &Character, ss: &mut ScreenState, facts: Option<&ReconstructedCharacter>) {
         use crate::db::dungeon_pickups::DungeonPickup;
 
+        // Dungeon pickup state comes from the shared core (ADR-0010) when a save is
+        // loaded — this page and the core's `dungeon_pickups` facts share the same
+        // source table, so the facts cover every row; the per-save resolver is the
+        // fallback for the empty-state / any id not carried.
+        let facts_states = facts.map(pickup_facts_of);
         let filter = &mut ss.dungeon_pickups_filter;
 
         // Build dungeon filter options
@@ -1339,11 +1376,20 @@ pub mod events {
             resolved.map_or(FlagState::Unknown, |r| r.dungeon_pickup(pickup.event_flag))
         }
 
+        // Prefer the core's fact when it carries this id (ADR-0010), else resolve per
+        // save; the two agree by construction, so the fallback preserves behavior.
+        let dungeon_state = |pickup: &DungeonPickup| -> FlagState {
+            facts_states
+                .as_ref()
+                .and_then(|m| m.get(&pickup.event_flag).copied())
+                .unwrap_or_else(|| is_dungeon_pickup_collected(ch.flags(), pickup))
+        };
+
         // The origin is resolved once on the Character, shared by the whole table.
         // Build filtered data - flat list
         let mut items: Vec<(&DungeonPickup, &str, FlagState)> = DUNGEON_PICKUPS.iter()
             .filter_map(|pickup| {
-                let state = is_dungeon_pickup_collected(ch.flags(), pickup);
+                let state = dungeon_state(pickup);
                 let dungeon_name = get_dungeon_area_name(pickup.dungeon_area);
 
                 // Apply collected filter
@@ -1415,10 +1461,10 @@ pub mod events {
         let total_count = DUNGEON_PICKUPS.len();
         let filtered_count = items.len();
         let collected_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| is_dungeon_pickup_collected(ch.flags(), p) == FlagState::Set)
+            .filter(|p| dungeon_state(p) == FlagState::Set)
             .count();
         let unknown_count: usize = DUNGEON_PICKUPS.iter()
-            .filter(|p| is_dungeon_pickup_collected(ch.flags(), p) == FlagState::Unknown)
+            .filter(|p| dungeon_state(p) == FlagState::Unknown)
             .count();
 
         // Summary
@@ -1754,7 +1800,18 @@ pub mod events {
         inventory: Option<&EquipInventoryData>,
         storage: Option<&EquipInventoryData>,
         save_path: &str,
+        facts: Option<&ReconstructedCharacter>,
     ) {
+        // The selected pickup's state renders from the core's facts (ADR-0010) when
+        // carried, else the per-save resolver — the same source as the table it was
+        // opened from, so panel and row cannot disagree.
+        let facts_states = facts.map(pickup_facts_of);
+        let pickup_state_of = |flag_id: u32| -> FlagState {
+            facts_states
+                .as_ref()
+                .and_then(|m| m.get(&flag_id).copied())
+                .unwrap_or_else(|| pickup_state(ch.flags(), flag_id))
+        };
         // `state` is FlagState, not bool. The detail panel previously took `.0` of
         // a `(bool, _)` pair here, which rendered Unknown as "NOT COLLECTED" — the
         // exact collapse this migration removes. `Unknown` is the default when no
@@ -1765,7 +1822,7 @@ pub mod events {
                     // Find the pickup data for this flag
                     let pickup = WORLD_PICKUPS.iter().find(|p| p.event_flag == flag_id);
                     if let Some(p) = pickup {
-                        let state = pickup_state(ch.flags(), flag_id);
+                        let state = pickup_state_of(flag_id);
                         (Some(flag_id), p.name.to_string(), state, true)
                     } else {
                         (None, String::new(), FlagState::Unknown, true)
@@ -1784,7 +1841,7 @@ pub mod events {
                         // separate from the table's — so the panel and the row it
                         // was opened from could disagree about the same pickup.
                         // Both now go through the same resolver.
-                        let state = pickup_state(ch.flags(), p.event_flag);
+                        let state = pickup_state_of(p.event_flag);
                         (Some(flag_id), p.name.to_string(), state, false)
                     } else {
                         (None, String::new(), FlagState::Unknown, false)
@@ -2151,6 +2208,25 @@ pub mod events {
             assert_eq!(map.get(&boss_set), Some(&true));
             assert_eq!(map.get(&boss_unknown), Some(&false));
             assert_eq!(map.get(&boss_absent), Some(&false));
+        }
+
+        /// `pickup_facts_map` merges the world-tile and legacy-dungeon fact lists into
+        /// one id-keyed lookup (disjoint ranges), mapping each state through
+        /// `core_flag_state`; an id in neither list is absent (caller falls back), and
+        /// Unknown carries through as Unknown, never a guessed Clear.
+        #[test]
+        fn pickup_facts_map_merges_world_and_dungeon_by_id() {
+            let world = [FlagFact { id: 1_044_360_310, state: FlagStatus::Set }];
+            let dungeon = [FlagFact { id: 30_027_000, state: FlagStatus::Clear }];
+
+            let map = pickup_facts_map(&world, &dungeon);
+            assert_eq!(map.get(&1_044_360_310), Some(&FlagState::Set));
+            assert_eq!(map.get(&30_027_000), Some(&FlagState::Clear));
+            assert_eq!(map.get(&42), None);
+
+            let unknown = [FlagFact { id: 1_044_360_310, state: FlagStatus::Unknown }];
+            let map = pickup_facts_map(&unknown, &[]);
+            assert_eq!(map.get(&1_044_360_310), Some(&FlagState::Unknown));
         }
     }
 }
