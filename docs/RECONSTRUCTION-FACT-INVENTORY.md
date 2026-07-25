@@ -1,6 +1,6 @@
 # Reconstruction Fact Inventory — the union both apps need
 
-**Last updated**: 2026-07-25 (slice 09 world position core side — all core-widening slices landed)
+**Last updated**: 2026-07-25 (storage-box tail — all core-widening slices + the #6 storage tail landed)
 
 > **Epistemic header**
 > **Status: CURRENT (seed).** Written alongside the walking-skeleton extraction of
@@ -134,12 +134,12 @@ the reader itself reads them `false` because the family is mis-identified
 **Still open for #5:** reader renders pickups from these facts; elden-map WASM + TS
 delete — both gated behind #3.
 
-## 07 — Inventory  *(core CARRIES held inventory now — issue #6 core side)*
+## 07 — Inventory  *(core CARRIES held + storage now — issue #6 core side)*
 
 | Fact | R | M | Core (fact) |
 |------|---|---|-------------|
 | held inventory | ✓ | ✓ | ✅ `held_inventory` + `held_key_items`: `Vec<InventoryFact { category, item_id, quantity }>` |
-| storage box inventory | ✓ | ✓ (GaItems map) | append: same shape — **deferred** (`storage_inventory_data`, a later slice) |
+| storage box inventory | ✓ | ✓ (GaItems map) | ✅ `storage_inventory` + `storage_key_items`: same shape |
 
 Keyed by **item identity**, never GaItem handle (handles churn — CONTEXT.md).
 elden-map's handle→itemId resolution collapses into item identity in the core.
@@ -157,8 +157,17 @@ weapon/item ids overlap numerically — fact shape chosen deliberately over the 
 dropped (churny, not identity). Corpus guards it two ways: exact `held_common_count` /
 `held_key_count` against the reader export's distinct counts (694/103 Confessor slot 0,
 18/0 V1 slot 2), and targeted `items` per-id known-truth (Academy Glintstone Staff, key
-item Crafting Kit, Longsword, Memory of Grace). **Storage box deferred** — same decode,
-different list, a later slice. **Still open for #6:** reader renders held inventory from
+item Crafting Kit, Longsword, Memory of Grace).
+
+**Storage box (2026-07-25, the #6 tail, now landed):** `reconstruct()` also returns
+`storage_inventory` + `storage_key_items` for the Roundtable storage box — the second
+inventory list (`storage_inventory_data`), decoded by the **identical** foundation (the
+reader decodes held and storage through one `fill_stroage_type`; the core reuses
+`resolve_held_common`/`resolve_held_key_items` on the storage list, gaitem map and all).
+No new decode. No export lists the box's contents, so the corpus cross-checks the decoded
+list length against the save's own `storage_inventory_data` **distinct-count header** (a
+field independent of the decode): Confessor slot 0 = 30 common / 0 key (stored ammo &
+consumables), V1 slot 2 = empty. **Still open for #6:** reader renders held inventory from
 these facts; elden-map WASM + TS delete — both gated behind #3.
 
 ## 08 — Equipment  *(core CARRIES equipment now — issue #9 core side)*
@@ -226,10 +235,10 @@ from the core via WASM + deletes its extractor — gated behind #3, deferred.
 ---
 
 > **All core-widening slices have now landed** (§01 identity, §04 stats, §05 flags,
-> §06 pickups, §07 held inventory, §08 equipment, §09 world position). What remains is
-> not new fact-widening but the **consumer migration**: the per-slice reader-render +
-> elden-map tails (gated behind #3), the deferred storage-box inventory list, and the
-> final TS deletion (#10).
+> §06 pickups, §07 held **and storage** inventory, §08 equipment, §09 world position).
+> What remains is not new fact-widening but the **consumer migration**: the per-slice
+> reader-render + elden-map tails (gated behind #3) and the final TS deletion (#10).
+> (Summoning pools stay deferred until their flag family is identified — ADR-0008.)
 
 ---
 

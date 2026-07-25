@@ -7,6 +7,35 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.8 - Record storage-box tail landing (the #6 inventory follow-on)
+
+Documentation only. The shared core (`er-reconstruct`, commit `827f232`) now
+also carries the **storage box** (Roundtable chest) as facts — the tail
+deferred when held inventory landed in #6. `reconstruct()` returns
+`storage_inventory` + `storage_key_items` (`Vec<InventoryFact>`), decoded by the
+identical GaItem foundation: the storage list has the same layout as the held
+one, so the core reuses the held decoders on `storage_inventory_data` (the
+reader itself decodes held and storage through one routine). No export lists the
+box's contents, so the corpus cross-checks the decoded list length against the
+save's own `storage_inventory_data` distinct-count header — a field independent
+of the decode. The reader still pins the old core rev, so its behaviour is
+unchanged.
+
+With this, the shared core carries both inventory lists (held + storage); only
+summoning pools remain deferred (their flag family is unidentified, ADR-0008).
+The remaining ADR-0010 work is the consumer migration behind #3, not new
+fact-widening.
+
+The docs page updated is `docs/RECONSTRUCTION-FACT-INVENTORY.md` (§07 storage
+box marked landed).
+
+### Files Modified
+
+- `Cargo.toml`: version bump to v0.39.8
+- `docs/RECONSTRUCTION-FACT-INVENTORY.md`: §07 storage-box row + status marked
+  landed; the all-slices note updated; "Last updated" line
+- `docs/CHANGELOG.md`: this entry
+
 ## v0.39.7 - Record slice 09 core landing (world position — all core-widening slices done)
 
 Documentation only. The shared core (`er-reconstruct`, commit `95dbd80`) now
