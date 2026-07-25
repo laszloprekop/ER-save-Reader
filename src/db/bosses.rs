@@ -203,6 +203,20 @@ pub mod bosses {
 
         // Elden Throne
         RadagonoftheGoldenOrderEldenBeast,
+
+        // Bosses reconciled against GameAreaParam.defeatBossFlagId (ADR-0010 boss-fact
+        // widening): real boss-defeat flags that were missing from this table. Names are
+        // best-effort Enrichment (map location where a specific dungeon is unconfirmed).
+        UlceratedTreeSpiritSubterraneanShunningGrounds,
+        CemeteryShadeM3015Catacombs,
+        UlceratedTreeSpiritM3016Catacombs,
+        CleanrotKnightM3120Cave,
+        ScalyMisbegottenMorneTunnel,
+        AlabasterLordM3412DivineTower,
+        InvaderMohgwynPalace,
+        TibiaMarinerLiurniaOfTheLakes,
+        WormfaceAltusPlateau,
+        PutridAvatarM6051Caelid,
     }
     pub static BOSSES: Lazy<Mutex<HashMap<Boss, (u32,&str)>>> = Lazy::new(|| {
         Mutex::new(HashMap::from([
@@ -408,6 +422,22 @@ pub mod bosses {
 
             // Elden Throne
             (Boss::RadagonoftheGoldenOrderEldenBeast, (19000810,"Radagon of the Golden Order / Elden Beast")),
+
+            // Bosses reconciled against GameAreaParam.defeatBossFlagId (ADR-0010 boss-fact
+            // widening). Every id below is a real boss-defeat flag confirmed in
+            // GameAreaParam; the three marked (*) were also observed Set on the mid-game
+            // corpus save (Confessor slot 0). Names are best-effort Enrichment — the map
+            // id is embedded in the variant where the specific dungeon is unconfirmed.
+            (Boss::UlceratedTreeSpiritSubterraneanShunningGrounds, (18000800,"Ulcerated Tree Spirit (Subterranean Shunning-Grounds)")),
+            (Boss::CemeteryShadeM3015Catacombs, (30150800,"Cemetery Shade (Catacombs)")), // *
+            (Boss::UlceratedTreeSpiritM3016Catacombs, (30160800,"Ulcerated Tree Spirit (Catacombs)")),
+            (Boss::CleanrotKnightM3120Cave, (31200800,"Cleanrot Knight (Cave)")), // *
+            (Boss::ScalyMisbegottenMorneTunnel, (32000800,"Scaly Misbegotten (Morne Tunnel)")), // *
+            (Boss::AlabasterLordM3412DivineTower, (34120800,"Alabaster Lord (Divine Tower)")),
+            (Boss::InvaderMohgwynPalace, (35000850,"Invader (Mohgwyn Palace)")),
+            (Boss::TibiaMarinerLiurniaOfTheLakes, (1039440800,"Tibia Mariner (Liurnia of the Lakes)")),
+            (Boss::WormfaceAltusPlateau, (1041530800,"Wormface (Altus Plateau)")),
+            (Boss::PutridAvatarM6051Caelid, (1051400800,"Putrid Avatar (Caelid)")),
         ]))
     });
 }

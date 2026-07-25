@@ -7,6 +7,45 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.18 - Add 10 real boss-defeat flags missing from the BOSSES table (ADR-0010)
+
+`src/db/bosses.rs` — the generation source for er-reconstruct's `BOSS_FLAG_IDS` — was
+missing real boss-defeat flags. Reconciled the table against the game's authoritative
+`GameAreaParam.defeatBossFlagId` (regulation 1.16.1) and added the 10 verified-real flags
+the reader had never carried (154 → 164 unique boss ids). This closes the gap that would
+have regressed elden-map's map when it migrates bosses onto the shared core (ADR-0010 #10
+consumer tail): elden-map already tracked these real bosses; the reader/core did not.
+
+Added (each a non-zero `defeatBossFlagId` row in `GameAreaParam.param.xml`):
+Ulcerated Tree Spirit (Subterranean Shunning-Grounds, `18000800`); Cemetery Shade
+(`30150800`*); Ulcerated Tree Spirit (`30160800`); Cleanrot Knight (`31200800`*); Scaly
+Misbegotten (Morne Tunnel, `32000800`*); Alabaster Lord (divine tower, `34120800`); Invader
+(Mohgwyn Palace, `35000850`); Tibia Mariner (Liurnia, `1039440800`); Wormface (Altus,
+`1041530800`); Putrid Avatar (Caelid, `1051400800`). The three marked * read Set on the
+mid-game corpus slot (Confessor), corroborated independently by elden-map reading them Set
+through the same shared resolver.
+
+The core widening landed in **er-reconstruct `791d1d6`** (regenerated `BOSS_FLAG_IDS` from
+this table). The reader's er-reconstruct pin is **not** bumped here, so the reader's own
+boss view (which renders from the pinned core facts) is unchanged until a later pin bump;
+this commit updates the source table + name Enrichment only.
+
+**Deferred to a follow-up** verified against a save where the boss is defeated (the current
+corpus has them all Clear, so `GameAreaParam` alone can't confirm the flip): wrong-suffix
+reader ids where elden-map is right and the reader is wrong (Elden Beast `19000810` vs game
+`19000800`; Death Rite Birds `…800` vs `…340` — these are *corrections* to existing rows,
+not additions) and mis-identified ids where elden-map labels a unique boss that already
+lives elsewhere (`1034420800` "Smarag" — the real Smarag is `1034450800`; `1037510800`
+"Fortissax"). Also out of scope: ~27 DLC defeat flags + 21 further base-game ones neither
+app tracks, and 10 core ids absent from `GameAreaParam` (plausibly EMEVD-tracked field
+bosses).
+
+### Files Modified
+- src/db/bosses.rs: 10 boss-defeat flags added (enum variants + `BOSSES` rows), each
+  named as best-effort Enrichment with the map id embedded where the specific dungeon is
+  unconfirmed
+- Cargo.toml, docs/CHANGELOG.md: v0.39.18
+
 ## v0.39.17 - Correct the #10 remainder note: elden-map #3 is done, tails unblocked
 
 Documentation only. Verified against the elden-map repo directly: its `#2` (server calls
