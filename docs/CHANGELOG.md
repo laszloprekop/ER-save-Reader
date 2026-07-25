@@ -7,6 +7,23 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.20 - Bump the er-reconstruct pin to the reconciled boss facts (ADR-0010)
+
+Adopts er-reconstruct `5b96576` — the boss id selection reconciled against the game's
+`GameAreaParam.defeatBossFlagId` (the additions in v0.39.18 + the corrections in v0.39.19,
+regenerated into the core's `BOSS_FLAG_IDS`). The reader renders its boss view from the
+core facts, so this pin bump is what makes those 10 added + 3 corrected boss-defeat flags
+actually surface in the reader (previously the pin still pointed at the pre-reconciliation
+`827f2328`, so `bosses.rs` carried the rows but the rendered facts did not include them).
+
+Deliberate rev bump (never silent). `cargo build` + `cargo test --workspace` green against
+the new core; no reader test pins a boss count.
+
+### Files Modified
+- Cargo.toml: er-reconstruct rev `827f2328` → `5b96576`
+- Cargo.lock: regenerated for the new rev
+- docs/CHANGELOG.md: v0.39.20
+
 ## v0.39.19 - Correct 3 wrong-suffix boss-defeat ids in BOSSES (ADR-0010)
 
 Three `BOSSES` ids were wrong-suffix guesses that appear in **no** `GameAreaParam`

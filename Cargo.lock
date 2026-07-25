@@ -1263,7 +1263,7 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 [[package]]
 name = "er-reconstruct"
 version = "0.1.0"
-source = "git+https://github.com/laszloprekop/er-reconstruct.git?rev=827f2328c461a0ec9f7ebd112e3bc906d4d9ede5#827f2328c461a0ec9f7ebd112e3bc906d4d9ede5"
+source = "git+https://github.com/laszloprekop/er-reconstruct.git?rev=5b96576e020310dc20a2c060f9f12e04d69677d7#5b96576e020310dc20a2c060f9f12e04d69677d7"
 dependencies = [
  "aes",
  "binary-reader",
@@ -1277,7 +1277,7 @@ dependencies = [
 
 [[package]]
 name = "er-save-reader"
-version = "0.39.19"
+version = "0.39.20"
 dependencies = [
  "aes",
  "binary-reader",
