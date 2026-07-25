@@ -36,6 +36,16 @@ pub mod classes {
         }
     }
 
+    /// Canonical class name for a raw archetype id, falling back to "Unknown"
+    /// for an unrecognised id. This is the display Enrichment both character
+    /// panels apply to the reconstruction core's raw `class_id` fact (ADR-0010) —
+    /// the core keeps the id, the reader names it here, in one place.
+    pub fn class_display(class_id: u8) -> String {
+        ArcheType::try_from(class_id)
+            .unwrap_or(ArcheType::Unknown)
+            .to_string()
+    }
+
     impl std::fmt::Display for ArcheType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             f.write_str(match self {

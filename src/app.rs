@@ -660,7 +660,10 @@ impl eframe::App for App {
                     let ch = self.vm.slots[idx].as_character(idx, None);
                     general(ui, &ch, self.facts.get(&idx));
                 },
-                Route::CharacterStats => stats(ui, &mut self.vm),
+                Route::CharacterStats => {
+                    let idx = self.vm.index;
+                    stats(ui, &mut self.vm, self.facts.get(&idx));
+                },
                 Route::CharacterEquipment => equipment(ui, &mut self.vm),
                 Route::CharacterInventory => inventory(ui, &mut self.vm),
                 Route::CharacterEventFlags => {

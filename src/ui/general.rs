@@ -3,7 +3,7 @@ pub mod general {
     use crate::ui::tokens::{colors, typography};
     use crate::vm::equipment::equipment_view_model::EquipmentItemViewModel;
     use crate::vm::{general::general_view_model::Gender, character::character::Character};
-    use crate::db::classes::classes::ArcheType;
+    use crate::db::classes::classes::class_display;
     use er_reconstruct::ReconstructedCharacter;
     use eframe::egui::{self, Color32, Frame, RichText, Rounding, Ui};
 
@@ -304,9 +304,7 @@ pub mod general {
             Some(f) => (
                 f.name.clone(),
                 f.level,
-                ArcheType::try_from(f.class_id)
-                    .map(|a| a.to_string())
-                    .unwrap_or_else(|_| "Unknown".to_string()),
+                class_display(f.class_id),
             ),
             None => (
                 general_vm.character_name.trim_matches('\0').to_string(),

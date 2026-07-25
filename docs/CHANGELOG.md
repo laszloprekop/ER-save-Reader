@@ -7,6 +7,35 @@ All notable changes to ER-save-Reader will be documented in this file.
 
 ---
 
+## v0.39.11 - Stats table renders from the shared core (stats #10 tail complete)
+
+Completes the stats render-from-facts tail (ADR-0010 #10) that v0.39.10 began: the
+dedicated stats table (`src/ui/stats.rs`) now sources its values from
+`reconstruct()`'s `stats` fact plus identity (`level`, `class_id`) when a save is
+loaded, mirroring the character-overview panel. `facts` is threaded through
+`app.rs` into `stats()`; the ViewModel remains only the empty/default-state
+fallback and keeps the table's sort/export UI state (not a fact). The
+`StatsViewModel` value-compute is deliberately NOT yet retired — it still backs the
+fallback and other routes; that is the migration's endgame across all concerns, not
+this step.
+
+The Level row now reads the stored level (`f.level`) — the same value the overview
+panel already shows — instead of the table's former derived `sum(attrs) − 79`. The
+two agree for any legit save (the level invariant), so the panels no longer disagree
+on tampered saves, and the fallback drops the `− 79` magic constant (and with it a
+latent `0u32 − 79` underflow on a default slot).
+
+Review-driven cleanup: the `class_id → name, else "Unknown"` display Enrichment,
+previously duplicated verbatim in both panels, is now a single `class_display`
+helper in the `classes` module — one place to name a raw archetype id.
+
+### Files Modified
+- `src/ui/stats.rs`: `stats()` takes `facts`; a `RenderStats` sourced from facts-or-ViewModel; Level reads stored level; routes class through `class_display`
+- `src/ui/general.rs`: facts branch routes class through `class_display` (dedup)
+- `src/db/classes.rs`: new `class_display(class_id) -> String` helper
+- `src/app.rs`: threads `self.facts.get(&idx)` into the `CharacterStats` route
+- `Cargo.toml`, `docs/CHANGELOG.md`: v0.39.11
+
 ## v0.39.10 - Character overview renders stats from the shared core (first #10 render tail)
 
 The first render-from-facts tail (ADR-0010 #10) beyond identity. The character

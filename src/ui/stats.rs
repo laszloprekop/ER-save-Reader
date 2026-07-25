@@ -1,7 +1,9 @@
 pub mod stats {
     use eframe::egui::{Ui, RichText};
     use serde::Serialize;
+    use er_reconstruct::ReconstructedCharacter;
     use crate::{
+        db::classes::classes::class_display,
         ui::components::{
             table::{UnifiedTable, Column, RowData, SortDirection},
             export::{ExportToolbar, ExportFormat, PageExport, PageExportMetadata, to_json, to_csv, to_markdown},
@@ -16,28 +18,62 @@ pub mod stats {
         value: String,
     }
 
-    pub fn stats(ui: &mut Ui, vm: &mut ViewModel) {
+    pub fn stats(ui: &mut Ui, vm: &mut ViewModel, facts: Option<&ReconstructedCharacter>) {
         let stats_vm = &vm.slots[vm.index].stats_vm;
 
-        // Build stats data
-        let level = stats_vm.vigor + stats_vm.mind + stats_vm.endurance +
-            stats_vm.strength + stats_vm.dexterity + stats_vm.intelligence +
-            stats_vm.faith + stats_vm.arcane - 79;
+        // The stat values render from the reconstruction core's facts (ADR-0010)
+        // when a save is loaded — attributes, blessings and runes from `stats`,
+        // level and starting class from identity — mirroring the character-overview
+        // panel (src/ui/general.rs). Attributes/blessings/runes are identical to the
+        // ViewModel's (cross-checked in er-reconstruct's conformance corpus and
+        // elden-map's native==WASM parity). Level now reads the stored level
+        // (`f.level`), the same value the overview panel already shows, rather than
+        // the table's former derived `sum(attrs) − 79`; the two agree for any legit
+        // save (the level invariant) and the panels no longer disagree on tampered
+        // ones. The ViewModel is the fallback for the empty/default state only; the
+        // table's sort/export state stays in the ViewModel (UI state, not a fact).
+        struct RenderStats {
+            class: String,
+            level: u32,
+            vigor: u32, mind: u32, endurance: u32, strength: u32,
+            dexterity: u32, intelligence: u32, faith: u32, arcane: u32,
+            scadutree: u32, spirit_ash: u32, runes: u32,
+        }
+        let s = match facts {
+            Some(f) => {
+                let st = &f.stats;
+                RenderStats {
+                    class: class_display(f.class_id),
+                    level: f.level,
+                    vigor: st.vigor, mind: st.mind, endurance: st.endurance, strength: st.strength,
+                    dexterity: st.dexterity, intelligence: st.intelligence, faith: st.faith, arcane: st.arcane,
+                    scadutree: u32::from(st.scadutree_level), spirit_ash: u32::from(st.spirit_ash_level),
+                    runes: st.runes,
+                }
+            }
+            None => RenderStats {
+                class: stats_vm.arche_type.to_string(),
+                level: stats_vm.level,
+                vigor: stats_vm.vigor, mind: stats_vm.mind, endurance: stats_vm.endurance, strength: stats_vm.strength,
+                dexterity: stats_vm.dexterity, intelligence: stats_vm.intelligence, faith: stats_vm.faith, arcane: stats_vm.arcane,
+                scadutree: stats_vm.scadutree, spirit_ash: stats_vm.spirit_ash, runes: stats_vm.souls,
+            },
+        };
 
         let mut stats_data: Vec<(&str, String)> = vec![
-            ("Starting Class", stats_vm.arche_type.to_string()),
-            ("Level", level.to_string()),
-            ("Vigor", stats_vm.vigor.to_string()),
-            ("Mind", stats_vm.mind.to_string()),
-            ("Endurance", stats_vm.endurance.to_string()),
-            ("Strength", stats_vm.strength.to_string()),
-            ("Dexterity", stats_vm.dexterity.to_string()),
-            ("Intelligence", stats_vm.intelligence.to_string()),
-            ("Faith", stats_vm.faith.to_string()),
-            ("Arcane", stats_vm.arcane.to_string()),
-            ("Scadutree Blessing", stats_vm.scadutree.to_string()),
-            ("Shadow Realm Blessing", stats_vm.spirit_ash.to_string()),
-            ("Current Runes", stats_vm.souls.to_string()),
+            ("Starting Class", s.class),
+            ("Level", s.level.to_string()),
+            ("Vigor", s.vigor.to_string()),
+            ("Mind", s.mind.to_string()),
+            ("Endurance", s.endurance.to_string()),
+            ("Strength", s.strength.to_string()),
+            ("Dexterity", s.dexterity.to_string()),
+            ("Intelligence", s.intelligence.to_string()),
+            ("Faith", s.faith.to_string()),
+            ("Arcane", s.arcane.to_string()),
+            ("Scadutree Blessing", s.scadutree.to_string()),
+            ("Shadow Realm Blessing", s.spirit_ash.to_string()),
+            ("Current Runes", s.runes.to_string()),
         ];
 
         // Export toolbar
